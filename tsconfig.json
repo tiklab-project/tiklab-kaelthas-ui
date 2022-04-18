@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "target": "es6",
+    "module": "CommonJS",
+    "lib": ["ESNext", "DOM"] /* Specify library files to be included in the compilation. */,
+    "moduleResolution": "node",
+    "strict": false,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "noErrorTruncation": true,
+    "importHelpers": true,
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false
+  },
+  "include": ["src/modules/wiki/brainMapFlow"],
+  "exclude": ["node_modules"]
+}
