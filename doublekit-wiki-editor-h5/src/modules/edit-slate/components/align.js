@@ -15,20 +15,20 @@ const AlignEditor = (props) => {
     const {editorType,setEditorType} = slatestore;
     const aligns = [
         {   
-            icon: "iconalign-left",
-            value: "left"
+            value: "left",
+            icon: "#icon-align-left"
         },
         {   
-            icon: "iconalign-right",
-            value: "right"
+            value: "right",
+            icon: "#icon-align-right"
         },
         {   
-            icon: "iconalign-justify",
-            value: "justify"
+            value: "justify",
+            icon: "#icon-align-justify"
         },
         {   
-            icon: "iconalign-center",
-            value: "center"
+            value: "center",
+            icon: "#icon-align-center"
         },
     ]
     const [isVisible,setIsVisible] = useState(false)
@@ -76,28 +76,26 @@ const AlignEditor = (props) => {
 
     return (
         <div className="align-editor" key="align">
-            <div onMouseDown={(event) => showBox(event)} className = "align-botton">
-                <i className="iconfont iconalign-justify"></i>
-			</div>
-            {
-                editorType === "align" && <div className="align-box">
-                    {
-                        aligns.map((item,index)=> {
-                            return <div 
-                                    className="align-item"  
-                                    key={item.value}
-                                    onMouseDown = {(event)=>selectAlign(item.value)}
-                                >
-                                    <span className="tool-item">
-                                        <i className={`iconfont ${item.icon}`} 
-                                        
-                                        data-value={item.value}></i>
-                                    </span>
-                                </div>
-                        })
-                    }
-                </div>
-            }
+            <div className="align-box">
+                {
+                    aligns.map((item,index)=> {
+                        return <div 
+                                className="align-item"  
+                                key={item.value}
+                                onMouseDown = {(event)=>selectAlign(item.value)}
+                            >
+                                {/* <span className="tool-item">
+                                    <i className={`iconfont ${item.icon}`} 
+                                    
+                                    data-value={item.value}></i>
+                                </span> */}
+                                <svg aria-hidden="true" className="botton-item-icon">
+                                    <use xlinkHref= {item.icon}></use>
+                                </svg>
+                            </div>
+                    })
+                }
+            </div>
         </div>
     )
 }

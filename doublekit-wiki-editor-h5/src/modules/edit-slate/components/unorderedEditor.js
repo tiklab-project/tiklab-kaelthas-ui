@@ -14,7 +14,7 @@ import {
     Point,
     Element as SlateElement,
 } from 'slate'
-
+import "./unorderedEditor.scss"
 const withUnordered = editor => {
     const { deleteBackward } = editor
 
@@ -94,20 +94,25 @@ const UnorderedEditor = (props) => {
     };
 
     return (
-        <Fragment>
+        <div className="unordered-editor">
             <span className="tool-item" 
                 format="bulleted-list" 
                 onMouseDown={(event) => selectUnordered("bulleted-list")}
                 key="bulleted"
             >
-                <i className="iconfont iconlist-check"></i>
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref= "#icon-list-check"></use>
+                </svg>
             </span>
+            
             <span 
                 className="tool-item" format="numbered-list" 
                 onMouseDown={(event) => selectUnordered("numbered-list")}
                 key="numbered"
             >
-                <i className="iconfont iconlist-ordered"></i>
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref= "#icon-list-ordered"></use>
+                </svg>
             </span>
             <span 
                 className="tool-item" 
@@ -115,9 +120,11 @@ const UnorderedEditor = (props) => {
                 onMouseDown={(event) => selectUnordered("block-quote")}
                 key="block"
             >
-                <i className="iconfont icondouble-quotes-l-copy"></i>
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref= "#icon-double-quotes-l"></use>
+                </svg>
             </span>
-        </Fragment>
+        </div>
         
 
     )

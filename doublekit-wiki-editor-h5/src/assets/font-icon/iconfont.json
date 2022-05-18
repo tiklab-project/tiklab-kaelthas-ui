@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7418",
+      "name": "返回",
+      "font_class": "fanhui",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "29801107",
+      "name": "font-color",
+      "font_class": "font-indigo",
+      "unicode": "fad5",
+      "unicode_decimal": 64213
+    },
+    {
+      "icon_id": "29801030",
+      "name": "font-color",
+      "font_class": "font-green",
+      "unicode": "fad3",
+      "unicode_decimal": 64211
+    },
+    {
       "icon_id": "23179344",
       "name": "align-center",
       "font_class": "align-center",
@@ -34,6 +55,13 @@
       "unicode_decimal": 59275
     },
     {
+      "icon_id": "29800913",
+      "name": "font-color",
+      "font_class": "font-red",
+      "unicode": "fad2",
+      "unicode_decimal": 64210
+    },
+    {
       "icon_id": "23179353",
       "name": "code-view",
       "font_class": "code-view",
@@ -46,13 +74,6 @@
       "font_class": "align-right",
       "unicode": "e78f",
       "unicode_decimal": 59279
-    },
-    {
-      "icon_id": "23179363",
-      "name": "font-color",
-      "font_class": "font-color",
-      "unicode": "e793",
-      "unicode_decimal": 59283
     },
     {
       "icon_id": "23179367",
@@ -151,6 +172,41 @@
       "font_class": "underline",
       "unicode": "e7a3",
       "unicode_decimal": 59299
+    },
+    {
+      "icon_id": "29800895",
+      "name": "font-color",
+      "font_class": "font-purple",
+      "unicode": "fad0",
+      "unicode_decimal": 64208
+    },
+    {
+      "icon_id": "29801088",
+      "name": "font-color",
+      "font_class": "font-grey",
+      "unicode": "fad4",
+      "unicode_decimal": 64212
+    },
+    {
+      "icon_id": "29800898",
+      "name": "font-color",
+      "font_class": "font-blue",
+      "unicode": "fad1",
+      "unicode_decimal": 64209
+    },
+    {
+      "icon_id": "29800884",
+      "name": "font-color",
+      "font_class": "font-black",
+      "unicode": "facf",
+      "unicode_decimal": 64207
+    },
+    {
+      "icon_id": "29803793",
+      "name": "font-color",
+      "font_class": "font-yellow-copy",
+      "unicode": "fad6",
+      "unicode_decimal": 64214
     },
     {
       "icon_id": "925431",

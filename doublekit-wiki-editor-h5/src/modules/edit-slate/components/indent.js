@@ -7,36 +7,19 @@
  * @LastEditTime: 2021-10-28 17:31:28
  */
 import React, { useState } from "react";
-import { Fragment } from "react/cjs/react.production.min";
 import { Transforms, Editor, Element as SlateElement, Text, Range } from "slate";
 import { useSelected } from 'slate-react';
+import "./indent.scss"
 const withIndent = editor => {
     const selected = useSelected();
     const [indent] = Editor.nodes(editor, {
         match: (n) => n.type === 'indent',
     });
-    console.log(selected,"222",indent)
     const { isBlock } = editor
     editor.isBlock = element => {
         return element.type === 'indent' ? true : isBlock(element)
     }
     
-    // editor.insertText = text => {
-    //     if (text) {
-    //         wrapIndent(editor, text)
-    //     } else {
-    //         insertText(text)
-    //     }
-    // }
-    // editor.insertData = data => {
-    //     const text = data.getData('text/plain')
-
-    //     if (text) {
-    //         wrapIndent(editor, text)
-    //     } else {
-    //         insertData(data)
-    //     }
-    // }
     return editor
 }
 const IndentEditor = (props) => {
@@ -83,18 +66,18 @@ const IndentEditor = (props) => {
         }
     };
     return (   
-        <Fragment>
-            <div key="indent">
-                <span className="tool-item" onMouseDown = {(event) => wrapIndent(editor)}>
-                    <i className="iconfont iconindent"></i>
-                </span>
+        <div className="indent-editor">
+             <div className="indent-item" onMouseDown = {(event) => wrapIndent(editor)}>
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref="#icon-indent-increase"></use>
+                </svg>
             </div>
-            <div key="unindent">
-                <span className="tool-item" onMouseDown = {(event) => wrapUnIndent(editor)}>
-                    <i className="iconfont iconindent-decrease"></i>
-                </span>
+            <div className="indent-item" onMouseDown = {(event) => wrapUnIndent(editor)}>
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref="#icon-indent-decrease"></use>
+                </svg>
             </div>
-        </Fragment>
+        </div>
         
         
     )

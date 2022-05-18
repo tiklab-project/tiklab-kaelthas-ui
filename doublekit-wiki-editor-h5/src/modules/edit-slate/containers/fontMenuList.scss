@@ -1,14 +1,16 @@
 .font-style-botton {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     .botton-item {
         width: 80px;
-    height: 40px;
-    line-height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+        height: 40px;
+        line-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #e9e9e9;
+        border-radius: 10px;
     }
     .botton-item-icon {
         width: 20px;
@@ -22,4 +24,9 @@
     padding: 10px;
     font-size: 13px;
     color: #999;
+}
+.font-menu-list {
+    margin-bottom: 20px;
+    height: 200px;
+    overflow: auto;
 }

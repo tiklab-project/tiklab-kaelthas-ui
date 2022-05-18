@@ -32,7 +32,7 @@ import SubEditor from "../components/sub";
 import BrEditor, { withBr } from "../components/br";
 import FontMenuList from "./fontMenuList";
 const EditorMenu = (props) => {
-    const { editor } = props;
+    const { editor, showMenu } = props;
     const CustomEditor = {
         isBoldMarkActive(editor) {
             const [match] = Editor.nodes(editor, {
@@ -90,8 +90,8 @@ const EditorMenu = (props) => {
     };
 
     return (
-        <div>
-            <div className="edit-toolbar">
+        <div className="edit-toolbar">
+            <div className="edit-toolbar-top">
                 <div className="tool-item">
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-a-xinjiantianjia"></use>
@@ -134,7 +134,10 @@ const EditorMenu = (props) => {
                 </div>
             </div>
             <div>
-                <FontMenuList />
+                {
+                    showMenu ? <FontMenuList editor = {editor}/> : null
+                }
+                
             </div>
         </div>
 

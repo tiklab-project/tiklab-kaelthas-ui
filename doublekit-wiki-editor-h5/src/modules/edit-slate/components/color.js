@@ -1,4 +1,4 @@
-/*
+ /*
  * @Descripttion: 
  * @version: 1.0.0
  * @Author: 袁婕轩
@@ -16,20 +16,36 @@ const ColorEditor = (props) => {
     const [isVisible,setIsVisible] = useState(false)
     const colors = [
         {   
-            key: "ff0",
-            value: "#ff0"
+            key: "#cdcdcd",
+            value: "#icon-font-black"
         },
         {   
-            key: "f0f",
-            value: "#f0f"
+            key: "#cdcdcd",
+            value: "#icon-font-grey"
         },
         {   
-            key: "00f",
-            value: "#00f"
+            key: "#ff0000",
+            value: "#icon-font-red"
         },
         {   
-            key: "f00",
-            value: "#f00"
+            key: "#f4ea2a",
+            value: "#icon-font-yellow-copy"
+        },
+        {   
+            key: "#1afa29",
+            value: "#icon-font-green"
+        },
+        {   
+            key: "#0ddcd0",
+            value: "#icon-font-indigo"
+        },
+        {   
+            key: "#0000ff",
+            value: "#icon-font-blue"
+        },
+        {   
+            key: "#ff00ff",
+            value: "#icon-font-purple"
         },
     ]
     const showBox = (event) => {
@@ -73,27 +89,22 @@ const ColorEditor = (props) => {
 
     return (
         <div className="color-editor" key="color">
-            <div onMouseDown={(event) => showBox(event)} className = "color-botton">
-                <i className="iconfont iconfont-color"></i>
-			</div>
-            {
-                editorType === "color" && 
-                <div className="color-box">
-                    {
-                        colors.map((item,index)=> {
-                            return <div 
-                                    className="color-item"  
-                                    key={item.value}
-                                    onMouseDown = {(event)=>selectColor(item.value)}
-                                    
-                                >
-                                    <span className="tool-item" style={{background: `${item.value}`}}>
-                                    </span>
-                                </div>
-                        })
-                    }
-                </div>
-            }
+            <div className="color-box">
+                {
+                    colors.map((item,index)=> {
+                        return <div 
+                                className="color-item"  
+                                key={item.key}
+                                onMouseDown = {(event)=>selectColor(item.key)}
+                                
+                            >
+                                 <svg aria-hidden="true" className="botton-item-icon">
+                                    <use xlinkHref={item.value}></use>
+                                </svg>
+                            </div>
+                    })
+                }
+            </div>
         </div>
     )
 }

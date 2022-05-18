@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3351557 */
-  src: url('iconfont.woff2?t=1650714603076') format('woff2'),
-       url('iconfont.woff?t=1650714603076') format('woff'),
-       url('iconfont.ttf?t=1650714603076') format('truetype');
+  src: url('iconfont.woff2?t=1652858193133') format('woff2'),
+       url('iconfont.woff?t=1652858193133') format('woff'),
+       url('iconfont.ttf?t=1652858193133') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-fanhui:before {
+  content: "\e602";
+}
+
+.icon-font-indigo:before {
+  content: "\fad5";
+}
+
+.icon-font-green:before {
+  content: "\fad3";
 }
 
 .icon-align-center:before {
@@ -29,16 +41,16 @@
   content: "\e78b";
 }
 
+.icon-font-red:before {
+  content: "\fad2";
+}
+
 .icon-code-view:before {
   content: "\e78d";
 }
 
 .icon-align-right:before {
   content: "\e78f";
-}
-
-.icon-font-color:before {
-  content: "\e793";
 }
 
 .icon-h-1:before {
@@ -95,6 +107,26 @@
 
 .icon-underline:before {
   content: "\e7a3";
+}
+
+.icon-font-purple:before {
+  content: "\fad0";
+}
+
+.icon-font-grey:before {
+  content: "\fad4";
+}
+
+.icon-font-blue:before {
+  content: "\fad1";
+}
+
+.icon-font-black:before {
+  content: "\facf";
+}
+
+.icon-font-yellow-copy:before {
+  content: "\fad6";
 }
 
 .icon-select2:before {

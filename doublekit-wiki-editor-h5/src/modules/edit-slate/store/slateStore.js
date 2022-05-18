@@ -17,38 +17,44 @@
 import { observable, action} from "mobx";
 
 export class SlateStore {
-    @observable selection = [];
-    @observable editorType = "";
-    @observable workModalVisible = false;
-    @observable operationType = ""
-    @observable selectPath = [];
-    @observable selectRange = []
-    @action
-    setSelection = (data)=> {
-        this.selection = data;
-    }
+    // @observable selection = [];
+    // @observable editorType = "";
+    // @observable workModalVisible = false;
+    // @observable operationType = ""
+    // @observable selectPath = [];
+    // @observable selectRange = []
+    // @action
+    // setSelection = (data)=> {
+    //     this.selection = data;
+    // }
+
+    // @action
+    // setEditorType = (data)=> {
+    //     this.editorType = data;
+    // }
+    // @action
+    // setWorkModalVisible = (data)=> {
+    //     this.workModalVisible = data;
+    // }
+    // @action
+    // setOperationType = (data) => {
+    //     this.operationType = data;
+    // }
+
+    // @action
+    // setSelectPath = (data) => {
+    //     this.selectPath = data;
+    // }
+
+    // @action
+    // setSelectRange = (data) => {
+    //     this.selectRange = data;
+    // }
+    @observable showMenu = false;
 
     @action
-    setEditorType = (data)=> {
-        this.editorType = data;
-    }
-    @action
-    setWorkModalVisible = (data)=> {
-        this.workModalVisible = data;
-    }
-    @action
-    setOperationType = (data) => {
-        this.operationType = data;
-    }
-
-    @action
-    setSelectPath = (data) => {
-        this.selectPath = data;
-    }
-
-    @action
-    setSelectRange = (data) => {
-        this.selectRange = data;
+    setShowMenu = (value) => {
+        this.showMenu = value;
     }
 }
 export const SLATE_STORE = "slatestore"

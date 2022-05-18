@@ -1,0 +1,19 @@
+.unordered-editor {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .tool-item {
+        cursor: pointer;
+        flex: 0 0 auto;
+        background-color: #fff;
+        color: #172b4d;
+        text-decoration: none;
+        padding: 8px 30px 7px;
+        border: 1px solid #e3e3e3;
+        border-radius: 5px;
+        svg.botton-item-icon {
+            width: 15px;
+            height: 15px;
+        }
+    }
+}

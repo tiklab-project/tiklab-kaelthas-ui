@@ -1,5 +1,5 @@
 {
-    "name": "doublekit-wiki-ce-ui",
+    "name": "doublekit-wiki-editor-h5",
     "version": "1.0.0",
     "description": "doublekit wiki",
     "main": "es/dist.js",

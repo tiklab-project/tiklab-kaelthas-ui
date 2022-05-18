@@ -70,26 +70,21 @@ const BackgroundColor = (props) => {
 
     return (
         <div className="backgroundColor-editor" key="backgroundColor">
-            <div onMouseDown={(event) => showBox(event)} className = "backgroundColor-botton">
-                <i className="iconfont iconchuangzuo"></i>
-			</div>
-            {
-                editorType === "backgroundColor" && <div className="backgroundColor-box">
-                    {
-                        backgroundColors.map((item,index)=> {
-                            return <div 
-                                    className="backgroundColor-item"  
-                                    key={item.value}
-                                    onMouseDown = {(event)=>selectBackgroundColor(item.value)}
-                                    
-                                >
-                                    <span className="tool-item" style={{background: `${item.value}`}}>
-                                    </span>
-                                </div>
-                        })
-                    }
-                </div>
-            }
+            <div className="backgroundColor-box">
+                {
+                    backgroundColors.map((item,index)=> {
+                        return <div 
+                                className="backgroundColor-item"  
+                                key={item.value}
+                                onMouseDown = {(event)=>selectBackgroundColor(item.value)}
+                                
+                            >
+                                <span className="tool-item" style={{background: `${item.value}`}}>
+                                </span>
+                            </div>
+                    })
+                }
+            </div>
         </div>
     )
 }

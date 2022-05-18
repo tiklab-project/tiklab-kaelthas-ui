@@ -28,7 +28,7 @@ import Leaf from "./leaf"
 import withTables from "./table/table/withTables"
 import SupEditor from "./sup"
 import SubEditor from "./sub"
-import BrEditor,{withBr} from "./br"
+import BrEditor,{withBr} from "./br";
 const CustomEditor = {
 	isBoldMarkActive(editor) {
 		const [match] = Editor.nodes(editor, {
