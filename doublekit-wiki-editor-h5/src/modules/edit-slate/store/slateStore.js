@@ -29,7 +29,7 @@ export class SlateStore {
     // }
 
     // @action
-    // setEditorType = (data)=> {
+    // //setEditorType = (data)=> {
     //     this.editorType = data;
     // }
     // @action

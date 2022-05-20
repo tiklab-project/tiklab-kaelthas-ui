@@ -16,7 +16,7 @@ const ColorEditor = (props) => {
     const [isVisible,setIsVisible] = useState(false)
     const colors = [
         {   
-            key: "#cdcdcd",
+            key: "#333333",
             value: "#icon-font-black"
         },
         {   
@@ -51,12 +51,12 @@ const ColorEditor = (props) => {
     const showBox = (event) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
-        // setEditorType("color")
+        // //setEditorType("color")
         if(editorType === "color") {
-            setEditorType("")
+            //setEditorType("")
         }else {
             const data = "color"
-            setEditorType(data)
+            //setEditorType(data)
 
         }
     }
@@ -83,7 +83,7 @@ const ColorEditor = (props) => {
                 { match: (n) => Text.isText(n), split: true }
             );
             // setIsVisible(!isVisible)
-            setEditorType("")
+            // //setEditorType("")
         }
     };
 

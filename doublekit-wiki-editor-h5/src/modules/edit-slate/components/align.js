@@ -35,10 +35,10 @@ const AlignEditor = (props) => {
     const showBox = (event) => {
         event.preventDefault();
         if(editorType === "align") {
-            setEditorType("")
+            //setEditorType("")
         }else {
             const data = "align"
-            setEditorType(data)
+            //setEditorType(data)
 
         }
         
@@ -70,7 +70,7 @@ const AlignEditor = (props) => {
             const block = { type: "align",align: align, children: [] }
             Transforms.wrapNodes(editor, block)
             // setIsVisible(!isVisible)
-            setEditorType("")
+            //setEditorType("")
         }
     };
 

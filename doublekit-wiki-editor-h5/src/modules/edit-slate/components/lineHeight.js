@@ -26,10 +26,10 @@ const LineHeightEditor = (props) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
         if(editorType === "lineHeight") {
-            setEditorType("")
+            //setEditorType("")
         }else {
             const data = "lineHeight"
-            setEditorType(data)
+            //setEditorType(data)
         }
     }
     const selectLineHeight = (value) => {
@@ -54,7 +54,7 @@ const LineHeightEditor = (props) => {
                 { lineHeight: isActive ? null : value},
                 { match: (n) =>  Text.isText(n), split: true}
             );
-            setEditorType("")
+            //setEditorType("")
         }
     }
     const lineHeight = [1, 1.5, 2, 3, 4]

@@ -17,6 +17,7 @@ import BackgroundColor from "../components/backgroundColor"
 import AlignEditor from "../components/align";
 import IndentEditor from "../components/indent";
 import UnorderedEditor from "../components/unorderedEditor";
+import { ReactEditor } from "slate-react";
 const FontMenuList = (props) => {
     const {editor} = props;
     const CustomEditor = {
@@ -84,6 +85,8 @@ const FontMenuList = (props) => {
                         onMouseDown={(event) => {
                             event.preventDefault();
                             CustomEditor.toggleBoldMark(editor);
+                            console.log(ReactEditor.isFocused(editor))
+                            
                         }}
                     >
                         <svg aria-hidden="true" className="botton-item-icon">

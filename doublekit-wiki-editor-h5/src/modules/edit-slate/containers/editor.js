@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect } from "react";
+import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect, useRef } from "react";
 import { createEditor, Transforms, Editor, Text, Node } from "slate";
 import { inject, observer } from "mobx-react";
 import renderElement from "../components/renderElement"
@@ -21,16 +21,24 @@ const DocumentEditor = (props) => {
 	const [editor] = useState(() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
+	const [focused,setFocused ] = useState(true);
+	const eidtableRef = useRef();
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
  
-	const focus = useFocused();
-	console.log(useFocused())
-	const onClick = () => {
-		console.log("ewwrwr",ReactEditor.isFocused(),focus)
-		// setShowMenu(!showMenu)
+	const sb = (event) => {
+		// console.log("ewwrwr",ReactEditor.isFocused(editor))
+		// 
+		// event.preventDefault()
+		setFocused(true);
+		console.log("sb1")
+		// ReactEditor.focus(editor)
+		// console.log(ReactEditor.toDOMNode(editor, editor))
+		return 0;
+
 	}
+	const [isReadOnly, setIsReadOnly] = useState(false)
 	return (
 		<div>
 			<div className="title">
@@ -42,11 +50,17 @@ const DocumentEditor = (props) => {
 				editor={editor}
 				value={value}
 				onChange={(value) => onChange(value)}
-			// onChange={(value) => setValue(value)}
+				readOnly= {isReadOnly}
+				
+				// onChange={(value) => setValue(value)}
 			>
 
-				<Editable renderElement={useCallback(renderElement, [])} renderLeaf={renderLeaf} className="edit-box" onClick={onClick}/>
-				<EditorMenu editor={editor} showMenu = {showMenu} />
+				<Editable renderElement= {useCallback(renderElement, [])} renderLeaf= {renderLeaf} className="edit-box" onMouseDown = {event => sb(event)}/>
+				<EditorMenu 
+					editor={editor} 
+					focused = {focused} 
+					setFocused = {setFocused}
+				/>
 			</Slate>
 		</div>
 

@@ -29,10 +29,10 @@ const HeadEditor = (props) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
         if(editorType === "head") {
-            setEditorType("")
+            //setEditorType("")
         }else {
             const data = "head"
-            setEditorType(data)
+            //setEditorType(data)
         }
     }
     const selectHead = (value) => {
@@ -68,7 +68,7 @@ const HeadEditor = (props) => {
                 const block = { type: "head", children: [] }
                 Transforms.wrapNodes(editor, block)
             }
-            setEditorType("")
+            //setEditorType("")
         }
     }
 

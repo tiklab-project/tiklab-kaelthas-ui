@@ -6,33 +6,15 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-23 19:53:49
  */
-import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect } from "react";
-import { createEditor, Transforms, Editor, Text, Node } from "slate";
-import "./editorMenu.scss"
-import AttUpload from "../components/upload";
-import ColorEditor from "../components/color"
-import HeadEditor from "../components/head"
-import FontSize from "../components/fontSize"
-import ItalicEditor from "../components/italic"
-import UnderlineEditor from "../components/underline"
-import StrikeEditor from "../components/strike"
-import LineHeightEditor from "../components/lineHeight"
-import BackgroundColor from "../components/backgroundColor"
-import LinkEditor from "../components/link"
-import TableEditor from "../components/table/table"
-import ImageEditor from "../components/image"
-import CheckListsEditor from "../components/checkListsEditor"
-import UnorderedEditor from "../components/unorderedEditor"
-import AlignEditor from "../components/align"
-import DividerEditor from "../components/divider"
-import IndentEditor from "../components/indent";
-import Emoji from "../components/emoji";
-import SupEditor from "../components/sup";
-import SubEditor from "../components/sub";
-import BrEditor, { withBr } from "../components/br";
+import React, {useState} from "react";
+import { Transforms, Editor, Text, Node } from "slate";
+import "./editorMenu.scss";
+import { Slate, Editable, withReact,useFocused, ReactEditor } from "slate-react";
 import FontMenuList from "./fontMenuList";
+import ImageMenu from "./imageMenu";
 const EditorMenu = (props) => {
-    const { editor, showMenu } = props;
+    const { editor,focused,setFocused } = props;
+    const [menuType,setMenuType] = useState();
     const CustomEditor = {
         isBoldMarkActive(editor) {
             const [match] = Editor.nodes(editor, {
@@ -88,11 +70,27 @@ const EditorMenu = (props) => {
             );
         },
     };
+    const showFocus = (event) => {
+        event.preventDefault();
+        console.log(ReactEditor.isFocused(editor))
+        setFocused(false);
+        setMenuType('fontType')
+        ReactEditor.blur(editor)
+        
+    }
 
+    const showImage = (event) => {
+        event.preventDefault();
+        console.log(ReactEditor.isFocused(editor))
+        setFocused(false);
+        setMenuType('image')
+        ReactEditor.blur(editor)
+        
+    }
     return (
-        <div className="edit-toolbar">
-            <div className="edit-toolbar-top">
-                <div className="tool-item">
+        <div className="edit-toolbar" >
+            <div className="edit-toolbar-top" >
+                <div className="tool-item" onMouseDown={(event) => showImage(event)}>
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-a-xinjiantianjia"></use>
                     </svg>
@@ -112,7 +110,7 @@ const EditorMenu = (props) => {
                         <use xlinkHref="#icon-emphasis-cn"></use>
                     </svg>
                 </div>
-                <div className="tool-item">
+                <div className="tool-item" onMouseDown={(event) => showFocus(event)}>
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-list-unordered"></use>
                     </svg>
@@ -135,9 +133,11 @@ const EditorMenu = (props) => {
             </div>
             <div>
                 {
-                    showMenu ? <FontMenuList editor = {editor}/> : null
+                    !focused && menuType === "fontType" ? <FontMenuList editor = {editor} /> : null
                 }
-                
+                {
+                    !focused && menuType === "image" ? <ImageMenu editor = {editor} /> : null
+                }
             </div>
         </div>
 

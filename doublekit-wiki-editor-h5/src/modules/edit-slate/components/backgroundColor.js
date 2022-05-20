@@ -36,10 +36,10 @@ const BackgroundColor = (props) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
             if(editorType === "backgroundColor") {
-                setEditorType("")
+                //setEditorType("")
             }else {
                 const data = "backgroundColor"
-                setEditorType(data)
+                //setEditorType(data)
             }
     }
     const selectBackgroundColor = (value) => {

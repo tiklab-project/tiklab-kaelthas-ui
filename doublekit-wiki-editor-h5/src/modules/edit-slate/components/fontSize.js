@@ -19,10 +19,10 @@ const FontSize = (props) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
         if(editorType === "fontSize") {
-            setEditorType("")
+            //setEditorType("")
         }else {
             const data = "fontSize"
-            setEditorType(data)
+            //setEditorType(data)
         }
     }
     const selectFontSize = (value) => {
@@ -47,7 +47,7 @@ const FontSize = (props) => {
                 { fontSize: isActive ? null : value},
                 { match: (n) => Text.isText(n), split: true }
             );
-            setEditorType("")
+            //setEditorType("")
         }
     }
     const fontSize = ["10px","13px","16px","18px","24px","36px"]
