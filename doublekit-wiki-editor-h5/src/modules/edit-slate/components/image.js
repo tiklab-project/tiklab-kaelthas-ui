@@ -44,7 +44,7 @@ const ImageEditor = (props) => {
         console.log(editor)
         event.preventDefault()
         setImageAnchor(editor.selection)
-        setShowFrom(!showFrom)
+        // setShowFrom(!showFrom)
         
     }
     
@@ -53,7 +53,7 @@ const ImageEditor = (props) => {
         if (select) {
             wrapImage(editor, url)
         }
-        setShowFrom(!showFrom)
+        // setShowFrom(!showFrom)
     }
     const isImageActive = editor => {
         const [image] = Editor.nodes(editor, {
@@ -90,24 +90,61 @@ const ImageEditor = (props) => {
         //     Transforms.collapse(editor, { edge: 'end' })
         // }
     }
+    const handleInputChange = (event) =>{
+        // 获取当前选中的文件
+        const file = event.target.files[0];
+        const imgMasSize = 1024 * 1024 * 10; // 10MB
+
+        // 检查文件类型
+        if (['jpeg', 'png', 'gif', 'jpg'].indexOf(file.type.split("/")[1]) < 0) {
+            // 自定义报错方式
+            // Toast.error("文件类型仅支持 jpeg/png/gif！", 2000, undefined, false);
+            return;
+        }
+
+        // 文件大小限制
+        if (file.size > imgMasSize) {
+            // 文件大小自定义限制
+            // Toast.error("文件大小不能超过10MB！", 2000, undefined, false);
+            return;
+        }
+
+        // 判断是否是ios
+        // if (!!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        //     // iOS
+        //     // transformFileToFormData(file);
+        //     console.log(file)
+        //     return;
+        // }
+        upload(file).then(res => {
+            console.log(res)
+        })
+
+        // 图片压缩之旅
+        // transformFileToDataUrl(file);
+    }
     return (
-        <div className="image-tool" key="image">
-            <span className="tool-item" 
-                onMouseDown = {(event) => 
-                    {
+        // <div className="image-tool" key="image">
+        //     <span className="tool-item" 
+        //         onMouseDown = {(event) => 
+        //             {
                         
-                        insertImage(editor)
-                    }
-                }
-            >
-                <i className="iconfont iconimage"></i>
-            </span>
-            {
-                showFrom &&  <div className="image-from">
-                    <span>url: </span><input type="text" name="image-url"/>
-                    <div onClick={() => submit(editor)}>确定</div>
-                </div>
-            }   
+        //                 insertImage(editor)
+        //             }
+        //         }
+        //     >
+        //         <i className="iconfont iconimage"></i>
+        //     </span>
+        //     {
+        //         showFrom &&  <div className="image-from">
+        //             <span>url: </span><input type="text" name="image-url"/>
+        //             <div onClick={() => submit(editor)}>确定</div>
+        //         </div>
+        //     }   
+        // </div>
+        <div className="attachment ">
+            <input type="file" name="image" accept="image/*" onChange= {(event) => handleInputChange(event)} />
+            <div className="attachment-botton">附件</div>
         </div>
         
     )

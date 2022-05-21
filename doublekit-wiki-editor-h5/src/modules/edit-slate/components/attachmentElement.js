@@ -14,7 +14,7 @@ const AttachmentElement = (props) => {
         <span {...attributes} className="attach-box">
 			<a contentEditable={false} href={element.url}>
 				<svg className="attach-icon" aria-hidden="true">
-					<use xlinkHref="#iconA-07"></use>
+					<use xlinkHref="#icon-a-wenjianjiawenjian"></use>
                 </svg>
 			</a>	
 			{children}

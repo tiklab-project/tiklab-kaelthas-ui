@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-23 10:05:38
  */
-const api =  'http://192.168.10.8:8060/';
+const api =  'http://192.168.10.18:8080/';
 const base_url = JSON.stringify(api);
 
 
@@ -15,6 +15,9 @@ const plugin_base_url = JSON.stringify(url);
 
 let pluginAddressUrl = `${url}/config.json`;
 pluginAddressUrl = JSON.stringify(pluginAddressUrl);
+
+let img_url = JSON.stringify('http://192.168.10.18:8080')
+
 
 let fetchMethod = "get"
 fetchMethod = JSON.stringify(fetchMethod);
@@ -59,5 +62,6 @@ module.exports = {
     version,
     client,
     isSaas,
-    pickerData
+    pickerData,
+    img_url
 }

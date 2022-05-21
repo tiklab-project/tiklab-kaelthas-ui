@@ -15,14 +15,14 @@ import Tabs from "./tabs"
 const { Dragger } = Upload;
 // const { TabPane } = Tabs;
 const AttUpload = (props) => {
-	const { editor } = props
+	const { editor,upload } = props
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [select, setImageAnchor] = useState()
-
+	console.log(editor)
 	const showModal = (event) => {
 		event.preventDefault();
 		setImageAnchor(editor.selection)
-		setIsModalVisible(!isModalVisible);
+		// setIsModalVisible(!isModalVisible);
 	};
 
 	const handleOk = () => {
@@ -34,40 +34,49 @@ const AttUpload = (props) => {
 		setIsModalVisible(false);
 	};
 	const ticket = "";
-	const params = {
-		name: 'uploadFile',
-		multiple: true,
-		showUploadList: false,
-		action: `${base_url}dfs/upload`,
-		headers: {
-            ticket: ticket
-        },
-		onChange(info) {
-			const { status,type,response } = info.file;
-			console.log(info)
-			
-			// if (status !== 'uploading') {
-			// 	console.log(info.file, info.fileList);
-			// }
-			if (status === 'done') {
-				message.success(`${info.file.name} file uploaded successfully.`);
-				if(response.code === 0){
-					if (select) {
-						if(type === "application/msword") {
-							wrapAttachment(editor, `${img_url}/file/${response.data.fileName}`)
-						}else if(type === "image/png" || type === "image/jpeg"){
-							wrapImage(editor, `${img_url}/file/${response.data.fileName}`)
-						}
-						
+	const handleInputChange = (event) =>{
+        // 获取当前选中的文件
+        const file = event.target.files[0];
+        const imgMasSize = 1024 * 1024 * 10; // 10MB
+
+        // 检查文件类型
+        if (file && file.type && ['jpeg', 'png', 'gif', 'jpg', 'plain'].indexOf(file.type.split("/")[1]) < 0) {
+            // 自定义报错方式
+            // Toast.error("文件类型仅支持 jpeg/png/gif！", 2000, undefined, false);
+            return;
+        }
+
+        // 文件大小限制
+        if (file.size > imgMasSize) {
+            // 文件大小自定义限制
+            // Toast.error("文件大小不能超过10MB！", 2000, undefined, false);
+            return;
+        }
+
+        // 判断是否是ios
+        // if (!!window.navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
+        //     // iOS
+        //     // transformFileToFormData(file);
+        //     console.log(file)
+        //     return;
+        // }
+        upload(file).then(res => {
+            if(res.data.code === 0){
+				const type = res.data.data.fileMeta.fileType;
+				if (select) {
+					if(type === "txt") {
+						wrapAttachment(editor, `${base_url}/file/${res.data.data.fileName}`)
+					}else if(type === "png" || type === "jpeg" || type === "jpg"){
+						wrapImage(editor, `${base_url}/file/${res.data.data.fileName}`)
 					}
+					
 				}
-				
-			} else if (status === 'error') {
-				message.error(`${info.file.name} file upload failed.`);
 			}
-			
-		}
-	};
+        })
+
+        // 图片压缩之旅
+        // transformFileToDataUrl(file);
+    }
 
 	const onFinish = (value) => {
 		console.log(value)
@@ -116,6 +125,7 @@ const AttUpload = (props) => {
 	}
 
 	const wrapAttachment = (editor, url) => {
+		debugger
 		Transforms.select(editor, select);
 		const { selection } = editor
 		const isCollapsed = selection && Range.isCollapsed(selection)
@@ -139,49 +149,53 @@ const AttUpload = (props) => {
 		}
 	}
 	return (
-		<div className = "upload-editor" key="upload">
-			<span onMouseDown={(event) => showModal(event)}>
-				<i className="iconfont iconimage" style={{fontWeight: 600}}></i>
-			</span>
-			{
-				isModalVisible && <div className="upload-box">
-					<Tabs>
-						<div name="本地文件" key = "1">
-							<Dragger {...params}>
-								<p className="ant-upload-drag-icon">
-									<InboxOutlined />
-								</p>
-								<p className="ant-upload-text">点击上传</p>
-								<p className="ant-upload-hint">
-									支持拖拽上传
-								</p>
-							</Dragger>
-						</div>
-						<div name="网络文件" className="upload-url" key="2">
-							<Form
-								name="basic"
-								labelCol={{ span: 8 }}
-								wrapperCol={{ span: 16 }}
-								initialValues={{ remember: true }}
-								onFinish={onFinish}
-							>
-								<Form.Item
-									label="url"
-									name="url"
-									rules={[{ required: true, message: '请输入地址' }]}
-								>
-									<Input />
-								</Form.Item>
-								<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-									<Button type="primary" htmlType="submit">
-										确定
-									</Button>
-								</Form.Item>
-							</Form>
-						</div>
-					</Tabs>
-				</div>
-			}
+		// <div className = "upload-editor" key="upload">
+		// 	<span onMouseDown={(event) => showModal(event)}>
+		// 		<i className="iconfont iconimage" style={{fontWeight: 600}}></i>
+		// 	</span>
+		// 	{
+		// 		isModalVisible && <div className="upload-box">
+		// 			<Tabs>
+		// 				<div name="本地文件" key = "1">
+		// 					<Dragger {...params}>
+		// 						<p className="ant-upload-drag-icon">
+		// 							<InboxOutlined />
+		// 						</p>
+		// 						<p className="ant-upload-text">点击上传</p>
+		// 						<p className="ant-upload-hint">
+		// 							支持拖拽上传
+		// 						</p>
+		// 					</Dragger>
+		// 				</div>
+		// 				<div name="网络文件" className="upload-url" key="2">
+		// 					<Form
+		// 						name="basic"
+		// 						labelCol={{ span: 8 }}
+		// 						wrapperCol={{ span: 16 }}
+		// 						initialValues={{ remember: true }}
+		// 						onFinish={onFinish}
+		// 					>
+		// 						<Form.Item
+		// 							label="url"
+		// 							name="url"
+		// 							rules={[{ required: true, message: '请输入地址' }]}
+		// 						>
+		// 							<Input />
+		// 						</Form.Item>
+		// 						<Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+		// 							<Button type="primary" htmlType="submit">
+		// 								确定
+		// 							</Button>
+		// 						</Form.Item>
+		// 					</Form>
+		// 				</div>
+		// 			</Tabs>
+		// 		</div>
+		// 	}
+		// </div>
+		<div className="attachment" onMouseDown = {(event) => showModal(event)}>
+			<input type="file" name="image" accept="file" onChange= {(event) => handleInputChange(event)} />
+			<div className="attachment-botton">附件</div>
 		</div>
 	);
 };

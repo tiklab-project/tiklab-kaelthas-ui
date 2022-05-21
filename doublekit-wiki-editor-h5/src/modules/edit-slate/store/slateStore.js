@@ -15,46 +15,21 @@
  * @LastEditTime: 2021-09-22 09:14:36
  */
 import { observable, action} from "mobx";
-
+import { Upload } from "../api/editSlate"
 export class SlateStore {
-    // @observable selection = [];
-    // @observable editorType = "";
-    // @observable workModalVisible = false;
-    // @observable operationType = ""
-    // @observable selectPath = [];
-    // @observable selectRange = []
-    // @action
-    // setSelection = (data)=> {
-    //     this.selection = data;
-    // }
-
-    // @action
-    // //setEditorType = (data)=> {
-    //     this.editorType = data;
-    // }
-    // @action
-    // setWorkModalVisible = (data)=> {
-    //     this.workModalVisible = data;
-    // }
-    // @action
-    // setOperationType = (data) => {
-    //     this.operationType = data;
-    // }
-
-    // @action
-    // setSelectPath = (data) => {
-    //     this.selectPath = data;
-    // }
-
-    // @action
-    // setSelectRange = (data) => {
-    //     this.selectRange = data;
-    // }
     @observable showMenu = false;
 
     @action
     setShowMenu = (value) => {
         this.showMenu = value;
+    }
+
+    @action
+    upload = async(file) => {
+        const params = new FormData();
+        params.append("uploadFile",file)
+        const data = await Upload(params);
+        return data;
     }
 }
 export const SLATE_STORE = "slatestore"

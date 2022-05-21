@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "doublekit-wiki-editor-h5"
+		},
+		{
+			"path": "../doublekit-project-ui/doublekit-project-h5-ce"
 		}
 	]
 }

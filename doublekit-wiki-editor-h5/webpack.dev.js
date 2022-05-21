@@ -14,7 +14,7 @@ const baseWebpackConfig = require('./webpack.base');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin  = require('terser-webpack-plugin');
 const PORT = 3009;
-
+const fs = require('fs');
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
     mode:'development',
@@ -70,7 +70,15 @@ module.exports = merge(baseWebpackConfig, {
         hotOnly:true,
         stats: {
             children: false,
-        }
+        },
+        disableHostCheck: true,
+        // https: true
+        // {
+        //     key: fs.readFileSync('./project.key'),
+        //     cert: fs.readFileSync('./project.pem'),
+        //     passphrase: 'webpack-dev-server',
+        //     requestCert: true,
+        // },
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
