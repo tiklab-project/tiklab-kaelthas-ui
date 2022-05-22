@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "../doublekit-project-ui/doublekit-project-h5-ce"
+		},
+		{
+			"path": "../doublekit-project-ui/doublekit-project-web"
 		}
 	]
 }

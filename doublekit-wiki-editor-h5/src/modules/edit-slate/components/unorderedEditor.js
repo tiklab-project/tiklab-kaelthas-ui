@@ -56,10 +56,14 @@ const withUnordered = editor => {
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 const UnorderedEditor = (props) => {
     const { editor } = props;
-
+    const select = editor.selection;
 
     const selectUnordered = (format) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
+
         CustomEditor.toggleUnorderedMark(editor,format)
     }
 

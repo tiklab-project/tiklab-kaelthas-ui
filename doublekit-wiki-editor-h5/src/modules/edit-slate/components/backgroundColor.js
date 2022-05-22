@@ -13,6 +13,8 @@ import "./backgroundColor.scss"
 const BackgroundColor = (props) => {
     const {editor,slatestore} = props;
     const {editorType,setEditorType} = slatestore;
+    const select = editor.selection;
+
     const backgroundColors = [
         {   
             key: "ff0",
@@ -32,18 +34,13 @@ const BackgroundColor = (props) => {
         },
     ]
     const [isVisible,setIsVisible] = useState(false)
-    const showBox = (event) => {
-        event.preventDefault();
-        // setIsVisible(!isVisible)
-            if(editorType === "backgroundColor") {
-                //setEditorType("")
-            }else {
-                const data = "backgroundColor"
-                //setEditorType(data)
-            }
-    }
+   
     const selectBackgroundColor = (value) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
+        
         CustomEditor.toggleBackgroundColorMark(editor,value)
     }
 

@@ -13,7 +13,8 @@ import { inject,observer } from "mobx-react";
 const ColorEditor = (props) => {
     const {editor,slatestore} = props;
     const {editorType,setEditorType} = slatestore;
-    const [isVisible,setIsVisible] = useState(false)
+    const select = editor.selection;
+
     const colors = [
         {   
             key: "#333333",
@@ -48,20 +49,12 @@ const ColorEditor = (props) => {
             value: "#icon-font-purple"
         },
     ]
-    const showBox = (event) => {
-        event.preventDefault();
-        // setIsVisible(!isVisible)
-        // //setEditorType("color")
-        if(editorType === "color") {
-            //setEditorType("")
-        }else {
-            const data = "color"
-            //setEditorType(data)
 
-        }
-    }
     const selectColor = (value) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleColorMark(editor,value)
     }
 

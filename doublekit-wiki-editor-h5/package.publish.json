@@ -1,7 +1,7 @@
 {
-    "name": "doublekit-wiki-ui",
+    "name": "doublekit-slate-h5-ui",
     "version": "1.0.0",
-    "description": "门户模块",
+    "description": "富文本h5",
     "main": "dist.js",
     "scripts": {
         "build:publish": "rimraf publish/* && ./node_modules/.bin/babel src/modules --copy-files  --extensions .js --out-dir publish/modules && ncp src/common/ publish/common && ncp index.js publish/index.js && ncp package.json publish/package.json && ncp README.md publish/README.md && ncp LICENSE publish/LICENSE && ./node_modules/.bin/babel src/common --copy-files  --extensions .js --out-dir publish/common && ./node_modules/.bin/babel src/stores.js --copy-files  --extensions .js --out-dir publish/",
@@ -29,11 +29,7 @@
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
         "react-i18next": "^11.7.3",
-        "react-router": "^5.2.0",
-        "react-router-dom": "^5.2.0",
-        "rimraf": "^3.0.2",
-        "echarts": "^5.0.1",
-        "echarts-stat": "^1.2.0"
+        "rimraf": "^3.0.2"
     },
     "dependencies": {
         "i18next": "^19.8.4",

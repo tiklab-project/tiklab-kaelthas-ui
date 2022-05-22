@@ -71,8 +71,9 @@ const EditorMenu = (props) => {
         },
     };
     const showFocus = (event) => {
+        
         event.preventDefault();
-        console.log(ReactEditor.isFocused(editor))
+        console.log(editor)
         setFocused(false);
         setMenuType('fontType')
         ReactEditor.blur(editor)
@@ -81,7 +82,7 @@ const EditorMenu = (props) => {
 
     const showImage = (event) => {
         event.preventDefault();
-        console.log(ReactEditor.isFocused(editor))
+        console.log(editor)
         setFocused(false);
         setMenuType('image')
         ReactEditor.blur(editor)
@@ -131,13 +132,15 @@ const EditorMenu = (props) => {
                     </svg>
                 </div>
             </div>
-            <div>
+            <div className="edit-tool-bottom">
+                {/* <FontMenuList editor = {editor} /> */}
                 {
                     !focused && menuType === "fontType" ? <FontMenuList editor = {editor} /> : null
                 }
                 {
                     !focused && menuType === "image" ? <ImageMenu editor = {editor} /> : null
                 }
+                {/* <ImageMenu editor = {editor} /> */}
             </div>
         </div>
 

@@ -12,7 +12,8 @@ import "./align.scss"
 import { inject,observer } from "mobx-react";
 const AlignEditor = (props) => {
     const {editor,slatestore} = props;
-    const {editorType,setEditorType} = slatestore;
+    const select = editor.selection;
+
     const aligns = [
         {   
             value: "left",
@@ -31,22 +32,12 @@ const AlignEditor = (props) => {
             icon: "#icon-align-center"
         },
     ]
-    const [isVisible,setIsVisible] = useState(false)
-    const showBox = (event) => {
-        event.preventDefault();
-        if(editorType === "align") {
-            //setEditorType("")
-        }else {
-            const data = "align"
-            //setEditorType(data)
-
-        }
-        
-        console.log(editorType)
-        // setIsVisible(!isVisible)
-    }
+   
     const selectAlign = (value) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleAlignMark(editor,value)
     }
 
@@ -84,11 +75,6 @@ const AlignEditor = (props) => {
                                 key={item.value}
                                 onMouseDown = {(event)=>selectAlign(item.value)}
                             >
-                                {/* <span className="tool-item">
-                                    <i className={`iconfont ${item.icon}`} 
-                                    
-                                    data-value={item.value}></i>
-                                </span> */}
                                 <svg aria-hidden="true" className="botton-item-icon">
                                     <use xlinkHref= {item.icon}></use>
                                 </svg>
@@ -99,5 +85,4 @@ const AlignEditor = (props) => {
         </div>
     )
 }
-// export default AlignEditor;
 export default inject('slatestore')(observer(AlignEditor))

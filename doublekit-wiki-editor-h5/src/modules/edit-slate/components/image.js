@@ -143,7 +143,7 @@ const ImageEditor = (props) => {
         //     }   
         // </div>
         <div className="attachment ">
-            <input type="file" name="image" accept="image/*" onChange= {(event) => handleInputChange(event)} />
+            <input type="file" name="image" accept="image/*" onChange= {(event) => handleInputChange(event)} className = "attachment-input"/>
             <div className="attachment-botton">附件</div>
         </div>
         

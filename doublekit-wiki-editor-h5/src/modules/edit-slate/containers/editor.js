@@ -21,46 +21,89 @@ const DocumentEditor = (props) => {
 	const [editor] = useState(() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
-	const [focused,setFocused ] = useState(true);
+	const [focused,setFocused ] = useState(false);
+	const windowInnerHerght = document.documentElement.clientHeight;
 	const eidtableRef = useRef();
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
- 
-	const sb = (event) => {
+
+	const focusEidtor = (event) => {
 		// console.log("ewwrwr",ReactEditor.isFocused(editor))
 		// 
 		// event.preventDefault()
 		setFocused(true);
-		console.log("sb1")
-		// ReactEditor.focus(editor)
+		// focusIos()
+		console.log(document.documentElement.clientHeight)
+		console.log(document.body.clientHeight)
+		ReactEditor.focus(editor)
 		// console.log(ReactEditor.toDOMNode(editor, editor))
 		return 0;
 
 	}
-	const [isReadOnly, setIsReadOnly] = useState(false)
+
+	const keyOut = () => {
+		document.getElementById("editorEdit").clientHeight
+		console.log(document.documentElement.clientHeight, document.body.clientHeight, document.getElementById("editorEdit"))
+	}
+	const [isReadOnly, setIsReadOnly] = useState(false);
+
+	const focusIos = () => {
+			// isIOS(）是判断是否为ios，是进行处理，不是将定位改为固定定位即可
+		const ua = window.navigator.userAgent.toLocaleLowerCase();
+		const isIOS = /iphone|ipad|ipod/.test(ua);
+
+		if (isIOS) {
+		// 监听窗口大小的变化
+			window.visualViewport.addEventListener('resize', () => {
+				var scrollHeight = document.documentElement.scrollTop || document.body.scrollTop || 0;
+				// window.innerHeight，返回窗口的文档显示区的高度
+				// window.visualViewport.height：返回视觉视口的高度所对应的 CSS 像素数。
+				if (window.innerHeight - window.visualViewport.height > 0) {
+				document.getElementsByClassName('edit-toolbar')[0].style.bottom =
+					window.innerHeight -
+					window.visualViewport.height -
+					Math.abs(window.innerHeight - windowInnerHerght) -
+					scrollHeight +
+					'px';
+					return;
+				}
+			});
+		};
+	}
+
+		
 	return (
-		<div>
-			<div className="title">
+		<div id = "editorEdit">
+			{/* <div className="title">
 				<svg aria-hidden="true" className="back-icon">
 					<use xlinkHref="#icon-fanhui"></use>
 				</svg>
-			</div>
+			</div> */}
+			
 			<Slate
 				editor={editor}
 				value={value}
 				onChange={(value) => onChange(value)}
 				readOnly= {isReadOnly}
-				
-				// onChange={(value) => setValue(value)}
+				className="slate" 
 			>
-
-				<Editable renderElement= {useCallback(renderElement, [])} renderLeaf= {renderLeaf} className="edit-box" onMouseDown = {event => sb(event)}/>
 				<EditorMenu 
 					editor={editor} 
 					focused = {focused} 
 					setFocused = {setFocused}
 				/>
+				
+				<Editable 
+					renderElement= {useCallback(renderElement, [])} 
+					renderLeaf= {renderLeaf} 
+					className="edit-box" 
+					onMouseDown = {event => focusEidtor(event)} 
+					onClick = {() => keyOut()}
+					// onBlur = {() => {setFocused(false)}}
+				/> 
+				
+				
 			</Slate>
 		</div>
 

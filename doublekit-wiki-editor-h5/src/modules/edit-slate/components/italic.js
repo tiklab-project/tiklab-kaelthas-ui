@@ -11,14 +11,18 @@ import { Transforms, Editor, Text, Node } from "slate";
 import { Popover  } from 'antd';
 const ItalicEditor = (props) => {
     const {editor} = props;
-
+    const select = editor.selection;
     const selectItalic = (event) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleItalicMark(editor)
     }
 
     // 富文本方法
     const CustomEditor = {
+        
         isItalicMarkActive(editor) {
             const [match] = Editor.nodes(editor, {
                 match: (n) => n.italic === true,
@@ -28,6 +32,7 @@ const ItalicEditor = (props) => {
             return !!match;
         },
         toggleItalicMark(editor) {
+            
             const isActive = CustomEditor.isItalicMarkActive(editor);
             Transforms.setNodes(
                 editor,

@@ -8,6 +8,8 @@
  */
 .attach-box {
 	padding: 10px;
+	display: inline-flex;
+	flex-direction: column;
 	.attach-icon {
 		width: 100px;
 		height: 100px;

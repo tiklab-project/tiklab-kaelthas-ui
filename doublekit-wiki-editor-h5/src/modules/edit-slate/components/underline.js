@@ -11,10 +11,13 @@ import { Transforms, Editor, Text, Node } from "slate";
 
 const UnderlineEditor = (props) => {
     const {editor} = props;
-    
+    const select = editor.selection;
 
     const selectUnderline = (event) => {
         event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleUnderlineMark(editor)
     }
 

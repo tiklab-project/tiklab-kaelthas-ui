@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-25 09:02:42
  */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./fontMenuList.scss";
 import { Transforms, Editor, Text } from "slate";
 import ItalicEditor from "../components/italic";
@@ -20,6 +20,17 @@ import UnorderedEditor from "../components/unorderedEditor";
 import { ReactEditor } from "slate-react";
 const FontMenuList = (props) => {
     const {editor} = props;
+    const [select, setEditorSelect] = useState(editor.selection)
+    // console.log(editor)
+    // const [select, setEditorSelect] = useState(editor)
+    // useEffect(()=> {
+    //     if(editor && editor.select){
+    //         setEditorSelect(editor)
+    //     }
+        
+    // })
+    // const [sbwy,setSbwy] = useState(editor)
+
     const CustomEditor = {
         isBoldMarkActive(editor) {
             const [match] = Editor.nodes(editor, {
@@ -47,6 +58,7 @@ const FontMenuList = (props) => {
         },
 
         toggleBoldMark(editor) {
+            Transforms.select(editor, select);
             const isActive = CustomEditor.isBoldMarkActive(editor);
             Transforms.setNodes(
                 editor,
@@ -58,6 +70,7 @@ const FontMenuList = (props) => {
         },
 
         toggleCodeBlock(editor) {
+            Transforms.select(editor, select);
             const isActive = CustomEditor.isCodeBlockActive(editor);
             Transforms.setNodes(
                 editor,
@@ -67,6 +80,7 @@ const FontMenuList = (props) => {
         },
 
         toggleAntdButtonBlock(editor) {
+            Transforms.select(editor, select);
             const isActive = CustomEditor.isAntdButtonBlockActive(editor);
             Transforms.setNodes(
                 editor,
@@ -83,9 +97,11 @@ const FontMenuList = (props) => {
                     <div 
                         className="botton-item"
                         onMouseDown={(event) => {
+                            console.log(editor,"sbwy")
                             event.preventDefault();
+                            
                             CustomEditor.toggleBoldMark(editor);
-                            console.log(ReactEditor.isFocused(editor))
+                            console.log(editor,"sbwy")
                             
                         }}
                     >

@@ -24,15 +24,23 @@ const withIndent = editor => {
 }
 const IndentEditor = (props) => {
     const {editor} = props;
+    const select = editor.selection;
     const wrapIndent = (editor) => {
         event.preventDefault()
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleIndentMark(editor)
     }
     const wrapUnIndent = (editor) => {
-        event.preventDefault()
+        event.preventDefault();
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleUnIndentMark(editor)
     }
     const [indent,setIndent] = useState()
+
     const CustomEditor = {
         isIndentMarkActive(editor) {
             const [match] = Editor.nodes(editor, {
