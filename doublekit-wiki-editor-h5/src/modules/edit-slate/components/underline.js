@@ -15,9 +15,10 @@ const UnderlineEditor = (props) => {
 
     const selectUnderline = (event) => {
         event.preventDefault();
-        if(!editor.selection){
-            Transforms.select(editor, select);
-        }
+        Transforms.select(editor, select);
+        // if(!editor.selection){
+        //     Transforms.select(editor, select);
+        // }
         CustomEditor.toggleUnderlineMark(editor)
     }
 
@@ -42,12 +43,14 @@ const UnderlineEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectUnderline(event)} key="underline">
-            {/* <i className="iconfont iconunderline"></i> */}
-            <svg aria-hidden="true" className="botton-item-icon">
-                <use xlinkHref="#icon-underline"></use>
-            </svg>
-        </span>
+        <div onMouseDown = {(event)=> selectUnderline(event)} className="botton-item">
+            <span className="tool-item" key="underline">
+                {/* <i className="iconfont iconunderline"></i> */}
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref="#icon-underline"></use>
+                </svg>
+            </span>
+        </div>
     )
 }
 export default UnderlineEditor;

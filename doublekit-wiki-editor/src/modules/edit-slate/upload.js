@@ -54,9 +54,9 @@ const AttUpload = (props) => {
 				if(response.code === 0){
 					if (select) {
 						if(type === "application/msword") {
-							wrapAttachment(editor, `${img_url}/file/${response.data.fileName}`)
+							wrapAttachment(editor, `${base_url}/file/${response.data.fileName}`)
 						}else if(type === "image/png" || type === "image/jpeg"){
-							wrapImage(editor, `${img_url}/file/${response.data.fileName}`)
+							wrapImage(editor, `${base_url}/file/${response.data.fileName}`)
 						}
 						
 					}
@@ -71,7 +71,7 @@ const AttUpload = (props) => {
 
 	const onFinish = (value) => {
 		console.log(value)
-		wrapImage(editor, "http://127.0.0.1:3001/images/logo.png")
+		wrapImage(editor, `${base_url}/images/logo.png`)
 		setIsModalVisible(false);
 	}
 

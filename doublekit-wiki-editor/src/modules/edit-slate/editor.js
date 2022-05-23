@@ -87,7 +87,7 @@ const CustomEditor = {
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const {onChange,value,slatestore } = props;
+	const {onChange,value,showMenu } = props;
 	const [editor] = useState(() => withBr(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
@@ -100,55 +100,59 @@ const DocumentEditor = (props) => {
 			editor={editor}
 			value={value}
 			onChange={(value) => onChange(value)}
+			
 			// onChange={(value) => setValue(value)}
 		>
-			<div className="edit-toolbar">
-				<span
-					className="tool-item"
-					onMouseDown={(event) => {
-						event.preventDefault();
-						CustomEditor.toggleBoldMark(editor);
-					}}
-				>
-					<i className="iconfont iconbold"></i>
-				</span>
-				<span
-					className="tool-item"
-					onMouseDown={(event) => {
-						event.preventDefault();
-						CustomEditor.toggleCodeBlock(editor);
-					}}
-				>
-					<i className="iconfont iconcode-view"></i>
-				</span>
-				<ItalicEditor editor={editor} />
-				<UnderlineEditor editor={editor} />
-				<StrikeEditor editor={editor} />
-				<SupEditor editor={editor} />
-				<SubEditor editor={editor} />
-				<CheckListsEditor editor={editor} />
-				{/* <BrEditor editor={editor} /> */}
+			{
+				showMenu ? <div className="edit-toolbar">
+					<span
+						className="tool-item"
+						onMouseDown={(event) => {
+							event.preventDefault();
+							CustomEditor.toggleBoldMark(editor);
+						}}
+					>
+						<i className="iconfont iconbold"></i>
+					</span>
+					<span
+						className="tool-item"
+						onMouseDown={(event) => {
+							event.preventDefault();
+							CustomEditor.toggleCodeBlock(editor);
+						}}
+					>
+						<i className="iconfont iconcode-view"></i>
+					</span>
+					<ItalicEditor editor={editor} />
+					<UnderlineEditor editor={editor} />
+					<StrikeEditor editor={editor} />
+					<SupEditor editor={editor} />
+					<SubEditor editor={editor} />
+					<CheckListsEditor editor={editor} />
+					{/* <BrEditor editor={editor} /> */}
 
-				<AttUpload editor={editor} />
+					<AttUpload editor={editor} />
 
 
 
-				<LinkEditor editor={editor} />
-				<TableEditor editor={editor} />
+					<LinkEditor editor={editor} />
+					<TableEditor editor={editor} />
 
-				<UnorderedEditor editor={editor} />
-				<DividerEditor editor={editor} />
-				<IndentEditor editor={editor} />
-				<Emoji editor={editor} />
+					<UnorderedEditor editor={editor} />
+					<DividerEditor editor={editor} />
+					<IndentEditor editor={editor} />
+					<Emoji editor={editor} />
 
-				<AlignEditor editor={editor} />
-				<ColorEditor editor={editor} />
-				<BackgroundColor editor={editor} />
-				<HeadEditor editor={editor} />
-				<FontSize editor={editor} />
-				<LineHeightEditor editor={editor} />
-			</div>
-			<Editable renderElement={useCallback(renderElement, [])} renderLeaf={renderLeaf} className="edit-box"/>
+					<AlignEditor editor={editor} />
+					<ColorEditor editor={editor} />
+					<BackgroundColor editor={editor} />
+					<HeadEditor editor={editor} />
+					<FontSize editor={editor} />
+					<LineHeightEditor editor={editor} />
+				</div> : null
+			}
+			
+			<Editable renderElement={useCallback(renderElement, [])} renderLeaf={renderLeaf} className="edit-box" readOnly= {!showMenu}/>
 		</Slate>
 	);
 };

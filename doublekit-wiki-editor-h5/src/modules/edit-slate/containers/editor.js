@@ -16,14 +16,14 @@ import EditorMenu from "./editorMenu";
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const { onChange, value, slatestore } = props;
-	const {setShowMenu,showMenu} = slatestore;
+	const { onChange, value, showMenu} = props;
+
 	const [editor] = useState(() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
 	const [focused,setFocused ] = useState(false);
 	const windowInnerHerght = document.documentElement.clientHeight;
-	const eidtableRef = useRef();
+	
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
@@ -46,7 +46,6 @@ const DocumentEditor = (props) => {
 		document.getElementById("editorEdit").clientHeight
 		console.log(document.documentElement.clientHeight, document.body.clientHeight, document.getElementById("editorEdit"))
 	}
-	const [isReadOnly, setIsReadOnly] = useState(false);
 
 	const focusIos = () => {
 			// isIOS(）是判断是否为ios，是进行处理，不是将定位改为固定定位即可
@@ -85,24 +84,26 @@ const DocumentEditor = (props) => {
 				editor={editor}
 				value={value}
 				onChange={(value) => onChange(value)}
-				readOnly= {isReadOnly}
+				
 				className="slate" 
 			>
-				<EditorMenu 
-					editor={editor} 
-					focused = {focused} 
-					setFocused = {setFocused}
-				/>
 				
+				{
+					showMenu ?  <EditorMenu 
+						editor={editor} 
+						focused = {focused} 
+						setFocused = {setFocused}
+					/> : null
+				}
 				<Editable 
 					renderElement= {useCallback(renderElement, [])} 
 					renderLeaf= {renderLeaf} 
 					className="edit-box" 
 					onMouseDown = {event => focusEidtor(event)} 
 					onClick = {() => keyOut()}
+					readOnly= {!showMenu}
 					// onBlur = {() => {setFocused(false)}}
 				/> 
-				
 				
 			</Slate>
 		</div>

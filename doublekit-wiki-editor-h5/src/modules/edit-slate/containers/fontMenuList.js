@@ -109,12 +109,12 @@ const FontMenuList = (props) => {
                             <use xlinkHref="#icon-bold"></use>
                         </svg>
                     </div>
-                    <div className="botton-item">
+                    {/* <div className="botton-item"> */}
                         <ItalicEditor editor={editor} />
-                    </div>
-                    <div className="botton-item">
+                    {/* </div> */}
+                    {/* <div className="botton-item"> */}
                         <StrikeEditor editor={editor} />
-                    </div>
+                    {/* </div> */}
                     <div className="botton-item">
                         
 				        <UnderlineEditor editor={editor} />

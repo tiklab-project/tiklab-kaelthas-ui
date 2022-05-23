@@ -48,8 +48,6 @@ const EditorMenu = (props) => {
                 { bold: isActive ? null : true },
                 { match: (n) => Text.isText(n), split: true }
             );
-
-
         },
 
         toggleCodeBlock(editor) {

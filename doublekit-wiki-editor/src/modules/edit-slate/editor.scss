@@ -6,6 +6,7 @@
     padding: 10px 0;
     margin-top: 24px;
     border-top: 1px solid rgb(235,236,240);
+
     .tool-item {
         width: 30px;
         text-align: center;
@@ -15,6 +16,11 @@
         }
     }
     
+}
+.edit-box {
+    min-height: 100px;
+    border: 1px solid #ebecf0;
+    padding: 20px;
 }
 p {
     margin: 0;

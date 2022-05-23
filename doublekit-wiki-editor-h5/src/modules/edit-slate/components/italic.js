@@ -14,9 +14,10 @@ const ItalicEditor = (props) => {
     const select = editor.selection;
     const selectItalic = (event) => {
         event.preventDefault();
-        if(!editor.selection){
-            Transforms.select(editor, select);
-        }
+        Transforms.select(editor, select);
+        // if(!editor.selection){
+            
+        // }
         CustomEditor.toggleItalicMark(editor)
     }
 
@@ -43,12 +44,15 @@ const ItalicEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectItalic(event)} key="italic">
+        <div onMouseDown = {(event)=> selectItalic(event)} className="botton-item">
+          <span className="tool-item"  key="italic">
             {/* <i className="iconfont iconitalic"></i> */}
             <svg aria-hidden="true" className="botton-item-icon">
                 <use xlinkHref="#icon-italic"></use>
             </svg>
-        </span>
+        </span>  
+        </div>
+        
     )
 }
 export default ItalicEditor;

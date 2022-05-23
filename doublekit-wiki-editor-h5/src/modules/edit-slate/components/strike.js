@@ -15,6 +15,7 @@ const StrikeEditor = (props) => {
 
     const selectStrike = (event) => {
         event.preventDefault();
+        Transforms.select(editor, select);
         if(!editor.selection){
             Transforms.select(editor, select);
         }
@@ -41,13 +42,15 @@ const StrikeEditor = (props) => {
         }
     };
 
-    return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectStrike(event)} key="strike">
-            {/* <i className="iconfont iconstrikethrough"></i> */}
-            <svg aria-hidden="true" className="botton-item-icon">
-                <use xlinkHref="#icon-strikethrough"></use>
-            </svg>
-        </span>
+    return (  
+        <div onMouseDown = {(event)=> selectStrike(event)} className="botton-item">
+            <span className="tool-item" key="strike">
+                {/* <i className="iconfont iconstrikethrough"></i> */}
+                <svg aria-hidden="true" className="botton-item-icon">
+                    <use xlinkHref="#icon-strikethrough"></use>
+                </svg>
+            </span>
+        </div> 
     )
 }
 export default StrikeEditor;
