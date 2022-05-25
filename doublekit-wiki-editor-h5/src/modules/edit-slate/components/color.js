@@ -12,7 +12,6 @@ import "./color.scss"
 import { inject,observer } from "mobx-react";
 const ColorEditor = (props) => {
     const {editor,slatestore} = props;
-    const {editorType,setEditorType} = slatestore;
     const select = editor.selection;
 
     const colors = [

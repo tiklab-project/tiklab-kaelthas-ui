@@ -8,14 +8,13 @@
  */
 import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
-
+import { inject, observer } from "mobx-react";
 const StrikeEditor = (props) => {
     const {editor} = props;
     const select = editor.selection;
 
-    const selectStrike = (event) => {
+    const selectStrike = () => {
         event.preventDefault();
-        Transforms.select(editor, select);
         if(!editor.selection){
             Transforms.select(editor, select);
         }
@@ -43,7 +42,7 @@ const StrikeEditor = (props) => {
     };
 
     return (  
-        <div onMouseDown = {(event)=> selectStrike(event)} className="botton-item">
+        <div onMouseDown = {()=> selectStrike()} className="botton-item">
             <span className="tool-item" key="strike">
                 {/* <i className="iconfont iconstrikethrough"></i> */}
                 <svg aria-hidden="true" className="botton-item-icon">
@@ -53,4 +52,4 @@ const StrikeEditor = (props) => {
         </div> 
     )
 }
-export default StrikeEditor;
+export default inject('slatestore')(observer(StrikeEditor))

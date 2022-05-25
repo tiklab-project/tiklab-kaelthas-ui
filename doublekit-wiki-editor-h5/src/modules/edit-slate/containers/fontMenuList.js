@@ -20,9 +20,8 @@ import UnorderedEditor from "../components/unorderedEditor";
 import { ReactEditor } from "slate-react";
 const FontMenuList = (props) => {
     const {editor} = props;
-    const [select, setEditorSelect] = useState(editor.selection)
     // console.log(editor)
-    // const [select, setEditorSelect] = useState(editor)
+    const [select, setEditorSelect] = useState(editor.selection)
     // useEffect(()=> {
     //     if(editor && editor.select){
     //         setEditorSelect(editor)
@@ -41,22 +40,6 @@ const FontMenuList = (props) => {
             return !!match;
         },
 
-        isCodeBlockActive(editor) {
-            const [match] = Editor.nodes(editor, {
-                match: (n) => n.type === "code",
-            });
-
-            return !!match;
-        },
-
-        isAntdButtonBlockActive(editor) {
-            const [match] = Editor.nodes(editor, {
-                match: (n) => n.type === "antdButton",
-            });
-
-            return !!match;
-        },
-
         toggleBoldMark(editor) {
             Transforms.select(editor, select);
             const isActive = CustomEditor.isBoldMarkActive(editor);
@@ -67,27 +50,7 @@ const FontMenuList = (props) => {
             );
 
 
-        },
-
-        toggleCodeBlock(editor) {
-            Transforms.select(editor, select);
-            const isActive = CustomEditor.isCodeBlockActive(editor);
-            Transforms.setNodes(
-                editor,
-                { type: isActive ? null : "code" },
-                { match: (n) => Editor.isBlock(editor, n) }
-            );
-        },
-
-        toggleAntdButtonBlock(editor) {
-            Transforms.select(editor, select);
-            const isActive = CustomEditor.isAntdButtonBlockActive(editor);
-            Transforms.setNodes(
-                editor,
-                { type: isActive ? null : "antdButton" },
-                { match: (n) => Editor.isBlock(editor, n) }
-            );
-        },
+        }
     };
     return (
         <div className="font-menu-list">
@@ -96,12 +59,10 @@ const FontMenuList = (props) => {
                 <div className="font-style-botton">
                     <div 
                         className="botton-item"
-                        onMouseDown={(event) => {
-                            console.log(editor,"sbwy")
+                        onMouseDown={() => {
                             event.preventDefault();
                             
                             CustomEditor.toggleBoldMark(editor);
-                            console.log(editor,"sbwy")
                             
                         }}
                     >
@@ -109,17 +70,10 @@ const FontMenuList = (props) => {
                             <use xlinkHref="#icon-bold"></use>
                         </svg>
                     </div>
-                    {/* <div className="botton-item"> */}
-                        <ItalicEditor editor={editor} />
-                    {/* </div> */}
-                    {/* <div className="botton-item"> */}
-                        <StrikeEditor editor={editor} />
-                    {/* </div> */}
-                    <div className="botton-item">
-                        
-				        <UnderlineEditor editor={editor} />
-
-                    </div>
+                    <ItalicEditor editor={editor}/>
+                    <StrikeEditor editor={editor}/>
+                    
+                    <UnderlineEditor editor={editor}/>
                 </div>
             </div>
 

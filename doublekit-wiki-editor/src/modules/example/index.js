@@ -18,7 +18,7 @@ const ExampleEditor = () => {
 	])
     return (
         <div>
-            <Editor value = {value} onChange = {setValue} showMenu = {false}/>
+            <Editor value = {value} onChange = {setValue} showMenu = {true}/>
         </div>
     )
 }

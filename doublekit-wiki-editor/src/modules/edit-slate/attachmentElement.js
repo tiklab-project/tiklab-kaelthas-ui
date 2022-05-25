@@ -17,7 +17,9 @@ const AttachmentElement = (props) => {
 					<use xlinkHref="#iconA-07"></use>
                 </svg>
 			</a>	
-			{children}
+			<span style={{textAlign: "center"}}>
+				{children}
+			</span>
 		</span>
 	);
 };

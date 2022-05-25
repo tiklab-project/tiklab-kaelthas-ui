@@ -6,8 +6,18 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-08-25 16:23:21
  */
+// .attach-box {
+// 	padding: 10px;
+// 	.attach-icon {
+// 		width: 100px;
+// 		height: 100px;
+// 	}
+// }
+
 .attach-box {
 	padding: 10px;
+	display: inline-flex;
+	flex-direction: column;
 	.attach-icon {
 		width: 100px;
 		height: 100px;

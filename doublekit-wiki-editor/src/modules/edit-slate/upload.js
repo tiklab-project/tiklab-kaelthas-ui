@@ -53,8 +53,8 @@ const AttUpload = (props) => {
 				message.success(`${info.file.name} file uploaded successfully.`);
 				if(response.code === 0){
 					if (select) {
-						if(type === "application/msword") {
-							wrapAttachment(editor, `${base_url}/file/${response.data.fileName}`)
+						if(type === "application/msword" || type === "text/plain") {
+							wrapAttachment(editor, `${base_url}/file/${response.data.fileName}`,response.data.fileMeta.originFileName)
 						}else if(type === "image/png" || type === "image/jpeg"){
 							wrapImage(editor, `${base_url}/file/${response.data.fileName}`)
 						}
@@ -101,21 +101,14 @@ const AttUpload = (props) => {
 		}
 		if(isCollapsed && isEditorEnd) {
 			Transforms.insertNodes(editor, {type: 'paragraph', children: [{ text: '' }]}); 
-			// Transforms.select(editor, editorEnd); 
 			setIsModalVisible(false);
 			let anchor = selection.anchor;
 			let path = anchor.path.map((item) => item);
 			path[path.length - 2]+=2;
-			// Transforms.select(editor, {path,offset: 0 });
-			// Transforms.select(editor,{
-			// 	anchor: { path: [2, 0], offset: 0 },
-			// 	focus: { path: [2, 0], offset: 0 },
-			// })
-			// console.log(editor.selection)
 		}
 	}
 
-	const wrapAttachment = (editor, url) => {
+	const wrapAttachment = (editor, url, fileName) => {
 		Transforms.select(editor, select);
 		const { selection } = editor
 		const isCollapsed = selection && Range.isCollapsed(selection)
@@ -131,7 +124,7 @@ const AttUpload = (props) => {
 		const attachment = {
 			type: 'attachment',
 			url,
-			children: isCollapsed ? [{ text: "" }] : [],
+			children: isCollapsed ? [{ text: fileName }] : [],
 		}
 		if (isCollapsed) {
 			Transforms.insertNodes(editor, attachment)
@@ -149,7 +142,7 @@ const AttUpload = (props) => {
 						<div name="本地文件" key = "1">
 							<Dragger {...params}>
 								<p className="ant-upload-drag-icon">
-									<InboxOutlined />
+									<InboxOutlined style={{}}/>
 								</p>
 								<p className="ant-upload-text">点击上传</p>
 								<p className="ant-upload-hint">

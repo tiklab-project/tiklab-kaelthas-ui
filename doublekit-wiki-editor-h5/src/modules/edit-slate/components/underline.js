@@ -8,17 +8,16 @@
  */
 import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
-
+import { inject, observer } from "mobx-react";
 const UnderlineEditor = (props) => {
     const {editor} = props;
     const select = editor.selection;
 
-    const selectUnderline = (event) => {
+    const selectUnderline = () => {
         event.preventDefault();
-        Transforms.select(editor, select);
-        // if(!editor.selection){
-        //     Transforms.select(editor, select);
-        // }
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleUnderlineMark(editor)
     }
 
@@ -43,7 +42,7 @@ const UnderlineEditor = (props) => {
     };
 
     return (   
-        <div onMouseDown = {(event)=> selectUnderline(event)} className="botton-item">
+        <div onMouseDown = {()=> selectUnderline()} className="botton-item">
             <span className="tool-item" key="underline">
                 {/* <i className="iconfont iconunderline"></i> */}
                 <svg aria-hidden="true" className="botton-item-icon">
@@ -53,4 +52,4 @@ const UnderlineEditor = (props) => {
         </div>
     )
 }
-export default UnderlineEditor;
+export default inject('slatestore')(observer(UnderlineEditor))

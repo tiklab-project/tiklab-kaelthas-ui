@@ -8,16 +8,17 @@
  */
 import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
-import { Popover  } from 'antd';
+import { inject, observer } from "mobx-react";
 const ItalicEditor = (props) => {
     const {editor} = props;
     const select = editor.selection;
-    const selectItalic = (event) => {
+
+    const selectItalic = () => {
         event.preventDefault();
-        Transforms.select(editor, select);
-        // if(!editor.selection){
-            
-        // }
+        
+        if(!editor.selection){
+            Transforms.select(editor, select);
+        }
         CustomEditor.toggleItalicMark(editor)
     }
 
@@ -46,7 +47,6 @@ const ItalicEditor = (props) => {
     return (   
         <div onMouseDown = {(event)=> selectItalic(event)} className="botton-item">
           <span className="tool-item"  key="italic">
-            {/* <i className="iconfont iconitalic"></i> */}
             <svg aria-hidden="true" className="botton-item-icon">
                 <use xlinkHref="#icon-italic"></use>
             </svg>
@@ -55,4 +55,4 @@ const ItalicEditor = (props) => {
         
     )
 }
-export default ItalicEditor;
+export default inject('slatestore')(observer(ItalicEditor))
