@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, u
 import { createEditor, Transforms, Editor, Text, Node } from "slate";
 import "./editor.scss";
 // Import the Slate components and React plugin.
-import { Slate, Editable, withReact } from "slate-react";
+import { Slate, Editable, withReact, ReactEditor } from "slate-react";
 import AttUpload from "./upload";
 import ColorEditor from "./color"
 import HeadEditor from "./head"
@@ -87,7 +87,8 @@ const CustomEditor = {
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const {onChange,value,showMenu } = props;
+	const {onChange,value,showMenu, setShowMenu} = props;
+	// const [showMenu, setShowMenu] = useState(true);
 	const [editor] = useState(() => withBr(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
@@ -95,16 +96,22 @@ const DocumentEditor = (props) => {
 		return <Leaf {...props} />;
 	}, []);
 	
+	const onClick = () => {
+		console.log("dsfsf")
+		setShowMenu(false)
+	}
+	useEffect(() => {
+		ReactEditor.focus(editor);
+		return;
+	},[])
 	return (
 		<Slate
 			editor={editor}
 			value={value}
 			onChange={(value) => onChange(value)}
-			
 			// onChange={(value) => setValue(value)}
 		>
-			{
-				showMenu ? <div className="edit-toolbar">
+			<div className="edit-toolbar">
 					<span
 						className="tool-item"
 						onMouseDown={(event) => {
@@ -149,10 +156,15 @@ const DocumentEditor = (props) => {
 					<HeadEditor editor={editor} />
 					<FontSize editor={editor} />
 					<LineHeightEditor editor={editor} />
-				</div> : null
-			}
+			</div>
 			
-			<Editable renderElement={useCallback(renderElement, [])} renderLeaf={renderLeaf} className="edit-box" readOnly= {!showMenu}/>
+			<Editable 
+				renderElement={useCallback(renderElement, [])} 
+				renderLeaf={renderLeaf} 
+				className="edit-box" 
+				// readOnly= {showMenu}
+				onClick = {onClick}
+			/>
 		</Slate>
 	);
 };

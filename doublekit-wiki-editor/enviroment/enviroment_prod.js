@@ -28,6 +28,8 @@ const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
 const version = JSON.stringify('');
 const client = JSON.stringify('');
+const img_url = JSON.stringify('http://172.11.1.13:8080/')
+
 
 module.exports = {
     base_url,
@@ -39,5 +41,6 @@ module.exports = {
     appKey,
     appSecret,
     version,
-    client
+    client,
+    img_url
 }

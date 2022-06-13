@@ -42,11 +42,12 @@ const AttUpload = (props) => {
         upload(file).then(res => {
             if(res.data.code === 0){
 				const type = res.data.data.fileMeta.fileType;
+				const imgUrl = (base_url === "/" ? window.location.origin : base_url);
 				if (select) {
 					if(type === "txt") {
-						wrapAttachment(editor, `${base_url}/file/${res.data.data.fileName}`, res.data.data.fileMeta.originFileName)
+						wrapAttachment(editor, `${imgUrl}/file/${res.data.data.fileName}`, res.data.data.fileMeta.originFileName)
 					}else if(type === "png" || type === "jpeg" || type === "jpg"){
-						wrapImage(editor, `${base_url}/file/${res.data.data.fileName}`)
+						wrapImage(editor, `${imgUrl}/file/${res.data.data.fileName}`)
 					}
 					
 				}

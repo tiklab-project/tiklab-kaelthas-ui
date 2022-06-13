@@ -12,7 +12,7 @@ import Leaf from "./leaf"
 import { Slate, Editable, withReact } from "slate-react";
 import { createEditor } from "slate";
 import { useEffect } from "react";
-
+import "./previewEditor.scss"
 const PreviewEditor = (props) => {
     const {onChange,value } = props;
     const renderLeaf = useCallback((props) => {

@@ -7,9 +7,11 @@
  * @LastEditTime: 2021-06-02 14:32:29
  */
 import DocumentEditor from "./module/modules/edit-slate/editor";
+import PreviewEditor from "./module/modules/edit-slate/previewEditor";
 import {SlateStore, SLATE_STORE} from "./module/modules/edit-slate/store/slateStore";
 export {
     DocumentEditor,
     SlateStore,
-    SLATE_STORE
+    SLATE_STORE,
+    PreviewEditor
 }

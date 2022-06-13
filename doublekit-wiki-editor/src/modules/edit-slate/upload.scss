@@ -22,6 +22,9 @@
         display: flex;
         align-items: center;
         height: 80%;
+        .ant-form {
+            margin-top: 10px;
+        }
     }
     .tab_item{
         .tab_show {

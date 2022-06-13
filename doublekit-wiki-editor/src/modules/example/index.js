@@ -8,17 +8,25 @@
  */
 import React, {useState} from "react";
 import Editor from "../edit-slate/editor";
-
+import PreviewEditor from "../edit-slate/previewEditor";
+// showMenu = {true}
 const ExampleEditor = () => {
+    const [showMenu, setShowMenu] = useState(false);
     const [value, setValue] = useState([
 		{
 			type: "paragraph",
-			children: [{ text: "" }],
+			children: [{ text: "wwww" }],
 		},
 	])
     return (
-        <div>
-            <Editor value = {value} onChange = {setValue} showMenu = {true}/>
+        <div onClick={() => {setShowMenu(true)}}>
+           { showMenu ? <Editor 
+                value = {value} 
+                onChange = {setValue} 
+            />
+            :
+            <PreviewEditor value = {value} 
+                onChange = {setValue} />}
         </div>
     )
 }

@@ -51,12 +51,13 @@ const AttUpload = (props) => {
 			// }
 			if (status === 'done') {
 				message.success(`${info.file.name} file uploaded successfully.`);
+				const imgUrl = (base_url === "/" ? window.location.origin : base_url);
 				if(response.code === 0){
 					if (select) {
 						if(type === "application/msword" || type === "text/plain") {
-							wrapAttachment(editor, `${base_url}/file/${response.data.fileName}`,response.data.fileMeta.originFileName)
+							wrapAttachment(editor, `${imgUrl}/file/${response.data.fileName}`,response.data.fileMeta.originFileName)
 						}else if(type === "image/png" || type === "image/jpeg"){
-							wrapImage(editor, `${base_url}/file/${response.data.fileName}`)
+							wrapImage(editor, `${imgUrl}/file/${response.data.fileName}`)
 						}
 						
 					}

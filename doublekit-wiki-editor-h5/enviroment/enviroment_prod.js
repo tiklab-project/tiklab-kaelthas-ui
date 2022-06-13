@@ -23,6 +23,7 @@ fetchMethod = JSON.stringify(fetchMethod);
 
 let env = "prod";
 env = JSON.stringify(env)
+const img_url = JSON.stringify('http://172.11.1.13:8080/')
 
 const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
@@ -39,5 +40,6 @@ module.exports = {
     appKey,
     appSecret,
     version,
-    client
+    client,
+    img_url
 }
