@@ -87,7 +87,7 @@ const CustomEditor = {
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const {onChange,value,showMenu, setShowMenu} = props;
+	const {onChange,value, focusEditor,minHeight} = props;
 	// const [showMenu, setShowMenu] = useState(true);
 	const [editor] = useState(() => withBr(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
 	// 设置应用创建时的初始状态。
@@ -96,13 +96,16 @@ const DocumentEditor = (props) => {
 		return <Leaf {...props} />;
 	}, []);
 	
-	const onClick = () => {
-		console.log("dsfsf")
-		setShowMenu(false)
-	}
+	// const onClick = () => {
+	// 	console.log("dsfsf")
+	// 	setShowMenu(false)
+	// }
 	useEffect(() => {
-		ReactEditor.focus(editor);
-		return;
+		if(focusEditor){
+			ReactEditor.focus(editor);
+			return;
+		}
+		
 	},[])
 	return (
 		<Slate
@@ -162,8 +165,8 @@ const DocumentEditor = (props) => {
 				renderElement={useCallback(renderElement, [])} 
 				renderLeaf={renderLeaf} 
 				className="edit-box" 
+				style={{minHeight: minHeight}}
 				// readOnly= {showMenu}
-				onClick = {onClick}
 			/>
 		</Slate>
 	);

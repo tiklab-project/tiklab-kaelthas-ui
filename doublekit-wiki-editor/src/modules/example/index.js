@@ -15,7 +15,7 @@ const ExampleEditor = () => {
     const [value, setValue] = useState([
 		{
 			type: "paragraph",
-			children: [{ text: "wwww" }],
+			children: [{ text: "kkkk" }],
 		},
 	])
     return (
