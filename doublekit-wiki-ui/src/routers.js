@@ -10,13 +10,14 @@ import AsyncComponent from './common/lazy/SyncComponent'
 import { Redirect } from "react-router-dom";
 
 const Login = AsyncComponent(() => import('./modules/login/login'))
-const Home = AsyncComponent(() => import('./modules/home/home'))
+const Logout = AsyncComponent(() => import('./modules/login/logout'))
+const Home = AsyncComponent(() => import('./modules/home/components/home'))
 const Index = AsyncComponent(() => import('./modules/home/index'))
 const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/containers/wikiDetail'))
 const LogDetail = AsyncComponent(()=> import('./modules/wiki/common/components/logDetail'))
 const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/brainMapFlowDetail'))
 
-import {Logout} from "doublekit-frame-ui"
+
 // 知识库
 const wiki = AsyncComponent(() => import('./modules/wiki/wiki/containers/wiki'))
 const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))

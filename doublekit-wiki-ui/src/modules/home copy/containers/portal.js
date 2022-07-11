@@ -15,7 +15,7 @@ import LocalHeader from "../components/header";
 import "../components/header.scss";
 import "../components/homePage.scss";
 
-import { useAccountConfig, loginOutLocal, loginOutAcc, useBasePortal,useSassPortal } from 'doublekit-frame-ui';
+import { useAccountConfig, loginOutLocal, loginOutAcc, useBasePortal,useSassPortal } from 'doublekit-eam-ui';
 import { inject, observer } from 'mobx-react';
 import Search from "../../search/container/search";
 const Index = (props) => {

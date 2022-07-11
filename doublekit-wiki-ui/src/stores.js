@@ -18,7 +18,7 @@ import {TEMPLATE_STORE,TemplateStore} from "./modules/template/store/templateSto
 import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
 import {SHARE_STORE,ShareStore} from "./modules/share/store/shareStore"
 import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork"
-import {LOGIN_STATUS, LoginStore} from 'doublekit-frame-ui'
+import {EAM_STORE, EamStore} from 'doublekit-eam-ui/es/store'
 
 function createStores() {
     return {
@@ -32,7 +32,7 @@ function createStores() {
         [WIKICOMMON_STORE]: new WikiCommon(),
         [SHARE_STORE]: new ShareStore(),
         [WIKIWORK_STORE]: new WikiWork(),
-        [LOGIN_STATUS]: new LoginStore()
+        [EAM_STORE]: new EamStore(),
     };
 }
 

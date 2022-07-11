@@ -7,30 +7,20 @@
  * @LastEditTime: 2021-06-22 09:02:16
  */
 import React from "react";
-import {ProjectLogin, LOGIN_STATUS} from 'doublekit-frame-ui'
+import {Login} from 'doublekit-eam-ui'
 import logo from "../../assets/images/logo.png";
 import {observer, inject} from 'mobx-react'
-class Login extends React.Component{
+const ProjectLogin = (props) => {
 
-    constructor(props){
-        super(props);
-        this.state = {}
-    }
-    
-    render(){
-        return (
-            <div>
-                <ProjectLogin 
+    return (
+        <div>
+            <Login 
+                    {...props}
                     contentImg={logo}
-                    fetchMethod={fetchMethod}
-                    languageUrl={pluginAddressUrl}
-                    {...this.props}
-                    loginGoRouter={'/index'}
+                    loginGoRouter={'/index/home'}
                     title = {'知识库管理'}
-                >
-                </ProjectLogin>
-            </div>
-        )
-    }
+            />
+        </div>
+    )
 }
-export default inject(LOGIN_STATUS)(observer(Login));
+export default inject("eamStore")(observer(ProjectLogin));

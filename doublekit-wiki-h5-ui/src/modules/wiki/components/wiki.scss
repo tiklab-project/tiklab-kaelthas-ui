@@ -1,0 +1,82 @@
+.wiki {
+    .wiki-top {
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        .wiki-top-left, .wiki-top-right {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 18px;
+        }
+        .wiki-title {
+            margin-left: 20px;
+            font-weight: 600;
+        }
+        .wiki-icon-logo {
+            width: 30px;
+            height: 30px;
+        }
+        .wiki-icon-search {
+            margin-right: 20px;
+            width: 25px;
+            height: 25px;
+        }
+        .wiki-icon-add {
+            width: 25px;
+            height: 25px;
+        }
+    }
+    .wiki-list {
+        margin: 0 auto;
+        width: 90%;
+        .wiki-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 20px;
+            height: 100px;
+            border: 1px solid #f0f0f0;
+            border-radius: 5px;
+            box-shadow: var(--ds-shadow-overlay, 0 0 1px rgba(9, 30, 66, 0.31), 0 5px 10px -8px rgba(9, 30, 66, 0.25));
+        }
+        .wiki-respository-logo {
+            width: 20px;
+            height: 20px;
+        }
+        .wiki-repository-info {
+            flex: 1;
+            margin-left: 20px;
+            .wiki-respository-title {
+                height: 40px;
+                line-height: 40px;
+                font-size: 15px;
+                font-weight: 600;
+            }
+            .wiki-respository-info-bottom {
+                height: 40px;
+                line-height: 40px;
+                border-radius: 20px;
+                padding: 10px 0;
+                box-sizing: border-box;
+                span {
+                    height: 20px;
+                    width: 50px;
+                    line-height: 20px;
+                    border-radius: 5px;
+                    background-color: #DEECF9;
+                    color: #9EC0E0;
+                    padding: 2px 5px;
+                }
+                .wiki-respository-master {
+                    margin-right: 20px;
+                }
+            }
+           
+        }
+    }
+}

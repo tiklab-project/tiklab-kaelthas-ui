@@ -13,8 +13,10 @@ const base_url = JSON.stringify(api);
 const url = "http://127.0.0.1:8060/";
 const plugin_base_url = JSON.stringify(url);
 
-let pluginAddressUrl = `${url}/config.json`;
-pluginAddressUrl = JSON.stringify(pluginAddressUrl);
+let plugin_url = `http://127.0.0.1:3004/plugin.json`;
+plugin_url = JSON.stringify(plugin_url);
+// let pluginAddressUrl = `${url}/config.json`;
+// pluginAddressUrl = JSON.stringify(pluginAddressUrl);
 
 let fetchMethod = "get"
 fetchMethod = JSON.stringify(fetchMethod);
@@ -51,7 +53,7 @@ module.exports = {
     base_url,
     userProduction,
     plugin_base_url,
-    pluginAddressUrl,
+    plugin_url,
     fetchMethod,
     env,
     appKey,

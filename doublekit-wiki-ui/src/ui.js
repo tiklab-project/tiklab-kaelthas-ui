@@ -8,7 +8,7 @@
  */
 import {orgStores} from "doublekit-user-ui";
 import {privilegeStores} from 'doublekit-privilege-ui'
-import {stores as portalStores} from 'doublekit-frame-ui'
+import {stores as portalStores} from 'doublekit-eam-ui'
 import {formStores} from 'doublekit-form-ui'
 import {flowStores} from 'doublekit-flow-ui'
 import {messageModuleStores} from 'doublekit-message-ui'

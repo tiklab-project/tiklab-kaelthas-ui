@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../doublekit-project-ui/doublekit-project-h5-ce"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../doublekit-wiki-h5-ui"
+		},
+		{
+			"path": "../../doublekit-project-ui/doublekit-project-web"
+		}
+	]
+}

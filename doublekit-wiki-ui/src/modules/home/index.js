@@ -14,7 +14,9 @@ import useAppConfig from "../../common/hooks/appLink";
 import LocalHeader  from "./components/localHeader";
 import "./components/header.scss";
 import Search from '../search/container/search';
-const IndexSaas = (props) => {
+import { loginOutAcc, useWorkAppConfig, verifyUserHoc } from 'doublekit-eam-ui';
+import { connect } from 'doublekit-plugin-ui';
+const Layout = (props) => {
     const headerRouter = [
         {
             to:'/index/home',
@@ -37,16 +39,26 @@ const IndexSaas = (props) => {
             key: 'sysmgr'
         }
     ]
-    const [component,ModalComponent, editOrAddModal] = useAppConfig(false);
+    const [component, ModalComponent, editOrAddModal] = useWorkAppConfig(false);
     const route = props.route;
+    const projectLogout = () => {
+        props.history.push({
+            pathname: '/logout',
+            state:{
+                preRoute: props.location.pathname
+            }
+        })
+    }
+
     return (
         <div className="frame">
             <LocalHeader
                 {...props}
-                routers={headerRouter}
                 logo={logo}
-                redirect={'/login'}
                 AppConfigComponent={component}
+                projectLogout={projectLogout}
+                search={<Search {...props}/>}
+                routers={headerRouter}
             />
             <div>
                 {renderRoutes(route.routes)}
@@ -57,4 +69,11 @@ const IndexSaas = (props) => {
     )
 }
 
-export default withRouter(IndexSaas);
+// const IndexHoc = verifyUserHoc(Layout)
+// function mapStateToProps(state) {
+//     return {
+//         pluginStore: state.pluginStore
+//     }
+// }
+// export default connect(mapStateToProps)(IndexHoc);
+export default Layout;

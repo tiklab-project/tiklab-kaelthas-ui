@@ -19,16 +19,19 @@ import {getUser} from 'doublekit-core-ui'
 import {formStores} from 'doublekit-form-ui'
 import {flowStores} from 'doublekit-flow-ui'
 import {messageModuleStores} from 'doublekit-message-ui'
-import { useLoadLanguage } from "doublekit-plugin-ui";
+import { createContainer, initFetch } from 'doublekit-plugin-ui';
 import "./assets/font-icon/iconfont"
 import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"
-import App from './app';
-
+import { useTranslation } from 'react-i18next';
+import resources from './common/language/resources';
 
 const Index = observer(() => {
     // useLoadLanguage(resources,fetchMethod, pluginAddressUrl, "zh")
+    const {i18n} = useTranslation();
+    const [visable, setVisable] =  useState(true);
+
     const allStore = {  
         ...privilegeStores,
         ...orgStores,
@@ -42,20 +45,33 @@ const Index = observer(() => {
     if (userInfo && userInfo.userId) {
         allStore.systemRoleStore.getSystemPermissions(userInfo.userId)
     }
-    // allStore.pluginsStore.initLoadPlugin(fetchMethod, pluginAddressUrl)
 
-    // useLoadLanguage(resources, method, plugin_url, 'zh')
+    const [pluginData,setPluginData] = useState({
+        routes: routers,
+        pluginStore:[],
+        languageStore:[]
+    });
+    useEffect(() => {
+        initFetch(fetchMethod, routers, resources,i18n).then(res => {
+            setPluginData(res)
+            setVisable(false)
+        })
+    }, []);
 
-    // 把所有的项目中的路由全部加载到插件store中。
-    // allStore.pluginsStore.setProjectRouter(routers)
+    const CounterContainer = createContainer();
 
-    
+    if(visable) return <div>加载。。。</div>
+
     return (
-        <Provider {...allStore}>
-            <HashRouter >
-                {renderRoutes(routers) }
-            </HashRouter>
-        </Provider>
+        <CounterContainer.Provider initialState={pluginData}>
+            <Provider {...allStore}>
+                <HashRouter >
+                    {
+                        renderRoutes(pluginData.routes)
+                    }
+                </HashRouter>
+            </Provider>
+        </CounterContainer.Provider>
     )
 });
 
