@@ -17,7 +17,7 @@ const layout = {
 
 const WikiAddmodal = (props) => {
     const [form] = Form.useForm();
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
     const {searchwiki,wikiTypelist,getWikiTypeList,getUseList,uselist } = props;
     const [wikiId,setWikiId] = useState("");
     const dateFormat = 'YYYY/MM/DD';
@@ -162,7 +162,7 @@ const WikiAddmodal = (props) => {
                         rules={[
                             {
                                 required: false,
-                                message: '请输入知识库编码',
+                                message: '请选择可见人员',
                             }
                         ]}
                     >

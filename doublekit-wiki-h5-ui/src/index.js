@@ -12,14 +12,14 @@ import {HashRouter} from "react-router-dom";
 import routers from './routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
-// import store from "./stores";
+import store from "./stores";
 // import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"
 import "./assets/index"
 const Index = () => {
     return (
-        <Provider>
+        <Provider {...store}>
             <HashRouter >
                 {renderRoutes(routers) }
             </HashRouter>

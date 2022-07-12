@@ -12,8 +12,11 @@ import { Redirect } from "react-router-dom";
 
 const Login = AsyncComponent(() => import('./modules/login/login'));
 const User = AsyncComponent(() => import("./modules/user/user"));
-const Wiki = AsyncComponent(() => import("./modules/wiki/components/wiki"));
-const WikiTabBar = AsyncComponent(() => import("./modules/homes/tabBar"))
+const Wiki = AsyncComponent(() => import("./modules/wiki/components/wikiRepository"));
+const WikiTabBar = AsyncComponent(() => import("./modules/homes/tabBar"));
+const WikiRepositoryAdd = AsyncComponent(() => import("./modules/wiki/components/wikiRepositoryAdd"))
+
+const RepositoryDetail = AsyncComponent(() => import("./modules/wikiDetail/components/repositoryDetail"))
 const routes = [
     {
         path: "/index",
@@ -39,7 +42,23 @@ const routes = [
             },
         ]
     },
-
+    {
+        path: "/wiki",
+        component: WikiRepositoryAdd,
+        routes: [
+            {
+                path: "/wiki/add",
+                exact: true,
+                component: WikiRepositoryAdd,
+                key: 'WikiRepositoryAdd'
+            },
+        ]
+    },
+    {
+        path: "/repositoryDetail",
+        component: RepositoryDetail,
+        key: 'RepositoryDetail'
+    },
     {
         path: "/",
         exact: true,

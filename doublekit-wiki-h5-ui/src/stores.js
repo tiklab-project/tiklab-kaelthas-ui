@@ -8,13 +8,14 @@
  */
 import { createContext } from 'react';
 
+import {WIKIREPOSITORY_STORE,WikiRepositoryStore} from "./modules/wiki/store/wikiRepositoryStore";
 
-import {LOGIN_STATUS,LoginStore} from "doublekit-portal-h5";
-import {SlateStore,SLATE_STORE} from "doublekit-slate-h5-ui"
+import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./modules/wikiDetail/store/repository";
+
 function createStores() {
     return {
-        [LOGIN_STATUS]:new LoginStore(),
-        [SLATE_STORE]:new SlateStore(),
+        [WIKIREPOSITORY_STORE]: new WikiRepositoryStore(),
+        [WIKICATELOGUE_STORE]: new WikiCatalogueStore()
     }
 }
 

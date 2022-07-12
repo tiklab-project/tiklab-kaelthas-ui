@@ -11,7 +11,7 @@ const WikiTabBar = (props) => {
     const route = props.route;
     const tabs = [
         {
-            key: '/index/home',
+            key: '/index/login',
             title: '首页',
             icon: <AppOutline />,
             badge: Badge.dot,
