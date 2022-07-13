@@ -7,11 +7,10 @@
  * @LastEditTime: 2021-09-28 13:31:22
  */
 import React, { useMemo, useCallback  } from "react";
-import renderElement from "./renderElement"
-import Leaf from "./leaf"
+import renderElement from "../components/renderElement"
+import Leaf from "../components/leaf"
 import { Slate, Editable, withReact } from "slate-react";
 import { createEditor } from "slate";
-import { useEffect } from "react";
 
 const PreviewEditor = (props) => {
     const {onChange,value } = props;

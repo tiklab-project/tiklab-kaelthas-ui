@@ -1,5 +1,5 @@
 import { observable, action} from "mobx";
-import { FindWikiCatalogue } from "../api/repository"
+import { FindWikiCatalogue, FindRepository, CreateCategory } from "../api/repository"
 export class WikiCatalogueStore {
     @observable wikiCatalogueList = [];
 
@@ -15,6 +15,20 @@ export class WikiCatalogueStore {
         return data.data;
     }
 
+    @action
+	findRepository = async(value) => {
+        const params = new FormData();
+        params.append("id", value.id)
+		const data = await FindRepository(params)
+        return data;
+    }
+
+    @action
+    createCategory = async(value) => {
+		const data = await CreateCategory(value)
+        return data;
+    }
+
 }
 
-export const WIKICATELOGUE_STORE = "WikiCatalogueStore"
+export const WIKICATELOGUE_STORE = "wikiCatalogueStore"

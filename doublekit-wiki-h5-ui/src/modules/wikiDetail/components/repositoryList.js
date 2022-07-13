@@ -13,20 +13,14 @@ import { observer, inject } from "mobx-react";
 import "./repositoryList.scss"
 const RepositoryList = (props) => {
     // 解析props
-    const { WikiCatalogueStore} = props
-    const { findWikiCatalogue, wikiCatalogueList} = WikiCatalogueStore;
-    
+    const { wikiCatalogueStore} = props
+    const { findWikiCatalogue, wikiCatalogueList} = wikiCatalogueStore;
+    const repositoryId = props.match.params.id
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
 
-    const [isHover, setIsHover] = useState(false)
-    // 菜单是否折叠
-    const [isShowText, SetIsShowText] = useState(true)
-    // 当前知识库id
-    // const wikiId = localStorage.getItem("wikiId")
-
     useEffect(() => {
-        findWikiCatalogue("23300f362f0cae1816a32e965adcd30f")
+        findWikiCatalogue(repositoryId)
     }, [])
 
     useEffect(() => {
@@ -43,11 +37,11 @@ const RepositoryList = (props) => {
         setSelectKey(id)
         if (formatType === "category") {
             localStorage.setItem("categoryId", id);
-            props.history.push(`/index/wikidetail/folder/${id}`)
+            props.history.push(`/categoryList/${repositoryId}/${id}`)
         }
         if (formatType === "document") {
             localStorage.setItem("documentId", id);
-            props.history.push(`/index/wikidetail/doc/${id}`)
+            props.history.push(`/document/${id}`)
         }
         if (formatType === "mindMap") {
             localStorage.setItem("documentId", id);
@@ -71,27 +65,7 @@ const RepositoryList = (props) => {
         }
     }, [isRename])
 
-    const reName = (value, id, formatType) => {
-        const name = value.target.innerText;
-        const params = {
-            name: name,
-            id: id
-        }
-        if (formatType === "category") {
-            updateWikiCatalogue(params).then(data => {
-                if (data.code === 0) {
-                    setIsRename(null)
-                }
-            })
-        }
-        if (formatType === "document") {
-            updateDocument(params).then(data => {
-                if (data.code === 0) {
-                    setIsRename(null)
-                }
-            })
-        }
-    }
+    
     /**
      * 折叠菜单
      */
@@ -100,84 +74,11 @@ const RepositoryList = (props) => {
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
-    const setOpenOrClose = key => {
+    const setOpenOrClose = (key) => {
         if (isExpandedTree(key)) {
             setExpandedTree(expandedTree.filter(item => item !== key))
         } else {
             setExpandedTree(expandedTree.concat(key));
-        }
-    }
-
-    const [moveCategoryId, setMoveCategoryId] = useState()
-    const [moveCategoryParentId, setMoveCategoryParentId] = useState()
-    const [formatType, setFormatType] = useState()
-    // 拖放效果
-    const moveWorkItem = () => {
-        const dragEvent = event.target
-        dragEvent.style.background = "#d0e5f2";
-
-    }
-
-    const moveStart = (moveId, fId, formatType) => {
-
-        event.stopPropagation();
-        console.log(moveId)
-        const dragEvent = event.target
-        dragEvent.style.background = "#d0e5f2";
-
-        // 被拖拽盒子的起始id
-        setMoveCategoryId(moveId)
-        setMoveCategoryParentId(fId)
-        setFormatType(formatType)
-    }
-
-    //必须有onDragOver才能触发onDrop
-    const dragover = () => {
-        event.preventDefault();
-    }
-
-    const changeLog = (targetId) => {
-        event.preventDefault();
-        let value;
-        if (targetId !== moveCategoryParentId) {
-            if (formatType === "category") {
-                if (targetId) {
-                    value = {
-                        parentCategory: { id: targetId },
-                        id: moveCategoryId
-                    }
-                } else {
-                    value = {
-                        id: moveCategoryId
-                    }
-                }
-                updateWikiCatalogue(value).then((res) => {
-                    if (res.code === 0) {
-                        findWikiCatalogue(wikiId).then((data) => {
-                            setWikiCatalogueList(data)
-                        })
-                    }
-                })
-            } else {
-                if (targetId) {
-                    value = {
-                        category: { id: targetId },
-                        id: moveCategoryId
-                    }
-                } else {
-                    value = {
-                        id: moveCategoryId
-                    }
-                }
-                updateDocument(value).then((res) => {
-                    if (res.code === 0) {
-                        findWikiCatalogue(wikiId).then((data) => {
-                            setWikiCatalogueList(data)
-                        })
-                    }
-                })
-            }
-
         }
     }
 
@@ -190,38 +91,28 @@ const RepositoryList = (props) => {
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((item, index) => {
-            return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
+            return <div className={`${!isExpandedTree(faid) ? "" : 'repository-list-menu-submenu-hidden'}`}
                 key={item.id}>
-                <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
+                <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
                     key={item.id}
-                    onClick={() => selectKeyFun(item.id, item.formatType)}
-                    onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
-                    onDrop={() => changeLog(item.id)}
-                    onDragOver={dragover}
-                    onDrag={() => moveWorkItem()}
-                    draggable="true"
-                    onDragStart={() => moveStart(item.id, faid, item.formatType)}
                 >
-                    <div style={{ paddingLeft: levels * 10 }}>
+                    <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
                         {
                             (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
-                                isExpandedTree(item.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#iconright" ></use>
+                                isExpandedTree(item.id) ? <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                    <use xlinkHref="#icon-right" ></use>
                                 </svg> :
-                                    <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                        <use xlinkHref="#icondown" ></use>
-                                    </svg> : <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref=""></use>
+                                <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                    <use xlinkHref="#icon-down" ></use>
+                                </svg> : <svg className="repository-list-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-point"></use>
                                 </svg>
                         }
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconB-13"></use>
+                        <svg className="repository-list-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-folder"></use>
                         </svg>
-                        <span className={`${isRename === item.id ? "wiki-input" : ""}`}
-                            contentEditable={isRename === item.id ? true : false}
-                            suppressContentEditableWarning
-                            onBlur={(value) => reName(value, item.id, item.formatType)}
-                            ref={isRename === item.id ? inputRef : null}
+                        <span
+                            onClick={() => selectKeyFun(item.id, item.formatType)}
                         >{item.name} </span>
                     </div>
                 </div>
@@ -236,29 +127,21 @@ const RepositoryList = (props) => {
     }
     const folderTree = (data, levels, faid) => {
         return data && data.length > 0 && data.map((item) => {
-            return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
+            return <div className={`${!isExpandedTree(faid) ? "" : 'repository-list-menu-submenu-hidden'}`}
                 key={item.id}
             >
-                <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
+                <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
                     key={item.id}
-                    onClick={() => selectKeyFun(item.id, item.typeId)}
-                    onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
-                    onDragOver={dragover}
-                    onDrag={() => moveWorkItem()}
-                    draggable="true"
-                    onDragStart={() => moveStart(item.id, faid, item.formatType)}
                 >
-                    <div style={{ paddingLeft: levels * 10 }} >
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref=""></use>
+                    <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
+                        <svg className="repository-list-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-point"></use>
                         </svg>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconB-06"></use>
+                        <svg className="repository-list-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-file"></use>
                         </svg>
-                        <span className={`${isRename === item.id ? "wiki-input" : ""}`}
-                            contentEditable={isRename === item.id ? true : false}
-                            suppressContentEditableWarning
-                            onBlur={(value) => reName(value, item.id, item.formatType)}
+                        <span
+                            onClick={() => selectKeyFun(item.id, item.typeId)}
                             ref={isRename === item.id ? inputRef : null}
                         >{item.name} </span>
                     </div>
@@ -268,10 +151,10 @@ const RepositoryList = (props) => {
     }
     return (
         <Fragment>
-                <div className={`wiki-aside ${isShowText ? "" : "wiki-icon"}`}>
-                    <div className="wiki-menu" onDrop={() => changeLog(null)} >
+                <div className={`repository-list-aside`}>
+                    <div className="repository-list-menu" >
                         {
-                            wikiCatalogueList && folderTree(wikiCatalogueList[1], 0, 1)
+                            wikiCatalogueList && wikiCatalogueList[1] && folderTree(wikiCatalogueList[1], 0, 1)
                         }
                         {
                             wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
@@ -281,4 +164,4 @@ const RepositoryList = (props) => {
         </Fragment>
     )
 }
-export default withRouter(inject("WikiCatalogueStore")(observer(RepositoryList)));
+export default withRouter(inject("wikiCatalogueStore")(observer(RepositoryList)));

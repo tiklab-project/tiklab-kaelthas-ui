@@ -85,10 +85,12 @@
     "dependencies": {
         "@ant-design/icons": "^4.3.0",
         "@province-city-china/level": "^7.1.3",
+        "ant-design": "^1.0.0",
         "antd-mobile": "^5.7.1",
         "axios": "^0.21.0",
         "doublekit-core-ui": "^1.0.0",
         "doublekit-eam-ui": "^1.0.0",
+        "doublekit-slate-h5-ui": "^1.0.1",
         "i18next": "^19.8.4",
         "i18next-browser-languagedetector": "^6.0.1",
         "mobx": "^5.15.4",

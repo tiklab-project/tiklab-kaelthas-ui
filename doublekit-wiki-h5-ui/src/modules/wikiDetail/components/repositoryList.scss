@@ -1,56 +1,32 @@
-.wiki-aside {
+.repository-list-aside {
     ul {
         padding: 0;
         margin: 0;
     }
-    // background: $side-color;
-    background-color: #F7F8FA;
-    .wiki-title {
-        height: 40px;
+    .repository-list-item {
         display: flex;
-        line-height: 40px;
-        width: 100%;
+        justify-content: flex-start;
         align-items: center;
-        padding: 0 10px;
-        // color: $blue-main;
-        color: #0053ca;
-        font-weight: 600;
-        justify-content: space-between;
-        span{
-            width: 100px;
-            height: 100%;
-            overflow: hidden;
-            i{
-                margin-right: 10px;
-            }
-        }
-        
-    }
-    .title {
-        border-bottom: 1px solid #f0f2f5;
-    }
-
-    .setting {
-        border-top: 1px solid #f0f2f5;
     }
     
-    .wiki-menu {
+    .repository-list-menu {
         list-style-type:none;
-        height: calc(100vh - 224px);
+        height: calc(100vh - 280px);
         cursor: pointer;
         overflow: auto;
-        .wiki-menu-submenu {
+        .repository-list-menu-submenu {
             height: 40px;
             display: flex;
             line-height: 40px;
             width: 100%;
             align-items: center;
             justify-content: space-between;
-            padding: 10px;
+            padding:0 10px;
+            box-sizing: border-box;
             i{
                 margin-right: 10px;
             }
-            .wiki-input {
+            .repository-list-input {
                 outline:0;
                 box-shadow: 0 0 0 2px #1890ff33;
                 min-width: 100px;
@@ -60,14 +36,14 @@
                 border-radius: 2px;
             }
         }
-        .wiki-menu-submenu:hover {
+        .repository-list-menu-submenu:hover {
             // background-color: $side-hover;
             background-color: #EDF0F5;
         }
-        .wiki-menu-submenu-hidden {
+        .repository-list-menu-submenu-hidden {
             display: none;
         }
-        .wiki-menu-select {
+        .repository-list-menu-select {
             // background-color: $side-select;
             background-color: #e3e8f0;
             border-left: 3px solid #0053ca;
@@ -76,23 +52,8 @@
             margin-left: 10px;
         }
     }
-    .hidden-menu {
-        display: none;
-    }
-    .icon-show {
-        display: block;
-    }
-    .icon-hidden {
-        display: none;
-    }
-    .wiki-priviege {
-        height: 40px;
-        line-height: 40px;
-        padding-left: 20px;
-        border-top: 1px solid #f0f2f5;
-        cursor: pointer;
-    }
-    .wiki-priviege:hover {
-        background-color: #EDF0F5;
-    }
+}
+.repository-list-icon {
+    width: 20px;
+    height: 20px;
 }

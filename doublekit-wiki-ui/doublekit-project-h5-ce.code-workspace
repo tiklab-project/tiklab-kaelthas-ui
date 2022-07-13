@@ -10,7 +10,7 @@
 			"path": "../doublekit-wiki-h5-ui"
 		},
 		{
-			"path": "../../doublekit-project-ui/doublekit-project-web"
+			"path": "../doublekit-wiki-editor-h5"
 		}
 	]
 }

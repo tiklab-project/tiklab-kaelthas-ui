@@ -16,7 +16,8 @@ import store from "./stores";
 // import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"
-import "./assets/index"
+import "./assets/index";
+import "./assets/font-icon/iconfont"
 const Index = () => {
     return (
         <Provider {...store}>

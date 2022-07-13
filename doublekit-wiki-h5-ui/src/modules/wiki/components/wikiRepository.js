@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { SafeArea, InfiniteScroll } from 'antd-mobile';
 import "./wikiRepository.scss";
 import { inject, observer } from "mobx-react";
-import { values } from "doublekit-eam-ui/lib/_utils/hooks/useWechatConfig";
 const Wiki = (props) => {
     const { wikirepositoryStore } = props;
     const { findRepositoryPage, repositoryList, repositoryCondition } = wikirepositoryStore;
@@ -17,8 +16,8 @@ const Wiki = (props) => {
         }
         findRepositoryPage(params)
     },[])
+
     const changePage = async() => {
-        // await console.log("99")
         const params = {
             pageParam: {
                 pageSize: 10,
@@ -41,7 +40,7 @@ const Wiki = (props) => {
                     <svg className="wiki-icon-logo" aria-hidden="true">
                         <use xlinkHref= "#icon-wiki"></use>
                     </svg>
-                    <div className="wiki-title">知识库</div>
+                    <div className="wiki-title">知识库22</div>
                 </div>
                 <div className="wiki-top-right">
                     <svg className="wiki-icon-search" aria-hidden="true">
@@ -56,7 +55,7 @@ const Wiki = (props) => {
             {
                 repositoryList && repositoryList.map(item => {
                     return (
-                        <div className="wiki-list-item" key={item.id}>
+                        <div className="wiki-list-item" key={item.id} onClick = {() => props.history.push(`/repositoryDetail/${item.id}`)}>
                             <div>
                                 <svg className="wiki-respository-logo" aria-hidden="true">
                                     <use xlinkHref= "#icon-respository"></use>

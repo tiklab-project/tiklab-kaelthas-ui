@@ -11,20 +11,14 @@ const WikiTabBar = (props) => {
     const route = props.route;
     const tabs = [
         {
-            key: '/index/login',
-            title: '首页',
-            icon: <AppOutline />,
-            badge: Badge.dot,
-        },
-        {
             key: '/index/wiki',
             title: '我的知识库',
             icon: <UnorderedListOutline />,
             badge: '5',
         },
         {
-            key: '/index/user',
-            title: '个人中心',
+            key: '/template',
+            title: '模板',
             icon: <UserOutline />,
         },
     ]

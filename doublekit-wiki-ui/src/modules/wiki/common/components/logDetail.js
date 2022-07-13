@@ -14,7 +14,7 @@ import AddLog from "./addLog"
 import TemplateList from "./templateList"
 import { useForm } from "antd/es/form/Form";
 const LogDetail = (props) => {
-    const { WikiCatalogueStore,} = props;
+    const { WikiCatalogueStore} = props;
     const { detailWikiLog, findCategoryDocument,findDmPrjRolePage,setWikiCatalogueList} = WikiCatalogueStore
     const categoryId = localStorage.getItem("categoryId");
     const [logList, setLogList] = useState();

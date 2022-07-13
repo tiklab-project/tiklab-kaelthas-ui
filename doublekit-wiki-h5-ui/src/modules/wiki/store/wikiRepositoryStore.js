@@ -50,15 +50,11 @@ export class WikiRepositoryStore {
 
     @action
 	addWikilist = async(values) => {
-        // let param = {
-        //     name: values.name,
-        //     limits: values.limits,
-        //     master:  {id: values.master},
-        //     desc: values.desc
-        // }
 		const data = await AddWikiList(values)
         return data;
     }
+
+   
 
 }
 

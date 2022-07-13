@@ -8,17 +8,18 @@
  */
 import React, {useState} from "react";
 import Editor from "../edit-slate/containers/editor";
-
+import PreviewEditor from "../edit-slate/containers/previewEditor"
 const ExampleEditor = () => {
     const [value, setValue] = useState([
 		{
 			type: "paragraph",
-			children: [{ text: "" }],
+			children: [{ text: "ewrwr" }],
 		},
 	])
     return (
         <div>
             <Editor value = {value} onChange = {setValue} showMenu = {true}/>
+            <PreviewEditor value = {value} onChange = {setValue} showMenu = {true}/>
         </div>
     )
 }

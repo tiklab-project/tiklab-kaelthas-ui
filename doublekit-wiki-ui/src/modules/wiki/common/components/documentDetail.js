@@ -45,8 +45,6 @@ const DocumentDetail = (props)=>{
 			if (data.code === 0) {
 				if(data.data.details){
                     setWorkData(JSON.parse(data.data.details),findWorkItem)
-                    console.log(JSON.parse(data.data.details))
-                    console.log("888",setWorkData(JSON.parse(data.data.details),findWorkItem))
                     setValue(JSON.parse(data.data.details))
                     // setWorkData(JSON.parse(data.data.details),findWorkItem)
                 }else {

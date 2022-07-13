@@ -17,6 +17,13 @@ const WikiTabBar = AsyncComponent(() => import("./modules/homes/tabBar"));
 const WikiRepositoryAdd = AsyncComponent(() => import("./modules/wiki/components/wikiRepositoryAdd"))
 
 const RepositoryDetail = AsyncComponent(() => import("./modules/wikiDetail/components/repositoryDetail"))
+const CategoryList = AsyncComponent(() => import("./modules/category/components/categoryList"))
+const RepositoryLogAdd = AsyncComponent(() => import("./modules/wikiDetail/components/repositoryLogAdd"))
+const DocumentView = AsyncComponent(() => import("./modules/category/components/documentView"))
+const WikiDocumentEdit = AsyncComponent(() => import("./modules/category/components/documentEdit"))
+const Template = AsyncComponent(() => import("./modules/template/container/template"))
+const TemplatePreview = AsyncComponent(() => import("./modules/template/components/templatePreview"))
+const TemplateAdd = AsyncComponent(()=> import("./modules/template/components/templateAdd"))
 const routes = [
     {
         path: "/index",
@@ -55,9 +62,44 @@ const routes = [
         ]
     },
     {
-        path: "/repositoryDetail",
+        path: "/repositoryDetail/:id",
         component: RepositoryDetail,
         key: 'RepositoryDetail'
+    },
+    {
+        path: "/repositoryLogAdd/:id",
+        component: RepositoryLogAdd,
+        key: 'RepositoryLogAdd'
+    },
+    {
+        path: "/categoryList/:resid/:id",
+        component: CategoryList,
+        key: 'CategoryList'
+    },
+    {
+        path: "/document/:id",
+        component: DocumentView,
+        key: 'DocumentView'
+    },
+    {
+        path: "/documentedit/:id",
+        component: WikiDocumentEdit,
+        key: 'WikiDocumentEdit'
+    },
+    {
+        path: "/template",
+        component: Template,
+        key: 'Template'
+    },
+    {
+        path: "/templatePreview/:id",
+        component: TemplatePreview,
+        key: 'TemplatePreview'
+    },
+    {
+        path: "/templateAdd",
+        component: TemplateAdd,
+        key: 'TemplateAdd'
     },
     {
         path: "/",
