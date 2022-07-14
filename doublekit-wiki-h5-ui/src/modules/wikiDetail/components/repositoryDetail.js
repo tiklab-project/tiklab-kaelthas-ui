@@ -5,15 +5,17 @@ import RepositoryList from "./repositoryList";
 import { observer, inject } from "mobx-react";
 import { withRouter } from "react-router";
 import RepositoryAdd from "./repositoryAdd";
+import RepositoryLogAdd from "./repositoryLogAdd"
+import RepositoryEdit from "./repositoryEdit";
 const RepositoryDetail = (props) => {
     const { wikiCatalogueStore } = props
-    const { findRepository } = wikiCatalogueStore;
+    const { findRepository, addVisible,setAddVisble, editVisible,setEditVisible,categoryId,setCategoryId,setCategoryType } = wikiCatalogueStore;
     const [repository, setRepository] = useState();
     const [visible, setVisible] = useState(false);
-    const [visibleAdd, setVisibleAdd] = useState(false);
     const repositoryId = props.match.params.id;
     useEffect(() => {
         initList()
+        setCategoryId(null)
     }, [])
 
     const initList = () => {
@@ -23,7 +25,11 @@ const RepositoryDetail = (props) => {
             }
         })
     }
-    
+    const addFirst = () => {
+        setVisible(true)
+        setCategoryId(null)
+        setCategoryType()
+    }
     return (
         <div className="repository-detail">
             <div style={{ background: '#ace0ff' }}>
@@ -37,10 +43,10 @@ const RepositoryDetail = (props) => {
                     <div className="repository-title">{repository ? repository.name : "知识库"}</div>
                 </div>
                 <div className="repository-top-right">
-                    <svg className="repository-icon-search" aria-hidden="true">
-                        <use xlinkHref="#icon-search"></use>
+                    <svg className="repository-icon-search" aria-hidden="true" onClick={() => props.history.push(`/repositorySet/${repositoryId}`)}>
+                        <use xlinkHref="#icon-edit"></use>
                     </svg>
-                    <svg className="repository-icon-add" aria-hidden="true" onClick={() => setVisible(true)}>
+                    <svg className="repository-icon-add" aria-hidden="true" onClick={() => addFirst()}>
                         <use xlinkHref="#icon-add"></use>
                     </svg>
                 </div>
@@ -64,53 +70,45 @@ const RepositoryDetail = (props) => {
                         文档
                     </div>
                 </div>
-                <RepositoryList />
+                <RepositoryList setVisible = {setVisible}/>
             </div>
             <RepositoryAdd 
                 visible = {visible}
                 setVisible = {setVisible}
-                visibleAdd = {visibleAdd}
-                setVisibleAdd = {setVisibleAdd}
+                // visibleAdd = {visibleAdd}
+                // setVisibleAdd = {setVisibleAdd}
                 repositoryId = {repositoryId}
                 initList= {initList}
+                {...props}
             />
-            {/* <Popup
-                className="repository-popup"
-                visible={visible}
-                onMaskClick={() => {
-                    setVisible(false)
-                }}
-                bodyStyle={{ height: '22vh' }}
-            >
-                <div className="repository-select">
-                    <div className="repository-select-list list-first">
-                        <svg className="repository-list-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-file"></use>
-                        </svg>
-                        新建文档
-                    </div>
-                    <div className="repository-select-list" onClick={()=> showAdd()}>
-                        <svg className="repository-list-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-folder"></use>
-                        </svg>
-                        新建目录
-                    </div>
-                </div>
-                <div className="repository-select-cancel" onClick={() => setVisible(false)}>
-                    取消
-                </div>
-            </Popup>
             <Modal 
                 className="repositoryLog-add"
-                visible={visibleAdd}
-                content={<RepositoryLogAdd repositoryId = {repositoryId} setVisibleAdd = {setVisibleAdd} setRepository= {setRepository}/>}
+                visible={addVisible}
+                content={<RepositoryLogAdd 
+                        repositoryId = {repositoryId} 
+                        parentCategoryId = {categoryId} 
+                        setVisibleAdd = {setAddVisble} 
+                        initList = {initList}
+                />}
                 onClose={() => {
-                    setVisibleAdd(false)
+                    setAddVisble(false)
                 }}
                 closeOnMaskClick = {true}
             >
                 
-            </Modal> */}
+            </Modal>
+            <Modal 
+                className="repositoryLog-add"
+                visible={editVisible}
+                content={<RepositoryEdit />}
+                onClose={() => {
+                    setEditVisible(false)
+                }}
+                destroyOnClose = {true}
+                closeOnMaskClick = {true}
+            >
+                
+            </Modal>
         </div>
     )
 }

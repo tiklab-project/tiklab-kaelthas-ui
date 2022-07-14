@@ -17,7 +17,7 @@ const WikiTabBar = (props) => {
             badge: '5',
         },
         {
-            key: '/template',
+            key: '/index/template',
             title: '模板',
             icon: <UserOutline />,
         },

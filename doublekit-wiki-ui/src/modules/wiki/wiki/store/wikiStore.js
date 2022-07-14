@@ -148,7 +148,6 @@ export class WikiStore {
                 })
             }
         )
-		
 	}
     @action
     getWikiTypeList = () => {

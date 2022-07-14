@@ -24,6 +24,8 @@ const WikiDocumentEdit = AsyncComponent(() => import("./modules/category/compone
 const Template = AsyncComponent(() => import("./modules/template/container/template"))
 const TemplatePreview = AsyncComponent(() => import("./modules/template/components/templatePreview"))
 const TemplateAdd = AsyncComponent(()=> import("./modules/template/components/templateAdd"))
+const RepositorySet = AsyncComponent(()=> import("./modules/repositorySet/components/repositorySet"))
+const EditRespositoryName = AsyncComponent(()=> import("./modules/repositorySet/components/editName.js"))
 const routes = [
     {
         path: "/index",
@@ -36,16 +38,16 @@ const routes = [
                 key: 'Login'
             },
             {
-                path: "/index/user",
-                exact: true,
-                component: User,
-                key: 'User'
-            },
-            {
                 path: "/index/wiki",
                 exact: true,
                 component: Wiki,
                 key: 'Wiki'
+            },
+            {
+                path: "/index/template",
+                exact: true,
+                component: Template,
+                key: 'Template'
             },
         ]
     },
@@ -102,9 +104,19 @@ const routes = [
         key: 'TemplateAdd'
     },
     {
+        path: "/repositorySet/:id",
+        component: RepositorySet,
+        key: 'RepositorySet'
+    },
+    {
+        path: "/editRespositoryName/:name",
+        component: EditRespositoryName,
+        key: 'EditRespositoryName'
+    },
+    {
         path: "/",
         exact: true,
-        component: () => <Redirect to="/index/login" />,
+        component: () => <Redirect to="/index/wiki" />,
     }
 ]
 export default routes;

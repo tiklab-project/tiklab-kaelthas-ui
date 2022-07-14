@@ -47,11 +47,6 @@ export class WikiCatalogueStore {
         return data;
     }
 
-    /**
-     * 更新目录
-     * @param {*} params 
-     * @returns 
-     */
     @action
     updateWikiCatalogue= async(params)=> {
         const data = await UpdateWikiCatalogue(params);

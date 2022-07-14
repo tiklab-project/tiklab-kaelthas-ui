@@ -25,3 +25,56 @@ export function CreateCategory(data){
         data
     })
 }
+
+// 删除文档
+export function DeleteDocument(data){
+    return service.request({
+        url: "/document/deleteDocument",
+        method: "post",
+        data
+    })
+}
+
+// 删除目录
+export function DeleteCategory(data){
+    return service.request({
+        url: "/category/deleteCategory",
+        method: "post",
+        data
+    })
+}
+
+// 获取模板列表
+export function FindDocumentTemplatePage(data){
+    return service.request({
+        url: "/documentTemplate/findDocumentTemplatePage",
+        method: "post",
+        data
+    })
+}
+
+export function CreateDocument(data){
+    return service.request({
+        url: "/document/createDocument",
+        method: "post",
+        data
+    })
+}
+
+//更新目录
+export function UpdateCategory(data){
+    return service.request({
+        url: "/category/updateCategory",
+        method: "post",
+        data
+    })
+}
+
+ // 更新文档
+ export function UpdateDocument(data){
+    return service.request({
+        url: "/document/updateDocument",
+        method: "post",
+        data
+    })
+}

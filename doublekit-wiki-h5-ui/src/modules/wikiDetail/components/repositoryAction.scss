@@ -1,0 +1,43 @@
+.repository-action-popup {
+
+    height: 22vh;
+    
+    .adm-popup-body {
+        margin: 0 5px;
+        width: calc(100vw - 10px);
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 0 10px;
+        box-sizing: border-box;
+        background-color: transparent;
+    }
+    .repository-select {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 0 10px;
+    }
+    .repository-select-list {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        padding: 10px 20px;
+        box-sizing: content-box;
+    }
+    .list-first {
+        border-bottom: 1px solid #f0f0f0;
+    }
+    .repository-list-icon {
+        width: 30px;
+        height: 30px;
+        margin-right: 20px;
+    }
+    .repository-select-cancel {
+        height: 40px;
+        line-height: 40px;
+        border-radius: 10px;
+        text-align: center;
+        font-size: 15px;
+        background-color: #fff;
+        margin-top: 10px;
+    }
+}

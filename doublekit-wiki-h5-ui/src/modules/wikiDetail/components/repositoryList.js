@@ -10,19 +10,27 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
+import { SwipeAction,Modal } from 'antd-mobile';
 import "./repositoryList.scss"
+import RepositoryAction from './repositoryAction';
+
+import RepositoryLogAdd from "./repositoryLogAdd";
 const RepositoryList = (props) => {
     // 解析props
-    const { wikiCatalogueStore} = props
-    const { findWikiCatalogue, wikiCatalogueList} = wikiCatalogueStore;
-    const repositoryId = props.match.params.id
+    const { wikiCatalogueStore,setVisible } = props
+    const { findWikiCatalogue, wikiCatalogueList,setCategoryId,setCategoryType,actionVisible, setActionVisible,setWikiName } = wikiCatalogueStore;
+    const repositoryId = props.match.params.id;
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
-
+    
+   
     useEffect(() => {
-        findWikiCatalogue(repositoryId)
+        initList()
     }, [])
 
+    const initList = () => {
+        findWikiCatalogue(repositoryId)
+    }
     useEffect(() => {
         // 初次进入激活导航菜单
         setSelectKey(props.location.pathname)
@@ -50,7 +58,7 @@ const RepositoryList = (props) => {
     }
 
 
-    
+
     /**
      * 更新目录
      */
@@ -65,7 +73,7 @@ const RepositoryList = (props) => {
         }
     }, [isRename])
 
-    
+
     /**
      * 折叠菜单
      */
@@ -82,40 +90,98 @@ const RepositoryList = (props) => {
         }
     }
 
-    /**
-     * @param {*} data 
-     * @param {*} levels 
-     * @returns 
-     */
+    const showActionPopupDoc = (id,name) => {
+        console.log(id)
+        setActionVisible(true)
+        setCategoryId(id)
+        setCategoryType("document")
+        setWikiName(name)
+    }
+
+    const showActionPopupLog = (id,name) => {
+        console.log(id)
+        setActionVisible(true)
+        setCategoryId(id)
+        setCategoryType("log")
+        setWikiName(name)
+    }
+
+    const showAddCatePopup = (id) => {
+        console.log(id)
+        setVisible(true)
+        setCategoryId(id)
+        // setCategory({ id: id, categoryType: "document" })
+    }
+
+    const runInAction = (id,name, action) => {
+        console.log(name)
+        action(id,name)
+    }
+    const rightActions = [
+        {
+            key: 'more',
+            text: <svg className="repository-list-icon" aria-hidden="true">
+                <use xlinkHref="#icon-more"></use>
+            </svg>,
+            color: 'light',
+            onClick: showActionPopupDoc
+        }
+    ]
+
+    const rightActionsLog = [
+        {
+            key: 'more',
+            text: <svg className="repository-list-icon" aria-hidden="true">
+                <use xlinkHref="#icon-more"></use>
+            </svg>,
+            color: 'light',
+            onClick: showActionPopupLog
+        },
+        {
+            key: 'add',
+            text: <svg className="repository-list-icon" aria-hidden="true">
+                <use xlinkHref="#icon-addList"></use>
+            </svg>,
+            color: '#5D70EA',
+            onClick: showAddCatePopup
+        }
+    ]
 
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((item, index) => {
             return <div className={`${!isExpandedTree(faid) ? "" : 'repository-list-menu-submenu-hidden'}`}
                 key={item.id}>
-                <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
+                <SwipeAction
                     key={item.id}
+                    rightActions={rightActionsLog}
+                    onAction={(action, e) => runInAction(item.id, item.name, action.onClick)}
                 >
-                    <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
-                        {
-                            (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
-                                isExpandedTree(item.id) ? <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#icon-right" ></use>
-                                </svg> :
-                                <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#icon-down" ></use>
-                                </svg> : <svg className="repository-list-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-point"></use>
-                                </svg>
-                        }
-                        <svg className="repository-list-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-folder"></use>
-                        </svg>
-                        <span
-                            onClick={() => selectKeyFun(item.id, item.formatType)}
-                        >{item.name} </span>
+                    <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
+                        key={item.id}
+                    >
+                        <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
+                            {
+                                (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
+                                    isExpandedTree(item.id) ? <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                        <use xlinkHref="#icon-right" ></use>
+                                    </svg> :
+                                        <svg className="repository-list-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                            <use xlinkHref="#icon-down" ></use>
+                                        </svg> : <svg className="repository-list-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-point"></use>
+                                    </svg>
+                            }
+                            <svg className="repository-list-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-folder"></use>
+                            </svg>
+                            <span
+                                id={`name${item.id}`}
+                                onClick={() => selectKeyFun(item.id, item.formatType)}
+                            >{item.name} </span>
+                        </div>
                     </div>
-                </div>
+                </SwipeAction>
                 {
                     item.children && item.children.length > 0 && (newLevels = levels + 1) && logTree(item.children, newLevels, item.id)
                 }
@@ -127,40 +193,53 @@ const RepositoryList = (props) => {
     }
     const folderTree = (data, levels, faid) => {
         return data && data.length > 0 && data.map((item) => {
-            return <div className={`${!isExpandedTree(faid) ? "" : 'repository-list-menu-submenu-hidden'}`}
+            return <SwipeAction
                 key={item.id}
+                rightActions={rightActions}
+                onAction={(action, e) => runInAction(item.id, item.name, action.onClick)}
             >
-                <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
+                <div className={`${!isExpandedTree(faid) ? "" : 'repository-list-menu-submenu-hidden'}`}
                     key={item.id}
                 >
-                    <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
-                        <svg className="repository-list-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-point"></use>
-                        </svg>
-                        <svg className="repository-list-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-file"></use>
-                        </svg>
-                        <span
-                            onClick={() => selectKeyFun(item.id, item.typeId)}
-                            ref={isRename === item.id ? inputRef : null}
-                        >{item.name} </span>
+                    <div className={`repository-list-menu-submenu ${item.id === selectKey ? "repository-list-menu-select" : ""} `}
+                        key={item.id}
+                    >
+                        <div style={{ paddingLeft: levels * 10 }} className="repository-list-item">
+                            <svg className="repository-list-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-point"></use>
+                            </svg>
+                            <svg className="repository-list-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-file"></use>
+                            </svg>
+                            <span
+                                onClick={() => selectKeyFun(item.id, item.typeId)}
+                                id={`name${item.id}`}
+                            >{item.name} </span>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </SwipeAction>
         })
     }
     return (
         <Fragment>
-                <div className={`repository-list-aside`}>
-                    <div className="repository-list-menu" >
-                        {
-                            wikiCatalogueList && wikiCatalogueList[1] && folderTree(wikiCatalogueList[1], 0, 1)
-                        }
-                        {
-                            wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
-                        }
-                    </div>
+            <div className={`repository-list-aside`}>
+                <div className="repository-list-menu" >
+                    {
+                        wikiCatalogueList && wikiCatalogueList[1] && folderTree(wikiCatalogueList[1],1, 1)
+                    }
+                    {
+                        wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
+                    }
                 </div>
+            </div>
+            <RepositoryAction
+                actionVisible={actionVisible}
+                setActionVisible={setActionVisible}
+                initList={initList}
+            />
+            
+           
         </Fragment>
     )
 }

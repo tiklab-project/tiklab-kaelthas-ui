@@ -30,6 +30,10 @@ const Wiki = (props) => {
             setHasMore(data.data.length > 0)
         }
     }
+    const goRepository = (id) => {
+        props.history.push(`/repositoryDetail/${id}`)
+        localStorage.setItem("respositoryId", id)
+    }
     return (
         <div className="wiki">
             <div style={{ background: '#ace0ff' }}>
@@ -55,7 +59,7 @@ const Wiki = (props) => {
             {
                 repositoryList && repositoryList.map(item => {
                     return (
-                        <div className="wiki-list-item" key={item.id} onClick = {() => props.history.push(`/repositoryDetail/${item.id}`)}>
+                        <div className="wiki-list-item" key={item.id} onClick = {() =>goRepository(item.id)}>
                             <div>
                                 <svg className="wiki-respository-logo" aria-hidden="true">
                                     <use xlinkHref= "#icon-respository"></use>

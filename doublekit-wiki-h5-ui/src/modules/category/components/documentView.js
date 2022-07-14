@@ -86,7 +86,7 @@ const DocumentView = (props) => {
                 id: documentId
             },
             details: commontContent,
-            user: {id:JSON.parse(localStorage.getItem("authConfig")).id}
+            user: {id: "111111"}
         }
         createComment(data).then(data=> {
             findCommentPage({documentId:documentId}).then(data => {
@@ -108,7 +108,7 @@ const DocumentView = (props) => {
                 id: documentId
             },
             details: commontContent,
-            user: {id:JSON.parse(localStorage.getItem("authConfig")).id}
+            user: {id: "111111"}
         }
         createComment(data).then(data=> {
             findCommentPage({documentId:documentId}).then(data => {

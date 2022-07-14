@@ -1,16 +1,24 @@
 import React, { useEffect, useState,Fragment } from "react";
 import { SafeArea, Popup, Modal } from 'antd-mobile';
 import "./repositoryDetail.scss"
-import RepositoryLogAdd from "./repositoryLogAdd";
+import { observer, inject } from "mobx-react";
+import { withRouter } from "react-router";
+import RepositoryAddSelectTemplate from "./repositoryAddSelectTemplate";
 const RepositoryAdd = (props) => {
-    const {visible, setVisible, visibleAdd, setVisibleAdd,repositoryId,parentCategoryId,initList} = props;
-
+    const {visible, setVisible, wikiCatalogueStore} = props;
+    const {setAddVisible, setCategoryType} = wikiCatalogueStore
+    const [addDocVisible, setAddDocVisible] = useState(false);
     const showAdd = ()=> {
         setVisible(false)
         // props.history.push(`/repositoryLogAdd/${repositoryId}`)
-        setVisibleAdd(true)
+        setAddVisible(true)
+        setCategoryType("log")
     }
-
+    const showTempalte = () => {
+        setAddDocVisible(true)
+        setVisible(false)
+        setCategoryType("document")
+    }
     return (
         <Fragment>
             <Popup
@@ -22,8 +30,8 @@ const RepositoryAdd = (props) => {
                 bodyStyle={{ height: '22vh' }}
             >
                 <div className="repository-select">
-                    <div className="repository-select-list list-first">
-                        <svg className="repository-list-icon" aria-hidden="true">
+                    <div className="repository-select-list list-first" onClick={() => showTempalte()}>
+                        <svg className="repository-list-icon" aria-hidden="true" >
                             <use xlinkHref="#icon-file"></use>
                         </svg>
                         新建文档
@@ -39,18 +47,13 @@ const RepositoryAdd = (props) => {
                     取消
                 </div>
             </Popup>
-            <Modal 
-                className="repositoryLog-add"
-                visible={visibleAdd}
-                content={<RepositoryLogAdd repositoryId = {repositoryId} parentCategoryId = {parentCategoryId} setVisibleAdd = {setVisibleAdd} initList = {initList}/>}
-                onClose={() => {
-                    setVisibleAdd(false)
-                }}
-                closeOnMaskClick = {true}
-            >
-                
-            </Modal>
+            
+            
+            <RepositoryAddSelectTemplate 
+                addDocVisible = {addDocVisible}
+                setAddDocVisible = {setAddDocVisible}
+            />
         </Fragment>
     )
 }
-export default RepositoryAdd;
+export default withRouter(inject("wikiCatalogueStore")(observer(RepositoryAdd)));

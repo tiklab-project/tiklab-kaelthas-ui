@@ -14,6 +14,7 @@ import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./modules/wikiDetail/store
 import {WIKICATEGORY_STORE, WikiCategoryStore} from "./modules/category/store/categoryStore"
 import {DOCUMENTCOMMON_STORE, DocumentCommon} from "./modules/category/store/doucmentCommon"
 import {TEMPLATE_STORE,TemplateStore } from "./modules/template/store/templateStore"
+import {REPOSITORY_STORE,RepositorySetStoroe } from "./modules/repositorySet/store/repositorySetStore"
 function createStores() {
     return {
         [WIKIREPOSITORY_STORE]: new WikiRepositoryStore(),
@@ -21,7 +22,8 @@ function createStores() {
         [WIKICATEGORY_STORE]: new WikiCategoryStore(),
         [DOCUMENTCOMMON_STORE]: new DocumentCommon(),
         [SLATE_STORE]: new SlateStore(),
-        [TEMPLATE_STORE]: new TemplateStore()
+        [TEMPLATE_STORE]: new TemplateStore(),
+        [REPOSITORY_STORE]: new RepositorySetStoroe()
     }
 }
 

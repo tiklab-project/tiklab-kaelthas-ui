@@ -1,0 +1,52 @@
+.repository-top {
+    height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0 10px;
+    .repository-title {
+        margin-left: 20px;
+        font-weight: 600;
+    }
+
+    .repository-icon-logo {
+        width: 30px;
+        height: 30px;
+    }
+}
+.repository-set {
+    background-color: #f9f9f9;
+    height: 100vh;
+}
+.repository-set-contant {
+    margin: 10px;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    background-color: #fff;
+    .repository-set-item {
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        border-bottom: 0.2px solid #f0f0f0;
+        margin: 0 10px;
+        justify-content: space-between;
+    }
+    :nth-child(3){
+        border: 0;
+    }
+    .repository-set-icon {
+        width: 30px;
+        height: 30px;
+    }
+    .delete {
+        align-items: center;
+        color: red;
+        display: flex;
+        justify-content: center;
+    }
+    .item-right {
+        display: inline-flex;
+        align-items: center;
+    }
+}
