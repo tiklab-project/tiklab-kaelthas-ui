@@ -1,15 +1,15 @@
 import {service} from "../../../common/utils/requset";
 // import "../../../../mock/mocklog"
-export function FindRepository(data){
+export function FindCategory(data){
     return service.request({
-        url: "/repository/findRepository",
+        url: "/category/findCategory",
         method: "post",
         data
     })
 }
-export function UpdateRepository(data){
+export function UpdateCategory(data){
     return service.request({
-        url: "/repository/updateRepository",
+        url: "/category/updateCategory",
         method: "post",
         data
     })

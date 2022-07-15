@@ -43,8 +43,8 @@ const Template = (props) => {
             </div>
             <div className="category-top">
                 <div className="category-top-left">
-                    <svg className="category-icon-logo" aria-hidden="true" onClick={() => props.history.goBack()}>
-                        <use xlinkHref="#icon-left"></use>
+                    <svg className="category-icon-logo" aria-hidden="true">
+                        <use xlinkHref="#icon-templateList"></use>
                     </svg>
                     <div className="category-title">模板</div>
                 </div>

@@ -10,11 +10,10 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { SwipeAction,Modal } from 'antd-mobile';
+import { SwipeAction,Empty,Toast } from 'antd-mobile';
 import "./repositoryList.scss"
 import RepositoryAction from './repositoryAction';
 
-import RepositoryLogAdd from "./repositoryLogAdd";
 const RepositoryList = (props) => {
     // 解析props
     const { wikiCatalogueStore,setVisible } = props
@@ -52,8 +51,14 @@ const RepositoryList = (props) => {
             props.history.push(`/document/${id}`)
         }
         if (formatType === "mindMap") {
-            localStorage.setItem("documentId", id);
-            props.history.push(`/index/wikidetail/mindmap/${id}`)
+            Toast.show({
+                content: '此文档为脑图，请在电脑端查看',
+                afterClose: () => {
+                  console.log('after')
+                },
+            })
+            // localStorage.setItem("documentId", id);
+            // props.history.push(`/index/wikidetail/mindmap/${id}`)
         }
     }
 
@@ -208,9 +213,19 @@ const RepositoryList = (props) => {
                             <svg className="repository-list-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-point"></use>
                             </svg>
-                            <svg className="repository-list-icon" aria-hidden="true">
+                            {/* <svg className="repository-list-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-file"></use>
-                            </svg>
+                            </svg> */}
+                            {
+                                item.typeId === "document" && <svg className="repository-list-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-file"></use>
+                                </svg>
+                            }
+                            {
+                                item.typeId === "mindMap" && <svg className="repository-list-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-minmap"></use>
+                                </svg>
+                            }
                             <span
                                 onClick={() => selectKeyFun(item.id, item.typeId)}
                                 id={`name${item.id}`}
@@ -230,6 +245,12 @@ const RepositoryList = (props) => {
                     }
                     {
                         wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
+                    }
+                    {
+                        wikiCatalogueList.length <= 0 && <Empty
+                            style={{ padding: '64px 0' }}
+                            description='暂无数据'
+                        />
                     }
                 </div>
             </div>

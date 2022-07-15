@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-09-10 16:51:01
  */
 import { observable, action} from "mobx";
-import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../api/documentCommon"
+import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare, UpdateDocument, UpdateComment, DeleteComment} from "../api/documentCommon"
 export class DocumentCommon {
     @observable wikiCommonList = [];
     @observable commonPageParams = [];
@@ -39,6 +39,26 @@ export class DocumentCommon {
     @action
     updateShare = async(value)=> {
         const data = await UpdateShare(value)
+        return data;
+    }
+
+    @action
+    updateDocument = async(value)=> {
+        const data = await UpdateDocument(value)
+        return data;
+    }
+
+    @action
+    updateComment = async(value)=> {
+        const data = await UpdateComment(value)
+        return data;
+    }
+
+    @action
+    deleteComment = async(value)=> {
+        const params = new FormData();
+        params.append("id", value)
+        const data = await DeleteComment(params)
         return data;
     }
 }

@@ -8,7 +8,7 @@
  */
 const orgaRouter = [
     {
-        title: '系统权限中心',
+        title: '权限中心',
         icon: 'icon1_megaphone-money',
         key: "/index/sysmgr/systemFeature",
         encoded: "system",
@@ -24,15 +24,7 @@ const orgaRouter = [
                 icon: 'icon1_gameboy',
                 key: '/index/sysmgr/systemRole',
                 encoded: "systemRole",
-            }
-        ]
-    },
-    {
-        title: '项目权限中心',
-        icon: 'icon1_gold-bars',
-        key: "/index/sysmgr/projectFeature",
-        encoded: "project",
-        children: [
+            },
             {
                 title: '功能管理',
                 icon: 'icon1_gameboy',
@@ -44,7 +36,7 @@ const orgaRouter = [
                 icon: 'icon1_user5',
                 key: '/index/sysmgr/projectRole',
                 encoded: "projectRole",
-            }   
+            }  
         ]
     },
     {

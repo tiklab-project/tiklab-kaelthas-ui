@@ -15,7 +15,6 @@ const RepositoryLogAdd = (props) => {
     }, [])
 
     const createResposity = (values) => {
-        console.log(values)
         if (categoryType === "document") {
             const param = {
                 name: values.name,

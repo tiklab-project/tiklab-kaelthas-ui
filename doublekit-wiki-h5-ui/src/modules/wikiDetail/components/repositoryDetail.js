@@ -7,11 +7,13 @@ import { withRouter } from "react-router";
 import RepositoryAdd from "./repositoryAdd";
 import RepositoryLogAdd from "./repositoryLogAdd"
 import RepositoryEdit from "./repositoryEdit";
+import DocumentShare from "../../category/components/documentShare";
 const RepositoryDetail = (props) => {
     const { wikiCatalogueStore } = props
     const { findRepository, addVisible,setAddVisble, editVisible,setEditVisible,categoryId,setCategoryId,setCategoryType } = wikiCatalogueStore;
     const [repository, setRepository] = useState();
     const [visible, setVisible] = useState(false);
+    const [shareVisible, setShareVisible] = useState(false)
     const repositoryId = props.match.params.id;
     useEffect(() => {
         initList()
@@ -59,7 +61,7 @@ const RepositoryDetail = (props) => {
                     <div className="repository-share">
                         收藏
                     </div>
-                    <div className="repository-share">
+                    <div className="repository-share" onClick={() => setShareVisible(true)}>
                         分享
                     </div>
                 </div>
@@ -75,8 +77,6 @@ const RepositoryDetail = (props) => {
             <RepositoryAdd 
                 visible = {visible}
                 setVisible = {setVisible}
-                // visibleAdd = {visibleAdd}
-                // setVisibleAdd = {setVisibleAdd}
                 repositoryId = {repositoryId}
                 initList= {initList}
                 {...props}
@@ -94,9 +94,7 @@ const RepositoryDetail = (props) => {
                     setAddVisble(false)
                 }}
                 closeOnMaskClick = {true}
-            >
-                
-            </Modal>
+            />
             <Modal 
                 className="repositoryLog-add"
                 visible={editVisible}
@@ -106,9 +104,8 @@ const RepositoryDetail = (props) => {
                 }}
                 destroyOnClose = {true}
                 closeOnMaskClick = {true}
-            >
-                
-            </Modal>
+            />
+            <DocumentShare shareVisible = {shareVisible} setShareVisible = {setShareVisible} {...props}/>
         </div>
     )
 }

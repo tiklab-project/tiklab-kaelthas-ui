@@ -17,6 +17,22 @@ export function CreateComment(data){
     })
 }
 
+export function UpdateComment(data){
+    return service.request({
+        url: "/comment/updateComment",
+        method: "post",
+        data
+    })
+}
+
+export function DeleteComment(data){
+    return service.request({
+        url: "/comment/deleteComment",
+        method: "post",
+        data
+    })
+}
+
 // 添加评论
 export function FindCommentPage(data){
     return service.request({
@@ -48,6 +64,15 @@ export function CreateShare(data){
 export function UpdateShare(data){
     return service.request({
         url: "/share/cutHaveOrNotAuthCode",
+        method: "post",
+        data
+    })
+}
+
+// 更新分享格式
+export function UpdateDocument(data){
+    return service.request({
+        url: "/document/updateDocument",
         method: "post",
         data
     })

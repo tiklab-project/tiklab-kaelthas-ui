@@ -31,16 +31,12 @@ const ShareDocument = AsyncComponent(() => import('./modules/share/shareDocument
 // 分享文档页面
 const PassWord = AsyncComponent(() => import('./modules/share/passWord'))
 
-//权限中心
-// 系统 功能管理
-const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/components/systemFeature'))
 
-// 系统角色管理
-const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/components/systemRole'))
+const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/systemFeature'))
+const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRole'))
+const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
+const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
 
-// 项目功能管理
-const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/components/wikiFeature'))
-const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/components/wikiRole'))
 const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/containers/orga'))
 const DocumentEditor = AsyncComponent(() => import('./modules/wiki/common/components/edit-slate/editor'))
 

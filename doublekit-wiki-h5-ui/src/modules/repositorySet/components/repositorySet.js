@@ -4,9 +4,9 @@ import { inject, observer } from "mobx-react";
 import "./repositorySet.scss"
 import { withRouter } from "react-router";
 const RepositorySet = (props) => {
-    const {repositorySetStoroe} = props;
+    const {repositorySetStore} = props;
 
-    const {findRepository} = repositorySetStoroe;
+    const {findRepository} = repositorySetStore;
     const repositoryId = props.match.params.id;
     const [repositoryInfo, setRepositoryInfo] = useState()
     useEffect(()=> {
@@ -16,6 +16,7 @@ const RepositorySet = (props) => {
             }
         })
     },[])
+    console.log()
     return (
         <div className="repository-set">
             <div style={{ background: '#ace0ff' }}>
@@ -38,7 +39,7 @@ const RepositorySet = (props) => {
                         </svg>
                     </div>
                 </div>
-                <div className="repository-set-item">
+                <div className="repository-set-item" onClick={() => props.history.push(`/editRespositoryMaster/${repositoryInfo.master.name}`)}>
                     <div>负责人</div>
                     <div className="item-right">
 
@@ -48,7 +49,7 @@ const RepositorySet = (props) => {
                         </svg>
                     </div>
                 </div>
-                <div className="repository-set-item">
+                <div className="repository-set-item" onClick={() => props.history.push(`/editRespositoryDesc/${repositoryInfo.desc}`)}>
                     <div>知识库描述</div>
                     <div className="item-right">
 
@@ -71,4 +72,4 @@ const RepositorySet = (props) => {
     )
 }
 
-export default withRouter(inject("repositorySetStoroe")(observer(RepositorySet)));
+export default withRouter(inject("repositorySetStore")(observer(RepositorySet)));

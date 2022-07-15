@@ -10,12 +10,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { SafeArea, SwipeAction, Modal } from 'antd-mobile';
+import { SafeArea, SwipeAction, Modal, Empty, Toast } from 'antd-mobile';
 import "./categoryList.scss";
 import RepositoryAdd from "../../wikiDetail/components/repositoryAdd";
 import RepositoryLogAdd from '../../wikiDetail/components/repositoryLogAdd';
 import RepositoryAction from '../../wikiDetail/components/repositoryAction';
 import RepositoryEdit from '../../wikiDetail/components/repositoryEdit';
+import DocumentShare from './documentShare';
 const CategoryList = (props) => {
     // 解析props
     const { wikiCategoryStore, wikiCatalogueStore } = props
@@ -28,7 +29,8 @@ const CategoryList = (props) => {
     const [visibleAdd, setVisibleAdd] = useState(false);
     const categoryId = props.match.params.id;
     const repositoryId = props.match.params.resid;
-    // const [actionVisible, setActionVisible] = useState(false);
+    const [shareVisible, setShareVisible] = useState(false);
+
     useEffect(() => {
         initList()
         findCategory({ id: categoryId }).then(res => {
@@ -58,24 +60,7 @@ const CategoryList = (props) => {
         props.history.push(`/categoryList/${repositoryId}/${id}`)
     }
 
-
-
-    /**
-     * 更新目录
-     */
-    const inputRef = React.useRef(null);
-    const [isRename, setIsRename] = useState()
-    useEffect(() => {
-        if (isRename) {
-            inputRef.current.autofocus = true;
-            let range = getSelection();//创建range
-            range.selectAllChildren(inputRef.current);//range 选择obj下所有子内容
-            range.collapseToEnd()
-        }
-    }, [isRename])
-
     const showActionPopupDoc = (id, name) => {
-        console.log(id)
         setActionVisible(true)
         setCategoryId(id)
         setCategoryType("document")
@@ -83,7 +68,6 @@ const CategoryList = (props) => {
     }
 
     const showActionPopupLog = (id,name) => {
-        console.log(id)
         setActionVisible(true)
         setCategoryId(id)
         setCategoryType("log")
@@ -91,14 +75,24 @@ const CategoryList = (props) => {
     }
 
     const showAddCatePopup = (id) => {
-        console.log(id)
         setVisible(true)
         setCategoryId(id)
-        // setCategory({ id: id, categoryType: "document" })
     }
 
     const runInAction = (id, name, action) => {
         action(id, name)
+    }
+    
+    const goDocumentDetail = (id, typeId) => {
+        if(typeId === "document"){
+            props.history.push(`/document/${id}`)
+        }
+        if (typeId === "mindMap") {
+            Toast.show({
+                content: '此文档为脑图，请在电脑端查看'
+            })
+        }
+        
     }
     const rightActions = [
         {
@@ -129,7 +123,6 @@ const CategoryList = (props) => {
             onClick: showAddCatePopup
         }
     ]
-
     return (
         <Fragment>
             <div className="category-detail">
@@ -144,8 +137,8 @@ const CategoryList = (props) => {
                         <div className="category-title">{categoryInfo ? categoryInfo.name : "目录"}</div>
                     </div>
                     <div className="category-top-right">
-                        <svg className="category-icon-search" aria-hidden="true">
-                            <use xlinkHref="#icon-search"></use>
+                        <svg className="category-icon-search" aria-hidden="true" onClick={() => props.history.push(`/categorySet/${categoryId}`)}>
+                            <use xlinkHref="#icon-edit"></use>
                         </svg>
                         <svg className="category-icon-add" aria-hidden="true" onClick={() => setVisible(true)}>
                             <use xlinkHref="#icon-add"></use>
@@ -173,7 +166,7 @@ const CategoryList = (props) => {
                     </div>
                     <div className="category-list">
                         {
-                            categoryList && categoryList.length > 0 && categoryList.map((item) => {
+                            categoryList && categoryList.length > 0 ? categoryList.map((item) => {
                                 return <Fragment>
                                     {
                                         item.formatType && item.formatType === "document" ?
@@ -185,15 +178,23 @@ const CategoryList = (props) => {
                                                 <div 
                                                     className="category-list-menu" 
                                                     key={item.id} 
-                                                    onClick={() => props.history.push(`/document/${item.id}`)}
+                                                    onClick={() => goDocumentDetail(item.id, item.typeId)}
                                                     
                                                 >
                                                     <svg className="category-list-icon" aria-hidden="true">
                                                         <use xlinkHref="#icon-point"></use>
                                                     </svg>
-                                                    <svg className="category-list-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-file"></use>
-                                                    </svg>
+                                                    {
+                                                        item.typeId === "document" && <svg className="category-list-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-file"></use>
+                                                        </svg>
+                                                    }
+                                                    {
+                                                        item.typeId === "mindMap" && <svg className="category-list-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-minmap"></use>
+                                                        </svg>
+                                                    }
+                                                    
                                                     <span id={`name${item.id}`}>{item.name} </span>
 
                                                 </div>
@@ -225,7 +226,10 @@ const CategoryList = (props) => {
                                     }
 
                                 </Fragment>
-                            })
+                            }): <Empty
+                                style={{ padding: '64px 0' }}
+                                description='暂无数据'
+                            />
                         }
                     </div>
                 </div>
@@ -269,9 +273,8 @@ const CategoryList = (props) => {
                     }}
                     destroyOnClose={true}
                     closeOnMaskClick={true}
-                >
-
-                </Modal>
+                />
+                <DocumentShare shareVisible = {shareVisible} setShareVisible = {setShareVisible} {...props}/>
             </div>
         </Fragment>
     )

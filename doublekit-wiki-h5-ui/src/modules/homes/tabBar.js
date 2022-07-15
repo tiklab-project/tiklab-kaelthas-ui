@@ -13,13 +13,17 @@ const WikiTabBar = (props) => {
         {
             key: '/index/wiki',
             title: '我的知识库',
-            icon: <UnorderedListOutline />,
+            icon: <svg className="tabbar-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-wiki"></use>
+                </svg>,
             badge: '5',
         },
         {
             key: '/index/template',
             title: '模板',
-            icon: <UserOutline />,
+            icon: <svg className="tabbar-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-templateList"></use>
+                </svg>,
         },
     ]
     const setRouteActive = (value) => {

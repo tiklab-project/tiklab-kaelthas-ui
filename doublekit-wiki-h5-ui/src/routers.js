@@ -25,7 +25,14 @@ const Template = AsyncComponent(() => import("./modules/template/container/templ
 const TemplatePreview = AsyncComponent(() => import("./modules/template/components/templatePreview"))
 const TemplateAdd = AsyncComponent(()=> import("./modules/template/components/templateAdd"))
 const RepositorySet = AsyncComponent(()=> import("./modules/repositorySet/components/repositorySet"))
-const EditRespositoryName = AsyncComponent(()=> import("./modules/repositorySet/components/editName.js"))
+const EditRespositoryName = AsyncComponent(()=> import("./modules/repositorySet/components/editName"))
+const EditRespositoryDesc = AsyncComponent(()=> import("./modules/repositorySet/components/editDesc"))
+const EditRespositoryMaster = AsyncComponent(()=>import("./modules/repositorySet/components/editMaster"))
+const CategorySet = AsyncComponent(()=> import("./modules/categorySet/components/categorySet"))
+const CategoryEditName = AsyncComponent(()=> import("./modules/categorySet/components/categoryEditName"))
+const CategoryEditMaster = AsyncComponent(()=> import("./modules/categorySet/components/categoryEditMaster"))
+const CategoryEditDesc = AsyncComponent(()=> import("./modules/categorySet/components/categoryEditDesc"))
+const WikiSearch = AsyncComponent(()=> import("./modules/wiki/components/wikiSearch"))
 const routes = [
     {
         path: "/index",
@@ -79,6 +86,26 @@ const routes = [
         key: 'CategoryList'
     },
     {
+        path: "/categorySet/:id",
+        component: CategorySet,
+        key: 'CategorySet'
+    },
+    {
+        path: "/editRespositoryName/:name",
+        component: EditRespositoryName,
+        key: 'EditRespositoryName'
+    },
+    {
+        path: "/editRespositoryDesc/:desc",
+        component: EditRespositoryDesc,
+        key: 'EditRespositoryDesc'
+    },
+    {
+        path: "/editRespositoryMaster/:master",
+        component: EditRespositoryMaster,
+        key: 'EditRespositoryMaster'
+    },
+    {
         path: "/document/:id",
         component: DocumentView,
         key: 'DocumentView'
@@ -108,15 +135,32 @@ const routes = [
         component: RepositorySet,
         key: 'RepositorySet'
     },
+    
     {
-        path: "/editRespositoryName/:name",
-        component: EditRespositoryName,
-        key: 'EditRespositoryName'
+        path: "/categoryEditName/:name",
+        component: CategoryEditName,
+        key: 'CategoryEditName'
+    },
+    {
+        path: "/categoryEditMaster/:master",
+        component: CategoryEditMaster,
+        key: 'CategoryEditMaster'
+    },
+    {
+        path: "/categoryEditDesc/:desc",
+        component: CategoryEditDesc,
+        key: 'CategoryEditDesc'
+    },
+    {
+        path: "/wikiSearch",
+        component: WikiSearch,
+        key: 'WikiSearch'
     },
     {
         path: "/",
         exact: true,
         component: () => <Redirect to="/index/wiki" />,
-    }
+    },
+    
 ]
 export default routes;

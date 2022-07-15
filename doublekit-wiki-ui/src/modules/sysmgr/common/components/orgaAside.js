@@ -25,10 +25,9 @@ const OrgaAside=(props)=>  {
     const renderMenu = (data,deep)=> {
         return (
             // <PrivilegeSystem code={data.encoded} disabled ={"hidden"} key={data.key}>
-            <li style={{cursor: "pointer"}} 
-                className={`orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
+            <li className={`orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
                 onClick={()=>select(data.key)}
-                style={{paddingLeft: `${deep * 20 + 20}`}}
+                style={{paddingLeft: `${deep * 20 + 20}`, cursor: "pointer"}}
             >   
                 <svg className="icon" aria-hidden="true">
                     <use xlinkHref={`#${data.icon}`}></use>

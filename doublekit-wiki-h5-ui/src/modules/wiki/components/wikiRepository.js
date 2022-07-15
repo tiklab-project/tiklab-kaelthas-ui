@@ -44,10 +44,10 @@ const Wiki = (props) => {
                     <svg className="wiki-icon-logo" aria-hidden="true">
                         <use xlinkHref= "#icon-wiki"></use>
                     </svg>
-                    <div className="wiki-title">知识库22</div>
+                    <div className="wiki-title">知识库</div>
                 </div>
                 <div className="wiki-top-right">
-                    <svg className="wiki-icon-search" aria-hidden="true">
+                    <svg className="wiki-icon-search" aria-hidden="true" onClick={() => props.history.push("/wikiSearch")}>
                         <use xlinkHref= "#icon-search"></use>
                     </svg>
                     <svg className="wiki-icon-add" aria-hidden="true" onClick={() => props.history.push("/wiki/add")}>

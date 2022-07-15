@@ -15,9 +15,7 @@ import { renderRoutes } from "react-router-config";
 import { withRouter } from 'react-router';
 const { Sider,Content } = Layout;
 const Orga = (props) => {
-
     const route = props.route
-    console.log(props)
     return(
         <Fragment>       
             <Layout className="orga">
@@ -40,6 +38,4 @@ const Orga = (props) => {
     )
 }
 
-
-// export default Orga;
 export default withRouter(Orga);

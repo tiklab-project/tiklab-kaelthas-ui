@@ -1,21 +1,20 @@
 import { observable, action } from "mobx";
-import { FindRepository,UpdateRepository, FindAllUser } from "../api/repositorySetApi";
+import { FindCategory,UpdateCategory, FindAllUser } from "../api/categorySetApi";
 
-export class RepositorySetStoroe {
+export class CategorySetStore {
     @observable userList = []
     @action
-	findRepository = async(values) => {
+    findCategory = async(values) => {
         const params = new FormData()
         params.append("id", values)
 
-        const data = await FindRepository(params)
+        const data = await FindCategory(params)
         return data;
 	}
 
     @action
-	updateRepository = async(values) => {
-
-        const data = await UpdateRepository(values)
+	updateCategory = async(values) => {
+        const data = await UpdateCategory(values)
         return data;
 	}
 
@@ -37,4 +36,4 @@ export class RepositorySetStoroe {
 
 }
 
-export const REPOSITORY_STORE = "repositorySetStore"
+export const CATEGORY_STORE = "categorySetStore"

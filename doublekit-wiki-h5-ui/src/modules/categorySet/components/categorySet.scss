@@ -1,30 +1,30 @@
-.repository-top {
+.category-top {
     height: 50px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     padding: 0 10px;
     
-    .repository-title {
+    .category-title {
         margin-left: 20px;
         font-weight: 600;
     }
 
-    .repository-icon-logo {
+    .category-icon-logo {
         width: 30px;
         height: 30px;
     }
 }
-.repository-set {
+.category-set {
     background-color: #f9f9f9;
     height: 100vh;
 }
-.repository-set-contant {
+.category-set-contant {
     margin: 10px;
     border: 1px solid #f0f0f0;
     border-radius: 5px;
     background-color: #fff;
-    .repository-set-item {
+    .category-set-item {
         display: flex;
         height: 40px;
         line-height: 40px;
@@ -36,7 +36,7 @@
     :nth-child(3){
         border: 0;
     }
-    .repository-set-icon {
+    .category-set-icon {
         width: 30px;
         height: 30px;
     }

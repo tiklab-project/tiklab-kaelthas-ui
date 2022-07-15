@@ -1,25 +1,25 @@
 
-.repository-editname {
+.category-editname {
     background-color: #f9f9f9;
     height: 100vh;
-    .repository-editname-top {
+    .category-editname-top {
         height: 50px;
         display: flex;
         justify-content: flex-start;
         align-items: center;
         padding: 0 10px;
         justify-content: space-between;
-        .repository-editname-title {
+        .category-editname-title {
             margin-left: 20px;
             font-weight: 600;
         }
     
-        .repository-editname-icon-logo {
+        .category-editname-icon-logo {
             width: 30px;
             height: 30px;
         }
     }
-    .repository-editname-box {
+    .category-editname-box {
         background: #fff;
         height: 40px;
         display: flex;
