@@ -12,7 +12,6 @@ import "./logDetail.scss"
 import { observer, inject } from "mobx-react";
 import AddLog from "./addLog"
 import TemplateList from "./templateList"
-import { useForm } from "antd/es/form/Form";
 const LogDetail = (props) => {
     const { WikiCatalogueStore} = props;
     const { detailWikiLog, findCategoryDocument,findDmPrjRolePage,setWikiCatalogueList} = WikiCatalogueStore

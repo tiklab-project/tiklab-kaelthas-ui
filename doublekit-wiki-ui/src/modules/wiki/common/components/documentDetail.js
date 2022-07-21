@@ -11,12 +11,8 @@ import { Breadcrumb,Input,Divider } from 'antd';
 import { observer,inject } from "mobx-react";
 import "./documentDetail.scss";
 import DocumentExamine from "./documnetExamine";
-import DocumentEditor from "./edit-slate/editor";
-import "./wangEdit.scss"
 import {Link,withRouter} from "react-router-dom";
 import DocumentEdit from "./documentEdit"
-import setWorkData from "./edit-slate/table/workTable/setTableWork";
-const { Search } = Input;
 const DocumentDetail = (props)=>{
     const {WikiCatalogueStore,wikiwork} = props;
     const {docDetail,setDocDetail,updateDocument,findDocument} = WikiCatalogueStore;
@@ -44,7 +40,7 @@ const DocumentDetail = (props)=>{
 		findDocument(documentId).then((data) => {
 			if (data.code === 0) {
 				if(data.data.details){
-                    setWorkData(JSON.parse(data.data.details),findWorkItem)
+                    // setWorkData(JSON.parse(data.data.details),findWorkItem)
                     setValue(JSON.parse(data.data.details))
                     // setWorkData(JSON.parse(data.data.details),findWorkItem)
                 }else {
@@ -90,7 +86,6 @@ const DocumentDetail = (props)=>{
                         editOrExamine === "examine" ?<span onClick={()=>changePageType("edit")}>编辑</span> :
                             <span onClick={()=>save("examine")}>保存</span>
                     }
-                    
                 </div>
             </div>
             {

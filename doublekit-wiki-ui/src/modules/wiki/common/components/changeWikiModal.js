@@ -7,7 +7,6 @@
  * @LastEditTime: 2021-09-03 10:55:33
  */
 import React,{useState} from 'react';
-import "../../../../assets/font-icon/iconfont.css";
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Modal, Button, Form, Input } from 'antd';

@@ -10,65 +10,38 @@ import React, { useState,useEffect } from 'react';
 import "../../../../assets/font-icon/iconfont.css";
 import { observer, inject } from "mobx-react";
 import { Modal, Button, Layout, Menu } from 'antd';
-import {
-    AppstoreOutlined,
-    BarChartOutlined,
-    CloudOutlined,
-    ShopOutlined,
-    TeamOutlined,
-    UserOutlined,
-    UploadOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
+import {VideoCameraOutlined} from '@ant-design/icons';
 import "./templateList.scss"
-import PreviewEditor from "./edit-slate/previewEditor"
+import {PreviewEditor} from "doublekit-slate-ui"
 const { Header, Content, Footer, Sider } = Layout;
 
 const TemplateList = (props) => {
     const { templateStore,changeTemplateVisible,
         setChangeTemplateVisible,setAddModalVisible,
-        setTemplateId,contentValue,setContentValue } = props;
+        setTemplateId,setContentValue } = props;
     const { findDocumentTemplatePage,findDocumentTemplate } = templateStore;
     
-    const [selectTemplate, setSelectTemplate] = useState(false)
+    const [value, setValue] = useState([
+        {
+            type: "paragraph",
+            children: [{ text: "" }],
+        },
+    ])
     const [templateList,setTemplateList] = useState()
     
     useEffect(()=> {
+        setContentValue(value)
         findDocumentTemplatePage().then(data=> {
             if(data.code === 0){
                 setTemplateList(data.data.dataList)
             }
         })
     },[])
-    /**
-     * 隐藏切换知识库弹窗
-     */
-    const handleCancel = () => {
-        setChangeTemplateVisible(false)
-    };
 
-
-
-    /**
-     * 切换知识库弹窗，鼠标移入
-     * @param {*} id 
-     */
-    const handleMouseOver = (id) => {
-        setSelectTemplate(id)
-    }
-
-    /**
-     * 切换知识库弹窗，鼠标移出
-     */
-    const handleMouseOut = () => {
-        setSelectTemplate("")
-    }
-
-    // const [templateId,setTemplateId] = useState()
     const changeTemplate = (value) => {
         setTemplateId(value.key)
         if(value.key === "entry"){
-            setContentValue([
+            setValue([
                 {
                     type: "paragraph",
                     children: [{ text: "" }],
@@ -79,7 +52,7 @@ const TemplateList = (props) => {
                 const content = data.data
                 if(data.code === 0){
                     // setTemplate({...value})
-                    setContentValue(JSON.parse(content.details))
+                    setValue(JSON.parse(content.details))
                 }
             })
         }
@@ -89,7 +62,7 @@ const TemplateList = (props) => {
     const next = () => {
         setChangeTemplateVisible(false)
         setAddModalVisible(true)
-
+        setContentValue(value)
     }
     return (
         <div >
@@ -97,7 +70,7 @@ const TemplateList = (props) => {
                 className="wiki-modal"
                 title="选择模板"
                 visible={changeTemplateVisible}
-                onCancel={handleCancel}
+                // onCancel={handleCancel}
                 width="50vw"
                 onOk={() => next()}
                 onCancel={() => setChangeTemplateVisible(false)}
@@ -135,7 +108,7 @@ const TemplateList = (props) => {
                     <Layout className="site-layout" style={{ marginLeft: 200 }}>
                         <Content>
                             <div className="site-layout-background" style={{ background: "#fff",minHeight: "300px" }}>
-                            <PreviewEditor value = {contentValue} />
+                            <PreviewEditor value = {value} />
                             </div>
                         </Content>
                     </Layout>

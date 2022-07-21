@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import { Modal, Button,Form,Input,Select,DatePicker } from 'antd';
 import 'moment/locale/zh-cn';
-import locale from 'antd/es/date-picker/locale/zh_CN';
-import moment from 'moment';
-import { PrivilegeProjectButton } from "doublekit-privilege-ui";   
-const { RangePicker } = DatePicker;
-const { Option } = Select;
 const layout = {
     labelCol: {
         span: 6,
@@ -89,7 +84,7 @@ const WikiAddmodal = (props) => {
             id: "1"
         }
     ]
-
+    // code="edit" domainId={wikiId}
     return (
         <>
         <div className="addmodel">
@@ -98,12 +93,12 @@ const WikiAddmodal = (props) => {
                     <Button type="primary" onClick={showModal}>
                         +{props.name}
                     </Button>
-                : <PrivilegeProjectButton code="edit" domainId={wikiId}><span onClick={showModal} className = "span-botton">
+                : <div><span onClick={showModal} className = "span-botton">
                         <svg className="icon" aria-hidden="true">
                             <use xlinkHref= "#iconchuangzuo-copy"></use>
                         </svg>
                     {props.name}</span>
-                    </PrivilegeProjectButton>
+                    </div>
             }
             <Modal
                 title={props.name}

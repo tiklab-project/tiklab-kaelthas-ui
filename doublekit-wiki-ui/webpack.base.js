@@ -95,7 +95,7 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,
-                exclude: /node_modules/,
+                exclude: /node_modules\/[^doublekit\-slate\-ui]/,
                 use: {
                     loader: 'url-loader',
                     options: {  

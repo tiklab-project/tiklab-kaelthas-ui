@@ -1,5 +1,7 @@
 .log-detail {
     padding: 20px;
+    background-color: #fff;
+    height: 100%;
     &-header{
         display: flex;
         justify-content: space-between;
@@ -79,11 +81,9 @@
             margin: 10px 0;
             display: flex;
             align-items: center;
-            // justify-content: center;
             height: 24px;
             padding-left: 20px;
         }
-        // text-align: center;  
         font-size: 16px;
         line-height: 24px;
         

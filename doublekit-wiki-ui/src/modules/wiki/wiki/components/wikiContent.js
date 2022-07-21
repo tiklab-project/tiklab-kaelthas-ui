@@ -1,5 +1,5 @@
 import React,{Fragment,useEffect,useState} from "react";
-import { Breadcrumb,Input,Table, Space,Button,Divider } from 'antd';
+import { Breadcrumb,Input,Table, Space,Button,Divider,Row, Col } from 'antd';
 import WikiAddmodal from "./wikiAdd";
 import { observer,inject } from "mobx-react";
 import {Link,withRouter} from "react-router-dom";
@@ -113,33 +113,37 @@ const Wikicontent = (props)=>{
                 </Breadcrumb.Item>
             </Breadcrumb>
             <Divider />
-            <div className="search-add">
-                <Search
-                    placeholder="请输入关键字"
-                    allowClear
-                    onSearch={onSearch}
-                    style={{ width:300}}
-                />
-                <WikiAddmodal 
-                    name="添加知识库" 
-                    type="add" 
-                    addWikilist={addWikilist} 
-                    searchwiki={searchwiki}
-                    wikiTypelist={wikiTypelist}
-                    getWikiTypeList={getWikiTypeList}
-                    getUseList={getUseList}
-                    uselist = {uselist}
-                />
-            </div>
-            <div className="table-box">
-                <Table
-                    columns={columns}
-                    dataSource={wikilist} 
-                    rowKey={record => record.id}
-                    onChange={handleTableChange} 
-                    pagination = {{...wikiPageParams}}
-                />
-            </div>
+            <Row>
+                <Col xl={{span: 22,offset:1}} lg={{span: 22,offset:2}} md = {{span: 20,offset:0}}>
+                <div className="search-add">
+                    <Search
+                        placeholder="请输入关键字"
+                        allowClear
+                        onSearch={onSearch}
+                        style={{ width:300}}
+                    />
+                    <WikiAddmodal 
+                        name="添加知识库" 
+                        type="add" 
+                        addWikilist={addWikilist} 
+                        searchwiki={searchwiki}
+                        wikiTypelist={wikiTypelist}
+                        getWikiTypeList={getWikiTypeList}
+                        getUseList={getUseList}
+                        uselist = {uselist}
+                    />
+                </div>
+                <div className="table-box">
+                    <Table
+                        columns={columns}
+                        dataSource={wikilist} 
+                        rowKey={record => record.id}
+                        onChange={handleTableChange} 
+                        pagination = {{...wikiPageParams}}
+                    />
+                </div>
+                </Col>
+            </Row>
         </Fragment>
     )
 }

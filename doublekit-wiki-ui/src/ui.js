@@ -6,30 +6,11 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-06-02 14:32:29
  */
-import {orgStores} from "doublekit-user-ui";
-import {privilegeStores} from 'doublekit-privilege-ui'
-import {stores as portalStores} from 'doublekit-eam-ui'
-import {formStores} from 'doublekit-form-ui'
-import {flowStores} from 'doublekit-flow-ui'
-import {messageModuleStores} from 'doublekit-message-ui'
-import orgaRouter from "./module/modules/sysmgr/common/components/orgaRouter"
-import OrgaAside from "./module/modules/sysmgr/common/components/orgaAside"
-import wikiRoutes from "./module/routers";
-import {store} from "./module/stores"
-import resources from './module/common/language/resources';
-const wikiStore = {
-    ...orgStores,
-    ...privilegeStores,
-    ...portalStores,
-    ...formStores,
-    ...flowStores,
-    ...messageModuleStores,
-    ...store
-}
+
+import wikiRoutes from "./routerSaas";
+import {store} from "./stores"
+
 export {
     wikiRoutes,
-    wikiStore,
-    orgaRouter,
-    OrgaAside,
-    resources
+    store
 }

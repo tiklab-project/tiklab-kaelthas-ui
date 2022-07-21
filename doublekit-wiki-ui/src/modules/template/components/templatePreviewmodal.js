@@ -10,8 +10,7 @@ import React, { useState,useEffect } from "react";
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 import "./templatePreviewModal.scss"
-import PreviewEditor from "../../wiki/common/components/edit-slate/previewEditor"
-import template from "../container/template";
+import { PreviewEditor } from "doublekit-slate-ui"
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
     const wikiId = localStorage.getItem("wikiId")

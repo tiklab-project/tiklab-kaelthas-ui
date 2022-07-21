@@ -7,10 +7,10 @@
 			"path": "."
 		},
 		{
-			"path": "../doublekit-wiki-h5-ui"
+			"path": "../doublekit-wiki-editor-h5"
 		},
 		{
-			"path": "../doublekit-wiki-editor-h5"
+			"path": "../../doublekit-wiki-saas-ui/doublekit-wiki-saas-web"
 		}
 	]
 }

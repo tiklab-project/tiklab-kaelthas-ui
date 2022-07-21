@@ -8,7 +8,6 @@
  */
 
 import React, { Fragment, useState, useEffect } from 'react';
-import "../../../../assets/font-icon/iconfont.css";
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Menu, Dropdown, Button, Modal, Layout, Form } from 'antd';
@@ -44,15 +43,10 @@ const WikideAside = (props) => {
     const [templateId, setTemplateId] = useState()
 
     // 模板内容
-    const [contentValue, setContentValue] = useState([
-        {
-            type: "paragraph",
-            children: [{ text: "" }],
-        },
-    ])
+    const [contentValue, setContentValue] = useState()
     useEffect(() => {
         findWikiCatalogue(wikiId).then((data) => {
-            setWikiCatalogueList({...data})
+            setWikiCatalogueList(data)
         })
     }, [])
 
@@ -136,6 +130,7 @@ const WikideAside = (props) => {
             setUserList(data.dataList)
         })
         if(value.key === "document") {
+            // setContentValue({nodes: [], edges: []})
             setChangeTemplateVisible(true)
         }else if (value.key === "mindMap"){
             setContentValue({nodes: [], edges: []})
@@ -189,8 +184,8 @@ const WikideAside = (props) => {
     useEffect(() => {
         if (isRename) {
             inputRef.current.autofocus = true;
-            let range = getSelection();//创建range
-            range.selectAllChildren(inputRef.current);//range 选择obj下所有子内容
+            let range = getSelection();
+            range.selectAllChildren(inputRef.current);
             range.collapseToEnd()
         }
     }, [isRename])
@@ -247,7 +242,6 @@ const WikideAside = (props) => {
     const moveStart = (moveId, fId, formatType) => {
 
         event.stopPropagation();
-        console.log(moveId)
         const dragEvent = event.target
         dragEvent.style.background = "#d0e5f2";
 
@@ -262,10 +256,16 @@ const WikideAside = (props) => {
         event.preventDefault();
     }
 
+    const moveEnd = () => {
+        const dragEvent = event.target
+        dragEvent.style.background = "#f7f8fa";
+    }
     const changeLog = (targetId) => {
+        console.log(targetId)
         event.preventDefault();
         let value;
-        if (targetId !== moveCategoryParentId) {
+        
+        if (targetId && targetId !== moveCategoryParentId) {
             if (formatType === "category") {
                 if (targetId) {
                     value = {
@@ -313,20 +313,22 @@ const WikideAside = (props) => {
      * @returns 
      */
 
-    const logTree = (data, levels, faid) => {
+    const logTree = (item, levels, faid) => {
         let newLevels = 0;
-        return data && data.length > 0 && data.map((item, index) => {
-            return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
-                key={item.id}>
+            return <div className={`${!isExpandedTree(faid) ? "" : 'wiki-menu-submenu-hidden'}`}
+                    key={item.id}
+                    onDrop={() => changeLog(item.id)}
+                >
                 <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
                     key={item.id}
                     onClick={() => selectKeyFun(item.id, item.formatType)}
-                    onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
-                    onDrop={() => changeLog(item.id)}
-                    onDragOver={dragover}
+                    onMouseOver={() => setIsHover(item.id)} 
+                    onMouseLeave={() => setIsHover(null)}
                     onDrag={() => moveWorkItem()}
+                    onDragOver={dragover}
                     draggable="true"
                     onDragStart={() => moveStart(item.id, faid, item.formatType)}
+                    onDragEnd = {() => moveEnd()}
                 >
                     <div style={{ paddingLeft: levels * 10 }}>
                         {
@@ -364,16 +366,22 @@ const WikideAside = (props) => {
                     </div>
                 </div>
                 {
-                    item.children && item.children.length > 0 && (newLevels = levels + 1) && logTree(item.children, newLevels, item.id)
+                    item.children && item.children.length > 0 && (newLevels = levels + 1) &&
+                        item.children.map(childItem => {
+                            return logTree(childItem, newLevels, item.id)
+                            
+                        })
+                    
                 }
                 {
-                    item.documents && item.documents.length > 0 && (newLevels = levels + 1) && folderTree(item.documents, newLevels, item.id)
+                    item.documents && item.documents.length > 0 && (newLevels = levels + 1) && 
+                        item.documents.map(childItem => {
+                            return fileTree(childItem, newLevels, item.id)
+                        })
                 }
             </div>
-        })
     }
-    const folderTree = (data, levels, faid) => {
-        return data && data.length > 0 && data.map((item) => {
+    const fileTree = (item, levels, faid) => {
             return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
                 key={item.id}
             >
@@ -385,6 +393,7 @@ const WikideAside = (props) => {
                     onDrag={() => moveWorkItem()}
                     draggable="true"
                     onDragStart={() => moveStart(item.id, faid, item.formatType)}
+                    onDragEnd = {() => moveEnd()}
                 >
                     <div style={{ paddingLeft: levels * 10 }} >
                         <svg className="icon" aria-hidden="true">
@@ -409,7 +418,6 @@ const WikideAside = (props) => {
                     </div>
                 </div>
             </div>
-        })
     }
     return (
         <Fragment>
@@ -435,12 +443,16 @@ const WikideAside = (props) => {
                             </svg>
                         </div>
                     </div>
-                    <div className="wiki-menu" onDrop={() => changeLog(null)} >
+                    <div className="wiki-menu" onDrop={() => changeLog("nullString")} draggable="true" onDragOver={dragover}>
                         {
-                            wikiCatalogueList && folderTree(wikiCatalogueList[1], 0, 1)
-                        }
-                        {
-                            wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
+                            wikiCatalogueList && wikiCatalogueList.map(item => {
+                                if(item.formatType === "document"){
+                                    return fileTree(item, 1, 0)
+                                }
+                                if(item.formatType === "category"){
+                                    return logTree(item, 1, 0)
+                                }
+                            })
                         }
                     </div>
                     <div onClick={() => { props.history.push(`/index/wikidetail/wikiDomainRole`) }} className="wiki-priviege">

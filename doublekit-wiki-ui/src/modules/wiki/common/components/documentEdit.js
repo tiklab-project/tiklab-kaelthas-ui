@@ -9,11 +9,9 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
 import { Breadcrumb, Input, Divider } from 'antd';
 import { observer, inject } from "mobx-react";
-// import "./documentDetail.scss";
 import { Link, withRouter } from "react-router-dom";
 import "./documentEdit.scss"
-import TemplateList from "./templateList"
-import DocumentEditor from "./edit-slate/editor"
+import { DocumentEditor } from "doublekit-slate-ui"
 const { Search } = Input;
 const DocumentEdit = (props) => {
     const {value,onChange,docInfo} = props

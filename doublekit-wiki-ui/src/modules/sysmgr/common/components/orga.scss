@@ -2,7 +2,6 @@
 .orga {
     height: 100%;
     .orga-background {
-        // background-color: $entry-color;
         background-color: #F0F2F5;
     }
     .orga-col {
@@ -11,12 +10,10 @@
     }
     .orga-aside {
         height: 100%;
-        // background-color: $side-color;
         background-color: #F7F8FA;
         padding-top: 20px;
         ul,li {
             list-style: none;
-            // padding: 0;
         }
         .orga-aside-hidden {
             display: none;
@@ -37,7 +34,6 @@
             padding: 0;
         }
         .orga-aside-select {
-            // background-color: $side-select;
             background-color: #e3e8f0;
             border-left: 3px solid #0053ca;
         }

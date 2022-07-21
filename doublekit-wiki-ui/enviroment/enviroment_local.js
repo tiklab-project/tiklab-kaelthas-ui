@@ -15,8 +15,6 @@ const plugin_base_url = JSON.stringify(url);
 
 let plugin_url = `http://127.0.0.1:3004/plugin.json`;
 plugin_url = JSON.stringify(plugin_url);
-// let pluginAddressUrl = `${url}/config.json`;
-// pluginAddressUrl = JSON.stringify(pluginAddressUrl);
 
 let fetchMethod = "get"
 fetchMethod = JSON.stringify(fetchMethod);
@@ -31,24 +29,8 @@ const version = JSON.stringify('');
 const client = JSON.stringify('');
 
 
-const isSaas = false
-const pickerData = JSON.stringify([
-    {
-        value: 'wiki',
-        label: 'Wiki系统',
-        url: 'http://192.168.2.10:3001/'
-    },
-    {
-        value: 'apibox',
-        label: 'Apibox系统',
-        url: 'http://192.168.2.8:3001/'
-    },
-    {
-        value: 'wikital',
-        label: 'wikital系统',
-        url: 'http://192.168.2.6:8000/'
-    }
-])
+const isSaas = false;
+
 module.exports = {
     base_url,
     userProduction,
@@ -60,6 +42,5 @@ module.exports = {
     appSecret,
     version,
     client,
-    isSaas,
-    pickerData
+    isSaas
 }

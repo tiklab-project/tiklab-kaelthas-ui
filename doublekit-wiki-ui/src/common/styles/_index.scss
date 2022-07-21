@@ -1,4 +1,3 @@
-// @import '../assets/font-icon//iconfon    t.css';
 @import "_color";
 @import "_base";
 @import "_normalize";
@@ -32,7 +31,6 @@
     border-color: #0053ca !important;
 }
 
-// 表格的外边距
 .table-box {
     margin-top: 24px;
 }
@@ -66,15 +64,11 @@
     background-color: #4a60848f !important;
 }
 
-// 鼠标放到表格某一行
 .ant-table-tbody>tr.ant-table-row:hover>td {
-    // background: $side-hover;
     background-color: #EDF0F5;
 }
 
-// 选中tab页切换
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-    // color: $blue-main;
     color: #0053ca;
 }
 

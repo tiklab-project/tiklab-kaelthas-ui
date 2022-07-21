@@ -3,12 +3,10 @@
     height: 100%;
     padding: 10px;
     .template-box{
-        display: flex;
+        display: grid;
         justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
+        grid-template-columns: repeat(auto-fill, 250px);
         .template-item {
-            // border: 1px solid ;
             position: relative;
             min-width: 250px;
             max-width: 250px;

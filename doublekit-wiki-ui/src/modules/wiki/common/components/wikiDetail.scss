@@ -3,7 +3,6 @@
     
     min-height: 100%;
     .ant-layout-sider {
-        // background-color: $side-color;
         background-color: #F7F8FA;
         .ant-layout-sider-children {
             position: fixed;
@@ -13,7 +12,6 @@
                     padding: 0;
                     margin: 0;
                 }
-                // background: $side-color;
                 background-color: #F7F8FA;
                 .wiki-title {
                     height: 40px;
@@ -22,7 +20,6 @@
                     width: 100%;
                     align-items: center;
                     padding: 0 10px;
-                    // color: $blue-main;
                     color: #0053ca;
                     font-weight: 600;
                     justify-content: space-between;
@@ -71,14 +68,12 @@
                         }
                     }
                     .wiki-menu-submenu:hover {
-                        // background-color: $side-hover;
                         background-color: #EDF0F5;
                     }
                     .wiki-menu-submenu-hidden {
                         display: none;
                     }
                     .wiki-menu-select {
-                        // background-color: $side-select;
                         background-color: #e3e8f0;
                         border-left: 3px solid #0053ca;
                     }
@@ -107,7 +102,6 @@
                 }
             }
         }
-        // 隐藏菜单文字的样式
         .wiki-notext {
             display: none;
         }
@@ -140,24 +134,7 @@
             padding-left: 20px;
         }
         .wiki-selectName {
-            // background-color: $side-select;
             background-color: #0053ca;
         }
     }
 }
-
-
-// 表格视图扩展行
-// .expend>.ant-table-cell {
-//     padding-left: 0;
-//     padding-right: 0;
-//     .ant-table {
-//         margin-right: 0 !important;
-//     }
-        
-// }
-// .expend {
-//     .ant-table {
-//         margin: -16px -16px -16px 0 !important;
-//     }
-// }

@@ -1,5 +1,4 @@
 .documnet-addList {
-    // text-align: center;
     .title {
         font-size: 40px;
         font-weight: 600;
@@ -8,13 +7,11 @@
         width: 300px;
         display: flex;
         justify-content: center;
-        // align-items: center;
         flex-direction: column;
         margin: 20px auto;
     }
     .documnet-type {
         display: flex;
-        // justify-content: center;
         align-items: center;
         margin: 20px 0;
         .user-icon {

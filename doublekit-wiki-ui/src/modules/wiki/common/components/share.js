@@ -17,7 +17,6 @@ const Share = (props) => {
     const [authCode,setAuthCode] = useState()
     const link = useRef(null)
     const onChange = e => {
-        console.log('radio checked', e.target.value);
         setValue(e.target.value);
         updateShare({shareLink: shareLink,whetherAuthCode: e.target.value}).then(data=> {
             console.log(data)

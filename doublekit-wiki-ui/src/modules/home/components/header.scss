@@ -12,9 +12,10 @@
     .frame-header{
         display: flex;
         align-items: center;
-    
+        background-color: #5d70ea;
+        color: #fff;
         &-logo{
-            height: 64px;
+            height: 50px;
             width: 100px;
             margin-right: 20px;
             img {
@@ -28,14 +29,16 @@
             flex-direction: row;
             margin-left: 15px;
             &-active{
-                color: $blue !important;
+                color: #444444 !important;
+                background-color: #fff;
             }
-            :nth-of-type(2n) {
-                padding: 0 20px;
-            }
-            div{
+            &-item{
                 cursor: pointer;
-                color:  $gray-800;
+                margin-right: 10px;
+                height: 30px;
+                line-height: 30px;
+                border-radius: 6px;
+                padding: 0 10px;
             }
         }
         &-right{
@@ -56,16 +59,11 @@
                 align-items: center;
                 height: 100%;
                 width: 100%;
-                padding-right: 20px;
+                padding-right: 10px;
                 a{
-                    padding: 0 20px;
-                    //color: hsla(0,0%,100%,.65);
+                    padding: 0 10px;
                 }
-                >span {
-                    cursor: pointer;
-                    padding: 0 20px;
-                    color:  $gray-800;
-                }
+                
                 .badge{
                     position: relative;
                     .dot{
@@ -75,18 +73,30 @@
                         position: absolute;
                         top: -5px;
                         right: 3px;
-                        background: $red;
+                        background: #ff8989;
                     }
                 }
                 .messageNum{
                     font-size: 25px;
-                    color: $blue;
+                    color: #e3e8f07d;
                 }
     
             }
+            .frame-header-user {
+                display: inline-flex;
+                align-items: center;
+            }
+           
+        }
+        &-set, &-language,  &-user{
+            margin: 0 10px 0 0;
         }
         &-dropdown{
-            margin-left: 20px;
+            margin: 0 10px;
+            >span {
+                cursor: pointer;
+                color:  #444444;
+            }
         }
     }
     .frame-search-content{
@@ -101,6 +111,16 @@
             padding: 0;
         }
     }
+    .frame-header-name {
+        width: 80px; 
+        overflow: hidden;
+        text-overflow: ellipsis; 
+        white-space: nowrap;
+        .ant-space-item {
+            width: 60px;
+        }
+    }
+    
 }
 
 

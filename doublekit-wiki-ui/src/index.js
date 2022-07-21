@@ -13,13 +13,11 @@ import routers from './routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import {store } from "./stores"
-import {orgStores} from "doublekit-user-ui";
-import {privilegeStores} from 'doublekit-privilege-ui'
+import {orgStores} from "doublekit-user-ui/es/store";
+import { privilegeStores } from 'doublekit-privilege-ui/es/store'
 import {getUser} from 'doublekit-core-ui'
-import {formStores} from 'doublekit-form-ui'
-import {flowStores} from 'doublekit-flow-ui'
 import {messageModuleStores} from 'doublekit-message-ui'
-import { createContainer, initFetch } from 'doublekit-plugin-ui';
+import { createContainer, initFetch } from 'doublekit-plugin-ui/es/_utils';
 import "./assets/font-icon/iconfont"
 import './common/language/i18n';
 import "./index.scss";
@@ -35,8 +33,6 @@ const Index = observer(() => {
     const allStore = {  
         ...privilegeStores,
         ...orgStores,
-        ...formStores,
-        ...flowStores,
         ...messageModuleStores,
         ...store
     }

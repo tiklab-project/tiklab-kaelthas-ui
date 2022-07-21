@@ -14,7 +14,6 @@ import { MessageOutlined,DownOutlined } from '@ant-design/icons';
 import { getVersionInfo, getUser } from 'doublekit-core-ui';
 import vipOne from "../../../assets/images/vip-one.png";
 import vipTwo from "../../../assets/images/vip-two.png"
-//import "../../../assets/font-icon/iconfont"
 const Header = props => {
     const {
         logo,
@@ -52,7 +51,7 @@ const Header = props => {
                     <div key='home' onClick={ () => changeCurrentLink(routers[0])} className={`frame-header-link-item ${currentLink === routers[0].to ? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
                     <div key='project' onClick={ () => changeCurrentLink(routers[1])} className={`frame-header-link-item ${currentLink === routers[1].to ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
                     <div key='program' onClick={ () => changeCurrentLink(routers[2])} className={`frame-header-link-item ${currentLink === routers[2].to ? 'frame-header-link-active' : null}`}> {routers[2].title}</div>
-                    <div key='log' onClick={ () => changeCurrentLink(routers[3])} className={`frame-header-link-item ${currentLink.indexOf("/index/log") !== -1 ? 'frame-header-link-active' : null}`}> {routers[3].title}</div>
+                    {/* <div key='log' onClick={ () => changeCurrentLink(routers[3])} className={`frame-header-link-item ${currentLink.indexOf("/index/log") !== -1 ? 'frame-header-link-active' : null}`}> {routers[3].title}</div> */}
                 </div>
             )
         }
@@ -82,13 +81,13 @@ const Header = props => {
     const setMenu = (
         <Menu
           items={[
+            // {
+            //   label: <div onClick={()=> goSet("/index/organ/organ")}>帐号与成员</div>,
+            //   key: '0',
+            // },
             {
-              label: <div onClick={()=> goSet("/index/organ/organ")}>帐号与成员</div>,
-              key: '0',
-            },
-            {
-                label: <div onClick={()=> goSet("/index/setting/projectType")}>系统设置</div>,
-                key: '1',
+                label: <div onClick={()=> goSet("/index/sysmgr/systemFeature")}>系统设置</div>,
+                key: '0',
             }
 
           ]}
@@ -140,7 +139,7 @@ const Header = props => {
                             <Dropdown overlay={languageMenu}>
                                 <Space>
                                     <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                        <use xlinkHref="#icon-yuyan"></use>
+                                        <use xlinkHref="#iconyuyan-01-copy"></use>
                                     </svg>
                                 </Space>
                             </Dropdown>
@@ -149,14 +148,14 @@ const Header = props => {
                             <Dropdown overlay={setMenu}>
                                 <Space>
                                     <svg aria-hidden="true" style={{width: "25px", height: "25px"}}>
-                                        <use xlinkHref="#icon-iconsetsys"></use>
+                                        <use xlinkHref="#iconshezhi-copy"></use>
                                     </svg>
                                 </Space>
                             </Dropdown>
                         </div>
                         <div className = "frame-header-user">
                             <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                <use xlinkHref="#icon-usertouxiang"></use>
+                                <use xlinkHref="#icontouxiang"></use>
                             </svg>
                             <div className="frame-header-name">
                                 <Dropdown overlay={useMenu}>

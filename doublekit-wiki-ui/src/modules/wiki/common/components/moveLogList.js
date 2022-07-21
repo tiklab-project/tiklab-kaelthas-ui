@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-12-20 14:35:10
  */
 import React,{Fragment, useState,useEffect} from 'react';
-import { Menu, Dropdown, Button, Modal,Layout,Form} from 'antd';
+import { Modal} from 'antd';
 import "./moveLogList.scss"
 const MoveLogList = (props) => {
     const { wikiCatalogueList, moveLogListVisible,

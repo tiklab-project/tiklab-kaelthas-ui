@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { DomainRoleList } from 'doublekit-privilege-ui';
+import { SystemRoleList } from 'doublekit-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 const ProjectRole = props => {
@@ -7,7 +7,7 @@ const ProjectRole = props => {
 
     return (
         // <div className="test">
-            < DomainRoleList
+            < SystemRoleList
                 group={'system'}
                 {...props}
             />

@@ -9,15 +9,17 @@
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider,Input,Button  } from 'antd';
-import PreviewEditor from "./edit-slate/previewEditor"
+import {PreviewEditor} from "doublekit-slate-ui"
 import "./documentExamine.scss"
-import Share from "./share"
+import Share from "./share";
+import { getUser } from "doublekit-core-ui";
 const DocumentExamine = (props) => {
     const { docDetail, docInfo,wikiCommon,value } = props;
     const documentId = localStorage.getItem("documentId");
     const {createComment,findCommentPage,createLike,createShare,updateShare} = wikiCommon
     const [shareVisible,setShareVisible] = useState(false)
     const [commonList,setCommonList] = useState()
+    const userId = getUser().userId;
     useEffect(() => {
         console.log(value)
         findCommentPage({documentId:documentId}).then(data => {
@@ -27,18 +29,9 @@ const DocumentExamine = (props) => {
             }
         })
     }, [documentId])
-    const initTemplate = (value) => {
-        // setValue(value)
-        // const serialize = JSON.stringify(value)
-        // const data = {
-        // 	id: documentId,
-        // 	details: serialize
-        // }
-        // updateDocument(data)
-    }
+
     const [commontContent,setCommontContent] = useState()
     const commonInput = (value) => {
-        // console.log(value)
         setCommontContent(value.target.value)
     }
     const announce = () => {
@@ -47,7 +40,7 @@ const DocumentExamine = (props) => {
                 id: documentId
             },
             details: commontContent,
-            user: {id:JSON.parse(localStorage.getItem("authConfig")).id}
+            user: {id: userId}
         }
         createComment(data).then(data=> {
             findCommentPage({documentId:documentId}).then(data => {
@@ -69,7 +62,7 @@ const DocumentExamine = (props) => {
                 id: documentId
             },
             details: commontContent,
-            user: {id:JSON.parse(localStorage.getItem("authConfig")).id}
+            user: {id: userId}
         }
         createComment(data).then(data=> {
             findCommentPage({documentId:documentId}).then(data => {
@@ -91,7 +84,7 @@ const DocumentExamine = (props) => {
                 id: documentId
             },
             details: commontContent,
-            user: {id:JSON.parse(localStorage.getItem("authConfig")).id}
+            user: {id: userId}
         }
         createComment(data).then(data=> {
             findCommentPage({documentId:documentId}).then(data => {
@@ -108,7 +101,7 @@ const DocumentExamine = (props) => {
     const addDocLike = () => {
         const data = {
             toWhomId: documentId,
-            likeUser: {id: JSON.parse(localStorage.getItem("authConfig")).id},
+            likeUser: {id: userId},
             likeType: "doc"
         }
         createLike(data)
@@ -118,7 +111,7 @@ const DocumentExamine = (props) => {
             <Divider />
             <div>
                 <div className="examine-title">{docInfo.name}<span className="examine-type">类型：{docDetail.type === "doc" ? "文档" : "目录"}</span></div>
-                <PreviewEditor value={value} onChange={(value) => initTemplate(value)} />
+                <PreviewEditor value={value} />
                 
                 <div className="examine-comment" >
                     <span className="comment-item" onClick={addDocLike}>

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 1370428 */
-  src: url('iconfont.woff2?t=1635325243464') format('woff2'),
-       url('iconfont.woff?t=1635325243464') format('woff'),
-       url('iconfont.ttf?t=1635325243464') format('truetype');
+  src: url('iconfont.woff2?t=1657014900039') format('woff2'),
+       url('iconfont.woff?t=1657014900039') format('woff'),
+       url('iconfont.ttf?t=1657014900039') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,138 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.iconxiazai11:before {
+  content: "\e615";
+}
+
+.iconxiazai12:before {
+  content: "\e617";
+}
+
+.iconshaixuan:before {
+  content: "\e614";
+}
+
+.icontouxiang1:before {
+  content: "\e618";
+}
+
+.iconyuandian:before {
+  content: "\e631";
+}
+
+.iconxiayiqu:before {
+  content: "\100db";
+}
+
+.iconrenzheng:before {
+  content: "\100cf";
+}
+
+.iconshijian:before {
+  content: "\100d0";
+}
+
+.iconshoucang:before {
+  content: "\100d1";
+}
+
+.iconbianji:before {
+  content: "\100d2";
+}
+
+.icondingdan:before {
+  content: "\100d3";
+}
+
+.iconshezhi:before {
+  content: "\e602";
+}
+
+.iconyuyan-01:before {
+  content: "\e612";
+}
+
+.iconyuyan-01-copy:before {
+  content: "\fc11";
+}
+
+.iconshezhi-copy:before {
+  content: "\fc12";
+}
+
+.icontouxiang:before {
+  content: "\e60e";
+}
+
+.icontouxiang-copy:before {
+  content: "\fc10";
+}
+
+.iconyijianfankui:before {
+  content: "\fb0c";
+}
+
+.iconzhishi:before {
+  content: "\fb32";
+}
+
+.iconzhuti:before {
+  content: "\fb33";
+}
+
+.icongonglve:before {
+  content: "\fb4b";
+}
+
+.iconzoushi1:before {
+  content: "\fbf0";
+}
+
+.iconjiangxu:before {
+  content: "\ee1f";
+}
+
+.iconshengxu:before {
+  content: "\ee20";
+}
+
+.icon24gf-appsBig5:before {
+  content: "\e9bf";
+}
+
+.icongengduo:before {
+  content: "\e719";
+}
+
+.iconyou-yuan-copy:before {
+  content: "\fc0e";
+}
+
+.iconzuo-yuan:before {
+  content: "\e7c7";
+}
+
+.iconyou-yuan:before {
+  content: "\e7c8";
+}
+
+.iconyou-yuan-copy1:before {
+  content: "\fc0f";
+}
+
+.iconquanzhankai:before {
+  content: "\e6c5";
+}
+
+.iconquanshouqi:before {
+  content: "\e6c9";
+}
+
+.iconfanhui:before {
+  content: "\e601";
 }
 
 .iconsuperscript-2:before {

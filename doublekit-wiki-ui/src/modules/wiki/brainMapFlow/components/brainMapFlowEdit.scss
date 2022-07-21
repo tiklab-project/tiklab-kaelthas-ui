@@ -1,0 +1,36 @@
+.documnet-addList {
+    .title {
+        font-size: 40px;
+        font-weight: 600;
+    }
+    .document-list {
+        width: 300px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: 20px auto;
+    }
+    .documnet-type {
+        display: flex;
+        align-items: center;
+        margin: 20px 0;
+        .user-icon {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+}
+.examine-title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 30px;
+    height: 30px;
+    margin-bottom: 20px;
+    .examine-type {
+        font-size: 12px;
+        color: #aaa;
+        margin-left: 20px;
+        
+    }
+}

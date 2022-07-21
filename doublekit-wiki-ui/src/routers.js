@@ -6,30 +6,31 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-26 08:59:04
  */
+import React from 'react';
 import AsyncComponent from './common/lazy/SyncComponent'
 import { Redirect } from "react-router-dom";
 
 const Login = AsyncComponent(() => import('./modules/login/login'))
 const Logout = AsyncComponent(() => import('./modules/login/logout'))
 const Home = AsyncComponent(() => import('./modules/home/components/home'))
-const Index = AsyncComponent(() => import('./modules/home/index'))
-const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/containers/wikiDetail'))
+const Index = AsyncComponent(() => import('./modules/home/components/portal.js'))
+const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/components/wikiDetail'))
 const LogDetail = AsyncComponent(()=> import('./modules/wiki/common/components/logDetail'))
-const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/brainMapFlowDetail'))
+const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/components/brainMapFlowDetail'))
 
 
 // 知识库
-const wiki = AsyncComponent(() => import('./modules/wiki/wiki/containers/wiki'))
+const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wiki'))
 const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
-const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/common/components/wikiDomainRole'))
-const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/common/components/wikiDomainUser'))
+const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
+const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
 
-const Template = AsyncComponent(() => import('./modules/template/container/template'))
+const Template = AsyncComponent(() => import('./modules/template/components/template'))
 
 // 分享文档页面
-const ShareDocument = AsyncComponent(() => import('./modules/share/shareDocument'))
+const ShareDocument = AsyncComponent(() => import('./modules/share/components/shareDocument'))
 // 分享文档页面
-const PassWord = AsyncComponent(() => import('./modules/share/passWord'))
+const PassWord = AsyncComponent(() => import('./modules/share/components/passWord'))
 
 
 const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/systemFeature'))
@@ -37,11 +38,10 @@ const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/syste
 const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
 const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
 
-const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/containers/orga'))
-const DocumentEditor = AsyncComponent(() => import('./modules/wiki/common/components/edit-slate/editor'))
+const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/components/orga'))
 
 // 导入外部数据
-const LoadData = AsyncComponent(() => import('./modules/sysmgr/common/loadData/loadData'))
+const LoadData = AsyncComponent(() => import('./modules/sysmgr/loadData/components/loadData'))
 const routes=[
     {
         path: "/login",
@@ -62,11 +62,6 @@ const routes=[
         path: "/passWord/:id/:shareId",
         exact: true,
         component: PassWord,
-    },
-    {
-        path: "/DocumentEditor",
-        exact: true,
-        component: DocumentEditor,
     },
     {
         path: "/index",
@@ -162,7 +157,7 @@ const routes=[
     },
     {
         path: "/",
-        component: Index,
+        component: () => <Redirect to="/index/home" />,
         exact: true
     },
 ]

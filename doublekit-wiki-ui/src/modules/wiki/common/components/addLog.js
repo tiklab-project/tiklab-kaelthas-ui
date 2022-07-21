@@ -79,7 +79,12 @@ const AddLog = (props) => {
                         })
                         setAddModalVisible(!addModalVisible)
                         localStorage.setItem("documentId", data.data);
-                        props.history.push(`/index/wikidetail/doc/${data.data}`)
+                        if(values.formatType === "mindMap"){
+                            props.history.push(`/index/wikidetail/mindmap/${data.data}`)
+                        }
+                        if(values.formatType === "document"){
+                            props.history.push(`/index/wikidetail/doc/${data.data}`)
+                        }
                         // 左侧导航
                         setSelectKey(data.data)
                     }
