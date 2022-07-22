@@ -21,7 +21,7 @@ const TableElement = (props) => {
             case 'table':
                 return (<div className = {`table-box`}>
                     <table {...attributes}  
-                        style = {{borderSpacing: 0,tableLayout: 'fixed',wordBreak: 'break-word',userSelect: 'none'}}>
+                        style = {{borderSpacing: 0,tableLayout: 'fixed',wordBreak: 'break-word',userSelect: 'none', borderTop: "1px solid #ccc", borderLeft: "1px solid #ccc"}}>
                         {children}
                     </table>
                     <TableTools></TableTools>
@@ -32,9 +32,12 @@ const TableElement = (props) => {
             case 'table-tbody':
                 return <tbody>{children}</tbody>
             case 'table-th':
-                return <th >{children}</th>
+                return <th style = {{borderBottom: "1px solid #ccc",borderRight: "1px solid #ccc"}}>{children}</th>
             case 'table-row':
-                return <tr {...attributes} >{children}</tr>
+                return <tr 
+                {...attributes} 
+                
+                >{children}</tr>
             case 'table-cell':
                 return <td {...attributes}
                     style={{ width: "100px", height: "40px" }}
@@ -48,7 +51,7 @@ const TableElement = (props) => {
                 return <td {...attributes}
                     colspan={element.colspan || 1}
                     onClick={() => { setWorkModalVisible(true) }}
-                    style={{ width: "100px", height: "40px", background: element.background || "white", color: element.color || "#000" }}
+                    style={{ width: "100px", height: "40px", background: element.background || "white", color: element.color || "#000",borderBottom: "1px solid #ccc",borderRight: "1px solid #ccc"}}
                 >
                     {children}
                 </td>

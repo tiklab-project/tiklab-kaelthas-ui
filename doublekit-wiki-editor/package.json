@@ -81,7 +81,7 @@
         "webpack-parallel-uglify-plugin": "^1.1.2",
         "ncp": "^2.0.0",
         "node-forge": "*",
-        "node-sass": "npm:dart-sass@^1.25.0",
+        "node-sass": "^5.0.0",
         "@ant-design/icons": "^4.3.0",
         "antd": "^4.15.2",
         "babel-plugin-import": "^1.13.3",

@@ -15,7 +15,6 @@ import {DocumentEditor} from "doublekit-slate-ui"
 import "./templateAddmodal.scss"
 const TemplateAddmodal = (props) => {
     const [form] = Form.useForm();
-    const wikiId = localStorage.getItem("wikiId")
     const {addModalVisible,setAddModalVisible,modalName,templateStore,setTemplateList,editOrAdd,templateId} = props;
     const {greateDocumentTemplate,findDocumentTemplatePage,findDocumentTemplate,updateDocumentTemplate} = templateStore;
     const [editorValue, setEditorValue] = useState([

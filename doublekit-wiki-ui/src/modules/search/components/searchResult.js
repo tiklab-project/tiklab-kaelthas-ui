@@ -52,9 +52,9 @@ const SearchResult = (props) => {
         })
     }
 
-    const toWiki = async(id) => {
-        setWikiId(id)
-        localStorage.setItem("wikiId",id)
+    const toWiki = async(wiki) => {
+        setWikiId(wiki.id)
+        localStorage.setItem("wiki",wiki.id)
         await props.history.push("/index/wikidetail/survey")
         setShow("hidden")
         // location.reload();
@@ -133,7 +133,7 @@ const SearchResult = (props) => {
                                                                     (()=> {
                                                                         switch(item.index) {
                                                                             case "wiki": 
-                                                                                return <div className="item-one" onClick={()=>toWiki(toItem.id)}>
+                                                                                return <div className="item-one" onClick={()=>toWiki(toItem)}>
                                                                                             <img src={wiki} alt=""/>
                                                                                             <span>{toItem.wikiName}</span>
                                                                                         </div>;

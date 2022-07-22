@@ -16,10 +16,7 @@ import DocumentEdit from "./documentEdit"
 const DocumentDetail = (props)=>{
     const {WikiCatalogueStore,wikiwork} = props;
     const {docDetail,setDocDetail,updateDocument,findDocument} = WikiCatalogueStore;
-    const {findWorkItem} = wikiwork;
-    useEffect(()=>{
-        
-    },[])
+
     const [docInfo, setDocInfo] = useState({name: "",likenumInt: "",commentNumber: ""})
     
 
@@ -29,32 +26,9 @@ const DocumentDetail = (props)=>{
     }
     
     const documentId = localStorage.getItem("documentId");
-    const [value, setValue] = useState([
-		{
-			type: "paragraph",
-			children: [{ text: "" }],
-		},
-	])
+   
     // 初始化
-    useEffect(() => {
-		findDocument(documentId).then((data) => {
-			if (data.code === 0) {
-				if(data.data.details){
-                    // setWorkData(JSON.parse(data.data.details),findWorkItem)
-                    setValue(JSON.parse(data.data.details))
-                    // setWorkData(JSON.parse(data.data.details),findWorkItem)
-                }else {
-                    setValue([
-                        {
-                            type: "paragraph",
-                            children: [{ text: "" }],
-                        },
-                    ])
-                }
-                setDocInfo(data.data)
-			}
-		})
-	}, [documentId])
+   
     
     // 保存内容
     const save = (type) => {

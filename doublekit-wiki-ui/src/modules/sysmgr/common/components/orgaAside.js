@@ -9,8 +9,6 @@
 import React,{Fragment,useState,useEffect} from 'react';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import {withRouter} from "react-router-dom";
-import {inject, observer} from "mobx-react";
-import { PrivilegeSystem } from "doublekit-privilege-ui";
 import orgaRouter from "./orgaRouter"
 
 const OrgaAside=(props)=>  {
@@ -100,9 +98,6 @@ const OrgaAside=(props)=>  {
         <Fragment>
             <div className="orga-aside">
                 <ul style={{padding: 0}} >
-                    {
-                        console.log(orgaRouter)
-                    }
                     {
                         orgaRouter && orgaRouter.map(firstItem => {
                             return firstItem.children && firstItem.children.length > 0 ? 

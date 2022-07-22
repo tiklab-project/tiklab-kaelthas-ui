@@ -34,7 +34,7 @@ const WikideAside = (props) => {
     // 是否显示弹窗
     const [changeWikiVisible, setChangeWikiVisible] = useState(null)
     // 当前知识库id
-    const wikiId = localStorage.getItem("wikiId")
+    const wikiId = localStorage.getItem("wiki").id
     // 显示菜单操作icon
     const [isHover, setIsHover] = useState(false)
 

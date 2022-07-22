@@ -26,11 +26,7 @@ const Orga = (props) => {
                 <Content
                     className="orga-background"
                 >
-                    <Row style={{height: "100%"}}>
-                        <Col xl={{span: 18,offset:3}} lg={{span: 20,offset:2}} style={{padding: "10px"}} className="orga-col">
-                            {renderRoutes(route.routes)}
-                        </Col>
-                    </Row>
+                        {renderRoutes(route.routes)}
                 </Content>
             </Layout>
         </Fragment>

@@ -23,7 +23,7 @@ const Wikicontent = (props)=>{
             dataIndex: "name",
             key: "wikiName",
             align: "center",
-            render: (text,record) => <span onClick={()=> goWikidetail(record.id)} className = "span-botton">
+            render: (text,record) => <span onClick={()=> goWikidetail(record)} className = "span-botton">
                         <svg className="icon" aria-hidden="true">
                             <use xlinkHref= "#icon1_cheese"></use>
                         </svg>
@@ -93,8 +93,8 @@ const Wikicontent = (props)=>{
             ),
         },
     ]
-    const goWikidetail = (id)=> {
-        localStorage.setItem("wikiId", id);
+    const goWikidetail = (wiki)=> {
+        localStorage.setItem("wiki",JSON.stringify(wiki));
         // wikiDetailStore.setWikiId(id)
         props.history.push({pathname: `/index/wikidetail`})
     }

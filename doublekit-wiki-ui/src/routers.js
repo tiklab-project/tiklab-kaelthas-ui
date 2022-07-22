@@ -22,6 +22,9 @@ const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/compone
 // 知识库
 const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wiki'))
 const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
+const DocumentEdit = AsyncComponent(() => import("./modules/wiki/common/components/documentEdit"))
+const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/common/components/documnetExamine"))
+
 const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
 const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
 
@@ -92,7 +95,11 @@ const routes=[
                 routes: [
                     {
                         path: "/index/wikidetail/doc/:id",
-                        component: DocumentDetail
+                        component: DocumnetExamine
+                    },
+                    {
+                        path: "/index/wikidetail/docEdit/:id",
+                        component: DocumentEdit
                     },
                     {
                         path: "/index/wikidetail/folder/:id",

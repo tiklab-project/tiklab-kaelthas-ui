@@ -24,7 +24,7 @@ import "./index.scss";
 import {observer} from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
-
+import "./assets/index"
 const Index = observer(() => {
     // useLoadLanguage(resources,fetchMethod, pluginAddressUrl, "zh")
     const {i18n} = useTranslation();

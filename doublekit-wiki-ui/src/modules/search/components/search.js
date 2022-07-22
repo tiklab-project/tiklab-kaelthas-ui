@@ -24,17 +24,17 @@ const Search = (props) => {
 
 
     const [show,setShow] = useState("hidden")
-    const toWiki = async(id) => {
-        setWikiId(id)
-        localStorage.setItem("wikiId",id)
+    const toWiki = async(wiki) => {
+        setWikiId(wiki.id)
+        localStorage.setItem("wiki",wiki.id)
         await props.history.push("/index/wikidetail/survey")
         setShow("hidden")
         // location.reload();
 
     }
-    const toWorkItem = async(id,pid) => {
-        setWikiId(pid)
-        localStorage.setItem("wikiId",pid)
+    const toWorkItem = async(id,wiki) => {
+        setWikiId(wiki.id)
+        localStorage.setItem("wiki",wiki.id)
         await props.history.push("/index/wikidetail/work")
         setShow("hidden")
         // location.reload();
@@ -95,12 +95,12 @@ const Search = (props) => {
                                                                 (()=> {
                                                                     switch(item.index) {
                                                                         case "wiki": 
-                                                                            return <div className="item-one" onClick={()=>toWiki(toItem.id)}>
+                                                                            return <div className="item-one" onClick={()=>toWiki(toItem)}>
                                                                                         <img src={wiki} alt=""/>
                                                                                         <span>{toItem.wikiName}</span>
                                                                                     </div>;
                                                                         case "WorkItem":
-                                                                            return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.wiki.id)}>
+                                                                            return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.wiki)}>
                                                                                         <img src={wiki} alt=""/>
                                                                                         <span>{toItem.title}</span>
                                                                                     </div>;

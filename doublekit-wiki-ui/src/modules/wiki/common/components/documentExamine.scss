@@ -1,20 +1,76 @@
 .document-examine {
+    background-color: #fff;
+    padding: 20px;
+    height: calc(100vh - 50px);
+    overflow: auto;
     .examine-title {
         font-size: 18px;
         font-weight: 600;
         line-height: 30px;
         height: 30px;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .document-edit {
+            display: flex;
+            align-items: center;
+        }
+        .inline {
+            border-left: 2px solid #f0f0f0;
+            height: 20px;
+            width: 1px;
+            margin-right: 20px;
+        }
         
+    }
+    .document-edit {
+        .user-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+        }
+        .right-icon {
+            width: 20px;
+            height: 20px;
+            margin-left: 20px;
+        }
     }
     .examine-type {
         font-size: 12px;
         color: #aaa;
         margin-left: 20px;
     }
+    .show-comment {
+        display: block;
+    }
+    .hidden-comment {
+        display: none;
+    }
     .preview-editor {
         min-height: 300px;
-        box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
+        // box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
+    }
+    .document-info {
+        .document-info-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .document-info-detail {
+            display: flex;
+            align-items: center;
+            .user-icon {
+                width: 30px;
+                height: 30px;
+                margin-right: 20px;
+            }
+            .document-info-creater, .document-updata-date {
+                height: 30px;
+                line-height: 30px;
+                color: #6B778C;
+            }
+        }
+        
     }
     .examine-comment {
         display: flex;

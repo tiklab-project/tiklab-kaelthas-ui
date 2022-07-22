@@ -24,23 +24,24 @@ const WikiDetail = (props)=>{
     const {getInitProjectPermissions} = systemRoleStore;
 
     // 当前知识库名字
-    const [wikiname,setWikiname] = useState();
+    const wiki =  JSON.parse(localStorage.getItem("wiki"))
+    const wikiname = wiki.name;
 
     // 获取当前知识库id
-    const wikiId = localStorage.getItem("wikiId")
+    const wikiId = wiki.id
 
 
     useEffect(() => {
         // 从信息页面跳入知识库详情页面时，获取知识库id
         let search = props.location.search;
-        if(search !== "") {
-            search = search.split("=")
-            localStorage.setItem("wikiId", search[1]);
-            setWikiId(search[1])
-        }
-        searchwiki(localStorage.getItem("wikiId")).then((res)=> {
-            setWikiname(res.name)
-        })
+        // if(search !== "") {
+        //     search = search.split("=")
+        //     localStorage.setItem("wiki", search[1]);
+        //     setWikiId(search[1])
+        // }
+        // searchwiki(localStorage.getItem("wikiId")).then((res)=> {
+        //     setWikiname(res.name)
+        // })
 
         //获取知识库列表
         getWikilist()

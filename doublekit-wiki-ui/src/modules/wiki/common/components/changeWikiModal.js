@@ -26,11 +26,11 @@ const ChangeWikiModal = (props) => {
      * 切换知识库
      * @param {id} id 
      */
-    const selectWikiId = (id) => {
+    const selectWikiId = (wiki) => {
         // 切换选中知识库，获取知识库详情
-        searchwiki(id);
+        searchwiki(wiki.id);
         // 讲当前知识库id存入localStorage
-        localStorage.setItem("wikiId", id);
+        localStorage.setItem("wiki", wiki.id);
         // 重置事项id
         // 关闭切换弹窗
         setChangeWikiVisible(false)
@@ -67,7 +67,7 @@ const ChangeWikiModal = (props) => {
                 {
                     wikilist && wikilist.map((item) => {
                         return <div className={`wiki-name ${item.id === selectWiki ? "wiki-selectName" : ""}`}
-                            onClick={() => selectWikiId(item.id)}
+                            onClick={() => selectWikiId(item)}
                             key={item.id}
                             onMouseOver={() => handleMouseOver(item.id)}
                             onMouseOut={handleMouseOut}

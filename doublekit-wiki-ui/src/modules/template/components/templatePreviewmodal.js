@@ -13,7 +13,6 @@ import "./templatePreviewModal.scss"
 import { PreviewEditor } from "doublekit-slate-ui"
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
-    const wikiId = localStorage.getItem("wikiId")
     const {previewModalVisible,setPreviewModalVisible,templateStore,templateId} = props;
     const {findDocumentTemplate} = templateStore;
     const [template,setTemplate] = useState()
