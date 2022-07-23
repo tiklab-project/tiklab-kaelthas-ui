@@ -44,6 +44,12 @@ const orgaRouter = [
         icon: 'icon1_user',
         key: '/index/sysmgr/loadData',
         encoded: "SysMessage",
+    },
+    {
+        title: "模板",
+        icon: 'icon1_user',
+        key: '/index/sysmgr/template',
+        encoded: "SysMessage",
     }
 
 ];

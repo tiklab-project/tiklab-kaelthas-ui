@@ -17,7 +17,7 @@ const AddLog = (props) => {
     const {addModalVisible,setAddModalVisible,setWikiCatalogueList,
         WikiCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
     const {addWikiCatalogue,addWikiCataDocument,findWikiCatalogue} = WikiCatalogueStore;
-    const wikiId = localStorage.getItem("wikiId")
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;

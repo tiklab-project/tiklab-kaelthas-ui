@@ -8,46 +8,20 @@
  */
 import {service} from "../../../common/utils/requset";
 
-// 获取我的项目
-export function StatProjectWorkItem (data){
+
+export function FindDocumentList(data){
     return service.request({
-        url: "/workItemStat/statProjectWorkItem",
-        method: "post",
-        data 
-    })
-}
-// 获取我的事项统计
-export function StatWorkItemByBusStatus (data){
-    return service.request({
-        url: "/workItemStat/statWorkItemByBusStatus",
+        url: "/document/findDocumentList",
         method: "post",
         data 
     })
 }
 
-// 获取我的迭代统计
-export function ManageSprint (data){
+export function FindDocumentRecentList(data){
     return service.request({
-        url: "/workItemStat/statManageSprint",
+        url: "/documentRecent/findDocumentRecentList",
         method: "post",
         data 
     })
 }
 
-// 获取所有事项分类
-export function WorkType(data){
-    return service.request({
-        url: "/workType/findAllWorkType",
-        method: "post",
-        data 
-    })
-}
-
-// 获取所有事项状态
-export function FindWorkStatusListBySorts(data){
-    return service.request({
-        url: "/workStatus/findWorkStatusListBySorts",
-        method: "post",
-        data 
-    })
-}

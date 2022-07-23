@@ -19,7 +19,7 @@ const LogDetail = (props) => {
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
     // 当前知识库id
-    const wikiId = localStorage.getItem("wikiId")
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
     useEffect(() => {
         detailWikiLog({ id: categoryId }).then(data => {
             setLogDetail(data)

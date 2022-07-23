@@ -14,7 +14,7 @@ const MoveLogList = (props) => {
         setMoveLogListVisible,setWikiCatalogueList,formatType,
         moveCategoryId,findWikiCatalogue,updateDocument,updateWikiCatalogue,moveCategoryParentId } = props;
     const [selectKey,setSelectKey] = useState()
-    const wikiId = localStorage.getItem("wikiId")
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
     const onFinish = () => {
         let value
         if(formatType === "category"){

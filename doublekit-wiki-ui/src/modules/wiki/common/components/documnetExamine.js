@@ -180,7 +180,7 @@ const DocumentExamine = (props) => {
                                 </svg>
                                 <div className="document-info-right">
                                     <div className="document-info-creater">创建者：{docInfo ? docInfo.master.name : ""}</div>
-                                    <div className="document-updata-date">最近更新日期：2022-10-09</div>
+                                    <div className="document-updata-date">最近更新日期：{docInfo ? docInfo.updateTime : ""}</div>
                                 </div>
 
                             </div>

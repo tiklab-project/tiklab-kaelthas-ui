@@ -12,7 +12,7 @@ import {WIKI_STORE,WikiStore} from "./modules/wiki/wiki/store/wikiStore";
 import {WIKIDETAIL_STORE,WikiDetailStore} from "./modules/wiki/common/store/wikiDetailStore";
 import {SEARCH_STORE,SearchStore} from "./modules/search/store/search";
 import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./modules/wiki/common/store/wikiLogStore"
-
+import {HOME_STORE, HomeStore} from "./modules/home/store/homeStore"
 import {TEMPLATE_STORE,TemplateStore} from "./modules/template/store/templateStore"
 import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
 import {SHARE_STORE,ShareStore} from "./modules/share/store/shareStore"
@@ -32,6 +32,7 @@ function createStores() {
         [SHARE_STORE]: new ShareStore(),
         [WIKIWORK_STORE]: new WikiWork(),
         [EAM_STORE]: new EamStore(),
+        [HOME_STORE]: new HomeStore()
     };
 }
 

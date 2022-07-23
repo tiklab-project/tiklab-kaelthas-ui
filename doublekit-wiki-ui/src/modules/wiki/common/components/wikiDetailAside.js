@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-12-22 14:33:43
  */
 
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useId } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Menu, Dropdown, Button, Modal, Layout, Form } from 'antd';
@@ -17,6 +17,7 @@ import ChangeWikiModal from "./changeWikiModal"
 import MoveLogList from "./moveLogList"
 import TemplateList from "./templateList"
 import { PrivilegeProject } from "doublekit-privilege-ui";   
+import { getUser } from 'doublekit-core-ui';
 const { Sider } = Layout;
 const WikideAside = (props) => {
     // 解析props
@@ -25,22 +26,27 @@ const WikideAside = (props) => {
     //语言包
     const { t } = useTranslation();
     const { findWikiCatalogue, updateWikiCatalogue,
-        deleteWikiLog, updateDocument, deleteDocument,findDmPrjRolePage,wikiCatalogueList,setWikiCatalogueList} = WikiCatalogueStore;
+        deleteWikiLog, updateDocument, deleteDocument,
+        findDmPrjRolePage,wikiCatalogueList,setWikiCatalogueList, createDocumentRecent} = WikiCatalogueStore;
     
     // 当前选中目录id
-    const [selectKey, setSelectKey] = useState();
+    const id = props.location.pathname.split("/")[4];
+    console.log(id)
+    const [selectKey, setSelectKey] = useState(id);
     // 菜单是否折叠
     const [isShowText, SetIsShowText] = useState(true)
     // 是否显示弹窗
     const [changeWikiVisible, setChangeWikiVisible] = useState(null)
     // 当前知识库id
-    const wikiId = localStorage.getItem("wiki").id
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
     // 显示菜单操作icon
     const [isHover, setIsHover] = useState(false)
 
     const [changeTemplateVisible, setChangeTemplateVisible] = useState()
 
     const [templateId, setTemplateId] = useState()
+
+    const userId = getUser().userId
 
     // 模板内容
     const [contentValue, setContentValue] = useState()
@@ -52,7 +58,7 @@ const WikideAside = (props) => {
 
     useEffect(() => {
         // 初次进入激活导航菜单
-        setSelectKey(props.location.pathname)
+        setSelectKey(id)
         return
     }, [wikiId])
 
@@ -60,19 +66,27 @@ const WikideAside = (props) => {
      * 点击左侧菜单
      * @param {*} key 
      */
-    const selectKeyFun = (id, formatType) => {
-        setSelectKey(id)
-        if (formatType === "category") {
-            localStorage.setItem("categoryId", id);
-            props.history.push(`/index/wikidetail/folder/${id}`)
+    const selectKeyFun = (item) => {
+        const params = {
+            name: item.name,
+            model: item.typeId,
+            modelId: item.id,
+            master: {id: userId},
+            repository: {id: wikiId}
         }
-        if (formatType === "document") {
-            localStorage.setItem("documentId", id);
-            props.history.push(`/index/wikidetail/doc/${id}`)
+        createDocumentRecent(params)
+        setSelectKey(item.id)
+        if (item.typeId === "category") {
+            localStorage.setItem("categoryId", item.id);
+            props.history.push(`/index/wikidetail/folder/${item.id}`)
         }
-        if (formatType === "mindMap") {
-            localStorage.setItem("documentId", id);
-            props.history.push(`/index/wikidetail/mindmap/${id}`)
+        if (item.typeId === "document") {
+            localStorage.setItem("documentId", item.id);
+            props.history.push(`/index/wikidetail/doc/${item.id}`)
+        }
+        if (item.typeId === "mindMap") {
+            localStorage.setItem("documentId", item.id);
+            props.history.push(`/index/wikidetail/mindmap/${item.id}`)
         }
     }
 
@@ -321,7 +335,7 @@ const WikideAside = (props) => {
                 >
                 <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
                     key={item.id}
-                    onClick={() => selectKeyFun(item.id, item.formatType)}
+                    onClick={() => selectKeyFun(item)}
                     onMouseOver={() => setIsHover(item.id)} 
                     onMouseLeave={() => setIsHover(null)}
                     onDrag={() => moveWorkItem()}
@@ -387,7 +401,7 @@ const WikideAside = (props) => {
             >
                 <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
                     key={item.id}
-                    onClick={() => selectKeyFun(item.id, item.typeId)}
+                    onClick={() => selectKeyFun(item)}
                     onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
                     onDragOver={dragover}
                     onDrag={() => moveWorkItem()}

@@ -10,7 +10,7 @@ import React from "react";
 import { DomainRoleList } from 'doublekit-privilege-ui';
 
 const WikiDomainRole = props => {
-    const wikiId = localStorage.getItem("wikiId");
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id;
 
     return (
         <DomainRoleList

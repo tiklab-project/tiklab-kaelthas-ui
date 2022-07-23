@@ -8,7 +8,8 @@
  */
 import { observable, action} from "mobx";
 import {FindWikiCatalogue,AddWikiCatalogue,DetailWikiLog,AddWikiCataDocument,
-    UpdateWikiCatalogue,DeleteWikiLog,UpdateDocument,FindDocument,DeleteDocument,FindCategoryDocument,FindDmPrjRolePage} from "../api/wiliLog"
+    UpdateWikiCatalogue,DeleteWikiLog,UpdateDocument,FindDocument,DeleteDocument,
+    FindCategoryDocument,FindDmPrjRolePage, CreateDocumentRecent} from "../api/wiliLog"
 export class WikiCatalogueStore {
     // 知识库id
     @observable wikiCatalogue = [];
@@ -123,6 +124,13 @@ export class WikiCatalogueStore {
             pageParam: {pageSize: 10, currentPage: 1}
         }
         const data = await FindDmPrjRolePage(param);
+        return data.data;
+    }
+
+    @action
+    createDocumentRecent= async(value)=> {
+        
+        const data = await CreateDocumentRecent(value);
         return data.data;
     }
 }

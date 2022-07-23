@@ -157,6 +157,11 @@ const routes=[
                         component: LoadData,
                         exact: true
                     },
+                    {
+                        path: "/index/sysmgr/template",
+                        component: Template,
+                        exact: true
+                    },
                 ]
             }
         ]

@@ -102,6 +102,7 @@ const TemplateAddmodal = (props) => {
                 form={form}
                 name="basic"
                 initialValues={{ remember: true }}
+                style = {{marginBottom: "20px"}}
             >   
                 <div className="addmodal-top">
                     <svg className="icon" aria-hidden="true">
@@ -111,7 +112,7 @@ const TemplateAddmodal = (props) => {
                         <Form.Item
                             name="name"
                             rules={[{ required: true, message: '请输入模板名称!' }]}
-                            wrapperCol = {{ span: 12 }}
+                            wrapperCol = {{ span: 6 }}
                         >
                             <Input placeholder="请输入模板名称" />
                         </Form.Item>
@@ -126,8 +127,6 @@ const TemplateAddmodal = (props) => {
                         </Form.Item>
                     </div>
                 </div>
-                
-                
             </Form>
             <DocumentEditor value = {editorValue} onChange = {(value)=> changeEditor(value)}/>
         </div>

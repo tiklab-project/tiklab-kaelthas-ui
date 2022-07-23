@@ -119,3 +119,11 @@ export function FindDmPrjRolePage(data){
         data
     })
 }
+
+export function CreateDocumentRecent(data){
+    return service.request({
+        url: "/documentRecent/createDocumentRecent",
+        method: "post",
+        data
+    })
+}

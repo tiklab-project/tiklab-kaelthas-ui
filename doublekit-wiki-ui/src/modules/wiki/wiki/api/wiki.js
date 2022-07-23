@@ -85,3 +85,11 @@ export function GetUseList(data){
         // params: data 请求类型为get时
     })
 }
+
+export function CreateDocumentRecent(data){
+    return service.request({
+        url: "/documentRecent/createDocumentRecent",
+        method: "post",
+        data
+    })
+}

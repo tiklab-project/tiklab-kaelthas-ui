@@ -3,12 +3,13 @@ import { Breadcrumb,Input,Table, Space,Button,Divider,Row, Col } from 'antd';
 import WikiAddmodal from "./wikiAdd";
 import { observer,inject } from "mobx-react";
 import {Link,withRouter} from "react-router-dom";
+import { getUser } from "doublekit-core-ui";
 const { Search } = Input;
 const Wikicontent = (props)=>{
-    const {wikiStore,wikiDetailStore,wikilist,wikiTypelist,getWikiTypeList,getUseList,uselist} = props;
-    const {getWikilist,addWikilist,searchwiki,
+    const {wikiStore,wikilist,wikiTypelist,getWikiTypeList,getUseList,uselist} = props;
+    const {getWikilist,addWikilist,searchwiki,createDocumentRecent,
         wikiPageParams,delewikiList,updateWiki} = wikiStore;
-
+    const userId = getUser().userId
     // const [wikilist,getWikiList] = useState([])
     useEffect(() => {
         getWikilist()
@@ -94,6 +95,14 @@ const Wikicontent = (props)=>{
         },
     ]
     const goWikidetail = (wiki)=> {
+        const params = {
+            name: wiki.name,
+            model: "wiki",
+            modelId: wiki.id,
+            master: {id: userId},
+            repository: {id: wiki.id}
+        }
+        createDocumentRecent(params)
         localStorage.setItem("wiki",JSON.stringify(wiki));
         // wikiDetailStore.setWikiId(id)
         props.history.push({pathname: `/index/wikidetail`})

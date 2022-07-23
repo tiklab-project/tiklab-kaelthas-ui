@@ -1,5 +1,6 @@
 import { observable, action } from "mobx";
-import { GetWikiList,AddWikiList,DeleWikiList,SearchWiki,UpdateWikiList,GetWikiTypeList,GetUseList,GetAllWikiList } from "../api/wiki";
+import { GetWikiList,AddWikiList,DeleWikiList,SearchWiki,
+    UpdateWikiList,GetWikiTypeList,GetUseList,GetAllWikiList,CreateDocumentRecent } from "../api/wiki";
 
 export class WikiStore {
     @observable wikilist = [];
@@ -165,6 +166,13 @@ export class WikiStore {
         }).catch(error => {
             console.log(error)
         })
+    }
+
+    @action
+    createDocumentRecent= async(value)=> {
+        
+        const data = await CreateDocumentRecent(value);
+        return data.data;
     }
 }
 

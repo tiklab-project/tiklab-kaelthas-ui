@@ -27,11 +27,6 @@ const Portal = (props) => {
             key: 'wiki'
         },
         {
-            to:'/index/template',
-            title:'模板',
-            key: 'template'
-        },
-        {
             to:'/index/sysmgr/systemFeature',
             title:'系统',
             key: 'sysmgr'
