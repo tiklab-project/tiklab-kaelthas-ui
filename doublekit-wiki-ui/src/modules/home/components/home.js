@@ -100,9 +100,8 @@ const Home = (props) => {
                                 return <Fragment>
                                     <div className="repository-item" key={item.id} onClick = {() => goWikiDetail(item)}>
                                         <svg className="icon" aria-hidden="true">
-                                            <use xlinkHref="#iconpaihang1"></use>
+                                            <use xlinkHref="#icon-paihang"></use>
                                         </svg>
-
                                         <div className="title" key="title">{item.name}</div>
                                     </div>
                                 </Fragment>
@@ -120,7 +119,7 @@ const Home = (props) => {
                                         return <div className="document-list-item" key={item.id} onClick = {() => goDocumentDetail(item)}>
                                             <div className='document-name' style={{ flex: 1 }}>
                                                 <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#iconpaihang1"></use>
+                                                    <use xlinkHref="#icon-paihang"></use>
                                                 </svg>
                                                 <span>{item.name}</span>
                                             </div>
@@ -145,7 +144,7 @@ const Home = (props) => {
                                         return <div className="document-list-item" key={item.id} onClick = {() => goEditDetail  (item)}>
                                             <div className='document-name' style={{ flex: 1 }}>
                                                 <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#iconpaihang1"></use>
+                                                    <use xlinkHref="#icon-paihang"></use>
                                                 </svg>
                                                 <span>{item.name}</span>
                                             </div>

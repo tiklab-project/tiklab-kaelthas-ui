@@ -95,7 +95,7 @@ const WikiAddmodal = (props) => {
                     </Button>
                 : <div><span onClick={showModal} className = "span-botton">
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= "#iconchuangzuo-copy"></use>
+                            <use xlinkHref= "#icon-chuangzuo"></use>
                         </svg>
                     {props.name}</span>
                     </div>

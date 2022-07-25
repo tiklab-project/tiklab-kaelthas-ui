@@ -93,7 +93,7 @@ const LogDetail = (props) => {
 
                             <div className="title-left">
                                 <svg className="title-icon" aria-hidden="true">
-                                    <use xlinkHref="#iconB-13"></use>
+                                    <use xlinkHref="#icon-folder"></use>
                                 </svg>
                                 <div className="title-name">
                                     <div className="name">{logDetail.name}</div>
@@ -119,10 +119,10 @@ const LogDetail = (props) => {
                                 {
                                     item.formatType && item.formatType === "document" ?
                                         <svg className="log-icon" aria-hidden="true">
-                                            <use xlinkHref="#iconB-06"></use>
+                                            <use xlinkHref="#icon-file"></use>
                                         </svg> :
                                         <svg className="log-icon" aria-hidden="true">
-                                            <use xlinkHref="#iconB-13"></use>
+                                            <use xlinkHref="#icon-folder"></use>
                                         </svg>
                                 }
 

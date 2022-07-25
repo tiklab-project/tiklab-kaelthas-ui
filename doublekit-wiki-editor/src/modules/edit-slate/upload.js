@@ -135,7 +135,10 @@ const AttUpload = (props) => {
 	return (
 		<div className = "upload-editor" key="upload">
 			<span onMouseDown={(event) => showModal(event)}>
-				<i className="iconfont iconimage" style={{fontWeight: 600}}></i>
+				{/* <i className="iconfont iconimage" style={{fontWeight: 600}}></i> */}
+				<svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-image"></use>
+                </svg>
 			</span>
 			{
 				isModalVisible && <div className="upload-box">

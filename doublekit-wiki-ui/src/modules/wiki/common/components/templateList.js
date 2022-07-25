@@ -7,7 +7,6 @@
  * @LastEditTime: 2021-12-20 15:30:38
  */
 import React, { useState,useEffect } from 'react';
-import "../../../../assets/font-icon/iconfont.css";
 import { observer, inject } from "mobx-react";
 import { Modal, Button, Layout, Menu } from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';

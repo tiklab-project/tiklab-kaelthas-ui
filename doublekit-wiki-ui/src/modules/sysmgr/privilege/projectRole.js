@@ -3,7 +3,7 @@ import { SystemRoleList } from 'doublekit-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 const ProjectRole = props => {
-    console.log(props)
+    
 
     return (
         // <div className="test">

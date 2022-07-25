@@ -74,7 +74,10 @@ const ColorEditor = (props) => {
     return (
         <div className="color-editor" key="color">
             <div onMouseDown={(event) => showBox(event)} className = "color-botton">
-                <i className="iconfont iconfont-color"></i>
+                {/* <i className="iconfont iconfont-color"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-font-color"></use>
+                </svg>
 			</div>
             {
                 editorType === "color" && 

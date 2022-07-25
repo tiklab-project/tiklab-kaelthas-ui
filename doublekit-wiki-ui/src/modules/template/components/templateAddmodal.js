@@ -106,7 +106,7 @@ const TemplateAddmodal = (props) => {
             >   
                 <div className="addmodal-top">
                     <svg className="icon" aria-hidden="true">
-                        <use xlinkHref= "#iconpaihang1"></use>
+                        <use xlinkHref= "#icon-paihang"></use>
                     </svg>
                     <div className="addmodal-from">
                         <Form.Item

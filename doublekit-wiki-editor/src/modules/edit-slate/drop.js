@@ -14,7 +14,10 @@ const Drop = () => {
         <div>
             <div className = "drop-box" onClick = {() => setDropShow(!dropShow)}>
                 <span className="drop-icon">
-                    <i className="iconfont iconfont-color"></i>
+                    {/* <i className="iconfont iconfont-color"></i> */}
+                    <svg className="slate-iconfont" aria-hidden="true">
+                        <use xlinkHref="#icon-font-color"></use>
+                    </svg>
                 </span>
             </div>
             <div className={`drop-list ${dropShow ? "drop-show" : "drop-hidden"}`} onClick={()=> {}}>

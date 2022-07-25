@@ -97,7 +97,10 @@ const LinkEditor = (props) => {
                     }
                 }
             >
-                <i className="iconfont iconlink"></i>
+                {/* <i className="iconfont iconlink"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-link"></use>
+                </svg>
             </span>
             {
                 showFrom &&  <div className="link-from">

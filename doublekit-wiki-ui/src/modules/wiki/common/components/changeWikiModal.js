@@ -30,7 +30,7 @@ const ChangeWikiModal = (props) => {
         // 切换选中知识库，获取知识库详情
         searchwiki(wiki.id);
         // 讲当前知识库id存入localStorage
-        localStorage.setItem("wiki", wiki.id);
+        localStorage.setItem("wiki", JSON.stringify(wiki));
         // 重置事项id
         // 关闭切换弹窗
         setChangeWikiVisible(false)

@@ -37,23 +37,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var wikirouter = [{
   title: '所有知识库',
   key: '1',
-  icon: "icon1_light-bulb"
+  icon: "zhishi"
 }, {
   title: '最近浏览的知识库',
   key: '2',
-  icon: "icon1_megaphone-money"
+  icon: "zhishi"
 }, {
   title: '我创建的知识库',
   key: '3',
-  icon: "icon1_sun-clouds"
+  icon: "zhishi"
 }, {
   title: '我参与的知识库',
   key: '4',
-  icon: "icon1_light-bulb"
+  icon: "zhishi"
 }, {
   title: '我关注的知识库',
   key: '5',
-  icon: "icon1_cheese"
+  icon: "zhishi"
 }];
 
 var Wikiaside = /*#__PURE__*/function (_React$Component) {
@@ -137,7 +137,7 @@ var Wikiaside = /*#__PURE__*/function (_React$Component) {
           columnNumber: 29
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon1_cheese",
+        xlinkHref: "#icon-zhishi",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 77,
@@ -181,7 +181,7 @@ var Wikiaside = /*#__PURE__*/function (_React$Component) {
             columnNumber: 41
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
-          xlinkHref: "#".concat(Item.icon),
+          xlinkHref: "#icon-".concat(Item.icon),
           __source: {
             fileName: _jsxFileName,
             lineNumber: 86,

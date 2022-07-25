@@ -33,7 +33,6 @@ const DocumentExamine = (props) => {
 
     useEffect(() => {
         findCommentPage({ documentId: documentId }).then(data => {
-            console.log(data)
             if (data.code === 0) {
                 setCommonList(data.data)
             }
@@ -149,9 +148,6 @@ const DocumentExamine = (props) => {
                         <svg className="user-icon" aria-hidden="true">
                             <use xlinkHref="#icon-comments"></use>
                         </svg>
-                        {/* <svg className="user-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-dianzan"></use>
-                        </svg> */}
                         <span className="comment-item" onClick={addDocLike}>
                             { 
                                 docInfo.isLike ? <svg className="user-icon" aria-hidden="true">
@@ -176,7 +172,7 @@ const DocumentExamine = (props) => {
                            
                             <div className="document-info-detail">
                                 <svg className="user-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon1_user5"></use>
+                                    <use xlinkHref="#icon-user5"></use>
                                 </svg>
                                 <div className="document-info-right">
                                     <div className="document-info-creater">创建者：{docInfo ? docInfo.master.name : ""}</div>
@@ -192,23 +188,18 @@ const DocumentExamine = (props) => {
                 <div className="examine-comment" >
                     <span className="comment-item" onClick={addDocLike}>
                         { docInfo.isLike ? <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icondianzan-copy"></use>
+                            <use xlinkHref="#icon-dianzan"></use>
                         </svg> : <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icondianzan"></use>
+                            <use xlinkHref="#icon-dianzan"></use>
                         </svg>}
                         <span className="number">({docInfo.likenumInt || 0}条)</span>
                     </span>
                     <span className="comment-item" onClick={()=> setShowComment(!showComment)}>
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconpinglun"></use>
+                            <use xlinkHref="#icon-comments"></use>
                         </svg>
                         <span className="number">({docInfo.commentNumber || 0}条)</span>
                     </span>
-                    {/* <span className="comment-item" onClick={() => setShareVisible(true)}>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconfenxiang"></use>
-                        </svg>
-                    </span> */}
                 </div>
                 
                 <div className={showComment ? "show-comment" : "hidden-comment"}>
@@ -226,7 +217,7 @@ const DocumentExamine = (props) => {
                                 return <div className="comment-item" key={item.id}>
                                     <div className="comment-user">
                                         <svg className="user-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon1_user5"></use>
+                                            <use xlinkHref="#icon-user5"></use>
                                         </svg>
                                         <span className="user-name">{item.user.name}</span>
                                     </div>
@@ -241,7 +232,7 @@ const DocumentExamine = (props) => {
                                     </div>
                                     <div className={`edit-comment ${reply === item.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
                                         <svg className="user-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon1_user5"></use>
+                                            <use xlinkHref="#icon-user5"></use>
                                         </svg>
                                         <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
                                         <Button type="primary" onClick={() => announceReply(item.id)}>发布</Button>
@@ -251,7 +242,7 @@ const DocumentExamine = (props) => {
                                             return <div className="comment-item commnet-children-item" key={children.id}>
                                                 <div className="comment-user">
                                                     <svg className="user-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon1_user5"></use>
+                                                        <use xlinkHref="#icon-user5"></use>
                                                     </svg>
                                                     <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
                                                 </div>
@@ -266,7 +257,7 @@ const DocumentExamine = (props) => {
                                                 </div>
                                                 <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
                                                     <svg className="user-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon1_user5"></use>
+                                                        <use xlinkHref="#icon-user5"></use>
                                                     </svg>
                                                     <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
                                                     <Button type="primary" onClick={() => announceThirdReply(item.id, children.id)}>发布</Button>

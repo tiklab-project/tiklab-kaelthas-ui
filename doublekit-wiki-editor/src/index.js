@@ -13,7 +13,8 @@ import routers from './routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import {store } from "./stores"
-import "./assets/font-icon/iconfont"
+// import "./assets/font-icon/iconfont"
+import "./assets/index"
 import "./index.scss";
 import {observer} from "mobx-react"
 

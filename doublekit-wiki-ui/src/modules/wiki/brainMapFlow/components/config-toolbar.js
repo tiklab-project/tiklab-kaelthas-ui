@@ -190,7 +190,7 @@ export const useToolbarConfig = createToolbarConfig((toolbarConfig, proxy) => {
     registerIcon()
     /** 生产 toolbar item */
     toolbarConfig.setToolbarModelService(async (toolbarModel, modelService, toDispose) => {
-      // console.log(props)
+      // 
       const updateToolbarModel = async () => {
         const state = await getToolbarState(modelService)
         const toolbarItems = await getToolbarItems(state)

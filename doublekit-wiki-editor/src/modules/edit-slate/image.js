@@ -100,7 +100,10 @@ const ImageEditor = (props) => {
                     }
                 }
             >
-                <i className="iconfont iconimage"></i>
+                {/* <i className="iconfont iconimage"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-image"></use>
+                </svg>
             </span>
             {
                 showFrom &&  <div className="image-from">

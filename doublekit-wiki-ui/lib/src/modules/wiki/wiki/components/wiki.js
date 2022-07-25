@@ -2,10 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('antd/es/row/style/css');
-var _Row = require('antd/es/row');
-require('antd/es/col/style/css');
-var _Col = require('antd/es/col');
 require('antd/es/layout/style/css');
 var _Layout = require('antd/es/layout');
 var React = require('react');
@@ -16,8 +12,6 @@ var mobxReact = require('mobx-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
-var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Layout__default = /*#__PURE__*/_interopDefaultLegacy(_Layout);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
@@ -69,30 +63,6 @@ var Wiki = function Wiki(props) {
       lineNumber: 31,
       columnNumber: 17
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Row__default["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 32,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
-    xl: {
-      span: 22,
-      offset: 1
-    },
-    lg: {
-      span: 22,
-      offset: 2
-    },
-    md: {
-      span: 20,
-      offset: 0
-    },
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 33,
-      columnNumber: 25
-    }
   }, /*#__PURE__*/React__default["default"].createElement(wikiContent["default"], {
     wikilist: wikilist,
     wikiTypelist: wikiTypelist,
@@ -101,10 +71,10 @@ var Wiki = function Wiki(props) {
     uselist: uselist,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 34,
-      columnNumber: 29
+      lineNumber: 32,
+      columnNumber: 21
     }
-  }))))));
+  }))));
 };
 
 var wiki = mobxReact.inject('wikiStore')(mobxReact.observer(Wiki));

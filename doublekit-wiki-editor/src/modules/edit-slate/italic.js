@@ -39,7 +39,10 @@ const ItalicEditor = (props) => {
 
     return (   
         <span className="tool-item" onMouseDown = {(event)=> selectItalic(event)} key="italic">
-            <i className="iconfont iconitalic"></i>
+            {/* <i className="iconfont iconitalic"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-italic"></use>
+            </svg>
         </span>
     )
 }

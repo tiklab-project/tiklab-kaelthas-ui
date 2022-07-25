@@ -39,7 +39,10 @@ const SupEditor = (props) => {
 
     return (   
         <span className="tool-item" onMouseDown = {(event)=> selectSup(event)} key="sup">
-            <i className="iconfont iconsuperscript-2"></i>
+            {/* <i className="iconfont iconsuperscript-2"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-superscript-2"></use>
+            </svg>
         </span>
     )
 }

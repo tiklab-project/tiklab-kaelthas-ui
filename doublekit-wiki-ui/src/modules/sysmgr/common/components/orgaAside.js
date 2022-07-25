@@ -28,7 +28,7 @@ const OrgaAside=(props)=>  {
                 style={{paddingLeft: `${deep * 20 + 20}`, cursor: "pointer"}}
             >   
                 <svg className="icon" aria-hidden="true">
-                    <use xlinkHref={`#${data.icon}`}></use>
+                    <use xlinkHref={`#icon-${data.icon}`}></use>
                 </svg>
                 {data.title}
             </li>
@@ -63,7 +63,7 @@ const OrgaAside=(props)=>  {
                     <div className="orga-aside-item"  style={{paddingLeft: `${deep * 20 + 20}`}}>
                         <span to={key} style={{color: "#0053ca"}}>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref={`#${icon}`}></use>
+                                <use xlinkHref={`#icon-${icon}`}></use>
                             </svg>
                             {title}
                         </span>

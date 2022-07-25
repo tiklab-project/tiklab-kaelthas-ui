@@ -5,7 +5,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var React = require('react');
 var icons = require('@ant-design/icons');
 var reactRouterDom = require('react-router-dom');
-require('mobx-react');
 var orgaRouter = require('./orgaRouter.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -54,7 +53,7 @@ var OrgaAside = function OrgaAside(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28,
+          lineNumber: 26,
           columnNumber: 13
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -62,14 +61,14 @@ var OrgaAside = function OrgaAside(props) {
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 32,
+          lineNumber: 30,
           columnNumber: 17
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#".concat(data.icon),
+        xlinkHref: "#icon-".concat(data.icon),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 33,
+          lineNumber: 31,
           columnNumber: 21
         }
       })), data.title) // </PrivilegeSystem>
@@ -120,7 +119,7 @@ var OrgaAside = function OrgaAside(props) {
         className: "orga-aside-li",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 64,
+          lineNumber: 62,
           columnNumber: 17
         }
       }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -130,7 +129,7 @@ var OrgaAside = function OrgaAside(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 65,
+          lineNumber: 63,
           columnNumber: 21
         }
       }, /*#__PURE__*/React__default["default"].createElement("span", {
@@ -140,7 +139,7 @@ var OrgaAside = function OrgaAside(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 66,
+          lineNumber: 64,
           columnNumber: 25
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -148,21 +147,21 @@ var OrgaAside = function OrgaAside(props) {
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 67,
+          lineNumber: 65,
           columnNumber: 29
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#".concat(icon),
+        xlinkHref: "#icon-".concat(icon),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 68,
+          lineNumber: 66,
           columnNumber: 33
         }
       })), title), /*#__PURE__*/React__default["default"].createElement("div", {
         className: "orga-aside-item-icon",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 72,
+          lineNumber: 70,
           columnNumber: 25
         }
       }, children ? isExpandedTree(key) ? /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
@@ -174,7 +173,7 @@ var OrgaAside = function OrgaAside(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 76,
+          lineNumber: 74,
           columnNumber: 37
         }
       }) : /*#__PURE__*/React__default["default"].createElement(icons.UpOutlined, {
@@ -186,7 +185,7 @@ var OrgaAside = function OrgaAside(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 77,
+          lineNumber: 75,
           columnNumber: 37
         }
       }) : "")), /*#__PURE__*/React__default["default"].createElement("ul", {
@@ -195,7 +194,7 @@ var OrgaAside = function OrgaAside(props) {
         className: "orga-aside-ul ".concat(isExpandedTree(key) ? null : 'orga-aside-hidden'),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 83,
+          lineNumber: 81,
           columnNumber: 21
         }
       }, children && children.map(function (item) {
@@ -209,14 +208,14 @@ var OrgaAside = function OrgaAside(props) {
   return /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100,
+      lineNumber: 98,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "orga-aside",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101,
+      lineNumber: 99,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("ul", {
@@ -225,10 +224,10 @@ var OrgaAside = function OrgaAside(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102,
+      lineNumber: 100,
       columnNumber: 17
     }
-  }, console.log(orgaRouter["default"]), orgaRouter["default"] && orgaRouter["default"].map(function (firstItem) {
+  }, orgaRouter["default"] && orgaRouter["default"].map(function (firstItem) {
     return firstItem.children && firstItem.children.length > 0 ? renderSubMenu(firstItem, 0) : renderMenu(firstItem, 0);
   }))));
 };

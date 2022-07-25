@@ -13,49 +13,20 @@ var doublekitCoreUi = require('doublekit-core-ui');
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-11-23 09:13:59
  */
-
-function StatProjectWorkItem(data) {
+function FindDocumentList(data) {
   return doublekitCoreUi.Axios.request({
-    url: "/workItemStat/statProjectWorkItem",
+    url: "/document/findDocumentList",
     method: "post",
     data: data
   });
-} // 获取我的事项统计
-
-function StatWorkItemByBusStatus(data) {
+}
+function FindDocumentRecentList(data) {
   return doublekitCoreUi.Axios.request({
-    url: "/workItemStat/statWorkItemByBusStatus",
-    method: "post",
-    data: data
-  });
-} // 获取我的迭代统计
-
-function ManageSprint(data) {
-  return doublekitCoreUi.Axios.request({
-    url: "/workItemStat/statManageSprint",
-    method: "post",
-    data: data
-  });
-} // 获取所有事项分类
-
-function WorkType(data) {
-  return doublekitCoreUi.Axios.request({
-    url: "/workType/findAllWorkType",
-    method: "post",
-    data: data
-  });
-} // 获取所有事项状态
-
-function FindWorkStatusListBySorts(data) {
-  return doublekitCoreUi.Axios.request({
-    url: "/workStatus/findWorkStatusListBySorts",
+    url: "/documentRecent/findDocumentRecentList",
     method: "post",
     data: data
   });
 }
 
-exports.FindWorkStatusListBySorts = FindWorkStatusListBySorts;
-exports.ManageSprint = ManageSprint;
-exports.StatProjectWorkItem = StatProjectWorkItem;
-exports.StatWorkItemByBusStatus = StatWorkItemByBusStatus;
-exports.WorkType = WorkType;
+exports.FindDocumentList = FindDocumentList;
+exports.FindDocumentRecentList = FindDocumentRecentList;

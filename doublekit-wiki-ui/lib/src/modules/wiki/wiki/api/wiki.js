@@ -85,8 +85,16 @@ function GetUseList(data) {
 
   });
 }
+function CreateDocumentRecent(data) {
+  return doublekitCoreUi.Axios.request({
+    url: "/documentRecent/createDocumentRecent",
+    method: "post",
+    data: data
+  });
+}
 
 exports.AddWikiList = AddWikiList;
+exports.CreateDocumentRecent = CreateDocumentRecent;
 exports.DeleWikiList = DeleWikiList;
 exports.GetAllWikiList = GetAllWikiList;
 exports.GetUseList = GetUseList;

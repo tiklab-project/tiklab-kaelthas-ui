@@ -33,14 +33,12 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var DocumentDetail = function DocumentDetail(props) {
-  var WikiCatalogueStore = props.WikiCatalogueStore,
-      wikiwork = props.wikiwork;
+  var WikiCatalogueStore = props.WikiCatalogueStore;
+      props.wikiwork;
   var docDetail = WikiCatalogueStore.docDetail;
       WikiCatalogueStore.setDocDetail;
       var updateDocument = WikiCatalogueStore.updateDocument,
       findDocument = WikiCatalogueStore.findDocument;
-  wikiwork.findWorkItem;
-  React.useEffect(function () {}, []);
 
   var _useState = React.useState({
     name: "",
@@ -48,8 +46,8 @@ var DocumentDetail = function DocumentDetail(props) {
     commentNumber: ""
   }),
       _useState2 = _slicedToArray(_useState, 2),
-      docInfo = _useState2[0],
-      setDocInfo = _useState2[1];
+      docInfo = _useState2[0];
+      _useState2[1];
 
   var _useState3 = React.useState("examine"),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -60,38 +58,8 @@ var DocumentDetail = function DocumentDetail(props) {
     seteditOrExamine(type);
   };
 
-  var documentId = localStorage.getItem("documentId");
-
-  var _useState5 = React.useState([{
-    type: "paragraph",
-    children: [{
-      text: ""
-    }]
-  }]),
-      _useState6 = _slicedToArray(_useState5, 2),
-      value = _useState6[0],
-      setValue = _useState6[1]; // 初始化
-
-
-  React.useEffect(function () {
-    findDocument(documentId).then(function (data) {
-      if (data.code === 0) {
-        if (data.data.details) {
-          // setWorkData(JSON.parse(data.data.details),findWorkItem)
-          setValue(JSON.parse(data.data.details)); // setWorkData(JSON.parse(data.data.details),findWorkItem)
-        } else {
-          setValue([{
-            type: "paragraph",
-            children: [{
-              text: ""
-            }]
-          }]);
-        }
-
-        setDocInfo(data.data);
-      }
-    });
-  }, [documentId]); // 保存内容
+  var documentId = localStorage.getItem("documentId"); // 初始化
+  // 保存内容
 
   var save = function save(type) {
     seteditOrExamine(type);
@@ -112,46 +80,46 @@ var DocumentDetail = function DocumentDetail(props) {
     className: "documnet-detail",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 76,
+      lineNumber: 50,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "documnet-detail-header",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77,
+      lineNumber: 51,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 78,
+      lineNumber: 52,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79,
+      lineNumber: 53,
       columnNumber: 21
     }
   }, "\u77E5\u8BC6\u5E93\u7BA1\u7406"), /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80,
+      lineNumber: 54,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("a", {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81,
+      lineNumber: 55,
       columnNumber: 25
     }
   }, "\u6587\u6863\u8BE6\u60C5"))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "documnet-detail-button",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84,
+      lineNumber: 58,
       columnNumber: 17
     }
   }, editOrExamine === "examine" ? /*#__PURE__*/React__default["default"].createElement("span", {
@@ -160,7 +128,7 @@ var DocumentDetail = function DocumentDetail(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 86,
+      lineNumber: 60,
       columnNumber: 54
     }
   }, "\u7F16\u8F91") : /*#__PURE__*/React__default["default"].createElement("span", {
@@ -169,7 +137,7 @@ var DocumentDetail = function DocumentDetail(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87,
+      lineNumber: 61,
       columnNumber: 29
     }
   }, "\u4FDD\u5B58"))), editOrExamine === "examine" ? /*#__PURE__*/React__default["default"].createElement(documnetExamine["default"], _extends({
@@ -180,7 +148,7 @@ var DocumentDetail = function DocumentDetail(props) {
   }, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92,
+      lineNumber: 66,
       columnNumber: 47
     }
   })) : /*#__PURE__*/React__default["default"].createElement(documentEdit["default"], _extends({
@@ -193,7 +161,7 @@ var DocumentDetail = function DocumentDetail(props) {
   }, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 93,
+      lineNumber: 67,
       columnNumber: 21
     }
   })));

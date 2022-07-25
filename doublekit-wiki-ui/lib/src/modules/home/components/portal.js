@@ -46,10 +46,6 @@ var Portal = function Portal(props) {
     title: '知识库',
     key: 'wiki'
   }, {
-    to: '/index/template',
-    title: '模板',
-    key: 'template'
-  }, {
     to: '/index/sysmgr/systemFeature',
     title: '系统',
     key: 'sysmgr'
@@ -76,7 +72,7 @@ var Portal = function Portal(props) {
     className: "frame",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 52,
+      lineNumber: 47,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(localHeader["default"], _extends({}, props, {
@@ -86,20 +82,20 @@ var Portal = function Portal(props) {
     search: /*#__PURE__*/React__default["default"].createElement(search["default"], _extends({}, props, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 58,
+        lineNumber: 53,
         columnNumber: 25
       }
     })),
     routers: headerRouter,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 53,
+      lineNumber: 48,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61,
+      lineNumber: 56,
       columnNumber: 13
     }
   }, reactRouterConfig.renderRoutes(route.routes)), ModalComponent, editOrAddModal);

@@ -45,7 +45,8 @@ const WikideAside = (props) => {
     const [changeTemplateVisible, setChangeTemplateVisible] = useState()
 
     const [templateId, setTemplateId] = useState()
-
+    
+    const [modalTitle, setModalTitle] = useState()
     const userId = getUser().userId
 
     // 模板内容
@@ -87,6 +88,7 @@ const WikideAside = (props) => {
         if (item.typeId === "mindMap") {
             localStorage.setItem("documentId", item.id);
             props.history.push(`/index/wikidetail/mindmap/${item.id}`)
+            
         }
     }
 
@@ -146,11 +148,14 @@ const WikideAside = (props) => {
         if(value.key === "document") {
             // setContentValue({nodes: [], edges: []})
             setChangeTemplateVisible(true)
+            setModalTitle("添加文档")
         }else if (value.key === "mindMap"){
             setContentValue({nodes: [], edges: []})
             setAddModalVisible(true)
-        }else {
+            setModalTitle("添加脑图")
+        }else if(value.key === "category"){
             setAddModalVisible(true)
+            setModalTitle("添加目录")
         }
         // 
         form.setFieldsValue({
@@ -348,16 +353,16 @@ const WikideAside = (props) => {
                         {
                             (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
                                 isExpandedTree(item.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#iconright" ></use>
+                                    <use xlinkHref="#icon-right" ></use>
                                 </svg> :
                                     <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                        <use xlinkHref="#icondown" ></use>
+                                        <use xlinkHref="#icon-down" ></use>
                                     </svg> : <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref=""></use>
+                                    <use xlinkHref="#icon-circle"></use>
                                 </svg>
                         }
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconB-13"></use>
+                            <use xlinkHref="#icon-folder"></use>
                         </svg>
                         <span className={`${isRename === item.id ? "wiki-input" : ""}`}
                             contentEditable={isRename === item.id ? true : false}
@@ -369,12 +374,12 @@ const WikideAside = (props) => {
                     <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
                         <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
                             <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#iconjiahao"></use>
+                                <use xlinkHref="#icon-plusBlue"></use>
                             </svg>
                         </Dropdown>
                         <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
                             <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#icongengduo-copy"></use>
+                                <use xlinkHref="#icon-moreBlue"></use>
                             </svg>
                         </Dropdown>
                     </div>
@@ -411,11 +416,18 @@ const WikideAside = (props) => {
                 >
                     <div style={{ paddingLeft: levels * 10 }} >
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref=""></use>
+                            <use xlinkHref="#icon-circle"></use>
                         </svg>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconB-06"></use>
-                        </svg>
+                        {
+                            item.typeId === "document" && <svg className="icon" aria-hidden="true">
+                                <use xlinkHref="#icon-file"></use>
+                            </svg>
+                        }
+                        {
+                            item.typeId === "mindMap" && <svg className="icon" aria-hidden="true">
+                                <use xlinkHref="#icon-minmap"></use>
+                            </svg>
+                        }
                         <span className={`${isRename === item.id ? "wiki-input" : ""}`}
                             contentEditable={isRename === item.id ? true : false}
                             suppressContentEditableWarning
@@ -426,7 +438,7 @@ const WikideAside = (props) => {
                     <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
                         <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
                             <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#icongengduo-copy"></use>
+                                <use xlinkHref="#icon-moreBlue"></use>
                             </svg>
                         </Dropdown>
                     </div>
@@ -440,7 +452,7 @@ const WikideAside = (props) => {
                     <div className="wiki-title title">
                         <span style={{ marginRight: "20px" }}>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#icon-B-13"></use>
+                                <use xlinkHref="#icon-folder"></use>
                             </svg>
                             {wikiName}
                         </span>
@@ -448,12 +460,12 @@ const WikideAside = (props) => {
                             {/* <PrivilegeProject code="addDocument" domainId={wikiId}> */}
                                 <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
                                     <svg className="icon iconright" aria-hidden="true">
-                                        <use xlinkHref="#iconjiahao"></use>
+                                        <use xlinkHref="#icon-plusBlue"></use>
                                     </svg>
                                 </Dropdown>
                             {/* </PrivilegeProject> */}
                             <svg className="icon" aria-hidden="true" onClick={showModal}>
-                                <use xlinkHref="#iconfenlei"></use>
+                                <use xlinkHref="#icon-fenlei"></use>
                             </svg>
                         </div>
                     </div>
@@ -477,20 +489,20 @@ const WikideAside = (props) => {
                     </div>
                     <div onClick={() => { props.history.push(`/index/wikidetail/wikiDomainUser`) }} className="wiki-priviege">
                         <svg className="icon iconright" aria-hidden="true">
-                            <use xlinkHref="#icon1_magnifier-money"></use>
+                            <use xlinkHref="#icon-role"></use>
                         </svg>
                         成员管理
                     </div>
                     <div className="wiki-title setting">
                         <span style={{ marginRight: "20px" }}>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#iconshezhi-2"></use>
+                                <use xlinkHref="#icon-set"></use>
                             </svg>
                             知识库设置
                         </span>
                         <div className="wiki-toggleCollapsed" onClick={toggleCollapsed}>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#iconfaxian"></use>
+                                <use xlinkHref="#icon-faxian"></use>
                             </svg>
                         </div>
                     </div>
@@ -511,6 +523,7 @@ const WikideAside = (props) => {
                 contentValue={contentValue}
                 setSelectKey={setSelectKey}
                 userList={userList}
+                modalTitle = {modalTitle}
                 {...props}
             />
             <MoveLogList

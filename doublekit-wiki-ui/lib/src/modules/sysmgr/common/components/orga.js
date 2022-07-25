@@ -2,10 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('antd/es/row/style/css');
-var _Row = require('antd/es/row');
-require('antd/es/col/style/css');
-var _Col = require('antd/es/col');
 require('antd/es/layout/style/css');
 var _Layout = require('antd/es/layout');
 var React = require('react');
@@ -17,8 +13,6 @@ var reactRouter = require('react-router');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
-var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Layout__default = /*#__PURE__*/_interopDefaultLegacy(_Layout);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
@@ -62,34 +56,7 @@ var Orga = function Orga(props) {
       lineNumber: 26,
       columnNumber: 17
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Row__default["default"], {
-    style: {
-      height: "100%"
-    },
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 29,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
-    xl: {
-      span: 18,
-      offset: 3
-    },
-    lg: {
-      span: 20,
-      offset: 2
-    },
-    style: {
-      padding: "10px"
-    },
-    className: "orga-col",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 30,
-      columnNumber: 25
-    }
-  }, reactRouterConfig.renderRoutes(route.routes))))));
+  }, reactRouterConfig.renderRoutes(route.routes))));
 };
 
 var orga = reactRouter.withRouter(Orga);

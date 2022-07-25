@@ -16,8 +16,8 @@ const Home = AsyncComponent(() => import('./modules/home/components/home'))
 const Index = AsyncComponent(() => import('./modules/home/components/portal.js'))
 const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/components/wikiDetail'))
 const LogDetail = AsyncComponent(()=> import('./modules/wiki/common/components/logDetail'))
-const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/components/brainMapFlowDetail'))
-
+const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'))
+const DocumentMindMapEdit = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowEdit'))
 
 // 知识库
 const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wiki'))
@@ -110,6 +110,10 @@ const routes=[
                         component: BrainMap
                     },
                     {
+                        path: "/index/wikidetail/mindmapEdit/:id",
+                        component: DocumentMindMapEdit
+                    },
+                    {
                         path: "/index/wikidetail/wikiDomainRole",
                         component: WikiDomainRole
                     },
@@ -117,6 +121,7 @@ const routes=[
                         path: "/index/wikidetail/wikiDomainUser",
                         component: WikiDomainUser
                     },
+                    
                     {
                         path: "/index/wikidetail/brainMap",
                         component: BrainMap

@@ -306,7 +306,7 @@ var Template = function Template(props) {
         columnNumber: 37
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconpaihang1",
+      xlinkHref: "#icon-paihang",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 122,

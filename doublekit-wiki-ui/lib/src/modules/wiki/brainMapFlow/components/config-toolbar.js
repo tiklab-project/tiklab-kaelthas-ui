@@ -404,7 +404,7 @@ var useToolbarConfig = xflow.createToolbarConfig(function (toolbarConfig, proxy)
         while (1) {
           switch (_context12.prev = _context12.next) {
             case 0:
-              // console.log(props)
+              // 
               updateToolbarModel = /*#__PURE__*/function () {
                 var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
                   var state, toolbarItems;

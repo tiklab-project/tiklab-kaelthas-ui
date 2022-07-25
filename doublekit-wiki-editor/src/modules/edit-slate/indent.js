@@ -6,8 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-10-28 17:31:28
  */
-import React, { useState } from "react";
-import { Fragment } from "react/cjs/react.production.min";
+import React, { useState,Fragment } from "react";
 import { Transforms, Editor, Element as SlateElement, Text, Range } from "slate";
 import { useSelected } from 'slate-react';
 const withIndent = editor => {
@@ -86,12 +85,18 @@ const IndentEditor = (props) => {
         <Fragment>
             <div key="indent">
                 <span className="tool-item" onMouseDown = {(event) => wrapIndent(editor)}>
-                    <i className="iconfont iconindent"></i>
+                    {/* <i className="iconfont iconindent"></i> */}
+                    <svg className="slate-iconfont" aria-hidden="true">
+                        <use xlinkHref="#icon-indent-increase"></use>
+                    </svg>
                 </span>
             </div>
             <div key="unindent">
                 <span className="tool-item" onMouseDown = {(event) => wrapUnIndent(editor)}>
-                    <i className="iconfont iconindent-decrease"></i>
+                    {/* <i className="iconfont iconindent-decrease"></i> */}
+                    <svg className="slate-iconfont" aria-hidden="true">
+                        <use xlinkHref="#icon-indent-decrease"></use>
+                    </svg>
                 </span>
             </div>
            

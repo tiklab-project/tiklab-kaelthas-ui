@@ -255,7 +255,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icondianzan",
+    xlinkHref: "#icon-dianzan",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 117,
@@ -284,7 +284,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconpinglun",
+    xlinkHref: "#icon-comment",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 123,
@@ -316,7 +316,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconfenxiang",
+    xlinkHref: "#icon-share",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 129,
@@ -338,7 +338,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icon1_user5",
+    xlinkHref: "#icon-user5",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 135,
@@ -403,7 +403,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
         columnNumber: 37
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icon1_user5",
+      xlinkHref: "#icon-user5",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 147,
@@ -473,7 +473,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
         columnNumber: 37
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icon1_user5",
+      xlinkHref: "#icon-user5",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 162,
@@ -524,7 +524,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
           columnNumber: 53
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon1_user5",
+        xlinkHref: "#icon-user5",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 172,
@@ -594,7 +594,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
           columnNumber: 53
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon1_user5",
+        xlinkHref: "#icon-user5",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 187,

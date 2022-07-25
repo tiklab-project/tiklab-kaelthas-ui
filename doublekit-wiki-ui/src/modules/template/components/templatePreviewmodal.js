@@ -67,7 +67,7 @@ const TemplatePreviewmodal = (props) => {
             >   
                 <div className="previewmodal-top">
                     <svg className="icon" aria-hidden="true">
-                        <use xlinkHref= "#iconpaihang1"></use>
+                        <use xlinkHref= "#icon-paihang"></use>
                     </svg>
                     <div className="previewmodal-from">
                         <div className="title">

@@ -13,8 +13,8 @@ const AttachmentElement = (props) => {
 	return (
         <span {...attributes} className="attach-box">
 			<a contentEditable={false} href={element.url}>
-				<svg className="attach-icon" aria-hidden="true">
-					<use xlinkHref="#iconA-07"></use>
+				<svg className="slate-iconfont" aria-hidden="true">
+					<use xlinkHref="#icon-slatefile"></use>
                 </svg>
 			</a>	
 			<span style={{textAlign: "center"}}>

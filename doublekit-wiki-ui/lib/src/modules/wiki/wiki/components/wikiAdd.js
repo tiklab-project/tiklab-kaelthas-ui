@@ -168,7 +168,7 @@ var WikiAddmodal = function WikiAddmodal(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconchuangzuo-copy",
+    xlinkHref: "#icon-chuangzuo",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 98,

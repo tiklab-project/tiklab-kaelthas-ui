@@ -65,7 +65,10 @@ const DividerEditor = (props) => {
         <span className="tool-item" onMouseDown = {(event) => wrapDivider(editor)}
             key="divider"
         >
-            <i className="iconfont iconterminal-line"></i>
+            {/* <i className="iconfont iconterminal-line"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-terminal-line"></use>
+            </svg>
         </span>
     )
 }

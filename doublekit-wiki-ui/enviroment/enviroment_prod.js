@@ -12,11 +12,14 @@ const base_url = JSON.stringify(api);
 const url = "/";
 const plugin_base_url = JSON.stringify(url);
 
-let pluginAddressUrl = `/plugin/getPluginConfig`;
-pluginAddressUrl = JSON.stringify(pluginAddressUrl);
+let plugin_url = `/pluginConfig/getPluginConfig`;
+plugin_url = JSON.stringify(plugin_url);
+
+const img_url = JSON.stringify('http://172.11.1.13:8080/')
+
 
 // 判断是否是用户环境， 如果是用户环境收到切换为true， 如果是内部公司手动切换为false
-const userProduction = true;
+const userProduction = false;
 
 let fetchMethod = "post"
 fetchMethod = JSON.stringify(fetchMethod);
@@ -28,16 +31,21 @@ const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
 const version = JSON.stringify('');
 const client = JSON.stringify('');
+const isSaas = false;
+const mobile_url = JSON.stringify("/mobile.html")
 
 module.exports = {
     base_url,
     userProduction,
     plugin_base_url,
-    pluginAddressUrl,
+    plugin_url,
     fetchMethod,
     env,
     appKey,
     appSecret,
     version,
-    client
+    client,
+    img_url,
+    isSaas,
+    mobile_url
 }

@@ -62,7 +62,7 @@ var LogDetail = function LogDetail(props) {
       setLogDetail = _useState4[1]; // 当前知识库id
 
 
-  var wikiId = localStorage.getItem("wikiId");
+  var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
   React.useEffect(function () {
     detailWikiLog({
       id: categoryId
@@ -249,7 +249,7 @@ var LogDetail = function LogDetail(props) {
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconB-13",
+    xlinkHref: "#icon-folder",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 96,
@@ -329,7 +329,7 @@ var LogDetail = function LogDetail(props) {
         columnNumber: 41
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconB-06",
+      xlinkHref: "#icon-file",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 122,
@@ -344,7 +344,7 @@ var LogDetail = function LogDetail(props) {
         columnNumber: 41
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconB-13",
+      xlinkHref: "#icon-folder",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 125,

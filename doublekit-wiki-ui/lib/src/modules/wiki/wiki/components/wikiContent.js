@@ -2,6 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+require('antd/es/row/style/css');
+var _Row = require('antd/es/row');
+require('antd/es/col/style/css');
+var _Col = require('antd/es/col');
 require('antd/es/table/style/css');
 var _Table = require('antd/es/table');
 require('antd/es/divider/style/css');
@@ -16,9 +20,12 @@ var React = require('react');
 var wikiAdd = require('./wikiAdd.js');
 var mobxReact = require('mobx-react');
 var reactRouterDom = require('react-router-dom');
+var doublekitCoreUi = require('doublekit-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
+var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Table__default = /*#__PURE__*/_interopDefaultLegacy(_Table);
 var _Divider__default = /*#__PURE__*/_interopDefaultLegacy(_Divider);
 var _Breadcrumb__default = /*#__PURE__*/_interopDefaultLegacy(_Breadcrumb);
@@ -36,9 +43,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var Search = _Input__default["default"].Search;
 
 var Wikicontent = function Wikicontent(props) {
-  var wikiStore = props.wikiStore;
-      props.wikiDetailStore;
-      var wikilist = props.wikilist,
+  var wikiStore = props.wikiStore,
+      wikilist = props.wikilist,
       wikiTypelist = props.wikiTypelist,
       getWikiTypeList = props.getWikiTypeList,
       getUseList = props.getUseList,
@@ -46,9 +52,11 @@ var Wikicontent = function Wikicontent(props) {
   var getWikilist = wikiStore.getWikilist,
       addWikilist = wikiStore.addWikilist,
       searchwiki = wikiStore.searchwiki,
+      createDocumentRecent = wikiStore.createDocumentRecent,
       wikiPageParams = wikiStore.wikiPageParams,
       delewikiList = wikiStore.delewikiList,
-      updateWiki = wikiStore.updateWiki; // const [wikilist,getWikiList] = useState([])
+      updateWiki = wikiStore.updateWiki;
+  var userId = doublekitCoreUi.getUser().userId; // const [wikilist,getWikiList] = useState([])
 
   React.useEffect(function () {
     getWikilist(); // .then((data)=> {
@@ -63,12 +71,12 @@ var Wikicontent = function Wikicontent(props) {
     render: function render(text, record) {
       return /*#__PURE__*/React__default["default"].createElement("span", {
         onClick: function onClick() {
-          return goWikidetail(record.id);
+          return goWikidetail(record);
         },
         className: "span-botton",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 26,
+          lineNumber: 27,
           columnNumber: 38
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -76,14 +84,14 @@ var Wikicontent = function Wikicontent(props) {
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 27,
+          lineNumber: 28,
           columnNumber: 25
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon1_cheese",
+        xlinkHref: "#icon-zhishi",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 28,
+          lineNumber: 29,
           columnNumber: 29
         }
       })), text);
@@ -129,7 +137,7 @@ var Wikicontent = function Wikicontent(props) {
         size: "middle",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 74,
+          lineNumber: 75,
           columnNumber: 13
         }
       }, /*#__PURE__*/React__default["default"].createElement(wikiAdd["default"], {
@@ -144,7 +152,7 @@ var Wikicontent = function Wikicontent(props) {
         uselist: uselist,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 75,
+          lineNumber: 76,
           columnNumber: 17
         }
       }), /*#__PURE__*/React__default["default"].createElement("span", {
@@ -154,7 +162,7 @@ var Wikicontent = function Wikicontent(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 86,
+          lineNumber: 87,
           columnNumber: 17
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -162,22 +170,34 @@ var Wikicontent = function Wikicontent(props) {
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 87,
+          lineNumber: 88,
           columnNumber: 21
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#iconshanchu2-copy",
+        xlinkHref: "#icon-delete",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 88,
+          lineNumber: 89,
           columnNumber: 25
         }
       })), "\u5220\u9664"));
     }
   }];
 
-  var goWikidetail = function goWikidetail(id) {
-    localStorage.setItem("wikiId", id); // wikiDetailStore.setWikiId(id)
+  var goWikidetail = function goWikidetail(wiki) {
+    var params = {
+      name: wiki.name,
+      model: "wiki",
+      modelId: wiki.id,
+      master: {
+        id: userId
+      },
+      repository: {
+        id: wiki.id
+      }
+    };
+    createDocumentRecent(params);
+    localStorage.setItem("wiki", JSON.stringify(wiki)); // wikiDetailStore.setWikiId(id)
 
     props.history.push({
       pathname: "/index/wikidetail"
@@ -199,46 +219,70 @@ var Wikicontent = function Wikicontent(props) {
   return /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 117,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109,
+      lineNumber: 118,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110,
+      lineNumber: 119,
       columnNumber: 17
     }
   }, "\u77E5\u8BC6\u5E93\u7BA1\u7406"), /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 120,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("a", {
     href: "/",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112,
+      lineNumber: 121,
       columnNumber: 21
     }
   }, "\u77E5\u8BC6\u5E93\u5217\u8868"))), /*#__PURE__*/React__default["default"].createElement(_Divider__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115,
+      lineNumber: 124,
       columnNumber: 13
     }
-  }), /*#__PURE__*/React__default["default"].createElement("div", {
+  }), /*#__PURE__*/React__default["default"].createElement(_Row__default["default"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 125,
+      columnNumber: 13
+    }
+  }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
+    xl: {
+      span: 22,
+      offset: 1
+    },
+    lg: {
+      span: 22,
+      offset: 2
+    },
+    md: {
+      span: 20,
+      offset: 0
+    },
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 126,
+      columnNumber: 17
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "search-add",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116,
-      columnNumber: 13
+      lineNumber: 127,
+      columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(Search, {
     placeholder: "\u8BF7\u8F93\u5165\u5173\u952E\u5B57",
@@ -249,8 +293,8 @@ var Wikicontent = function Wikicontent(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
-      columnNumber: 17
+      lineNumber: 128,
+      columnNumber: 21
     }
   }), /*#__PURE__*/React__default["default"].createElement(wikiAdd["default"], {
     name: "\u6DFB\u52A0\u77E5\u8BC6\u5E93",
@@ -263,15 +307,15 @@ var Wikicontent = function Wikicontent(props) {
     uselist: uselist,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123,
-      columnNumber: 17
+      lineNumber: 134,
+      columnNumber: 21
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "table-box",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134,
-      columnNumber: 13
+      lineNumber: 145,
+      columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Table__default["default"], {
     columns: columns,
@@ -283,10 +327,10 @@ var Wikicontent = function Wikicontent(props) {
     pagination: _objectSpread({}, wikiPageParams),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
-      columnNumber: 17
+      lineNumber: 146,
+      columnNumber: 21
     }
-  })));
+  })))));
 };
 
 var Wikicontent$1 = mobxReact.inject('wikiDetailStore', 'wikiStore')(mobxReact.observer(reactRouterDom.withRouter(Wikicontent)));

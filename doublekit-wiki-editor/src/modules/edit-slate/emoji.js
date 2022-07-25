@@ -63,7 +63,10 @@ const Emoji = (props) => {
             <span className="tool-item" 
                 onMouseDown = {(event) =>{showDropdown(editor)}}
             >
-                <i className="iconfont iconemoji1"></i>
+                {/* <i className="iconfont iconemoji1"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-emoji"></use>
+                </svg>
             </span>
             {
                 showDrop &&  <div className="emoji-box">

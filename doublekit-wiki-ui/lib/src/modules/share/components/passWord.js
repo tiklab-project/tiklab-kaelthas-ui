@@ -61,9 +61,7 @@ var PassWord = function PassWord(props) {
     });
   };
 
-  React.useEffect(function () {
-    console.log(props);
-  });
+  React.useEffect(function () {});
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "documment-password",
     __source: {
@@ -115,7 +113,7 @@ var PassWord = function PassWord(props) {
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icon1_user5",
+    xlinkHref: "#icon-user5",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 40,

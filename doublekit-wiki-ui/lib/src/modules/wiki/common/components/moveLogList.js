@@ -43,7 +43,7 @@ var MoveLogList = function MoveLogList(props) {
       selectKey = _useState2[0],
       setSelectKey = _useState2[1];
 
-  var wikiId = localStorage.getItem("wikiId");
+  var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
 
   var onFinish = function onFinish() {
     var value;
@@ -165,7 +165,7 @@ var MoveLogList = function MoveLogList(props) {
             columnNumber: 63
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
-          xlinkHref: "#iconright",
+          xlinkHref: "#icon-right",
           __source: {
             fileName: _jsxFileName,
             lineNumber: 90,
@@ -183,7 +183,7 @@ var MoveLogList = function MoveLogList(props) {
             columnNumber: 37
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
-          xlinkHref: "#icondown",
+          xlinkHref: "#icon-down",
           __source: {
             fileName: _jsxFileName,
             lineNumber: 93,
@@ -213,7 +213,7 @@ var MoveLogList = function MoveLogList(props) {
             columnNumber: 25
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
-          xlinkHref: "#iconB-13",
+          xlinkHref: "#icon-folder",
           __source: {
             fileName: _jsxFileName,
             lineNumber: 99,

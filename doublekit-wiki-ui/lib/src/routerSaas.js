@@ -3,8 +3,8 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var React = require('react');
-var reactRouterDom = require('react-router-dom');
 var SyncComponent = require('./common/lazy/SyncComponent.js');
+var reactRouterDom = require('react-router-dom');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -61,10 +61,17 @@ var wiki = SyncComponent["default"](function () {
     });
   });
 });
-var DocumentDetail = SyncComponent["default"](function () {
+var DocumentEdit = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/wiki/common/components/documentDetail'));
+      resolve(require("./modules/wiki/common/components/documentEdit"));
+    });
+  });
+});
+var DocumnetExamine = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require("./modules/wiki/common/components/documnetExamine"));
     });
   });
 });
@@ -148,7 +155,7 @@ var LoadData = SyncComponent["default"](function () {
     });
   });
 });
-var routerSaas = [{
+var routesSaas = [{
   path: "/logout",
   exact: true,
   component: Logout
@@ -183,7 +190,10 @@ var routerSaas = [{
     component: WikiDetail,
     routes: [{
       path: "/index/wikidetail/doc/:id",
-      component: DocumentDetail
+      component: DocumnetExamine
+    }, {
+      path: "/index/wikidetail/docEdit/:id",
+      component: DocumentEdit
     }, {
       path: "/index/wikidetail/folder/:id",
       component: LogDetail
@@ -228,6 +238,10 @@ var routerSaas = [{
       path: "/index/sysmgr/loadData",
       component: LoadData,
       exact: true
+    }, {
+      path: "/index/sysmgr/template",
+      component: Template,
+      exact: true
     }]
   }]
 }, {
@@ -237,7 +251,7 @@ var routerSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 154,
+        lineNumber: 167,
         columnNumber: 26
       }
     });
@@ -245,4 +259,4 @@ var routerSaas = [{
   exact: true
 }];
 
-exports["default"] = routerSaas;
+exports["default"] = routesSaas;

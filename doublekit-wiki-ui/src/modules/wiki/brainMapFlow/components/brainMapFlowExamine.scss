@@ -1,4 +1,5 @@
 .document-examine {
+    background-color: #fff;
     .examine-title {
         font-size: 18px;
         font-weight: 600;
@@ -52,6 +53,13 @@
         }
     }
 
+    .show-mindmap-comment {
+        display: block;
+    }
+    .hidden-mindmap-comment {
+        display: none;
+    }
+
     .comment-list {
         box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
         padding: 10px 20px;
@@ -60,6 +68,7 @@
             font-size: 18px;
             font-weight: 600;
         }
+       
         .comment-user {
             display: flex;
             align-items: center;

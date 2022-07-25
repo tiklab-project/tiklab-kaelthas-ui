@@ -71,7 +71,10 @@ const BackgroundColor = (props) => {
     return (
         <div className="backgroundColor-editor" key="backgroundColor">
             <div onMouseDown={(event) => showBox(event)} className = "backgroundColor-botton">
-                <i className="iconfont iconchuangzuo"></i>
+                {/* <i className="iconfont iconchuangzuo"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+					<use xlinkHref="#icon-chuangzuo"></use>
+                </svg>
 			</div>
             {
                 editorType === "backgroundColor" && <div className="backgroundColor-box">

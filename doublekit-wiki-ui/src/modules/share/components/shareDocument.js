@@ -36,7 +36,7 @@ const ShareDocument = (props) => {
     
     const [commonList,setCommonList] = useState()
     useEffect(()=> {
-        console.log(props)
+        
         judgeAuthCode({shareLink: `${props.match.params.shareId}${props.location.search}`}).then(data => {
             if(data.data === "true"){
                 if(!props.location.state){
@@ -103,19 +103,19 @@ const ShareDocument = (props) => {
                 <div className="examine-comment">
                     <span className="comment-item">
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icondianzan"></use>
+                            <use xlinkHref="#icon-dianzan"></use>
                         </svg>
                         <span className="number">({docInfo.likenumInt}条)</span>
                     </span>
                     <span className="comment-item" >
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconpinglun"></use>
+                            <use xlinkHref="#icon-comments"></use>
                         </svg>
                         <span className="number">({docInfo.commentNumber}条)</span>
                     </span>
                     <span className="comment-item" onClick = {()=>setShareVisible(true)}>
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconfenxiang"></use>
+                            <use xlinkHref="#icon-share"></use>
                         </svg>
                         <span className="number">(100条)</span>
                     </span>
@@ -134,7 +134,7 @@ const ShareDocument = (props) => {
                             return <div className="comment-item" key = {item.id}>
                                 <div className="comment-user">
                                     <svg className="user-icon" aria-hidden="true">
-                                        <use xlinkHref="#icon1_user5"></use>
+                                        <use xlinkHref="#icon-user5"></use>
                                     </svg>
                                     <span className="user-name">{item.user.name}</span>
                                 </div>
@@ -159,7 +159,7 @@ const ShareDocument = (props) => {
                                             return <div className="comment-item commnet-children-item" key = {children.id}>
                                                 <div className="comment-user">
                                                     <svg className="user-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon1_user5"></use>
+                                                        <use xlinkHref="#icon-user5"></use>
                                                     </svg>
                                                     <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
                                                 </div>

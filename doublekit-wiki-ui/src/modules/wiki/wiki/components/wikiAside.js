@@ -12,30 +12,30 @@ const wikirouter = [
         {
             title: '所有知识库',
             key: '1',
-            icon: "icon1_light-bulb"
+            icon: "zhishi"
         },
         {
             title: '最近浏览的知识库',
             key: '2',
-            icon: "icon1_megaphone-money"
+            icon: "zhishi"
         }
         ,
         {
             title: '我创建的知识库',
             key: '3',
-            icon: "icon1_sun-clouds"
+            icon: "zhishi"
         }
         ,
         {
             title: '我参与的知识库',
             key: '4',
-            icon: "icon1_light-bulb"
+            icon: "zhishi"
         }
         ,
         {
             title: '我关注的知识库',
             key: '5',
-            icon: "icon1_cheese"
+            icon: "zhishi"
         }
     ]
 class Wikiaside extends React.Component {
@@ -74,7 +74,7 @@ class Wikiaside extends React.Component {
                     <div className="wiki-title" onClick={this.hiddenMenu}>
                         <div>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref= "#icon1_cheese"></use>
+                                <use xlinkHref= "#icon-zhishi"></use>
                             </svg> 知识库
                         </div><DownOutlined style={{fontSize: "10px"}}/>
                     </div>
@@ -83,7 +83,7 @@ class Wikiaside extends React.Component {
                             wikirouter && wikirouter.map(Item=> {
                                 return <li className="wiki-menu-submenu" key={Item.key} onClick={()=>this.selectKey(Item.key)}>
                                         <svg className="icon" aria-hidden="true">
-                                            <use xlinkHref= {`#${Item.icon}`}></use>
+                                            <use xlinkHref= {`#icon-${Item.icon}`}></use>
                                         </svg>
                                     {Item.title}
                                 </li>

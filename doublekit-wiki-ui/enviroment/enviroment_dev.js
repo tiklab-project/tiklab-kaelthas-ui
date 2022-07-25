@@ -28,11 +28,9 @@ const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
 const version = JSON.stringify('');
 const client = JSON.stringify('');
-// const authType = JSON.stringify('loc');
-// const authUrl = JSON.stringify('http://192.168.2.6:8090/#/login')
 const isSaas = true
 const plugin_url =  JSON.stringify( 'http://localhost:8080/plugins/config.json')
-// const authLogOut = JSON.stringify('http://192.168.2.6:8090/#/logout')
+
 const pickerData = JSON.stringify([
     {
         value: 'wiki',

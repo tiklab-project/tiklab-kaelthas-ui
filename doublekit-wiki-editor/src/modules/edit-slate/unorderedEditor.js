@@ -100,14 +100,20 @@ const UnorderedEditor = (props) => {
                 onMouseDown={(event) => selectUnordered("bulleted-list")}
                 key="bulleted"
             >
-                <i className="iconfont iconlist-check"></i>
+                {/* <i className="iconfont iconlist-check"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-list-check"></use>
+                </svg>
             </span>
             <span 
                 className="tool-item" format="numbered-list" 
                 onMouseDown={(event) => selectUnordered("numbered-list")}
                 key="numbered"
             >
-                <i className="iconfont iconlist-ordered"></i>
+                {/* <i className="iconfont iconlist-ordered"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-list-ordered"></use>
+                </svg>
             </span>
             <span 
                 className="tool-item" 
@@ -115,7 +121,10 @@ const UnorderedEditor = (props) => {
                 onMouseDown={(event) => selectUnordered("block-quote")}
                 key="block"
             >
-                <i className="iconfont icondouble-quotes-l-copy"></i>
+                {/* <i className="iconfont icondouble-quotes-l-copy"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-double-quotes-l"></use>
+                </svg>
             </span>
         </Fragment>
         

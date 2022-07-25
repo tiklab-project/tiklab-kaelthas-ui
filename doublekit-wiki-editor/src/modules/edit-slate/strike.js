@@ -40,7 +40,10 @@ const StrikeEditor = (props) => {
 
     return (   
         <span className="tool-item" onMouseDown = {(event)=> selectStrike(event)} key="strike">
-            <i className="iconfont iconstrikethrough"></i>
+            {/* <i className="iconfont iconstrikethrough"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-strikethrough"></use>
+            </svg>
         </span>
     )
 }

@@ -26,7 +26,7 @@ const Wikicontent = (props)=>{
             align: "center",
             render: (text,record) => <span onClick={()=> goWikidetail(record)} className = "span-botton">
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref= "#icon1_cheese"></use>
+                            <use xlinkHref= "#icon-zhishi"></use>
                         </svg>
                         {text}
                     </span>,
@@ -86,7 +86,7 @@ const Wikicontent = (props)=>{
                 />
                 <span className = "span-botton  delete" onClick={()=>delewikiList(record.id)}>
                     <svg className="icon" aria-hidden="true">
-                        <use xlinkHref= "#iconshanchu2-copy"></use>
+                        <use xlinkHref= "#icon-delete"></use>
                     </svg>
                     删除
                 </span>

@@ -9,7 +9,6 @@ var _Menu = require('antd/es/menu');
 require('antd/es/layout/style/css');
 var _Layout = require('antd/es/layout');
 var React = require('react');
-require('../../../../assets/font-icon/iconfont.css.js');
 var mobxReact = require('mobx-react');
 var icons = require('@ant-design/icons');
 require('./templateList.scss.js');
@@ -106,7 +105,7 @@ var TemplateList = function TemplateList(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 68,
+      lineNumber: 67,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Modal__default["default"], {
@@ -126,7 +125,7 @@ var TemplateList = function TemplateList(props) {
     cancelText: "\u53D6\u6D88",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
+      lineNumber: 68,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Layout__default["default"], {
@@ -135,7 +134,7 @@ var TemplateList = function TemplateList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81,
+      lineNumber: 80,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(Sider, {
@@ -148,7 +147,7 @@ var TemplateList = function TemplateList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84,
+      lineNumber: 83,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
@@ -160,7 +159,7 @@ var TemplateList = function TemplateList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94,
+      lineNumber: 93,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
@@ -168,13 +167,13 @@ var TemplateList = function TemplateList(props) {
     icon: /*#__PURE__*/React__default["default"].createElement(icons.VideoCameraOutlined, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 96,
+        lineNumber: 95,
         columnNumber: 58
       }
     }),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 96,
+      lineNumber: 95,
       columnNumber: 29
     }
   }, "\u7A7A\u767D\u6587\u6863"), templateList && templateList.map(function (item) {
@@ -183,13 +182,13 @@ var TemplateList = function TemplateList(props) {
       icon: /*#__PURE__*/React__default["default"].createElement(icons.VideoCameraOutlined, {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 101,
+          lineNumber: 100,
           columnNumber: 75
         }
       }),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 101,
+        lineNumber: 100,
         columnNumber: 44
       }
     }, item.name);
@@ -200,13 +199,13 @@ var TemplateList = function TemplateList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 107,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement(Content, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109,
+      lineNumber: 108,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -217,14 +216,14 @@ var TemplateList = function TemplateList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110,
+      lineNumber: 109,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
     value: value,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 110,
       columnNumber: 29
     }
   })))))));

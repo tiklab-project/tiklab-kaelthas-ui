@@ -43,7 +43,6 @@ var Search = function Search(props) {
       setKeyWord = searchStore.setKeyWord;
   var setWikiId = wikiDetailStore.setWikiId;
   React.useEffect(function () {
-    console.log(props);
     return;
   }, []); // 输入中
 
@@ -59,13 +58,13 @@ var Search = function Search(props) {
       setShow = _useState2[1];
 
   var toWiki = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(wiki) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              setWikiId(id);
-              localStorage.setItem("wikiId", id);
+              setWikiId(wiki.id);
+              localStorage.setItem("wiki", wiki.id);
               _context.next = 4;
               return props.history.push("/index/wikidetail/survey");
 
@@ -86,13 +85,13 @@ var Search = function Search(props) {
   }();
 
   var toWorkItem = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id, pid) {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id, wiki) {
       return _regeneratorRuntime().wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              setWikiId(pid);
-              localStorage.setItem("wikiId", pid);
+              setWikiId(wiki.id);
+              localStorage.setItem("wiki", wiki.id);
               _context2.next = 4;
               return props.history.push("/index/wikidetail/work");
 
@@ -220,7 +219,7 @@ var Search = function Search(props) {
             return /*#__PURE__*/React__default["default"].createElement("div", {
               className: "item-one",
               onClick: function onClick() {
-                return toWiki(toItem.id);
+                return toWiki(toItem);
               },
               __source: {
                 fileName: _jsxFileName,
@@ -247,7 +246,7 @@ var Search = function Search(props) {
             return /*#__PURE__*/React__default["default"].createElement("div", {
               className: "item-one",
               onClick: function onClick() {
-                return toWorkItem(toItem.id, toItem.wiki.id);
+                return toWorkItem(toItem.id, toItem.wiki);
               },
               __source: {
                 fileName: _jsxFileName,

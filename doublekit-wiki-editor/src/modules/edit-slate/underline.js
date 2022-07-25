@@ -40,7 +40,10 @@ const UnderlineEditor = (props) => {
 
     return (   
         <span className="tool-item" onMouseDown = {(event)=> selectUnderline(event)} key="underline">
-            <i className="iconfont iconunderline"></i>
+            {/* <i className="iconfont iconunderline"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-underline"></use>
+            </svg>
         </span>
     )
 }

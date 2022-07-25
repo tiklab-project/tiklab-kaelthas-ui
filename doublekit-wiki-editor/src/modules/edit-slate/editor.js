@@ -122,7 +122,10 @@ const DocumentEditor = (props) => {
 							CustomEditor.toggleBoldMark(editor);
 						}}
 					>
-						<i className="iconfont iconbold"></i>
+						{/* <i className="iconfont iconbold"></i> */}
+						<svg className="slate-iconfont" aria-hidden="true">
+							<use xlinkHref="#icon-bold"></use>
+						</svg>
 					</span>
 					<span
 						className="tool-item"
@@ -131,7 +134,10 @@ const DocumentEditor = (props) => {
 							CustomEditor.toggleCodeBlock(editor);
 						}}
 					>
-						<i className="iconfont iconcode-view"></i>
+						{/* <i className="iconfont iconcode-view"></i> */}
+						<svg className="slate-iconfont" aria-hidden="true">
+							<use xlinkHref="#icon-code-view"></use>
+						</svg>
 					</span>
 					<ItalicEditor editor={editor} />
 					<UnderlineEditor editor={editor} />

@@ -81,5 +81,4 @@ const LineHeightEditor = (props) => {
         
     )
 }
-// export default LineHeightEditor;
 export default inject('slatestore')(observer(LineHeightEditor))

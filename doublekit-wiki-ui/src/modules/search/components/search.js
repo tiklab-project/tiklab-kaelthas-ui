@@ -10,7 +10,7 @@ const Search = (props) => {
     const {getSearch,searchList,getSearchSore,setKeyWord} = searchStore;
     const {setWikiId} = wikiDetailStore
     useEffect(() => {
-        console.log(props)
+        
         return
     }, [])
 

@@ -18,6 +18,7 @@ var addLog = require('./addLog.js');
 var changeWikiModal = require('./changeWikiModal.js');
 var moveLogList = require('./moveLogList.js');
 var templateList = require('./templateList.js');
+var doublekitCoreUi = require('doublekit-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -65,9 +66,13 @@ var WikideAside = function WikideAside(props) {
       deleteDocument = WikiCatalogueStore.deleteDocument,
       findDmPrjRolePage = WikiCatalogueStore.findDmPrjRolePage,
       wikiCatalogueList = WikiCatalogueStore.wikiCatalogueList,
-      setWikiCatalogueList = WikiCatalogueStore.setWikiCatalogueList; // 当前选中目录id
+      setWikiCatalogueList = WikiCatalogueStore.setWikiCatalogueList,
+      createDocumentRecent = WikiCatalogueStore.createDocumentRecent; // 当前选中目录id
 
-  var _useState = React.useState(),
+  var id = props.location.pathname.split("/")[4];
+  console.log(id);
+
+  var _useState = React.useState(id),
       _useState2 = _slicedToArray(_useState, 2),
       selectKey = _useState2[0],
       setSelectKey = _useState2[1]; // 菜单是否折叠
@@ -85,7 +90,7 @@ var WikideAside = function WikideAside(props) {
       setChangeWikiVisible = _useState6[1]; // 当前知识库id
 
 
-  var wikiId = localStorage.getItem("wikiId"); // 显示菜单操作icon
+  var wikiId = JSON.parse(localStorage.getItem("wiki")).id; // 显示菜单操作icon
 
   var _useState7 = React.useState(false),
       _useState8 = _slicedToArray(_useState7, 2),
@@ -100,13 +105,19 @@ var WikideAside = function WikideAside(props) {
   var _useState11 = React.useState(),
       _useState12 = _slicedToArray(_useState11, 2),
       templateId = _useState12[0],
-      setTemplateId = _useState12[1]; // 模板内容
-
+      setTemplateId = _useState12[1];
 
   var _useState13 = React.useState(),
       _useState14 = _slicedToArray(_useState13, 2),
-      contentValue = _useState14[0],
-      setContentValue = _useState14[1];
+      modalTitle = _useState14[0],
+      setModalTitle = _useState14[1];
+
+  var userId = doublekitCoreUi.getUser().userId; // 模板内容
+
+  var _useState15 = React.useState(),
+      _useState16 = _slicedToArray(_useState15, 2),
+      contentValue = _useState16[0],
+      setContentValue = _useState16[1];
 
   React.useEffect(function () {
     findWikiCatalogue(wikiId).then(function (data) {
@@ -115,7 +126,7 @@ var WikideAside = function WikideAside(props) {
   }, []);
   React.useEffect(function () {
     // 初次进入激活导航菜单
-    setSelectKey(props.location.pathname);
+    setSelectKey(id);
     return;
   }, [wikiId]);
   /**
@@ -123,22 +134,34 @@ var WikideAside = function WikideAside(props) {
    * @param {*} key 
    */
 
-  var selectKeyFun = function selectKeyFun(id, formatType) {
-    setSelectKey(id);
+  var selectKeyFun = function selectKeyFun(item) {
+    var params = {
+      name: item.name,
+      model: item.typeId,
+      modelId: item.id,
+      master: {
+        id: userId
+      },
+      repository: {
+        id: wikiId
+      }
+    };
+    createDocumentRecent(params);
+    setSelectKey(item.id);
 
-    if (formatType === "category") {
-      localStorage.setItem("categoryId", id);
-      props.history.push("/index/wikidetail/folder/".concat(id));
+    if (item.typeId === "category") {
+      localStorage.setItem("categoryId", item.id);
+      props.history.push("/index/wikidetail/folder/".concat(item.id));
     }
 
-    if (formatType === "document") {
-      localStorage.setItem("documentId", id);
-      props.history.push("/index/wikidetail/doc/".concat(id));
+    if (item.typeId === "document") {
+      localStorage.setItem("documentId", item.id);
+      props.history.push("/index/wikidetail/doc/".concat(item.id));
     }
 
-    if (formatType === "mindMap") {
-      localStorage.setItem("documentId", id);
-      props.history.push("/index/wikidetail/mindmap/".concat(id));
+    if (item.typeId === "mindMap") {
+      localStorage.setItem("documentId", item.id);
+      props.history.push("/index/wikidetail/mindmap/".concat(item.id));
     }
   };
   /**
@@ -166,28 +189,28 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 94,
+        lineNumber: 110,
         columnNumber: 16
       }
     }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "category",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 95,
+        lineNumber: 111,
         columnNumber: 13
       }
     }, "\u6DFB\u52A0\u76EE\u5F55"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "document",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 98,
+        lineNumber: 114,
         columnNumber: 13
       }
     }, "\u6DFB\u52A0\u9875\u9762"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "mindMap",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 101,
+        lineNumber: 117,
         columnNumber: 13
       }
     }, "\u6DFB\u52A0\u8111\u56FE"));
@@ -201,28 +224,28 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 109,
+        lineNumber: 125,
         columnNumber: 16
       }
     }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "edit",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 110,
+        lineNumber: 126,
         columnNumber: 13
       }
     }, "\u91CD\u547D\u540D"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "delete",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 113,
+        lineNumber: 129,
         columnNumber: 13
       }
     }, "\u5220\u9664"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "move",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 116,
+        lineNumber: 132,
         columnNumber: 13
       }
     }, "\u79FB\u52A8"));
@@ -232,15 +255,15 @@ var WikideAside = function WikideAside(props) {
    */
 
 
-  var _useState15 = React.useState(),
-      _useState16 = _slicedToArray(_useState15, 2),
-      catalogueId = _useState16[0],
-      setCatalogueId = _useState16[1];
-
   var _useState17 = React.useState(),
       _useState18 = _slicedToArray(_useState17, 2),
-      userList = _useState18[0],
-      setUserList = _useState18[1];
+      catalogueId = _useState18[0],
+      setCatalogueId = _useState18[1];
+
+  var _useState19 = React.useState(),
+      _useState20 = _slicedToArray(_useState19, 2),
+      userList = _useState20[0],
+      setUserList = _useState20[1];
 
   var selectAddType = function selectAddType(value, id) {
     setCatalogueId(id);
@@ -251,14 +274,17 @@ var WikideAside = function WikideAside(props) {
     if (value.key === "document") {
       // setContentValue({nodes: [], edges: []})
       setChangeTemplateVisible(true);
+      setModalTitle("添加文档");
     } else if (value.key === "mindMap") {
       setContentValue({
         nodes: [],
         edges: []
       });
       setAddModalVisible(true);
-    } else {
+      setModalTitle("添加脑图");
+    } else if (value.key === "category") {
       setAddModalVisible(true);
+      setModalTitle("添加目录");
     } // 
 
 
@@ -273,10 +299,10 @@ var WikideAside = function WikideAside(props) {
 
   var inputRef = React__default["default"].useRef(null);
 
-  var _useState19 = React.useState(),
-      _useState20 = _slicedToArray(_useState19, 2),
-      isRename = _useState20[0],
-      setIsRename = _useState20[1];
+  var _useState21 = React.useState(),
+      _useState22 = _slicedToArray(_useState21, 2),
+      isRename = _useState22[0],
+      setIsRename = _useState22[1];
 
   var editCatelogue = function editCatelogue(value, id, formatType, fid) {
     value.domEvent.stopPropagation();
@@ -348,19 +374,19 @@ var WikideAside = function WikideAside(props) {
     }
   };
 
-  var _useState21 = React.useState(),
-      _useState22 = _slicedToArray(_useState21, 2),
-      addModalVisible = _useState22[0],
-      setAddModalVisible = _useState22[1];
+  var _useState23 = React.useState(),
+      _useState24 = _slicedToArray(_useState23, 2),
+      addModalVisible = _useState24[0],
+      setAddModalVisible = _useState24[1];
   /**
    * 折叠菜单
    */
 
 
-  var _useState23 = React.useState([]),
-      _useState24 = _slicedToArray(_useState23, 2),
-      expandedTree = _useState24[0],
-      setExpandedTree = _useState24[1]; // 树的展开与闭合
+  var _useState25 = React.useState([]),
+      _useState26 = _slicedToArray(_useState25, 2),
+      expandedTree = _useState26[0],
+      setExpandedTree = _useState26[1]; // 树的展开与闭合
 
 
   var isExpandedTree = function isExpandedTree(key) {
@@ -379,25 +405,25 @@ var WikideAside = function WikideAside(props) {
     }
   };
 
-  var _useState25 = React.useState(),
-      _useState26 = _slicedToArray(_useState25, 2),
-      moveCategoryId = _useState26[0],
-      setMoveCategoryId = _useState26[1];
-
   var _useState27 = React.useState(),
       _useState28 = _slicedToArray(_useState27, 2),
-      moveCategoryParentId = _useState28[0],
-      setMoveCategoryParentId = _useState28[1];
+      moveCategoryId = _useState28[0],
+      setMoveCategoryId = _useState28[1];
 
   var _useState29 = React.useState(),
       _useState30 = _slicedToArray(_useState29, 2),
-      formatType = _useState30[0],
-      setFormatType = _useState30[1];
+      moveCategoryParentId = _useState30[0],
+      setMoveCategoryParentId = _useState30[1];
 
-  var _useState31 = React.useState(false),
+  var _useState31 = React.useState(),
       _useState32 = _slicedToArray(_useState31, 2),
-      moveLogListVisible = _useState32[0],
-      setMoveLogListVisible = _useState32[1]; // 拖放效果
+      formatType = _useState32[0],
+      setFormatType = _useState32[1];
+
+  var _useState33 = React.useState(false),
+      _useState34 = _slicedToArray(_useState33, 2),
+      moveLogListVisible = _useState34[0],
+      setMoveLogListVisible = _useState34[1]; // 拖放效果
 
 
   var moveWorkItem = function moveWorkItem() {
@@ -493,14 +519,14 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 318,
+        lineNumber: 337,
         columnNumber: 20
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "wiki-menu-submenu ".concat(item.id === selectKey ? "wiki-menu-select" : "", " "),
       key: item.id,
       onClick: function onClick() {
-        return selectKeyFun(item.id, item.formatType);
+        return selectKeyFun(item);
       },
       onMouseOver: function onMouseOver() {
         return setIsHover(item.id);
@@ -521,7 +547,7 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 322,
+        lineNumber: 341,
         columnNumber: 17
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -530,7 +556,7 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 333,
+        lineNumber: 352,
         columnNumber: 21
       }
     }, item.children && item.children.length > 0 || item.documents && item.documents.length > 0 ? isExpandedTree(item.id) ? /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -541,14 +567,14 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 336,
+        lineNumber: 355,
         columnNumber: 59
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconright",
+      xlinkHref: "#icon-right",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 337,
+        lineNumber: 356,
         columnNumber: 37
       }
     })) : /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -559,14 +585,14 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 339,
+        lineNumber: 358,
         columnNumber: 37
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icondown",
+      xlinkHref: "#icon-down",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 340,
+        lineNumber: 359,
         columnNumber: 41
       }
     })) : /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -574,14 +600,14 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 341,
+        lineNumber: 360,
         columnNumber: 46
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "",
+      xlinkHref: "#icon-circle",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 342,
+        lineNumber: 361,
         columnNumber: 37
       }
     })), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -589,14 +615,14 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 345,
+        lineNumber: 364,
         columnNumber: 25
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconB-13",
+      xlinkHref: "#icon-folder",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 346,
+        lineNumber: 365,
         columnNumber: 29
       }
     })), /*#__PURE__*/React__default["default"].createElement("span", {
@@ -609,14 +635,14 @@ var WikideAside = function WikideAside(props) {
       ref: isRename === item.id ? inputRef : null,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 348,
+        lineNumber: 367,
         columnNumber: 25
       }
     }, item.name, " ")), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "".concat(isHover === item.id ? "icon-show" : "icon-hidden"),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 355,
+        lineNumber: 374,
         columnNumber: 21
       }
     }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
@@ -626,7 +652,7 @@ var WikideAside = function WikideAside(props) {
       placement: "bottomLeft",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 356,
+        lineNumber: 375,
         columnNumber: 25
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -634,14 +660,14 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 357,
+        lineNumber: 376,
         columnNumber: 29
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconjiahao",
+      xlinkHref: "#icon-plusBlue",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 358,
+        lineNumber: 377,
         columnNumber: 33
       }
     }))), /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
@@ -651,7 +677,7 @@ var WikideAside = function WikideAside(props) {
       placement: "bottomLeft",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 361,
+        lineNumber: 380,
         columnNumber: 25
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -659,14 +685,14 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 362,
+        lineNumber: 381,
         columnNumber: 29
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icongengduo-copy",
+      xlinkHref: "#icon-moreBlue",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 363,
+        lineNumber: 382,
         columnNumber: 33
       }
     }))))), item.children && item.children.length > 0 && (newLevels = levels + 1) && item.children.map(function (childItem) {
@@ -682,14 +708,14 @@ var WikideAside = function WikideAside(props) {
       key: item.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 385,
+        lineNumber: 404,
         columnNumber: 20
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "wiki-menu-submenu ".concat(item.id === selectKey ? "wiki-menu-select" : "", " "),
       key: item.id,
       onClick: function onClick() {
-        return selectKeyFun(item.id, item.typeId);
+        return selectKeyFun(item);
       },
       onMouseOver: function onMouseOver() {
         return setIsHover(item.id);
@@ -710,7 +736,7 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 388,
+        lineNumber: 407,
         columnNumber: 17
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -719,7 +745,7 @@ var WikideAside = function WikideAside(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 398,
+        lineNumber: 417,
         columnNumber: 21
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -727,30 +753,45 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 399,
+        lineNumber: 418,
         columnNumber: 25
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "",
+      xlinkHref: "#icon-circle",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 400,
+        lineNumber: 419,
         columnNumber: 29
       }
-    })), /*#__PURE__*/React__default["default"].createElement("svg", {
+    })), item.typeId === "document" && /*#__PURE__*/React__default["default"].createElement("svg", {
       className: "icon",
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 402,
-        columnNumber: 25
+        lineNumber: 422,
+        columnNumber: 59
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#iconB-06",
+      xlinkHref: "#icon-file",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 403,
-        columnNumber: 29
+        lineNumber: 423,
+        columnNumber: 33
+      }
+    })), item.typeId === "mindMap" && /*#__PURE__*/React__default["default"].createElement("svg", {
+      className: "icon",
+      "aria-hidden": "true",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 427,
+        columnNumber: 58
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("use", {
+      xlinkHref: "#icon-minmap",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 428,
+        columnNumber: 33
       }
     })), /*#__PURE__*/React__default["default"].createElement("span", {
       className: "".concat(isRename === item.id ? "wiki-input" : ""),
@@ -762,14 +803,14 @@ var WikideAside = function WikideAside(props) {
       ref: isRename === item.id ? inputRef : null,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 405,
+        lineNumber: 431,
         columnNumber: 25
       }
     }, item.name, " ")), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "".concat(isHover === item.id ? "icon-show" : "icon-hidden"),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 412,
+        lineNumber: 438,
         columnNumber: 21
       }
     }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
@@ -779,7 +820,7 @@ var WikideAside = function WikideAside(props) {
       placement: "bottomLeft",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 413,
+        lineNumber: 439,
         columnNumber: 25
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -787,14 +828,14 @@ var WikideAside = function WikideAside(props) {
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 414,
+        lineNumber: 440,
         columnNumber: 29
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icongengduo-copy",
+      xlinkHref: "#icon-moreBlue",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 415,
+        lineNumber: 441,
         columnNumber: 33
       }
     }))))));
@@ -803,7 +844,7 @@ var WikideAside = function WikideAside(props) {
   return /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 423,
+      lineNumber: 449,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(Sider, {
@@ -814,21 +855,21 @@ var WikideAside = function WikideAside(props) {
     width: "250",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 424,
+      lineNumber: 450,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "wiki-aside ".concat(isShowText ? "" : "wiki-icon"),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 425,
+      lineNumber: 451,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "wiki-title title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 426,
+      lineNumber: 452,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("span", {
@@ -837,7 +878,7 @@ var WikideAside = function WikideAside(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 427,
+      lineNumber: 453,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -845,21 +886,21 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 428,
+      lineNumber: 454,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icon-B-13",
+    xlinkHref: "#icon-folder",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 429,
+      lineNumber: 455,
       columnNumber: 33
     }
   })), wikiName), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "wiki-toggleCollapsed",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 433,
+      lineNumber: 459,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
@@ -869,7 +910,7 @@ var WikideAside = function WikideAside(props) {
     placement: "bottomLeft",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 435,
+      lineNumber: 461,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -877,14 +918,14 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 436,
+      lineNumber: 462,
       columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconjiahao",
+    xlinkHref: "#icon-plusBlue",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 437,
+      lineNumber: 463,
       columnNumber: 41
     }
   }))), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -893,14 +934,14 @@ var WikideAside = function WikideAside(props) {
     onClick: showModal,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 441,
+      lineNumber: 467,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconfenlei",
+    xlinkHref: "#icon-fenlei",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 442,
+      lineNumber: 468,
       columnNumber: 33
     }
   })))), /*#__PURE__*/React__default["default"].createElement("div", {
@@ -912,7 +953,7 @@ var WikideAside = function WikideAside(props) {
     onDragOver: dragover,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 446,
+      lineNumber: 472,
       columnNumber: 21
     }
   }, wikiCatalogueList && wikiCatalogueList.map(function (item) {
@@ -930,7 +971,7 @@ var WikideAside = function WikideAside(props) {
     className: "wiki-priviege",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 458,
+      lineNumber: 484,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -938,14 +979,14 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 459,
+      lineNumber: 485,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon1_lightnings",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 460,
+      lineNumber: 486,
       columnNumber: 29
     }
   })), "\u89D2\u8272\u7BA1\u7406"), /*#__PURE__*/React__default["default"].createElement("div", {
@@ -955,7 +996,7 @@ var WikideAside = function WikideAside(props) {
     className: "wiki-priviege",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 464,
+      lineNumber: 490,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -963,21 +1004,21 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 465,
+      lineNumber: 491,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icon1_magnifier-money",
+    xlinkHref: "#icon-role",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 466,
+      lineNumber: 492,
       columnNumber: 29
     }
   })), "\u6210\u5458\u7BA1\u7406"), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "wiki-title setting",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 470,
+      lineNumber: 496,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("span", {
@@ -986,7 +1027,7 @@ var WikideAside = function WikideAside(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 471,
+      lineNumber: 497,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -994,14 +1035,14 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 472,
+      lineNumber: 498,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconshezhi-2",
+    xlinkHref: "#icon-set",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 473,
+      lineNumber: 499,
       columnNumber: 33
     }
   })), "\u77E5\u8BC6\u5E93\u8BBE\u7F6E"), /*#__PURE__*/React__default["default"].createElement("div", {
@@ -1009,7 +1050,7 @@ var WikideAside = function WikideAside(props) {
     onClick: toggleCollapsed,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 477,
+      lineNumber: 503,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -1017,14 +1058,14 @@ var WikideAside = function WikideAside(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 478,
+      lineNumber: 504,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconfaxian",
+    xlinkHref: "#icon-faxian",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 479,
+      lineNumber: 505,
       columnNumber: 33
     }
   })))))), /*#__PURE__*/React__default["default"].createElement(changeWikiModal["default"], {
@@ -1034,7 +1075,7 @@ var WikideAside = function WikideAside(props) {
     setChangeWikiVisible: setChangeWikiVisible,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 485,
+      lineNumber: 511,
       columnNumber: 13
     }
   }), /*#__PURE__*/React__default["default"].createElement(addLog["default"], _extends({
@@ -1045,11 +1086,12 @@ var WikideAside = function WikideAside(props) {
     catalogueId: catalogueId,
     contentValue: contentValue,
     setSelectKey: setSelectKey,
-    userList: userList
+    userList: userList,
+    modalTitle: modalTitle
   }, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 491,
+      lineNumber: 517,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement(moveLogList["default"], {
@@ -1065,7 +1107,7 @@ var WikideAside = function WikideAside(props) {
     moveCategoryParentId: moveCategoryParentId,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 502,
+      lineNumber: 529,
       columnNumber: 13
     }
   }), /*#__PURE__*/React__default["default"].createElement(templateList["default"], {
@@ -1078,7 +1120,7 @@ var WikideAside = function WikideAside(props) {
     setContentValue: setContentValue,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 514,
+      lineNumber: 541,
       columnNumber: 13
     }
   }));

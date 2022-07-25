@@ -9,8 +9,6 @@
 import React, { useState } from "react"
 import { inject, observer } from "mobx-react";
 import TableTools from "./tableTool"
-import { RenderElementProps, useEditor, useSelected } from "slate-react";
-import { Fragment } from "react/cjs/react.production.min";
 import "./tableElement.scss"
 const TableElement = (props) => {
     const { element, attributes, children, slatestore } = props;

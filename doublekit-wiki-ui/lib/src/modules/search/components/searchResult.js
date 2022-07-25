@@ -127,13 +127,13 @@ var SearchResult = function SearchResult(props) {
   };
 
   var toWiki = /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(wiki) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              setWikiId(id);
-              localStorage.setItem("wikiId", id);
+              setWikiId(wiki.id);
+              localStorage.setItem("wiki", wiki.id);
               _context.next = 4;
               return props.history.push("/index/wikidetail/survey");
 
@@ -320,7 +320,7 @@ var SearchResult = function SearchResult(props) {
             return /*#__PURE__*/React__default["default"].createElement("div", {
               className: "item-one",
               onClick: function onClick() {
-                return toWiki(toItem.id);
+                return toWiki(toItem);
               },
               __source: {
                 fileName: _jsxFileName,

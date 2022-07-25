@@ -95,7 +95,8 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,
-                exclude: /node_modules/,
+                // exclude: /node_modules/,
+                exclude: [path.resolve(__dirname, "./src/assets/svg")],
                 use: {
                     loader: 'url-loader',
                     options: {  
@@ -108,7 +109,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|woff2?|ttf|svg)$/,
-                exclude: /node_modules/,
+                exclude: [path.resolve(__dirname, "./src/assets/svg")],
                 use: [
                     {
                         loader: 'url-loader',
@@ -119,7 +120,16 @@ module.exports = {
                         }
                     }
                 ]
-            }
+            },
+            {
+                test: /\.svg$/,
+                exclude: /node_modules/,
+                include: [path.resolve(__dirname,'./src/assets/svg')],
+                use: [
+                    { loader: 'svg-sprite-loader', options: {symbolId: 'icon-[name]'} },
+                    { loader: 'svgo-loader', options: {} },
+                ]
+            },
         ]
     },
     plugins: [

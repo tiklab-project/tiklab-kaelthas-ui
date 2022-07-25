@@ -54,11 +54,11 @@ var ChangeWikiModal = function ChangeWikiModal(props) {
    */
 
 
-  var selectWikiId = function selectWikiId(id) {
+  var selectWikiId = function selectWikiId(wiki) {
     // 切换选中知识库，获取知识库详情
-    searchwiki(id); // 讲当前知识库id存入localStorage
+    searchwiki(wiki.id); // 讲当前知识库id存入localStorage
 
-    localStorage.setItem("wikiId", id); // 重置事项id
+    localStorage.setItem("wiki", JSON.stringify(wiki)); // 重置事项id
     // 关闭切换弹窗
 
     setChangeWikiVisible(false); // 切换路由
@@ -114,7 +114,7 @@ var ChangeWikiModal = function ChangeWikiModal(props) {
     return /*#__PURE__*/React__default["default"].createElement("div", {
       className: "wiki-name ".concat(item.id === selectWiki ? "wiki-selectName" : ""),
       onClick: function onClick() {
-        return selectWikiId(item.id);
+        return selectWikiId(item);
       },
       key: item.id,
       onMouseOver: function onMouseOver() {

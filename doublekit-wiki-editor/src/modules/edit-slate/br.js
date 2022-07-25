@@ -69,7 +69,10 @@ const BrEditor = (props) => {
 
     return (   
         <span className="tool-item" onMouseDown = {(event)=> selectBr(event)} key="br">
-            <i className="iconfont iconsubscript-2"></i>
+            {/* <i className="iconfont iconsubscript-2"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-subscript-2"></use>
+            </svg>
         </span>
     )
 }

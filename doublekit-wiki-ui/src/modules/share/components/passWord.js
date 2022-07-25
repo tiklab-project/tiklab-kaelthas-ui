@@ -27,7 +27,7 @@ const PassWord = (props) => {
         })
     }
     useEffect(()=> {
-        console.log(props)
+        
     })
     return <div className="documment-password">
         <div className="password-log">
@@ -37,7 +37,7 @@ const PassWord = (props) => {
         <div className="password-box">
             <div className="box-title">
                 <svg className="user-icon" aria-hidden="true">
-                    <use xlinkHref="#icon1_user5"></use>
+                    <use xlinkHref="#icon-user5"></use>
                 </svg>
                 <span>
                     admin

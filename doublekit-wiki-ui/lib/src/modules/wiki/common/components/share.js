@@ -375,7 +375,7 @@ var Share = function Share(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconweixin",
+    xlinkHref: "#icon-weixin",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 175,
@@ -404,7 +404,7 @@ var Share = function Share(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconpengyouquan",
+    xlinkHref: "#icon-firend",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 181,
@@ -436,7 +436,7 @@ var Share = function Share(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconQQ1",
+    xlinkHref: "#icon-QQ",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 187,
@@ -468,7 +468,7 @@ var Share = function Share(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconkongjian1",
+    xlinkHref: "#icon-QQspace",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 193,
@@ -500,7 +500,7 @@ var Share = function Share(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconweibo1",
+    xlinkHref: "#icon-weibo",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 199,

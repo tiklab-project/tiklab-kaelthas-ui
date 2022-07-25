@@ -7,7 +7,7 @@ var wiliLog = require('../api/wiliLog.js');
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16;
+var _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16, _descriptor17;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -64,6 +64,8 @@ var WikiCatalogueStore = (_class = /*#__PURE__*/_createClass(function WikiCatalo
   _initializerDefineProperty(this, "findCategoryDocument", _descriptor15, this);
 
   _initializerDefineProperty(this, "findDmPrjRolePage", _descriptor16, this);
+
+  _initializerDefineProperty(this, "createDocumentRecent", _descriptor17, this);
 }), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "wikiCatalogue", [mobx.observable], {
   configurable: true,
   enumerable: true,
@@ -480,6 +482,38 @@ var WikiCatalogueStore = (_class = /*#__PURE__*/_createClass(function WikiCatalo
 
       return function (_x11) {
         return _ref11.apply(this, arguments);
+      };
+    }();
+  }
+}), _descriptor17 = _applyDecoratedDescriptor(_class.prototype, "createDocumentRecent", [mobx.action], {
+  configurable: true,
+  enumerable: true,
+  writable: true,
+  initializer: function initializer() {
+    return /*#__PURE__*/function () {
+      var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(value) {
+        var data;
+        return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+          while (1) {
+            switch (_context12.prev = _context12.next) {
+              case 0:
+                _context12.next = 2;
+                return wiliLog.CreateDocumentRecent(value);
+
+              case 2:
+                data = _context12.sent;
+                return _context12.abrupt("return", data.data);
+
+              case 4:
+              case "end":
+                return _context12.stop();
+            }
+          }
+        }, _callee12);
+      }));
+
+      return function (_x12) {
+        return _ref12.apply(this, arguments);
       };
     }();
   }

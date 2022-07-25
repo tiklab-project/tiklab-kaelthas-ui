@@ -46,7 +46,6 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  localStorage.getItem("wikiId");
   var addModalVisible = props.addModalVisible,
       setAddModalVisible = props.setAddModalVisible,
       modalName = props.modalName,
@@ -147,13 +146,13 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     destroyOnClose: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92,
+      lineNumber: 91,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101,
+      lineNumber: 100,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"], {
@@ -162,9 +161,12 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     initialValues: {
       remember: true
     },
+    style: {
+      marginBottom: "20px"
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102,
+      lineNumber: 101,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -183,7 +185,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconpaihang1",
+    xlinkHref: "#icon-paihang",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 109,
@@ -203,7 +205,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
       message: '请输入模板名称!'
     }],
     wrapperCol: {
-      span: 12
+      span: 6
     },
     __source: {
       fileName: _jsxFileName,
@@ -248,7 +250,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133,
+      lineNumber: 131,
       columnNumber: 13
     }
   })));

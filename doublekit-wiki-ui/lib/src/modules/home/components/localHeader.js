@@ -74,6 +74,7 @@ var Header = function Header(props) {
   var isEE = doublekitCoreUi.getVersionInfo().release;
   JSON.parse(localStorage.getItem("authConfig")).authType;
   var eeText = isEE === 2 ? vipTwo["default"] : vipOne["default"];
+  var path = props.location.pathname;
 
   var changeCurrentLink = function changeCurrentLink(item) {
     setCurrentLink(item.to);
@@ -94,7 +95,7 @@ var Header = function Header(props) {
         onClick: function onClick() {
           return changeCurrentLink(routers[0]);
         },
-        className: "frame-header-link-item ".concat(currentLink === routers[0].to ? 'frame-header-link-active' : null),
+        className: "frame-header-link-item ".concat(path.indexOf("home") !== -1 ? 'frame-header-link-active' : null),
         __source: {
           fileName: _jsxFileName,
           lineNumber: 51,
@@ -105,7 +106,7 @@ var Header = function Header(props) {
         onClick: function onClick() {
           return changeCurrentLink(routers[1]);
         },
-        className: "frame-header-link-item ".concat(currentLink === routers[1].to ? 'frame-header-link-active' : null),
+        className: "frame-header-link-item ".concat(path.indexOf("wiki") !== -1 ? 'frame-header-link-active' : null),
         __source: {
           fileName: _jsxFileName,
           lineNumber: 52,
@@ -340,7 +341,7 @@ var Header = function Header(props) {
       columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconyuyan-01-copy",
+    xlinkHref: "#icon-language",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 142,
@@ -378,7 +379,7 @@ var Header = function Header(props) {
       columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconshezhi-copy",
+    xlinkHref: "#icon-shezhi",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 151,
@@ -403,7 +404,7 @@ var Header = function Header(props) {
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icontouxiang",
+    xlinkHref: "#icon-touxiang",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 158,

@@ -119,7 +119,7 @@ const Template = (props)=>{
                                 >
                                 <div>
                                     <svg className="icon" aria-hidden="true">
-                                        <use xlinkHref= "#iconpaihang1"></use>
+                                        <use xlinkHref= "#icon-paihang"></use>
                                     </svg>
                                 
                                     <div className="title" key="title">{item.name}</div>

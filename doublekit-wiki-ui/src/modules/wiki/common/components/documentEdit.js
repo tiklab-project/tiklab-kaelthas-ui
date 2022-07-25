@@ -71,7 +71,7 @@ const DocumentEdit = (props) => {
                     </svg>
                 </div>
             </div>
-            <DocumentEditor onChange = {saveDocument} value = {value}/>
+            <DocumentEditor onChange = {saveDocument} value = {value} minHeight = {300}/>
         </div>
     )
 }

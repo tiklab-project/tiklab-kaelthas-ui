@@ -74,5 +74,4 @@ const FontSize = (props) => {
         
     )
 }
-// export default FontSize;
 export default inject('slatestore')(observer(FontSize))

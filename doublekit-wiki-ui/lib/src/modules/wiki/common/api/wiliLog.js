@@ -115,9 +115,17 @@ function FindDmPrjRolePage(data) {
     data: data
   });
 }
+function CreateDocumentRecent(data) {
+  return doublekitCoreUi.Axios.request({
+    url: "/documentRecent/createDocumentRecent",
+    method: "post",
+    data: data
+  });
+}
 
 exports.AddWikiCataDocument = AddWikiCataDocument;
 exports.AddWikiCatalogue = AddWikiCatalogue;
+exports.CreateDocumentRecent = CreateDocumentRecent;
 exports.DeleteDocument = DeleteDocument;
 exports.DeleteWikiLog = DeleteWikiLog;
 exports.DetailWikiLog = DetailWikiLog;

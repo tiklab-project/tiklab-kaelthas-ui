@@ -6,10 +6,11 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-26 08:59:04
  */
-import React from "react";
-import { Redirect } from "react-router-dom";
+import React from 'react';
 import AsyncComponent from './common/lazy/SyncComponent'
+import { Redirect } from "react-router-dom";
 
+const Login = AsyncComponent(() => import('./modules/login/login'))
 const Logout = AsyncComponent(() => import('./modules/login/logout'))
 const Home = AsyncComponent(() => import('./modules/home/components/home'))
 const Index = AsyncComponent(() => import('./modules/home/components/portal.js'))
@@ -21,6 +22,9 @@ const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/compone
 // 知识库
 const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wiki'))
 const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
+const DocumentEdit = AsyncComponent(() => import("./modules/wiki/common/components/documentEdit"))
+const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/common/components/documnetExamine"))
+
 const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
 const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
 
@@ -41,7 +45,7 @@ const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/components/o
 
 // 导入外部数据
 const LoadData = AsyncComponent(() => import('./modules/sysmgr/loadData/components/loadData'))
-const routerSaas=[
+const routesSaas=[
     {
         path: "/logout",
         exact: true,
@@ -86,7 +90,11 @@ const routerSaas=[
                 routes: [
                     {
                         path: "/index/wikidetail/doc/:id",
-                        component: DocumentDetail
+                        component: DocumnetExamine
+                    },
+                    {
+                        path: "/index/wikidetail/docEdit/:id",
+                        component: DocumentEdit
                     },
                     {
                         path: "/index/wikidetail/folder/:id",
@@ -144,6 +152,11 @@ const routerSaas=[
                         component: LoadData,
                         exact: true
                     },
+                    {
+                        path: "/index/sysmgr/template",
+                        component: Template,
+                        exact: true
+                    },
                 ]
             }
         ]
@@ -155,4 +168,4 @@ const routerSaas=[
         exact: true
     },
 ]
-export default routerSaas;
+export default routesSaas;

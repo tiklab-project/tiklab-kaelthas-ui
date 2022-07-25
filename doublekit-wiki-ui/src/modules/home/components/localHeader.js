@@ -139,7 +139,7 @@ const Header = props => {
                             <Dropdown overlay={languageMenu}>
                                 <Space>
                                     <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                        <use xlinkHref="#iconyuyan-01-copy"></use>
+                                        <use xlinkHref="#icon-language"></use>
                                     </svg>
                                 </Space>
                             </Dropdown>
@@ -148,14 +148,14 @@ const Header = props => {
                             <Dropdown overlay={setMenu}>
                                 <Space>
                                     <svg aria-hidden="true" style={{width: "25px", height: "25px"}}>
-                                        <use xlinkHref="#iconshezhi-copy"></use>
+                                        <use xlinkHref="#icon-shezhi"></use>
                                     </svg>
                                 </Space>
                             </Dropdown>
                         </div>
                         <div className = "frame-header-user">
                             <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                <use xlinkHref="#icontouxiang"></use>
+                                <use xlinkHref="#icon-touxiang"></use>
                             </svg>
                             <div className="frame-header-name">
                                 <Dropdown overlay={useMenu}>

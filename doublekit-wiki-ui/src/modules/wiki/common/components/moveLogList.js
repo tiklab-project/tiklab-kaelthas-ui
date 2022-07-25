@@ -87,16 +87,16 @@ const MoveLogList = (props) => {
                         {
                             (category.children && category.children.length > 0) ?
                                 isExpandedTree(category.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
-                                    <use xlinkHref="#iconright" ></use>
+                                    <use xlinkHref="#icon-right" ></use>
                                 </svg> :
                                     <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
-                                        <use xlinkHref="#icondown" ></use>
+                                        <use xlinkHref="#icon-down" ></use>
                                     </svg> : <svg className="icon" aria-hidden="true">
                                     <use xlinkHref=""></use>
                                 </svg>
                         }
                         <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#iconB-13"></use>
+                            <use xlinkHref="#icon-folder"></use>
                         </svg>
                         <span>{category.name} </span>
                     </div>

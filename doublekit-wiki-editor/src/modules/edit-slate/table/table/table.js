@@ -46,7 +46,10 @@ const TableEditor = (props) => {
                 }
                 }
             >
-                <i className="iconfont icontable-2"></i>
+                {/* <i className="iconfont icontable-2"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref="#icon-table-2"></use>
+                </svg>
             </span>
             {
                 showFrom && <div className="table-from">

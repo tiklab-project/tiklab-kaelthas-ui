@@ -68,7 +68,6 @@ var ShareDocument = function ShareDocument(props) {
       setCommonList = _useState8[1];
 
   React.useEffect(function () {
-    console.log(props);
     judgeAuthCode({
       shareLink: "".concat(props.match.params.shareId).concat(props.location.search)
     }).then(function (data) {
@@ -223,7 +222,7 @@ var ShareDocument = function ShareDocument(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icondianzan",
+    xlinkHref: "#icon-dianzan",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 106,
@@ -252,7 +251,7 @@ var ShareDocument = function ShareDocument(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconpinglun",
+    xlinkHref: "#icon-comments",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 112,
@@ -284,7 +283,7 @@ var ShareDocument = function ShareDocument(props) {
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconfenxiang",
+    xlinkHref: "#icon-share",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 118,
@@ -336,7 +335,7 @@ var ShareDocument = function ShareDocument(props) {
         columnNumber: 37
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icon1_user5",
+      xlinkHref: "#icon-user5",
       __source: {
         fileName: _jsxFileName,
         lineNumber: 137,
@@ -381,7 +380,7 @@ var ShareDocument = function ShareDocument(props) {
           columnNumber: 53
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon1_user5",
+        xlinkHref: "#icon-user5",
         __source: {
           fileName: _jsxFileName,
           lineNumber: 162,

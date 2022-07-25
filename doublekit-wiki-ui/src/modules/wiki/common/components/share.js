@@ -172,31 +172,31 @@ const Share = (props) => {
             <div className="share-box">
                 <div className="share-item" onClick={() => shareWeixin()}>
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#iconweixin"></use>
+                        <use xlinkHref="#icon-weixin"></use>
                     </svg>
                     <span className="share-name">微信好友</span>
                 </div>
                 <div className="share-item" >
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#iconpengyouquan"></use>
+                        <use xlinkHref="#icon-firend"></use>
                     </svg>
                     <span className="share-name">朋友圈</span>
                 </div>
                 <div className="share-item" onClick={() => shareQQ()}>
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#iconQQ1"></use>
+                        <use xlinkHref="#icon-QQ"></use>
                     </svg>
                     <span className="share-name">QQ好友</span>
                 </div>
                 <div className="share-item" onClick={() => shareToQZon()}>
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#iconkongjian1"></use>
+                        <use xlinkHref="#icon-QQspace"></use>
                     </svg>
                     <span className="share-name">空间</span>
                 </div>
                 <div className="share-item" onClick={() => shareToSinaWeiBo()}>
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#iconweibo1"></use>
+                        <use xlinkHref="#icon-weibo"></use>
                     </svg>
                     <span className="share-name">微博</span>
                 </div>

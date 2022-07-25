@@ -11,7 +11,6 @@ var _Form = require('antd/es/form');
 require('antd/es/input/style/css');
 var _Input = require('antd/es/input');
 var React = require('react');
-require('../../../../assets/font-icon/iconfont.css.js');
 require('react-router-dom');
 var mobxReact = require('mobx-react');
 
@@ -35,6 +34,7 @@ var AddLog = function AddLog(props) {
   var addModalVisible = props.addModalVisible,
       setAddModalVisible = props.setAddModalVisible,
       setWikiCatalogueList = props.setWikiCatalogueList,
+      modalTitle = props.modalTitle,
       WikiCatalogueStore = props.WikiCatalogueStore,
       catalogueId = props.catalogueId,
       form = props.form,
@@ -44,7 +44,7 @@ var AddLog = function AddLog(props) {
   var addWikiCatalogue = WikiCatalogueStore.addWikiCatalogue,
       addWikiCataDocument = WikiCatalogueStore.addWikiCataDocument,
       findWikiCatalogue = WikiCatalogueStore.findWikiCatalogue;
-  var wikiId = localStorage.getItem("wikiId");
+  var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
 
   var onFinish = function onFinish() {
     form.validateFields().then(function (values) {
@@ -80,6 +80,7 @@ var AddLog = function AddLog(props) {
               setWikiCatalogueList(data);
             });
             setAddModalVisible(!addModalVisible);
+            form.resetFields();
           }
         });
       } else {
@@ -136,14 +137,17 @@ var AddLog = function AddLog(props) {
 
 
             setSelectKey(data.data);
+            form.resetFields();
           }
         });
       }
     });
-  };
+  }; // const selectType = () => {
+  // }
+
 
   return /*#__PURE__*/React__default["default"].createElement(_Modal__default["default"], {
-    title: "\u6DFB\u52A0\u6587\u6863",
+    title: modalTitle,
     visible: addModalVisible,
     onOk: function onOk() {
       return onFinish();
@@ -154,7 +158,7 @@ var AddLog = function AddLog(props) {
     destroyOnClose: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 97,
+      lineNumber: 101,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"], {
@@ -171,7 +175,7 @@ var AddLog = function AddLog(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104,
+      lineNumber: 108,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -183,13 +187,13 @@ var AddLog = function AddLog(props) {
     }],
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 115,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116,
+      lineNumber: 120,
       columnNumber: 21
     }
   })), /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -200,7 +204,7 @@ var AddLog = function AddLog(props) {
     }],
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118,
+      lineNumber: 122,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"], {
@@ -213,7 +217,7 @@ var AddLog = function AddLog(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 119,
+      lineNumber: 123,
       columnNumber: 21
     }
   }, userList && userList.map(function (item) {
@@ -222,7 +226,7 @@ var AddLog = function AddLog(props) {
       key: item.user.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 128,
+        lineNumber: 132,
         columnNumber: 40
       }
     }, item.user.name);
@@ -233,36 +237,40 @@ var AddLog = function AddLog(props) {
       required: true,
       message: '请选择类型!'
     }],
+    hidden: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133,
+      lineNumber: 137,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"], {
+    onChange: function onChange(value) {
+      return selectType(value);
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 143,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 144,
       columnNumber: 25
     }
   }, "\u76EE\u5F55"), /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "document",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 145,
       columnNumber: 25
     }
   }, "\u9875\u9762"), /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "mindMap",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 146,
       columnNumber: 25
     }
   }, "\u8111\u56FE")))));

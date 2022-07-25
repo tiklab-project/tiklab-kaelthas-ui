@@ -9,45 +9,45 @@
 const orgaRouter = [
     {
         title: '权限中心',
-        icon: 'icon1_megaphone-money',
+        icon: 'systemcenter',
         key: "/index/sysmgr/systemFeature",
         encoded: "system",
         children: [
             {
                 title: '功能管理',
-                icon: 'icon1_lcd-tv',
+                icon: 'systemcenter',
                 key: '/index/sysmgr/systemFeature',
                 encoded: "systemFeature",
             },
             {
                 title: '角色管理',
-                icon: 'icon1_gameboy',
+                icon: 'systemcenter',
                 key: '/index/sysmgr/systemRole',
                 encoded: "systemRole",
             },
             {
                 title: '功能管理',
-                icon: 'icon1_gameboy',
+                icon: 'projectpriviliage',
                 key: '/index/sysmgr/projectFeature',
                 encoded: "projectFeature",
             },
             {
                 title: '角色管理',
-                icon: 'icon1_user5',
+                icon: 'projectpriviliage',
                 key: '/index/sysmgr/projectRole',
                 encoded: "projectRole",
             }  
         ]
     },
     {
-        title: "导入数据",
-        icon: 'icon1_user',
+        title: "目录管理",
+        icon: 'category',
         key: '/index/sysmgr/loadData',
         encoded: "SysMessage",
     },
     {
         title: "模板",
-        icon: 'icon1_user',
+        icon: 'category',
         key: '/index/sysmgr/template',
         encoded: "SysMessage",
     }

@@ -18,7 +18,6 @@ import { privilegeStores } from 'doublekit-privilege-ui/es/store'
 import {getUser} from 'doublekit-core-ui'
 import {messageModuleStores} from 'doublekit-message-ui'
 import { createContainer, initFetch } from 'doublekit-plugin-ui/es/_utils';
-import "./assets/font-icon/iconfont"
 import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"

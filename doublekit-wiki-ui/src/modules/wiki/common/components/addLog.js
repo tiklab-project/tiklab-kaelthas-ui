@@ -8,13 +8,12 @@
  */
 
 import React from 'react';
-import "../../../../assets/font-icon/iconfont.css";
 import {withRouter} from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 
 const AddLog = (props) => {
-    const {addModalVisible,setAddModalVisible,setWikiCatalogueList,
+    const {addModalVisible,setAddModalVisible,setWikiCatalogueList,modalTitle,
         WikiCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
     const {addWikiCatalogue,addWikiCataDocument,findWikiCatalogue} = WikiCatalogueStore;
     const wikiId = JSON.parse(localStorage.getItem("wiki")).id
@@ -27,13 +26,15 @@ const AddLog = (props) => {
                         ...values,
                         repository:{id: wikiId},
                         parentCategory: {id:catalogueId},
-                        master: {id: values.master}
+                        master: {id: values.master},
+                        typeId: values.formatType
                     }
                 } else {
                     data = {
                         ...values,
                         repository:{id: wikiId},
-                        master: {id: values.master}
+                        master: {id: values.master},
+                        typeId: values.formatType
                     }
                 }
                 addWikiCatalogue(data).then((data)=> {
@@ -42,6 +43,7 @@ const AddLog = (props) => {
                             setWikiCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
+                        form.resetFields()
                     }
                     
                 }) 
@@ -87,15 +89,19 @@ const AddLog = (props) => {
                         }
                         // 左侧导航
                         setSelectKey(data.data)
+                        form.resetFields()
                     }
                     
                 })
             }
         })
     }
+    // const selectType = () => {
+
+    // }
     return (
         <Modal
-            title="添加文档"
+            title={modalTitle}
             visible={addModalVisible}
             onOk={()=>onFinish()} 
             onCancel={()=>setAddModalVisible(false)}
@@ -134,8 +140,9 @@ const AddLog = (props) => {
                     label="类型"
                     name="formatType"
                     rules={[{ required: true, message: '请选择类型!' }]}
+                    hidden = {true}
                 >
-                    <Select>
+                    <Select  onChange = {(value) => selectType(value)}>
                         <Select.Option value="category">目录</Select.Option>
                         <Select.Option value="document">页面</Select.Option>
                         <Select.Option value="mindMap">脑图</Select.Option>

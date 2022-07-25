@@ -15,19 +15,19 @@ const AlignEditor = (props) => {
     const {editorType,setEditorType} = slatestore;
     const aligns = [
         {   
-            icon: "iconalign-left",
+            icon: "align-left",
             value: "left"
         },
         {   
-            icon: "iconalign-right",
+            icon: "align-right",
             value: "right"
         },
         {   
-            icon: "iconalign-justify",
+            icon: "align-justify",
             value: "justify"
         },
         {   
-            icon: "iconalign-center",
+            icon: "align-center",
             value: "center"
         },
     ]
@@ -77,7 +77,10 @@ const AlignEditor = (props) => {
     return (
         <div className="align-editor" key="align">
             <div onMouseDown={(event) => showBox(event)} className = "align-botton">
-                <i className="iconfont iconalign-justify"></i>
+                {/* <i className="iconfont iconalign-justify"></i> */}
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref={`#icon-align-justify`}></use>
+                </svg>
 			</div>
             {
                 editorType === "align" && <div className="align-box">
@@ -89,9 +92,9 @@ const AlignEditor = (props) => {
                                     onMouseDown = {(event)=>selectAlign(item.value)}
                                 >
                                     <span className="tool-item">
-                                        <i className={`iconfont ${item.icon}`} 
-                                        
-                                        data-value={item.value}></i>
+                                        <svg className="document-icon" data-value={item.value} aria-hidden="true">
+                                            <use xlinkHref={`#icon-${item.icon}`}></use>
+                                        </svg>
                                     </span>
                                 </div>
                         })

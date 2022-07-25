@@ -42,7 +42,6 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
       _Form$useForm2 = _slicedToArray(_Form$useForm, 1),
       form = _Form$useForm2[0];
 
-  localStorage.getItem("wikiId");
   var previewModalVisible = props.previewModalVisible,
       setPreviewModalVisible = props.setPreviewModalVisible,
       templateStore = props.templateStore,
@@ -107,13 +106,13 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
     className: "template-previewmodal",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 55,
+      lineNumber: 54,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 63,
+      lineNumber: 62,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"], {
@@ -124,14 +123,14 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 64,
+      lineNumber: 63,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "previewmodal-top",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
+      lineNumber: 68,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -139,35 +138,35 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 70,
+      lineNumber: 69,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#iconpaihang1",
+    xlinkHref: "#icon-paihang",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 71,
+      lineNumber: 70,
       columnNumber: 25
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "previewmodal-from",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 73,
+      lineNumber: 72,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 74,
+      lineNumber: 73,
       columnNumber: 25
     }
   }, template && template.name), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "doc",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 77,
+      lineNumber: 76,
       columnNumber: 25
     }
   }, template && template.description)))), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
@@ -177,7 +176,7 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 85,
+      lineNumber: 84,
       columnNumber: 13
     }
   })));

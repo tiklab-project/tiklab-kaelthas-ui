@@ -90,7 +90,10 @@ const CheckListsEditor = (props) => {
         <span className="tool-item" onMouseDown={(event) => selectCheckLists(event)}
             key="check-list"
         >
-            <i className="iconfont iconxuanzhong"></i>
+            {/* <i className="iconfont iconxuanzhong"></i> */}
+            <svg className="slate-iconfont" aria-hidden="true">
+                <use xlinkHref="#icon-xuanzhong"></use>
+            </svg>
         </span>
     )
 }
