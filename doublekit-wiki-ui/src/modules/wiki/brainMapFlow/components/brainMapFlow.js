@@ -41,7 +41,7 @@ import { useGraphConfig } from './config-graph'
 import { DndNode } from './dnd-node.js'
 import { message } from 'antd'
 
-import './index.scss'
+import './brainMapFlowRead.scss'
 
 const BrainMapFlow = props => {
   const { meta,graphData, setGraphData } = props

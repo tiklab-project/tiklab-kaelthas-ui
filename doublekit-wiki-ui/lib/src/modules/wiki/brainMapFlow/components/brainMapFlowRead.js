@@ -8,6 +8,7 @@ var configCmd = require('./config-cmd.js');
 var configMenu = require('./config-menu.js');
 var configToolbar = require('./config-toolbar.js');
 var configKeybinding = require('./config-keybinding.js');
+require('./brainMapFlowRead.scss.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 

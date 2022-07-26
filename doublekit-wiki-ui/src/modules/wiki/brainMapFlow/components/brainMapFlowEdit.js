@@ -27,7 +27,8 @@ const DocumentMindMapEdit = (props) => {
 
     const save = () => {
         saveDocument(graphData)
-        props.history.push(`/index/wikidetail/mindmap/${documentId}`)
+        // props.history.push(`/index/wikidetail/mindmap/${documentId}`)
+        props.history.goBack()
         // editRef.current.submit()
     }
 
@@ -56,7 +57,7 @@ const DocumentMindMapEdit = (props) => {
         })
     }, [documentId])
     return (
-        <div className="documnet-edit">
+        <div className="brainmap-edit">
             <div className="edit-title">
                 <div>{docInfo.name}</div>
                 <div className="edit-right">

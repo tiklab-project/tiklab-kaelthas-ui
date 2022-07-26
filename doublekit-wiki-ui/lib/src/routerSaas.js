@@ -49,7 +49,14 @@ var LogDetail = SyncComponent["default"](function () {
 var BrainMap = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/wiki/brainMapFlow/components/brainMapFlowDetail'));
+      resolve(require('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'));
+    });
+  });
+});
+var DocumentMindMapEdit = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/wiki/brainMapFlow/components/brainMapFlowEdit'));
     });
   });
 }); // 知识库
@@ -201,6 +208,9 @@ var routesSaas = [{
       path: "/index/wikidetail/mindmap/:id",
       component: BrainMap
     }, {
+      path: "/index/wikidetail/mindmapEdit/:id",
+      component: DocumentMindMapEdit
+    }, {
       path: "/index/wikidetail/wikiDomainRole",
       component: WikiDomainRole
     }, {
@@ -251,7 +261,7 @@ var routesSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 167,
+        lineNumber: 172,
         columnNumber: 26
       }
     });

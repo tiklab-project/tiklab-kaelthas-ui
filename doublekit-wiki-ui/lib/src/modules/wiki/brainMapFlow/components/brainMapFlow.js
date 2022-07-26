@@ -12,7 +12,7 @@ var configToolbar = require('./config-toolbar.js');
 var configKeybinding = require('./config-keybinding.js');
 var configGraph = require('./config-graph.js');
 var dndNode = require('./dnd-node.js');
-require('./index.scss.js');
+require('./brainMapFlowRead.scss.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 

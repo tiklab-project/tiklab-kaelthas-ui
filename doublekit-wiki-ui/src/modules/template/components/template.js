@@ -133,7 +133,7 @@ const Template = (props)=>{
                         })
                     }
                     </div>
-                    <div style={{textAlign: "right"}}><Pagination defaultCurrent={1} total={templatePageParams.total} onChange={(page )=>changePage(page)}/></div>    
+                    <div style={{textAlign: "right",marginTop: "10px"}}><Pagination defaultCurrent={1} total={templatePageParams.total} onChange={(page )=>changePage(page)}/></div>    
                 </Col>
             </Row>
         </Layout>

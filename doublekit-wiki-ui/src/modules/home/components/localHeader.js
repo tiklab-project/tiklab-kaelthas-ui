@@ -49,8 +49,8 @@ const Header = props => {
             return (
                 <div className={'frame-header-link'}>
                     <div key='home' onClick={ () => changeCurrentLink(routers[0])} className={`frame-header-link-item ${path.indexOf("home") !== -1? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
-                    <div key='project' onClick={ () => changeCurrentLink(routers[1])} className={`frame-header-link-item ${path.indexOf("wiki") !== -1 ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
-                    <div key='program' onClick={ () => changeCurrentLink(routers[2])} className={`frame-header-link-item ${currentLink === routers[2].to ? 'frame-header-link-active' : null}`}> {routers[2].title}</div>
+                    <div key='wiki' onClick={ () => changeCurrentLink(routers[1])} className={`frame-header-link-item ${path.indexOf("wiki") !== -1 ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
+                    {/* <div key='program' onClick={ () => changeCurrentLink(routers[2])} className={`frame-header-link-item ${currentLink === routers[2].to ? 'frame-header-link-active' : null}`}> {routers[2].title}</div> */}
                     {/* <div key='log' onClick={ () => changeCurrentLink(routers[3])} className={`frame-header-link-item ${currentLink.indexOf("/index/log") !== -1 ? 'frame-header-link-active' : null}`}> {routers[3].title}</div> */}
                 </div>
             )

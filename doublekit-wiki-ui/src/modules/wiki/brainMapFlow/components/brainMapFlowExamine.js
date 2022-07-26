@@ -8,8 +8,8 @@
  */
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
-import { Divider, Input, Button } from 'antd';
-import "./brainMapExamine.scss"
+import { Divider, Input, Button, Row, Col } from 'antd';
+import "./brainMapFlowExamine.scss"
 import Share from "../../common/components/share";
 import BrainMapFlowRead from "./brainMapFlowRead"
 import { getUser } from "doublekit-core-ui";
@@ -24,9 +24,7 @@ const BrainMapExamine = (props) => {
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
     const userId = getUser().userId;
     const [showComment, setShowComment] = useState(false)
-    const [graphData, setGraphData] = useState(
-        { nodes: [], edges: [] }
-    )
+    const [graphData, setGraphData] = useState()
     useEffect(() => {
         findCommentPage({ documentId: documentId }).then(data => {
             if (data.code === 0) {
@@ -45,7 +43,7 @@ const BrainMapExamine = (props) => {
                 setDocInfo(data.data)
             }
         })
-
+        return
     }, [documentId])
 
     const [commontContent, setCommontContent] = useState()
@@ -125,7 +123,7 @@ const BrainMapExamine = (props) => {
         createLike(data)
     }
     return (
-        <div className="document-examine">
+        <div className="mindmap-examine">
             <div>
                 <div className="examine-title">
                     <div>{wiki.name}</div>
@@ -156,7 +154,26 @@ const BrainMapExamine = (props) => {
                         </svg>
                     </div>
                 </div>
-                <BrainMapFlowRead graphData={graphData} />
+                <Row>
+                    <Col xl={{ span: 20, offset: 2 }} lg={{ span: 20, offset: 2 }} md={{ span: 20, offset: 2 }}>
+                        <div className="mindmap-info">
+                            <div className="mindmap-info-name">{docInfo.name}</div>
+                           
+                            <div className="mindmap-info-detail">
+                                <svg className="user-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-user5"></use>
+                                </svg>
+                                <div className="mindmap-info-right">
+                                    <div className="mindmap-info-creater">创建者：{docInfo ? docInfo.master.name : ""}</div>
+                                    <div className="mindmap-updata-date">最近更新日期：{docInfo ? docInfo.updateTime : ""}</div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <BrainMapFlowRead graphData={graphData} />
+                    </Col>
+                </Row>
+               
                 <div className="examine-comment" >
                     <span className="comment-item" onClick={addDocLike}>
                         {docInfo.isLike ? <svg className="icon" aria-hidden="true">

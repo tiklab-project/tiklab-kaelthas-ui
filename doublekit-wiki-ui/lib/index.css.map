@@ -1,1 +1,1 @@
-{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,iCACA,uCACA","file":"index.css","sourcesContent":["@import '~antd/dist/antd.css';\n@import \"./common/styles/_index.scss\";\n@import '~@antv/xflow/dist/index.css';"]}
+{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,uCACA","file":"index.css","sourcesContent":["@import \"./common/styles/_index.scss\";\n@import '~@antv/xflow/dist/index.css';"]}

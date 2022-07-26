@@ -37,7 +37,7 @@ import { useToolbarConfig } from './config-toolbar'
 import { useKeybindingConfig } from './config-keybinding'
 
 // import './index.less'
-
+import './brainMapFlowRead.scss'
 const BrainMapFlowRead = props => {
   const { meta,graphData, setGraphData } = props
   // const [meta, setMeta] = React.useState({})

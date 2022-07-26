@@ -74,6 +74,7 @@ const DocumentExamine = (props) => {
                 console.log(data)
                 if (data.code === 0) {
                     setCommonList(data.data)
+                    setCommontContent("")
                 }
             })
         })
@@ -97,6 +98,7 @@ const DocumentExamine = (props) => {
                 if (data.code === 0) {
                     setReply(null)
                     setCommonList(data.data)
+                    setCommontContent("")
                 }
             })
         })
@@ -205,9 +207,9 @@ const DocumentExamine = (props) => {
                 <div className={showComment ? "show-comment" : "hidden-comment"}>
                     <div className="edit-comment">
                         <svg className="user-icon" aria-hidden="true">
-                            <use xlinkHref="#icon1_user5"></use>
+                            <use xlinkHref="#icon-user5"></use>
                         </svg>
-                        <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                        <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
                         <Button type="primary" onClick={() => announce()}>发布</Button>
                     </div>
                     <div className="comment-list">
@@ -234,7 +236,7 @@ const DocumentExamine = (props) => {
                                         <svg className="user-icon" aria-hidden="true">
                                             <use xlinkHref="#icon-user5"></use>
                                         </svg>
-                                        <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                                        <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
                                         <Button type="primary" onClick={() => announceReply(item.id)}>发布</Button>
                                     </div>
                                     {

@@ -104,6 +104,7 @@ const Home = (props) => {
                                         </svg>
                                         <div className="title" key="title">{item.name}</div>
                                     </div>
+                                    
                                 </Fragment>
                             })
                         }
@@ -141,7 +142,7 @@ const Home = (props) => {
                             <div>
                                 {
                                     recentEditDocumentList && recentEditDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick = {() => goEditDetail  (item)}>
+                                        return <div className="document-list-item" key={item.id} onClick = {() => goEditDetail(item)}>
                                             <div className='document-name' style={{ flex: 1 }}>
                                                 <svg className="document-icon" aria-hidden="true">
                                                     <use xlinkHref="#icon-paihang"></use>

@@ -61,7 +61,8 @@ var AddLog = function AddLog(props) {
             },
             master: {
               id: values.master
-            }
+            },
+            typeId: values.formatType
           });
         } else {
           data = _objectSpread(_objectSpread({}, values), {}, {
@@ -70,7 +71,8 @@ var AddLog = function AddLog(props) {
             },
             master: {
               id: values.master
-            }
+            },
+            typeId: values.formatType
           });
         }
 
@@ -158,7 +160,7 @@ var AddLog = function AddLog(props) {
     destroyOnClose: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101,
+      lineNumber: 103,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"], {
@@ -175,7 +177,7 @@ var AddLog = function AddLog(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 110,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -187,13 +189,13 @@ var AddLog = function AddLog(props) {
     }],
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115,
+      lineNumber: 117,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 120,
+      lineNumber: 122,
       columnNumber: 21
     }
   })), /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -204,7 +206,7 @@ var AddLog = function AddLog(props) {
     }],
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 122,
+      lineNumber: 124,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"], {
@@ -217,7 +219,7 @@ var AddLog = function AddLog(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 123,
+      lineNumber: 125,
       columnNumber: 21
     }
   }, userList && userList.map(function (item) {
@@ -226,7 +228,7 @@ var AddLog = function AddLog(props) {
       key: item.user.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 132,
+        lineNumber: 134,
         columnNumber: 40
       }
     }, item.user.name);
@@ -240,7 +242,7 @@ var AddLog = function AddLog(props) {
     hidden: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 139,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"], {
@@ -249,28 +251,28 @@ var AddLog = function AddLog(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 143,
+      lineNumber: 145,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "category",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 144,
+      lineNumber: 146,
       columnNumber: 25
     }
   }, "\u76EE\u5F55"), /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "document",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 145,
+      lineNumber: 147,
       columnNumber: 25
     }
   }, "\u9875\u9762"), /*#__PURE__*/React__default["default"].createElement(_Select__default["default"].Option, {
     value: "mindMap",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 146,
+      lineNumber: 148,
       columnNumber: 25
     }
   }, "\u8111\u56FE")))));

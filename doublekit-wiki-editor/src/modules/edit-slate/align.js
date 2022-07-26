@@ -92,7 +92,7 @@ const AlignEditor = (props) => {
                                     onMouseDown = {(event)=>selectAlign(item.value)}
                                 >
                                     <span className="tool-item">
-                                        <svg className="document-icon" data-value={item.value} aria-hidden="true">
+                                        <svg className="slate-iconfont" data-value={item.value} aria-hidden="true">
                                             <use xlinkHref={`#icon-${item.icon}`}></use>
                                         </svg>
                                     </span>

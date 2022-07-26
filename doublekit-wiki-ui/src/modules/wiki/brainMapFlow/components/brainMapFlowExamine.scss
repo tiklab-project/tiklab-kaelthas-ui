@@ -1,21 +1,58 @@
-.document-examine {
+.mindmap-examine {
     background-color: #fff;
+    padding: 20px;
+    height: calc(100vh - 50px);
+    overflow: auto;
     .examine-title {
         font-size: 18px;
         font-weight: 600;
         line-height: 30px;
         height: 30px;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .document-edit {
+            display: flex;
+            align-items: center;
+            .user-icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 20px;
+            }
+            .right-icon {
+                width: 20px;
+                height: 20px;
+                margin-left: 20px;
+            }
+        }
+    }
+    .mindmap-info {
+        margin-bottom: 10px;
+        .mindmap-info-name {
+            font-size: 20px;
+            font-weight: 600;
+        }
+        .mindmap-info-detail {
+            display: flex;
+            align-items: center;
+            .user-icon {
+                width: 30px;
+                height: 30px;
+                margin-right: 20px;
+            }
+            .mindmap-info-creater, .mindmap-updata-date {
+                height: 30px;
+                line-height: 30px;
+                color: #6B778C;
+            }
+        }
         
     }
     .examine-type {
         font-size: 12px;
         color: #aaa;
         margin-left: 20px;
-    }
-    .preview-editor {
-        min-height: 300px;
-        box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
     }
     .examine-comment {
         display: flex;
@@ -37,6 +74,7 @@
             }
         }
     }
+    
     .edit-comment {
         display: flex;
         align-items: center;
@@ -46,6 +84,10 @@
             height: 30px;
             border-radius: 15px;
             margin-right: 15px;
+        }
+        .right-icon {
+            width: 30px;
+            height: 30px;
         }
         .ant-input {
             border-radius: 15px;

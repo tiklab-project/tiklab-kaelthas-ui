@@ -38,7 +38,7 @@ const TableElement = (props) => {
                 >{children}</tr>
             case 'table-cell':
                 return <td {...attributes}
-                    style={{ width: "100px", height: "40px" }}
+                    style={{ width: "100px", height: "40px",borderBottom: "1px solid #ccc",borderRight: "1px solid #ccc" }}
                     
                 >
                     {children}

@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-23 14:20:48
  */
-import React, {useState} from "react";
+import React, {Fragment, useState} from "react";
 import Editor from "../edit-slate/editor";
 import PreviewEditor from "../edit-slate/previewEditor";
 // showMenu = {true}
@@ -19,15 +19,20 @@ const ExampleEditor = () => {
 		},
 	])
     return (
-        <div onClick={() => {setShowMenu(true)}}>
-           { showMenu ? <Editor 
-                value = {value} 
-                onChange = {setValue} 
-            />
-            :
-            <PreviewEditor value = {value} 
-                onChange = {setValue} />}
-        </div>
+        <Fragment>
+            <div onClick={() => {setShowMenu(!showMenu)}}>确定</div>
+            <div >
+                
+            { showMenu ? <Editor 
+                    value = {value} 
+                    onChange = {setValue} 
+                />
+                :
+                <PreviewEditor value = {value} 
+                    onChange = {setValue} />}
+            </div>
+        </Fragment>
+        
     )
 }
 export default ExampleEditor;

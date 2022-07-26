@@ -357,7 +357,8 @@ var Template = function Template(props) {
     }, "\u5220\u9664")));
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     style: {
-      textAlign: "right"
+      textAlign: "right",
+      marginTop: "10px"
     },
     __source: {
       fileName: _jsxFileName,
@@ -373,7 +374,7 @@ var Template = function Template(props) {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 136,
-      columnNumber: 55
+      columnNumber: 73
     }
   }))))), /*#__PURE__*/React__default["default"].createElement(templateAddmodal["default"], {
     modalName: modalName,

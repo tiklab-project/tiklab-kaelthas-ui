@@ -33,6 +33,7 @@ const cssWorkerPool = {
 };
 threadLoader.warmup(jsWorkerPool, ['babel-loader']);
 threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader',"sass-loader",'sass-resources-loader']);
+const sassModuleRegex = /\.module\.(scss|sass)$/;
 module.exports = {
     output: {
         filename: 'js/[name].[hash:8].js',
@@ -67,17 +68,16 @@ module.exports = {
             
             {
                 test: /\.(sc|sa|c)ss$/,
+                exclude: sassModuleRegex,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
                     },
                     {
-                        loader: 'thread-loader',
-                        options: cssWorkerPool
-                    },
-                    
-                    {
                         loader: "css-loader",
+                        options: {
+                            sourceMap: true
+                        },
                     },
                     {
                         loader: "postcss-loader",
@@ -92,6 +92,28 @@ module.exports = {
                         }
                     }
                 ]
+            },
+            {
+                test: sassModuleRegex,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 3,
+                            modules: {
+                                localIdentName: '[local]--[hash:base64:5]',
+                            },
+                            sourceMap: true
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    },
+                    {
+                        loader: 'sass-loader'
+                    }
+                ],
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,

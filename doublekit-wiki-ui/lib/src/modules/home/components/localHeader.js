@@ -57,9 +57,9 @@ var Header = function Header(props) {
       routers = props.routers;
 
   var _useState = React.useState(props.location.pathname),
-      _useState2 = _slicedToArray(_useState, 2),
-      currentLink = _useState2[0],
-      setCurrentLink = _useState2[1];
+      _useState2 = _slicedToArray(_useState, 2);
+      _useState2[0];
+      var setCurrentLink = _useState2[1];
 
   doublekitCoreUi.getUser().loginType;
 
@@ -102,7 +102,7 @@ var Header = function Header(props) {
           columnNumber: 21
         }
       }, " ", routers[0].title), /*#__PURE__*/React__default["default"].createElement("div", {
-        key: "project",
+        key: "wiki",
         onClick: function onClick() {
           return changeCurrentLink(routers[1]);
         },
@@ -112,18 +112,7 @@ var Header = function Header(props) {
           lineNumber: 52,
           columnNumber: 21
         }
-      }, " ", routers[1].title), /*#__PURE__*/React__default["default"].createElement("div", {
-        key: "program",
-        onClick: function onClick() {
-          return changeCurrentLink(routers[2]);
-        },
-        className: "frame-header-link-item ".concat(currentLink === routers[2].to ? 'frame-header-link-active' : null),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 53,
-          columnNumber: 21
-        }
-      }, " ", routers[2].title));
+      }, " ", routers[1].title));
     }
   }; // const languageMenu = (
   //     <Menu onClick={onClickLan}>
