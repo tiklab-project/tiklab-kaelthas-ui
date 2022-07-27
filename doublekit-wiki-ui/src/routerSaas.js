@@ -10,7 +10,6 @@ import React from 'react';
 import AsyncComponent from './common/lazy/SyncComponent'
 import { Redirect } from "react-router-dom";
 
-const Login = AsyncComponent(() => import('./modules/login/login'))
 const Logout = AsyncComponent(() => import('./modules/login/logout'))
 const Home = AsyncComponent(() => import('./modules/home/components/home'))
 const Index = AsyncComponent(() => import('./modules/home/components/portal.js'))
@@ -41,10 +40,19 @@ const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/syste
 const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
 const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
 
-const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/components/orga'))
+const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/containers/setting'))
 
 // 导入外部数据
+
+
+const WikiLicence = AsyncComponent(() => import('./modules/sysmgr/licence/wikiLicence'))
+const WikiPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/wikiPlugin.js'))
+const Oragn = AsyncComponent(()=> import("./modules/sysmgr/common/containers/organ"))
+const OrgaContent = AsyncComponent(() => import('./modules/sysmgr/orga/orga'))
+const OrgaUser = AsyncComponent(() => import('./modules/sysmgr/orga/user'))
+const WikiDirectory = AsyncComponent(() => import('./modules/sysmgr/orga/wikiDirectory'))
 const LoadData = AsyncComponent(() => import('./modules/sysmgr/loadData/components/loadData'))
+
 const routesSaas=[
     {
         path: "/logout",
@@ -162,8 +170,40 @@ const routesSaas=[
                         component: Template,
                         exact: true
                     },
+                    {
+                        path: "/index/sysmgr/licence",
+                        component: WikiLicence,
+                        exact: true
+                    },
+                    {
+                        path: "/index/sysmgr/plugin",
+                        component: WikiPlugin,
+                        exact: true
+                    },
                 ]
-            }
+            },
+            {
+                path: "/index/organ",
+                component: Oragn,
+                key: 'organ',
+                routes: [
+                    {
+                        path: "/index/organ/organ",
+                        component: OrgaContent,
+                        exact: true
+                    },
+                    {
+                        path: "/index/organ/user",
+                        component: OrgaUser,
+                        exact: true
+                    },
+                    {
+                        path: "/index/organ/directory",
+                        component: WikiDirectory,
+                        exact: true
+                    }
+                ]
+            },
         ]
             
     },

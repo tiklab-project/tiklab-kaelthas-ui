@@ -4,20 +4,19 @@
  * @Author: 袁婕轩
  * @Date: 2020-12-18 16:05:16
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-09-16 13:09:53
+ * @LastEditTime: 2022-03-23 17:51:33
  */
 import React,{Fragment} from 'react';
 import {observer, inject} from "mobx-react";
 import { Layout,Col,Row  } from 'antd';
-import  OrgaAside from "./orgaAside";
+import  OrgaAside from "../components/orgaAside";
 import "../components/orga.scss"
 import { renderRoutes } from "react-router-config";
-import { withRouter } from 'react-router';
 const { Sider,Content } = Layout;
-const Orga = (props) => {
+const Organ = (props) => {
     const route = props.route
     return(
-        <Fragment>       
+        <Fragment>      
             <Layout className="orga">
                 <Sider width={200} className="site-layout-background">
                     <OrgaAside></OrgaAside>
@@ -26,7 +25,7 @@ const Orga = (props) => {
                 <Content
                     className="orga-background"
                 >
-                        {renderRoutes(route.routes)}
+                    {renderRoutes(route.routes)}
                 </Content>
             </Layout>
         </Fragment>
@@ -34,4 +33,4 @@ const Orga = (props) => {
     )
 }
 
-export default withRouter(Orga);
+export default Organ;

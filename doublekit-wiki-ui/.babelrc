@@ -5,37 +5,96 @@
     ],
     "plugins": [
         "@babel/plugin-transform-react-jsx",
-        ["@babel/plugin-transform-react-jsx-source"],
-        ["@babel/plugin-transform-arrow-functions"],
-        ["import", {
-            "libraryName": "antd",
-            "libraryDirectory": "es",
-            "style": "css"
-        }],
-        ["import", {
-            "libraryName": "doublekit-eam-ui",
-            "libraryDirectory": "es",
-            "style": true
-        },"doublekit-eam-ui"],
-        ["import", {
-            "libraryName": "doublekit-user-ui",
-            "libraryDirectory": "es",
-            "style": true
-        },"doublekit-user-ui"],
-        ["import", {
-            "libraryName": "doublekit-privilege-ui",
-            "libraryDirectory": "es",
-            "style": true
-        },"doublekit-privilege-ui"],
-        ["@babel/plugin-proposal-decorators", { "legacy": true }],
-        ["@babel/plugin-proposal-class-properties", { "loose" : false }],
-        ["dynamic-import-webpack"],
-        "@babel/plugin-syntax-dynamic-import",
-        ["@babel/plugin-transform-runtime",
+        [
+            "@babel/plugin-transform-react-jsx-source"
+        ],
+        [
+            "@babel/plugin-transform-arrow-functions"
+        ],
+        [
+            "import",
             {
-                "regenerator": true
+                "libraryName": "antd",
+                "libraryDirectory": "es",
+                "style": "css"
             }
         ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-eam-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-eam-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-user-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-user-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-privilege-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-privilege-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-plugin-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-plugin-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-message-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-message-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "doublekit-licence-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "doublekit-licence-ui"
+        ],
+        [
+            "@babel/plugin-proposal-decorators",
+            {
+                "legacy": true
+            }
+        ],
+        [
+            "@babel/plugin-proposal-class-properties",
+            {
+                "loose": false
+            }
+        ],
+        [
+            "dynamic-import-webpack"
+        ],
+        "@babel/plugin-syntax-dynamic-import",
+        // [
+        //     "@babel/plugin-transform-runtime",
+        //     {
+        //         "regenerator": true
+        //     }
+        // ],
         "react-hot-loader/babel"
     ]
 }

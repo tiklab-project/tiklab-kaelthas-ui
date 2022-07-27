@@ -16,8 +16,9 @@ import {store } from "./stores"
 import {orgStores} from "doublekit-user-ui/es/store";
 import { privilegeStores } from 'doublekit-privilege-ui/es/store'
 import {getUser} from 'doublekit-core-ui'
-import {messageModuleStores} from 'doublekit-message-ui'
+import {messageModuleStores} from 'doublekit-message-ui/es/store'
 import { createContainer, initFetch } from 'doublekit-plugin-ui/es/_utils';
+import { useVersion } from 'doublekit-eam-ui/es/_utils'
 import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"
@@ -25,7 +26,6 @@ import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
 import "./assets/index"
 const Index = observer(() => {
-    // useLoadLanguage(resources,fetchMethod, pluginAddressUrl, "zh")
     const {i18n} = useTranslation();
     const [visable, setVisable] =  useState(true);
 
@@ -40,6 +40,7 @@ const Index = observer(() => {
     if (userInfo && userInfo.userId) {
         allStore.systemRoleStore.getSystemPermissions(userInfo.userId)
     }
+    useVersion("wiki")
 
     const [pluginData,setPluginData] = useState({
         routes: routers,

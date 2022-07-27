@@ -7,14 +7,15 @@
  * @LastEditTime: 2021-09-17 11:14:26
  */
 import zhCnTrans from "./cn/translation.json";
-import eam_cn from "doublekit-eam-ui/es/_utils/language";
+
+import {eam_cn} from "doublekit-eam-ui/es/_utils";
+import {privilege_cn} from "doublekit-privilege-ui/es/_utils";
+import {message_cn} from "doublekit-message-ui/es/_utils";
+import {pluginManage_cn} from "doublekit-plugin-ui/es/_utils";
 const resources = {
     zh: {
-        translation: {...zhCnTrans,...eam_cn},
-    },
-    // en: {
-    //     translation: {...portal_en, ...form_en, ...flow_en,...message_en, ...orga_en},
-    // }
+        translation: {...zhCnTrans, ...eam_cn, ...privilege_cn, ...message_cn, ...pluginManage_cn},
+    }
 }
 
 export default resources;

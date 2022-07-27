@@ -150,11 +150,53 @@ var ProjectRole = SyncComponent["default"](function () {
 var Sysmgr = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/common/components/orga'));
+      resolve(require('./modules/sysmgr/common/containers/setting'));
     });
   });
 }); // 导入外部数据
 
+var WikiLicence = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/licence/wikiLicence'));
+    });
+  });
+});
+var WikiPlugin = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/plugin/wikiPlugin.js'));
+    });
+  });
+});
+var Oragn = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require("./modules/sysmgr/common/containers/organ"));
+    });
+  });
+});
+var OrgaContent = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/orga/orga'));
+    });
+  });
+});
+var OrgaUser = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/orga/user'));
+    });
+  });
+});
+var WikiDirectory = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/orga/wikiDirectory'));
+    });
+  });
+});
 var LoadData = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -252,6 +294,31 @@ var routesSaas = [{
       path: "/index/sysmgr/template",
       component: Template,
       exact: true
+    }, {
+      path: "/index/sysmgr/licence",
+      component: WikiLicence,
+      exact: true
+    }, {
+      path: "/index/sysmgr/plugin",
+      component: WikiPlugin,
+      exact: true
+    }]
+  }, {
+    path: "/index/organ",
+    component: Oragn,
+    key: 'organ',
+    routes: [{
+      path: "/index/organ/organ",
+      component: OrgaContent,
+      exact: true
+    }, {
+      path: "/index/organ/user",
+      component: OrgaUser,
+      exact: true
+    }, {
+      path: "/index/organ/directory",
+      component: WikiDirectory,
+      exact: true
     }]
   }]
 }, {
@@ -261,7 +328,7 @@ var routesSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 172,
+        lineNumber: 212,
         columnNumber: 26
       }
     });

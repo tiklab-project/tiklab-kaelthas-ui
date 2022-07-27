@@ -2,8 +2,10 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var orga = require('../components/orga.js');
+var organ = require('./organ.js');
+var setting = require('./setting.js');
 
 
 
-exports.Orga = orga["default"];
+exports.Organ = organ["default"];
+exports.Setting = setting["default"];

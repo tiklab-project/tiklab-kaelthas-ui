@@ -4,53 +4,32 @@
  * @Author: 袁婕轩
  * @Date: 2021-06-01 14:44:20
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-10-28 10:20:12
+ * @LastEditTime: 2022-04-25 10:09:01
  */
 const orgaRouter = [
-    {
-        title: '权限中心',
-        icon: 'systemcenter',
-        key: "/index/sysmgr/systemFeature",
-        encoded: "system",
-        children: [
-            {
-                title: '功能管理',
-                icon: 'systemcenter',
-                key: '/index/sysmgr/systemFeature',
-                encoded: "systemFeature",
-            },
-            {
-                title: '角色管理',
-                icon: 'systemcenter',
-                key: '/index/sysmgr/systemRole',
-                encoded: "systemRole",
-            },
-            {
-                title: '功能管理',
-                icon: 'projectpriviliage',
-                key: '/index/sysmgr/projectFeature',
-                encoded: "projectFeature",
-            },
-            {
-                title: '角色管理',
-                icon: 'projectpriviliage',
-                key: '/index/sysmgr/projectRole',
-                encoded: "projectRole",
-            }  
-        ]
-    },
-    {
-        title: "目录管理",
-        icon: 'category',
-        key: '/index/sysmgr/loadData',
-        encoded: "SysMessage",
-    },
-    {
-        title: "模板",
-        icon: 'category',
-        key: '/index/sysmgr/template',
-        encoded: "SysMessage",
-    }
+        {
+            title: "组织管理",
+            icon: 'category',
+            key: '/index/organ/organ',
+            encoded: "SysOrga",
+            code: 1-1,
+            
+        },
+        {
+            title: '用户管理',
+            icon: 'category',
+            key: '/index/organ/user',
+            encoded: "SysUser",
+            code: 1-2,
+        },
+        {
+    
+            title: "目录管理",
+            icon: 'category',
+            key: '/index/organ/directory',
+            encoded: "SysMessage",
+            code: 1-3,
+        }
+    ]
 
-];
 export default orgaRouter;

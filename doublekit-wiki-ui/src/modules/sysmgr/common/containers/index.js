@@ -1,5 +1,6 @@
-import Orga from "../components/orga";
-
+import Organ from "./organ";
+import Setting from "./setting"
 export {
-    Orga
+    Organ,
+    Setting
 }

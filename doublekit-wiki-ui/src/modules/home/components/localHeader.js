@@ -81,10 +81,10 @@ const Header = props => {
     const setMenu = (
         <Menu
           items={[
-            // {
-            //   label: <div onClick={()=> goSet("/index/organ/organ")}>帐号与成员</div>,
-            //   key: '0',
-            // },
+            {
+              label: <div onClick={()=> goSet("/index/organ/organ")}>帐号与成员</div>,
+              key: '0',
+            },
             {
                 label: <div onClick={()=> goSet("/index/sysmgr/systemFeature")}>系统设置</div>,
                 key: '0',

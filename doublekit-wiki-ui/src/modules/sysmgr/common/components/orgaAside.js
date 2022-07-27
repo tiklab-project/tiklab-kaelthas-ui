@@ -4,42 +4,50 @@
  * @Author: 袁婕轩
  * @Date: 2021-06-01 13:24:51
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-12-20 16:31:16
+ * @LastEditTime: 2022-03-28 16:34:32
  */
 import React,{Fragment,useState,useEffect} from 'react';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import {withRouter} from "react-router-dom";
 import orgaRouter from "./orgaRouter"
+import { PrivilegeButton } from "doublekit-privilege-ui";
 
 const OrgaAside=(props)=>  {
     // 无子级菜单处理
-    const [selectKey,setSelectKey] = useState()
+    const {pluginsStore} = props;
+    const [selectKey,setSelectKey] = useState("/index/organ/organ");
+    // const {pluginConfig} = pluginsStore;
     const select = (key)=>{
         setSelectKey(key)
         props.history.push(key)
-        console.log(orgaRouter)
     }
+    const authType = JSON.parse(localStorage.getItem("authConfig")).authType;
+
+    const [router,setRouter] = useState(orgaRouter)
 
     const renderMenu = (data,deep)=> {
         return (
-            // <PrivilegeSystem code={data.encoded} disabled ={"hidden"} key={data.key}>
-            <li className={`orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
+        // <PrivilegeButton code={data.encoded} key={data.key}>
+            <li 
+                style={{cursor: "pointer",paddingLeft: `${deep * 20 + 20}`}} 
+                className={`orga-aside-li orga-aside-second ${data.key=== selectKey ? "orga-aside-select" : ""}`}
                 onClick={()=>select(data.key)}
-                style={{paddingLeft: `${deep * 20 + 20}`, cursor: "pointer"}}
+                key={data.code}
+                code={data.encoded}
             >   
+            
                 <svg className="icon" aria-hidden="true">
                     <use xlinkHref={`#icon-${data.icon}`}></use>
                 </svg>
-                {data.title}
-            </li>
-            // </PrivilegeSystem>
+                <span>{data.title}</span>
+            </li> 
+            // </PrivilegeButton>
         )
     }
     // 树的展开与闭合
-    const [expandedTree, setExpandedTree] = useState([])
+    const [expandedTree, setExpandedTree] = useState(["/index/organ/organ"])
 
     const isExpandedTree = (key) => {
-        
         return expandedTree.some(item => item ===key)
     }
 
@@ -48,64 +56,62 @@ const OrgaAside=(props)=>  {
             setExpandedTree(expandedTree.filter(item => item !== key))
         } else {
             setExpandedTree(expandedTree.concat(key))
-
         }
     }
 
-    const [level,setLevel] = useState(0)
-    // 子级菜单处理
-    
-    const renderSubMenu = ({title,key,children,encoded,icon},deep)=> {
+    const renderSubMenu = (item,deep)=> {
 
         return (
-                // <PrivilegeSystem code={encoded} key={key} disabled ={"hidden"}>
-                <li key={key} title={title} className="orga-aside-li">
-                    <div className="orga-aside-item"  style={{paddingLeft: `${deep * 20 + 20}`}}>
-                        <span to={key} style={{color: "#0053ca"}}>
+            // <PrivilegeButton code={item.encoded} key={item.key}>
+                <li key={item.code} title={item.title} className="orga-aside-li">
+                    <div className="orga-aside-item orga-aside-first"  style={{paddingLeft: `${deep * 20 + 20}`}} onClick={() => setOpenOrClose(item.key)}>
+                        <span to={item.key}>
                             <svg className="icon" aria-hidden="true">
-                                <use xlinkHref={`#icon-${icon}`}></use>
+                                <use xlinkHref={`#icon-${item.icon}`}></use>
                             </svg>
-                            {title}
+                            <span className="orga-aside-title">{item.title}</span>
                         </span>
                         <div className="orga-aside-item-icon">
                             {
-                                children ? 
-                                (isExpandedTree(key)? 
-                                    <DownOutlined onClick={() => setOpenOrClose(key)} style={{fontSize: "10px"}}/> :
-                                    <UpOutlined onClick={() => setOpenOrClose(key)} style={{fontSize: "10px"}}/>
+                                item.children ? 
+                                (isExpandedTree(item.key)? 
+                                    <DownOutlined style={{fontSize: "10px"}}/> :
+                                    <UpOutlined style={{fontSize: "10px"}}/>
                                 ): ""
                             }
                         </div>
                     </div>
                     
-                    <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+                    <ul title={item.title} className={`orga-aside-ul ${isExpandedTree(item.key) ? null: 'orga-aside-hidden'}`}>
                         {
-                            children && children.map(item =>{
+                            item.children && item.children.map(item =>{
                                 const deepnew = deep +1
                                 return item.children && item.children.length?
                                     renderSubMenu(item,deepnew) : renderMenu(item,deepnew)
-                                })
+                            })
                         }
                     </ul>
                 </li>
-                // </PrivilegeSystem>
-            
-            
+            // </PrivilegeButton>
         )
     }
 
     return (
         <Fragment>
             <div className="orga-aside">
-                <ul style={{padding: 0}} >
+                <ul style={{padding: 0}} key="0" className="orga-aside-top">
                     {
-                        orgaRouter && orgaRouter.map(firstItem => {
+                        router && router.map(firstItem => {
                             return firstItem.children && firstItem.children.length > 0 ? 
                                     renderSubMenu(firstItem,0) : renderMenu(firstItem,0)
                         })
                     }
                 </ul>
+                <div className="orga-change" onClick={()=> props.history.push("/index/sysmgr/systemFeature")}>
+                    设置
+                </div>
             </div>
+            
         </Fragment>
     )
 }

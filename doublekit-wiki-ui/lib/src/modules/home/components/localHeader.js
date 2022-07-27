@@ -146,11 +146,19 @@ var Header = function Header(props) {
     }
   });
   var setMenu = /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
-    items: [// {
-    //   label: <div onClick={()=> goSet("/index/organ/organ")}>帐号与成员</div>,
-    //   key: '0',
-    // },
-    {
+    items: [{
+      label: /*#__PURE__*/React__default["default"].createElement("div", {
+        onClick: function onClick() {
+          return goSet("/index/organ/organ");
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 85,
+          columnNumber: 22
+        }
+      }, "\u5E10\u53F7\u4E0E\u6210\u5458"),
+      key: '0'
+    }, {
       label: /*#__PURE__*/React__default["default"].createElement("div", {
         onClick: function onClick() {
           return goSet("/index/sysmgr/systemFeature");
