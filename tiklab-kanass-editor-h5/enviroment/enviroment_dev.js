@@ -35,7 +35,7 @@ const plugin_url =  JSON.stringify( 'http://localhost:8080/plugins/config.json')
 // const authLogOut = JSON.stringify('http://192.168.2.6:8090/#/logout')
 const pickerData = JSON.stringify([
     {
-        value: 'wiki',
+        value: 'kanass',
         label: 'Wiki系统',
         url: 'http://192.168.2.10:3001/'
     },

@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-02-09 14:52:44
  */
 import React from "react";
-import { Licence } from 'doublekit-licence-ui';
+import { Licence } from 'tiklab-licence-ui';
 
 const ProjectLicence = props => {
     return (

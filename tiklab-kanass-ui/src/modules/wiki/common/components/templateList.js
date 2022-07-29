@@ -11,7 +11,7 @@ import { observer, inject } from "mobx-react";
 import { Modal, Button, Layout, Menu } from 'antd';
 import {VideoCameraOutlined} from '@ant-design/icons';
 import "./templateList.scss"
-import {PreviewEditor} from "doublekit-slate-ui"
+import {PreviewEditor} from "tiklab-slate-ui"
 const { Header, Content, Footer, Sider } = Layout;
 
 const TemplateList = (props) => {

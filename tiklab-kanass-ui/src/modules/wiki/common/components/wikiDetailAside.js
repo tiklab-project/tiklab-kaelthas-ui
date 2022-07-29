@@ -16,8 +16,8 @@ import AddLog from "./addLog"
 import ChangeWikiModal from "./changeWikiModal"
 import MoveLogList from "./moveLogList"
 import TemplateList from "./templateList"
-import { PrivilegeProject } from "doublekit-privilege-ui";   
-import { getUser } from 'doublekit-core-ui';
+import { PrivilegeProject } from "tiklab-privilege-ui";   
+import { getUser } from 'tiklab-core-ui';
 const { Sider } = Layout;
 const WikideAside = (props) => {
     // 解析props

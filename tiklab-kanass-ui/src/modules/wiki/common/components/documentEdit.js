@@ -11,7 +11,7 @@ import { Breadcrumb, Input, Button } from 'antd';
 import { observer, inject } from "mobx-react";
 import { Link, withRouter } from "react-router-dom";
 import "./documentEdit.scss"
-import { DocumentEditor } from "doublekit-slate-ui"
+import { DocumentEditor } from "tiklab-slate-ui"
 const { Search } = Input;
 const DocumentEdit = (props) => {
     const {onChange,WikiCatalogueStore} = props;

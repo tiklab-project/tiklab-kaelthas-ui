@@ -3,7 +3,7 @@ import { Breadcrumb,Input,Table, Space,Button,Divider,Row, Col } from 'antd';
 import WikiAddmodal from "./wikiAdd";
 import { observer,inject } from "mobx-react";
 import {Link,withRouter} from "react-router-dom";
-import { getUser } from "doublekit-core-ui";
+import { getUser } from "tiklab-core-ui";
 const { Search } = Input;
 const Wikicontent = (props)=>{
     const {wikiStore,wikilist,wikiTypelist,getWikiTypeList,getUseList,uselist} = props;

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import "./home.scss";
 import { Tabs } from 'antd';
 import { inject, observer } from 'mobx-react';
-import { getUser } from 'doublekit-core-ui';
+import { getUser } from 'tiklab-core-ui';
 const { TabPane } = Tabs;
 
 const Home = (props) => {

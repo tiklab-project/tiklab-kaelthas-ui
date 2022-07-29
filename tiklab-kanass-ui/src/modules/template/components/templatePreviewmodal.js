@@ -10,7 +10,7 @@ import React, { useState,useEffect } from "react";
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 import "./templatePreviewModal.scss"
-import { PreviewEditor } from "doublekit-slate-ui"
+import { PreviewEditor } from "tiklab-slate-ui"
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
     const {previewModalVisible,setPreviewModalVisible,templateStore,templateId} = props;

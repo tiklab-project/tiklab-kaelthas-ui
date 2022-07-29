@@ -1,5 +1,5 @@
 import React from "react";
-import { DomainUserList } from 'doublekit-user-ui';
+import { DomainUserList } from 'tiklab-user-ui';
 import { observer, inject } from "mobx-react";
 
 const WikiDomainUser = props => {

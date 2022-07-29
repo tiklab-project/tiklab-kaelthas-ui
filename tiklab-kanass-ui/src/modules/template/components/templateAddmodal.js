@@ -11,7 +11,7 @@ import {withRouter} from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 
-import {DocumentEditor} from "doublekit-slate-ui"
+import {DocumentEditor} from "tiklab-slate-ui"
 import "./templateAddmodal.scss"
 const TemplateAddmodal = (props) => {
     const [form] = Form.useForm();

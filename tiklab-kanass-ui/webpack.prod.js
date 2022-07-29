@@ -57,52 +57,52 @@ module.exports = merge(baseWebpackConfig, {
                     priority: 90,
                     reuseExistingChunk: true
                 },
-                doublekitPluginUI: {
-                    name: 'chunk-doublekit-plugin-ui',
+                tiklabPluginUI: {
+                    name: 'chunk-tiklab-plugin-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-plugin-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-plugin-ui[\\/]/,
                     priority: 50,
                     reuseExistingChunk: true
                 },
-                doublekitUserUI: {
-                    name: 'chunk-doublekit-user-ui',
+                tiklabUserUI: {
+                    name: 'chunk-tiklab-user-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-user-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-user-ui[\\/]/,
                     priority: 50,
                     reuseExistingChunk: true
                 },
-                doublekitCoreUI: {
-                    name: 'chunk-doublekit-core-ui',
+                tiklabCoreUI: {
+                    name: 'chunk-tiklab-core-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-core-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-core-ui[\\/]/,
                     priority: 50,
                     reuseExistingChunk: true
                 },
-                doublekitMessageUI: {
-                    name: 'chunk-doublekit-message-ui',
+                tiklabMessageUI: {
+                    name: 'chunk-tiklab-message-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-message-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-message-ui[\\/]/,
                     priority: 80,
                     reuseExistingChunk: true
                 },
-                doublekitEamUI: {
-                    name: 'chunk-doublekit-eam-ui',
+                tiklabEamUI: {
+                    name: 'chunk-tiklab-eam-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-eam-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-eam-ui[\\/]/,
                     priority: 50,
                     reuseExistingChunk: true
                 },
-                doublekitPrivilegeUI: {
-                    name: 'chunk-doublekit-privilege-ui',
+                tiklabPrivilegeUI: {
+                    name: 'chunk-tiklab-privilege-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-privilege-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-privilege-ui[\\/]/,
                     priority: 70,
                     reuseExistingChunk: true
                 },
-                doublekitSlateUI: {
-                    name: 'chunk-doublekit-slate-ui',
+                tiklabSlateUI: {
+                    name: 'chunk-tiklab-slate-ui',
                     chunks: 'all',
-                    test: /[\\/]node_modules[\\/]doublekit-slate-ui[\\/]/,
+                    test: /[\\/]node_modules[\\/]tiklab-slate-ui[\\/]/,
                     priority: 70,
                     reuseExistingChunk: true
                 },

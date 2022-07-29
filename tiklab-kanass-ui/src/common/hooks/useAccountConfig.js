@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-01-15 17:41:12
  */
 import React, {useState, useEffect} from 'react';
-import {Axios} from "doublekit-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 
 const useAccountConfig = () => {

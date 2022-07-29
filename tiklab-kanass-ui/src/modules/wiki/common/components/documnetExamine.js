@@ -9,10 +9,10 @@
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
-import { PreviewEditor } from "doublekit-slate-ui"
+import { PreviewEditor } from "tiklab-slate-ui"
 import "./documentExamine.scss"
 import Share from "./share";
-import { getUser } from "doublekit-core-ui";
+import { getUser } from "tiklab-core-ui";
 const DocumentExamine = (props) => {
     const { wikiCommon, WikiCatalogueStore } = props;
     const documentId = localStorage.getItem("documentId");

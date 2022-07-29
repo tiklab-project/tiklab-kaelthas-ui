@@ -11,7 +11,7 @@ import {useTranslation} from "react-i18next";
 import {Col, Row, Dropdown, Menu, Button,Badge,Avatar,Space} from "antd";
 import { withRouter } from 'react-router';
 import { MessageOutlined,DownOutlined } from '@ant-design/icons';
-import { getVersionInfo, getUser } from 'doublekit-core-ui';
+import { getVersionInfo, getUser } from 'tiklab-core-ui';
 import vipOne from "../../../assets/images/vip-one.png";
 import vipTwo from "../../../assets/images/vip-two.png"
 const Header = props => {

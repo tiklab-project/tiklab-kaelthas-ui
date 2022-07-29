@@ -10,7 +10,7 @@ import React from "react";
 import { Upload, message, Button } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import "./loadData.scss"
-import {getUser} from 'doublekit-core-ui'
+import {getUser} from 'tiklab-core-ui'
 const LoadData = props => {
     const ticket = getUser().ticket;
     const uploadProps = {

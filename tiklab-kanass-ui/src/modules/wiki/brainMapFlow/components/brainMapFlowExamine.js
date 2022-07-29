@@ -12,7 +12,7 @@ import { Divider, Input, Button, Row, Col } from 'antd';
 import "./brainMapFlowExamine.scss"
 import Share from "../../common/components/share";
 import BrainMapFlowRead from "./brainMapFlowRead"
-import { getUser } from "doublekit-core-ui";
+import { getUser } from "tiklab-core-ui";
 const BrainMapExamine = (props) => {
     const { wikiCommon, WikiCatalogueStore } = props;
     const documentId = localStorage.getItem("documentId");

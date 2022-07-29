@@ -10,7 +10,7 @@ import React,{Fragment,useState,useEffect} from 'react';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import {withRouter} from "react-router-dom";
 import orgaRouter from "./setRouter"
-import {PrivilegeButton} from "doublekit-privilege-ui"
+import {PrivilegeButton} from "tiklab-privilege-ui"
 const OrgaAside=(props)=>  {
     // 无子级菜单处理
     const [selectKey,setSelectKey] = useState()

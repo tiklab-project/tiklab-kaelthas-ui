@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-09-16 10:41:59
  */
 import React from "react";
-import { DomainRoleList } from 'doublekit-privilege-ui';
+import { DomainRoleList } from 'tiklab-privilege-ui';
 
 const WikiDomainRole = props => {
     const wikiId = JSON.parse(localStorage.getItem("wiki")).id;

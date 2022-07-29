@@ -17,8 +17,8 @@ import {TEMPLATE_STORE,TemplateStore} from "./modules/template/store/templateSto
 import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
 import {SHARE_STORE,ShareStore} from "./modules/share/store/shareStore"
 import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork"
-import {EAM_STORE, EamStore} from 'doublekit-eam-ui/es/store'
-import {SLATE_STORE,SlateStore} from "doublekit-slate-ui"
+import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
+import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"
 
 function createStores() {
     return {

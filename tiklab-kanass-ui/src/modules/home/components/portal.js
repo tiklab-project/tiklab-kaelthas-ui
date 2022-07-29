@@ -12,8 +12,8 @@ import { renderRoutes } from "react-router-config";
 import LocalHeader  from "./localHeader";
 import "./header.scss";
 import Search from '../../search/components/search';
-import { useWorkAppConfig, verifyUserHoc } from 'doublekit-eam-ui';
-import { connect } from 'doublekit-plugin-ui/es/_utils';
+import { useWorkAppConfig, verifyUserHoc } from 'tiklab-eam-ui';
+import { connect } from 'tiklab-plugin-ui/es/_utils';
 const Portal = (props) => {
     const headerRouter = [
         {

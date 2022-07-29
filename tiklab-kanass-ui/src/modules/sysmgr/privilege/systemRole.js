@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { SystemRoleList } from 'doublekit-privilege-ui';
+import { SystemRoleList } from 'tiklab-privilege-ui';
 import { inject, observer } from "mobx-react";
 const SystemRoleWrap = props => {
 

@@ -17,7 +17,7 @@
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import { inject, observer } from "mobx-react";
 import { Row,Col,Input,Button  } from 'antd';
-import { PreviewEditor } from "doublekit-slate-ui"
+import { PreviewEditor } from "tiklab-slate-ui"
 import "./shareDocument.scss"
 
 import { withRouter } from "react-router";

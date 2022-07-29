@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { ProjectFeatureList } from 'doublekit-privilege-ui';
+import { ProjectFeatureList } from 'tiklab-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 // 系统功能管理

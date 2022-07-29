@@ -13,12 +13,12 @@ import routers from './routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import {store } from "./stores"
-import {orgStores} from "doublekit-user-ui/es/store";
-import { privilegeStores } from 'doublekit-privilege-ui/es/store'
-import {getUser} from 'doublekit-core-ui'
-import {messageModuleStores} from 'doublekit-message-ui/es/store'
-import { createContainer, initFetch } from 'doublekit-plugin-ui/es/_utils';
-import { useVersion } from 'doublekit-eam-ui/es/_utils'
+import {orgStores} from "tiklab-user-ui/es/store";
+import { privilegeStores } from 'tiklab-privilege-ui/es/store'
+import {getUser} from 'tiklab-core-ui'
+import {messageModuleStores} from 'tiklab-message-ui/es/store'
+import { createContainer, initFetch } from 'tiklab-plugin-ui/es/_utils';
+import { useVersion } from 'tiklab-eam-ui/es/_utils'
 import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"

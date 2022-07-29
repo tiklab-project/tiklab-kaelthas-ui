@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-01-27 11:39:35
  */
 import React from "react";
-import { OrgaList} from 'doublekit-user-ui';
+import { OrgaList} from 'tiklab-user-ui';
 
 const Orga = () => {
     return (

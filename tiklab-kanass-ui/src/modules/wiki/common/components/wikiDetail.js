@@ -12,7 +12,7 @@ import WikideAside from "./wikiDetailAside";
 import "../components/wikiDetail.scss";
 import { renderRoutes } from "react-router-config";
 import {observer, inject} from "mobx-react";
-import {getUser} from 'doublekit-core-ui'
+import {getUser} from 'tiklab-core-ui'
 
 const WikiDetail = (props)=>{
     // 解析props

@@ -45,9 +45,9 @@ const globals = {
     'react-dom': 'ReactDOM',
     antd:"antd",
     'react-i18next':'reactI18next',
-    "doublekit-core-ui":"doublekitCoreUi",
+    "tiklab-core-ui":"tiklabCoreUi",
     "@ant-design/icons":"icons",
-    "doublekit-plugin-ui":"doublekitPluginUi",
+    "tiklab-plugin-ui":"tiklabPluginUi",
     'mobx-react':'mobxReact',
     'mobx':'mobx',
     "react-router-dom":"reactRouterDom"
@@ -58,7 +58,7 @@ const extensions = ['.js', '.jsx',]
 
 const umdOutput = {
     format: 'umd',
-    name: 'doublekit-wiki-ui',
+    name: 'tiklab-wiki-ui',
     globals,
     assetFileNames: '[name].[ext]'
 };
