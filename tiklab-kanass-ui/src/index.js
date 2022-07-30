@@ -40,7 +40,7 @@ const Index = observer(() => {
     if (userInfo && userInfo.userId) {
         allStore.systemRoleStore.getSystemPermissions(userInfo.userId)
     }
-    useVersion("wiki")
+    useVersion("kanass")
 
     const [pluginData,setPluginData] = useState({
         routes: routers,

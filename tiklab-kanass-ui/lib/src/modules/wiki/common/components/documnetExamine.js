@@ -14,10 +14,10 @@ require('antd/es/button/style/css');
 var _Button = require('antd/es/button');
 var React = require('react');
 var mobxReact = require('mobx-react');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 require('./documentExamine.scss.js');
 var share = require('./share.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -28,7 +28,7 @@ var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/common/components/documnetExamine.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/documnetExamine.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -66,7 +66,7 @@ var DocumentExamine = function DocumentExamine(props) {
       commonList = _useState4[0],
       setCommonList = _useState4[1];
 
-  var userId = doublekitCoreUi.getUser().userId;
+  var userId = tiklabCoreUi.getUser().userId;
 
   var _useState5 = React.useState({
     name: "",
@@ -469,7 +469,7 @@ var DocumentExamine = function DocumentExamine(props) {
       lineNumber: 181,
       columnNumber: 37
     }
-  }, "\u6700\u8FD1\u66F4\u65B0\u65E5\u671F\uFF1A", docInfo ? docInfo.updateTime : "")))), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
+  }, "\u6700\u8FD1\u66F4\u65B0\u65E5\u671F\uFF1A", docInfo ? docInfo.updateTime : "")))), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.PreviewEditor, {
     value: value,
     __source: {
       fileName: _jsxFileName,

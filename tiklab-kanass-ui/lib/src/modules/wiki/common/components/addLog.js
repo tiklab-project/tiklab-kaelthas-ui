@@ -22,7 +22,7 @@ var _Form__default = /*#__PURE__*/_interopDefaultLegacy(_Form);
 var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/common/components/addLog.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/addLog.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 

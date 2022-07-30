@@ -13,7 +13,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var _Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(_Tooltip);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/brainMap/components/edge1.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/brainMap/components/edge1.js";
 
 var Edge1 = function Edge1(props) {
   xflow.useAppContext(); // console.log('edge useAppContext', ctx);

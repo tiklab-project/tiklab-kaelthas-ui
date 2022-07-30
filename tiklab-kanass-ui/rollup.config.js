@@ -58,7 +58,7 @@ const extensions = ['.js', '.jsx',]
 
 const umdOutput = {
     format: 'umd',
-    name: 'tiklab-wiki-ui',
+    name: 'tiklab-kanass-ui',
     globals,
     assetFileNames: '[name].[ext]'
 };

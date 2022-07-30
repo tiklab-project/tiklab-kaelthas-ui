@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 var axios = require('axios');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -40,6 +40,6 @@ serviceLoc.interceptors.response.use(function (response) {
 
 Object.defineProperty(exports, 'service', {
     enumerable: true,
-    get: function () { return doublekitCoreUi.Axios; }
+    get: function () { return tiklabCoreUi.Axios; }
 });
 exports.serviceLoc = serviceLoc;

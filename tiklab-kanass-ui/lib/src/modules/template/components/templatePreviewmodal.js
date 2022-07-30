@@ -9,7 +9,7 @@ var _Form = require('antd/es/form');
 var React = require('react');
 var mobxReact = require('mobx-react');
 require('./templatePreviewModal.scss.js');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -17,7 +17,7 @@ var _Modal__default = /*#__PURE__*/_interopDefaultLegacy(_Modal);
 var _Form__default = /*#__PURE__*/_interopDefaultLegacy(_Form);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/template/components/templatePreviewmodal.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/template/components/templatePreviewmodal.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -169,7 +169,7 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
       lineNumber: 76,
       columnNumber: 25
     }
-  }, template && template.description)))), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
+  }, template && template.description)))), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.PreviewEditor, {
     value: value,
     onChange: function onChange(value) {
       return initTemplate();

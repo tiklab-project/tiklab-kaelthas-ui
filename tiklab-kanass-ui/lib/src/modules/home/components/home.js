@@ -7,14 +7,14 @@ var _Tabs = require('antd/es/tabs');
 var React = require('react');
 require('./home.scss.js');
 var mobxReact = require('mobx-react');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var _Tabs__default = /*#__PURE__*/_interopDefaultLegacy(_Tabs);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/home/components/home.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/home/components/home.js";
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -57,7 +57,7 @@ var Home = function Home(props) {
       recentWikiDocumentList = _useState6[0],
       setRecentWikiDocumentList = _useState6[1];
 
-  var userId = doublekitCoreUi.getUser().id;
+  var userId = tiklabCoreUi.getUser().id;
   React.useEffect(function () {
     var params = {
       orderParams: [{

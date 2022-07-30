@@ -11,7 +11,7 @@ var _message = require('antd/es/message');
 var React = require('react');
 var icons = require('@ant-design/icons');
 require('./loadData.scss.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -20,7 +20,7 @@ var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var _message__default = /*#__PURE__*/_interopDefaultLegacy(_message);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/sysmgr/loadData/components/loadData.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/sysmgr/loadData/components/loadData.js";
 
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -29,7 +29,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var LoadData = function LoadData(props) {
   var _uploadProps;
 
-  var ticket = doublekitCoreUi.getUser().ticket;
+  var ticket = tiklabCoreUi.getUser().ticket;
   var uploadProps = (_uploadProps = {
     name: 'uploadFile',
     action: "".concat(base_url, "/importDate/importConfluenceDate"),

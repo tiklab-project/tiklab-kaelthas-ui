@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,7 +15,7 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function GetAllWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/project/findAllProject ",
     method: "post",
     data: data
@@ -23,7 +23,7 @@ function GetAllWikiList(data) {
 } // 请求接口
 
 function GetWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/findRepositoryPage",
     method: "post",
     data: data
@@ -31,35 +31,35 @@ function GetWikiList(data) {
 } // 添加知识库
 
 function AddWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/createRepository",
     method: "post",
     data: data
   });
 }
 function DeleWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/deleteRepository",
     method: "post",
     data: data
   });
 }
 function UpdateWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/updateRepository",
     method: "post",
     data: data
   });
 }
 function SearchWikiList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/findRepositoryList",
     method: "post",
     data: data
   });
 }
 function SearchWiki(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/repository/findRepository",
     method: "post",
     data: data
@@ -67,7 +67,7 @@ function SearchWiki(data) {
 } // 查找所有事项类型
 
 function GetWikiTypeList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/projectType/findAllProjectType",
     method: "post",
     data: data //请求类型为post 时，
@@ -77,7 +77,7 @@ function GetWikiTypeList(data) {
 } // 查找所有用户类型
 
 function GetUseList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/user/findAllUser",
     method: "post",
     data: data //请求类型为post 时，
@@ -86,7 +86,7 @@ function GetUseList(data) {
   });
 }
 function CreateDocumentRecent(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentRecent/createDocumentRecent",
     method: "post",
     data: data

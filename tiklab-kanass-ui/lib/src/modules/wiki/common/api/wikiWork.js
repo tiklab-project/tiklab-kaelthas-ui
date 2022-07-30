@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,14 +15,14 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function FindAllProject(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/project/findAllProject",
     method: "post",
     data: data
   });
 }
 function FindWorkItemPage(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/workItem/findWorkItemPage",
     method: "post",
     data: data
@@ -30,7 +30,7 @@ function FindWorkItemPage(data) {
 } // 事项类型
 
 function FindAllWorkType(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/workType/findAllWorkType",
     method: "post",
     data: data
@@ -38,7 +38,7 @@ function FindAllWorkType(data) {
 } //获取事项状态
 
 function FindAllWorkStatus(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/workStatus/findAllWorkStatus",
     method: "post",
     data: data
@@ -46,7 +46,7 @@ function FindAllWorkStatus(data) {
 } // 获取用户列表
 
 function FindAllUser(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/user/findAllUser",
     method: "post",
     data: data
@@ -54,7 +54,7 @@ function FindAllUser(data) {
 } //根据id查找事项
 
 function FindWorkItem(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/api/project/workItem/findWorkItem",
     method: "post",
     data: data

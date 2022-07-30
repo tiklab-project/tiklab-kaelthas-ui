@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('doublekit-message-ui/es/message-type/style');
-var _MessageType = require('doublekit-message-ui/es/message-type');
+require('tiklab-message-ui/es/message-type/style');
+var _MessageType = require('tiklab-message-ui/es/message-type');
 var React = require('react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -11,7 +11,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var _MessageType__default = /*#__PURE__*/_interopDefaultLegacy(_MessageType);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/sysmgr/message/projectMessageType.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/sysmgr/message/wikiMessageType.js";
 
 var ProjectMessageType = function ProjectMessageType(props) {
   return /*#__PURE__*/React__default["default"].createElement(_MessageType__default["default"], {

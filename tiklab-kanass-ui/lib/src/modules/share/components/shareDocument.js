@@ -8,7 +8,7 @@ require('antd/es/col/style/css');
 var _Col = require('antd/es/col');
 var React = require('react');
 var mobxReact = require('mobx-react');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 require('./shareDocument.scss.js');
 var reactRouter = require('react-router');
 
@@ -18,7 +18,7 @@ var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
 var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/share/components/shareDocument.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/share/components/shareDocument.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -192,7 +192,7 @@ var ShareDocument = function ShareDocument(props) {
       lineNumber: 101,
       columnNumber: 90
     }
-  }, "\u7C7B\u578B\uFF1A", docInfo.type === "doc" ? "文档" : "目录")), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
+  }, "\u7C7B\u578B\uFF1A", docInfo.type === "doc" ? "文档" : "目录")), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.PreviewEditor, {
     value: value,
     __source: {
       fileName: _jsxFileName,

@@ -2,25 +2,31 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('doublekit-eam-ui/es/verify-user-hoc/style');
-var _verifyUserHoc = require('doublekit-eam-ui/es/verify-user-hoc');
-require('doublekit-eam-ui/es/use-work-app-config/style');
-var _useWorkAppConfig3 = require('doublekit-eam-ui/es/use-work-app-config');
+require('tiklab-eam-ui/es/verify-user-hoc/style');
+var _verifyUserHoc = require('tiklab-eam-ui/es/verify-user-hoc');
+require('tiklab-eam-ui/es/use-work-app-config/style');
+var _useWorkAppConfig3 = require('tiklab-eam-ui/es/use-work-app-config');
 var React = require('react');
 var logo = require('../../../assets/images/logo.png.js');
 var reactRouterConfig = require('react-router-config');
 var localHeader = require('./localHeader.js');
 require('./header.scss.js');
 var search = require('../../search/components/search.js');
-var _utils = require('doublekit-plugin-ui/es/_utils');
+var _utils = require('tiklab-plugin-ui/es/_utils');
+var apiboxImg = require('tiklab-eam-ui/es/assests/img/apibox.png');
+var jenkinsImg = require('tiklab-eam-ui/es/assests/img/jenkins.png');
+var projectImg = require('tiklab-eam-ui/es/assests/img/project.png');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var _verifyUserHoc__default = /*#__PURE__*/_interopDefaultLegacy(_verifyUserHoc);
 var _useWorkAppConfig3__default = /*#__PURE__*/_interopDefaultLegacy(_useWorkAppConfig3);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var apiboxImg__default = /*#__PURE__*/_interopDefaultLegacy(apiboxImg);
+var jenkinsImg__default = /*#__PURE__*/_interopDefaultLegacy(jenkinsImg);
+var projectImg__default = /*#__PURE__*/_interopDefaultLegacy(projectImg);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/home/components/portal.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/home/components/portal.js";
 
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -50,8 +56,14 @@ var Portal = function Portal(props) {
     title: '系统',
     key: 'sysmgr'
   }];
+  var productIcons = {
+    postin: apiboxImg__default["default"],
+    teamwire: projectImg__default["default"],
+    teston: jenkinsImg__default["default"],
+    kanass: apiboxImg__default["default"]
+  };
 
-  var _useWorkAppConfig = _useWorkAppConfig3__default["default"](false),
+  var _useWorkAppConfig = _useWorkAppConfig3__default["default"](false, productIcons),
       _useWorkAppConfig2 = _slicedToArray(_useWorkAppConfig, 3),
       component = _useWorkAppConfig2[0],
       ModalComponent = _useWorkAppConfig2[1],
@@ -72,7 +84,7 @@ var Portal = function Portal(props) {
     className: "frame",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 47,
+      lineNumber: 60,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(localHeader["default"], _extends({}, props, {
@@ -82,20 +94,20 @@ var Portal = function Portal(props) {
     search: /*#__PURE__*/React__default["default"].createElement(search["default"], _extends({}, props, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 53,
+        lineNumber: 66,
         columnNumber: 25
       }
     })),
     routers: headerRouter,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 48,
+      lineNumber: 61,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 56,
+      lineNumber: 69,
       columnNumber: 13
     }
   }, reactRouterConfig.renderRoutes(route.routes)), ModalComponent, editOrAddModal);

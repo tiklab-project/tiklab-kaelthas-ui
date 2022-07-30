@@ -61,7 +61,7 @@ const OrgaAside=(props)=>  {
             // <PrivilegeButton code={encoded} key={key}>
                 <li key={key} title={title} className="orga-aside-li">
                     <div className="orga-aside-item"  style={{paddingLeft: `${deep * 20 + 20}`}}>
-                        <span to={key} style={{color: "#0053ca"}}>
+                        <span to={key}>
                             <svg className="icon" aria-hidden="true">
                                 <use xlinkHref={`#icon-${icon}`}></use>
                             </svg>

@@ -1,5 +1,5 @@
 {
-    "name": "tiklab-wiki-ui",
+    "name": "tiklab-kanass-ui",
     "version": "1.0.0",
     "description": "门户模块",
     "main": "dist.js",

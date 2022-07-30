@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,7 +15,7 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function CreateComment(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/comment/createComment",
     method: "post",
     data: data
@@ -23,7 +23,7 @@ function CreateComment(data) {
 } // 添加评论
 
 function FindCommentPage(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/comment/findCommentList",
     method: "post",
     data: data
@@ -31,7 +31,7 @@ function FindCommentPage(data) {
 } // 添加点赞
 
 function CreateLike(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/like/createLike",
     method: "post",
     data: data
@@ -39,7 +39,7 @@ function CreateLike(data) {
 } // 创建分享
 
 function CreateShare(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/share/addShare",
     method: "post",
     data: data
@@ -47,7 +47,7 @@ function CreateShare(data) {
 } // 更新分享格式
 
 function UpdateShare(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/share/cutHaveOrNotAuthCode",
     method: "post",
     data: data

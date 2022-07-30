@@ -2,8 +2,8 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('doublekit-message-ui/es/message-send-type/style');
-var _MessageSendType = require('doublekit-message-ui/es/message-send-type');
+require('tiklab-message-ui/es/message-send-type/style');
+var _MessageSendType = require('tiklab-message-ui/es/message-send-type');
 var React = require('react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -11,7 +11,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var _MessageSendType__default = /*#__PURE__*/_interopDefaultLegacy(_MessageSendType);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/sysmgr/message/projectMessageSendType.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/sysmgr/message/wikiMessageSendType.js";
 
 var ProjectMessageSendType = function ProjectMessageSendType(props) {
   return /*#__PURE__*/React__default["default"].createElement(_MessageSendType__default["default"], {

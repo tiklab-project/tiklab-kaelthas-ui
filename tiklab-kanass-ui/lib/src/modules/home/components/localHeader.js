@@ -20,7 +20,7 @@ var React = require('react');
 var reactI18next = require('react-i18next');
 var reactRouter = require('react-router');
 var icons = require('@ant-design/icons');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 var vipOne = require('../../../assets/images/vip-one.png.js');
 var vipTwo = require('../../../assets/images/vip-two.png.js');
 
@@ -35,7 +35,7 @@ var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Menu__default = /*#__PURE__*/_interopDefaultLegacy(_Menu);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/home/components/localHeader.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/home/components/localHeader.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -61,7 +61,7 @@ var Header = function Header(props) {
       _useState2[0];
       var setCurrentLink = _useState2[1];
 
-  doublekitCoreUi.getUser().loginType;
+  tiklabCoreUi.getUser().loginType;
 
   var _useTranslation = reactI18next.useTranslation(),
       i18n = _useTranslation.i18n;
@@ -71,7 +71,7 @@ var Header = function Header(props) {
       _useState4[0];
       _useState4[1];
 
-  var isEE = doublekitCoreUi.getVersionInfo().release;
+  var isEE = tiklabCoreUi.getVersionInfo().release;
   JSON.parse(localStorage.getItem("authConfig")).authType;
   var eeText = isEE === 2 ? vipTwo["default"] : vipOne["default"];
   var path = props.location.pathname;
@@ -423,7 +423,7 @@ var Header = function Header(props) {
       lineNumber: 139,
       columnNumber: 37
     }
-  }, doublekitCoreUi.getUser().name, /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
+  }, tiklabCoreUi.getUser().name, /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 141,

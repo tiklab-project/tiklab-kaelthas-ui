@@ -18,7 +18,7 @@ var addLog = require('./addLog.js');
 var changeWikiModal = require('./changeWikiModal.js');
 var moveLogList = require('./moveLogList.js');
 var templateList = require('./templateList.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -28,7 +28,7 @@ var _Form__default = /*#__PURE__*/_interopDefaultLegacy(_Form);
 var _Layout__default = /*#__PURE__*/_interopDefaultLegacy(_Layout);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/common/components/wikiDetailAside.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/wikiDetailAside.js";
 
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -112,7 +112,7 @@ var WikideAside = function WikideAside(props) {
       modalTitle = _useState14[0],
       setModalTitle = _useState14[1];
 
-  var userId = doublekitCoreUi.getUser().userId; // 模板内容
+  var userId = tiklabCoreUi.getUser().userId; // 模板内容
 
   var _useState15 = React.useState(),
       _useState16 = _slicedToArray(_useState15, 2),

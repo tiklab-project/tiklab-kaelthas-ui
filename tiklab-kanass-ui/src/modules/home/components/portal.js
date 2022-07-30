@@ -14,6 +14,12 @@ import "./header.scss";
 import Search from '../../search/components/search';
 import { useWorkAppConfig, verifyUserHoc } from 'tiklab-eam-ui';
 import { connect } from 'tiklab-plugin-ui/es/_utils';
+
+import apiboxImg from 'tiklab-eam-ui/es/assests/img/apibox.png';
+import jenkinsImg from 'tiklab-eam-ui/es/assests/img/jenkins.png';
+import knowledgeImg from 'tiklab-eam-ui/es/assests/img/apibox.png';
+import projectImg from 'tiklab-eam-ui/es/assests/img/project.png';
+
 const Portal = (props) => {
     const headerRouter = [
         {
@@ -32,7 +38,14 @@ const Portal = (props) => {
             key: 'sysmgr'
         }
     ]
-    const [component, ModalComponent, editOrAddModal] = useWorkAppConfig(false);
+
+    const productIcons = {
+        postin:apiboxImg,
+        teamwire:projectImg,
+        teston:jenkinsImg,
+        kanass:knowledgeImg
+    }
+    const [component, ModalComponent, editOrAddModal] = useWorkAppConfig(false, productIcons);
     const route = props.route;
     const projectLogout = () => {
         props.history.push({

@@ -15,7 +15,7 @@ var mobxReact = require('mobx-react');
 require('./brainMapFlowExamine.scss.js');
 var share = require('../../common/components/share.js');
 var brainMapFlowRead = require('./brainMapFlowRead.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -25,7 +25,7 @@ var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
 var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/brainMapFlow/components/brainMapFlowExamine.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/brainMapFlow/components/brainMapFlowExamine.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -81,7 +81,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
       docInfo = _useState6[0],
       setDocInfo = _useState6[1];
 
-  var userId = doublekitCoreUi.getUser().userId;
+  var userId = tiklabCoreUi.getUser().userId;
 
   var _useState7 = React.useState(false),
       _useState8 = _slicedToArray(_useState7, 2),

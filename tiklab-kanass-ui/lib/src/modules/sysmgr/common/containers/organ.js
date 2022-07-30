@@ -15,7 +15,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var _Layout__default = /*#__PURE__*/_interopDefaultLegacy(_Layout);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/sysmgr/common/containers/organ.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/sysmgr/common/containers/organ.js";
 var Sider = _Layout__default["default"].Sider,
     Content = _Layout__default["default"].Content;
 

@@ -54,6 +54,12 @@ const OrgaUser = AsyncComponent(() => import('./modules/sysmgr/orga/user'))
 const WikiDirectory = AsyncComponent(() => import('./modules/sysmgr/orga/wikiDirectory'))
 const LoadData = AsyncComponent(() => import('./modules/sysmgr/loadData/components/loadData'))
 
+const WikiUserMessage = AsyncComponent(() => import('./modules/sysmgr/message/wikiUserMessage'))
+const WikiMessageSendType = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageSendType'))
+const WikiMessageType = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageType'))
+const WikiMessageTemplate = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageTemplate'))
+const WikiMessageManagement = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageManagement'))
+
 const routes=[
     {
         path: "/login",
@@ -97,6 +103,12 @@ const routes=[
                 exact: true,
                 component: Template,
                 key: 'template'
+            },
+            {
+                path: "/index/userMessage",
+                exact: true,
+                component: WikiUserMessage,
+                key: 'userMessage'
             },
             {
                 path: "/index/wikidetail",
@@ -184,6 +196,27 @@ const routes=[
                     {
                         path: "/index/sysmgr/plugin",
                         component: WikiPlugin,
+                        exact: true
+                    },
+
+                    {
+                        path: "/index/sysmgr/messageManagement",
+                        component: WikiMessageManagement,
+                        exact: true
+                    },
+                    {
+                        path: "/index/sysmgr/messageTemplate",
+                        component: WikiMessageTemplate,
+                        exact: true
+                    },
+                    {
+                        path: "/index/sysmgr/messageType",
+                        component: WikiMessageType,
+                        exact: true
+                    },
+                    {
+                        path: "/index/sysmgr/messageSendType",
+                        component: WikiMessageSendType,
                         exact: true
                     },
                 ]

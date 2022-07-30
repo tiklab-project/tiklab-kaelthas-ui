@@ -46,6 +46,43 @@ const orgaRouter = [
         ]
     },
     {
+        title: "消息中心",
+        icon: 'messagecenter',
+        key: '/index/sysmgr/messageTemplate',
+        encoded: "SysMessage",
+        code: 7,
+        children: [
+            {
+                title: '消息管理',
+                icon: 'messagecenter',
+                key: '/index/sysmgr/messageManagement',
+                encoded: "SysMessageManagement",
+                code: 7-1,
+            },
+            {
+                title: '消息模板管理',
+                icon: 'messagecenter',
+                key: '/index/sysmgr/messageTemplate',
+                encoded: "SysMessageTemplate",
+                code: 7-2,
+            },
+            {
+                title: '消息类型管理',
+                icon: 'messagecenter',
+                key: '/index/sysmgr/messageType',
+                encoded: "SysMessageType",
+                code: 7-3,
+            },
+            {
+                title: '消息发送方式',
+                icon: 'messagecenter',
+                key: '/index/sysmgr/messageSendType',
+                encoded: "SysMessageType",
+                code: 7-4,
+            }
+        ]
+    },
+    {
         title: "licence管理",
         icon: 'category',
         key: '/index/sysmgr/licence',

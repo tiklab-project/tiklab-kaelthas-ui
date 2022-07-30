@@ -10,7 +10,14 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/routerSaas.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/routerSaas.js";
+var Login = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/login/login'));
+    });
+  });
+});
 var Logout = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -204,7 +211,46 @@ var LoadData = SyncComponent["default"](function () {
     });
   });
 });
+var WikiUserMessage = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/wikiUserMessage'));
+    });
+  });
+});
+var WikiMessageSendType = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/wikiMessageSendType'));
+    });
+  });
+});
+var WikiMessageType = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/wikiMessageType'));
+    });
+  });
+});
+var WikiMessageTemplate = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/wikiMessageTemplate'));
+    });
+  });
+});
+var WikiMessageManagement = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/wikiMessageManagement'));
+    });
+  });
+});
 var routesSaas = [{
+  path: "/login",
+  exact: true,
+  component: Login
+}, {
   path: "/logout",
   exact: true,
   component: Logout
@@ -234,6 +280,11 @@ var routesSaas = [{
     exact: true,
     component: Template,
     key: 'template'
+  }, {
+    path: "/index/userMessage",
+    exact: true,
+    component: WikiUserMessage,
+    key: 'userMessage'
   }, {
     path: "/index/wikidetail",
     component: WikiDetail,
@@ -302,6 +353,22 @@ var routesSaas = [{
       path: "/index/sysmgr/plugin",
       component: WikiPlugin,
       exact: true
+    }, {
+      path: "/index/sysmgr/messageManagement",
+      component: WikiMessageManagement,
+      exact: true
+    }, {
+      path: "/index/sysmgr/messageTemplate",
+      component: WikiMessageTemplate,
+      exact: true
+    }, {
+      path: "/index/sysmgr/messageType",
+      component: WikiMessageType,
+      exact: true
+    }, {
+      path: "/index/sysmgr/messageSendType",
+      component: WikiMessageSendType,
+      exact: true
     }]
   }, {
     path: "/index/organ",
@@ -328,7 +395,7 @@ var routesSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 212,
+        lineNumber: 251,
         columnNumber: 26
       }
     });

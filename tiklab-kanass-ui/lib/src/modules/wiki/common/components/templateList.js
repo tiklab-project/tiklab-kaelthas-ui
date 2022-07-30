@@ -12,7 +12,7 @@ var React = require('react');
 var mobxReact = require('mobx-react');
 var icons = require('@ant-design/icons');
 require('./templateList.scss.js');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -21,7 +21,7 @@ var _Menu__default = /*#__PURE__*/_interopDefaultLegacy(_Menu);
 var _Layout__default = /*#__PURE__*/_interopDefaultLegacy(_Layout);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/common/components/templateList.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/templateList.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -219,7 +219,7 @@ var TemplateList = function TemplateList(props) {
       lineNumber: 109,
       columnNumber: 29
     }
-  }, /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.PreviewEditor, {
+  }, /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.PreviewEditor, {
     value: value,
     __source: {
       fileName: _jsxFileName,

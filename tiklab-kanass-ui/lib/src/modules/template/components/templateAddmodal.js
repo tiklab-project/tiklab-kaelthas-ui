@@ -11,7 +11,7 @@ var _Form = require('antd/es/form');
 var React = require('react');
 require('react-router-dom');
 var mobxReact = require('mobx-react');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 require('./templateAddmodal.scss.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -21,7 +21,7 @@ var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var _Form__default = /*#__PURE__*/_interopDefaultLegacy(_Form);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/template/components/templateAddmodal.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/template/components/templateAddmodal.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -243,7 +243,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
       lineNumber: 126,
       columnNumber: 29
     }
-  }))))), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.DocumentEditor, {
+  }))))), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.DocumentEditor, {
     value: editorValue,
     onChange: function onChange(value) {
       return changeEditor(value);

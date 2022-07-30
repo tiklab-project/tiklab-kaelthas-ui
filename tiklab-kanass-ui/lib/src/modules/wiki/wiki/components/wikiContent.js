@@ -20,7 +20,7 @@ var React = require('react');
 var wikiAdd = require('./wikiAdd.js');
 var mobxReact = require('mobx-react');
 var reactRouterDom = require('react-router-dom');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -33,7 +33,7 @@ var _Space__default = /*#__PURE__*/_interopDefaultLegacy(_Space);
 var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/wiki/components/wikiContent.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/wiki/components/wikiContent.js";
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 
@@ -56,7 +56,7 @@ var Wikicontent = function Wikicontent(props) {
       wikiPageParams = wikiStore.wikiPageParams,
       delewikiList = wikiStore.delewikiList,
       updateWiki = wikiStore.updateWiki;
-  var userId = doublekitCoreUi.getUser().userId; // const [wikilist,getWikiList] = useState([])
+  var userId = tiklabCoreUi.getUser().userId; // const [wikilist,getWikiList] = useState([])
 
   React.useEffect(function () {
     getWikilist(); // .then((data)=> {

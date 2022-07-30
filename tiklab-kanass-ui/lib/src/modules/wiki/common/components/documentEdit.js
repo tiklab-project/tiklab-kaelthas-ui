@@ -10,7 +10,7 @@ var React = require('react');
 var mobxReact = require('mobx-react');
 var reactRouterDom = require('react-router-dom');
 require('./documentEdit.scss.js');
-var doublekitSlateUi = require('doublekit-slate-ui');
+var tiklabSlateUi = require('tiklab-slate-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -18,7 +18,7 @@ var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
-var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/doublekit-wiki-ui/doublekit-wiki-ui/src/modules/wiki/common/components/documentEdit.js";
+var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/documentEdit.js";
 
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
@@ -153,7 +153,7 @@ var DocumentEdit = function DocumentEdit(props) {
       lineNumber: 70,
       columnNumber: 25
     }
-  })))), /*#__PURE__*/React__default["default"].createElement(doublekitSlateUi.DocumentEditor, {
+  })))), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.DocumentEditor, {
     onChange: saveDocument,
     value: value,
     minHeight: 300,

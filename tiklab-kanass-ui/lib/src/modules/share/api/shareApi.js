@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,7 +15,7 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function DocumentView(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/view",
     method: "post",
     data: data
@@ -23,7 +23,7 @@ function DocumentView(data) {
 } // 获取评论
 
 function CommnetView(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/comment/view",
     method: "post",
     data: data
@@ -31,7 +31,7 @@ function CommnetView(data) {
 } // 验证密码
 
 function VerifyAuthCode(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/share/verifyAuthCode ",
     method: "post",
     data: data
@@ -39,7 +39,7 @@ function VerifyAuthCode(data) {
 } // 判断是否需要验证码
 
 function JudgeAuthCode(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/share/judgeAuthCode  ",
     method: "post",
     data: data

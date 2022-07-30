@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,7 +15,7 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function GreateDocumentTemplate(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentTemplate/createDocumentTemplate",
     method: "post",
     data: data
@@ -23,7 +23,7 @@ function GreateDocumentTemplate(data) {
 } // 获取模板列表
 
 function FindDocumentTemplatePage(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentTemplate/findDocumentTemplatePage",
     method: "post",
     data: data
@@ -31,7 +31,7 @@ function FindDocumentTemplatePage(data) {
 } // 通过id查询文档模板
 
 function FindDocumentTemplate(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentTemplate/findDocumentTemplate",
     method: "post",
     data: data
@@ -39,7 +39,7 @@ function FindDocumentTemplate(data) {
 } // 更新模板
 
 function UpdateDocumentTemplate(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentTemplate/updateDocumentTemplate",
     method: "post",
     data: data
@@ -47,7 +47,7 @@ function UpdateDocumentTemplate(data) {
 } // 删除模板
 
 function DeleteDocumentTemplate(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentTemplate/deleteDocumentTemplate",
     method: "post",
     data: data

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -14,14 +14,14 @@ var doublekitCoreUi = require('doublekit-core-ui');
  * @LastEditTime: 2021-11-23 09:13:59
  */
 function FindDocumentList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/findDocumentList",
     method: "post",
     data: data
   });
 }
 function FindDocumentRecentList(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentRecent/findDocumentRecentList",
     method: "post",
     data: data

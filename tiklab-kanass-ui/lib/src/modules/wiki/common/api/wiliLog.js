@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', { value: true });
 
 require('../../../../common/utils/requset.js');
-var doublekitCoreUi = require('doublekit-core-ui');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 /*
  * @Descripttion: 
@@ -15,14 +15,14 @@ var doublekitCoreUi = require('doublekit-core-ui');
  */
 
 function FindWikiCatalogue(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/findCategoryListTree",
     method: "post",
     data: data
   });
 }
 function AddWikiCatalogue(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/createCategory",
     method: "post",
     data: data
@@ -30,7 +30,7 @@ function AddWikiCatalogue(data) {
 } //更新目录
 
 function UpdateWikiCatalogue(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/updateCategory",
     method: "post",
     data: data
@@ -45,7 +45,7 @@ function UpdateWikiCatalogue(data) {
 // }
 
 function DetailWikiLog(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/findCategory",
     method: "post",
     data: data
@@ -53,7 +53,7 @@ function DetailWikiLog(data) {
 } // 删除目录
 
 function DeleteWikiLog(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/deleteCategory",
     method: "post",
     data: data
@@ -61,7 +61,7 @@ function DeleteWikiLog(data) {
 } // 创建文档
 
 function AddWikiCataDocument(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/createDocument",
     method: "post",
     data: data
@@ -69,7 +69,7 @@ function AddWikiCataDocument(data) {
 } // 更新文档
 
 function UpdateDocument(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/updateDocument",
     method: "post",
     data: data
@@ -77,7 +77,7 @@ function UpdateDocument(data) {
 } // 获取文档
 
 function FindDocument(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/findDocument",
     method: "post",
     data: data
@@ -85,7 +85,7 @@ function FindDocument(data) {
 } // 上传附件
 
 function Upload(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/dfs/upload",
     method: "post",
     data: data
@@ -93,7 +93,7 @@ function Upload(data) {
 } // 删除文档
 
 function DeleteDocument(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/document/deleteDocument",
     method: "post",
     data: data
@@ -101,7 +101,7 @@ function DeleteDocument(data) {
 } // 根据id 查找目录的第一级文档
 
 function FindCategoryDocument(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/category/findCategoryDocument",
     method: "post",
     data: data
@@ -109,14 +109,14 @@ function FindCategoryDocument(data) {
 } // 根据id 查找知识库成员
 
 function FindDmPrjRolePage(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/dmUser/findDmUserPage",
     method: "post",
     data: data
   });
 }
 function CreateDocumentRecent(data) {
-  return doublekitCoreUi.Axios.request({
+  return tiklabCoreUi.Axios.request({
     url: "/documentRecent/createDocumentRecent",
     method: "post",
     data: data
