@@ -59,8 +59,8 @@ const Header = props => {
 
     const useMenu = (
         <Menu>
-            <Menu.Item key="0">
-                <span onClick={() => projectLogout()}>退出</span>
+            <Menu.Item key="0" onClick={() => projectLogout()}>
+                <div>退出</div>
             </Menu.Item>
         </Menu>
     );

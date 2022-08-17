@@ -10,7 +10,12 @@ import { observable, action} from "mobx";
 import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../api/wikiCommon"
 export class WikiCommon {
     @observable wikiCommonList = [];
-    @observable commonPageParams = [];
+    @observable commonPageParams = {
+        pageParam: {
+            pageSize: 10,
+            currentPage: 1,
+        }
+    };
     @action
     createComment = async(value)=> {
         console.log(value)

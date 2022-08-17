@@ -52,7 +52,7 @@ export class WikiWork {
 
     //查找所有项目
     @action
-    getProlist = async() => {
+    findProjectList = async() => {
         const data = await GetAllProList()
         this.projectList = data.data;
 		// GetproList().then(response => {

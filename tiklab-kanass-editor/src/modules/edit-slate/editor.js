@@ -28,7 +28,6 @@ import Leaf from "./leaf"
 import withTables from "./table/table/withTables"
 import SupEditor from "./sup"
 import SubEditor from "./sub"
-import BrEditor,{withBr} from "./br";
 const CustomEditor = {
 	isBoldMarkActive(editor) {
 		const [match] = Editor.nodes(editor, {
@@ -88,8 +87,10 @@ const CustomEditor = {
 // 定义我们的应用…
 const DocumentEditor = (props) => {
 	const {onChange,value, focusEditor,minHeight} = props;
-	// const [showMenu, setShowMenu] = useState(true);
-	const [editor] = useState(() => withBr(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
+	const editor = useMemo(
+		() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))),
+		[]
+	);
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
 	const renderLeaf = useCallback((props) => {

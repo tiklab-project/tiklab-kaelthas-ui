@@ -2,6 +2,9 @@
 .wikidetail {
     
     min-height: 100%;
+    .wikidetail-content {
+        background-color: #fff;
+    }
     .ant-layout-sider {
         background-color: #F7F8FA;
         .ant-layout-sider-children {

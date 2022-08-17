@@ -500,11 +500,11 @@ const WikideAside = (props) => {
                             </svg>
                             知识库设置
                         </span>
-                        <div className="wiki-toggleCollapsed" onClick={toggleCollapsed}>
+                        {/* <div className="wiki-toggleCollapsed" onClick={toggleCollapsed}>
                             <svg className="icon" aria-hidden="true">
                                 <use xlinkHref="#icon-faxian"></use>
                             </svg>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </Sider>

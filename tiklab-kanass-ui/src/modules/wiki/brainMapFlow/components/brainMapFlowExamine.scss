@@ -1,17 +1,19 @@
 .mindmap-examine {
     background-color: #fff;
-    padding: 20px;
+    // padding: 20px;
     height: calc(100vh - 50px);
     overflow: auto;
     .examine-title {
         font-size: 18px;
         font-weight: 600;
         line-height: 30px;
-        height: 30px;
+        height: 50px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border: 1px solid #f7f8fa;
+        padding: 0 20px;
         .document-edit {
             display: flex;
             align-items: center;

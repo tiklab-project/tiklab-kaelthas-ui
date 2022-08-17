@@ -1,17 +1,23 @@
 .document-examine {
     background-color: #fff;
-    padding: 20px;
+    // padding: 20px;
     height: calc(100vh - 50px);
     overflow: auto;
+    .document-examine-content {
+        height: calc(100vh - 120px);
+        overflow: auto;
+    }
     .examine-title {
         font-size: 18px;
         font-weight: 600;
         line-height: 30px;
-        height: 30px;
+        height: 50px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border: 1px solid #f7f8fa;
+        padding: 0 20px;
         .document-edit {
             display: flex;
             align-items: center;
@@ -110,44 +116,53 @@
     .comment-list {
         box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
         padding: 10px 20px;
-        margin-top: 20px;
+        margin: 20px 0;
         .title {
             font-size: 18px;
             font-weight: 600;
         }
-        .comment-user {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin: 20px 0;
-            .user-icon {
-                width: 30px;
-                height: 30px;
-                border-radius: 15px;
-                margin-right: 10px;
+        .comment-item {
+            .comment-user {
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                margin: 20px 0;
+                .user-icon {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 15px;
+                    margin-right: 10px;
+                }
+                .user-name {
+                    font-size: 14px;
+                    font-weight: 600;
+                    color: #0053ca;
+                }
+                
             }
-            .user-name {
-                font-size: 14px;
-                font-weight: 600;
-                color: #0053ca;
+            .comment-content {
+                margin-left: 40px;
+                margin-bottom: 20px;
+            }
+            .comment-operate {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-left: 40px;
+                font-size: 12px;
+                color: #6b778c;
+                span {
+                    margin-right: 10px;
+                }
             }
             
         }
-
-        .comment-content {
-            margin-left: 40px;
-            margin-bottom: 20px;
-        }
-        .comment-operate {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            margin-left: 40px;
-            font-size: 12px;
-            font-size: rgb(56, 55, 55);
-            span {
-                margin-right: 10px;
-            }
+        .comment-more-botton {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            cursor: pointer;
+            color: #0053ca;
         }
         .edit-comment-show {
             display: flex;

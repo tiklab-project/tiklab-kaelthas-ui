@@ -101,8 +101,8 @@
         "svgo-loader": "^3.0.1"
     },
     "dependencies": {
-        "slate": "^0.65.3",
+        "slate": "^0.81.0",
         "slate-history": "^0.65.3",
-        "slate-react": "^0.65.3"
+        "slate-react": "^0.81.0"
     }
 }

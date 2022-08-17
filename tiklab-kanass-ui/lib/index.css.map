@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.scss"],"names":[],"mappings":"AAAA,uCACA","file":"index.css","sourcesContent":["@import \"./common/styles/_index.scss\";\n@import '~@antv/xflow/dist/index.css';"]}

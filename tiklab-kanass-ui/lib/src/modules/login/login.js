@@ -25,7 +25,7 @@ var ProjectLogin = function ProjectLogin(props) {
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Login__default["default"], _extends({}, props, {
-    contentImg: logo["default"],
+    logoImg: logo["default"],
     loginGoRouter: '/index/home',
     title: '知识库管理',
     __source: {

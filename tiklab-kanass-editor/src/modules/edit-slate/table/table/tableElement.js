@@ -19,7 +19,16 @@ const TableElement = (props) => {
             case 'table':
                 return (<div className = {`table-box`}>
                     <table {...attributes}  
-                        style = {{borderSpacing: 0,tableLayout: 'fixed',wordBreak: 'break-word',userSelect: 'none', borderTop: "1px solid #ccc", borderLeft: "1px solid #ccc"}}>
+                        style = {{
+                            borderSpacing: 0,
+                            tableLayout: 'fixed',
+                            wordBreak: 'break-word',
+                            userSelect: 'none', 
+                            borderTop: "1px solid #ccc", 
+                            borderLeft: "1px solid #ccc",
+                            width: "100%"
+                        }}
+                        >
                         {children}
                     </table>
                     <TableTools></TableTools>

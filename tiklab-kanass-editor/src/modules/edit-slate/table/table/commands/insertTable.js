@@ -24,6 +24,7 @@ export const insertTable = (editor, row, col) => {
   const isCollapsed = Range.isCollapsed(selection);
 
   if (!node && isCollapsed) {
+    debugger
     const table = createTable(parseInt(col), parseInt(row));
 
     Transforms.insertNodes(editor, table);

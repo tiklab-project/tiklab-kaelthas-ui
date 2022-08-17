@@ -80,8 +80,8 @@ var WikideAside = function WikideAside(props) {
 
   var _useState3 = React.useState(true),
       _useState4 = _slicedToArray(_useState3, 2),
-      isShowText = _useState4[0],
-      SetIsShowText = _useState4[1]; // 是否显示弹窗
+      isShowText = _useState4[0];
+      _useState4[1]; // 是否显示弹窗
 
 
   var _useState5 = React.useState(null),
@@ -163,14 +163,6 @@ var WikideAside = function WikideAside(props) {
       localStorage.setItem("documentId", item.id);
       props.history.push("/index/wikidetail/mindmap/".concat(item.id));
     }
-  };
-  /**
-   * 点击折叠或展开菜单栏
-   */
-
-
-  var toggleCollapsed = function toggleCollapsed() {
-    SetIsShowText(!isShowText);
   };
   /**
    * 显示切换知识库弹窗
@@ -1045,30 +1037,7 @@ var WikideAside = function WikideAside(props) {
       lineNumber: 499,
       columnNumber: 33
     }
-  })), "\u77E5\u8BC6\u5E93\u8BBE\u7F6E"), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "wiki-toggleCollapsed",
-    onClick: toggleCollapsed,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 503,
-      columnNumber: 25
-    }
-  }, /*#__PURE__*/React__default["default"].createElement("svg", {
-    className: "icon",
-    "aria-hidden": "true",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 504,
-      columnNumber: 29
-    }
-  }, /*#__PURE__*/React__default["default"].createElement("use", {
-    xlinkHref: "#icon-faxian",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 505,
-      columnNumber: 33
-    }
-  })))))), /*#__PURE__*/React__default["default"].createElement(changeWikiModal["default"], {
+  })), "\u77E5\u8BC6\u5E93\u8BBE\u7F6E")))), /*#__PURE__*/React__default["default"].createElement(changeWikiModal["default"], {
     searchwiki: searchwiki,
     wikilist: wikilist,
     changeWikiVisible: changeWikiVisible,

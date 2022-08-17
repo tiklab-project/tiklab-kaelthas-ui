@@ -28,14 +28,14 @@ const BrainMapExamine = (props) => {
     useEffect(() => {
         findCommentPage({ documentId: documentId }).then(data => {
             if (data.code === 0) {
-                setCommonList(data.data)
+                setCommonList(data.data.dataList)
             }
         })
         findDocument(documentId).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
                     // setWorkData(JSON.parse(data.data.details),findWorkItem)
-                    setGraphData({...JSON.parse(data.data.details)})
+                    setGraphData({ ...JSON.parse(data.data.details) })
                     // setWorkData(JSON.parse(data.data.details),findWorkItem)
                 } else {
                     setGraphData({ nodes: [], edges: [] })
@@ -158,7 +158,7 @@ const BrainMapExamine = (props) => {
                     <Col xl={{ span: 20, offset: 2 }} lg={{ span: 20, offset: 2 }} md={{ span: 20, offset: 2 }}>
                         <div className="mindmap-info">
                             <div className="mindmap-info-name">{docInfo.name}</div>
-                           
+
                             <div className="mindmap-info-detail">
                                 <svg className="user-icon" aria-hidden="true">
                                     <use xlinkHref="#icon-user5"></use>
@@ -171,94 +171,95 @@ const BrainMapExamine = (props) => {
                             </div>
                         </div>
                         <BrainMapFlowRead graphData={graphData} />
+                        <div className="examine-comment" >
+                            <span className="comment-item" onClick={addDocLike}>
+                                {docInfo.isLike ? <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-dianzan"></use>
+                                </svg> : <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-dianzan"></use>
+                                </svg>}
+                                <span className="number">({docInfo.likenumInt || 0}条)</span>
+                            </span>
+                            <span className="comment-item" onClick={() => setShowComment(!showComment)}>
+                                <svg className="icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-comments"></use>
+                                </svg>
+                                <span className="number">({docInfo.commentNumber || 0}条)</span>
+                            </span>
+                        </div>
+                        <div>
+                            <div className="edit-comment">
+                                <svg className="user-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-user5"></use>
+                                </svg>
+                                <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                                <Button type="primary" onClick={() => announce()}>发布</Button>
+                            </div>
+                            <div className="comment-list">
+                                <div className="title">评论({docInfo.commentNumber || 0}条)</div>
+                                {
+                                    commonList && commonList.map(item => {
+                                        return <div className="comment-item" key={item.id}>
+                                            <div className="comment-user">
+                                                <svg className="user-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-user5"></use>
+                                                </svg>
+                                                <span className="user-name">{item.user.name}</span>
+                                            </div>
+                                            <div className="comment-content">
+                                                {item.details}
+                                            </div>
+                                            <div className="comment-operate">
+                                                <span>编辑</span>
+                                                <span>删除</span>
+                                                <span onClick={() => setReply(item.id)}>回复</span>
+                                                <span>赞</span>
+                                            </div>
+                                            <div className={`edit-comment ${reply === item.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
+                                                <svg className="user-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-user5"></use>
+                                                </svg>
+                                                <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                                                <Button type="primary" onClick={() => announceReply(item.id)}>发布</Button>
+                                            </div>
+                                            {
+                                                item.commentList && item.commentList.map(children => {
+                                                    return <div className="comment-item commnet-children-item" key={children.id}>
+                                                        <div className="comment-user">
+                                                            <svg className="user-icon" aria-hidden="true">
+                                                                <use xlinkHref="#icon-user5"></use>
+                                                            </svg>
+                                                            <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
+                                                        </div>
+                                                        <div className="comment-content">
+                                                            {children.details}
+                                                        </div>
+                                                        <div className="comment-operate">
+                                                            <span>编辑</span>
+                                                            <span>删除</span>
+                                                            <span onClick={() => setChildrenReply(children.id)}>回复</span>
+                                                            <span>赞</span>
+                                                        </div>
+                                                        <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
+                                                            <svg className="user-icon" aria-hidden="true">
+                                                                <use xlinkHref="#icon-user5"></use>
+                                                            </svg>
+                                                            <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                                                            <Button type="primary" onClick={() => announceThirdReply(item.id, children.id)}>发布</Button>
+                                                        </div>
+                                                    </div>
+
+                                                })
+                                            }
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
                     </Col>
                 </Row>
-               
-                <div className="examine-comment" >
-                    <span className="comment-item" onClick={addDocLike}>
-                        {docInfo.isLike ? <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-dianzan"></use>
-                        </svg> : <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-dianzan"></use>
-                        </svg>}
-                        <span className="number">({docInfo.likenumInt || 0}条)</span>
-                    </span>
-                    <span className="comment-item" onClick={() => setShowComment(!showComment)}>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-comments"></use>
-                        </svg>
-                        <span className="number">({docInfo.commentNumber || 0}条)</span>
-                    </span>
-                </div>
-                <div className={showComment ? "show-mindmap-comment" : "hidden-mindmap-comment"}>
-                    <div className="edit-comment">
-                        <svg className="user-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-user5"></use>
-                        </svg>
-                        <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
-                        <Button type="primary" onClick={() => announce()}>发布</Button>
-                    </div>
-                    <div className="comment-list">
-                        <div className="title">评论({docInfo.commentNumber || 0}条)</div>
-                        {
-                            commonList && commonList.map(item => {
-                                return <div className="comment-item" key={item.id}>
-                                    <div className="comment-user">
-                                        <svg className="user-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-user5"></use>
-                                        </svg>
-                                        <span className="user-name">{item.user.name}</span>
-                                    </div>
-                                    <div className="comment-content">
-                                        {item.details}
-                                    </div>
-                                    <div className="comment-operate">
-                                        <span>编辑</span>
-                                        <span>删除</span>
-                                        <span onClick={() => setReply(item.id)}>回复</span>
-                                        <span>赞</span>
-                                    </div>
-                                    <div className={`edit-comment ${reply === item.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
-                                        <svg className="user-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-user5"></use>
-                                        </svg>
-                                        <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
-                                        <Button type="primary" onClick={() => announceReply(item.id)}>发布</Button>
-                                    </div>
-                                    {
-                                        item.commentList && item.commentList.map(children => {
-                                            return <div className="comment-item commnet-children-item" key={children.id}>
-                                                <div className="comment-user">
-                                                    <svg className="user-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-user5"></use>
-                                                    </svg>
-                                                    <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
-                                                </div>
-                                                <div className="comment-content">
-                                                    {children.details}
-                                                </div>
-                                                <div className="comment-operate">
-                                                    <span>编辑</span>
-                                                    <span>删除</span>
-                                                    <span onClick={() => setChildrenReply(children.id)}>回复</span>
-                                                    <span>赞</span>
-                                                </div>
-                                                <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
-                                                    <svg className="user-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-user5"></use>
-                                                    </svg>
-                                                    <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
-                                                    <Button type="primary" onClick={() => announceThirdReply(item.id, children.id)}>发布</Button>
-                                                </div>
-                                            </div>
 
-                                        })
-                                    }
-                                </div>
-                            })
-                        }
-                    </div>
-                </div>
+
 
             </div>
             <Share shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />

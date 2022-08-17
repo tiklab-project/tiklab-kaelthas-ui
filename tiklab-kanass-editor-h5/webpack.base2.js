@@ -92,7 +92,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'知识库管理',
+            title:'Kanass',
             template: path.resolve(__dirname, './public/index.template.html'),
             hash: false,
             filename: 'index.html',

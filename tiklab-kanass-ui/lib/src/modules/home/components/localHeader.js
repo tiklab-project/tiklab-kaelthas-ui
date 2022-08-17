@@ -124,15 +124,15 @@ var Header = function Header(props) {
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
     key: "0",
+    onClick: function onClick() {
+      return projectLogout();
+    },
     __source: {
       fileName: _jsxFileName,
       lineNumber: 62,
       columnNumber: 13
     }
-  }, /*#__PURE__*/React__default["default"].createElement("span", {
-    onClick: function onClick() {
-      return projectLogout();
-    },
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 63,

@@ -20,7 +20,7 @@ export function CreateComment(data){
 // 添加评论
 export function FindCommentPage(data){
     return service.request({
-        url: "/comment/findCommentList",
+        url: "/comment/findCommentPage",
         method: "post",
         data
     })

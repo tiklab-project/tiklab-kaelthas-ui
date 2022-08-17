@@ -24,7 +24,10 @@ import "./index.scss";
 import {observer} from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
-import "./assets/index"
+import "./assets/index";
+import enableAxiosCE from "tiklab-enable-axios-ce"
+
+enableAxiosCE()
 const Index = observer(() => {
     const {i18n} = useTranslation();
     const [visable, setVisable] =  useState(true);

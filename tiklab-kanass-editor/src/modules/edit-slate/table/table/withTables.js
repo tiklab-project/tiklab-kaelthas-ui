@@ -4,7 +4,7 @@ import { ReactEditor } from "slate-react";
 import { v4 as uuid } from "uuid";
 
 const withTables = (editor) => {
-  const { addMark,removeMark,insertText, deleteBackward, deleteFragment } = editor;
+  const { addMark, removeMark, insertText, deleteBackward, deleteFragment } = editor;
 
   editor.addMark = (key, value) => {
     if (editor.selection) {
@@ -153,7 +153,7 @@ const withTables = (editor) => {
   return editor;
 };
 
-export function isInSameTable(editor){
+export function isInSameTable(editor) {
   if (!editor.selection) return false;
 
   const [start, end] = Editor.edges(editor, editor.selection);
@@ -201,7 +201,7 @@ export function createTable(columns, rows) {
 }
 
 /* 新增一行 */
-export function createRow(columns){
+export function createRow(columns) {
   const cellNodes = [...new Array(columns)].map(() => createCell());
 
   return {

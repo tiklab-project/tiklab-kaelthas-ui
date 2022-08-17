@@ -31,7 +31,6 @@ const AlignEditor = (props) => {
             value: "center"
         },
     ]
-    const [isVisible,setIsVisible] = useState(false)
     const showBox = (event) => {
         event.preventDefault();
         if(editorType === "align") {
@@ -41,9 +40,6 @@ const AlignEditor = (props) => {
             setEditorType(data)
 
         }
-        
-        console.log(editorType)
-        // setIsVisible(!isVisible)
     }
     const selectAlign = (value) => {
         event.preventDefault();

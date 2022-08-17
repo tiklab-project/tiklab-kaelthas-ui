@@ -15,10 +15,10 @@ const ProjectLogin = (props) => {
     return (
         <div>
             <Login 
-                    {...props}
-                    contentImg={logo}
-                    loginGoRouter={'/index/home'}
-                    title = {'知识库管理'}
+                {...props}
+                logoImg={logo}
+                loginGoRouter={'/index/home'}
+                title = {'知识库管理'}
             />
         </div>
     )

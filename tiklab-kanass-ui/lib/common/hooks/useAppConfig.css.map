@@ -1,1 +1,0 @@
-{"version":3,"sources":["common/hooks/useAppConfig.scss"],"names":[],"mappings":"AAAA,aACI,QAAA,YAAA,QAAA,YAAA,QAAA,KACA,iBAAA,QAAA,cAAA,QAAA,gBAAA,cACA,kBAAA,OAAA,eAAA,OAAA,YAAA,OACA,QAAA","file":"useAppConfig.css","sourcesContent":[".useHook_app{\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 15px;\n}"]}
