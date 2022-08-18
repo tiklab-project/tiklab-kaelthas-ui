@@ -205,7 +205,10 @@ const DocumentExamine = (props) => {
             <Row className="document-examine-content">
                 <Col xl={{ span: 16, offset: 4 }} lg={{ span: 20, offset: 2 }} md={{ span: 20, offset: 2 }}>
                     <div className="document-info">
-                        <div className="document-info-name">{docInfo.name}</div>
+                        <div className="document-info-top">
+                            <div className="document-info-name">{docInfo.name}</div>
+                            <div>{docInfo.updateTime}</div>
+                        </div>
 
                         <div className="document-info-detail">
                             <svg className="user-icon" aria-hidden="true">
@@ -218,8 +221,10 @@ const DocumentExamine = (props) => {
 
                         </div>
                     </div>
-                    <PreviewEditor value={value} />
-                    <Divider />
+                    <div className="document-previeweditor" style={{border: "1px solid #E5E8FF"}}>
+                        <PreviewEditor value={value} />
+                    </div>
+                    
                     <div className="examine-comment" >
                         <span className="comment-item" onClick={addDocLike}>
                             {docInfo.isLike ? <svg className="icon" aria-hidden="true">
