@@ -97,10 +97,10 @@ const FontMenuList = (props) => {
                 <IndentEditor editor = {editor}/>
             </div>
 
-            <div className="font-background">
+            {/* <div className="font-background">
                 <div className="font-style-name">列表</div>
                 <UnorderedEditor editor = {editor}/>
-            </div>
+            </div> */}
         </div>
     )
 }

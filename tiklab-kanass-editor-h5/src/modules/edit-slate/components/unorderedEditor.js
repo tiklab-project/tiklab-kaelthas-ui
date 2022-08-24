@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-08-30 09:39:10
  */
-import React,{Fragment} from "react";
+import React, { Fragment } from "react";
 import {
     Editor,
     Transforms,
@@ -60,16 +60,16 @@ const UnorderedEditor = (props) => {
 
     const selectUnordered = (format) => {
         event.preventDefault();
-        if(!editor.selection){
+        if (!editor.selection) {
             Transforms.select(editor, select);
         }
 
-        CustomEditor.toggleUnorderedMark(editor,format)
+        CustomEditor.toggleUnorderedMark(editor, format)
     }
 
     // 富文本方法
     const CustomEditor = {
-        isUnorderedMarkActive(editor,format) {
+        isUnorderedMarkActive(editor, format) {
             const [match] = Editor.nodes(editor, {
                 match: n =>
                     !Editor.isEditor(n) &&
@@ -78,8 +78,8 @@ const UnorderedEditor = (props) => {
             })
             return !!match;
         },
-        toggleUnorderedMark(editor,format) {
-            const isActive = CustomEditor.isUnorderedMarkActive(editor,format)
+        toggleUnorderedMark(editor, format) {
+            const isActive = CustomEditor.isUnorderedMarkActive(editor, format)
             const isList = LIST_TYPES.includes(format)
             Transforms.unwrapNodes(editor, {
                 match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && LIST_TYPES.includes(n.type),
@@ -98,38 +98,40 @@ const UnorderedEditor = (props) => {
     };
 
     return (
-        <div className="unordered-editor">
-            <span className="tool-item" 
+        <Fragment>
+            {/* <span className="tool-item" 
                 format="bulleted-list" 
                 onMouseDown={(event) => selectUnordered("bulleted-list")}
-                key="bulleted"
-            >
-                <svg aria-hidden="true" className="botton-item-icon">
-                    <use xlinkHref= "#icon-list-check"></use>
+                
+            > */}
+            <div className="tool-item" key="bulleted">
+                <svg aria-hidden="true" className="tool-item-icon" onMouseDown={(event) => selectUnordered("bulleted-list")}>
+                    <use xlinkHref="#icon-list-check"></use>
                 </svg>
-            </span>
-            
-            <span 
-                className="tool-item" format="numbered-list" 
+            </div>
+
+            {/* </span> */}
+
+             <div className="tool-item" format="numbered-list" 
                 onMouseDown={(event) => selectUnordered("numbered-list")}
                 key="numbered"
-            >
-                <svg aria-hidden="true" className="botton-item-icon">
-                    <use xlinkHref= "#icon-list-ordered"></use>
+            > 
+                <svg aria-hidden="true" className="tool-item-icon">
+                    <use xlinkHref="#icon-list-ordered"></use>
                 </svg>
-            </span>
-            <span 
+            </div>
+            <div 
                 className="tool-item" 
                 format="block-quote" 
                 onMouseDown={(event) => selectUnordered("block-quote")}
                 key="block"
-            >
-                <svg aria-hidden="true" className="botton-item-icon">
-                    <use xlinkHref= "#icon-double-quotes-l"></use>
-                </svg>
-            </span>
-        </div>
-        
+            > 
+            <svg aria-hidden="true" className="tool-item-icon">
+                <use xlinkHref="#icon-double-quotes-l"></use>
+            </svg>
+            </div>
+        </Fragment>
+
 
     )
 }

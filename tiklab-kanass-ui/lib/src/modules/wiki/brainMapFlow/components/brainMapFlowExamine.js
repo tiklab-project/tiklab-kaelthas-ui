@@ -2,12 +2,12 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('antd/es/input/style/css');
-var _Input = require('antd/es/input');
 require('antd/es/row/style/css');
 var _Row = require('antd/es/row');
 require('antd/es/col/style/css');
 var _Col = require('antd/es/col');
+require('antd/es/input/style/css');
+var _Input = require('antd/es/input');
 require('antd/es/button/style/css');
 var _Button = require('antd/es/button');
 var React = require('react');
@@ -19,9 +19,9 @@ var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
 var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
+var _Input__default = /*#__PURE__*/_interopDefaultLegacy(_Input);
 var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
@@ -98,14 +98,13 @@ var BrainMapExamine = function BrainMapExamine(props) {
       documentId: documentId
     }).then(function (data) {
       if (data.code === 0) {
-        setCommonList(data.data);
+        setCommonList(data.data.dataList);
       }
     });
     findDocument(documentId).then(function (data) {
       if (data.code === 0) {
         if (data.data.details) {
-          // setWorkData(JSON.parse(data.data.details),findWorkItem)
-          setGraphData(_objectSpread({}, JSON.parse(data.data.details))); // setWorkData(JSON.parse(data.data.details),findWorkItem)
+          setGraphData(_objectSpread({}, JSON.parse(data.data.details)));
         } else {
           setGraphData({
             nodes: [],
@@ -230,33 +229,33 @@ var BrainMapExamine = function BrainMapExamine(props) {
     className: "mindmap-examine",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 126,
+      lineNumber: 125,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127,
+      lineNumber: 126,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "examine-title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128,
+      lineNumber: 127,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 129,
+      lineNumber: 128,
       columnNumber: 21
     }
   }, wiki.name), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "document-edit",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130,
+      lineNumber: 129,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -267,14 +266,14 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131,
+      lineNumber: 130,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-edit",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 132,
+      lineNumber: 131,
       columnNumber: 29
     }
   })), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -282,14 +281,14 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134,
+      lineNumber: 133,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-shou",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 134,
       columnNumber: 29
     }
   })), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -297,14 +296,14 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 136,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-comments",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 137,
       columnNumber: 29
     }
   })), /*#__PURE__*/React__default["default"].createElement("span", {
@@ -312,7 +311,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
     onClick: addDocLike,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 139,
       columnNumber: 25
     }
   }, docInfo.isLike ? /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -320,14 +319,14 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 142,
+      lineNumber: 141,
       columnNumber: 50
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-zan",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 143,
+      lineNumber: 142,
       columnNumber: 37
     }
   })) : /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -335,21 +334,21 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 144,
+      lineNumber: 143,
       columnNumber: 42
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-dianzan",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 145,
+      lineNumber: 144,
       columnNumber: 37
     }
   }))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "inline",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 150,
+      lineNumber: 149,
       columnNumber: 25
     }
   }), /*#__PURE__*/React__default["default"].createElement(_Button__default["default"], {
@@ -363,7 +362,7 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 151,
+      lineNumber: 150,
       columnNumber: 25
     }
   }, " \u5206\u4EAB"), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -371,20 +370,20 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 152,
+      lineNumber: 151,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-point",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 153,
+      lineNumber: 152,
       columnNumber: 29
     }
   })))), /*#__PURE__*/React__default["default"].createElement(_Row__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 157,
+      lineNumber: 156,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
@@ -402,28 +401,28 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 158,
+      lineNumber: 157,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-info",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 159,
+      lineNumber: 158,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-info-name",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 160,
+      lineNumber: 159,
       columnNumber: 29
     }
   }, docInfo.name), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-info-detail",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 162,
+      lineNumber: 161,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -431,95 +430,95 @@ var BrainMapExamine = function BrainMapExamine(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 163,
+      lineNumber: 162,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-user5",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 164,
+      lineNumber: 163,
       columnNumber: 37
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-info-right",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 166,
+      lineNumber: 165,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-info-creater",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 167,
+      lineNumber: 166,
       columnNumber: 37
     }
   }, "\u521B\u5EFA\u8005\uFF1A", docInfo ? docInfo.master.name : ""), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "mindmap-updata-date",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 168,
+      lineNumber: 167,
       columnNumber: 37
     }
   }, "\u6700\u8FD1\u66F4\u65B0\u65E5\u671F\uFF1A", docInfo ? docInfo.updateTime : "")))), /*#__PURE__*/React__default["default"].createElement(brainMapFlowRead["default"], {
     graphData: graphData,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 173,
+      lineNumber: 172,
       columnNumber: 25
     }
-  }))), /*#__PURE__*/React__default["default"].createElement("div", {
+  }), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "examine-comment",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 177,
-      columnNumber: 17
+      lineNumber: 173,
+      columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("span", {
     className: "comment-item",
     onClick: addDocLike,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 178,
-      columnNumber: 21
+      lineNumber: 174,
+      columnNumber: 29
     }
   }, docInfo.isLike ? /*#__PURE__*/React__default["default"].createElement("svg", {
     className: "icon",
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 179,
-      columnNumber: 43
+      lineNumber: 175,
+      columnNumber: 51
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-dianzan",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 180,
-      columnNumber: 29
+      lineNumber: 176,
+      columnNumber: 37
     }
   })) : /*#__PURE__*/React__default["default"].createElement("svg", {
     className: "icon",
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 181,
-      columnNumber: 34
+      lineNumber: 177,
+      columnNumber: 42
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-dianzan",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 182,
-      columnNumber: 29
+      lineNumber: 178,
+      columnNumber: 37
     }
   })), /*#__PURE__*/React__default["default"].createElement("span", {
     className: "number",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 184,
-      columnNumber: 25
+      lineNumber: 180,
+      columnNumber: 33
     }
   }, "(", docInfo.likenumInt || 0, "\u6761)")), /*#__PURE__*/React__default["default"].createElement("span", {
     className: "comment-item",
@@ -528,59 +527,65 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 186,
-      columnNumber: 21
+      lineNumber: 182,
+      columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
     className: "icon",
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 187,
-      columnNumber: 25
+      lineNumber: 183,
+      columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-comments",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 188,
-      columnNumber: 29
+      lineNumber: 184,
+      columnNumber: 37
     }
   })), /*#__PURE__*/React__default["default"].createElement("span", {
     className: "number",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 190,
-      columnNumber: 25
+      lineNumber: 186,
+      columnNumber: 33
     }
   }, "(", docInfo.commentNumber || 0, "\u6761)"))), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: showComment ? "show-mindmap-comment" : "hidden-mindmap-comment",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 193,
-      columnNumber: 17
+      lineNumber: 189,
+      columnNumber: 25
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "comment-list",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 191,
+      columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "edit-comment",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 194,
-      columnNumber: 21
+      lineNumber: 192,
+      columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
     className: "user-icon",
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 195,
-      columnNumber: 25
+      lineNumber: 193,
+      columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-user5",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 196,
-      columnNumber: 29
+      lineNumber: 194,
+      columnNumber: 41
     }
   })), /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
     placeholder: "\u8BF7\u8F93\u5165\u8BC4\u8BBA",
@@ -589,8 +594,8 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 198,
-      columnNumber: 25
+      lineNumber: 196,
+      columnNumber: 37
     }
   }), /*#__PURE__*/React__default["default"].createElement(_Button__default["default"], {
     type: "primary",
@@ -599,22 +604,15 @@ var BrainMapExamine = function BrainMapExamine(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 199,
-      columnNumber: 25
+      lineNumber: 197,
+      columnNumber: 37
     }
   }, "\u53D1\u5E03")), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "comment-list",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 201,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 202,
-      columnNumber: 25
+      lineNumber: 199,
+      columnNumber: 33
     }
   }, "\u8BC4\u8BBA(", docInfo.commentNumber || 0, "\u6761)"), commonList && commonList.map(function (item) {
     return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -622,63 +620,63 @@ var BrainMapExamine = function BrainMapExamine(props) {
       key: item.id,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 205,
-        columnNumber: 40
+        lineNumber: 202,
+        columnNumber: 48
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "comment-user",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 206,
-        columnNumber: 37
+        lineNumber: 203,
+        columnNumber: 45
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
       className: "user-icon",
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 207,
-        columnNumber: 41
+        lineNumber: 204,
+        columnNumber: 49
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
       xlinkHref: "#icon-user5",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 208,
-        columnNumber: 45
+        lineNumber: 205,
+        columnNumber: 53
       }
     })), /*#__PURE__*/React__default["default"].createElement("span", {
       className: "user-name",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 210,
-        columnNumber: 41
+        lineNumber: 207,
+        columnNumber: 49
       }
     }, item.user.name)), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "comment-content",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 212,
-        columnNumber: 37
+        lineNumber: 209,
+        columnNumber: 45
       }
     }, item.details), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "comment-operate",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 215,
-        columnNumber: 37
+        lineNumber: 212,
+        columnNumber: 45
       }
     }, /*#__PURE__*/React__default["default"].createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 216,
-        columnNumber: 41
+        lineNumber: 213,
+        columnNumber: 49
       }
     }, "\u7F16\u8F91"), /*#__PURE__*/React__default["default"].createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 217,
-        columnNumber: 41
+        lineNumber: 214,
+        columnNumber: 49
       }
     }, "\u5220\u9664"), /*#__PURE__*/React__default["default"].createElement("span", {
       onClick: function onClick() {
@@ -686,36 +684,36 @@ var BrainMapExamine = function BrainMapExamine(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 218,
-        columnNumber: 41
+        lineNumber: 215,
+        columnNumber: 49
       }
     }, "\u56DE\u590D"), /*#__PURE__*/React__default["default"].createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 219,
-        columnNumber: 41
+        lineNumber: 216,
+        columnNumber: 49
       }
     }, "\u8D5E")), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "edit-comment ".concat(reply === item.id ? "edit-comment-show" : "edit-comment-hidden"),
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 221,
-        columnNumber: 37
+        lineNumber: 218,
+        columnNumber: 45
       }
     }, /*#__PURE__*/React__default["default"].createElement("svg", {
       className: "user-icon",
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 222,
-        columnNumber: 41
+        lineNumber: 219,
+        columnNumber: 49
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
       xlinkHref: "#icon-user5",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 223,
-        columnNumber: 45
+        lineNumber: 220,
+        columnNumber: 53
       }
     })), /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
       placeholder: "\u8BF7\u8F93\u5165\u8BC4\u8BBA",
@@ -724,8 +722,8 @@ var BrainMapExamine = function BrainMapExamine(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 225,
-        columnNumber: 41
+        lineNumber: 222,
+        columnNumber: 49
       }
     }), /*#__PURE__*/React__default["default"].createElement(_Button__default["default"], {
       type: "primary",
@@ -734,8 +732,8 @@ var BrainMapExamine = function BrainMapExamine(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 226,
-        columnNumber: 41
+        lineNumber: 223,
+        columnNumber: 49
       }
     }, "\u53D1\u5E03")), item.commentList && item.commentList.map(function (children) {
       return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -743,63 +741,63 @@ var BrainMapExamine = function BrainMapExamine(props) {
         key: children.id,
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 230,
-          columnNumber: 52
+          lineNumber: 227,
+          columnNumber: 60
         }
       }, /*#__PURE__*/React__default["default"].createElement("div", {
         className: "comment-user",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 231,
-          columnNumber: 49
+          lineNumber: 228,
+          columnNumber: 57
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
         className: "user-icon",
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 232,
-          columnNumber: 53
+          lineNumber: 229,
+          columnNumber: 61
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
         xlinkHref: "#icon-user5",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 233,
-          columnNumber: 57
+          lineNumber: 230,
+          columnNumber: 65
         }
       })), /*#__PURE__*/React__default["default"].createElement("span", {
         className: "user-name",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 235,
-          columnNumber: 53
+          lineNumber: 232,
+          columnNumber: 61
         }
       }, children.user.name, "\u56DE\u590D\u4E86\uFF1A", children.aimAtUser.name)), /*#__PURE__*/React__default["default"].createElement("div", {
         className: "comment-content",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 237,
-          columnNumber: 49
+          lineNumber: 234,
+          columnNumber: 57
         }
       }, children.details), /*#__PURE__*/React__default["default"].createElement("div", {
         className: "comment-operate",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 240,
-          columnNumber: 49
+          lineNumber: 237,
+          columnNumber: 57
         }
       }, /*#__PURE__*/React__default["default"].createElement("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 241,
-          columnNumber: 53
+          lineNumber: 238,
+          columnNumber: 61
         }
       }, "\u7F16\u8F91"), /*#__PURE__*/React__default["default"].createElement("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 242,
-          columnNumber: 53
+          lineNumber: 239,
+          columnNumber: 61
         }
       }, "\u5220\u9664"), /*#__PURE__*/React__default["default"].createElement("span", {
         onClick: function onClick() {
@@ -807,36 +805,36 @@ var BrainMapExamine = function BrainMapExamine(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 243,
-          columnNumber: 53
+          lineNumber: 240,
+          columnNumber: 61
         }
       }, "\u56DE\u590D"), /*#__PURE__*/React__default["default"].createElement("span", {
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 244,
-          columnNumber: 53
+          lineNumber: 241,
+          columnNumber: 61
         }
       }, "\u8D5E")), /*#__PURE__*/React__default["default"].createElement("div", {
         className: "edit-comment ".concat(childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"),
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 246,
-          columnNumber: 49
+          lineNumber: 243,
+          columnNumber: 57
         }
       }, /*#__PURE__*/React__default["default"].createElement("svg", {
         className: "user-icon",
         "aria-hidden": "true",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 247,
-          columnNumber: 53
+          lineNumber: 244,
+          columnNumber: 61
         }
       }, /*#__PURE__*/React__default["default"].createElement("use", {
         xlinkHref: "#icon-user5",
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 248,
-          columnNumber: 57
+          lineNumber: 245,
+          columnNumber: 65
         }
       })), /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
         placeholder: "\u8BF7\u8F93\u5165\u8BC4\u8BBA",
@@ -845,8 +843,8 @@ var BrainMapExamine = function BrainMapExamine(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 250,
-          columnNumber: 53
+          lineNumber: 247,
+          columnNumber: 61
         }
       }), /*#__PURE__*/React__default["default"].createElement(_Button__default["default"], {
         type: "primary",
@@ -855,12 +853,12 @@ var BrainMapExamine = function BrainMapExamine(props) {
         },
         __source: {
           fileName: _jsxFileName,
-          lineNumber: 251,
-          columnNumber: 53
+          lineNumber: 248,
+          columnNumber: 61
         }
       }, "\u53D1\u5E03")));
     }));
-  })))), /*#__PURE__*/React__default["default"].createElement(share["default"], {
+  })))))), /*#__PURE__*/React__default["default"].createElement(share["default"], {
     shareVisible: shareVisible,
     setShareVisible: setShareVisible,
     docInfo: docInfo,

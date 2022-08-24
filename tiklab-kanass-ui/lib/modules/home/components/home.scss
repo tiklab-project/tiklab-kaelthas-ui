@@ -1,0 +1,66 @@
+.home {
+    height: calc(100vh - 50px);
+    background-color: #fff;
+    width: 80%;
+    margin: 0 auto;
+    .home-repository {
+        .repository-title {
+            height: 40px;
+            line-height: 40px;
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .repository-box {
+            display: grid;
+            justify-content: space-between;
+            grid-template-columns: repeat(auto-fill, 250px);
+            grid-gap: 0 20px;
+        }
+        .repository-item {
+            position: relative;
+            min-width: 250px;
+            max-width: 250px;
+            height: 125px;
+            border-radius: 10px;
+            background-color: rgb(255, 255, 255);
+            padding: 18px;
+            cursor: pointer;
+            box-shadow: rgb(179, 186, 197) 0px 0px 1px 0px, rgb(193, 199, 208) 0px 1px 1px 0px;
+            background-position: center center;
+            background-size: auto 100%;
+            background: linear-gradient(to left top, #ECF4F7, #F5F0F6 50%, #F4F5F0);
+            margin-top: 20px;
+            margin-bottom: 20px;
+            .icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .title {
+                margin-top: 10px;
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+    }
+
+    .home-document {
+        height: 90%;
+        .document-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            line-height: 40px;
+        }
+        .document-name {
+            display: flex;
+            align-items: center;
+        }
+        .document-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+}

@@ -243,14 +243,15 @@ const DocumentExamine = (props) => {
                     </div>
                     {/* //className={showComment ? "show-comment" : "hidden-comment"} */}
                     <div className={"show-comment"}>
-                        <div className="edit-comment">
-                            <svg className="user-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-user5"></use>
-                            </svg>
-                            <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
-                            <Button type="primary" onClick={() => announce()}>发布</Button>
-                        </div>
+                        
                         <div className="comment-list">
+                            <div className="edit-comment">
+                                <svg className="user-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-user5"></use>
+                                </svg>
+                                <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
+                                <Button type="primary" onClick={() => announce()}>发布</Button>
+                            </div>
                             <div className="title">评论({docInfo.commentNumber || 0}条)</div>
                             {
                                 commonList && commonList.map(item => {

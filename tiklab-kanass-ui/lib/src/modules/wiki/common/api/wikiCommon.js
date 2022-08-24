@@ -24,7 +24,7 @@ function CreateComment(data) {
 
 function FindCommentPage(data) {
   return tiklabCoreUi.Axios.request({
-    url: "/comment/findCommentList",
+    url: "/comment/findCommentPage",
     method: "post",
     data: data
   });

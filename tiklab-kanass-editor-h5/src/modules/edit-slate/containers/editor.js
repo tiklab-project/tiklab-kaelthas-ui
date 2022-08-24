@@ -9,16 +9,18 @@ import { withLinks } from "../components/link"
 import { withImage } from "../components/image"
 import { withChecklists } from "../components/checkListsEditor"
 import { withDivider } from "../components/divider"
-import { withEmoji } from "../components/emoji"
+import { withEmoji } from "../components/emoji";
+import {withUnordered} from "../components/unorderedEditor"
 import Leaf from "../components/leaf"
 import withTables from "../components/table/withTables"
 import EditorMenu from "./editorMenu";
+
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
 	const { onChange, value, showMenu} = props;
 
-	const [editor] = useState(() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))));
+	const [editor] = useState(() => withUnordered(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
 	// 设置应用创建时的初始状态。
 	// Define a leaf rendering function that is memoized with `useCallback`.
 	const [focused,setFocused ] = useState(false);
@@ -74,12 +76,6 @@ const DocumentEditor = (props) => {
 		
 	return (
 		<div id = "editorEdit">
-			{/* <div className="title">
-				<svg aria-hidden="true" className="back-icon">
-					<use xlinkHref="#icon-fanhui"></use>
-				</svg>
-			</div> */}
-			
 			<Slate
 				editor={editor}
 				value={value}

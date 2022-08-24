@@ -47,7 +47,7 @@ var WikiWork = (_class = /*#__PURE__*/_createClass(function WikiWork() {
 
   _initializerDefineProperty(this, "findWorkItemPage", _descriptor7, this);
 
-  _initializerDefineProperty(this, "getProlist", _descriptor8, this);
+  _initializerDefineProperty(this, "findProjectList", _descriptor8, this);
 
   _initializerDefineProperty(this, "findAllWorkType", _descriptor9, this);
 
@@ -139,7 +139,7 @@ var WikiWork = (_class = /*#__PURE__*/_createClass(function WikiWork() {
       });
     };
   }
-}), _descriptor8 = _applyDecoratedDescriptor(_class.prototype, "getProlist", [mobx.action], {
+}), _descriptor8 = _applyDecoratedDescriptor(_class.prototype, "findProjectList", [mobx.action], {
   configurable: true,
   enumerable: true,
   writable: true,

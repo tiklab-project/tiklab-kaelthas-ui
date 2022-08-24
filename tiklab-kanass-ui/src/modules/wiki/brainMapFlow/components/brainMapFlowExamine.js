@@ -25,6 +25,7 @@ const BrainMapExamine = (props) => {
     const userId = getUser().userId;
     const [showComment, setShowComment] = useState(false)
     const [graphData, setGraphData] = useState()
+
     useEffect(() => {
         findCommentPage({ documentId: documentId }).then(data => {
             if (data.code === 0) {
@@ -34,9 +35,7 @@ const BrainMapExamine = (props) => {
         findDocument(documentId).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
-                    // setWorkData(JSON.parse(data.data.details),findWorkItem)
                     setGraphData({ ...JSON.parse(data.data.details) })
-                    // setWorkData(JSON.parse(data.data.details),findWorkItem)
                 } else {
                     setGraphData({ nodes: [], edges: [] })
                 }
@@ -188,14 +187,15 @@ const BrainMapExamine = (props) => {
                             </span>
                         </div>
                         <div>
-                            <div className="edit-comment">
-                                <svg className="user-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-user5"></use>
-                                </svg>
-                                <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
-                                <Button type="primary" onClick={() => announce()}>发布</Button>
-                            </div>
+                           
                             <div className="comment-list">
+                                <div className="edit-comment">
+                                    <svg className="user-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-user5"></use>
+                                    </svg>
+                                    <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
+                                    <Button type="primary" onClick={() => announce()}>发布</Button>
+                                </div>
                                 <div className="title">评论({docInfo.commentNumber || 0}条)</div>
                                 {
                                     commonList && commonList.map(item => {
@@ -248,7 +248,6 @@ const BrainMapExamine = (props) => {
                                                             <Button type="primary" onClick={() => announceThirdReply(item.id, children.id)}>发布</Button>
                                                         </div>
                                                     </div>
-
                                                 })
                                             }
                                         </div>

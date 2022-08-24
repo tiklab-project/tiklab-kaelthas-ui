@@ -25,14 +25,15 @@ const HeadEditor = (props) => {
     const {editor, slatestore} = props;
     const {editorType,setEditorType} = slatestore;
     // const [isVisible,setIsVisible] = useState(false)
+    const [select, setEditorSelect] = useState(editor.selection)
     const showBox = (event) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
         if(editorType === "head") {
-            //setEditorType("")
+            setEditorType("")
         }else {
             const data = "head"
-            //setEditorType(data)
+            setEditorType(data)
         }
     }
     const selectHead = (value) => {
@@ -50,9 +51,8 @@ const HeadEditor = (props) => {
             return !!match;
         },
         toggleHeadMark(editor,value) {
-            
+            Transforms.select(editor, select);
             const isActive = CustomEditor.isHeadMarkActive(editor);
-            
             Transforms.unwrapNodes(editor, {
                 match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && (n.type === "numbered-list" || n.type === "bulleted-list" ),
                 split: true,
@@ -68,30 +68,27 @@ const HeadEditor = (props) => {
                 const block = { type: "head", children: [] }
                 Transforms.wrapNodes(editor, block)
             }
-            //setEditorType("")
         }
     }
 
     return (
         <div className="head-editor" key="head">
-            <div onMouseDown={(event) => showBox(event)} className = "head-botton">
-                文本样式
+            <div className = "head-title">
+                标题
 			</div>
-            {
-                editorType === "head" && <div className="head-box">
-                    <div className={`head-item`} 
-                        key = "h1" 
-                        onMouseDown = {()=> selectHead("h1")} 
-                    >
-                        <h1>标题1</h1>
-                    </div>
-                    <div className="head-item" key = "h2" onMouseDown = {()=> selectHead("h2")}><h2>标题2</h2></div>
-                    <div className="head-item" key = "h3" onMouseDown = {()=> selectHead("h3")}><h3>标题3</h3></div>
-                    <div className="head-item" key = "h4" onMouseDown = {()=> selectHead("h4")}><h4>标题4</h4></div>
-                    <div className="head-item" key = "h5" onMouseDown = {()=> selectHead("h5")}><h5>标题5</h5></div>
-                    <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("h6")}><h6>标题6</h6></div>
+            <div className="head-box">
+                <div className={`head-item`} 
+                    key = "h1" 
+                    onMouseDown = {()=> selectHead("h1")} 
+                >
+                    <h1 className="head-content">标题1</h1>
                 </div>
-            }
+                <div className="head-item" key = "h2" onMouseDown = {()=> selectHead("h2")}><h2 className="head-content">标题2</h2></div>
+                <div className="head-item" key = "h3" onMouseDown = {()=> selectHead("h3")}><h3 className="head-content">标题3</h3></div>
+                <div className="head-item" key = "h4" onMouseDown = {()=> selectHead("h4")}><h4 className="head-content">标题4</h4></div>
+                <div className="head-item" key = "h5" onMouseDown = {()=> selectHead("h5")}><h5 className="head-content">标题5</h5></div>
+                <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("h6")}><h6 className="head-content">标题6</h6></div>
+            </div>
         </div>
         
     )

@@ -12,8 +12,11 @@ import "./editorMenu.scss";
 import { Slate, Editable, withReact,useFocused, ReactEditor } from "slate-react";
 import FontMenuList from "./fontMenuList";
 import ImageMenu from "./imageMenu";
+import CheckListsEditor from "../components/checkListsEditor";
+import UnorderedEditor from "../components/unorderedEditor";
+import HeadEditor from "../components/head"
 const EditorMenu = (props) => {
-    const { editor,focused,setFocused } = props;
+    const { editor, focused, setFocused } = props;
     const [menuType,setMenuType] = useState();
     const CustomEditor = {
         isBoldMarkActive(editor) {
@@ -86,6 +89,14 @@ const EditorMenu = (props) => {
         ReactEditor.blur(editor)
         
     }
+    const showHead = (event) => {
+        event.preventDefault();
+        setFocused(false);
+        setMenuType('head')
+        ReactEditor.blur(editor)
+        
+    }
+
     return (
         <div className="edit-toolbar" >
             <div className="edit-toolbar-top" >
@@ -94,7 +105,7 @@ const EditorMenu = (props) => {
                         <use xlinkHref="#icon-a-xinjiantianjia"></use>
                     </svg>
                 </div>
-                <div className="tool-item">
+                {/* <div className="tool-item">
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-tupian"></use>
                     </svg>
@@ -103,25 +114,27 @@ const EditorMenu = (props) => {
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-attachment-2"></use>
                     </svg>
+                </div> */}
+                <div className="tool-item"  onMouseDown={(event) => showHead(event)}>
+                    <svg aria-hidden="true" className="tool-item-icon">
+                        <use xlinkHref="#icon-heading"></use>
+                    </svg>
                 </div>
-                <div className="tool-item">
+                
+                <div className="tool-item" onMouseDown={(event) => showFocus(event)}>
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-emphasis-cn"></use>
                     </svg>
                 </div>
-                <div className="tool-item" onMouseDown={(event) => showFocus(event)}>
-                    <svg aria-hidden="true" className="tool-item-icon">
-                        <use xlinkHref="#icon-list-unordered"></use>
-                    </svg>
+                <UnorderedEditor editor = {editor}/>
+               
+                <div className="tool-item">
+                    
+                    <CheckListsEditor editor = {editor}/>
                 </div>
                 <div className="tool-item">
                     <svg aria-hidden="true" className="tool-item-icon">
                         <use xlinkHref="#icon-guanbi"></use>
-                    </svg>
-                </div>
-                <div className="tool-item">
-                    <svg aria-hidden="true" className="tool-item-icon">
-                        <use xlinkHref="#icon-select2"></use>
                     </svg>
                 </div>
                 <div className="tool-item">
@@ -138,7 +151,10 @@ const EditorMenu = (props) => {
                 {
                     !focused && menuType === "image" ? <ImageMenu editor = {editor} /> : null
                 }
-                {/* <ImageMenu editor = {editor} /> */}
+                {
+                    !focused && menuType === "head" ? <HeadEditor editor = {editor}/> : null
+                }
+                {/* <HeadEditor edi/>tor = {editor}/>  */}
             </div>
         </div>
 

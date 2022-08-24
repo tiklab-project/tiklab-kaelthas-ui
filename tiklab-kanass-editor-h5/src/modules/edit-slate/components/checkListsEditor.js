@@ -86,12 +86,9 @@ const CheckListsEditor = (props) => {
         }
     };
 
-    return (
-        <span className="tool-item" onMouseDown={(event) => selectCheckLists(event)}
-            key="check-list"
-        >
-            <i className="iconfont iconxuanzhong"></i>
-        </span>
+    return (<svg aria-hidden="true" key="check-list" className="tool-item-icon" onMouseDown={(event) => selectCheckLists(event)}>
+            <use xlinkHref="#icon-select2"></use>
+        </svg>
     )
 }
 export default CheckListsEditor;

@@ -21,7 +21,16 @@ const TableElement = (props) => {
             case 'table':
                 return (<div className = {`table-box`}>
                     <table {...attributes}  
-                        style = {{borderSpacing: 0,tableLayout: 'fixed',wordBreak: 'break-word',userSelect: 'none'}}>
+                        style = {{
+                            borderSpacing: 0,
+                            tableLayout: 'fixed',
+                            wordBreak: 'break-word',
+                            userSelect: 'none', 
+                            borderTop: "1px solid #ccc", 
+                            borderLeft: "1px solid #ccc",
+                            width: "100%"
+                        }}
+                    >
                         {children}
                     </table>
                     <TableTools></TableTools>
@@ -32,12 +41,12 @@ const TableElement = (props) => {
             case 'table-tbody':
                 return <tbody>{children}</tbody>
             case 'table-th':
-                return <th >{children}</th>
+                return <th style = {{borderBottom: "1px solid #ccc",borderRight: "1px solid #ccc"}}>{children}</th>
             case 'table-row':
                 return <tr {...attributes} >{children}</tr>
             case 'table-cell':
                 return <td {...attributes}
-                    style={{ width: "100px", height: "40px" }}
+                style={{ width: "100px", height: "40px",borderBottom: "1px solid #ccc",borderRight: "1px solid #ccc" }}
                     
                 >
                     {children}

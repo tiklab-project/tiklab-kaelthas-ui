@@ -52,7 +52,12 @@ var WikiCommon = (_class = /*#__PURE__*/_createClass(function WikiCommon() {
   enumerable: true,
   writable: true,
   initializer: function initializer() {
-    return [];
+    return {
+      pageParam: {
+        pageSize: 10,
+        currentPage: 1
+      }
+    };
   }
 }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "createComment", [mobx.action], {
   configurable: true,

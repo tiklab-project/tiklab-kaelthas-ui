@@ -1,0 +1,1 @@
+{"version":3,"names":[],"mappings":"","sources":["modules/wiki/common/components/templateList.scss"],"sourcesContent":[".ant-layout-sider {\n    background-color: #fff;\n}\n.preview-editor {\n    padding: 10px;\n}"],"file":"templateList.scss"}
