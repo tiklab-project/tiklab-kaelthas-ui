@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-01-20 13:34:14
  */
 import React, { Fragment } from 'react';
-import logo from "../../../assets/images/logo.png";
+import logo from "../../../assets/images/logo_k.png";
 import { renderRoutes } from "react-router-config";
 import LocalHeader  from "./localHeader";
 import "./header.scss";
@@ -49,10 +49,8 @@ const Portal = (props) => {
     const route = props.route;
     const projectLogout = () => {
         props.history.push({
-            pathname: '/logout',
-            state:{
-                preRoute: props.location.pathname
-            }
+            pathname:'/logout',
+            state: window.location.href
         })
     }
 

@@ -78,7 +78,7 @@ export function GetWikiTypeList(data){
 // 查找所有用户类型
 export function GetUseList(data){
     return service.request({
-        url: "/user/findAllUser",
+        url: "/user/user/findAllUser",
         method: "post",
         data 
         //请求类型为post 时，

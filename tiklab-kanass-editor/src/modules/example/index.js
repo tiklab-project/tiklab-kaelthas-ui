@@ -29,19 +29,27 @@ const ExampleEditor = () => {
         },
     ])
 
+    const submit = (value) => {
+        setValue(value)
+        console.log(value)
+    }
     return (
         <Fragment>
-            <div onClick={() => {setShowMenu(!showMenu)}}>确定</div>
-            <div >
-                
-            { showMenu ? <Editor 
+             <div onClick={() => {setShowMenu(!showMenu)}}>确定</div>
+           {/* <PreviewEditor value = {value} 
+                    onChange = {setValue} />  */}
+            <Editor 
+                value = {value} 
+                onChange = {value => submit(value)} 
+            />
+            {/* { showMenu ? <Editor 
                     value = {value} 
                     onChange = {setValue} 
                 />
                 :
                 <PreviewEditor value = {value} 
-                    onChange = {setValue} />}
-            </div>
+                    onChange = {setValue} />} */}
+            {/* </div> */}
         </Fragment>
         
     )

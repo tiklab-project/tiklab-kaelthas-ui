@@ -53,8 +53,15 @@ const TableEditor = (props) => {
             </span>
             {
                 showFrom && <div className="table-from">
-                    <span>行数: </span><input type="number" name="table-row"/>
-                    <span>列数: </span><input type="number" name="table-col" />
+                    <div className="table-from-head">表格设置</div>
+                    <div className="table-from-item">
+                        <div>行数: </div>
+                        <input type="number" name="table-row" className="table-row"/>
+                    </div>
+                    <div className="table-from-item">
+                        <div>列数: </div>
+                        <input type="number" name="table-col" className="table-col"/>
+                    </div>
                     <div onClick={() => submit(editor)}>确定</div>
                 </div>
             }

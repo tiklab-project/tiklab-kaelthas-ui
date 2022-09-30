@@ -10,7 +10,7 @@ import ExampleEditor from "./modules/example/index";
 import ForcedLayoutExample from "./modules/example/layoutExample"
 const routes=[
     {
-        path: "/index",
+        path: "/",
         exact: true,
         component: ExampleEditor,
     },

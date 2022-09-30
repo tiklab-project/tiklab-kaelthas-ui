@@ -162,13 +162,6 @@ var Sysmgr = SyncComponent["default"](function () {
   });
 }); // 导入外部数据
 
-var WikiLicence = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/licence/wikiLicence'));
-    });
-  });
-});
 var WikiPlugin = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -346,10 +339,6 @@ var routesSaas = [{
       component: Template,
       exact: true
     }, {
-      path: "/index/sysmgr/licence",
-      component: WikiLicence,
-      exact: true
-    }, {
       path: "/index/sysmgr/plugin",
       component: WikiPlugin,
       exact: true
@@ -395,7 +384,7 @@ var routesSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 251,
+        lineNumber: 245,
         columnNumber: 26
       }
     });

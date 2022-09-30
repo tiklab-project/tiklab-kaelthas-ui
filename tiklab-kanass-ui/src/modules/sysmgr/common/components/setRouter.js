@@ -83,12 +83,6 @@ const orgaRouter = [
         ]
     },
     {
-        title: "licence管理",
-        icon: 'category',
-        key: '/index/sysmgr/licence',
-        encoded: "Licence",
-    },
-    {
         title: "插件管理",
         icon: 'category',
         key: '/index/sysmgr/plugin',

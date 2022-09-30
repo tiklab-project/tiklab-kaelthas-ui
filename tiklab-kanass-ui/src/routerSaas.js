@@ -46,7 +46,6 @@ const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/containers/s
 // 导入外部数据
 
 
-const WikiLicence = AsyncComponent(() => import('./modules/sysmgr/licence/wikiLicence'))
 const WikiPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/wikiPlugin.js'))
 const Oragn = AsyncComponent(()=> import("./modules/sysmgr/common/containers/organ"))
 const OrgaContent = AsyncComponent(() => import('./modules/sysmgr/orga/orga'))
@@ -186,11 +185,6 @@ const routesSaas=[
                     {
                         path: "/index/sysmgr/template",
                         component: Template,
-                        exact: true
-                    },
-                    {
-                        path: "/index/sysmgr/licence",
-                        component: WikiLicence,
                         exact: true
                     },
                     {

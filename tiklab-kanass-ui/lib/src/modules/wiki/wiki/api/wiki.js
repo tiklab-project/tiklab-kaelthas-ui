@@ -78,7 +78,7 @@ function GetWikiTypeList(data) {
 
 function GetUseList(data) {
   return tiklabCoreUi.Axios.request({
-    url: "/user/findAllUser",
+    url: "/user/user/findAllUser",
     method: "post",
     data: data //请求类型为post 时，
     // params: data 请求类型为get时

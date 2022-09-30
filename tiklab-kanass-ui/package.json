@@ -26,7 +26,7 @@
     "author": "",
     "license": "ISC",
     "publishConfig": {
-        "registry": "http://172.12.1.11:8081/repository/npm-hosted/"
+        "registry": "https://registry.npmjs.org/"
     },
     "peerDependencies": {
         "@ant-design/icons": "^4.3.0",

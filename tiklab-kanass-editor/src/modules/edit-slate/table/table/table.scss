@@ -7,8 +7,34 @@
     border-radius: 3px;
     box-shadow: rgba(9,30,6,0.25) 0px 4px 8px -2px, rgba(9,30,66,0.31) 0px 0px 1px;
     box-sizing: border-box;
-    padding: 10px;
+    padding-bottom: 15px;
     z-index: 2;
+    width: 180px;
+    .table-from-head {
+        height: 40px;
+        line-height: 40px;
+        font-size: 15px;
+        font-weight: 500;
+        text-align: left;
+        padding: 0 10px;
+        background-color: #ebecf0;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    .table-from-item {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        height: 32px;
+        line-height: 32px;
+        margin: 15px 0;
+    }
+    .table-row, .table-col {
+        width: 100px;
+        border: 1px solid #d7d7d7;
+        border-radius: 5px;
+        padding: 0 10px;
+    }
 }
 .table-tool {
     position: relative;

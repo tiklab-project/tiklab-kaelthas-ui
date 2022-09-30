@@ -90,6 +90,7 @@ const HeadEditor = (props) => {
                     <div className="head-item" key = "h4" onMouseDown = {()=> selectHead("h4")}><h4>标题4</h4></div>
                     <div className="head-item" key = "h5" onMouseDown = {()=> selectHead("h5")}><h5>标题5</h5></div>
                     <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("h6")}><h6>标题6</h6></div>
+                    <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("p")}><h6>正文</h6></div>
                 </div>
             }
         </div>

@@ -74,9 +74,7 @@ var Portal = function Portal(props) {
   var projectLogout = function projectLogout() {
     props.history.push({
       pathname: '/logout',
-      state: {
-        preRoute: props.location.pathname
-      }
+      state: window.location.href
     });
   };
 
@@ -84,7 +82,7 @@ var Portal = function Portal(props) {
     className: "frame",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 60,
+      lineNumber: 58,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(localHeader["default"], _extends({}, props, {
@@ -94,20 +92,20 @@ var Portal = function Portal(props) {
     search: /*#__PURE__*/React__default["default"].createElement(search["default"], _extends({}, props, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 66,
+        lineNumber: 64,
         columnNumber: 25
       }
     })),
     routers: headerRouter,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 61,
+      lineNumber: 59,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 69,
+      lineNumber: 67,
       columnNumber: 13
     }
   }, reactRouterConfig.renderRoutes(route.routes)), ModalComponent, editOrAddModal);

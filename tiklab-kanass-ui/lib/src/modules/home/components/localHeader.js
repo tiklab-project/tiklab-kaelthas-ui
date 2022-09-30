@@ -139,7 +139,7 @@ var Header = function Header(props) {
       columnNumber: 17
     }
   }, "\u9000\u51FA")));
-  var setMenu = /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
+  /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 69,
@@ -347,42 +347,32 @@ var Header = function Header(props) {
       lineNumber: 124,
       columnNumber: 25
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
-    overlay: setMenu,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 125,
-      columnNumber: 29
-    }
-  }, /*#__PURE__*/React__default["default"].createElement(_Space__default["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 126,
-      columnNumber: 33
-    }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
     "aria-hidden": "true",
     style: {
       width: "25px",
       height: "25px"
     },
+    onClick: function onClick() {
+      return goSet("/index/sysmgr/systemFeature");
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 127,
-      columnNumber: 37
+      lineNumber: 130,
+      columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-shezhi",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 128,
-      columnNumber: 41
+      lineNumber: 131,
+      columnNumber: 33
     }
-  }))))), /*#__PURE__*/React__default["default"].createElement("div", {
+  }))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-user",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 133,
+      lineNumber: 134,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -393,40 +383,40 @@ var Header = function Header(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134,
+      lineNumber: 135,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-touxiang",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 136,
       columnNumber: 33
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-name",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 137,
+      lineNumber: 138,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
     overlay: useMenu,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 139,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Space__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 140,
       columnNumber: 37
     }
   }, tiklabCoreUi.getUser().name, /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 142,
       columnNumber: 41
     }
   }))))), /*#__PURE__*/React__default["default"].createElement("span", {
@@ -435,7 +425,7 @@ var Header = function Header(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 147,
+      lineNumber: 148,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("img", {
@@ -445,7 +435,7 @@ var Header = function Header(props) {
     height: "20px",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 148,
+      lineNumber: 149,
       columnNumber: 29
     }
   }))))));

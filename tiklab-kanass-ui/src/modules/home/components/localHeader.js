@@ -122,13 +122,14 @@ const Header = props => {
                             </Dropdown>
                         </div>
                         <div className= "frame-header-set">
-                            <Dropdown overlay={setMenu}>
+                            {/* <Dropdown overlay={setMenu}>
                                 <Space>
-                                    <svg aria-hidden="true" style={{width: "25px", height: "25px"}}>
-                                        <use xlinkHref="#icon-shezhi"></use>
-                                    </svg>
+                                    
                                 </Space>
-                            </Dropdown>
+                            </Dropdown> */}
+                            <svg aria-hidden="true" style={{width: "25px", height: "25px"}} onClick={() => goSet("/index/sysmgr/systemFeature")}>
+                                <use xlinkHref="#icon-shezhi"></use>
+                            </svg>
                         </div>
                         <div className = "frame-header-user">
                             <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>

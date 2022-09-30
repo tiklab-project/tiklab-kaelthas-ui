@@ -86,7 +86,7 @@ const CustomEditor = {
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const {onChange,value, focusEditor,minHeight} = props;
+	const { onChange, value, focusEditor, minHeight } = props;
 	const editor = useMemo(
 		() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))),
 		[]
@@ -96,86 +96,99 @@ const DocumentEditor = (props) => {
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
-	
+
 	// const onClick = () => {
 	// 	console.log("dsfsf")
 	// 	setShowMenu(false)
 	// }
 	useEffect(() => {
-		if(focusEditor){
+		if (focusEditor) {
 			ReactEditor.focus(editor);
 			return;
 		}
-		
-	},[])
+
+	}, [])
 	return (
-		<Slate
-			editor={editor}
-			value={value}
-			onChange={(value) => onChange(value)}
-			// onChange={(value) => setValue(value)}
-		>
-			<div className="edit-toolbar">
-					<span
-						className="tool-item"
-						onMouseDown={(event) => {
-							event.preventDefault();
-							CustomEditor.toggleBoldMark(editor);
-						}}
-					>
-						{/* <i className="iconfont iconbold"></i> */}
-						<svg className="slate-iconfont" aria-hidden="true">
-							<use xlinkHref="#icon-bold"></use>
-						</svg>
-					</span>
-					<span
-						className="tool-item"
-						onMouseDown={(event) => {
-							event.preventDefault();
-							CustomEditor.toggleCodeBlock(editor);
-						}}
-					>
-						{/* <i className="iconfont iconcode-view"></i> */}
-						<svg className="slate-iconfont" aria-hidden="true">
-							<use xlinkHref="#icon-code-view"></use>
-						</svg>
-					</span>
-					<ItalicEditor editor={editor} />
-					<UnderlineEditor editor={editor} />
-					<StrikeEditor editor={editor} />
-					<SupEditor editor={editor} />
-					<SubEditor editor={editor} />
-					<CheckListsEditor editor={editor} />
-					{/* <BrEditor editor={editor} /> */}
-
-					<AttUpload editor={editor} />
-
-
-
-					<LinkEditor editor={editor} />
-					<TableEditor editor={editor} />
-
-					<UnorderedEditor editor={editor} />
-					<DividerEditor editor={editor} />
-					<IndentEditor editor={editor} />
-					<Emoji editor={editor} />
-
-					<AlignEditor editor={editor} />
-					<ColorEditor editor={editor} />
-					<BackgroundColor editor={editor} />
-					<HeadEditor editor={editor} />
-					<FontSize editor={editor} />
-					<LineHeightEditor editor={editor} />
+		<div className="edit">
+			<div className="edit-catalog">
+				<div className="catelog-title">目录</div>
+				<div>
+					
+				</div>
 			</div>
+			<div>
+				<Slate
+					editor={editor}
+					value={value}
+					onChange={(value) => onChange(value)}
+				// onChange={(value) => setValue(value)}
+				>
+					<div className="edit-toolbar">
+						<span
+							className="tool-item"
+							onMouseDown={(event) => {
+								event.preventDefault();
+								CustomEditor.toggleBoldMark(editor);
+							}}
+						>
+							{/* <i className="iconfont iconbold"></i> */}
+							<svg className="slate-iconfont" aria-hidden="true">
+								<use xlinkHref="#icon-bold"></use>
+							</svg>
+						</span>
+						<span
+							className="tool-item"
+							onMouseDown={(event) => {
+								event.preventDefault();
+								CustomEditor.toggleCodeBlock(editor);
+							}}
+						>
+							{/* <i className="iconfont iconcode-view"></i> */}
+							<svg className="slate-iconfont" aria-hidden="true">
+								<use xlinkHref="#icon-code-view"></use>
+							</svg>
+						</span>
+						<ItalicEditor editor={editor} />
+						<UnderlineEditor editor={editor} />
+						<StrikeEditor editor={editor} />
+						<SupEditor editor={editor} />
+						<SubEditor editor={editor} />
+						<CheckListsEditor editor={editor} />
+						{/* <BrEditor editor={editor} /> */}
+
+						<AttUpload editor={editor} />
+
+
+
+						<LinkEditor editor={editor} />
+						<TableEditor editor={editor} />
+
+						<UnorderedEditor editor={editor} />
+						<DividerEditor editor={editor} />
+						<IndentEditor editor={editor} />
+						<Emoji editor={editor} />
+
+						<AlignEditor editor={editor} />
+						<ColorEditor editor={editor} />
+						<BackgroundColor editor={editor} />
+						<HeadEditor editor={editor} />
+						<FontSize editor={editor} />
+						<LineHeightEditor editor={editor} />
+					</div>
+
+					<Editable
+						renderElement={useCallback(renderElement, [])}
+						renderLeaf={renderLeaf}
+						className="edit-box"
+						style={{ minHeight: minHeight }}
+					// readOnly= {showMenu}
+					/>
+				</Slate>
+			</div>
+
 			
-			<Editable 
-				renderElement={useCallback(renderElement, [])} 
-				renderLeaf={renderLeaf} 
-				className="edit-box" 
-				style={{minHeight: minHeight}}
-				// readOnly= {showMenu}
-			/>
-		</Slate>
+		</div>
+
 	);
 };
 export default inject('slatestore')(observer(DocumentEditor))
