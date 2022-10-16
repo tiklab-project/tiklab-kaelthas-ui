@@ -101,6 +101,9 @@
         "webpack-parallel-uglify-plugin": "^1.1.2"
     },
     "dependencies": {
+        "codemirror": "^5.65.9",
+        "react-codemirror": "^1.0.0",
+        "react-codemirror2": "^7.2.1",
         "slate": "^0.81.0",
         "slate-history": "^0.65.3",
         "slate-react": "^0.81.0"

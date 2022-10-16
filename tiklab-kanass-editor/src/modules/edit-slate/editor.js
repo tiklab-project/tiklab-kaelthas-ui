@@ -1,13 +1,15 @@
 import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect } from "react";
-import { createEditor, Transforms, Editor, Text, Node } from "slate";
+import { createEditor, Transforms, Editor, Text, Location, PointRef } from "slate";
 import "./editor.scss";
 // Import the Slate components and React plugin.
-import { Slate, Editable, withReact, ReactEditor } from "slate-react";
+import { Slate, Editable, withReact, ReactEditor, useSlateStatic } from "slate-react";
+
 import AttUpload from "./upload";
 import ColorEditor from "./color"
 import HeadEditor from "./head"
 import FontSize from "./fontSize"
 import ItalicEditor from "./italic"
+import CodeEditor from "./code"
 import UnderlineEditor from "./underline"
 import StrikeEditor from "./strike"
 import LineHeightEditor from "./lineHeight"
@@ -27,7 +29,9 @@ import renderElement from "./renderElement"
 import Leaf from "./leaf"
 import withTables from "./table/table/withTables"
 import SupEditor from "./sup"
-import SubEditor from "./sub"
+import SubEditor from "./sub";
+import CodeBlock from "./codeBlock"
+
 const CustomEditor = {
 	isBoldMarkActive(editor) {
 		const [match] = Editor.nodes(editor, {
@@ -150,109 +154,136 @@ const DocumentEditor = (props) => {
 	const jump = (id) => {
 		document.getElementById(id).scrollIntoView(true);
 	}
-	const categray = (item) => {
+	const categray = (item, index) => {
 		let head = setTree();
 		switch (item.head) {
 			case "h1":
-				return <div key={item.id} className="categray-list" style={{ paddingLeft: head[0] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="categray-list" style={{ paddingLeft: head[0] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h2":
-				return <div key={item.id} style={{ paddingLeft: head[1] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} style={{ paddingLeft: head[1] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h3":
-				return <div  key={item.id} style={{ paddingLeft: head[2] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} style={{ paddingLeft: head[2] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h4":
-				return <div  key={item.id} style={{ paddingLeft: head[3] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} style={{ paddingLeft: head[3] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h5":
-				return <div  key={item.id} style={{ paddingLeft: head[4] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} style={{ paddingLeft: head[4] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h6":
-				return <div  key={item.id} style={{ paddingLeft: head[5] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} style={{ paddingLeft: head[5] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+		}
+	}
+
+	const clickKey = (event) => {
+		switch (event.keyCode) {
+			case 13:
+				const [match] = Editor.nodes(editor, {
+					match: n => n.type === 'head',
+				})
+				if (!!match) {
+					Transforms.setNodes(
+						editor,
+						{ type: !!match ? null : 'paragraph' },
+						{ match: n => Editor.isBlock(editor, Editor) }
+					)
+				}
+				break;
+			default:
+				break;
 		}
 	}
 
 	return (
-		<div className="edit">
-			<div>
-				<Slate
-					editor={editor}
-					value={value}
-					onChange={(value) => onChange(value)}
-				// onChange={(value) => setValue(value)}
-				>
-					<div className="edit-toolbar">
-						<span
-							className="tool-item"
-							onMouseDown={(event) => {
-								event.preventDefault();
-								CustomEditor.toggleBoldMark(editor);
-							}}
-						>
-							{/* <i className="iconfont iconbold"></i> */}
-							<svg className="slate-iconfont" aria-hidden="true">
-								<use xlinkHref="#icon-bold"></use>
-							</svg>
-						</span>
-						<span
+		<Fragment>
+			<div className="edit">
+				<div>
+					<Slate
+						editor={editor}
+						value={value}
+						onChange={(value) => onChange(value)}
+
+					// onChange={(value) => setValue(value)}
+					>
+						<div className="edit-toolbar">
+							<span
+								className="tool-item"
+								onMouseDown={(event) => {
+									event.preventDefault();
+									CustomEditor.toggleBoldMark(editor);
+								}}
+							>
+								{/* <i className="iconfont iconbold"></i> */}
+								<svg className="slate-iconfont" aria-hidden="true">
+									<use xlinkHref="#icon-bold"></use>
+								</svg>
+							</span>
+							{/* <span
 							className="tool-item"
 							onMouseDown={(event) => {
 								event.preventDefault();
 								CustomEditor.toggleCodeBlock(editor);
 							}}
 						>
-							{/* <i className="iconfont iconcode-view"></i> */}
 							<svg className="slate-iconfont" aria-hidden="true">
 								<use xlinkHref="#icon-code-view"></use>
 							</svg>
-						</span>
-						<ItalicEditor editor={editor} />
-						<UnderlineEditor editor={editor} />
-						<StrikeEditor editor={editor} />
-						<SupEditor editor={editor} />
-						<SubEditor editor={editor} />
-						<CheckListsEditor editor={editor} />
-						{/* <BrEditor editor={editor} /> */}
+						</span> */}
+							<CodeEditor editor={editor} />
+							<ItalicEditor editor={editor} />
+							<UnderlineEditor editor={editor} />
+							<StrikeEditor editor={editor} />
+							<SupEditor editor={editor} />
+							<SubEditor editor={editor} />
+							<CheckListsEditor editor={editor} />
+							{/* <BrEditor editor={editor} /> */}
 
-						<AttUpload editor={editor} />
+							<AttUpload editor={editor} />
 
 
 
-						<LinkEditor editor={editor} />
-						<TableEditor editor={editor} />
+							<LinkEditor editor={editor} />
+							<TableEditor editor={editor} />
 
-						<UnorderedEditor editor={editor} />
-						<DividerEditor editor={editor} />
-						<IndentEditor editor={editor} />
-						<Emoji editor={editor} />
+							<UnorderedEditor editor={editor} />
+							<DividerEditor editor={editor} />
+							<IndentEditor editor={editor} />
+							<Emoji editor={editor} />
 
-						<AlignEditor editor={editor} />
-						<ColorEditor editor={editor} />
-						<BackgroundColor editor={editor} />
-						<HeadEditor editor={editor} editorValue={value} />
-						<FontSize editor={editor} />
-						<LineHeightEditor editor={editor} />
-					</div>
+							<AlignEditor editor={editor} />
+							<ColorEditor editor={editor} />
+							<BackgroundColor editor={editor} />
+							<HeadEditor editor={editor} editorValue={value} />
+							<FontSize editor={editor} />
+							<LineHeightEditor editor={editor} />
+						</div>
 
-					<Editable
-						renderElement={useCallback(renderElement, [])}
-						renderLeaf={renderLeaf}
-						className="edit-box"
-						style={{ minHeight: minHeight }}
-					// readOnly= {showMenu}
-					/>
-				</Slate>
-			</div>
-			<div className="edit-catalog">
-				<div className="catelog-title">目录</div>
-				<div>
-					{
-						value && value.length > 0 && value.map(item => {
-							if (item.type === "head") {
-								return categray(item)
-							}
-						})
-					}
+						<Editable
+							renderElement={useCallback((props) => renderElement(props, editor), [])}
+							renderLeaf={renderLeaf}
+							className="edit-box"
+							style={{ minHeight: minHeight }}
+							onKeyUp={event => clickKey(event)}
+							onFocus = {() => console.log(editor, Location, PointRef.current)}
+						// readOnly= {sh owMenu}
+						/>
+					</Slate>
 				</div>
+				<div className="edit-catalog">
+					<div className="catelog-title">目录</div>
+					<div>
+						{
+							value && value.length > 0 && value.map((item, index) => {
+								if (item.type === "head") {
+									return categray(item, index)
+								} else {
+									return null
+								}
+							})
+						}
+					</div>
+				</div>
+				
 			</div>
+		</Fragment>
 
-		</div>
 
 	);
 };

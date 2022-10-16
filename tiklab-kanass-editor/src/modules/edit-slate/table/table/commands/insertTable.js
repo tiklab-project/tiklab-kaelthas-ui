@@ -34,7 +34,7 @@ export const insertTable = (editor, row, col) => {
 	// 	}
 	// }
 	const table = createTable(parseInt(col), parseInt(row));
-	Transforms.insertNodes(editor, [table, { type: "paragraph", children: [{ text: "weweewrwr3333" }] }]);
+	Transforms.insertNodes(editor, [table, { type: "paragraph", children: [{ text: "" }]}]);
 	// editor.insertBreak()
 	// Transforms.insertNodes(
 	// 	editor,

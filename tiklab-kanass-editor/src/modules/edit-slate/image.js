@@ -95,7 +95,6 @@ const ImageEditor = (props) => {
             <span className="tool-item" 
                 onMouseDown = {(event) => 
                     {
-                        
                         insertImage(editor)
                     }
                 }
