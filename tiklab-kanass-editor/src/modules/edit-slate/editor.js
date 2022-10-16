@@ -108,14 +108,68 @@ const DocumentEditor = (props) => {
 		}
 
 	}, [])
+
+	const setTree = () => {
+		let paddingHead = [0, 0, 0, 0, 0, 0]
+
+		const heads = value.filter(item => item.type === "head")
+		heads.map(item => {
+			switch (item.head) {
+				case "h1":
+					paddingHead[0] = 1;
+					break;
+				case "h2":
+					paddingHead[1] = 1;
+					break;
+				case "h3":
+					paddingHead[2] = 1;
+					break;
+				case "h4":
+					paddingHead[3] = 1;
+					break;
+				case "h5":
+					paddingHead[4] = 1;
+					break;
+				case "h6":
+					paddingHead[5] = 1;
+					break;
+				default:
+					break;
+			}
+		});
+		let paddingLength = [0, 0, 0, 0, 0, 0];
+		paddingLength[0] = paddingHead[0];
+		paddingLength[1] = paddingLength[0] + paddingHead[1];
+		paddingLength[2] = paddingLength[1] + paddingHead[2];
+		paddingLength[3] = paddingLength[2] + paddingHead[3];
+		paddingLength[4] = paddingLength[3] + paddingHead[4];
+		paddingLength[5] = paddingLength[4] + paddingHead[5];
+		return paddingLength;
+	}
+
+	const jump = (id) => {
+		document.getElementById(id).scrollIntoView(true);
+	}
+	const categray = (item) => {
+		let head = setTree();
+		switch (item.head) {
+			case "h1":
+				return <div key={item.id} className="categray-list" style={{ paddingLeft: head[0] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+			case "h2":
+				return <div key={item.id} style={{ paddingLeft: head[1] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+			case "h3":
+				return <div  key={item.id} style={{ paddingLeft: head[2] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+			case "h4":
+				return <div  key={item.id} style={{ paddingLeft: head[3] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+			case "h5":
+				return <div  key={item.id} style={{ paddingLeft: head[4] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+			case "h6":
+				return <div  key={item.id} style={{ paddingLeft: head[5] * 10 }} onClick = {() => jump(item.id)}>{item.children[0].text}</div>
+		}
+	}
+
 	return (
 		<div className="edit">
-			<div className="edit-catalog">
-				<div className="catelog-title">目录</div>
-				<div>
-					
-				</div>
-			</div>
 			<div>
 				<Slate
 					editor={editor}
@@ -171,7 +225,7 @@ const DocumentEditor = (props) => {
 						<AlignEditor editor={editor} />
 						<ColorEditor editor={editor} />
 						<BackgroundColor editor={editor} />
-						<HeadEditor editor={editor} />
+						<HeadEditor editor={editor} editorValue={value} />
 						<FontSize editor={editor} />
 						<LineHeightEditor editor={editor} />
 					</div>
@@ -185,8 +239,19 @@ const DocumentEditor = (props) => {
 					/>
 				</Slate>
 			</div>
+			<div className="edit-catalog">
+				<div className="catelog-title">目录</div>
+				<div>
+					{
+						value && value.length > 0 && value.map(item => {
+							if (item.type === "head") {
+								return categray(item)
+							}
+						})
+					}
+				</div>
+			</div>
 
-			
 		</div>
 
 	);

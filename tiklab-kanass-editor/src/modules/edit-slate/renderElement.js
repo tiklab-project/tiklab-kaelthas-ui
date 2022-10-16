@@ -33,7 +33,7 @@ const renderElement = (props) => {
         case "code":
             return <CodeElement {...props} />;
         case "head":
-            return <HeadElement {...props} head={element.head} />;
+            return <HeadElement {...props} head={element.head} id = {element.id}/>;
         case "link":
             return <a {...attributes} href={element.url}>{children}</a>;
         case "image":

@@ -11,27 +11,33 @@ import { Editor, Range, Transforms } from 'slate';
 import { createTable } from '../withTables';
 
 export const insertTable = (editor, row, col) => {
-  const { selection } = editor;
+	const { selection } = editor;
 
-  if (!selection) {
-    return;
-  }
+	if (!selection) {
+		return;
+	}
 
-  const node = Editor.above(editor, {
-    match: (n) => n.childrenType === 'table',
-  });
+	const node = Editor.above(editor, {
+		match: (n) => n.childrenType === 'table',
+	});
 
-  const isCollapsed = Range.isCollapsed(selection);
+	const isCollapsed = Range.isCollapsed(selection);
 
-  if (!node && isCollapsed) {
-    debugger
-    const table = createTable(parseInt(col), parseInt(row));
+	// if (!node && isCollapsed) {
+	// 	const table = createTable(parseInt(col), parseInt(row));
 
-    Transforms.insertNodes(editor, table);
-
-    const nextNode = Editor.next(editor, { at: selection });
-    if (nextNode) {
-      Transforms.select(editor, nextNode[1]);
-    }
-  }
+	// 	Transforms.insertNodes(editor, table);
+		
+	// 	const nextNode = Editor.next(editor, { at: selection });
+	// 	if (nextNode) {
+	// 		Transforms.select(editor, nextNode[1]);
+	// 	}
+	// }
+	const table = createTable(parseInt(col), parseInt(row));
+	Transforms.insertNodes(editor, [table, { type: "paragraph", children: [{ text: "weweewrwr3333" }] }]);
+	// editor.insertBreak()
+	// Transforms.insertNodes(
+	// 	editor,
+	// 	{ type: "paragraph", children: [{ text: "weweewrwr3333" }] }
+	// );
 };

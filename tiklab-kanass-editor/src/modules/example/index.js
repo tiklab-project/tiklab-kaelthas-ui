@@ -35,7 +35,7 @@ const ExampleEditor = () => {
     }
     return (
         <Fragment>
-             <div onClick={() => {setShowMenu(!showMenu)}}>确定</div>
+            <div onClick={() => {setShowMenu(!showMenu)}}>确定</div>
            {/* <PreviewEditor value = {value} 
                     onChange = {setValue} />  */}
             <Editor 

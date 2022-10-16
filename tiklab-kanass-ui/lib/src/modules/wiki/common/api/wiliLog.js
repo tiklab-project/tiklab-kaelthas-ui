@@ -110,7 +110,7 @@ function FindCategoryDocument(data) {
 
 function FindDmPrjRolePage(data) {
   return tiklabCoreUi.Axios.request({
-    url: "/dmUser/findDmUserPage",
+    url: "/user/dmUser/findDmUserPage",
     method: "post",
     data: data
   });

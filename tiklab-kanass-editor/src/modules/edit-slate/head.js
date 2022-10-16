@@ -15,14 +15,14 @@
  * @LastEditTime: 2021-08-16 16:10:30
  */
 import React,{ useState } from "react";
-import { Transforms, Editor, Element as SlateElement, } from "slate";
+import { Transforms, Editor, Text, Element as SlateElement, } from "slate";
 import { Divider, Select } from 'antd';
 import "./head.scss"
 import { inject,observer } from "mobx-react";
 const { Option } = Select;
 
 const HeadEditor = (props) => {
-    const {editor, slatestore} = props;
+    const {editor, slatestore, editorValue} = props;
     const {editorType,setEditorType} = slatestore;
     // const [isVisible,setIsVisible] = useState(false)
     const showBox = (event) => {
@@ -41,36 +41,74 @@ const HeadEditor = (props) => {
 
     // 富文本方法
     const CustomEditor = {
-        isHeadMarkActive(editor) {
+        isHeadMarkActive(editor, value) {
             const [match] = Editor.nodes(editor, {
-                match: (n) => n.head === true,
+                match: (n) => n.type === "head" && n.head === value,
                 universal: true,
             });
     
             return !!match;
         },
         toggleHeadMark(editor,value) {
+            const isActive = CustomEditor.isHeadMarkActive(editor, value);
             
-            const isActive = CustomEditor.isHeadMarkActive(editor);
-            
-            Transforms.unwrapNodes(editor, {
-                match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && (n.type === "numbered-list" || n.type === "bulleted-list" ),
-                split: true,
-            })
+            // Transforms.unwrapNodes(editor, {
+            //     match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === "head",
+            //     split: true,
+            // })
+
+            if (!isActive && value !== "p") {
+                const block = { type: "head", children: [] }
+                const uuid = (Math.random() + new Date().getTime()).toString(32).slice(0,8)
+                // Transforms.wrapNodes(editor, block);
+                Transforms.setNodes(
+                    editor,
+                    { type: "head", head: value, id: uuid}
+                    // { match: (n) =>  Editor.isBlock(editor, n) }
+                );
+                // Transforms.wrapNodes(editor, block)
+            }else {
+                Transforms.setNodes(
+                    editor,
+                    {type: "paragraph"},
+                    { match: (n) =>  Editor.isBlock(editor, n)}
+                );
+            }
+            setEditorType("")
+        }
+    }
+
+    const selectContent= (value) => {
+        CustomContentEditor.togglContentMark(editor,value)
+    }
+
+    // 富文本方法
+    const CustomContentEditor = {
+        isContentMarkActive(editor) {
+            const [match] = Editor.nodes(editor, {
+                match: (n) => n.paragraph === true,
+                universal: true,
+            });
+    
+            return !!match;
+        },
+        togglContentMark(editor,value) {
+            const isActive = CustomContentEditor.isContentMarkActive(editor);
 
             Transforms.setNodes(
                 editor,
-                { type: isActive ? null : "head", head: value},
+                { type: isActive ? null : "paragraph", paragraph: value},
                 { match: (n) =>  Editor.isBlock(editor, n) }
             );
 
             if (!isActive) {
-                const block = { type: "head", children: [] }
+                const block = { type: "paragraph", children: [] }
                 Transforms.wrapNodes(editor, block)
             }
             setEditorType("")
         }
     }
+
 
     return (
         <div className="head-editor" key="head">
@@ -90,7 +128,7 @@ const HeadEditor = (props) => {
                     <div className="head-item" key = "h4" onMouseDown = {()=> selectHead("h4")}><h4>标题4</h4></div>
                     <div className="head-item" key = "h5" onMouseDown = {()=> selectHead("h5")}><h5>标题5</h5></div>
                     <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("h6")}><h6>标题6</h6></div>
-                    <div className="head-item" key = "h6" onMouseDown = {()=> selectHead("p")}><h6>正文</h6></div>
+                    <div className="head-item" key = "p" onMouseDown = {()=> selectHead("p")}><h6>正文</h6></div>
                 </div>
             }
         </div>
