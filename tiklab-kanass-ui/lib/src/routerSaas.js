@@ -35,7 +35,14 @@ var Home = SyncComponent["default"](function () {
 var Index = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/home/components/portal.js'));
+      resolve(require('./modules/home/components/portal'));
+    });
+  });
+});
+var WorkBench = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require("./modules/home/components/workBench"));
     });
   });
 });
@@ -239,7 +246,42 @@ var WikiMessageManagement = SyncComponent["default"](function () {
     });
   });
 });
-var routesSaas = [{
+var TaskListContent = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/todo/taskList.js'));
+    });
+  });
+});
+var TodoTempListContent = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/todo/todoTempList'));
+    });
+  });
+});
+var MyTodoTaskContent = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/todo/myTodoTask'));
+    });
+  });
+});
+var LogList = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/log/log.js'));
+    });
+  });
+});
+var LogTemplateList = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/log/myLogTemplateList'));
+    });
+  });
+});
+var routes = [{
   path: "/login",
   exact: true,
   component: Login
@@ -273,6 +315,10 @@ var routesSaas = [{
     exact: true,
     component: Template,
     key: 'template'
+  }, {
+    path: "/index/workBench",
+    exact: true,
+    component: WorkBench
   }, {
     path: "/index/userMessage",
     exact: true,
@@ -358,6 +404,26 @@ var routesSaas = [{
       path: "/index/sysmgr/messageSendType",
       component: WikiMessageSendType,
       exact: true
+    }, {
+      path: "/index/sysmgr/taskList",
+      component: TaskListContent,
+      exact: true
+    }, {
+      path: "/index/sysmgr/myTodoTask",
+      component: MyTodoTaskContent,
+      exact: true
+    }, {
+      path: "/index/sysmgr/todoTempList",
+      component: TodoTempListContent,
+      exact: true
+    }, {
+      path: "/index/sysmgr/logList",
+      component: LogList,
+      exact: true
+    }, {
+      path: "/index/sysmgr/myLogTemplateList",
+      component: LogTemplateList,
+      exact: true
     }]
   }, {
     path: "/index/organ",
@@ -384,7 +450,7 @@ var routesSaas = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 245,
+        lineNumber: 283,
         columnNumber: 26
       }
     });
@@ -392,4 +458,4 @@ var routesSaas = [{
   exact: true
 }];
 
-exports["default"] = routesSaas;
+exports["default"] = routes;

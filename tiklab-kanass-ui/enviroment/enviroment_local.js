@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-12-20 10:57:28
  */
-const api =  'http://127.0.0.1:8060/';
+const api =  'http://192.168.10.17:8060/';
 const base_url = JSON.stringify(api);
 
 

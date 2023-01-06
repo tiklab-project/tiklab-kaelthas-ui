@@ -11,6 +11,7 @@ import { UserList} from 'tiklab-user-ui';
 const OrgaUser = props => {
     return (
         <UserList
+            bgroup = "teamwire"
             {...props}
         />
     )

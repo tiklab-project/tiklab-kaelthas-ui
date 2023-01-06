@@ -74,6 +74,33 @@
             "tiklab-licence-ui"
         ],
         [
+            "import",
+            {
+                "libraryName": "tiklab-todotask-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "tiklab-todotask-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "tiklab-oplog-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "tiklab-oplog-ui"
+        ],
+        [
+            "import",
+            {
+                "libraryName": "tiklab-widget-ui",
+                "libraryDirectory": "es",
+                "style": true
+            },
+            "tiklab-widget-ui"
+        ],
+        [
             "@babel/plugin-proposal-decorators",
             {
                 "legacy": true

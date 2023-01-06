@@ -7,7 +7,7 @@ var _verifyUserHoc = require('tiklab-eam-ui/es/verify-user-hoc');
 require('tiklab-eam-ui/es/use-work-app-config/style');
 var _useWorkAppConfig3 = require('tiklab-eam-ui/es/use-work-app-config');
 var React = require('react');
-var logo = require('../../../assets/images/logo.png.js');
+var logo_k = require('../../../assets/images/logo_k.png.js');
 var reactRouterConfig = require('react-router-config');
 var localHeader = require('./localHeader.js');
 require('./header.scss.js');
@@ -86,7 +86,7 @@ var Portal = function Portal(props) {
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(localHeader["default"], _extends({}, props, {
-    logo: logo["default"],
+    logo: logo_k["default"],
     AppConfigComponent: component,
     projectLogout: projectLogout,
     search: /*#__PURE__*/React__default["default"].createElement(search["default"], _extends({}, props, {

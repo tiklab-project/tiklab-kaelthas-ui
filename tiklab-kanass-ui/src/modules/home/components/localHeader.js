@@ -6,79 +6,137 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-25 10:16:03
  */
-import React, {useState} from 'react';
-import {useTranslation} from "react-i18next";
-import {Col, Row, Dropdown, Menu, Button,Badge,Avatar,Space} from "antd";
+import React, { useState } from 'react';
+import { useTranslation } from "react-i18next";
+import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
-import { MessageOutlined,DownOutlined } from '@ant-design/icons';
+
 import { getVersionInfo, getUser } from 'tiklab-core-ui';
-import vipOne from "../../../assets/images/vip-one.png";
-import vipTwo from "../../../assets/images/vip-two.png"
+import Message from "./message"
+import { observer, inject } from "mobx-react";
+import { WorkAppConfig } from 'tiklab-eam-ui';
+import { Profile } from "tiklab-eam-ui"
+import { useEffect } from 'react';
+
+
 const Header = props => {
     const {
         logo,
-        AppConfigComponent,
         languageSelectData = [], // 切换语言包的数据
-        projectLogout,
-        routers
+        routers,
+        homeStore
     } = props;
-    const [currentLink, setCurrentLink] = useState(props.location.pathname);
 
-    const loginType = getUser().loginType;
+    const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/index/home") ? sessionStorage.getItem("menuKey") : "home";
+
+    useEffect(() => {
+        
+    }, [])
+
+    const { currentLink, setCurrentLink } = homeStore;
+
     const { i18n } = useTranslation();
-    
+
     const [lan, setLan] = useState(i18n.language);
     
-    const isEE = getVersionInfo().release;
-    const isLocal = JSON.parse(localStorage.getItem("authConfig")).authType;
-    const eeText = isEE === 2 ? vipTwo : vipOne;
-    const local = isLocal === "local" ? "本地" : "acc";
-    const path = props.location.pathname;
     const onClickLan = ({ key }) => {
         i18n.changeLanguage(languageSelectData[key].value)
         setLan(languageSelectData[key].value)
     };
 
+    const [showLanguage, setShowLanguage] = useState(false);
+
+    const user = getUser();
+
     const changeCurrentLink = item => {
-        setCurrentLink(item.to)
+        localStorage.removeItem("sprintId")
         props.history.push(item.to)
+        setCurrentLink(item.key)
+        sessionStorage.setItem("menuKey", item.key)
     }
 
     const renderRouter = () => {
         if (routers) {
             return (
                 <div className={'frame-header-link'}>
-                    <div key='home' onClick={ () => changeCurrentLink(routers[0])} className={`frame-header-link-item ${path.indexOf("home") !== -1? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
-                    <div key='wiki' onClick={ () => changeCurrentLink(routers[1])} className={`frame-header-link-item ${path.indexOf("wiki") !== -1 ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
-                    {/* <div key='program' onClick={ () => changeCurrentLink(routers[2])} className={`frame-header-link-item ${currentLink === routers[2].to ? 'frame-header-link-active' : null}`}> {routers[2].title}</div> */}
-                    {/* <div key='log' onClick={ () => changeCurrentLink(routers[3])} className={`frame-header-link-item ${currentLink.indexOf("/index/log") !== -1 ? 'frame-header-link-active' : null}`}> {routers[3].title}</div> */}
+                    <div key='home' onClick={() => changeCurrentLink(routers[0])} className={`frame-header-link-item ${menuKey === "home" ? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
+                    <div key='wiki' onClick={() => changeCurrentLink(routers[1])} className={`frame-header-link-item ${menuKey === "wiki" ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
                 </div>
             )
         }
     }
 
+
+    const logOut = () => {
+        props.history.push({
+            pathname: '/logout',
+            state: window.location.href
+        })
+    }
+
     const useMenu = (
-        <Menu>
-            <Menu.Item key="0" onClick={() => projectLogout()}>
-                <div>退出</div>
-            </Menu.Item>
-        </Menu>
+        <div className="user-box">
+            <div className='user-head'>
+                个人资料
+            </div>
+            <div className='user-info'>
+                <Profile />
+                <div className='user-info-text'>
+                    <div className='user-info-name'>{user.name}</div>
+                    <div className='user-info-email'>{user.phone || "暂无"}</div>
+                </div>
+            </div>
+            <div 
+                className= "user-language" 
+                onMouseEnter={() => setShowLanguage(true)}
+                onMouseLeave={() => setShowLanguage(false)}
+            >
+                <div 
+                    className="language-text"
+                    
+                >   
+                <div className="language-left">
+                   <svg aria-hidden="true" className="svg-icon" fill="#fff">
+                        <use xlinkHref="#icon-yuyan"></use>
+                    </svg>
+                    语言切换  
+                </div>
+                    
+                    <svg aria-hidden="true" className="svg-icon" fill="#fff">
+                        <use xlinkHref="#icon-right">
+
+                        </use>
+                    </svg>
+                </div>
+                {
+                    showLanguage && <div className= "language-box">
+                        <div className="language-box-item language-box-select">
+                            中文
+                        </div>
+                        <div className="language-box-item">
+                            英文
+                        </div>
+                    </div>
+                }
+                
+            </div>
+            <div onClick={logOut} className='user-logout'>
+                <svg aria-hidden="true" className="svg-icon">
+                    <use xlinkHref="#icon-logout"></use>
+                </svg>
+                退出
+            </div>
+        </div>
     );
 
-    const setMenu = (
-        <Menu>
-            <Menu.Item key="0">
-                <div onClick={() => goSet("/index/organ/organ")}>帐号与成员</div>
-            </Menu.Item>
-            <Menu.Item key="1" >
-                <div onClick={() => goSet("/index/sysmgr/systemFeature")}>系统设置</div>
-            </Menu.Item>
-        </Menu>
-    );
+
     const goSet = (url) => {
         props.history.push(url)
         setCurrentLink("set")
-    }
+        sessionStorage.setItem("menuKey", "set")
+    };
+
+
     const languageMenu = (
         <Menu>
             <Menu.Item key="0">
@@ -90,12 +148,68 @@ const Header = props => {
         </Menu>
     );
 
-    return(
+    const helpMenu = (
+        <div className="help-box">
+            <div className="help-head">
+                帮助
+            </div>
+            <div className="help-item">
+                <span className="help-item-left">
+                    <svg aria-hidden="true" className="svg-icon">
+                        <use xlinkHref="#icon-doc"></use>
+                    </svg>
+                    文档
+                </span>
+
+                <svg aria-hidden="true" className="svg-icon">
+                    <use xlinkHref="#icon-jump"></use>
+                </svg>
+            </div>
+            <div className="help-item">
+                <span className="help-item-left">
+                    <svg aria-hidden="true" className="svg-icon">
+                        <use xlinkHref="#icon-cuservice"></use>
+                    </svg>
+                    社区支持
+                </span>
+
+                <svg aria-hidden="true" className="svg-icon">
+                    <use xlinkHref="#icon-jump"></use>
+                </svg>
+            </div>
+            <div className="help-item">
+                <span className="help-item-left">
+                    <svg aria-hidden="true" className="svg-icon">
+                        <use xlinkHref="#icon-workorder"></use>
+                    </svg>
+                    在线工单
+                </span>
+
+                <svg aria-hidden="true" className="svg-icon">
+                    <use xlinkHref="#icon-jump"></use>
+                </svg>
+            </div>
+            <div className="help-item">
+                <span className="help-item-left">
+                    <svg aria-hidden="true" className="svg-icon">
+                        <use xlinkHref="#icon-community"></use>
+                    </svg>
+                    在线客服
+                </span>
+
+                <svg aria-hidden="true" className="svg-icon">
+                    <use xlinkHref="#icon-jump"></use>
+                </svg>
+            </div>
+        </div>
+    )
+
+    return (
         <Row className="frame-header">
             <Col span={12}>
-                <div className={'frame-header-right'}>
-                    {AppConfigComponent}
-                    {logo && <div className={'frame-header-logo'}><img src={logo} alt={'logo'} /></div> }
+                <div className={'frame-header-left'}>
+                    <WorkAppConfig isSSO={false} />
+                    {logo && <div className={'frame-header-logo'}><img src={logo} alt={'logo'} /></div>}
                     {renderRouter()}
                 </div>
             </Col>
@@ -105,53 +219,42 @@ const Header = props => {
                         {props.search}
                     </div>
                     <div className={'frame-header-right-text'}>
-                        
-                        <a href="#/index/userMessage">
-                            <Badge count={5} size="small">
-                                <Avatar size="small" style={{ background: "transparent",fontSize: "22px"}} icon={<MessageOutlined />} />
-                            </Badge>
-                        </a>
-                        
-                        <div className= "frame-header-language">
-                            <Dropdown overlay={languageMenu}>
+                        <div className="frame-header-icon">
+                            <div className="frame-header-set" data-title="系统设置" onClick={() => goSet("/index/setting/organ")}>
                                 <Space>
-                                    <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                        <use xlinkHref="#icon-language"></use>
+                                    <svg aria-hidden="true" className="header-icon">
+                                        <use xlinkHref="#icon-iconsetsys"></use>
                                     </svg>
                                 </Space>
-                            </Dropdown>
+                            </div>
                         </div>
-                        <div className= "frame-header-set">
-                            {/* <Dropdown overlay={setMenu}>
-                                <Space>
-                                    
-                                </Space>
-                            </Dropdown> */}
-                            <svg aria-hidden="true" style={{width: "25px", height: "25px"}} onClick={() => goSet("/index/sysmgr/systemFeature")}>
-                                <use xlinkHref="#icon-shezhi"></use>
-                            </svg>
-                        </div>
-                        <div className = "frame-header-user">
-                            <svg aria-hidden="true" style={{width: "28px", height: "28px"}}>
-                                <use xlinkHref="#icon-touxiang"></use>
-                            </svg>
-                            <div className="frame-header-name">
-                                <Dropdown overlay={useMenu}>
+                        <Message />
+                        <div className="frame-header-icon">
+                            <div className="frame-header-help" data-title="帮助与支持">
+                                <Dropdown overlay={helpMenu} trigger={"click"}>
                                     <Space>
-                                        { getUser().name }
-                                        <DownOutlined />
+                                        <svg aria-hidden="true" className="header-icon" style = {{stroke:'#fff'}} >
+                                            <use xlinkHref="#icon-help"></use>
+                                        </svg>
                                     </Space>
                                 </Dropdown>
                             </div>
-                            
                         </div>
-                        <span style={{marginRight: "20px"}}>
-                            <img src={eeText} alt="" width = "20px" height= "20px" />
-                        </span>
+
+                        <div className="frame-header-icon">
+                            <div className="frame-header-name" data-title="个人资料与设置">
+                                <Dropdown overlay={useMenu} trigger={"click"}>
+                                    <Space>
+                                        <Profile />
+                                    </Space>
+                                </Dropdown>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Col>
+            
         </Row>
     )
 }
-export default withRouter(Header);
+export default withRouter(inject('homeStore')(observer(Header)));

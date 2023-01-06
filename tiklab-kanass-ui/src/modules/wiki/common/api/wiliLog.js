@@ -114,7 +114,7 @@ export function FindCategoryDocument(data){
 // 根据id 查找知识库成员
 export function FindDmPrjRolePage(data){
     return service.request({
-        url: "/user/dmUser/findDmUserPage",
+        url: "/dmUser/findDmUserPage",
         method: "post",
         data
     })

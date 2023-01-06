@@ -1,27 +1,25 @@
 /*
- * @Descripttion: 
+ * @Descripttion: 页面主题框架
  * @version: 1.0.0
  * @Author: 袁婕轩
  * @Date: 2020-12-18 16:05:16
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2022-01-20 13:34:14
+ * @LastEditTime: 2022-04-25 16:14:15
  */
-import React, { Fragment } from 'react';
-import logo from "../../../assets/images/logo_k.png";
+import React, { useEffect, useState } from 'react';
+import logo from "../../../assets/images/logo_k3.png";
 import { renderRoutes } from "react-router-config";
-import LocalHeader  from "./localHeader";
-import "./header.scss";
-import Search from '../../search/components/search';
-import { useWorkAppConfig, verifyUserHoc } from 'tiklab-eam-ui';
+import LocalHeader from "./localHeader";
+import "../components/header.scss";
+
+import { WorkAppConfig, verifyUserHoc } from 'tiklab-eam-ui';
 import { connect } from 'tiklab-plugin-ui/es/_utils';
+import Search from "../../search/components/search";
 
-import apiboxImg from 'tiklab-eam-ui/es/assests/img/apibox.png';
-import jenkinsImg from 'tiklab-eam-ui/es/assests/img/jenkins.png';
-import knowledgeImg from 'tiklab-eam-ui/es/assests/img/apibox.png';
-import projectImg from 'tiklab-eam-ui/es/assests/img/project.png';
+const Layout = (props) => {
+    const route = props.route ? props.route.routes : [];
 
-const Portal = (props) => {
-    const headerRouter = [
+    const routers = [
         {
             to:'/index/home',
             title: '首页',
@@ -39,18 +37,12 @@ const Portal = (props) => {
         }
     ]
 
-    const productIcons = {
-        postin:apiboxImg,
-        teamwire:projectImg,
-        teston:jenkinsImg,
-        kanass:knowledgeImg
-    }
-    const [component, ModalComponent, editOrAddModal] = useWorkAppConfig(false, productIcons);
-    const route = props.route;
     const projectLogout = () => {
         props.history.push({
-            pathname:'/logout',
-            state: window.location.href
+            pathname: '/logout',
+            state:{
+                preRoute: props.location.pathname
+            }
         })
     }
 
@@ -59,21 +51,20 @@ const Portal = (props) => {
             <LocalHeader
                 {...props}
                 logo={logo}
-                AppConfigComponent={component}
                 projectLogout={projectLogout}
                 search={<Search {...props}/>}
-                routers={headerRouter}
-            />
-            <div>
-                {renderRoutes(route.routes)}
+                routers={routers}
+            >
+            </LocalHeader>
+            <div className="frame-content">
+                {renderRoutes(route)}
             </div>
-            {ModalComponent}
-            {editOrAddModal}
         </div>
     )
 }
 
-const IndexHoc = verifyUserHoc(Portal)
+
+const IndexHoc = verifyUserHoc(Layout, '/noAuth')
 function mapStateToProps(state) {
     return {
         pluginStore: state.pluginStore

@@ -8,10 +8,14 @@
  */
 import DocumentEditor from "./module/modules/edit-slate/editor";
 import PreviewEditor from "./module/modules/edit-slate/previewEditor";
+import EditorBigContent from "./module/modules/edit-slate/editorBigContent";
+import EditorBigMenu from "./module/modules/edit-slate/editorBigMenu";
 import {SlateStore, SLATE_STORE} from "./module/modules/edit-slate/store/slateStore";
 export {
     DocumentEditor,
     SlateStore,
     SLATE_STORE,
-    PreviewEditor
+    PreviewEditor,
+    EditorBigContent,
+    EditorBigMenu
 }

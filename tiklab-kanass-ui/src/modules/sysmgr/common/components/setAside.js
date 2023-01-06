@@ -4,42 +4,73 @@
  * @Author: 袁婕轩
  * @Date: 2021-06-01 13:24:51
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-12-20 16:31:16
+ * @LastEditTime: 2022-03-28 16:34:32
  */
 import React,{Fragment,useState,useEffect} from 'react';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import {withRouter} from "react-router-dom";
-import orgaRouter from "./setRouter"
-import {PrivilegeButton} from "tiklab-privilege-ui"
-const OrgaAside=(props)=>  {
+import {inject, observer} from "mobx-react";
+import {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter}  from "./setRouter"
+import { PLUGIN_STORE} from "tiklab-plugin-ui";
+//import "../../../../assets/font-icon/iconfont";
+
+const SetAside=(props)=>  {
     // 无子级菜单处理
-    const [selectKey,setSelectKey] = useState()
-    const select = (key)=>{
-        setSelectKey(key)
+    const [selectKey,setSelectKey] = useState("/index/organ/organ");
+   
+
+    //true 内嵌 false 统一
+    const authType = JSON.parse(localStorage.getItem("authConfig")).authType;
+    const authUrl = JSON.parse(localStorage.getItem("authConfig")).authUrl;
+    const [router,setRouterMenu] = useState(setDevEamRouter)
+    const select = (key,index)=>{
+
         props.history.push(key)
-        console.log(orgaRouter)
+        setSelectKey(key)
+        
     }
 
-    const renderMenu = (data,deep)=> {
+    useEffect(() => {
+        if(env === "local" && authType === true){
+            setRouterMenu(setDevEamRouter)
+        }
+        if(env === "local" && authType === false){
+            setRouterMenu(setDevRouter)
+        }
+        if(env !== "local" && authType === true){
+            setRouterMenu(setPrdEamRouter)
+        }
+        if(env !== "local" && authType === false){
+            setRouterMenu(setPrdRouter)
+        }
+
+        return 
+    },[])
+
+    const renderMenu = (data,deep,index)=> {
         return (
-            // <PrivilegeButton code={data.encoded} key={data.key}>
-                <li className={`orga-aside-li ${data.key=== selectKey ? "orga-aside-select" : ""}`}
-                    onClick={()=>select(data.key)}
-                    style={{paddingLeft: `${deep * 20 + 20}`, cursor: "pointer"}}
-                >   
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref={`#icon-${data.icon}`}></use>
-                    </svg>
-                    {data.title}
-                </li>
-            // </PrivilegeButton>
+            <li 
+                style={{cursor: "pointer",paddingLeft: `${deep * 20 + 20}`}} 
+                className={`orga-aside-li orga-aside-second ${data.key=== selectKey ? "orga-aside-select" : ""}`}
+                onClick={()=>select(data.key,index)}
+                key={data.code}
+                code={data.encoded}
+            >   
+            <span className = "orga-aside-item-left">
+
+                <svg className="svg-icon" aria-hidden="true">
+                    <use xlinkHref={`#icon-${data.icon}`}></use>
+                </svg>
+                <span>{data.title}</span>
+            </span>
+                
+            </li> 
         )
     }
     // 树的展开与闭合
-    const [expandedTree, setExpandedTree] = useState([])
+    const [expandedTree, setExpandedTree] = useState(["/index/organ/organ"])
 
     const isExpandedTree = (key) => {
-        
         return expandedTree.some(item => item ===key)
     }
 
@@ -48,68 +79,61 @@ const OrgaAside=(props)=>  {
             setExpandedTree(expandedTree.filter(item => item !== key))
         } else {
             setExpandedTree(expandedTree.concat(key))
-
         }
     }
 
-    const [level,setLevel] = useState(0)
-    // 子级菜单处理
-    
-    const renderSubMenu = ({title,key,children,encoded,icon},deep)=> {
+    const renderSubMenu = (item,deep,index)=> {
 
         return (
-            // <PrivilegeButton code={encoded} key={key}>
-                <li key={key} title={title} className="orga-aside-li">
-                    <div className="orga-aside-item"  style={{paddingLeft: `${deep * 20 + 20}`}}>
-                        <span to={key}>
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref={`#icon-${icon}`}></use>
-                            </svg>
-                            {title}
-                        </span>
-                        <div className="orga-aside-item-icon">
-                            {
-                                children ? 
-                                (isExpandedTree(key)? 
-                                    <DownOutlined onClick={() => setOpenOrClose(key)} style={{fontSize: "10px"}}/> :
-                                    <UpOutlined onClick={() => setOpenOrClose(key)} style={{fontSize: "10px"}}/>
-                                ): ""
-                            }
-                        </div>
-                    </div>
-                    
-                    <ul key={key} title={title} className={`orga-aside-ul ${isExpandedTree(key) ? null: 'orga-aside-hidden'}`}>
+            <li key={item.code} title={item.title} className="orga-aside-li">
+                <div className="orga-aside-item orga-aside-first"  style={{paddingLeft: `${deep * 20 + 20}`}} onClick={() => setOpenOrClose(item.key)}>
+                    <span to={item.key} className = "orga-aside-item-left">
+                        <svg className="svg-icon" aria-hidden="true">
+                            <use xlinkHref={`#icon-${item.icon}`}></use>
+                        </svg>
+                        <span className="orga-aside-title">{item.title}</span>
+                    </span>
+                    <div className="orga-aside-item-icon">
                         {
-                            children && children.map(item =>{
-                                const deepnew = deep +1
-                                return item.children && item.children.length?
-                                    renderSubMenu(item,deepnew) : renderMenu(item,deepnew)
-                                })
+                            item.children ? 
+                            (isExpandedTree(item.key)? 
+                                <DownOutlined style={{fontSize: "10px"}}/> :
+                                <UpOutlined style={{fontSize: "10px"}}/>
+                            ): ""
                         }
-                    </ul>
-                </li>
-            // </PrivilegeButton>
-            
-            
+                    </div>
+                </div>
+                
+                <ul title={item.title} className={`orga-aside-ul ${isExpandedTree(item.key) ? null: 'orga-aside-hidden'}`}>
+                    {
+                        item.children && item.children.map(item =>{
+                            const deepnew = deep +1
+                            return item.children && item.children.length?
+                                renderSubMenu(item,deepnew,index) : renderMenu(item,deepnew,index)
+                        })
+                    }
+                </ul>
+            </li>
         )
     }
 
     return (
         <Fragment>
-            <div className="orga-aside" >
-                <ul style={{padding: 0}} className="orga-aside-top" >
+            <div className="orga-aside">
+                <ul style={{padding: 0}} key="0" className="orga-aside-top">
                     {
-                        orgaRouter && orgaRouter.map(firstItem => {
+                        router && router.map((firstItem,index) => {
                             return firstItem.children && firstItem.children.length > 0 ? 
-                                    renderSubMenu(firstItem,0) : renderMenu(firstItem,0)
+                                    renderSubMenu(firstItem,0,index) : renderMenu(firstItem,0,index)
                         })
                     }
                 </ul>
-                <div className="orga-change" onClick={()=> props.history.push("/index/organ/organ")}>
+                {/* <div className="orga-change" onClick={()=> props.history.push("/index/organ/organ")}>
                     组织管理
-                </div>
+                </div> */}
             </div>
+            
         </Fragment>
     )
 }
-export default withRouter(OrgaAside);
+export default withRouter(SetAside);

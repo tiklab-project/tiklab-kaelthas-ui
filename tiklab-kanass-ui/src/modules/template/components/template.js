@@ -8,12 +8,13 @@
  */
 import React, { useState,useEffect, Fragment } from "react";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { Breadcrumb,Input,Layout,Row,Col,Modal, Pagination,Button,Divider } from 'antd';
+import { Layout,Row,Col,Modal, Pagination, Table, Space } from 'antd';
 import TemplateAddmodal from "./templateAddmodal"
 import "../components/template.scss"
 import  TemplatePreviewmodal from "./templatePreviewmodal"
 import { observer, inject } from "mobx-react";
-const { Search } = Input;
+import Breadcrumb from "../../../common/breadcrumb/breadcrumb";
+import Button from "../../../common/button/button";
 const { confirm } = Modal;
 const Template = (props)=>{
     const { templateStore } = props;
@@ -88,52 +89,81 @@ const Template = (props)=>{
             }
         })
     }
+
+    const columns = [
+        {
+            title: "模板名称",
+            dataIndex: "name",
+            key: "name",
+            align: "left",
+            render: (text, record) => <div onClick={() => goWikidetail(record)} className="wiki-title">
+                {
+                    record.iconUrl ?
+                        <img
+                            src={('/images/' + record.iconUrl)}
+                            alt=""
+                            className="img-icon"
+                        />
+                        :
+                        <img
+                            src={('images/repository1.png')}
+                            alt=""
+                            className="img-icon"
+                        />
+                }
+                <span className="wiki-name">{text}</span>
+            </div>,
+        },
+        {
+            title: "模板描述",
+            dataIndex: "description",
+            key: "description",
+            align: "left",
+        },
+        {
+            title: "操作",
+            dataIndex: "action",
+            key: "action",
+            align: "left",
+            width: "15%",
+            render: (text, record) => (
+                <Space size="middle">
+                     <span className="span-botton  delete" onClick={() => editModal(record.id)}>
+                        <svg className="botton-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-edit"></use>
+                        </svg>
+                    </span>
+                    <span className="span-botton  delete" onClick={() => previewModal(record.id)}>
+                        <svg className="botton-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-view"></use>
+                        </svg>
+                    </span>
+                    <span className="span-botton  delete" onClick={() => showDeleteConfirm(record.id)}>
+                        <svg className="botton-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-delete"></use>
+                        </svg>
+                    </span>
+                </Space>
+            ),
+        },
+    ]
+
     return (
         <Fragment>
         <Layout className="wiki-template">
             <Row style={{height: "100%"}}>
                 <Col xl={{span: 18,offset:3}} lg={{span: 20,offset:2}}>
-                    <Breadcrumb>
-                        <Breadcrumb.Item>知识库管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>
-                            <a href="/">知识库列表</a>
-                        </Breadcrumb.Item>
+                     <Breadcrumb
+                        firstText="文档模板"
+                    >
+                        <Button type = "primary" onClick={()=> addModal()} >添加模板</Button>
                     </Breadcrumb>
-                    <Divider />
-                    <div className="search-add" key="search">
-                        <Search
-                            placeholder="请输入关键字"
-                            allowClear
-                            onSearch={onSearch}
-                            style={{ width:300}}
-                        />
-                        <Button onClick={()=> addModal()} >添加模板</Button>
-                    </div>
-                    <div className= "template-box" key="box">
-                    {
-                        templateList && templateList.map((item)=> {
-                            return <div className = "template-item" 
-                                    onMouseEnter = {()=>setHoverId(item.id)} 
-                                    onMouseLeave = {()=>setHoverId(null)}
-                                    key = {item.id}
-                                >
-                                <div>
-                                    <svg className="icon" aria-hidden="true">
-                                        <use xlinkHref= "#icon-paihang"></use>
-                                    </svg>
-                                
-                                    <div className="title" key="title">{item.name}</div>
-                                </div>
-                                <div className={`item-shade ${item.id === hoverId ? "item-show": "item-hidden"}`}>
-                                    <span onClick = {()=> previewModal(item.id)}>查看</span>
-                                    <span onClick = {()=> editModal(item.id)}>编辑</span>
-                                    <span onClick = {()=> showDeleteConfirm(item.name,item.id)}>删除</span>
-                                </div>
-                            </div>
-                        })
-                    }
-                    </div>
-                    <div style={{textAlign: "right",marginTop: "10px"}}><Pagination defaultCurrent={1} total={templatePageParams.total} onChange={(page )=>changePage(page)}/></div>    
+                    <Table
+                        columns={columns}
+                        dataSource={templateList}
+                        rowKey={record => record.id}
+                        pagination = {false}
+                    />   
                 </Col>
             </Row>
         </Layout>

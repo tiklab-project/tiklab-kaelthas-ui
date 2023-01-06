@@ -1,0 +1,160 @@
+.repository-survey {
+    background-color: var(--tiklab-gray-600);
+    height: calc(100vh - 48px);
+    overflow: auto;
+
+    .wiki-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px;
+        margin: 15px 0;
+        background: #fff;
+        border-radius: 4px;
+
+        .top-left {
+            display: flex;
+            align-items: center;
+
+            .top-icon {
+                width: 80px;
+                height: 80px;
+                margin-right: 15px;
+            }
+
+            .top-name {
+                .name {
+                    font-size: 20px;
+                    line-height: 50px;
+                }
+
+                .desc {
+                    color: var(--tiklab-gray-500);
+                }
+            }
+        }
+
+        .top-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .top-add-botton {
+                color: #fff;
+                font-weight: 500;
+                background-color: var(--tiklab-blue);
+                padding: 5px 15px;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                height: 32px;
+                line-height: 32px;
+            }
+        }
+    }
+
+    .wiki-menu {
+        .wiki-menu-submenu {
+            height: 40px;
+            line-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .wiki-menu-submenu-hidden {
+            display: none;
+        }
+
+        .category-line {
+            flex: 1;
+            margin: 0 16px;
+            border-top: 1px dashed var(--tiklab-gray-500);
+        }
+
+        .open-icon {
+            width: 14px;
+            height: 14px;
+            margin-right: 5px;
+        }
+
+    }
+
+    .home-dynamic {
+        background-color: #fff;
+        border-radius: 4px;
+        padding: 0 15px 15px;
+        margin-bottom: 15px;
+
+        .dynamic-box-title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            font-weight: var(--tiklab-font-weight-bold);
+            display: flex;
+            justify-content: space-between;
+
+            .more:hover {
+                text-decoration: underline;
+            }
+
+            .more {
+                color: var(--tiklab-blue);
+                margin-left: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .dynamic-list {
+            margin-top: 10px;
+            padding-bottom: 20px;
+        }
+
+    }
+
+    .home-document {
+        padding: 0  15px 15px;
+        background: #fff;
+        border-radius: 4px;
+        margin-bottom: 15px;
+        .document-box-title {
+            width: 100%;
+            height: 40px;
+            line-height: 40px;
+            font-weight: var(--tiklab-font-weight-bold);
+            display: flex;
+            justify-content: space-between;
+            .more:hover{
+                text-decoration:underline;
+            }
+            .more {
+                color: var(--tiklab-blue);
+                margin-left: 10px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+            }
+        }
+
+        .document-list-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 40px;
+            line-height: 40px;
+        }
+        .document-name {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: var(--tiklab-blue);
+        }
+        .document-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    }
+}

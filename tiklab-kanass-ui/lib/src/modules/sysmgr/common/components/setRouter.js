@@ -73,6 +73,50 @@ var orgaRouter = [{
     code: 7 - 4
   }]
 }, {
+  title: "待办事项",
+  icon: 'systemcenter',
+  key: '/index/sysmgr/taskList',
+  encoded: "SysMessage",
+  code: 9,
+  children: [{
+    title: '待办列表',
+    icon: 'systemcenter',
+    key: '/index/sysmgr/taskList',
+    encoded: "taskList",
+    code: 9 - 1
+  }, {
+    title: '我相关待办列表',
+    icon: 'systemcenter',
+    key: '/index/sysmgr/myTodoTask',
+    encoded: "myTodoTask",
+    code: 9 - 1
+  }, {
+    title: '待办模板',
+    icon: 'systemcenter',
+    key: '/index/sysmgr/todoTempList',
+    encoded: "todoTempList",
+    code: 9 - 1
+  }]
+}, {
+  title: "日志事项",
+  icon: 'systemcenter',
+  key: '/index/sysmgr/log',
+  encoded: "SysMessage",
+  code: 10,
+  children: [{
+    title: '日志列表',
+    icon: 'systemcenter',
+    key: '/index/sysmgr/logList',
+    encoded: "logList",
+    code: 10 - 1
+  }, {
+    title: '日志模板列表',
+    icon: 'systemcenter',
+    key: '/index/sysmgr/myLogTemplateList',
+    encoded: "myLogTemplateList",
+    code: 10 - 1
+  }]
+}, {
   title: "插件管理",
   icon: 'category',
   key: '/index/sysmgr/plugin',

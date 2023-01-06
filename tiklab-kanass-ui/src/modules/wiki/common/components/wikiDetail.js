@@ -12,24 +12,14 @@ import WikideAside from "./wikiDetailAside";
 import "../components/wikiDetail.scss";
 import { renderRoutes } from "react-router-config";
 import {observer, inject} from "mobx-react";
-import {getUser} from 'tiklab-core-ui'
 
 const WikiDetail = (props)=>{
     // 解析props
     const {wikiStore,wikiDetailStore,systemRoleStore,route} = props;
 
-    // 解析wikiStore，wikiDetailStore
-    const {searchwiki, getWikilist, wikilist} = wikiStore;
-    const {setWikiId} = wikiDetailStore;
-    const {getInitProjectPermissions} = systemRoleStore;
-
-    // 当前知识库名字
-    const wiki =  JSON.parse(localStorage.getItem("wiki"))
-    const wikiname = wiki.name;
-
-    // 获取当前知识库id
-    const wikiId = wiki.id
-
+    const {searchwiki, findRepositoryList, wikilist} = wikiStore;
+    const wikiId = props.match.params.wikiId;
+    const [wiki, setWiki] = useState()
 
     useEffect(() => {
         // 从信息页面跳入知识库详情页面时，获取知识库id
@@ -39,12 +29,14 @@ const WikiDetail = (props)=>{
         //     localStorage.setItem("wiki", search[1]);
         //     setWikiId(search[1])
         // }
-        // searchwiki(localStorage.getItem("wikiId")).then((res)=> {
-        //     setWikiname(res.name)
-        // })
+        searchwiki(wikiId).then((res)=> {
+            console.log(res)
+            localStorage.setItem("wiki", JSON.stringify(res.data));
+            setWiki(res.data)
+        })
 
         //获取知识库列表
-        getWikilist()
+        findRepositoryList({})
 
         // systemRoleStore.getInitProjectPermissions(getUser().userId, localStorage.getItem("wikiId"))
         return 
@@ -54,7 +46,7 @@ const WikiDetail = (props)=>{
     return (
         <Layout className="wikidetail">
             <WikideAside 
-                wikiName={wikiname}
+                wiki={wiki}
                 wikilist={wikilist} 
                 searchwiki = {searchwiki} 
                 {...props}

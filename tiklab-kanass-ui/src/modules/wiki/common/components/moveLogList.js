@@ -9,12 +9,13 @@
 import React,{Fragment, useState,useEffect} from 'react';
 import { Modal} from 'antd';
 import "./moveLogList.scss"
+import { withRouter } from 'react-router';
 const MoveLogList = (props) => {
     const { wikiCatalogueList, moveLogListVisible,
         setMoveLogListVisible,setWikiCatalogueList,formatType,
         moveCategoryId,findWikiCatalogue,updateDocument,updateWikiCatalogue,moveCategoryParentId } = props;
     const [selectKey,setSelectKey] = useState()
-    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
+    const wikiId = props.match.params.wikiId;
     const onFinish = () => {
         let value
         if(formatType === "category"){
@@ -125,4 +126,4 @@ const MoveLogList = (props) => {
         </Modal>
     )
 }
-export default MoveLogList;
+export default withRouter(MoveLogList);

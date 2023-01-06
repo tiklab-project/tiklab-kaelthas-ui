@@ -16,36 +16,32 @@ import AddLog from "./addLog"
 import ChangeWikiModal from "./changeWikiModal"
 import MoveLogList from "./moveLogList"
 import TemplateList from "./templateList"
-import { PrivilegeProject } from "tiklab-privilege-ui";   
+import { PrivilegeProject } from "tiklab-privilege-ui";
 import { getUser } from 'tiklab-core-ui';
 const { Sider } = Layout;
 const WikideAside = (props) => {
     // 解析props
     const [form] = Form.useForm();
-    const { searchwiki, wikiName, wikilist, WikiCatalogueStore} = props
+    const { searchwiki, wiki, wikilist, WikiCatalogueStore } = props;
     //语言包
     const { t } = useTranslation();
     const { findWikiCatalogue, updateWikiCatalogue,
         deleteWikiLog, updateDocument, deleteDocument,
-        findDmPrjRolePage,wikiCatalogueList,setWikiCatalogueList, createDocumentRecent} = WikiCatalogueStore;
-    
+        findDmPrjRolePage, wikiCatalogueList, setWikiCatalogueList, createDocumentRecent } = WikiCatalogueStore;
+
     // 当前选中目录id
-    const id = props.location.pathname.split("/")[4];
-    console.log(id)
+    const id = props.location.pathname.split("/")[5];
+
     const [selectKey, setSelectKey] = useState(id);
-    // 菜单是否折叠
     const [isShowText, SetIsShowText] = useState(true)
-    // 是否显示弹窗
     const [changeWikiVisible, setChangeWikiVisible] = useState(null)
-    // 当前知识库id
-    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
-    // 显示菜单操作icon
+    const wikiId = props.match.params.wikiId;
     const [isHover, setIsHover] = useState(false)
 
     const [changeTemplateVisible, setChangeTemplateVisible] = useState()
 
     const [templateId, setTemplateId] = useState()
-    
+
     const [modalTitle, setModalTitle] = useState()
     const userId = getUser().userId
 
@@ -59,36 +55,38 @@ const WikideAside = (props) => {
 
     useEffect(() => {
         // 初次进入激活导航菜单
-        setSelectKey(id)
-        return
-    }, [wikiId])
+        if (props.location.pathname.split("/")[4] === "survey") {
+            setSelectKey("survey")
+        } else {
+            setSelectKey(id)
+        }
 
-    /**
-     * 点击左侧菜单
-     * @param {*} key 
-     */
+        return
+    }, [id])
+
+    //点击左侧菜单
     const selectKeyFun = (item) => {
         const params = {
             name: item.name,
             model: item.typeId,
             modelId: item.id,
-            master: {id: userId},
-            repository: {id: wikiId}
+            master: { id: userId },
+            repository: { id: wikiId }
         }
         createDocumentRecent(params)
         setSelectKey(item.id)
-        if (item.typeId === "category") {
+        if (item.formatType === "category") {
             localStorage.setItem("categoryId", item.id);
-            props.history.push(`/index/wikidetail/folder/${item.id}`)
+            props.history.push(`/index/wikidetail/${wikiId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
             localStorage.setItem("documentId", item.id);
-            props.history.push(`/index/wikidetail/doc/${item.id}`)
+            props.history.push(`/index/wikidetail/${wikiId}/doc/${item.id}`)
         }
         if (item.typeId === "mindMap") {
             localStorage.setItem("documentId", item.id);
-            props.history.push(`/index/wikidetail/mindmap/${item.id}`)
-            
+            props.history.push(`/index/wikidetail/${wikiId}/mindmap/${item.id}`)
+
         }
     }
 
@@ -135,25 +133,22 @@ const WikideAside = (props) => {
         </Menu>
     };
 
-    /**
-     * 添加目录,文档
-     */
+    //添加目录,文档
     const [catalogueId, setCatalogueId] = useState()
-    const [userList,setUserList] = useState()
+    const [userList, setUserList] = useState()
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        findDmPrjRolePage(wikiId).then(data=> {
+        findDmPrjRolePage(wikiId).then(data => {
             setUserList(data.dataList)
         })
-        if(value.key === "document") {
-            // setContentValue({nodes: [], edges: []})
+        if (value.key === "document") {
             setChangeTemplateVisible(true)
             setModalTitle("添加文档")
-        }else if (value.key === "mindMap"){
-            setContentValue({nodes: [], edges: []})
+        } else if (value.key === "mindMap") {
+            setContentValue({ nodes: [], edges: [] })
             setAddModalVisible(true)
             setModalTitle("添加脑图")
-        }else if(value.key === "category"){
+        } else if (value.key === "category") {
             setAddModalVisible(true)
             setModalTitle("添加目录")
         }
@@ -161,11 +156,9 @@ const WikideAside = (props) => {
         form.setFieldsValue({
             formatType: value.key
         })
-        
     }
-    /**
-     * 更新目录
-     */
+
+    //更新目录
     const inputRef = React.useRef(null);
     const [isRename, setIsRename] = useState()
     const editCatelogue = (value, id, formatType, fid) => {
@@ -231,9 +224,8 @@ const WikideAside = (props) => {
         }
     }
     const [addModalVisible, setAddModalVisible] = useState()
-    /**
-     * 折叠菜单
-     */
+
+    //折叠菜单
     const [expandedTree, setExpandedTree] = useState([])
     // 树的展开与闭合
     const isExpandedTree = (key) => {
@@ -280,10 +272,9 @@ const WikideAside = (props) => {
         dragEvent.style.background = "#f7f8fa";
     }
     const changeLog = (targetId) => {
-        console.log(targetId)
         event.preventDefault();
         let value;
-        
+
         if (targetId && targetId !== moveCategoryParentId) {
             if (formatType === "category") {
                 if (targetId) {
@@ -326,194 +317,202 @@ const WikideAside = (props) => {
         }
     }
 
-    /**
-     * @param {*} data 
-     * @param {*} levels 
-     * @returns 
-     */
 
     const logTree = (item, levels, faid) => {
         let newLevels = 0;
-            return <div className={`${!isExpandedTree(faid) ? "" : 'wiki-menu-submenu-hidden'}`}
-                    key={item.id}
-                    onDrop={() => changeLog(item.id)}
-                >
-                <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
-                    key={item.id}
-                    onClick={() => selectKeyFun(item)}
-                    onMouseOver={() => setIsHover(item.id)} 
-                    onMouseLeave={() => setIsHover(null)}
-                    onDrag={() => moveWorkItem()}
-                    onDragOver={dragover}
-                    draggable="true"
-                    onDragStart={() => moveStart(item.id, faid, item.formatType)}
-                    onDragEnd = {() => moveEnd()}
-                >
-                    <div style={{ paddingLeft: levels * 10 }}>
-                        {
-                            (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
-                                isExpandedTree(item.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#icon-right" ></use>
-                                </svg> :
-                                    <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                        <use xlinkHref="#icon-down" ></use>
-                                    </svg> : <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-circle"></use>
-                                </svg>
-                        }
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-folder"></use>
-                        </svg>
-                        <span className={`${isRename === item.id ? "wiki-input" : ""}`}
-                            contentEditable={isRename === item.id ? true : false}
-                            suppressContentEditableWarning
-                            onBlur={(value) => reName(value, item.id, item.formatType)}
-                            ref={isRename === item.id ? inputRef : null}
-                        >{item.name} </span>
-                    </div>
-                    <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                        <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
-                            <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#icon-plusBlue"></use>
+        return <div className={`${!isExpandedTree(faid) ? "" : 'wiki-menu-submenu-hidden'}`}
+            key={item.id}
+            onDrop={() => changeLog(item.id)}
+        >
+            <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
+                key={item.id}
+                onClick={() => selectKeyFun(item)}
+                onMouseOver={() => setIsHover(item.id)}
+                onMouseLeave={() => setIsHover(null)}
+                onDrag={() => moveWorkItem()}
+                onDragOver={dragover}
+                draggable="true"
+                onDragStart={() => moveStart(item.id, faid, item.formatType)}
+                onDragEnd={() => moveEnd()}
+            >
+                <div style={{ paddingLeft: levels * 21 + 24 }} className="wiki-menu-submenu-left">
+                    {
+                        (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
+                            isExpandedTree(item.id) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                <use xlinkHref="#icon-right" ></use>
+                            </svg> :
+                                <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                    <use xlinkHref="#icon-down" ></use>
+                                </svg> : <svg className="img-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-circle"></use>
                             </svg>
-                        </Dropdown>
-                        <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
-                            <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#icon-moreBlue"></use>
-                            </svg>
-                        </Dropdown>
-                    </div>
+                    }
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-folder"></use>
+                    </svg>
+                    <span className={`${isRename === item.id ? "wiki-input" : ""}`}
+                        contentEditable={isRename === item.id ? true : false}
+                        suppressContentEditableWarning
+                        onBlur={(value) => reName(value, item.id, item.formatType)}
+                        ref={isRename === item.id ? inputRef : null}
+                    >{item.name} </span>
                 </div>
-                {
-                    item.children && item.children.length > 0 && (newLevels = levels + 1) &&
-                        item.children.map(childItem => {
-                            return logTree(childItem, newLevels, item.id)
-                            
-                        })
-                    
-                }
-                {
-                    item.documents && item.documents.length > 0 && (newLevels = levels + 1) && 
-                        item.documents.map(childItem => {
-                            return fileTree(childItem, newLevels, item.id)
-                        })
-                }
+                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
+                    <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-plusBlue"></use>
+                        </svg>
+                    </Dropdown>
+                    <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-moreBlue"></use>
+                        </svg>
+                    </Dropdown>
+                </div>
             </div>
+            {
+                item.children && item.children.length > 0 && (newLevels = levels + 1) &&
+                item.children.map(childItem => {
+                    return logTree(childItem, newLevels, item.id)
+
+                })
+
+            }
+            {
+                item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
+                item.documents.map(childItem => {
+                    return fileTree(childItem, newLevels, item.id)
+                })
+            }
+        </div>
     }
     const fileTree = (item, levels, faid) => {
-            return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
+        return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
+            key={item.id}
+        >
+            <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
                 key={item.id}
+                onClick={() => selectKeyFun(item)}
+                onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
+                onDragOver={dragover}
+                onDrag={() => moveWorkItem()}
+                draggable="true"
+                onDragStart={() => moveStart(item.id, faid, item.formatType)}
+                onDragEnd={() => moveEnd()}
             >
-                <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
-                    key={item.id}
-                    onClick={() => selectKeyFun(item)}
-                    onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
-                    onDragOver={dragover}
-                    onDrag={() => moveWorkItem()}
-                    draggable="true"
-                    onDragStart={() => moveStart(item.id, faid, item.formatType)}
-                    onDragEnd = {() => moveEnd()}
-                >
-                    <div style={{ paddingLeft: levels * 10 }} >
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-circle"></use>
+                <div style={{ paddingLeft: levels * 21 + 24 }} className="wiki-menu-submenu-left">
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-circle"></use>
+                    </svg>
+                    {
+                        item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-file"></use>
                         </svg>
-                        {
-                            item.typeId === "document" && <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#icon-file"></use>
-                            </svg>
-                        }
-                        {
-                            item.typeId === "mindMap" && <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#icon-minmap"></use>
-                            </svg>
-                        }
-                        <span className={`${isRename === item.id ? "wiki-input" : ""}`}
-                            contentEditable={isRename === item.id ? true : false}
-                            suppressContentEditableWarning
-                            onBlur={(value) => reName(value, item.id, item.formatType)}
-                            ref={isRename === item.id ? inputRef : null}
-                        >{item.name} </span>
-                    </div>
-                    <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                        <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
-                            <svg className="icon iconright" aria-hidden="true">
-                                <use xlinkHref="#icon-moreBlue"></use>
-                            </svg>
-                        </Dropdown>
-                    </div>
+                    }
+                    {
+                        item.typeId === "mindMap" && <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-minmap"></use>
+                        </svg>
+                    }
+                    <span className={`${isRename === item.id ? "wiki-input" : ""}`}
+                        contentEditable={isRename === item.id ? true : false}
+                        suppressContentEditableWarning
+                        onBlur={(value) => reName(value, item.id, item.formatType)}
+                        ref={isRename === item.id ? inputRef : null}
+                    >{item.name} </span>
+                </div>
+                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
+                    <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-moreBlue"></use>
+                        </svg>
+                    </Dropdown>
                 </div>
             </div>
+        </div>
     }
     return (
         <Fragment>
             <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="250">
                 <div className={`wiki-aside ${isShowText ? "" : "wiki-icon"}`}>
                     <div className="wiki-title title">
-                        <span style={{ marginRight: "20px" }}>
-                            <svg className="icon" aria-hidden="true">
+                        <span className="wiki-title-left">
+                            <svg className="img-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-folder"></use>
                             </svg>
-                            {wikiName}
+                            {wiki?.name}
                         </span>
                         <div className="wiki-toggleCollapsed">
-                            {/* <PrivilegeProject code="addDocument" domainId={wikiId}> */}
+                            <ChangeWikiModal
+                                searchwiki={searchwiki}
+                                wikilist={wikilist}
+                                changeWikiVisible={changeWikiVisible}
+                                setChangeWikiVisible={setChangeWikiVisible}
+                            />
+                        </div>
+                    </div>
+                    <div
+                        className={`wiki-survey ${selectKey === "survey" ? "wiki-menu-select" : ""} `}
+                        onClick={() => { props.history.push(`/index/wikidetail/${wikiId}/survey`); setSelectKey("survey") }}>
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-home"></use>
+                        </svg>
+                        概况
+                    </div>
+                    <div className="wiki-menu" onDrop={() => changeLog("nullString")} draggable="true" onDragOver={dragover}>
+                        <div className="wiki-menu-firstmenu"
+                            onMouseOver={() => setIsHover(0)}
+                            onMouseLeave={() => setIsHover(null)}
+                        >
+                            <div className="wiki-menu-firstmenu-left">
+                                {
+                                    wikiCatalogueList && wikiCatalogueList.length > 0 ?
+                                        isExpandedTree(0) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(0)}>
+                                            <use xlinkHref="#icon-right" ></use>
+                                        </svg> :
+                                            <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(0)}>
+                                                <use xlinkHref="#icon-down" ></use>
+                                            </svg> : <svg className="img-icon" aria-hidden="true">
+                                            <use xlinkHref="#icon-circle"></use>
+                                        </svg>
+                                }
+                                <svg className="img-icon" aria-hidden="true">
+                                    <use xlinkHref="#icon-folder"></use>
+                                </svg>
+                                <span>知识库</span>
+                            </div>
+                            <div className={`${isHover === 0 ? "icon-show" : "icon-hidden"}`}>
                                 <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
-                                    <svg className="icon iconright" aria-hidden="true">
+                                    <svg className="img-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-plusBlue"></use>
                                     </svg>
                                 </Dropdown>
-                            {/* </PrivilegeProject> */}
-                            <svg className="icon" aria-hidden="true" onClick={showModal}>
-                                <use xlinkHref="#icon-fenlei"></use>
-                            </svg>
+                            </div>
                         </div>
-                    </div>
-                    <div className="wiki-menu" onDrop={() => changeLog("nullString")} draggable="true" onDragOver={dragover}>
+
                         {
                             wikiCatalogueList && wikiCatalogueList.map(item => {
-                                if(item.formatType === "document"){
+                                if (item.formatType === "document") {
                                     return fileTree(item, 1, 0)
                                 }
-                                if(item.formatType === "category"){
+                                if (item.formatType === "category") {
                                     return logTree(item, 1, 0)
                                 }
                             })
                         }
+                        {/* </div> */}
                     </div>
-                    <div onClick={() => { props.history.push(`/index/wikidetail/wikiDomainRole`) }} className="wiki-priviege">
-                        <svg className="icon iconright" aria-hidden="true">
-                            <use xlinkHref="#icon-role"></use>
+                    <div className="wiki-setting-menu" onClick={() => props.history.push(`/index/wikidetail/${wikiId}/wikiSet/basicInfo`)}>
+                        {/* <span style={{ marginRight: "20px" }}> */}
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-set"></use>
                         </svg>
-                        角色管理
-                    </div>
-                    <div onClick={() => { props.history.push(`/index/wikidetail/wikiDomainUser`) }} className="wiki-priviege">
-                        <svg className="icon iconright" aria-hidden="true">
-                            <use xlinkHref="#icon-role"></use>
-                        </svg>
-                        成员管理
-                    </div>
-                    <div className="wiki-title setting">
-                        <span style={{ marginRight: "20px" }}>
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#icon-set"></use>
-                            </svg>
-                            知识库设置
-                        </span>
-                        {/* <div className="wiki-toggleCollapsed" onClick={toggleCollapsed}>
-                            <svg className="icon" aria-hidden="true">
-                                <use xlinkHref="#icon-faxian"></use>
-                            </svg>
-                        </div> */}
+                        设置
+                        {/* </span> */}
                     </div>
                 </div>
             </Sider>
-            <ChangeWikiModal
-                searchwiki={searchwiki}
-                wikilist={wikilist}
-                changeWikiVisible={changeWikiVisible}
-                setChangeWikiVisible={setChangeWikiVisible}
-            />
+
             <AddLog
                 setAddModalVisible={setAddModalVisible}
                 addModalVisible={addModalVisible}
@@ -523,7 +522,7 @@ const WikideAside = (props) => {
                 contentValue={contentValue}
                 setSelectKey={setSelectKey}
                 userList={userList}
-                modalTitle = {modalTitle}
+                modalTitle={modalTitle}
                 {...props}
             />
             <MoveLogList

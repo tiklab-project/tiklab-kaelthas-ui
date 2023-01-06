@@ -25,3 +25,27 @@ export function FindDocumentRecentList(data){
     })
 }
 
+export function FindMessageDispatchItemPage(data){
+    return service.request({
+        url: "/message/messageItem/findMessageItemPage",
+        method: "post",
+        data 
+    })
+}
+
+export function Findlogpage (data){
+    return service.request({
+        url: "/oplog/findlogpage",
+        method: "post",
+        data 
+    })
+}
+
+export function FindRecentRepositoryList(data){
+    return service.request({
+        url: "/repository/findRecentRepositoryList",
+        method: "post",
+        data 
+    })
+}
+

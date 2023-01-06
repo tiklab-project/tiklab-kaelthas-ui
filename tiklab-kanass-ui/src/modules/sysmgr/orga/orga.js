@@ -11,7 +11,7 @@ import { OrgaList} from 'tiklab-user-ui';
 
 const Orga = () => {
     return (
-        <OrgaList/>
+        <OrgaList bgroup = "teamwire"/>
     )
 }
 

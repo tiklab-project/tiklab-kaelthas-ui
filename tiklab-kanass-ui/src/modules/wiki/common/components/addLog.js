@@ -16,7 +16,7 @@ const AddLog = (props) => {
     const {addModalVisible,setAddModalVisible,setWikiCatalogueList,modalTitle,
         WikiCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
     const {addWikiCatalogue,addWikiCataDocument,findWikiCatalogue} = WikiCatalogueStore;
-    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
+    const wikiId = props.match.params.wikiId;
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;
@@ -82,10 +82,10 @@ const AddLog = (props) => {
                         setAddModalVisible(!addModalVisible)
                         localStorage.setItem("documentId", data.data);
                         if(values.formatType === "mindMap"){
-                            props.history.push(`/index/wikidetail/mindmap/${data.data}`)
+                            props.history.push(`/index/wikidetail/${wikiId}/mindmap/${data.data}`)
                         }
                         if(values.formatType === "document"){
-                            props.history.push(`/index/wikidetail/doc/${data.data}`)
+                            props.history.push(`/index/wikidetail/${wikiId}/doc/${data.data}`)
                         }
                         // 左侧导航
                         setSelectKey(data.data)

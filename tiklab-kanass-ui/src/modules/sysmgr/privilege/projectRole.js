@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { SystemRoleList } from 'tiklab-privilege-ui';
+import { ProjectRoleList } from 'tiklab-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 const ProjectRole = props => {
@@ -7,8 +7,9 @@ const ProjectRole = props => {
 
     return (
         // <div className="test">
-            < SystemRoleList
-                group={'system'}
+            < ProjectRoleList
+                bgroup={'teamwire'}
+                isBase = {true}
                 {...props}
             />
         // </div>

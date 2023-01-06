@@ -1,81 +1,115 @@
-/*
- * @Descripttion: 
- * @version: 1.0.0
- * @Author: 袁婕轩
- * @Date: 2021-09-03 10:37:35
- * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-09-03 10:55:33
- */
-import React,{useState} from 'react';
-import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
-import { Modal, Button, Form, Input } from 'antd';
+import React, { useEffect, useRef, useState } from "react";
+import "./changeWikiModal.scss";
+import { useTranslation } from 'react-i18next';
+import { withRouter } from "react-router";
+import { inject, observer } from "mobx-react";
 
-const ChangeWikiModal = (props) => {
-    const {searchwiki,wikilist,changeWikiVisible,setChangeWikiVisible} = props;
-    // 切换知识库窗口弹窗，鼠标移入与移出效果
-    const [selectWiki,setSelectWiki] = useState(false)
-    /**
-     * 隐藏切换知识库弹窗
-     */
-    const handleCancel = () => {
-        setChangeWikiVisible(false)
-    };
+const ChangeWikiModel = (props) => {
+    const { wikilist, searchwiki, setWorkType, wiki } = props;
 
-    /**
-     * 切换知识库
-     * @param {id} id 
-     */
-    const selectWikiId = (wiki) => {
-        // 切换选中知识库，获取知识库详情
-        searchwiki(wiki.id);
-        // 讲当前知识库id存入localStorage
-        localStorage.setItem("wiki", JSON.stringify(wiki));
-        // 重置事项id
-        // 关闭切换弹窗
-        setChangeWikiVisible(false)
-        // 切换路由
-        // props.history.push(selectKey)
-        // 强制刷新
-        location.reload();
+    const [showMenu, setShowMenu] = useState(false);
+    const [selectWiki, setSelectWiki] = useState(false)
+
+    const modelRef = useRef()
+    const setButton = useRef()
+
+    const showMoreMenu = () => {
+        setShowMenu(!showMenu)
+        modelRef.current.style.left = setButton.current.clientWidth
+    }
+
+
+    useEffect(() => {
+        window.addEventListener("mousedown", closeModal, false);
+        return () => {
+            window.removeEventListener("mousedown", closeModal, false);
+        }
+    }, [showMenu])
+
+    const closeModal = (e) => {
+        if (!modelRef.current) {
+            return;
+        }
+        if (!modelRef.current.contains(e.target) && modelRef.current !== e.target) {
+            setShowMenu(false)
+        }
     }
 
     /**
-     * 切换知识库弹窗，鼠标移入
-     * @param {*} id 
+     * 切换项目
+     * @param {id} id 
      */
+    const selectWikiId = (id) => {
+        // 切换选中项目，获取项目详情
+        searchwiki(id).then(data => {
+            if (data.code === 0) {
+                props.history.push(`/index/wikidetail/${id}/survey`)
+                // 重置事项id
+                // 关闭切换弹窗
+                setShowMenu(false)
+                location.reload();
+            }
+        });
+        // 讲当前项目id存入localStorage
+    }
+
     const handleMouseOver = (id) => {
         setSelectWiki(id)
     }
 
-    /**
-     * 切换知识库弹窗，鼠标移出
-     */
     const handleMouseOut = () => {
         setSelectWiki("")
     }
+
     return (
-        <div >
-            <Modal
-                className="wiki-modal"
-                title="选择知识库"
-                visible={changeWikiVisible}
-                onCancel={handleCancel}
-                footer={[
-                    <Button key="back" onClick={handleCancel}>取消</Button>]}
+        <div className="change-wiki">
+            <div ref={setButton}>
+                <div className='wiki-title-icon' onClick={showMoreMenu} >
+                    <div className={`wiki-toggleCollapsed`}>
+                        <svg className="svg-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-down"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className={`change-wiki-box ${showMenu ? "menu-show" : "menu-hidden"}`}
+                ref={modelRef}
+                style={{}}
             >
+                <div className="change-wiki-head">切换知识库</div>
                 {
                     wikilist && wikilist.map((item) => {
-                        return <div className={`wiki-name ${item.id === selectWiki ? "wiki-selectName" : ""}`}
-                            onClick={() => selectWikiId(item)}
+                        return <div className={`change-wiki-name ${item.id === selectWiki ? "change-wiki-selectName" : ""}`}
+                            onClick={() => selectWikiId(item.id)}
                             key={item.id}
                             onMouseOver={() => handleMouseOver(item.id)}
                             onMouseOut={handleMouseOut}
-                        >{item.name}</div>
+
+                        >
+                            {
+                                item.iconUrl ?
+                                    <img
+                                        src={('images/' + item.iconUrl)}
+                                        className="img-icon"
+                                        title={item.name}
+                                        alt=""
+                                    />
+                                    :
+                                    <img
+                                        className="img-icon"
+                                        src={('images/repository1.png')}
+                                        title={item.name}
+                                        alt=""
+                                    />
+                            }
+                            {item.name}
+                        </div>
                     })
                 }
-            </Modal>
+            </div>
         </div>
     )
 }
-export default inject("wikiDetailStore")(observer(ChangeWikiModal));
+export default withRouter(inject("wikiDetailStore")(observer(ChangeWikiModel)));

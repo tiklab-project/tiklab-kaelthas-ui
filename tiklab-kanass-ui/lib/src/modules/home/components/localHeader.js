@@ -139,7 +139,7 @@ var Header = function Header(props) {
       columnNumber: 17
     }
   }, "\u9000\u51FA")));
-  /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
+  var setMenu = /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 69,
@@ -154,7 +154,7 @@ var Header = function Header(props) {
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     onClick: function onClick() {
-      return goSet("/index/organ/organ");
+      return goOrga();
     },
     __source: {
       fileName: _jsxFileName,
@@ -179,6 +179,20 @@ var Header = function Header(props) {
     }
   }, "\u7CFB\u7EDF\u8BBE\u7F6E")));
 
+  var goOrga = function goOrga() {
+    var authConfig = JSON.parse(localStorage.getItem("authConfig"));
+    var url;
+
+    if (authConfig && authConfig.authUrl) {
+      url = authConfig.authUrl + "#" + "/orga/dashbord";
+    } else {
+      url = "/eas.html#/orga/dashbord";
+    }
+
+    window.location.href = url;
+    setCurrentLink("set");
+  };
+
   var goSet = function goSet(url) {
     props.history.push(url);
     setCurrentLink("set");
@@ -187,21 +201,21 @@ var Header = function Header(props) {
   var languageMenu = /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 83,
+      lineNumber: 97,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
     key: "0",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 84,
+      lineNumber: 98,
       columnNumber: 13
     }
   }, "\u4E2D\u6587"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
     key: "1",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 87,
+      lineNumber: 101,
       columnNumber: 13
     }
   }, "\u82F1\u6587"));
@@ -209,28 +223,28 @@ var Header = function Header(props) {
     className: "frame-header",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94,
+      lineNumber: 108,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
     span: 12,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95,
+      lineNumber: 109,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: 'frame-header-right',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 96,
+      lineNumber: 110,
       columnNumber: 17
     }
   }, AppConfigComponent, logo && /*#__PURE__*/React__default["default"].createElement("div", {
     className: 'frame-header-logo',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 112,
       columnNumber: 30
     }
   }, /*#__PURE__*/React__default["default"].createElement("img", {
@@ -238,42 +252,42 @@ var Header = function Header(props) {
     alt: 'logo',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 112,
       columnNumber: 67
     }
   })), renderRouter())), /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
     span: 12,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 102,
+      lineNumber: 116,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: 'frame-header-right',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 103,
+      lineNumber: 117,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-right-search-wrap",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 104,
+      lineNumber: 118,
       columnNumber: 21
     }
   }, props.search), /*#__PURE__*/React__default["default"].createElement("div", {
     className: 'frame-header-right-text',
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107,
+      lineNumber: 121,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("a", {
     href: "#/index/userMessage",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109,
+      lineNumber: 123,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Badge__default["default"], {
@@ -281,7 +295,7 @@ var Header = function Header(props) {
     size: "small",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 110,
+      lineNumber: 124,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Avatar__default["default"], {
@@ -293,33 +307,33 @@ var Header = function Header(props) {
     icon: /*#__PURE__*/React__default["default"].createElement(icons.MessageOutlined, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 111,
+        lineNumber: 125,
         columnNumber: 114
       }
     }),
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 125,
       columnNumber: 33
     }
   }))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-language",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115,
+      lineNumber: 129,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
     overlay: languageMenu,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 116,
+      lineNumber: 130,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Space__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
+      lineNumber: 131,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -330,22 +344,35 @@ var Header = function Header(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 118,
+      lineNumber: 132,
       columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-language",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 119,
+      lineNumber: 133,
       columnNumber: 41
     }
   }))))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-set",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124,
+      lineNumber: 138,
       columnNumber: 25
+    }
+  }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
+    overlay: setMenu,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 139,
+      columnNumber: 29
+    }
+  }, /*#__PURE__*/React__default["default"].createElement(_Space__default["default"], {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 140,
+      columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
     "aria-hidden": "true",
@@ -353,26 +380,23 @@ var Header = function Header(props) {
       width: "25px",
       height: "25px"
     },
-    onClick: function onClick() {
-      return goSet("/index/sysmgr/systemFeature");
-    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 130,
-      columnNumber: 29
+      lineNumber: 141,
+      columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-shezhi",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131,
-      columnNumber: 33
+      lineNumber: 142,
+      columnNumber: 41
     }
-  }))), /*#__PURE__*/React__default["default"].createElement("div", {
+  }))))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-user",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 134,
+      lineNumber: 148,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -383,40 +407,40 @@ var Header = function Header(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 135,
+      lineNumber: 149,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-touxiang",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 136,
+      lineNumber: 150,
       columnNumber: 33
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "frame-header-name",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 152,
       columnNumber: 29
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
     overlay: useMenu,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 139,
+      lineNumber: 153,
       columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Space__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 140,
+      lineNumber: 154,
       columnNumber: 37
     }
   }, tiklabCoreUi.getUser().name, /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 142,
+      lineNumber: 156,
       columnNumber: 41
     }
   }))))), /*#__PURE__*/React__default["default"].createElement("span", {
@@ -425,7 +449,7 @@ var Header = function Header(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 148,
+      lineNumber: 162,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement("img", {
@@ -435,7 +459,7 @@ var Header = function Header(props) {
     height: "20px",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149,
+      lineNumber: 163,
       columnNumber: 29
     }
   }))))));

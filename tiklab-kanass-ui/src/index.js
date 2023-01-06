@@ -41,7 +41,7 @@ const Index = observer(() => {
     // allStore.authConfigStore.getFindAuthConfig()
     const userInfo = getUser()
     if (userInfo && userInfo.userId) {
-        allStore.systemRoleStore.getSystemPermissions(userInfo.userId)
+        allStore.systemRoleStore.getSystemPermissions(userInfo.userId, "teamwire")
     }
     useVersion("kanass")
 

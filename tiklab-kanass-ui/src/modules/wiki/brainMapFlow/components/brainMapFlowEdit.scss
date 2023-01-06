@@ -1,17 +1,21 @@
 .brainmap-edit {
     background-color: #fff;
-    padding: 20px;
+    // padding: 20px;
     height: calc(100vh - 50px);
     overflow: auto;
-    .edit-title {
-        font-size: 18px;
-        font-weight: 600;
-        line-height: 30px;
-        height: 30px;
+    .edit-top {
+        line-height: 50px;
+        height: 50px;
         margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        border-bottom: 1px solid var(--tiklab-gray-600);
+        padding: 0 20px;
+        .edit-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
         .document-edit {
             display: flex;
             align-items: center;
@@ -28,6 +32,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 10px;
         .user-icon {
             width: 20px;
             height: 20px;
@@ -36,7 +41,6 @@
         .right-icon {
             width: 20px;
             height: 20px;
-            margin-left: 20px;
         }
     }
 }

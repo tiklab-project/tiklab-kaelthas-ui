@@ -1,24 +1,28 @@
 .log-detail {
-    padding: 20px;
+    padding: 15px;
     background-color: #fff;
     height: 100%;
-    &-header{
+
+    &-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
     &-button {
         span {
             cursor: pointer;
             color: #0053ca;
         }
-        
+
     }
+
     .log-edit {
         .edit-toolbar {
             padding: 0;
             flex-wrap: nowrap;
         }
+
         .edit-title {
             padding: 10px 0;
             font-size: 16px;
@@ -33,63 +37,81 @@
             line-height: 30px;
             height: 30px;
             margin-bottom: 20px;
-            
+
         }
+
         .examine-type {
             font-size: 12px;
             color: #aaa;
             margin-left: 20px;
         }
     }
+
     .log-title {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        margin: 10px auto;
-        width: 600px;
+        border-bottom: 1px solid #f0f0f0;
+        padding-bottom: 10px;
         .title-icon {
             width: 40px;
             height: 40px;
         }
+
         .title-left {
-            
+
             display: flex;
             align-items: center;
             justify-content: space-between;
+
             .title-name {
                 margin-left: 20px;
+
                 .name {
-                    font-size: 24px;
+                    font-size: 18px;
                     font-weight: 600;
-                    
                 }
+
                 .master {
-                    font-size: 16px;
-                    font-weight: 500;
-                    color: #aaa;
+                    color: var(--tiklab-gray-500);
                 }
             }
-            
+
         }
-        .title-right {
-            color: #0053ca;
-            text-align: right;
-        }
-    }
-    .log-child {
-        &-list{
-            margin: 10px 0;
+
+        .top-add-botton {
+            color: #fff;
+            font-weight: 500;
+            background-color: var(--tiklab-blue);
+            padding: 5px 15px;
+            border-radius: 4px;
             display: flex;
             align-items: center;
-            height: 24px;
-            padding-left: 20px;
+            cursor: pointer;
+            height: 32px;
+            line-height: 32px;
         }
-        font-size: 16px;
-        line-height: 24px;
-        
-        margin: 10px auto;
-        width: 300px;
-        
+    }
+
+    .log-child {
+        &-list {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            line-height: 50px;
+            justify-content: space-between;
+            padding: 0 10px;
+            border-radius: 4px;
+            .log-child-name {
+                display: flex;
+                align-items: center;
+            }
+        }
+        .log-child-list:hover {
+            background-color: var(--tiklab-gray-300);
+        }
+
+
         .log-icon {
             width: 16px;
             height: 16px;

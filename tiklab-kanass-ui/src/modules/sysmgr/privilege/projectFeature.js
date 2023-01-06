@@ -9,6 +9,7 @@ const ProjectFeature = props => {
     return (
         // <div className="test">
             <ProjectFeatureList
+                bgroup={'teamwire'}
                 {...props}
             />
         // </div>

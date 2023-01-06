@@ -16,8 +16,10 @@ import {HOME_STORE, HomeStore} from "./modules/home/store/homeStore"
 import {TEMPLATE_STORE,TemplateStore} from "./modules/template/store/templateStore"
 import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
 import {SHARE_STORE,ShareStore} from "./modules/share/store/shareStore"
-import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork"
-import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store'
+import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork";
+import {SURVEY_STORE, SurveyStore} from "./modules/wiki/survey/store/surveyStore";
+
+import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"
 
 function createStores() {
@@ -32,7 +34,8 @@ function createStores() {
         [SHARE_STORE]: new ShareStore(),
         [WIKIWORK_STORE]: new WikiWork(),
         [EAM_STORE]: new EamStore(),
-        [HOME_STORE]: new HomeStore()
+        [HOME_STORE]: new HomeStore(),
+        [SURVEY_STORE]: new SurveyStore()
     };
 }
 

@@ -7,9 +7,12 @@ const SystemFeature = props => {
 
 
     return (
-        <SystemFeatureList
-            {...props}
-        />
+        // <div className="test">
+            <SystemFeatureList
+                bgroup={'teamwire'}
+                {...props}
+            />
+        // </div>
     )
 }
 

@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {UnControlled as ReactCodeMirror} from 'react-codemirror2';
 import {Editor, Transforms} from "slate";
 import { Slate, Editable, withReact, ReactEditor } from "slate-react";
+import "./codeBlock.scss"
 import 'codemirror/lib/codemirror.js';
 
 import 'codemirror/addon/selection/selection-pointer';
@@ -28,7 +29,6 @@ import 'codemirror/theme/idea.css'  // 主题: idea
 
 import 'codemirror/mode/textile/textile';
 import 'codemirror/mode/xml/xml';
-require('codemirror/mode/shell/shell');
 
 const CodeBlock = (props) => {
     const { editor,element,children,ediTextRef} = props;
@@ -69,7 +69,8 @@ const CodeBlock = (props) => {
     }
     return (
         <div 
-        contentEditable = {false} suppressContentEditableWarning
+            className="code-block"
+            contentEditable = {false} suppressContentEditableWarning
         >
             <ReactCodeMirror
                 // ref={ediTextRef}

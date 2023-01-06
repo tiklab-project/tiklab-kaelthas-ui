@@ -4,90 +4,592 @@
  * @Author: 袁婕轩
  * @Date: 2021-06-01 14:44:20
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-10-28 10:20:12
+ * @LastEditTime: 2022-04-25 10:09:01
  */
-const orgaRouter = [
+
+const setDevEamRouter= [
     {
-        title: "模板管理",
-        icon: 'category',
-        key: '/index/sysmgr/template',
-        encoded: "LoadData",
-    },
-    {
-        title: '权限中心',
-        icon: 'systemcenter',
-        key: "/index/sysmgr/systemFeature",
-        encoded: "system",
+        title: "用户与部门",
+        icon: 'orgamanage',
+        key: '/index/setting/organ',
+        encoded: "SysOrga",
+        code: 1,
         children: [
             {
-                title: '系统功能管理',
-                icon: 'systemcenter',
-                key: '/index/sysmgr/systemFeature',
-                encoded: "systemFeature",
+                title: "部门",
+                icon: 'orgamanage',
+                key: '/index/setting/organ',
+                encoded: "SysOrga",
+                code: 1-1,
+                
             },
             {
-                title: '系统角色管理',
-                icon: 'systemcenter',
-                key: '/index/sysmgr/systemRole',
-                encoded: "systemRole",
+                title: '用户',
+                icon: 'usermanage',
+                key: '/index/setting/user',
+                encoded: "SysUser",
+                code: 1-2,
             },
             {
-                title: '项目功能管理',
-                icon: 'projectpriviliage',
-                key: '/index/sysmgr/projectFeature',
-                encoded: "projectFeature",
+                title: '用户组',
+                icon: 'usermanage',
+                key: '/index/setting/usergroup',
+                encoded: "SysUser",
+                code: 1-3,
             },
             {
-                title: '项目角色管理',
-                icon: 'projectpriviliage',
-                key: '/index/sysmgr/projectRole',
-                encoded: "projectRole",
-            }  
+        
+                title: "用户目录",
+                icon: 'category',
+                key: '/index/setting/directory',
+                encoded: "SysMessage",
+                code: 1-4,
+            },
         ]
     },
     {
-        title: "消息中心",
+        title: "模板管理",
+        icon: 'category',
+        key: '/index/setting/template',
+        encoded: "LoadData",
+    },
+
+    {
+        title: '权限',
+        icon: 'systemcenter',
+        key: "/index/setting/systemRole",
+        encoded: "SysRoleSystem",
+        code: 2
+    },
+    {
+        title: "消息",
         icon: 'messagecenter',
-        key: '/index/sysmgr/messageTemplate',
+        key: '/index/setting/messageNotice',
         encoded: "SysMessage",
-        code: 7,
+        code: 4,
         children: [
             {
-                title: '消息管理',
+                title: "消息通知方案",
                 icon: 'messagecenter',
-                key: '/index/sysmgr/messageManagement',
-                encoded: "SysMessageManagement",
-                code: 7-1,
-            },
-            {
-                title: '消息模板管理',
-                icon: 'messagecenter',
-                key: '/index/sysmgr/messageTemplate',
-                encoded: "SysMessageTemplate",
-                code: 7-2,
-            },
-            {
-                title: '消息类型管理',
-                icon: 'messagecenter',
-                key: '/index/sysmgr/messageType',
-                encoded: "SysMessageType",
-                code: 7-3,
+                key: '/index/setting/messageNotice',
+                encoded: "SysMessage",
+                code: 4-1
             },
             {
                 title: '消息发送方式',
                 icon: 'messagecenter',
-                key: '/index/sysmgr/messageSendType',
+                key: '/index/setting/messageSendType',
                 encoded: "SysMessageType",
-                code: 7-4,
+                code: 4-2,
             }
         ]
     },
     {
-        title: "插件管理",
-        icon: 'category',
-        key: '/index/sysmgr/plugin',
-        encoded: "Plugin",
+        title: "插件",
+        icon: 'plugin',
+        key: '/index/setting/plugin',
+        encoded: "SysPlugin",
+        code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        key: '/index/setting/loadData',
+        encoded: "SysMessage",
+        code: 9,
+        children: [
+            {
+                title: 'JIRA',
+                icon: 'systemcenter',
+                key: '/index/setting/loadData',
+                encoded: "SysMessageManagement",
+                code: 9-1,
+            },
+        ]
+    },
+    {
+        title: "安全",
+        icon: 'systemcenter',
+        key: '/index/setting/log',
+        encoded: "SysMessage",
+        code: 10,
+        children: [
+            {
+                title: '操作日志',
+                icon: 'systemcenter',
+                key: '/index/setting/logList',
+                encoded: "logList",
+                code: 10-1,
+            }
+        ]
+    }, 
+    {
+        title: "版本与许可证",
+        icon: 'plugin',
+        key: '/index/setting/version',
+        encoded: "SysPlugin",
+        code: 11,
+    },
+    {
+        title: "基础数据",
+        icon: 'systemcenter',
+        key: '/index/setting/systemFeature',
+        encoded: "basicData",
+        code: 12,
+        children: [
+            {
+                title: '用户组',
+                icon: 'projecttype',
+                key: '/index/setting/usersystemgroup',
+                encoded: "usersystemgroup",
+                code: 12-18,
+            },
+            {
+                title: '系统功能',
+                icon: 'systemcenter',
+                key: '/index/setting/systemFeature',
+                encoded: "SysFeatruestem",
+                code: 12-3,
+            },
+            {
+                title: '系统角色',
+                icon: 'systemcenter',
+                key: '/index/setting/systemRoleBuilt',
+                encoded: "SystemRoleBuilt",
+                code: 12-4,
+            },
+            {
+                title: '项目功能',
+                icon: 'projectpriviliage',
+                key: '/index/setting/projectFeature',
+                encoded: "SysFeatrueProject",
+                code: 12-5,
+            },
+            {
+                title: '项目角色',
+                icon: 'projectpriviliage',
+                key: '/index/setting/projectRole',
+                encoded: "SysRoleProject",
+                code: 12-6
+            },
+            {
+                title: '消息通知方式',
+                icon: 'messagecenter',
+                key: '/index/setting/messageNoticeSystem',
+                encoded: "SysMessageTemplate",
+                code: 12-7,
+            },
+            {
+                title: '消息类型',
+                icon: 'messagecenter',
+                key: '/index/setting/messageType',
+                encoded: "SysMessageType",
+                code: 12-8,
+            },
+            {
+                title: '日志模板',
+                icon: 'systemcenter',
+                key: '/index/setting/myLogTemplateList',
+                encoded: "myLogTemplateList",
+                code: 12-10,
+            },
+            {
+                title: '日志类型',
+                icon: 'systemcenter',
+                key: '/index/setting/projectLogTypeList',
+                encoded: "projectLogTypeList",
+                code: 12-11,
+            },
+            {
+                title: '待办模板',
+                icon: 'systemcenter',
+                key: '/index/setting/todoTempList',
+                encoded: "todoTempList",
+                code: 12-12,
+            },
+            {
+                title: '待办类型',
+                icon: 'systemcenter',
+                key: '/index/setting/todoTypeTask',
+                encoded: "todoTempList",
+                code: 12-13,
+            }
+        ]
     }
-
 ];
-export default orgaRouter;
+
+const setPrdEamRouter= [
+    {
+        title: "用户与部门",
+        icon: 'orgamanage',
+        key: '/index/setting/organ',
+        encoded: "SysOrga",
+        code: 1,
+        children: [
+            {
+                title: "部门",
+                icon: 'orgamanage',
+                key: '/index/setting/organ',
+                encoded: "SysOrga",
+                code: 1-1,
+                
+            },
+            {
+                title: '用户',
+                icon: 'usermanage',
+                key: '/index/setting/user',
+                encoded: "SysUser",
+                code: 1-2,
+            },
+            {
+                title: '用户组',
+                icon: 'usermanage',
+                key: '/index/setting/usergroup',
+                encoded: "SysUser",
+                code: 1-3,
+            },
+            {
+        
+                title: "用户目录",
+                icon: 'category',
+                key: '/index/setting/directory',
+                encoded: "SysMessage",
+                code: 1-4,
+            },
+        ]
+    },
+    {
+        title: "模板管理",
+        icon: 'category',
+        key: '/index/setting/template',
+        encoded: "LoadData",
+    },
+
+    {
+        title: '权限',
+        icon: 'systemcenter',
+        key: "/index/setting/systemRole",
+        encoded: "SysRoleSystem",
+        code: 2
+    },
+    {
+        title: "消息",
+        icon: 'messagecenter',
+        key: '/index/setting/messageNotice',
+        encoded: "SysMessage",
+        code: 4,
+        children: [
+            {
+                title: "消息通知方案",
+                icon: 'messagecenter',
+                key: '/index/setting/messageNotice',
+                encoded: "SysMessage",
+                code: 4-1
+            },
+            {
+                title: '消息发送方式',
+                icon: 'messagecenter',
+                key: '/index/setting/messageSendType',
+                encoded: "SysMessageType",
+                code: 4-2,
+            }
+        ]
+    },
+    {
+        title: "插件",
+        icon: 'plugin',
+        key: '/index/setting/plugin',
+        encoded: "SysPlugin",
+        code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        key: '/index/setting/loadData',
+        encoded: "SysMessage",
+        code: 9,
+        children: [
+            {
+                title: 'JIRA',
+                icon: 'systemcenter',
+                key: '/index/setting/loadData',
+                encoded: "SysMessageManagement",
+                code: 9-1,
+            },
+        ]
+    },
+    {
+        title: "安全",
+        icon: 'systemcenter',
+        key: '/index/setting/log',
+        encoded: "SysMessage",
+        code: 10,
+        children: [
+            {
+                title: '操作日志',
+                icon: 'systemcenter',
+                key: '/index/setting/logList',
+                encoded: "logList",
+                code: 10-1,
+            }
+        ]
+    }, 
+    {
+        title: "版本与许可证",
+        icon: 'plugin',
+        key: '/index/setting/version',
+        encoded: "SysPlugin",
+        code: 11,
+    }
+];
+
+const setDevRouter= [
+    {
+        title: "用户与部门",
+        icon: 'orgamanage',
+        key: '/index/setting/organ',
+        encoded: "SysOrga",
+        code: 1,
+        children: [
+            {
+                title: "部门",
+                icon: 'orgamanage',
+                key: '/index/setting/organ',
+                encoded: "SysOrga",
+                code: 1-1,
+                
+            },
+            {
+                title: '用户',
+                icon: 'usermanage',
+                key: '/index/setting/user',
+                encoded: "SysUser",
+                code: 1-2,
+            },
+            {
+                title: '用户组',
+                icon: 'usermanage',
+                key: '/index/setting/usergroup',
+                encoded: "SysUser",
+                code: 1-3,
+            },
+            {
+        
+                title: "用户目录",
+                icon: 'category',
+                key: '/index/setting/directory',
+                encoded: "SysMessage",
+                code: 1-4,
+            },
+        ]
+    },
+    {
+        title: "模板管理",
+        icon: 'category',
+        key: '/index/setting/template',
+        encoded: "LoadData",
+    },
+
+    {
+        title: '权限',
+        icon: 'systemcenter',
+        key: "/index/setting/systemRole",
+        encoded: "SysRoleSystem",
+        code: 2
+    },
+    {
+        title: "消息",
+        icon: 'messagecenter',
+        key: '/index/setting/messageNotice',
+        encoded: "SysMessage",
+        code: 4,
+        children: [
+            {
+                title: "消息通知方案",
+                icon: 'messagecenter',
+                key: '/index/setting/messageNotice',
+                encoded: "SysMessage",
+                code: 4-1
+            },
+            {
+                title: '消息发送方式',
+                icon: 'messagecenter',
+                key: '/index/setting/messageSendType',
+                encoded: "SysMessageType",
+                code: 4-2,
+            }
+        ]
+    },
+    {
+        title: "插件",
+        icon: 'plugin',
+        key: '/index/setting/plugin',
+        encoded: "SysPlugin",
+        code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        key: '/index/setting/loadData',
+        encoded: "SysMessage",
+        code: 9,
+        children: [
+            {
+                title: 'JIRA',
+                icon: 'systemcenter',
+                key: '/index/setting/loadData',
+                encoded: "SysMessageManagement",
+                code: 9-1,
+            },
+        ]
+    },
+    {
+        title: "安全",
+        icon: 'systemcenter',
+        key: '/index/setting/log',
+        encoded: "SysMessage",
+        code: 10,
+        children: [
+            {
+                title: '操作日志',
+                icon: 'systemcenter',
+                key: '/index/setting/logList',
+                encoded: "logList",
+                code: 10-1,
+            }
+        ]
+    }, 
+    {
+        title: "版本与许可证",
+        icon: 'plugin',
+        key: '/index/setting/version',
+        encoded: "SysPlugin",
+        code: 11,
+    }
+];
+
+const setPrdRouter= [
+    {
+        title: "用户与部门",
+        icon: 'orgamanage',
+        key: '/index/setting/organ',
+        encoded: "SysOrga",
+        code: 1,
+        children: [
+            {
+                title: "部门",
+                icon: 'orgamanage',
+                key: '/index/setting/organ',
+                encoded: "SysOrga",
+                code: 1-1,
+                
+            },
+            {
+                title: '用户',
+                icon: 'usermanage',
+                key: '/index/setting/user',
+                encoded: "SysUser",
+                code: 1-2,
+            },
+            {
+                title: '用户组',
+                icon: 'usermanage',
+                key: '/index/setting/usergroup',
+                encoded: "SysUser",
+                code: 1-3,
+            },
+            {
+        
+                title: "用户目录",
+                icon: 'category',
+                key: '/index/setting/directory',
+                encoded: "SysMessage",
+                code: 1-4,
+            },
+        ]
+    },
+    {
+        title: "模板管理",
+        icon: 'category',
+        key: '/index/setting/template',
+        encoded: "LoadData",
+    },
+
+    {
+        title: '权限',
+        icon: 'systemcenter',
+        key: "/index/setting/systemRole",
+        encoded: "SysRoleSystem",
+        code: 2
+    },
+    {
+        title: "消息",
+        icon: 'messagecenter',
+        key: '/index/setting/messageNotice',
+        encoded: "SysMessage",
+        code: 4,
+        children: [
+            {
+                title: "消息通知方案",
+                icon: 'messagecenter',
+                key: '/index/setting/messageNotice',
+                encoded: "SysMessage",
+                code: 4-1
+            },
+            {
+                title: '消息发送方式',
+                icon: 'messagecenter',
+                key: '/index/setting/messageSendType',
+                encoded: "SysMessageType",
+                code: 4-2,
+            }
+        ]
+    },
+    {
+        title: "插件",
+        icon: 'plugin',
+        key: '/index/setting/plugin',
+        encoded: "SysPlugin",
+        code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        key: '/index/setting/loadData',
+        encoded: "SysMessage",
+        code: 9,
+        children: [
+            {
+                title: 'JIRA',
+                icon: 'systemcenter',
+                key: '/index/setting/loadData',
+                encoded: "SysMessageManagement",
+                code: 9-1,
+            },
+        ]
+    },
+    {
+        title: "安全",
+        icon: 'systemcenter',
+        key: '/index/setting/log',
+        encoded: "SysMessage",
+        code: 10,
+        children: [
+            {
+                title: '操作日志',
+                icon: 'systemcenter',
+                key: '/index/setting/logList',
+                encoded: "logList",
+                code: 10-1,
+            }
+        ]
+    }, 
+    {
+        title: "版本与许可证",
+        icon: 'plugin',
+        key: '/index/setting/version',
+        encoded: "SysPlugin",
+        code: 11,
+    }
+];
+export  {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter};

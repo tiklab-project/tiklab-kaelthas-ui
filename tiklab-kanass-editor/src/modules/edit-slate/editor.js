@@ -90,7 +90,7 @@ const CustomEditor = {
 
 // 定义我们的应用…
 const DocumentEditor = (props) => {
-	const { onChange, value, focusEditor, minHeight } = props;
+	const { onChange, value, focusEditor, minHeight, height } = props;
 	const editor = useMemo(
 		() => withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor()))))))),
 		[]
@@ -101,13 +101,9 @@ const DocumentEditor = (props) => {
 		return <Leaf {...props} />;
 	}, []);
 
-	// const onClick = () => {
-	// 	console.log("dsfsf")
-	// 	setShowMenu(false)
-	// }
 	useEffect(() => {
 		if (focusEditor) {
-			ReactEditor.focus(editor);
+			// ReactEditor.focus(editor);
 			return;
 		}
 
@@ -158,17 +154,17 @@ const DocumentEditor = (props) => {
 		let head = setTree();
 		switch (item.head) {
 			case "h1":
-				return <div key={index} className="categray-list" style={{ paddingLeft: head[0] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[0] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h2":
-				return <div key={index} style={{ paddingLeft: head[1] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[1] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h3":
-				return <div key={index} style={{ paddingLeft: head[2] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[2] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h4":
-				return <div key={index} style={{ paddingLeft: head[3] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[3] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h5":
-				return <div key={index} style={{ paddingLeft: head[4] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[4] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 			case "h6":
-				return <div key={index} style={{ paddingLeft: head[5] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
+				return <div key={index} className="catelog-list" style={{ paddingLeft: head[5] * 10 }} onClick={() => jump(item.id)}>{item.children[0].text}</div>
 		}
 	}
 
@@ -178,14 +174,15 @@ const DocumentEditor = (props) => {
 				const [match] = Editor.nodes(editor, {
 					match: n => n.type === 'head',
 				})
-				if (!!match) {
+				console.log(match)
+				if (match && match[0].type === "head") {
 					Transforms.setNodes(
 						editor,
-						{ type: !!match ? null : 'paragraph' },
-						{ match: n => Editor.isBlock(editor, Editor) }
+						{ type: 'paragraph' }
 					)
 				}
 				break;
+
 			default:
 				break;
 		}
@@ -193,14 +190,12 @@ const DocumentEditor = (props) => {
 
 	return (
 		<Fragment>
-			<div className="edit">
+			<div className="edit" style={{height: height}}>
 				<div>
 					<Slate
 						editor={editor}
 						value={value}
 						onChange={(value) => onChange(value)}
-
-					// onChange={(value) => setValue(value)}
 					>
 						<div className="edit-toolbar">
 							<span
@@ -215,17 +210,6 @@ const DocumentEditor = (props) => {
 									<use xlinkHref="#icon-bold"></use>
 								</svg>
 							</span>
-							{/* <span
-							className="tool-item"
-							onMouseDown={(event) => {
-								event.preventDefault();
-								CustomEditor.toggleCodeBlock(editor);
-							}}
-						>
-							<svg className="slate-iconfont" aria-hidden="true">
-								<use xlinkHref="#icon-code-view"></use>
-							</svg>
-						</span> */}
 							<CodeEditor editor={editor} />
 							<ItalicEditor editor={editor} />
 							<UnderlineEditor editor={editor} />
@@ -261,26 +245,11 @@ const DocumentEditor = (props) => {
 							className="edit-box"
 							style={{ minHeight: minHeight }}
 							onKeyUp={event => clickKey(event)}
-							onFocus = {() => console.log(editor, Location, PointRef.current)}
+							// onFocus = {() => console.log(editor, Location, PointRef.current)}
 						// readOnly= {sh owMenu}
 						/>
 					</Slate>
 				</div>
-				<div className="edit-catalog">
-					<div className="catelog-title">目录</div>
-					<div>
-						{
-							value && value.length > 0 && value.map((item, index) => {
-								if (item.type === "head") {
-									return categray(item, index)
-								} else {
-									return null
-								}
-							})
-						}
-					</div>
-				</div>
-				
 			</div>
 		</Fragment>
 

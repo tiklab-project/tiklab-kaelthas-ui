@@ -5,10 +5,10 @@ const SystemRoleWrap = props => {
 
 
     return (
-        <SystemRoleList
-            {...props}
-            group={'system'}
-        />
+            <SystemRoleList
+                {...props}
+                bgroup={'teamwire'}
+            />
     )
 }
 

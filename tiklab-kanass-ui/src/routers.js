@@ -13,21 +13,25 @@ import { Redirect } from "react-router-dom";
 const Login = AsyncComponent(() => import('./modules/login/login'))
 const Logout = AsyncComponent(() => import('./modules/login/logout'))
 const Home = AsyncComponent(() => import('./modules/home/components/home'))
-const Index = AsyncComponent(() => import('./modules/home/components/portal.js'))
+const Index = AsyncComponent(() => import('./modules/home/components/portal'))
 const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/components/wikiDetail'))
-const LogDetail = AsyncComponent(()=> import('./modules/wiki/common/components/logDetail'))
-const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'))
+const Survey = AsyncComponent(() => import('./modules/wiki/survey/containers/survey'))
+const DynamicList = AsyncComponent(() => import("./modules/home/components/dynamicList"))
+
+const LogDetail = AsyncComponent(() => import('./modules/wiki/common/components/logDetail'))
+const BrainMap = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'))
 const DocumentMindMapEdit = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowEdit'))
 
 // 知识库
-const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wiki'))
+const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wikiList'))
 const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
 const DocumentEdit = AsyncComponent(() => import("./modules/wiki/common/components/documentEdit"))
 const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/common/components/documnetExamine"))
 
+const WikiSet = AsyncComponent(() => import("./modules/wikiSet/common/containers/wikiSet"))
 const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
 const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
-
+const WikiBasicInfo = AsyncComponent(() => import('./modules/wikiSet/basic-info/containers/basicInfo'))
 const Template = AsyncComponent(() => import('./modules/template/components/template'))
 
 // 分享文档页面
@@ -36,30 +40,46 @@ const ShareDocument = AsyncComponent(() => import('./modules/share/components/sh
 const PassWord = AsyncComponent(() => import('./modules/share/components/passWord'))
 
 
+const LoadData = AsyncComponent(() => import('./modules/sysmgr/load-data/loadData'))
+
+// 消息
+const ProjectMessageSendType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageSendType'))
+const ProjectMessageType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageType'))
+const ProjectMessageTemplate = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageTemplate'))
+const ProjectMessageManagement = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageManagement'))
+const ProjectMessageNotice = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNotice'))
+const ProjectMessageNoticeSystem = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNoticeSystem'))
+
+const Setting = AsyncComponent(() => import('./modules/sysmgr/common/containers/setting'))
+const ProjectPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/projectPlugin'))
+
 const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/systemFeature'))
+const SystemRoleBuilt = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRoleBuilt'))
 const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRole'))
 const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
 const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
 
-const Sysmgr = AsyncComponent(() => import('./modules/sysmgr/common/containers/setting'))
-
-// 导入外部数据
-
-
-const WikiPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/wikiPlugin.js'))
-const Oragn = AsyncComponent(()=> import("./modules/sysmgr/common/containers/organ"))
+//组织用户
 const OrgaContent = AsyncComponent(() => import('./modules/sysmgr/orga/orga'))
 const OrgaUser = AsyncComponent(() => import('./modules/sysmgr/orga/user'))
-const WikiDirectory = AsyncComponent(() => import('./modules/sysmgr/orga/wikiDirectory'))
-const LoadData = AsyncComponent(() => import('./modules/sysmgr/loadData/components/loadData'))
+const ProjectDirectory = AsyncComponent(() => import("./modules/sysmgr/user/projectDirectory"))
+const ProjectUserGroup = AsyncComponent(() => import("./modules/sysmgr/user/projectUserGroup"))
+const ProjectSystemUserGroup = AsyncComponent(() => import("./modules/sysmgr/user/projectSystemUserGroup"))
 
-const WikiUserMessage = AsyncComponent(() => import('./modules/sysmgr/message/wikiUserMessage'))
-const WikiMessageSendType = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageSendType'))
-const WikiMessageType = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageType'))
-const WikiMessageTemplate = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageTemplate'))
-const WikiMessageManagement = AsyncComponent(() => import('./modules/sysmgr/message/wikiMessageManagement'))
 
-const routes=[
+//工时
+const TaskListContent = AsyncComponent(() => import('./modules/sysmgr/todo/taskList.js'))
+const TodoTempListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTempList'))
+const MyTodoTaskContent = AsyncComponent(() => import('./modules/sysmgr/todo/myTodoTask'))
+const TodoTypeListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTypeList'))
+
+const LogList = AsyncComponent(() => import('./modules/sysmgr/log/log.js'))
+const LogTemplateList = AsyncComponent(() => import('./modules/sysmgr/log/myLogTemplateList'))
+const ProjectLogTypeList = AsyncComponent(() => import('./modules/sysmgr/log/logTypeList'))
+
+const LicenceVersion = AsyncComponent(() => import('./modules/sysmgr/version/version'))
+
+const routes = [
     {
         path: "/login",
         exact: true,
@@ -91,6 +111,12 @@ const routes=[
                 key: 'home'
             },
             {
+                path: "/index/dynamic",
+                exact: true,
+                component: DynamicList,
+                key: 'dynamic'
+            },
+            {
                 path: "/index/wiki",
                 exact: true,
                 component: wiki,
@@ -104,141 +130,213 @@ const routes=[
                 key: 'template'
             },
             {
-                path: "/index/userMessage",
-                exact: true,
-                component: WikiUserMessage,
-                key: 'userMessage'
-            },
-            {
-                path: "/index/wikidetail",
+                path: "/index/wikidetail/:wikiId",
                 component: WikiDetail,
                 routes: [
                     {
-                        path: "/index/wikidetail/doc/:id",
+                        path: "/index/wikidetail/:wikiId/survey",
+                        component: Survey
+                    },
+                    {
+                        path: "/index/wikidetail/:wikiId/dynamicList",
+                        component: DynamicList
+                    },
+                    {
+                        path: "/index/wikidetail/:wikiId/doc/:id",
                         component: DocumnetExamine
                     },
                     {
-                        path: "/index/wikidetail/docEdit/:id",
+                        path: "/index/wikidetail/:wikiId/docEdit/:id",
                         component: DocumentEdit
                     },
                     {
-                        path: "/index/wikidetail/folder/:id",
+                        path: "/index/wikidetail/:wikiId/folder/:id",
                         component: LogDetail
                     },
                     {
-                        path: "/index/wikidetail/mindmap/:id",
+                        path: "/index/wikidetail/:wikiId/mindmap/:id",
                         component: BrainMap
                     },
                     {
-                        path: "/index/wikidetail/mindmapEdit/:id",
+                        path: "/index/wikidetail/:wikiId/mindmapEdit/:id",
                         component: DocumentMindMapEdit
                     },
                     {
-                        path: "/index/wikidetail/wikiDomainRole",
-                        component: WikiDomainRole
-                    },
-                    {
-                        path: "/index/wikidetail/wikiDomainUser",
-                        component: WikiDomainUser
-                    },
-                    
-                    {
-                        path: "/index/wikidetail/brainMap",
+                        path: "/index/wikidetail/:wikiId/brainMap",
                         component: BrainMap
+                    },
+                    {
+                        path: "/index/wikidetail/:wikiId/wikiSet",
+                        component: WikiSet,
+                        routes: [
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/basicInfo",
+                                component: WikiBasicInfo
+                            },
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/user",
+                                component: WikiDomainUser,
+                                exact: true
+                            },
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/domainRole",
+                                component: WikiDomainRole
+                            }
+                        ]
                     }
                 ]
             },
             {
-                // 系统功能管理
-                path: "/index/sysmgr",
-                component: Sysmgr,
+                path: "/index/setting",
+                component: Setting,
+                key: 'Setting',
                 routes: [
                     {
-                        path: "/index/sysmgr/systemFeature",
+                        path: "/index/setting/organ",
+                        component: OrgaContent,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/template",
+                        exact: true,
+                        component: Template,
+                        key: 'template'
+                    },
+                    {
+                        path: "/index/setting/user",
+                        component: OrgaUser,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/directory",
+                        component: ProjectDirectory,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/usergroup",
+                        component: ProjectUserGroup,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/usersystemgroup",
+                        component: ProjectSystemUserGroup,
+                        exact: true
+                    },
+                    // 系统功能管理
+                    {
+                        path: "/index/setting/systemFeature",
                         component: SystemFeature,
+                        exact: true
+                    },
+                    // 系统内置角色管理
+                    {
+                        path: "/index/setting/systemRoleBuilt",
+                        component: SystemRoleBuilt,
                         exact: true
                     },
                     // 系统角色管理
                     {
-                        path: "/index/sysmgr/systemRole",
+                        path: "/index/setting/systemRole",
                         component: SystemRole,
                         exact: true
                     },
                     // 项目功能管理
                     {
-                        path: "/index/sysmgr/projectFeature",
+                        path: "/index/setting/projectFeature",
                         component: ProjectFeature,
                         exact: true
                     },
                     // 项目角色管理
                     {
-                        path: "/index/sysmgr/projectRole",
+                        path: "/index/setting/projectRole",
                         component: ProjectRole,
                         exact: true
                     },
-                    // 导入数据
                     {
-                        path: "/index/sysmgr/loadData",
-                        component: LoadData,
+                        path: "/index/setting/messageManagement",
+                        component: ProjectMessageManagement,
                         exact: true
                     },
                     {
-                        path: "/index/sysmgr/template",
-                        component: Template,
+                        path: "/index/setting/messageNotice",
+                        component: ProjectMessageNotice,
                         exact: true
                     },
                     {
-                        path: "/index/sysmgr/plugin",
-                        component: WikiPlugin,
+                        path: "/index/setting/messageNoticeSystem",
+                        component: ProjectMessageNoticeSystem,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/messageTemplate",
+                        component: ProjectMessageTemplate,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/messageType",
+                        component: ProjectMessageType,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/messageSendType",
+                        component: ProjectMessageSendType,
                         exact: true
                     },
 
                     {
-                        path: "/index/sysmgr/messageManagement",
-                        component: WikiMessageManagement,
+                        path: "/index/setting/taskList",
+                        component: TaskListContent,
                         exact: true
                     },
                     {
-                        path: "/index/sysmgr/messageTemplate",
-                        component: WikiMessageTemplate,
+                        path: "/index/setting/myTodoTask",
+                        component: MyTodoTaskContent,
                         exact: true
                     },
                     {
-                        path: "/index/sysmgr/messageType",
-                        component: WikiMessageType,
+                        path: "/index/setting/todoTypeTask",
+                        component: TodoTypeListContent,
                         exact: true
                     },
                     {
-                        path: "/index/sysmgr/messageSendType",
-                        component: WikiMessageSendType,
-                        exact: true
-                    },
-                ]
-            },
-            {
-                path: "/index/organ",
-                component: Oragn,
-                key: 'organ',
-                routes: [
-                    {
-                        path: "/index/organ/organ",
-                        component: OrgaContent,
+                        path: "/index/setting/todoTempList",
+                        component: TodoTempListContent,
                         exact: true
                     },
                     {
-                        path: "/index/organ/user",
-                        component: OrgaUser,
+                        path: "/index/setting/logList",
+                        component: LogList,
                         exact: true
                     },
                     {
-                        path: "/index/organ/directory",
-                        component: WikiDirectory,
+                        path: "/index/setting/myLogTemplateList",
+                        component: LogTemplateList,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/projectLogTypeList",
+                        component: ProjectLogTypeList,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/version",
+                        component: LicenceVersion,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/loadData",
+                        component: LoadData,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/plugin",
+                        component: ProjectPlugin,
                         exact: true
                     }
                 ]
             },
         ]
-            
+
     },
     {
         path: "/",

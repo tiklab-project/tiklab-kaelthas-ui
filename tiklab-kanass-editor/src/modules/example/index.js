@@ -10,6 +10,9 @@ import React, { Fragment, useState } from "react";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
 import Editor from "../edit-slate/editor";
+import Menu from "../edit-slate/editorBigMenu";
+import EditorContent from "../edit-slate/editorBigContent"
+import EditorEdit from "../edit-slate/editorBigMenu";
 import PreviewEditor from "../edit-slate/previewEditor";
 // showMenu = {true}
 const ExampleEditor = () => {
@@ -38,25 +41,16 @@ const ExampleEditor = () => {
 
     const submit = (value) => {
         setValue(value)
-        console.log(value)
     }
     return (
         <Fragment>
             <div onClick={() => { setShowMenu(!showMenu) }}>确定</div>
-            {/* <PreviewEditor value = {value} 
-                    onChange = {setValue} />  */}
-            <Editor
+            <Menu editor = {editor}/>
+            <EditorContent 
                 value={value}
                 onChange={value => submit(value)}
+                editor = {editor}
             />
-            {/* { showMenu ? <Editor 
-                    value = {value} 
-                    onChange = {setValue} 
-                />
-                :
-                <PreviewEditor value = {value} 
-                    onChange = {setValue} />} */}
-            {/* </div> */}
         </Fragment>
 
     )

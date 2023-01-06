@@ -1,34 +1,36 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "./home.scss";
-import { Tabs } from 'antd';
+import { Tabs, Row, Col, Empty } from 'antd';
 import { inject, observer } from 'mobx-react';
 import { getUser } from 'tiklab-core-ui';
 const { TabPane } = Tabs;
 
 const Home = (props) => {
     const { homeStore } = props;
-    const { findDocumentList, findDocumentRecentList } = homeStore;
+    const { findDocumentList, findDocumentRecentList, opLogList, findLogpage, findRecentRepositoryList } = homeStore;
     const [recentEditDocumentList, setRecentEditDocumentList] = useState([]);
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentWikiDocumentList, setRecentWikiDocumentList] = useState([]);
     const userId = getUser().id
     useEffect(() => {
-        const params = {
-            orderParams: [{
-                name: "updateTime",
-                orderType: "asc"
-            }]
-        }
-        findDocumentList(params).then(res => {
-            console.log(res)
-            if (res.code === 0) {
-                setRecentEditDocumentList([...res.data])
-            }
 
-        })
+        findLogpage({ userId: userId })
+        // const params = {
+        //     orderParams: [{
+        //         name: "updateTime",
+        //         orderType: "asc"
+        //     }]
+        // }
+        // findDocumentList(params).then(res => {
+        //     console.log(res)
+        //     if (res.code === 0) {
+        //         setRecentEditDocumentList([...res.data])
+        //     }
+
+        // })
         const recentParams = {
             masterId: userId,
-            models: ["document","mindMap"],
+            models: ["document", "mindMap"],
             orderParams: [{
                 name: "recentTime",
                 orderType: "asc"
@@ -42,18 +44,9 @@ const Home = (props) => {
 
         })
 
-        const wikiParams = {
-            masterId: userId,
-            model: "wiki",
-            orderParams: [{
-                name: "recentTime",
-                orderType: "asc"
-            }]
-        }
-        findDocumentRecentList(wikiParams).then(res => {
-            console.log(res)
+        findRecentRepositoryList({ model: "wiki" }).then(res => {
             if (res.code === 0) {
-                setRecentWikiDocumentList([...res.data])
+                setRecentWikiDocumentList(res.data)
             }
 
         })
@@ -61,63 +54,72 @@ const Home = (props) => {
     }, [])
 
     const goWikiDetail = wiki => {
-        localStorage.setItem("wiki",JSON.stringify(wiki.repository))
-        props.history.push(`/index/wikidetail`)
+        // localStorage.setItem("wiki", JSON.stringify(wiki.repository))
+        props.history.push(`/index/wikidetail/${wiki.id}/survey`)
     }
     const goDocumentDetail = item => {
-        localStorage.setItem("wiki",JSON.stringify(item.repository))
-        if(item.model === "document"){
+        // localStorage.setItem("wiki", JSON.stringify(item.repository))
+        if (item.model === "document") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/wikidetail/doc/${item.modelId}`)
+            props.history.push(`/index/wikidetail/${item.repository.id}/doc/${item.modelId}`)
         }
         if (item.model === "mindMap") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/wikidetail/mindmap/${item.modelId}`)
+            props.history.push(`/index/wikidetail/${item.repository.id}/mindmap/${item.modelId}`)
         }
-        
+
     }
 
-    const goEditDetail = item => {
-        localStorage.setItem("wiki",JSON.stringify(item.repository))
-        if(item.typeId === "document"){
-            localStorage.setItem("documentId", item.id);
-            props.history.push(`/index/wikidetail/doc/${item.id}`)
-        }
-        if (item.typeId === "mindMap") {
-            localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/wikidetail/mindmap/${item.id}`)
-        }
-        
-    }
     return (
-        <Fragment>
-            <div className="home">
-                <div className="home-repository">
-                    <div className="repository-title">最近访问知识库</div>
-                    <div className="repository-box">
-                        {
-                            recentWikiDocumentList && recentWikiDocumentList.map(item => {
-                                return <Fragment>
-                                    <div className="repository-item" key={item.id} onClick = {() => goWikiDetail(item)}>
-                                        <svg className="icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-paihang"></use>
-                                        </svg>
-                                        <div className="title" key="title">{item.name}</div>
-                                    </div>
-                                    
-                                </Fragment>
-                            })
-                        }
+        <div className="home">
+            <Row className="home-row">
+                <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
+                    <div>
+                        <div className="home-repository">
+                            <div className="repository-title">最近访问知识库</div>
+                            <div className="repository-box">
+                                {
+                                    recentWikiDocumentList && recentWikiDocumentList.map(item => {
+                                        return <Fragment>
+                                            <div className="repository-item" key={item.id} onClick={() => goWikiDetail(item)}>
+                                                <div className="item-title">
+                                                    {
+                                                        item.iconUrl ?
+                                                            <img
+                                                                src={('/images/' + item.iconUrl)}
+                                                                alt=""
+                                                                className="img-icon"
+                                                            />
+                                                            :
+                                                            <img
+                                                                src={('images/repository1.png')}
+                                                                alt=""
+                                                                className="img-icon"
+                                                            />
+                                                    }
+                                                    <span>{item.name}</span>
+                                                </div>
+                                                <div className="item-work">
+                                                    <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
+                                                    <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
+                                                </div>
+                                            </div>
 
-                    </div>
-                </div>
-                <div className="home-document">
-                    <Tabs defaultActiveKey="1">
-                        <TabPane tab="最近查看文档" key="1">
+                                        </Fragment>
+                                    })
+                                }
+
+                            </div>
+                        </div>
+
+                        <div className="home-document">
+                            <div className="document-box-title">
+                                <span className="name">最近查看的文档</span>
+                            </div>
                             <div>
                                 {
                                     recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick = {() => goDocumentDetail(item)}>
+                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
                                             <div className='document-name' style={{ flex: 1 }}>
                                                 <svg className="document-icon" aria-hidden="true">
                                                     <use xlinkHref="#icon-paihang"></use>
@@ -127,47 +129,46 @@ const Home = (props) => {
 
                                             <div style={{ flex: 1 }}>{item.repository.name}</div>
                                             <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                            <div style={{ flex: 1 }}>
-                                                <svg className="icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-point"></use>
-                                                </svg>
-                                            </div>
+                                            <div style={{ flex: 1 }}>{item.recentTime}</div>
                                         </div>
                                     })
                                 }
                             </div>
-                        </TabPane>
-                        <TabPane tab="最近修改文档" key="2">
-                            <div>
+                        </div>
+
+                        <div className="home-dynamic">
+                            <div className="dynamic-box-title">
+                                <span className="name">相关动态</span>
+                                <div className="more" onClick={() => { props.history.push(`/index/dynamic`) }}>
+                                    <svg aria-hidden="true" className="svg-icon">
+                                        <use xlinkHref="#icon-rightjump"></use>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div className="dynamic-list">
                                 {
-                                    recentEditDocumentList && recentEditDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick = {() => goEditDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-paihang"></use>
-                                                </svg>
-                                                <span>{item.name}</span>
-                                            </div>
-
-                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                            <div style={{ flex: 1 }}>
-                                                <svg className="icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-point"></use>
-                                                </svg>
-                                            </div>
-                                        </div>
+                                    opLogList.length > 0 ? opLogList.map(item => {
+                                        return <div
+                                            dangerouslySetInnerHTML={{ __html: item.data }}
+                                            className="dynamic-item"
+                                            key={item.id}
+                                            onClick={() => goOpLogDetail(item.link)}
+                                        />
                                     })
+                                        :
+                                        <Empty image="/images/nodata.png" description="暂时没有动态~" />
                                 }
-
                             </div>
-                        </TabPane>
-                    </Tabs>
-                </div>
-            </div>
-        </Fragment>
+                        </div>
+                        
+
+
+                    </div>
+
+                </Col>
+            </Row>
+
+        </div>
     );
 }
 

@@ -26,21 +26,22 @@
 .delete {
     color: red;
 }
-.ant-btn-primary {
-    background: #0053ca !important;
-    border-color: #0053ca !important;
-}
+// .ant-btn-primary {
+//     background: #0053ca !important;
+//     border-color: #0053ca !important;
+// }
 
-.table-box {
-    margin-top: 24px;
-}
+// .table-box {
+//     margin-top: 24px;
+// }
 .ant-table-thead>tr>th {
-    background: #E6EDFA;
-    font-weight: 600;
+    background: #fff;
+    font-weight: 400;
+    padding: 8px;
 }
 .ant-table-tbody>tr>td {
     border-bottom: 0;
-    
+    padding: 8px;
 }
 .ant-table table {
     border-bottom: 1px solid #f0f0f0;
@@ -56,9 +57,6 @@
     border-radius: 0 15px 14px 0;
 }
 
-.ant-form-item-label {
-    font-weight: 600;
-}
 
 .ant-modal-mask   {
     background-color: #4a60848f !important;

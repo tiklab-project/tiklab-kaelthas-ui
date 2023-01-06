@@ -7,19 +7,22 @@
  * @LastEditTime: 2021-12-22 14:04:36
  */
 import React, { useState, useEffect, Fragment } from "react";
-import { Breadcrumb, Dropdown, Divider,Form,Menu  } from 'antd';
+import { Breadcrumb, Dropdown, Divider, Form, Menu, Row, Col, Empty } from 'antd';
 import "./logDetail.scss"
 import { observer, inject } from "mobx-react";
 import AddLog from "./addLog"
 import TemplateList from "./templateList"
+import { getUser } from "tiklab-core-ui";
 const LogDetail = (props) => {
-    const { WikiCatalogueStore} = props;
-    const { detailWikiLog, findCategoryDocument,findDmPrjRolePage,setWikiCatalogueList} = WikiCatalogueStore
+    const { WikiCatalogueStore } = props;
+    const { detailWikiLog, findCategoryDocument, findDmPrjRolePage, setWikiCatalogueList, createDocumentRecent } = WikiCatalogueStore
     const categoryId = localStorage.getItem("categoryId");
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
     // 当前知识库id
-    const wikiId = JSON.parse(localStorage.getItem("wiki")).id
+    const wikiId = JSON.parse(localStorage.getItem("wiki")).id;
+    const userId = getUser().userId
+
     useEffect(() => {
         detailWikiLog({ id: categoryId }).then(data => {
             setLogDetail(data)
@@ -75,66 +78,97 @@ const LogDetail = (props) => {
         })
     }
 
+    const goToDocument = (item) => {
+        const params = {
+            name: item.name,
+            model: item.typeId,
+            modelId: item.id,
+            master: { id: userId },
+            repository: { id: wikiId }
+        }
+        createDocumentRecent(params)
+        setSelectKey(item.id)
+        if (item.formatType === "category") {
+            localStorage.setItem("categoryId", item.id);
+            props.history.push(`/index/wikidetail/${wikiId}/folder/${item.id}`)
+        }
+        if (item.typeId === "document") {
+            localStorage.setItem("documentId", item.id);
+            props.history.push(`/index/wikidetail/${wikiId}/doc/${item.id}`)
+        }
+        if (item.typeId === "mindMap") {
+            localStorage.setItem("documentId", item.id);
+            props.history.push(`/index/wikidetail/${wikiId}/mindmap/${item.id}`)
+
+        }
+    }
+
     return (
         <div className="log-detail">
-            <div className="log-detail-header">
-                <Breadcrumb>
-                    <Breadcrumb.Item>知识库管理</Breadcrumb.Item>
-                    <Breadcrumb.Item>
-                        <a href="/">目录详情</a>
-                    </Breadcrumb.Item>
-                </Breadcrumb>
-            </div>
-            <Divider />
-            <div>
-                {
-                    logDetail && <Fragment>
-                        <div className="log-title">
+            <Row>
+                <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
+                    <div>
+                        {
+                            logDetail && <Fragment>
+                                <div className="log-title">
 
-                            <div className="title-left">
-                                <svg className="title-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-folder"></use>
-                                </svg>
-                                <div className="title-name">
-                                    <div className="name">{logDetail.name}</div>
-                                    <div className="master">管理员: {logDetail.master.name}</div>
-                                </div>
-
-                            </div>
-                            {/* <div className="title-right" onClick={()=>addMenu(logDetail.id)}>
-                                
-                            </div> */}
-                            <Dropdown overlay={() => addMenu(logDetail.id)} placement="bottomLeft">
-                                <div>添加内容</div>
-                            </Dropdown>
-                        </div>
-                        <Divider />
-                    </Fragment>
-                }
-
-                <div className="log-child">
-                    {
-                        logList && logList.map(item => {
-                            return <Fragment><div className="log-child-list" key={item.id}>
-                                {
-                                    item.formatType && item.formatType === "document" ?
-                                        <svg className="log-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-file"></use>
-                                        </svg> :
-                                        <svg className="log-icon" aria-hidden="true">
+                                    <div className="title-left">
+                                        <svg className="title-icon" aria-hidden="true">
                                             <use xlinkHref="#icon-folder"></use>
                                         </svg>
-                                }
+                                        <div className="title-name">
+                                            <div className="name">{logDetail.name}</div>
+                                            <div className="master">{logDetail.master.name}</div>
+                                        </div>
 
-                                <span>{item.name}</span>
-                            </div>
-                                <Divider />
+                                    </div>
+                                    <Dropdown overlay={() => addMenu(logDetail.id)} placement="bottomLeft">
+                                        <div className="top-add-botton">添加内容</div>
+                                    </Dropdown>
+                                </div>
                             </Fragment>
-                        })
-                    }
-                </div>
+                        }
 
-            </div>
+                        <div className="log-child">
+                            {
+                                logList && logList.length > 0 ?  logList.map(item => {
+                                    return <Fragment>
+                                        <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
+                                            <div className="log-child-name">
+                                                {
+                                                    item.formatType && item.formatType === "category" &&
+                                                    <svg className="log-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-folder"></use>
+                                                    </svg>
+                                                }
+                                                {
+                                                    item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
+                                                    <svg className="log-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-minmap"></use>
+                                                    </svg>
+                                                }
+                                                {
+                                                    item.formatType && item.formatType === "document" && item.typeId === "document" &&
+                                                    <svg className="log-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-file"></use>
+                                                    </svg>
+                                                }
+
+                                                <span>{item.name}</span>
+                                            </div>
+                                            <div>{item.master.nickname}</div>
+                                            <div>{item.updateTime}</div>
+                                        </div>
+                                    </Fragment>
+                                })
+                                :
+                                <Empty image="/images/nodata.png" description="暂时没有内容~" />
+                            }
+                        </div>
+
+                    </div>
+                </Col>
+            </Row>
             <AddLog
                 setAddModalVisible={setAddModalVisible}
                 addModalVisible={addModalVisible}
@@ -146,7 +180,7 @@ const LogDetail = (props) => {
                 userList={userList}
                 {...props}
             />
-            <TemplateList 
+            <TemplateList
                 changeTemplateVisible={changeTemplateVisible}
                 setChangeTemplateVisible={setChangeTemplateVisible}
                 templateId={templateId}
