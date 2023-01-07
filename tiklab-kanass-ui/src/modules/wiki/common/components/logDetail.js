@@ -134,7 +134,7 @@ const LogDetail = (props) => {
                                 logList && logList.length > 0 ?  logList.map(item => {
                                     return <Fragment>
                                         <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
-                                            <div className="log-child-name">
+                                            <div className="log-child-name" style={{flex: 1}}>
                                                 {
                                                     item.formatType && item.formatType === "category" &&
                                                     <svg className="log-icon" aria-hidden="true">
@@ -156,8 +156,8 @@ const LogDetail = (props) => {
 
                                                 <span>{item.name}</span>
                                             </div>
-                                            <div>{item.master.nickname}</div>
-                                            <div>{item.updateTime}</div>
+                                            <div  style={{flex: 1}}>{item.master.nickname}</div>
+                                            <div  style={{flex: 1}}>{item.updateTime}</div>
                                         </div>
                                     </Fragment>
                                 })

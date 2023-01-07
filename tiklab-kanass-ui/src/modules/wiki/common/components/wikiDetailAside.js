@@ -226,7 +226,7 @@ const WikideAside = (props) => {
     const [addModalVisible, setAddModalVisible] = useState()
 
     //折叠菜单
-    const [expandedTree, setExpandedTree] = useState([])
+    const [expandedTree, setExpandedTree] = useState([0])
     // 树的展开与闭合
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
@@ -320,7 +320,7 @@ const WikideAside = (props) => {
 
     const logTree = (item, levels, faid) => {
         let newLevels = 0;
-        return <div className={`${!isExpandedTree(faid) ? "" : 'wiki-menu-submenu-hidden'}`}
+        return <div className={`${isExpandedTree(faid) ? "" : 'wiki-menu-submenu-hidden'}`}
             key={item.id}
             onDrop={() => changeLog(item.id)}
         >
@@ -387,7 +387,7 @@ const WikideAside = (props) => {
         </div>
     }
     const fileTree = (item, levels, faid) => {
-        return <div className={`${!isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
+        return <div className={`${isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
             key={item.id}
         >
             <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
@@ -437,9 +437,23 @@ const WikideAside = (props) => {
                 <div className={`wiki-aside ${isShowText ? "" : "wiki-icon"}`}>
                     <div className="wiki-title title">
                         <span className="wiki-title-left">
-                            <svg className="img-icon" aria-hidden="true">
+                            {
+                                wiki?.iconUrl ?
+                                    <img
+                                        src={('/images/' + wiki?.iconUrl)}
+                                        alt=""
+                                        className="img-icon"
+                                    />
+                                    :
+                                    <img
+                                        src={('images/repository1.png')}
+                                        alt=""
+                                        className="img-icon"
+                                    />
+                            }
+                            {/* <svg className="img-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-folder"></use>
-                            </svg>
+                            </svg> */}
                             {wiki?.name}
                         </span>
                         <div className="wiki-toggleCollapsed">
@@ -465,7 +479,7 @@ const WikideAside = (props) => {
                             onMouseLeave={() => setIsHover(null)}
                         >
                             <div className="wiki-menu-firstmenu-left">
-                                {
+                                {/* {
                                     wikiCatalogueList && wikiCatalogueList.length > 0 ?
                                         isExpandedTree(0) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(0)}>
                                             <use xlinkHref="#icon-right" ></use>
@@ -475,9 +489,9 @@ const WikideAside = (props) => {
                                             </svg> : <svg className="img-icon" aria-hidden="true">
                                             <use xlinkHref="#icon-circle"></use>
                                         </svg>
-                                }
+                                } */}
                                 <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-folder"></use>
+                                    <use xlinkHref="#icon-repository"></use>
                                 </svg>
                                 <span>知识库</span>
                             </div>
@@ -493,10 +507,10 @@ const WikideAside = (props) => {
                         {
                             wikiCatalogueList && wikiCatalogueList.map(item => {
                                 if (item.formatType === "document") {
-                                    return fileTree(item, 1, 0)
+                                    return fileTree(item, 0, 0)
                                 }
                                 if (item.formatType === "category") {
-                                    return logTree(item, 1, 0)
+                                    return logTree(item, 0, 0)
                                 }
                             })
                         }
