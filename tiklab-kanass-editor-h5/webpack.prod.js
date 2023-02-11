@@ -19,9 +19,9 @@ const baseWebpackConfig = require('./webpack.base');
 
 module.exports = merge(baseWebpackConfig, {
     mode: 'production',
-    entry: [
-        path.resolve(__dirname, './src/index.js')
-    ],
+    // entry: [
+    //     path.resolve(__dirname, './src/index.js')
+    // ],
     plugins: [
         // new UglifyJSPlugin(),
         new optimizeCss({

@@ -34,12 +34,13 @@ const cssWorkerPool = {
 threadLoader.warmup(jsWorkerPool, ['babel-loader']);
 threadLoader.warmup(cssWorkerPool, ['css-loader', 'postcss-loader',"sass-loader",'sass-resources-loader']);
 module.exports = {
-    output: {
-        filename: 'js/[name].[hash:8].js',
-        chunkFilename: 'js/[name].[hash:8].js',
-        path: DIST_PATH,
-        publicPath: '/',
-    },
+    // output: {
+    //     filename: 'js/[name].[hash:8].js',
+    //     chunkFilename: 'js/[name].[hash:8].js',
+    //     path: DIST_PATH,
+    //     publicPath: '/',
+    //     libraryTarget: 'umd'
+    // },
     resolve: {
         extensions: [".ts", ".tsx",'.js', '.jsx', '.json'],
         alias: {

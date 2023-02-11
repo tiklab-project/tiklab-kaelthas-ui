@@ -12,18 +12,29 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const baseWebpackConfig = require('./webpack.base');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const TerserPlugin  = require('terser-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const PORT = 3009;
 const fs = require('fs');
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
-    mode:'development',
-    entry: [
-        'react-hot-loader/patch',
-        `webpack-dev-server/client?http://127.0.0.1:${PORT}/`,
-        path.resolve(__dirname, './src/index.js')
-    ],
-    optimization:{
+    mode: 'development',
+    // entry: [
+    //     'react-hot-loader/patch',
+    //     `webpack-dev-server/client?http://127.0.0.1:${PORT}/`,
+    //     path.resolve(__dirname, './src/index.js')
+    // ],
+    entry: {
+        "DocumentEditor": "./src/modules/edit-slate/containers/editor.js",
+        "PreviewEditor": "./src/modules/edit-slate/containers/previewEditor.js"
+    },
+    output: {
+        filename: '[name].js',
+        path: path.resolve(__dirname, 'dist'),
+        library: '[name]',
+        libraryTarget: 'umd',
+        umdNamedDefine: true
+    },
+    optimization: {
         namedModules: true,
         namedChunks: true,
         runtimeChunk: {
@@ -32,42 +43,42 @@ module.exports = merge(baseWebpackConfig, {
         minimize: false,
         minimizer: [new TerserPlugin()],
         splitChunks:
+        {
+            name: false,
+            chunks: 'all',
+            // minportal: 1,
+            minChunks: 1,
+            cacheGroups:
             {
-                name: false,
-                chunks: 'all',
-                // minportal: 1,
-                minChunks: 1,
-                cacheGroups:
-                    {
-                        default: false,
-                        vendors:
-                            {
-                                name: 'common',
-                                chunks: 'all',
-                                minChunks: 2,
-                                test: /node_modules/
-                            },
-                        styles:
-                            {
-                                name: 'common',
-                                chunks: 'all',
-                                minChunks: 2,
-                                test: /\.(css|less|scss|stylus)$/,
-                                enforce: true,
-                                priority: 50
-                            }
-                    }
+                default: false,
+                vendors:
+                {
+                    name: 'common',
+                    chunks: 'all',
+                    minChunks: 2,
+                    test: /node_modules/
+                },
+                styles:
+                {
+                    name: 'common',
+                    chunks: 'all',
+                    minChunks: 2,
+                    test: /\.(css|less|scss|stylus)$/,
+                    enforce: true,
+                    priority: 50
+                }
             }
+        }
     },
 
     devServer: {
         contentBase: path.join(__dirname, 'plugin'), //开发服务运行时的文件根目录
-        port:PORT,
+        port: PORT,
         historyApiFallback: true,
         inline: true,
         hot: true,
         host: '0.0.0.0',
-        hotOnly:true,
+        hotOnly: true,
         stats: {
             children: false,
         },

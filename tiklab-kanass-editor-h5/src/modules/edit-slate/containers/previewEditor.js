@@ -11,7 +11,7 @@ import renderElement from "../components/renderElement"
 import Leaf from "../components/leaf"
 import { Slate, Editable, withReact } from "slate-react";
 import { createEditor } from "slate";
-
+import "../../../assets/index"
 const PreviewEditor = (props) => {
     const {onChange,value } = props;
     const renderLeaf = useCallback((props) => {

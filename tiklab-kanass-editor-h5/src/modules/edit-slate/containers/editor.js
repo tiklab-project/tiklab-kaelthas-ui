@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect, useRef } from "react";
 import { createEditor, Transforms, Editor, Text, Node } from "slate";
-import { inject, observer } from "mobx-react";
+import { inject, observer, Provider } from "mobx-react";
 import renderElement from "../components/renderElement"
 import "./editor.scss";
 import { Slate, Editable, withReact,useFocused, ReactEditor } from "slate-react";
@@ -14,10 +14,11 @@ import {withUnordered} from "../components/unorderedEditor"
 import Leaf from "../components/leaf"
 import withTables from "../components/table/withTables"
 import EditorMenu from "./editorMenu";
-
-
+import "../../../assets/index"
+import { store } from "../../../stores";
 // 定义我们的应用…
-const DocumentEditor = (props) => {
+const DocumentEditor = observer((props) => {
+	console.log(props)
 	const { onChange, value, showMenu} = props;
 
 	const [editor] = useState(() => withUnordered(withEmoji(withDivider(withChecklists(withImage(withTables(withLinks(withReact(createEditor())))))))));
@@ -75,12 +76,12 @@ const DocumentEditor = (props) => {
 
 		
 	return (
+		<Provider {...store}>
 		<div id = "editorEdit">
 			<Slate
 				editor={editor}
 				value={value}
 				onChange={(value) => onChange(value)}
-				
 				className="slate" 
 			>
 				
@@ -103,7 +104,8 @@ const DocumentEditor = (props) => {
 				
 			</Slate>
 		</div>
+		</Provider>
 
 	);
-};
-export default inject('slatestore')(observer(DocumentEditor))
+});
+export default DocumentEditor;

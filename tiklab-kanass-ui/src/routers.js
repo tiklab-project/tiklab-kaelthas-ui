@@ -183,8 +183,32 @@ const routes = [
                                 component: WikiDomainRole
                             }
                         ]
+                    },
+                    
+                ]
+            },
+            {
+                path: "/index/wikiSet/:wikiId",
+                component: WikiSet,
+                routes: [
+                    {
+                        path: "/index/wikiSet/:wikiId/basicInfo",
+                        component: WikiBasicInfo
+                    },
+                    {
+                        path: "/index/wikiSet/:wikiId/user",
+                        component: WikiDomainUser,
+                        exact: true
+                    },
+                    {
+                        path: "/index/wikiSet/:wikiId/domainRole",
+                        component: WikiDomainRole
                     }
                 ]
+            },
+            {
+                path: "/index/wikiSet/:wikiId/basicInfo",
+                component: WikiBasicInfo
             },
             {
                 path: "/index/setting",

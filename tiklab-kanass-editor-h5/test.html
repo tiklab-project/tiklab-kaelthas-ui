@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobx/5.15.4/mobx.umd.js"
+        integrity="sha512-PEaEgWU68K6JCmX60yZzZ6ra/QLi6ZTrlYp6zCmaRvHRdNeNX4cDsmsILNPop6YvTZeppUEtvFJigN3rA3ZHhA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobx-react/6.2.2/mobxreact.umd.development.min.js"
+        integrity="sha512-9KA4fjEN1vLWQWg5JSJpGFrn2rvGV0zjjkNWslYPugk5ihO+aXwt/lGfbA7UWndniVdNcQNeBcVGN9Y5Xs6GtQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./dist/r-ui.umd.js"></script>
+    <link href="./dist/r-ui.umd.css" rel="stylesheet"/>
+    <body>
+        <div id="example"></div>
+    </body>
+
+    <script type="text/babel">
+        console.log(mobxReact)
+        const observer = mobxReact.observer;
+        console.log(observer)
+
+        const Index = () => {
+            console.log(mobxReact, rui)
+            const store = rui.store;
+            const {useState, useEffect} = React;
+            const [value, setValue] = useState([
+                {
+                    type: "paragraph",
+                    children: [{ text: "ewrwr" }],
+                },
+            ])
+            return (
+                <rui.DocumentEditor value={value} onChange = {setValue} showMenu = {true}>hello, world</rui.DocumentEditor>
+            )
+        }
+        ReactDOM.render(<Index />, document.getElementById('example'));
+    </script>
+
+</body>
+
+</html>

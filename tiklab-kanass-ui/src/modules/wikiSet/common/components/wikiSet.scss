@@ -11,14 +11,14 @@
         background-color: var(--tiklab-gray-600);
         .ant-layout-sider-children {
             position: fixed;
-            width: 180px;
+            width: 200px;
             .wiki-set-aside {
                 ul {
                     padding: 0;
                     margin: 0;
                 }
                 background: var(--tiklab-gray-600);
-                .wiki-title {
+                .wiki-set-title {
                     height: 40px;
                     display: flex;
                     line-height: 40px;
@@ -26,19 +26,19 @@
                     align-items: center;
                     padding: 0 20px;
                     font-weight: 600;
-                    span{
-                        width: 100px;
-                        height: 100%;
-                        overflow: hidden;
-                        i{
-                            margin-right: 10px;
-                        }
-                    }
                 }
-                .title {
+                .wiki-set-back {
+                    height: 40px;
+                    line-height: 40px;
+                    padding-left: 20px;
                     border-bottom: 1px solid #f0f2f5;
+                    align-items: center;
+                    display: flex;
+                    cursor: pointer;
                 }
-
+                .wiki-set-back:hover {
+                    background-color: #e3e8f0;
+                }
                 .setting {
                     border-top: 1px solid #f0f2f5;
                 }

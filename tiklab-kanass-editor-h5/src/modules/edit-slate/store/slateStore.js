@@ -15,7 +15,7 @@
  * @LastEditTime: 2021-09-22 09:14:36
  */
 import { observable, action} from "mobx";
-import { Upload } from "../api/editSlate"
+// import { Upload } from "../api/editSlate"
 export class SlateStore {
     @observable showMenu = false;
 
@@ -24,12 +24,12 @@ export class SlateStore {
         this.showMenu = value;
     }
 
-    @action
-    upload = async(file) => {
-        const params = new FormData();
-        params.append("uploadFile",file)
-        const data = await Upload(params);
-        return data;
-    }
+    // @action
+    // upload = async(file) => {
+    //     const params = new FormData();
+    //     params.append("uploadFile",file)
+    //     const data = await Upload(params);
+    //     return data;
+    // }
 }
 export const SLATE_STORE = "slatestore"

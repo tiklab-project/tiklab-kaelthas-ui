@@ -76,7 +76,9 @@ const AlignEditor = (props) => {
                                 onMouseDown = {(event)=>selectAlign(item.value)}
                             >
                                 <svg aria-hidden="true" className="botton-item-icon">
-                                    <use xlinkHref= {item.icon}></use>
+                                    {/* <use xlinkHref= {item.icon}></use> */}
+                                    {/* <use xlinkHref= {item.icon}></use> */}
+                                    <use xlinkHref={`#icon-add`}></use>
                                 </svg>
                             </div>
                     })

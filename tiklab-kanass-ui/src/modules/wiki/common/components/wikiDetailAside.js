@@ -374,9 +374,7 @@ const WikideAside = (props) => {
                 item.children && item.children.length > 0 && (newLevels = levels + 1) &&
                 item.children.map(childItem => {
                     return logTree(childItem, newLevels, item.id)
-
                 })
-
             }
             {
                 item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
@@ -516,7 +514,7 @@ const WikideAside = (props) => {
                         }
                         {/* </div> */}
                     </div>
-                    <div className="wiki-setting-menu" onClick={() => props.history.push(`/index/wikidetail/${wikiId}/wikiSet/basicInfo`)}>
+                    <div className="wiki-setting-menu" onClick={() => props.history.push(`/index/wikiSet/${wikiId}/basicInfo`)}>
                         {/* <span style={{ marginRight: "20px" }}> */}
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-set"></use>

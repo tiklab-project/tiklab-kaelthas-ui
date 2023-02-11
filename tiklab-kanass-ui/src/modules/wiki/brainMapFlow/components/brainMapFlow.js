@@ -94,10 +94,6 @@ const BrainMapFlow = props => {
       const graphDataJson = graph.toJSON().cells;
       setGraphLoacalData(graphDataJson);
     })
-
-   
-    //     newData.edges.push(item.data)
-    
   }
 
   useEffect(() => {

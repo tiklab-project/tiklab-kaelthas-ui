@@ -16,9 +16,9 @@ import { useTranslation } from 'react-i18next';
 const { Sider } = Layout;
 
 const WikiSetAside = (props) => {
-
+    console.log(props)
     const { t } = useTranslation();
-    const wikiId = JSON.parse(localStorage.getItem("wiki"))?.id;
+    const wikiId = props.match.params.wikiId;
     const wikiName = JSON.parse(localStorage.getItem("wiki")).wikiName
     // 路由
     const wikirouter = [
@@ -69,20 +69,33 @@ const WikiSetAside = (props) => {
     }
 
     const backWiki = () => {
-        props.history.push("/index/prodetail/survey")
+        props.history.push(`/index/wikidetail/${wikiId}/survey`)
     }
 
 
     return (
         <Fragment>
-            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="180">
+            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="200">
                 <div className={`wiki-set-aside ${isShowText ? "" : "wiki-icon"}`}>
 
-                    <div className="wiki-title title">
+                    <div className="wiki-set-title">
                         <span className={`${isShowText ? "" : "wiki-notext"}`} style={{ marginRight: "20px" }}>
                             设置
                         </span>
                     </div>
+                    <div className={`wiki-set-back`}
+                        onClick={() => backWiki()}
+                    >
+                        <svg className="menu-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-backwiki"></use>
+                        </svg>
+                        <span>
+                        返回知识库
+                        </span>
+                    </div>
+                    {/* <div className="wiki-set-back">
+                        返回知识库
+                    </div> */}
                     <ul className="wiki-menu">
                         {
                             wikirouter && wikirouter.map(Item => {

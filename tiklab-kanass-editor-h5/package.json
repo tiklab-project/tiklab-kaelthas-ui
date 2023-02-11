@@ -10,7 +10,8 @@
         "start": "cross-env NODE_ENV=local API_ENV=local webpack-dev-server --progress --config ./webpack.dev.js ",
         "prod": "cross-env NODE_ENV=prod API_ENV=prod webpack --config ./webpack.prod.js",
         "dev": "cross-env NODE_ENV=dev API_ENV=dev webpack-dev-server --progress  --config ./webpack.dev.js --open",
-        "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/module && ncp ./src/ui.js es/dist.js && ncp README.md es/README.md && ncp package.publish.json es/package.json"
+        "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/module && ncp ./src/ui.js es/dist.js && ncp README.md es/README.md && ncp package.publish.json es/package.json",
+        "build:umd": "webpack --config webpack.config.js"
     },
     "keywords": [],
     "author": "",
@@ -94,6 +95,9 @@
         "sass-resources-loader": "^2.2.1",
         "slate": "^0.65.3",
         "slate-history": "^0.65.3",
-        "slate-react": "^0.65.3"
+        "slate-react": "^0.65.3",
+        "svg-sprite-loader": "^6.0.11",
+        "svgo-loader": "^3.0.3",
+        "webpack-md5-hash": "0.0.6"
     }
 }
