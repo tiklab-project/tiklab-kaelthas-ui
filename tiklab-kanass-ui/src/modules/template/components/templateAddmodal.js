@@ -27,7 +27,7 @@ const TemplateAddmodal = (props) => {
         setEditorValue(value)
     }
     useEffect(()=>{
-        if(editOrAdd === "edit") {
+        if(editOrAdd === "edit" && addModalVisible) {
             findDocumentTemplate(templateId).then(data => {
                 const value = data.data
                 if(data.code === 0){
@@ -40,7 +40,13 @@ const TemplateAddmodal = (props) => {
             })
         }
         
-    },[editOrAdd,templateId])
+    },[editOrAdd,templateId, addModalVisible])
+
+    useEffect(()=>{
+        if(editOrAdd === "add") {
+            form.resetFields();
+        }
+    },[editOrAdd])
     const onFinish = () => {
         form.validateFields().then((values) => {
             const serialize = JSON.stringify(editorValue)

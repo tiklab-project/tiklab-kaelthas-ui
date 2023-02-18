@@ -52,6 +52,7 @@ const setDevEamRouter= [
         icon: 'category',
         key: '/index/setting/template',
         encoded: "LoadData",
+        code: 3,
     },
 
     {
@@ -263,6 +264,7 @@ const setPrdEamRouter= [
         icon: 'category',
         key: '/index/setting/template',
         encoded: "LoadData",
+        code: 3
     },
 
     {
@@ -388,6 +390,7 @@ const setDevRouter= [
         icon: 'category',
         key: '/index/setting/template',
         encoded: "LoadData",
+        code: 3
     },
 
     {
@@ -513,6 +516,7 @@ const setPrdRouter= [
         icon: 'category',
         key: '/index/setting/template',
         encoded: "LoadData",
+        code: 3
     },
 
     {

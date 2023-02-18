@@ -44,7 +44,7 @@ var AddLog = function AddLog(props) {
   var addWikiCatalogue = WikiCatalogueStore.addWikiCatalogue,
       addWikiCataDocument = WikiCatalogueStore.addWikiCataDocument,
       findWikiCatalogue = WikiCatalogueStore.findWikiCatalogue;
-  var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
+  var wikiId = props.match.params.wikiId;
 
   var onFinish = function onFinish() {
     form.validateFields().then(function (values) {
@@ -130,11 +130,11 @@ var AddLog = function AddLog(props) {
             localStorage.setItem("documentId", data.data);
 
             if (values.formatType === "mindMap") {
-              props.history.push("/index/wikidetail/mindmap/".concat(data.data));
+              props.history.push("/index/wikidetail/".concat(wikiId, "/mindmap/").concat(data.data));
             }
 
             if (values.formatType === "document") {
-              props.history.push("/index/wikidetail/doc/".concat(data.data));
+              props.history.push("/index/wikidetail/".concat(wikiId, "/doc/").concat(data.data));
             } // 左侧导航
 
 

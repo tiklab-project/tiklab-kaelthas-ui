@@ -20,7 +20,9 @@ var ProjectFeature = function ProjectFeature(props) {
   return (
     /*#__PURE__*/
     // <div className="test">
-    React__default["default"].createElement(_ProjectFeatureList__default["default"], _extends({}, props, {
+    React__default["default"].createElement(_ProjectFeatureList__default["default"], _extends({
+      bgroup: 'teamwire'
+    }, props, {
       __source: {
         fileName: _jsxFileName,
         lineNumber: 11,

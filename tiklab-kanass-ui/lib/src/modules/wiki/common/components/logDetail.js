@@ -2,12 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+require('antd/es/row/style/css');
+var _Row = require('antd/es/row');
+require('antd/es/col/style/css');
+var _Col = require('antd/es/col');
+require('antd/es/empty/style/css');
+var _Empty = require('antd/es/empty');
 require('antd/es/dropdown/style/css');
 var _Dropdown = require('antd/es/dropdown');
-require('antd/es/divider/style/css');
-var _Divider = require('antd/es/divider');
-require('antd/es/breadcrumb/style/css');
-var _Breadcrumb = require('antd/es/breadcrumb');
 require('antd/es/form/style/css');
 var _Form = require('antd/es/form');
 require('antd/es/menu/style/css');
@@ -17,12 +19,14 @@ require('./logDetail.scss.js');
 var mobxReact = require('mobx-react');
 var addLog = require('./addLog.js');
 var templateList = require('./templateList.js');
+var tiklabCoreUi = require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var _Row__default = /*#__PURE__*/_interopDefaultLegacy(_Row);
+var _Col__default = /*#__PURE__*/_interopDefaultLegacy(_Col);
+var _Empty__default = /*#__PURE__*/_interopDefaultLegacy(_Empty);
 var _Dropdown__default = /*#__PURE__*/_interopDefaultLegacy(_Dropdown);
-var _Divider__default = /*#__PURE__*/_interopDefaultLegacy(_Divider);
-var _Breadcrumb__default = /*#__PURE__*/_interopDefaultLegacy(_Breadcrumb);
 var _Form__default = /*#__PURE__*/_interopDefaultLegacy(_Form);
 var _Menu__default = /*#__PURE__*/_interopDefaultLegacy(_Menu);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
@@ -48,7 +52,8 @@ var LogDetail = function LogDetail(props) {
   var detailWikiLog = WikiCatalogueStore.detailWikiLog,
       findCategoryDocument = WikiCatalogueStore.findCategoryDocument,
       findDmPrjRolePage = WikiCatalogueStore.findDmPrjRolePage,
-      setWikiCatalogueList = WikiCatalogueStore.setWikiCatalogueList;
+      setWikiCatalogueList = WikiCatalogueStore.setWikiCatalogueList,
+      createDocumentRecent = WikiCatalogueStore.createDocumentRecent;
   var categoryId = localStorage.getItem("categoryId");
 
   var _useState = React.useState(),
@@ -63,6 +68,7 @@ var LogDetail = function LogDetail(props) {
 
 
   var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
+  var userId = tiklabCoreUi.getUser().userId;
   React.useEffect(function () {
     detailWikiLog({
       id: categoryId
@@ -97,21 +103,21 @@ var LogDetail = function LogDetail(props) {
       },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 38,
+        lineNumber: 41,
         columnNumber: 16
       }
     }, /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "category",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 39,
+        lineNumber: 42,
         columnNumber: 13
       }
     }, "\u6DFB\u52A0\u76EE\u5F55"), /*#__PURE__*/React__default["default"].createElement(_Menu__default["default"].Item, {
       key: "document",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 42,
+        lineNumber: 45,
         columnNumber: 13
       }
     }, "\u6DFB\u52A0\u9875\u9762"));
@@ -169,201 +175,257 @@ var LogDetail = function LogDetail(props) {
     });
   };
 
+  var goToDocument = function goToDocument(item) {
+    var params = {
+      name: item.name,
+      model: item.typeId,
+      modelId: item.id,
+      master: {
+        id: userId
+      },
+      repository: {
+        id: wikiId
+      }
+    };
+    createDocumentRecent(params);
+    setSelectKey(item.id);
+
+    if (item.formatType === "category") {
+      localStorage.setItem("categoryId", item.id);
+      props.history.push("/index/wikidetail/".concat(wikiId, "/folder/").concat(item.id));
+    }
+
+    if (item.typeId === "document") {
+      localStorage.setItem("documentId", item.id);
+      props.history.push("/index/wikidetail/".concat(wikiId, "/doc/").concat(item.id));
+    }
+
+    if (item.typeId === "mindMap") {
+      localStorage.setItem("documentId", item.id);
+      props.history.push("/index/wikidetail/".concat(wikiId, "/mindmap/").concat(item.id));
+    }
+  };
+
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "log-detail",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 79,
+      lineNumber: 107,
       columnNumber: 9
     }
-  }, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "log-detail-header",
+  }, /*#__PURE__*/React__default["default"].createElement(_Row__default["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 80,
+      lineNumber: 108,
       columnNumber: 13
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"], {
+  }, /*#__PURE__*/React__default["default"].createElement(_Col__default["default"], {
+    lg: {
+      span: "18",
+      offset: "3"
+    },
+    xxl: {
+      span: "18",
+      offset: "3"
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 81,
+      lineNumber: 109,
       columnNumber: 17
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 82,
+      lineNumber: 110,
       columnNumber: 21
-    }
-  }, "\u77E5\u8BC6\u5E93\u7BA1\u7406"), /*#__PURE__*/React__default["default"].createElement(_Breadcrumb__default["default"].Item, {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 83,
-      columnNumber: 21
-    }
-  }, /*#__PURE__*/React__default["default"].createElement("a", {
-    href: "/",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 84,
-      columnNumber: 25
-    }
-  }, "\u76EE\u5F55\u8BE6\u60C5")))), /*#__PURE__*/React__default["default"].createElement(_Divider__default["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 88,
-      columnNumber: 13
-    }
-  }), /*#__PURE__*/React__default["default"].createElement("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 89,
-      columnNumber: 13
     }
   }, logDetail && /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91,
-      columnNumber: 34
+      lineNumber: 112,
+      columnNumber: 42
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "log-title",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 92,
-      columnNumber: 25
+      lineNumber: 113,
+      columnNumber: 33
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "title-left",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 94,
-      columnNumber: 29
+      lineNumber: 115,
+      columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
     className: "title-icon",
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 95,
-      columnNumber: 33
+      lineNumber: 116,
+      columnNumber: 41
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-folder",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 96,
-      columnNumber: 37
+      lineNumber: 117,
+      columnNumber: 45
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "title-name",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
-      columnNumber: 33
+      lineNumber: 119,
+      columnNumber: 41
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "name",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99,
-      columnNumber: 37
+      lineNumber: 120,
+      columnNumber: 45
     }
   }, logDetail.name), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "master",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100,
-      columnNumber: 37
+      lineNumber: 121,
+      columnNumber: 45
     }
-  }, "\u7BA1\u7406\u5458: ", logDetail.master.name))), /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
+  }, logDetail.master.name))), /*#__PURE__*/React__default["default"].createElement(_Dropdown__default["default"], {
     overlay: function overlay() {
       return addMenu(logDetail.id);
     },
     placement: "bottomLeft",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107,
-      columnNumber: 29
+      lineNumber: 125,
+      columnNumber: 37
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "top-add-botton",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
-      columnNumber: 33
+      lineNumber: 126,
+      columnNumber: 41
     }
-  }, "\u6DFB\u52A0\u5185\u5BB9"))), /*#__PURE__*/React__default["default"].createElement(_Divider__default["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 111,
-      columnNumber: 25
-    }
-  })), /*#__PURE__*/React__default["default"].createElement("div", {
+  }, "\u6DFB\u52A0\u5185\u5BB9")))), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "log-child",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 115,
-      columnNumber: 17
+      lineNumber: 132,
+      columnNumber: 25
     }
-  }, logList && logList.map(function (item) {
+  }, logList && logList.length > 0 ? logList.map(function (item) {
     return /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 118,
-        columnNumber: 36
+        lineNumber: 135,
+        columnNumber: 44
       }
     }, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "log-child-list",
       key: item.id,
+      onClick: function onClick() {
+        return goToDocument(item);
+      },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 118,
-        columnNumber: 46
-      }
-    }, item.formatType && item.formatType === "document" ? /*#__PURE__*/React__default["default"].createElement("svg", {
-      className: "log-icon",
-      "aria-hidden": "true",
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 121,
+        lineNumber: 136,
         columnNumber: 41
       }
-    }, /*#__PURE__*/React__default["default"].createElement("use", {
-      xlinkHref: "#icon-file",
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "log-child-name",
+      style: {
+        flex: 1
+      },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 122,
+        lineNumber: 137,
         columnNumber: 45
       }
-    })) : /*#__PURE__*/React__default["default"].createElement("svg", {
+    }, item.formatType && item.formatType === "category" && /*#__PURE__*/React__default["default"].createElement("svg", {
       className: "log-icon",
       "aria-hidden": "true",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 124,
-        columnNumber: 41
+        lineNumber: 140,
+        columnNumber: 53
       }
     }, /*#__PURE__*/React__default["default"].createElement("use", {
       xlinkHref: "#icon-folder",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 125,
-        columnNumber: 45
+        lineNumber: 141,
+        columnNumber: 57
+      }
+    })), item.formatType && item.formatType === "document" && item.typeId === "mindMap" && /*#__PURE__*/React__default["default"].createElement("svg", {
+      className: "log-icon",
+      "aria-hidden": "true",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 146,
+        columnNumber: 53
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("use", {
+      xlinkHref: "#icon-minmap",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 147,
+        columnNumber: 57
+      }
+    })), item.formatType && item.formatType === "document" && item.typeId === "document" && /*#__PURE__*/React__default["default"].createElement("svg", {
+      className: "log-icon",
+      "aria-hidden": "true",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 152,
+        columnNumber: 53
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("use", {
+      xlinkHref: "#icon-file",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 153,
+        columnNumber: 57
       }
     })), /*#__PURE__*/React__default["default"].createElement("span", {
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 129,
-        columnNumber: 33
+        lineNumber: 157,
+        columnNumber: 49
       }
-    }, item.name)), /*#__PURE__*/React__default["default"].createElement(_Divider__default["default"], {
+    }, item.name)), /*#__PURE__*/React__default["default"].createElement("div", {
+      style: {
+        flex: 1
+      },
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 131,
-        columnNumber: 33
+        lineNumber: 159,
+        columnNumber: 45
       }
-    }));
-  }))), /*#__PURE__*/React__default["default"].createElement(addLog["default"], _extends({
+    }, item.master.nickname), /*#__PURE__*/React__default["default"].createElement("div", {
+      style: {
+        flex: 1
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 160,
+        columnNumber: 45
+      }
+    }, item.updateTime)));
+  }) : /*#__PURE__*/React__default["default"].createElement(_Empty__default["default"], {
+    image: "/images/nodata.png",
+    description: "\u6682\u65F6\u6CA1\u6709\u5185\u5BB9~",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 165,
+      columnNumber: 33
+    }
+  }))))), /*#__PURE__*/React__default["default"].createElement(addLog["default"], _extends({
     setAddModalVisible: setAddModalVisible,
     addModalVisible: addModalVisible,
     setWikiCatalogueList: setWikiCatalogueList,
@@ -375,7 +437,7 @@ var LogDetail = function LogDetail(props) {
   }, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 138,
+      lineNumber: 172,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement(templateList["default"], {
@@ -388,7 +450,7 @@ var LogDetail = function LogDetail(props) {
     setContentValue: setContentValue,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149,
+      lineNumber: 183,
       columnNumber: 13
     }
   }));

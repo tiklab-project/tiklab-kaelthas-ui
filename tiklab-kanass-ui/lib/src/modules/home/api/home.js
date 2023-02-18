@@ -27,6 +27,30 @@ function FindDocumentRecentList(data) {
     data: data
   });
 }
+function FindMessageDispatchItemPage(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/message/messageItem/findMessageItemPage",
+    method: "post",
+    data: data
+  });
+}
+function Findlogpage(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/oplog/findlogpage",
+    method: "post",
+    data: data
+  });
+}
+function FindRecentRepositoryList(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repository/findRecentRepositoryList",
+    method: "post",
+    data: data
+  });
+}
 
 exports.FindDocumentList = FindDocumentList;
 exports.FindDocumentRecentList = FindDocumentRecentList;
+exports.FindMessageDispatchItemPage = FindMessageDispatchItemPage;
+exports.FindRecentRepositoryList = FindRecentRepositoryList;
+exports.Findlogpage = Findlogpage;

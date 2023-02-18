@@ -25,24 +25,24 @@ const WikiSetAside = (props) => {
         {
             title: '知识库信息',
             icon: 'survey',
-            key: `/index/wikidetail/${wikiId}/wikiSet/basicInfo`,
+            key: `/index/wikiSet/${wikiId}/basicInfo`,
             encoded: "Survey",
         },
         {
             title: `${t('user')}`,
             icon: 'survey',
-            key: `/index/wikidetail/${wikiId}/wikiSet/user`,
+            key: `/index/wikiSet/${wikiId}/user`,
             encoded: "User",
         },
         {
             title: `${t('privilege')}`,
             icon: 'survey',
-            key: `/index/wikidetail/${wikiId}/wikiSet/domainRole`,
+            key: `/index/wikiSet/${wikiId}/domainRole`,
             encoded: "Privilege",
         }
     ];
     // 当前选中路由
-    const [selectKey, setSelectKey] = useState(`/index/wikidetail/${wikiId}/wikiSet/basicInfo`);
+    const [selectKey, setSelectKey] = useState(`/index/wikiSet/${wikiId}/basicInfo`);
 
     // 菜单是否折叠
     const [isShowText, SetIsShowText] = useState(true)

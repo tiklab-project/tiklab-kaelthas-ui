@@ -113,7 +113,7 @@ var BrainMapFlow = function BrainMapFlow(props) {
                 var graph = graphRef.current;
                 var graphDataJson = graph.toJSON().cells;
                 setGraphLoacalData(graphDataJson);
-              }); //     newData.edges.push(item.data)
+              });
 
             case 7:
             case "end":
@@ -153,13 +153,13 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
+      lineNumber: 113,
       columnNumber: 5
     }
   }, /*#__PURE__*/React__default["default"].createElement(xflow.FlowchartExtension, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 124,
+      lineNumber: 120,
       columnNumber: 7
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.FlowchartNodePanel, {
@@ -171,7 +171,7 @@ var BrainMapFlow = function BrainMapFlow(props) {
           return /*#__PURE__*/React__default["default"].createElement("div", {
             __source: {
               fileName: _jsxFileName,
-              lineNumber: 131,
+              lineNumber: 127,
               columnNumber: 30
             }
           }, "\u81EA\u5B9A\u4E49\u8282\u70B9");
@@ -190,7 +190,7 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 125,
+      lineNumber: 121,
       columnNumber: 7
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.CanvasToolbar, _extends({}, props, {
@@ -205,7 +205,7 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 141,
+      lineNumber: 137,
       columnNumber: 7
     }
   })), /*#__PURE__*/React__default["default"].createElement(xflow.FlowchartCanvas, {
@@ -218,7 +218,7 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 148,
+      lineNumber: 144,
       columnNumber: 7
     }
   }, /*#__PURE__*/React__default["default"].createElement(xflow.CanvasScaleToolbar, {
@@ -234,27 +234,27 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 149,
+      lineNumber: 145,
       columnNumber: 9
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.CanvasContextMenu, {
     config: menuConfig,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 158,
+      lineNumber: 154,
       columnNumber: 9
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.CanvasSnapline, {
     color: "#faad14",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 159,
+      lineNumber: 155,
       columnNumber: 9
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.CanvasNodePortTooltip, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 160,
+      lineNumber: 156,
       columnNumber: 9
     }
   })), /*#__PURE__*/React__default["default"].createElement(xflow.FlowchartFormPanel, {
@@ -267,14 +267,14 @@ var BrainMapFlow = function BrainMapFlow(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 162,
+      lineNumber: 158,
       columnNumber: 7
     }
   }), /*#__PURE__*/React__default["default"].createElement(xflow.KeyBindings, {
     config: keybindingConfig,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 163,
+      lineNumber: 159,
       columnNumber: 7
     }
   }));

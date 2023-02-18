@@ -40,7 +40,7 @@ const iconList = [
 ]
 
 const WikiAddInfo = (props) => {
-    const { addWikilist, setVisible, findRepositoryList } = props;
+    const { addWikilist, setVisible, findRepositoryList, selectTabs } = props;
     const [form] = Form.useForm();
     const rangeConfig = {
         rules: [
@@ -57,7 +57,7 @@ const WikiAddInfo = (props) => {
     const onFinish = () => {
         form.validateFields().then((values) => {
             const data = {
-                name: values.limits,
+                name: values.name,
                 desc: values.desc,
                 limits: values.limits,
                 iconUrl: iconUrl
@@ -69,7 +69,8 @@ const WikiAddInfo = (props) => {
                 if (res.code === 0) {
                     message.success('添加成功');
                     setVisible(false);
-                    findRepositoryList({masterId: userId})
+                    selectTabs(4)
+                    // findRepositoryList({masterId: userId})
                     // props.history.push(`/index/wikidetail/${res.data}/survey`)
                 }
             })
@@ -127,7 +128,7 @@ const WikiAddInfo = (props) => {
                     name="basic"
                     initialValues={{
                         remember: true,
-                        wikiLimits: "0"
+                        limits: "0"
                     }}
                     form={form}
                     onFinish={onFinish}

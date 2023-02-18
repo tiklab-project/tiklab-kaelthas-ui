@@ -16,7 +16,7 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 var TaskListContent = function TaskListContent(props) {
   return /*#__PURE__*/React__default["default"].createElement(index["default"], _extends({}, props, {
-    bGroup: "teamwire",
+    bgroup: "kanass",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 5,

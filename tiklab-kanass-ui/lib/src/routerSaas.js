@@ -39,13 +39,6 @@ var Index = SyncComponent["default"](function () {
     });
   });
 });
-var WorkBench = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require("./modules/home/components/workBench"));
-    });
-  });
-});
 var WikiDetail = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -78,7 +71,7 @@ var DocumentMindMapEdit = SyncComponent["default"](function () {
 var wiki = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/wiki/wiki/components/wiki'));
+      resolve(require('./modules/wiki/wiki/components/wikiList'));
     });
   });
 });
@@ -133,10 +126,81 @@ var PassWord = SyncComponent["default"](function () {
     });
   });
 });
+var LoadData = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/load-data/loadData'));
+    });
+  });
+}); // 消息
+
+var ProjectMessageSendType = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageSendType'));
+    });
+  });
+});
+var ProjectMessageType = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageType'));
+    });
+  });
+});
+var ProjectMessageTemplate = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageTemplate'));
+    });
+  });
+});
+var ProjectMessageManagement = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageManagement'));
+    });
+  });
+});
+var ProjectMessageNotice = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageNotice'));
+    });
+  });
+});
+var ProjectMessageNoticeSystem = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/message/projectMessageNoticeSystem'));
+    });
+  });
+});
+var Setting = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/common/containers/setting'));
+    });
+  });
+});
+var ProjectPlugin = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/plugin/projectPlugin'));
+    });
+  });
+});
 var SystemFeature = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
       resolve(require('./modules/sysmgr/privilege/systemFeature'));
+    });
+  });
+});
+var SystemRoleBuilt = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/privilege/systemRoleBuilt'));
     });
   });
 });
@@ -160,29 +224,8 @@ var ProjectRole = SyncComponent["default"](function () {
       resolve(require('./modules/sysmgr/privilege/projectRole'));
     });
   });
-});
-var Sysmgr = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/common/containers/setting'));
-    });
-  });
-}); // 导入外部数据
+}); //组织用户
 
-var WikiPlugin = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/plugin/wikiPlugin.js'));
-    });
-  });
-});
-var Oragn = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require("./modules/sysmgr/common/containers/organ"));
-    });
-  });
-});
 var OrgaContent = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -197,55 +240,28 @@ var OrgaUser = SyncComponent["default"](function () {
     });
   });
 });
-var WikiDirectory = SyncComponent["default"](function () {
+var ProjectDirectory = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/orga/wikiDirectory'));
+      resolve(require("./modules/sysmgr/user/projectDirectory"));
     });
   });
 });
-var LoadData = SyncComponent["default"](function () {
+var ProjectUserGroup = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/loadData/components/loadData'));
+      resolve(require("./modules/sysmgr/user/projectUserGroup"));
     });
   });
 });
-var WikiUserMessage = SyncComponent["default"](function () {
+var ProjectSystemUserGroup = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/message/wikiUserMessage'));
+      resolve(require("./modules/sysmgr/user/projectSystemUserGroup"));
     });
   });
-});
-var WikiMessageSendType = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/message/wikiMessageSendType'));
-    });
-  });
-});
-var WikiMessageType = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/message/wikiMessageType'));
-    });
-  });
-});
-var WikiMessageTemplate = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/message/wikiMessageTemplate'));
-    });
-  });
-});
-var WikiMessageManagement = SyncComponent["default"](function () {
-  return new Promise(function (resolve) {
-    require.ensure([], function (require) {
-      resolve(require('./modules/sysmgr/message/wikiMessageManagement'));
-    });
-  });
-});
+}); //工时
+
 var TaskListContent = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -267,6 +283,13 @@ var MyTodoTaskContent = SyncComponent["default"](function () {
     });
   });
 });
+var TodoTypeListContent = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/todo/todoTypeList'));
+    });
+  });
+});
 var LogList = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
@@ -278,6 +301,20 @@ var LogTemplateList = SyncComponent["default"](function () {
   return new Promise(function (resolve) {
     require.ensure([], function (require) {
       resolve(require('./modules/sysmgr/log/myLogTemplateList'));
+    });
+  });
+});
+var ProjectLogTypeList = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/log/logTypeList'));
+    });
+  });
+});
+var LicenceVersion = SyncComponent["default"](function () {
+  return new Promise(function (resolve) {
+    require.ensure([], function (require) {
+      resolve(require('./modules/sysmgr/version/version'));
     });
   });
 });
@@ -316,15 +353,6 @@ var routes = [{
     component: Template,
     key: 'template'
   }, {
-    path: "/index/workBench",
-    exact: true,
-    component: WorkBench
-  }, {
-    path: "/index/userMessage",
-    exact: true,
-    component: WikiUserMessage,
-    key: 'userMessage'
-  }, {
     path: "/index/wikidetail",
     component: WikiDetail,
     routes: [{
@@ -353,93 +381,122 @@ var routes = [{
       component: BrainMap
     }]
   }, {
-    // 系统功能管理
-    path: "/index/sysmgr",
-    component: Sysmgr,
+    path: "/index/setting",
+    component: Setting,
+    key: 'Setting',
     routes: [{
-      path: "/index/sysmgr/systemFeature",
+      path: "/index/setting/organ",
+      component: OrgaContent,
+      exact: true
+    }, {
+      path: "/index/setting/template",
+      exact: true,
+      component: Template,
+      key: 'template'
+    }, {
+      path: "/index/setting/user",
+      component: OrgaUser,
+      exact: true
+    }, {
+      path: "/index/setting/directory",
+      component: ProjectDirectory,
+      exact: true
+    }, {
+      path: "/index/setting/usergroup",
+      component: ProjectUserGroup,
+      exact: true
+    }, {
+      path: "/index/setting/usersystemgroup",
+      component: ProjectSystemUserGroup,
+      exact: true
+    }, // 系统功能管理
+    {
+      path: "/index/setting/systemFeature",
       component: SystemFeature,
+      exact: true
+    }, // 系统内置角色管理
+    {
+      path: "/index/setting/systemRoleBuilt",
+      component: SystemRoleBuilt,
       exact: true
     }, // 系统角色管理
     {
-      path: "/index/sysmgr/systemRole",
+      path: "/index/setting/systemRole",
       component: SystemRole,
       exact: true
     }, // 项目功能管理
     {
-      path: "/index/sysmgr/projectFeature",
+      path: "/index/setting/projectFeature",
       component: ProjectFeature,
       exact: true
     }, // 项目角色管理
     {
-      path: "/index/sysmgr/projectRole",
+      path: "/index/setting/projectRole",
       component: ProjectRole,
       exact: true
-    }, // 导入数据
-    {
-      path: "/index/sysmgr/loadData",
-      component: LoadData,
+    }, {
+      path: "/index/setting/messageManagement",
+      component: ProjectMessageManagement,
       exact: true
     }, {
-      path: "/index/sysmgr/template",
-      component: Template,
+      path: "/index/setting/messageNotice",
+      component: ProjectMessageNotice,
       exact: true
     }, {
-      path: "/index/sysmgr/plugin",
-      component: WikiPlugin,
+      path: "/index/setting/messageNoticeSystem",
+      component: ProjectMessageNoticeSystem,
       exact: true
     }, {
-      path: "/index/sysmgr/messageManagement",
-      component: WikiMessageManagement,
+      path: "/index/setting/messageTemplate",
+      component: ProjectMessageTemplate,
       exact: true
     }, {
-      path: "/index/sysmgr/messageTemplate",
-      component: WikiMessageTemplate,
+      path: "/index/setting/messageType",
+      component: ProjectMessageType,
       exact: true
     }, {
-      path: "/index/sysmgr/messageType",
-      component: WikiMessageType,
+      path: "/index/setting/messageSendType",
+      component: ProjectMessageSendType,
       exact: true
     }, {
-      path: "/index/sysmgr/messageSendType",
-      component: WikiMessageSendType,
-      exact: true
-    }, {
-      path: "/index/sysmgr/taskList",
+      path: "/index/setting/taskList",
       component: TaskListContent,
       exact: true
     }, {
-      path: "/index/sysmgr/myTodoTask",
+      path: "/index/setting/myTodoTask",
       component: MyTodoTaskContent,
       exact: true
     }, {
-      path: "/index/sysmgr/todoTempList",
+      path: "/index/setting/todoTypeTask",
+      component: TodoTypeListContent,
+      exact: true
+    }, {
+      path: "/index/setting/todoTempList",
       component: TodoTempListContent,
       exact: true
     }, {
-      path: "/index/sysmgr/logList",
+      path: "/index/setting/logList",
       component: LogList,
       exact: true
     }, {
-      path: "/index/sysmgr/myLogTemplateList",
+      path: "/index/setting/myLogTemplateList",
       component: LogTemplateList,
       exact: true
-    }]
-  }, {
-    path: "/index/organ",
-    component: Oragn,
-    key: 'organ',
-    routes: [{
-      path: "/index/organ/organ",
-      component: OrgaContent,
+    }, {
+      path: "/index/setting/projectLogTypeList",
+      component: ProjectLogTypeList,
       exact: true
     }, {
-      path: "/index/organ/user",
-      component: OrgaUser,
+      path: "/index/setting/version",
+      component: LicenceVersion,
       exact: true
     }, {
-      path: "/index/organ/directory",
-      component: WikiDirectory,
+      path: "/index/setting/loadData",
+      component: LoadData,
+      exact: true
+    }, {
+      path: "/index/setting/plugin",
+      component: ProjectPlugin,
       exact: true
     }]
   }]
@@ -450,7 +507,7 @@ var routes = [{
       to: "/index/home",
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 283,
+        lineNumber: 315,
         columnNumber: 26
       }
     });

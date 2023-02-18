@@ -138,7 +138,7 @@ const Template = (props)=>{
                             <use xlinkHref="#icon-view"></use>
                         </svg>
                     </span>
-                    <span className="span-botton  delete" onClick={() => showDeleteConfirm(record.id)}>
+                    <span className="span-botton  delete" onClick={() => showDeleteConfirm(record.name, record.id)}>
                         <svg className="botton-icon" aria-hidden="true">
                             <use xlinkHref="#icon-delete"></use>
                         </svg>

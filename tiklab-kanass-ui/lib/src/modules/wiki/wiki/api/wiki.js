@@ -14,17 +14,16 @@ var tiklabCoreUi = require('tiklab-core-ui');
  * @LastEditTime: 2021-08-30 15:01:48
  */
 
-function GetAllWikiList(data) {
-  return tiklabCoreUi.Axios.request({
-    url: "/project/findAllProject ",
-    method: "post",
-    data: data
-  });
-} // 请求接口
-
 function GetWikiList(data) {
   return tiklabCoreUi.Axios.request({
     url: "/repository/findRepositoryPage",
+    method: "post",
+    data: data
+  });
+}
+function FindRepositoryList(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repository/findRepositoryList",
     method: "post",
     data: data
   });
@@ -92,11 +91,43 @@ function CreateDocumentRecent(data) {
     data: data
   });
 }
+function FindRecentRepositoryList(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repository/findRecentRepositoryList",
+    method: "post",
+    data: data
+  });
+}
+function CreateRepositoryFocus(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repositoryFocus/createRepositoryFocus",
+    method: "post",
+    data: data
+  });
+}
+function DeleteRepositoryFocusByCondition(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repositoryFocus/deleteRepositoryFocusByCondition",
+    method: "post",
+    data: data
+  });
+}
+function FindRepositoryFocusList(data) {
+  return tiklabCoreUi.Axios.request({
+    url: "/repository/findFocusRepositoryList",
+    method: "post",
+    data: data
+  });
+}
 
 exports.AddWikiList = AddWikiList;
 exports.CreateDocumentRecent = CreateDocumentRecent;
+exports.CreateRepositoryFocus = CreateRepositoryFocus;
 exports.DeleWikiList = DeleWikiList;
-exports.GetAllWikiList = GetAllWikiList;
+exports.DeleteRepositoryFocusByCondition = DeleteRepositoryFocusByCondition;
+exports.FindRecentRepositoryList = FindRecentRepositoryList;
+exports.FindRepositoryFocusList = FindRepositoryFocusList;
+exports.FindRepositoryList = FindRepositoryList;
 exports.GetUseList = GetUseList;
 exports.GetWikiList = GetWikiList;
 exports.GetWikiTypeList = GetWikiTypeList;

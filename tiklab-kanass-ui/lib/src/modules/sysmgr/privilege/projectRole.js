@@ -2,14 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('tiklab-privilege-ui/es/system-role-list/style');
-var _SystemRoleList = require('tiklab-privilege-ui/es/system-role-list');
+require('tiklab-privilege-ui/es/project-role-list/style');
+var _ProjectRoleList = require('tiklab-privilege-ui/es/project-role-list');
 var React = require('react');
 var mobxReact = require('mobx-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var _SystemRoleList__default = /*#__PURE__*/_interopDefaultLegacy(_SystemRoleList);
+var _ProjectRoleList__default = /*#__PURE__*/_interopDefaultLegacy(_ProjectRoleList);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
 var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/sysmgr/privilege/projectRole.js";
@@ -20,8 +20,9 @@ var ProjectRole = function ProjectRole(props) {
   return (
     /*#__PURE__*/
     // <div className="test">
-    React__default["default"].createElement(_SystemRoleList__default["default"], _extends({
-      group: 'system'
+    React__default["default"].createElement(_ProjectRoleList__default["default"], _extends({
+      bgroup: 'teamwire',
+      isBase: true
     }, props, {
       __source: {
         fileName: _jsxFileName,

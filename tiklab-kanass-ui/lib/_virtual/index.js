@@ -2,6 +2,6 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-var reactIs = {exports: {}};
+var lib = {};
 
-exports.reactIs = reactIs;
+exports.__exports = lib;

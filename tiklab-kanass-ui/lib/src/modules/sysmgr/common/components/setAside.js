@@ -5,6 +5,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var React = require('react');
 var icons = require('@ant-design/icons');
 var reactRouterDom = require('react-router-dom');
+require('mobx-react');
 var setRouter = require('./setRouter.js');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -25,62 +26,101 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var OrgaAside = function OrgaAside(props) {
+//import "../../../../assets/font-icon/iconfont";
+var SetAside = function SetAside(props) {
   // 无子级菜单处理
-  var _useState = React.useState(),
+  var _useState = React.useState("/index/organ/organ"),
       _useState2 = _slicedToArray(_useState, 2),
       selectKey = _useState2[0],
-      setSelectKey = _useState2[1];
+      setSelectKey = _useState2[1]; //true 内嵌 false 统一
 
-  var select = function select(key) {
-    setSelectKey(key);
+
+  var authType = JSON.parse(localStorage.getItem("authConfig")).authType;
+  JSON.parse(localStorage.getItem("authConfig")).authUrl;
+
+  var _useState3 = React.useState(setRouter.setDevEamRouter),
+      _useState4 = _slicedToArray(_useState3, 2),
+      router = _useState4[0],
+      setRouterMenu = _useState4[1];
+
+  var select = function select(key, index) {
     props.history.push(key);
-    console.log(setRouter["default"]);
+    setSelectKey(key);
   };
 
-  var renderMenu = function renderMenu(data, deep) {
-    return (
-      /*#__PURE__*/
-      // <PrivilegeButton code={data.encoded} key={data.key}>
-      React__default["default"].createElement("li", {
-        className: "orga-aside-li ".concat(data.key === selectKey ? "orga-aside-select" : ""),
-        onClick: function onClick() {
-          return select(data.key);
-        },
-        style: {
-          paddingLeft: "".concat(deep * 20 + 20),
-          cursor: "pointer"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 26,
-          columnNumber: 17
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("svg", {
-        className: "icon",
-        "aria-hidden": "true",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 30,
-          columnNumber: 21
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon-".concat(data.icon),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 31,
-          columnNumber: 25
-        }
-      })), data.title) // </PrivilegeButton>
+  React.useEffect(function () {
+    if (env === "local" && authType === true) {
+      setRouterMenu(setRouter.setDevEamRouter);
+    }
 
-    );
+    if (env === "local" && authType === false) {
+      setRouterMenu(setRouter.setDevRouter);
+    }
+
+    if (env !== "local" && authType === true) {
+      setRouterMenu(setRouter.setPrdEamRouter);
+    }
+
+    if (env !== "local" && authType === false) {
+      setRouterMenu(setRouter.setPrdRouter);
+    }
+
+    return;
+  }, []);
+
+  var renderMenu = function renderMenu(data, deep, index) {
+    return /*#__PURE__*/React__default["default"].createElement("li", {
+      style: {
+        cursor: "pointer",
+        paddingLeft: "".concat(deep * 20 + 20)
+      },
+      className: "orga-aside-li orga-aside-second ".concat(data.key === selectKey ? "orga-aside-select" : ""),
+      onClick: function onClick() {
+        return select(data.key);
+      },
+      key: data.code,
+      code: data.encoded,
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 52,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("span", {
+      className: "orga-aside-item-left",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 59,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("svg", {
+      className: "svg-icon",
+      "aria-hidden": "true",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 61,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("use", {
+      xlinkHref: "#icon-".concat(data.icon),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 62,
+        columnNumber: 21
+      }
+    })), /*#__PURE__*/React__default["default"].createElement("span", {
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 64,
+        columnNumber: 17
+      }
+    }, data.title)));
   }; // 树的展开与闭合
 
 
-  var _useState3 = React.useState([]),
-      _useState4 = _slicedToArray(_useState3, 2),
-      expandedTree = _useState4[0],
-      setExpandedTree = _useState4[1];
+  var _useState5 = React.useState(["/index/organ/organ"]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      expandedTree = _useState6[0],
+      setExpandedTree = _useState6[1];
 
   var isExpandedTree = function isExpandedTree(key) {
     return expandedTree.some(function (item) {
@@ -98,148 +138,127 @@ var OrgaAside = function OrgaAside(props) {
     }
   };
 
-  var _useState5 = React.useState(0),
-      _useState6 = _slicedToArray(_useState5, 2);
-      _useState6[0];
-      _useState6[1]; // 子级菜单处理
-
-
-  var renderSubMenu = function renderSubMenu(_ref, deep) {
-    var title = _ref.title,
-        key = _ref.key,
-        children = _ref.children;
-        _ref.encoded;
-        var icon = _ref.icon;
-    return (
-      /*#__PURE__*/
-      // <PrivilegeButton code={encoded} key={key}>
-      React__default["default"].createElement("li", {
-        key: key,
-        title: title,
-        className: "orga-aside-li",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 62,
-          columnNumber: 17
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        className: "orga-aside-item",
-        style: {
-          paddingLeft: "".concat(deep * 20 + 20)
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 63,
-          columnNumber: 21
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("span", {
-        to: key,
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 64,
-          columnNumber: 25
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("svg", {
-        className: "icon",
-        "aria-hidden": "true",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 65,
-          columnNumber: 29
-        }
-      }, /*#__PURE__*/React__default["default"].createElement("use", {
-        xlinkHref: "#icon-".concat(icon),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 66,
-          columnNumber: 33
-        }
-      })), title), /*#__PURE__*/React__default["default"].createElement("div", {
-        className: "orga-aside-item-icon",
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 70,
-          columnNumber: 25
-        }
-      }, children ? isExpandedTree(key) ? /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
-        onClick: function onClick() {
-          return setOpenOrClose(key);
-        },
-        style: {
-          fontSize: "10px"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 74,
-          columnNumber: 37
-        }
-      }) : /*#__PURE__*/React__default["default"].createElement(icons.UpOutlined, {
-        onClick: function onClick() {
-          return setOpenOrClose(key);
-        },
-        style: {
-          fontSize: "10px"
-        },
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 75,
-          columnNumber: 37
-        }
-      }) : "")), /*#__PURE__*/React__default["default"].createElement("ul", {
-        key: key,
-        title: title,
-        className: "orga-aside-ul ".concat(isExpandedTree(key) ? null : 'orga-aside-hidden'),
-        __source: {
-          fileName: _jsxFileName,
-          lineNumber: 81,
-          columnNumber: 21
-        }
-      }, children && children.map(function (item) {
-        var deepnew = deep + 1;
-        return item.children && item.children.length ? renderSubMenu(item, deepnew) : renderMenu(item, deepnew);
-      }))) // </PrivilegeButton>
-
-    );
+  var renderSubMenu = function renderSubMenu(item, deep, index) {
+    return /*#__PURE__*/React__default["default"].createElement("li", {
+      key: item.code,
+      title: item.title,
+      className: "orga-aside-li",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 88,
+        columnNumber: 13
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "orga-aside-item orga-aside-first",
+      style: {
+        paddingLeft: "".concat(deep * 20 + 20)
+      },
+      onClick: function onClick() {
+        return setOpenOrClose(item.key);
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 89,
+        columnNumber: 17
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("span", {
+      to: item.key,
+      className: "orga-aside-item-left",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 90,
+        columnNumber: 21
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("svg", {
+      className: "svg-icon",
+      "aria-hidden": "true",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 91,
+        columnNumber: 25
+      }
+    }, /*#__PURE__*/React__default["default"].createElement("use", {
+      xlinkHref: "#icon-".concat(item.icon),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 92,
+        columnNumber: 29
+      }
+    })), /*#__PURE__*/React__default["default"].createElement("span", {
+      className: "orga-aside-title",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 94,
+        columnNumber: 25
+      }
+    }, item.title)), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "orga-aside-item-icon",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 96,
+        columnNumber: 21
+      }
+    }, item.children ? isExpandedTree(item.key) ? /*#__PURE__*/React__default["default"].createElement(icons.DownOutlined, {
+      style: {
+        fontSize: "10px"
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 100,
+        columnNumber: 33
+      }
+    }) : /*#__PURE__*/React__default["default"].createElement(icons.UpOutlined, {
+      style: {
+        fontSize: "10px"
+      },
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 101,
+        columnNumber: 33
+      }
+    }) : "")), /*#__PURE__*/React__default["default"].createElement("ul", {
+      title: item.title,
+      className: "orga-aside-ul ".concat(isExpandedTree(item.key) ? null : 'orga-aside-hidden'),
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 107,
+        columnNumber: 17
+      }
+    }, item.children && item.children.map(function (item) {
+      var deepnew = deep + 1;
+      return item.children && item.children.length ? renderSubMenu(item, deepnew) : renderMenu(item, deepnew);
+    })));
   };
 
   return /*#__PURE__*/React__default["default"].createElement(React.Fragment, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 98,
+      lineNumber: 121,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "orga-aside",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 99,
+      lineNumber: 122,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("ul", {
     style: {
       padding: 0
     },
+    key: "0",
     className: "orga-aside-top",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100,
+      lineNumber: 123,
       columnNumber: 17
     }
-  }, setRouter["default"] && setRouter["default"].map(function (firstItem) {
+  }, router && router.map(function (firstItem, index) {
     return firstItem.children && firstItem.children.length > 0 ? renderSubMenu(firstItem, 0) : renderMenu(firstItem, 0);
-  })), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "orga-change",
-    onClick: function onClick() {
-      return props.history.push("/index/organ/organ");
-    },
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 108,
-      columnNumber: 17
-    }
-  }, "\u7EC4\u7EC7\u7BA1\u7406")));
+  }))));
 };
 
-var SetAside = reactRouterDom.withRouter(OrgaAside);
+var SetAside$1 = reactRouterDom.withRouter(SetAside);
 
-exports["default"] = SetAside;
+exports["default"] = SetAside$1;

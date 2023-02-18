@@ -18,11 +18,11 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 var SystemRoleWrap = function SystemRoleWrap(props) {
   return /*#__PURE__*/React__default["default"].createElement(_SystemRoleList__default["default"], _extends({}, props, {
-    group: 'system',
+    bgroup: 'teamwire',
     __source: {
       fileName: _jsxFileName,
       lineNumber: 8,
-      columnNumber: 9
+      columnNumber: 13
     }
   }));
 };

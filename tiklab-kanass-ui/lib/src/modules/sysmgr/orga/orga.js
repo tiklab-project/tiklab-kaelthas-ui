@@ -15,6 +15,7 @@ var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui
 
 var Orga = function Orga() {
   return /*#__PURE__*/React__default["default"].createElement(_OrgaList__default["default"], {
+    bgroup: "teamwire",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 14,

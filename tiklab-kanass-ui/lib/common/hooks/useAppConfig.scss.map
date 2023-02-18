@@ -1,1 +1,0 @@
-{"version":3,"names":[],"mappings":"","sources":["common/hooks/useAppConfig.scss"],"sourcesContent":[".useHook_app{\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    padding: 15px;\n}"],"file":"useAppConfig.scss"}

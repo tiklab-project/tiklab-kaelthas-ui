@@ -12,7 +12,7 @@ import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
 const WikiAddmodal = (props) => {
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
-    const { name, wikiStore } = props;
+    const { name, wikiStore, selectTabs } = props;
         
     const { addWikilist, getUseList, findRepositoryList } = wikiStore;
 
@@ -70,10 +70,8 @@ const WikiAddmodal = (props) => {
                             style={{ height: "100%" }}
                         >
                             <Head />
-                            {/* <Steps /> */}
                             <div>
-
-                                <WikiAddInfo addWikilist={addWikilist} findRepositoryList = {findRepositoryList} setVisible={setVisible}/>
+                                <WikiAddInfo addWikilist={addWikilist} findRepositoryList = {findRepositoryList} setVisible={setVisible} selectTabs = {selectTabs}/>
                             </div>
                         </Col>
                     </Row>

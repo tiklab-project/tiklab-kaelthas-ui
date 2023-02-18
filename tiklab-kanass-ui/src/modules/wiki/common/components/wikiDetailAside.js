@@ -50,6 +50,7 @@ const WikideAside = (props) => {
     useEffect(() => {
         findWikiCatalogue(wikiId).then((data) => {
             setWikiCatalogueList(data)
+            console.log(wikiCatalogueList)
         })
     }, [])
 
@@ -112,9 +113,9 @@ const WikideAside = (props) => {
             <Menu.Item key="document">
                 添加页面
             </Menu.Item>
-            <Menu.Item key="mindMap">
+            {/* <Menu.Item key="mindMap">
                 添加脑图
-            </Menu.Item>
+            </Menu.Item> */}
         </Menu>
     };
 
@@ -379,7 +380,10 @@ const WikideAside = (props) => {
             {
                 item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
                 item.documents.map(childItem => {
-                    return fileTree(childItem, newLevels, item.id)
+                    if(childItem.typeId !== "mindMap"){
+                        return fileTree(childItem, newLevels, item.id)
+                    }
+                    
                 })
             }
         </div>
@@ -493,7 +497,7 @@ const WikideAside = (props) => {
                                 </svg>
                                 <span>知识库</span>
                             </div>
-                            <div className={`${isHover === 0 ? "icon-show" : "icon-hidden"}`}>
+                            <div>
                                 <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
                                     <svg className="img-icon" aria-hidden="true">
                                         <use xlinkHref="#icon-plusBlue"></use>
@@ -504,7 +508,7 @@ const WikideAside = (props) => {
 
                         {
                             wikiCatalogueList && wikiCatalogueList.map(item => {
-                                if (item.formatType === "document") {
+                                if (item.typeId === "document") {
                                     return fileTree(item, 0, 0)
                                 }
                                 if (item.formatType === "category") {

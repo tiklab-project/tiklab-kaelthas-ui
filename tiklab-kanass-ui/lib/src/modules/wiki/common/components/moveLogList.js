@@ -6,6 +6,7 @@ require('antd/es/modal/style/css');
 var _Modal = require('antd/es/modal');
 var React = require('react');
 require('./moveLogList.scss.js');
+var reactRouter = require('react-router');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -43,7 +44,7 @@ var MoveLogList = function MoveLogList(props) {
       selectKey = _useState2[0],
       setSelectKey = _useState2[1];
 
-  var wikiId = JSON.parse(localStorage.getItem("wiki")).id;
+  var wikiId = props.match.params.wikiId;
 
   var onFinish = function onFinish() {
     var value;
@@ -124,13 +125,13 @@ var MoveLogList = function MoveLogList(props) {
   var logTree = function logTree(data, levels, faid) {
     var newLevels = 0;
     return data && data.length > 0 && data.map(function (category) {
-      if (moveCategoryParentId !== category.id) {
+      if (category.formatType === "category" && moveCategoryParentId !== category.id) {
         return /*#__PURE__*/React__default["default"].createElement("div", {
           className: "".concat(!isExpandedTree(faid) || selectKey !== faid ? null : 'wiki-menu-submenu-hidden'),
           key: category.id,
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 79,
+            lineNumber: 80,
             columnNumber: 24
           }
         }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -141,7 +142,7 @@ var MoveLogList = function MoveLogList(props) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 82,
+            lineNumber: 83,
             columnNumber: 17
           }
         }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -150,7 +151,7 @@ var MoveLogList = function MoveLogList(props) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 86,
+            lineNumber: 87,
             columnNumber: 21
           }
         }, category.children && category.children.length > 0 ? isExpandedTree(category.id) ? /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -161,14 +162,14 @@ var MoveLogList = function MoveLogList(props) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 89,
+            lineNumber: 90,
             columnNumber: 63
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
           xlinkHref: "#icon-right",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 90,
+            lineNumber: 91,
             columnNumber: 37
           }
         })) : /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -179,14 +180,14 @@ var MoveLogList = function MoveLogList(props) {
           },
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 92,
+            lineNumber: 93,
             columnNumber: 37
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
           xlinkHref: "#icon-down",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 93,
+            lineNumber: 94,
             columnNumber: 41
           }
         })) : /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -194,14 +195,14 @@ var MoveLogList = function MoveLogList(props) {
           "aria-hidden": "true",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 94,
+            lineNumber: 95,
             columnNumber: 46
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
           xlinkHref: "",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 95,
+            lineNumber: 96,
             columnNumber: 37
           }
         })), /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -209,20 +210,20 @@ var MoveLogList = function MoveLogList(props) {
           "aria-hidden": "true",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 98,
+            lineNumber: 99,
             columnNumber: 25
           }
         }, /*#__PURE__*/React__default["default"].createElement("use", {
           xlinkHref: "#icon-folder",
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 99,
+            lineNumber: 100,
             columnNumber: 29
           }
         })), /*#__PURE__*/React__default["default"].createElement("span", {
           __source: {
             fileName: _jsxFileName,
-            lineNumber: 101,
+            lineNumber: 102,
             columnNumber: 25
           }
         }, category.name, " "))), category.children && category.children.length > 0 && (newLevels = levels + 1) && logTree(category.children, newLevels, category.id));
@@ -241,17 +242,19 @@ var MoveLogList = function MoveLogList(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 114,
+      lineNumber: 115,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "move-menu",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 120,
+      lineNumber: 121,
       columnNumber: 13
     }
-  }, moveLogListVisible && wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)));
+  }, moveLogListVisible && wikiCatalogueList && logTree(wikiCatalogueList, 1, 0)));
 };
 
-exports["default"] = MoveLogList;
+var MoveLogList$1 = reactRouter.withRouter(MoveLogList);
+
+exports["default"] = MoveLogList$1;

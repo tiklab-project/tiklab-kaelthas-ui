@@ -73,7 +73,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
   };
 
   React.useEffect(function () {
-    if (editOrAdd === "edit") {
+    if (editOrAdd === "edit" && addModalVisible) {
       findDocumentTemplate(templateId).then(function (data) {
         var value = data.data;
 
@@ -86,7 +86,12 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
         }
       });
     }
-  }, [editOrAdd, templateId]);
+  }, [editOrAdd, templateId, addModalVisible]);
+  React.useEffect(function () {
+    if (editOrAdd === "add") {
+      form.resetFields();
+    }
+  }, [editOrAdd]);
 
   var onFinish = function onFinish() {
     form.validateFields().then(function (values) {
@@ -146,13 +151,13 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     destroyOnClose: true,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 91,
+      lineNumber: 97,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 100,
+      lineNumber: 106,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"], {
@@ -166,14 +171,14 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 101,
+      lineNumber: 107,
       columnNumber: 13
     }
   }, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "addmodal-top",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 107,
+      lineNumber: 113,
       columnNumber: 17
     }
   }, /*#__PURE__*/React__default["default"].createElement("svg", {
@@ -181,21 +186,21 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     "aria-hidden": "true",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 108,
+      lineNumber: 114,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement("use", {
     xlinkHref: "#icon-paihang",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 109,
+      lineNumber: 115,
       columnNumber: 25
     }
   })), /*#__PURE__*/React__default["default"].createElement("div", {
     className: "addmodal-from",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 111,
+      lineNumber: 117,
       columnNumber: 21
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -209,14 +214,14 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 112,
+      lineNumber: 118,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
     placeholder: "\u8BF7\u8F93\u5165\u6A21\u677F\u540D\u79F0",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 117,
+      lineNumber: 123,
       columnNumber: 29
     }
   })), /*#__PURE__*/React__default["default"].createElement(_Form__default["default"].Item, {
@@ -233,14 +238,14 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 120,
+      lineNumber: 126,
       columnNumber: 25
     }
   }, /*#__PURE__*/React__default["default"].createElement(_Input__default["default"], {
     placeholder: "\u8BF7\u8F93\u5165\u6A21\u677F\u63CF\u8FF0",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 126,
+      lineNumber: 132,
       columnNumber: 29
     }
   }))))), /*#__PURE__*/React__default["default"].createElement(tiklabSlateUi.DocumentEditor, {
@@ -250,7 +255,7 @@ var TemplateAddmodal = function TemplateAddmodal(props) {
     },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 131,
+      lineNumber: 137,
       columnNumber: 13
     }
   })));

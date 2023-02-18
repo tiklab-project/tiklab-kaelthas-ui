@@ -9,7 +9,6 @@ var wikiDetailAside = require('./wikiDetailAside.js');
 require('./wikiDetail.scss.js');
 var reactRouterConfig = require('react-router-config');
 var mobxReact = require('mobx-react');
-require('tiklab-core-ui');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -20,23 +19,34 @@ var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui
 
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var WikiDetail = function WikiDetail(props) {
   // 解析props
-  var wikiStore = props.wikiStore,
-      wikiDetailStore = props.wikiDetailStore,
-      systemRoleStore = props.systemRoleStore,
-      route = props.route; // 解析wikiStore，wikiDetailStore
-
+  var wikiStore = props.wikiStore;
+      props.wikiDetailStore;
+      props.systemRoleStore;
+      var route = props.route;
   var searchwiki = wikiStore.searchwiki,
-      getWikilist = wikiStore.getWikilist,
+      findRepositoryList = wikiStore.findRepositoryList,
       wikilist = wikiStore.wikilist;
-  wikiDetailStore.setWikiId;
-  systemRoleStore.getInitProjectPermissions; // 当前知识库名字
+  var wikiId = props.match.params.wikiId;
 
-  var wiki = JSON.parse(localStorage.getItem("wiki"));
-  var wikiname = wiki.name; // 获取当前知识库id
+  var _useState = React.useState(),
+      _useState2 = _slicedToArray(_useState, 2),
+      wiki = _useState2[0],
+      setWiki = _useState2[1];
 
-  var wikiId = wiki.id;
   React.useEffect(function () {
     // 从信息页面跳入知识库详情页面时，获取知识库id
     props.location.search; // if(search !== "") {
@@ -44,12 +54,14 @@ var WikiDetail = function WikiDetail(props) {
     //     localStorage.setItem("wiki", search[1]);
     //     setWikiId(search[1])
     // }
-    // searchwiki(localStorage.getItem("wikiId")).then((res)=> {
-    //     setWikiname(res.name)
-    // })
-    //获取知识库列表
 
-    getWikilist(); // systemRoleStore.getInitProjectPermissions(getUser().userId, localStorage.getItem("wikiId"))
+    searchwiki(wikiId).then(function (res) {
+      console.log(res);
+      localStorage.setItem("wiki", JSON.stringify(res.data));
+      setWiki(res.data);
+    }); //获取知识库列表
+
+    findRepositoryList({}); // systemRoleStore.getInitProjectPermissions(getUser().userId, localStorage.getItem("wikiId"))
 
     return;
   }, [wikiId]);
@@ -57,24 +69,24 @@ var WikiDetail = function WikiDetail(props) {
     className: "wikidetail",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 55,
+      lineNumber: 47,
       columnNumber: 9
     }
   }, /*#__PURE__*/React__default["default"].createElement(wikiDetailAside["default"], _extends({
-    wikiName: wikiname,
+    wiki: wiki,
     wikilist: wikilist,
     searchwiki: searchwiki
   }, props, {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 56,
+      lineNumber: 48,
       columnNumber: 13
     }
   })), /*#__PURE__*/React__default["default"].createElement(_Layout__default["default"], {
     className: "wikidetail-content",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 62,
+      lineNumber: 54,
       columnNumber: 13
     }
   }, reactRouterConfig.renderRoutes(route.routes)));

@@ -16,7 +16,7 @@ function _extends() { _extends = Object.assign ? Object.assign.bind() : function
 
 var LogList = function LogList(props) {
   return /*#__PURE__*/React__default["default"].createElement(index["default"], _extends({
-    bgroup: "teamwire"
+    bgroup: "kanass"
   }, props, {
     __source: {
       fileName: _jsxFileName,

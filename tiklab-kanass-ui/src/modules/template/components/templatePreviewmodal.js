@@ -27,7 +27,7 @@ const TemplatePreviewmodal = (props) => {
         })
     }
     useEffect(()=>{
-        if(templateId) {
+        if(templateId && previewModalVisible) {
             findDocumentTemplate(templateId).then(data => {
                 const value = data.data
                 if(data.code === 0){
@@ -40,7 +40,7 @@ const TemplatePreviewmodal = (props) => {
                 }
             })
         }
-    },[templateId])
+    },[templateId, previewModalVisible])
     const initTemplate = (value) => {
         // setValue(value)
         // const serialize = JSON.stringify(value)

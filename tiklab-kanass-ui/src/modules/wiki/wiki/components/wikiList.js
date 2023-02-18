@@ -234,6 +234,7 @@ const Wikicontent = (props) => {
                         <WikiAddmodal
                             name="添加知识库"
                             type="add"
+                            selectTabs = {selectTabs}
                         />
                     </Breadcumb>
 

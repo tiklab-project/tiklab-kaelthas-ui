@@ -2,18 +2,14 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('antd/es/modal/style/css');
-var _Modal = require('antd/es/modal');
-require('antd/es/button/style/css');
-var _Button = require('antd/es/button');
 var React = require('react');
-require('react-router-dom');
+require('./changeWikiModal.scss.js');
+require('react-i18next');
+var reactRouter = require('react-router');
 var mobxReact = require('mobx-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var _Modal__default = /*#__PURE__*/_interopDefaultLegacy(_Modal);
-var _Button__default = /*#__PURE__*/_interopDefaultLegacy(_Button);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
 var _jsxFileName = "/Users/yuanjiexuan/Desktop/bate/project-web/tiklab-kanass-ui/tiklab-kanass-ui/src/modules/wiki/common/components/changeWikiModal.js";
@@ -30,91 +26,138 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var ChangeWikiModal = function ChangeWikiModal(props) {
-  var searchwiki = props.searchwiki,
-      wikilist = props.wikilist,
-      changeWikiVisible = props.changeWikiVisible,
-      setChangeWikiVisible = props.setChangeWikiVisible; // 切换知识库窗口弹窗，鼠标移入与移出效果
+var ChangeWikiModel = function ChangeWikiModel(props) {
+  var wikilist = props.wikilist,
+      searchwiki = props.searchwiki;
+      props.setWorkType;
+      props.wiki;
 
   var _useState = React.useState(false),
       _useState2 = _slicedToArray(_useState, 2),
-      selectWiki = _useState2[0],
-      setSelectWiki = _useState2[1];
-  /**
-   * 隐藏切换知识库弹窗
-   */
+      showMenu = _useState2[0],
+      setShowMenu = _useState2[1];
 
+  var _useState3 = React.useState(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      selectWiki = _useState4[0],
+      setSelectWiki = _useState4[1];
 
-  var handleCancel = function handleCancel() {
-    setChangeWikiVisible(false);
+  var modelRef = React.useRef();
+  var setButton = React.useRef();
+
+  var showMoreMenu = function showMoreMenu() {
+    setShowMenu(!showMenu);
+    modelRef.current.style.left = setButton.current.clientWidth;
+  };
+
+  React.useEffect(function () {
+    window.addEventListener("mousedown", closeModal, false);
+    return function () {
+      window.removeEventListener("mousedown", closeModal, false);
+    };
+  }, [showMenu]);
+
+  var closeModal = function closeModal(e) {
+    if (!modelRef.current) {
+      return;
+    }
+
+    if (!modelRef.current.contains(e.target) && modelRef.current !== e.target) {
+      setShowMenu(false);
+    }
   };
   /**
-   * 切换知识库
+   * 切换项目
    * @param {id} id 
    */
 
 
-  var selectWikiId = function selectWikiId(wiki) {
-    // 切换选中知识库，获取知识库详情
-    searchwiki(wiki.id); // 讲当前知识库id存入localStorage
+  var selectWikiId = function selectWikiId(id) {
+    // 切换选中项目，获取项目详情
+    searchwiki(id).then(function (data) {
+      if (data.code === 0) {
+        props.history.push("/index/wikidetail/".concat(id, "/survey")); // 重置事项id
+        // 关闭切换弹窗
 
-    localStorage.setItem("wiki", JSON.stringify(wiki)); // 重置事项id
-    // 关闭切换弹窗
-
-    setChangeWikiVisible(false); // 切换路由
-    // props.history.push(selectKey)
-    // 强制刷新
-
-    location.reload();
+        setShowMenu(false);
+        location.reload();
+      }
+    }); // 讲当前项目id存入localStorage
   };
-  /**
-   * 切换知识库弹窗，鼠标移入
-   * @param {*} id 
-   */
-
 
   var handleMouseOver = function handleMouseOver(id) {
     setSelectWiki(id);
   };
-  /**
-   * 切换知识库弹窗，鼠标移出
-   */
-
 
   var handleMouseOut = function handleMouseOut() {
     setSelectWiki("");
   };
 
   return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "change-wiki",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 58,
+      lineNumber: 65,
       columnNumber: 9
     }
-  }, /*#__PURE__*/React__default["default"].createElement(_Modal__default["default"], {
-    className: "wiki-modal",
-    title: "\u9009\u62E9\u77E5\u8BC6\u5E93",
-    visible: changeWikiVisible,
-    onCancel: handleCancel,
-    footer: [/*#__PURE__*/React__default["default"].createElement(_Button__default["default"], {
-      key: "back",
-      onClick: handleCancel,
-      __source: {
-        fileName: _jsxFileName,
-        lineNumber: 65,
-        columnNumber: 21
-      }
-    }, "\u53D6\u6D88")],
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    ref: setButton,
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 59,
+      lineNumber: 66,
       columnNumber: 13
     }
-  }, wikilist && wikilist.map(function (item) {
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "wiki-title-icon",
+    onClick: showMoreMenu,
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 67,
+      columnNumber: 17
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "wiki-toggleCollapsed",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 68,
+      columnNumber: 21
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("svg", {
+    className: "svg-icon",
+    "aria-hidden": "true",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 69,
+      columnNumber: 25
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("use", {
+    xlinkHref: "#icon-down",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 70,
+      columnNumber: 29
+    }
+  }))))), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "change-wiki-box ".concat(showMenu ? "menu-show" : "menu-hidden"),
+    ref: modelRef,
+    style: {},
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 76,
+      columnNumber: 13
+    }
+  }, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "change-wiki-head",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 81,
+      columnNumber: 17
+    }
+  }, "\u5207\u6362\u77E5\u8BC6\u5E93"), wikilist && wikilist.map(function (item) {
     return /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "wiki-name ".concat(item.id === selectWiki ? "wiki-selectName" : ""),
+      className: "change-wiki-name ".concat(item.id === selectWiki ? "change-wiki-selectName" : ""),
       onClick: function onClick() {
-        return selectWikiId(item);
+        return selectWikiId(item.id);
       },
       key: item.id,
       onMouseOver: function onMouseOver() {
@@ -123,13 +166,33 @@ var ChangeWikiModal = function ChangeWikiModal(props) {
       onMouseOut: handleMouseOut,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 69,
+        lineNumber: 84,
         columnNumber: 32
       }
-    }, item.name);
+    }, item.iconUrl ? /*#__PURE__*/React__default["default"].createElement("img", {
+      src: 'images/' + item.iconUrl,
+      className: "img-icon",
+      title: item.name,
+      alt: "",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 93,
+        columnNumber: 37
+      }
+    }) : /*#__PURE__*/React__default["default"].createElement("img", {
+      className: "img-icon",
+      src: 'images/repository1.png',
+      title: item.name,
+      alt: "",
+      __source: {
+        fileName: _jsxFileName,
+        lineNumber: 100,
+        columnNumber: 37
+      }
+    }), item.name);
   })));
 };
 
-var ChangeWikiModal$1 = mobxReact.inject("wikiDetailStore")(mobxReact.observer(ChangeWikiModal));
+var ChangeWikiModal = reactRouter.withRouter(mobxReact.inject("wikiDetailStore")(mobxReact.observer(ChangeWikiModel)));
 
-exports["default"] = ChangeWikiModal$1;
+exports["default"] = ChangeWikiModal;

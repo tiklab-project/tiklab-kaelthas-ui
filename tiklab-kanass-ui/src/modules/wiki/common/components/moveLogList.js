@@ -17,7 +17,7 @@ const MoveLogList = (props) => {
     const [selectKey,setSelectKey] = useState()
     const wikiId = props.match.params.wikiId;
     const onFinish = () => {
-        let value
+        let value;
         if(formatType === "category"){
             if(selectKey){
                 value = {
@@ -76,7 +76,7 @@ const MoveLogList = (props) => {
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((category) => {
-            if(moveCategoryParentId !== category.id){
+            if(category.formatType === "category" && moveCategoryParentId !== category.id){
                 return <div className={`${!isExpandedTree(faid) ||  selectKey !== faid ? null : 'wiki-menu-submenu-hidden'}`}
                     key={category.id}
                 >
@@ -120,7 +120,7 @@ const MoveLogList = (props) => {
         >
             <div className="move-menu">
                 {
-                    moveLogListVisible && wikiCatalogueList && logTree(wikiCatalogueList[0], 1, 0)
+                    moveLogListVisible && wikiCatalogueList && logTree(wikiCatalogueList, 1, 0)
                 }
             </div>
         </Modal>

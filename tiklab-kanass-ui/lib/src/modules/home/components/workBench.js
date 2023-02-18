@@ -2,12 +2,13 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-require('../../../../node_modules/tiklab-widget-ui/es/widget-work/style/index.scss.js');
-var index = require('../../../../node_modules/tiklab-widget-ui/es/widget-work/index.js');
+require('tiklab-widget-ui/es/widget-work/style');
+var _WidgetWork = require('tiklab-widget-ui/es/widget-work');
 var React = require('react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
+var _WidgetWork__default = /*#__PURE__*/_interopDefaultLegacy(_WidgetWork);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
@@ -53,7 +54,7 @@ var WorkBench = /*#__PURE__*/function (_Component) {
           lineNumber: 7,
           columnNumber: 13
         }
-      }, /*#__PURE__*/React__default["default"].createElement(index["default"], {
+      }, /*#__PURE__*/React__default["default"].createElement(_WidgetWork__default["default"], {
         bgroup: 'eas',
         __source: {
           fileName: _jsxFileName,

@@ -68,7 +68,7 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
   };
 
   React.useEffect(function () {
-    if (templateId) {
+    if (templateId && previewModalVisible) {
       findDocumentTemplate(templateId).then(function (data) {
         var value = data.data;
 
@@ -82,7 +82,7 @@ var TemplatePreviewmodal = function TemplatePreviewmodal(props) {
         }
       });
     }
-  }, [templateId]);
+  }, [templateId, previewModalVisible]);
 
   var initTemplate = function initTemplate(value) {// setValue(value)
     // const serialize = JSON.stringify(value)
