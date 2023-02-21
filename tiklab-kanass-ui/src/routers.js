@@ -24,9 +24,9 @@ const DocumentMindMapEdit = AsyncComponent(() => import('./modules/wiki/brainMap
 
 // 知识库
 const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wikiList'))
-const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
-const DocumentEdit = AsyncComponent(() => import("./modules/wiki/common/components/documentEdit"))
-const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/common/components/documnetExamine"))
+const DocumentEdit = AsyncComponent(() => import("./modules/wiki/document/components/documentEdit"))
+const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/document/components/documnetExamine"))
+const DocumentAddEdit = AsyncComponent(() => import("./modules/wiki/document/components/documentAddEdit"))
 
 const WikiSet = AsyncComponent(() => import("./modules/wikiSet/common/containers/wikiSet"))
 const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
@@ -144,6 +144,9 @@ const routes = [
                     {
                         path: "/index/wikidetail/:wikiId/doc/:id",
                         component: DocumnetExamine
+                    },{
+                        path: "/index/wikidetail/:wikiId/add/:id",
+                        component: DocumentAddEdit
                     },
                     {
                         path: "/index/wikidetail/:wikiId/docEdit/:id",

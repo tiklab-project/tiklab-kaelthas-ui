@@ -88,5 +88,4 @@ const TemplatePreviewmodal = (props) => {
     )
 }
 
-// export default inject("WikiCatalogueStore")(observer(TemplatePreviewmodal));
 export default inject("templateStore")(observer(TemplatePreviewmodal));

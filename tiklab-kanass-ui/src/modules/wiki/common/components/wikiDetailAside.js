@@ -25,9 +25,9 @@ const WikideAside = (props) => {
     const { searchwiki, wiki, wikilist, WikiCatalogueStore } = props;
     //语言包
     const { t } = useTranslation();
-    const { findWikiCatalogue, updateWikiCatalogue,
-        deleteWikiLog, updateDocument, deleteDocument,
-        findDmPrjRolePage, wikiCatalogueList, setWikiCatalogueList, createDocumentRecent } = WikiCatalogueStore;
+    const { findWikiCatalogue, updateWikiCatalogue, deleteWikiLog, updateDocument, deleteDocument,
+        findDmPrjRolePage, wikiCatalogueList, setWikiCatalogueList, createDocumentRecent,
+        addWikiCataDocument } = WikiCatalogueStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -143,8 +143,29 @@ const WikideAside = (props) => {
             setUserList(data.dataList)
         })
         if (value.key === "document") {
-            setChangeTemplateVisible(true)
-            setModalTitle("添加文档")
+            // setChangeTemplateVisible(true)
+            // setModalTitle("添加文档")
+            const data = {
+                name: "未命名文档",
+                repository: { id: wikiId },
+                master: { id: userId },
+                typeId: "document",
+                formatType: "document",
+                category: {id:id},
+            }
+            console.log(id)
+            addWikiCataDocument(data).then((data) => {
+                if (data.code === 0) {
+                    findWikiCatalogue(wikiId).then((data) => {
+                        setWikiCatalogueList(data)
+                    })
+
+                    props.history.push(`/index/wikidetail/${wikiId}/doc/${data.data}`)
+                    // 左侧导航
+                    setSelectKey(data.data)
+                }
+
+            })
         } else if (value.key === "mindMap") {
             setContentValue({ nodes: [], edges: [] })
             setAddModalVisible(true)
@@ -356,6 +377,7 @@ const WikideAside = (props) => {
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
+                        
                     >{item.name} </span>
                 </div>
                 <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
@@ -380,10 +402,10 @@ const WikideAside = (props) => {
             {
                 item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
                 item.documents.map(childItem => {
-                    if(childItem.typeId !== "mindMap"){
+                    if (childItem.typeId !== "mindMap") {
                         return fileTree(childItem, newLevels, item.id)
                     }
-                    
+
                 })
             }
         </div>
@@ -391,6 +413,7 @@ const WikideAside = (props) => {
     const fileTree = (item, levels, faid) => {
         return <div className={`${isExpandedTree(faid) ? null : 'wiki-menu-submenu-hidden'}`}
             key={item.id}
+           
         >
             <div className={`wiki-menu-submenu ${item.id === selectKey ? "wiki-menu-select" : ""} `}
                 key={item.id}
@@ -421,6 +444,7 @@ const WikideAside = (props) => {
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
+                        id = {"file-" + item.id}
                     >{item.name} </span>
                 </div>
                 <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>

@@ -25,7 +25,6 @@
 .documnet-edit {
     background-color: #fff;
     height: calc(100vh - 48px);
-    overflow: auto;
     .edit-top {
         line-height: 50px;
         height: 50px;
@@ -33,7 +32,8 @@
         align-items: center;
         justify-content: space-between;
         padding: 0 20px;
-        border-bottom: 1px solid var(--tiklab-gray-600);
+        border-bottom: 1px solid #EFF1F7;
+        background-color: #F7F9FE;
         .edit-title {
             font-size: 18px;
             font-weight: 600;
@@ -49,6 +49,16 @@
             margin-right: 20px;
         }
         
+    }
+    .edit-big {
+        background-color: #F7F9FE;
+        padding-left: 13px;
+        .edit-big-toolbar {
+            border-bottom: 0;
+            justify-content: flex-start;
+            
+
+        }
     }
     .edit-right {
         display: flex;
@@ -67,5 +77,7 @@
     }
     .document-examine-content {
         margin-top: 10px;
+        height: calc(100% - 115px);
+        overflow: auto;
     }
 }

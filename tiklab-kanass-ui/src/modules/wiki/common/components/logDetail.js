@@ -132,8 +132,7 @@ const LogDetail = (props) => {
                         <div className="log-child">
                             {
                                 logList && logList.length > 0 ?  logList.map(item => {
-                                    return <Fragment>
-                                        <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
+                                    return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
                                             <div className="log-child-name" style={{flex: 1}}>
                                                 {
                                                     item.formatType && item.formatType === "category" &&
@@ -159,7 +158,6 @@ const LogDetail = (props) => {
                                             <div  style={{flex: 1}}>{item.master.nickname}</div>
                                             <div  style={{flex: 1}}>{item.updateTime}</div>
                                         </div>
-                                    </Fragment>
                                 })
                                 :
                                 <Empty image="/images/nodata.png" description="暂时没有内容~" />

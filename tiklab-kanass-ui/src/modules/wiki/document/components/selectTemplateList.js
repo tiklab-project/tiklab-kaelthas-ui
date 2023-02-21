@@ -10,17 +10,18 @@ import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
 import { Modal, Button, Layout, Menu } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
-import "./templateList.scss"
+import "./selectTemplateList.scss"
 import { PreviewEditor } from "tiklab-slate-ui"
 const { Header, Content, Footer, Sider } = Layout;
 
 const TemplateList = (props) => {
-    const { templateStore, changeTemplateVisible,
-        setChangeTemplateVisible, setAddModalVisible,
-        setTemplateId, setContentValue } = props;
+    const { templateStore, setTemplateVisible,
+        templateVisible, documentId,
+        WikiCatalogueStore, setContentValue } = props;
     const { findDocumentTemplatePage, findDocumentTemplate } = templateStore;
-    
-
+    const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
+    const { updateDocument } = WikiCatalogueStore;
+    const wikiId = props.match.params.wikiId;
     const [value, setValue] = useState([
         {
             type: "paragraph",
@@ -30,7 +31,7 @@ const TemplateList = (props) => {
     const [templateList, setTemplateList] = useState()
 
     useEffect(() => {
-        setContentValue(value)
+        // setContentValue(value)
         findDocumentTemplatePage().then(data => {
             if (data.code === 0) {
                 setTemplateList(data.data.dataList)
@@ -38,45 +39,33 @@ const TemplateList = (props) => {
         })
     }, [])
 
-    const changeTemplate = (value) => {
-        setTemplateId(value.key)
-        if (value.key === "entry") {
-            setValue([
-                {
-                    type: "paragraph",
-                    children: [{ text: "" }],
-                },
-            ])
-        } else {
-            findDocumentTemplate(value.key).then(data => {
-                const content = data.data
-                if (data.code === 0) {
-                    // setTemplate({...value})
-                    setValue(JSON.parse(content.details))
-                }
-            })
+   
+    const selectTemplate = (content) => {
+        const data = {
+            id: documentId,
+            details: content
         }
+        updateDocument(data).then(res => {
+            if(res.code === 0){
+                setTemplateVisible(false)
+                props.history.push(`/index/wikidetail/${wikiId}/docEdit/${documentId}`)
+            }
+        })
+    }
 
-    }
-    // 下一步
-    const next = () => {
-        setChangeTemplateVisible(false)
-        setAddModalVisible(true)
-        setContentValue(value)
-    }
     return (
         <div >
             <Modal
-                className="wiki-modal"
+                className="template-modal"
                 title="选择模板"
-                visible={changeTemplateVisible}
+                visible={templateVisible}
                 // onCancel={handleCancel}
-                width="50vw"
-                onOk={() => next()}
-                onCancel={() => setChangeTemplateVisible(false)}
+                width="670px"
+                onCancel={() => setTemplateVisible(false)}
                 destroyOnClose={true}
                 okText="下一步"
                 cancelText="取消"
+                footer={null}
             >
                 <Layout style={{
                     position: 'relative',
@@ -90,25 +79,28 @@ const TemplateList = (props) => {
                             height: "100%"
                         }}
                     >
-                        {/* <div className="logo" /> */}
-                        <Menu theme="light" mode="inline" defaultSelectedKeys={['entry']}
-                            onClick={(value) => changeTemplate(value)}>
+                        <Menu theme="light" mode="inline" defaultSelectedKeys={['entry']}>
                             <Menu.Item key="entry" icon={<VideoCameraOutlined />}>
-                                空白文档
+                                推荐模版
                             </Menu.Item>
-                            {
-                                templateList && templateList.map((item) => {
-                                    return <Menu.Item key={item.id} icon={<VideoCameraOutlined />}>
-                                        {item.name}
-                                    </Menu.Item>
-                                })
-                            }
                         </Menu>
                     </Sider>
                     <Layout className="site-layout" style={{ marginLeft: 200 }}>
                         <Content>
-                            <div className="site-layout-background" style={{ background: "#fff", minHeight: "300px" }}>
-                                <PreviewEditor value={value} />
+                            <div className="template-list">
+                                {
+                                    templateList && templateList.map((item, index) => {
+                                        return <div className="template-box" key={index} onClick = {() => selectTemplate(item.details)}>
+                                            <img
+                                                src={('/images/' + imageNames[index])}
+                                                alt=""
+                                                className="template-image"
+                                            />
+                                            <div className="template-name">{item.name}</div>
+                                        </div>
+                                    })
+                                }
+
                             </div>
                         </Content>
                     </Layout>
@@ -117,4 +109,4 @@ const TemplateList = (props) => {
         </div>
     )
 }
-export default inject("templateStore")(observer(TemplateList));
+export default inject("templateStore", "WikiCatalogueStore")(observer(TemplateList));

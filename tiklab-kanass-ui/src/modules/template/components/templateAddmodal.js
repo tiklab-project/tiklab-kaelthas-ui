@@ -17,12 +17,7 @@ const TemplateAddmodal = (props) => {
     const [form] = Form.useForm();
     const {addModalVisible,setAddModalVisible,modalName,templateStore,setTemplateList,editOrAdd,templateId} = props;
     const {greateDocumentTemplate,findDocumentTemplatePage,findDocumentTemplate,updateDocumentTemplate} = templateStore;
-    const [editorValue, setEditorValue] = useState([
-		{
-			type: "paragraph",
-			children: [{ text: "" }],
-		},
-	])
+    const [editorValue, setEditorValue] = useState()
     const changeEditor = (value) => {
         setEditorValue(value)
     }
@@ -35,10 +30,21 @@ const TemplateAddmodal = (props) => {
                         name: value.name,
                         description: value.description
                     })
+                    console.log(value.details)
                     setEditorValue(JSON.parse(value.details))
                 }
             })
         }
+        // else {
+        //     console.log("9099")
+        //     console.log(editOrAdd, addModalVisible)
+        //     setEditorValue([
+        //         {
+        //             type: "paragraph",
+        //             children: [{ text: "2345" }],
+        //         },
+        //     ])
+        // }
         
     },[editOrAdd,templateId, addModalVisible])
 
@@ -134,7 +140,13 @@ const TemplateAddmodal = (props) => {
                     </div>
                 </div>
             </Form>
-            <DocumentEditor value = {editorValue} onChange = {(value)=> changeEditor(value)}/>
+            {
+                console.log(editorValue)
+            }
+            {
+                editorValue && <DocumentEditor value = {editorValue} onChange = {setEditorValue}/>
+            }
+            
         </div>
             
         </Modal>

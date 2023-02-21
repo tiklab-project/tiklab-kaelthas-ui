@@ -1,6 +1,7 @@
 .document-examine {
     background-color: #fff;
     overflow: auto;
+    position: relative;
     .document-examine-content {
         display: flex;
         justify-content: space-between;
@@ -12,7 +13,6 @@
         flex: 1;
     }
     .examine-top {
-        
         line-height: 50px;
         height: 50px;
         display: flex;
@@ -52,5 +52,21 @@
     .preview-editor {
         min-height: 300px;
     }
+    .comment-box {
+        box-shadow: rgb(112 144 176 / 24%) 0px 0px 1px 0px, rgb(112 144 176 / 12%) 0px 6px 24px 4px;
+        padding: 6px;
+        border-radius: 6px;
+        background-color: rgb(255, 255, 255);
+        position: absolute;
+        bottom: 150;
+        right: 20px;
+        .comment-box-item {
+            padding: 5px;
+        }
+        .top-item {
+            border-bottom: #f0f0f0 1px solid;
+        }
+    }
+    
     
 }
