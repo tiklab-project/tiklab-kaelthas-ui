@@ -81,7 +81,7 @@ const DocumentAddEdit = (props) => {
         })
     }
     return (
-        <div>
+        <div className="document-add">
             <Row>
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                     <div className="document-title">

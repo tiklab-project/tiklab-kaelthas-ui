@@ -1,20 +1,38 @@
-.template-addmodal {
-    .addmodal-top {
+
+.template-add {
+    height: calc(100vh - 48px);
+    overflow: auto;
+    .template-add-breadcrumb {
+        font-size: var(--tiklab-font-16);
+        font-weight: var(--tiklab-font-weight-bold);
         display: flex;
-        justify-content: flex-start;
         align-items: center;
-        width: 100%;
-        .icon {
-            width: 50px;
-            height: 50px;
-        }
-        .addmodal-from {
-            flex: 1;
+        .template-back {
+            cursor: pointer;
         }
     }
-    .edit-box {
-        height: 50vh;
-        border: 1px solid #ebecf0;
-        padding: 10px;
+    .template-title-input {
+        margin: 20px 0;
+        height: 50px;
+        line-height: 50px;
+        padding: 0;
+        font-size: 30px;
+        font-weight: 600;
+    }
+    .template-add-title {
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+    .template-add-top {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        font-weight: 600;
+        align-items: center;
+    }
+    .edit-big-toolbar {
+        justify-content: flex-start;
     }
 }

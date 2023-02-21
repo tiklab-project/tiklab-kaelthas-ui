@@ -33,7 +33,7 @@ const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDoma
 const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
 const WikiBasicInfo = AsyncComponent(() => import('./modules/wikiSet/basic-info/containers/basicInfo'))
 const Template = AsyncComponent(() => import('./modules/template/components/template'))
-
+const TemplateAdd = AsyncComponent(() => import('./modules/template/components/templateAddmodal'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./modules/share/components/shareDocument'))
 // 分享文档页面
@@ -228,6 +228,16 @@ const routes = [
                         exact: true,
                         component: Template,
                         key: 'template'
+                    },
+                    {
+                        path: "/index/setting/templateAdd",
+                        component: TemplateAdd,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/templateView/:templateId",
+                        component: TemplateAdd,
+                        exact: true
                     },
                     {
                         path: "/index/setting/user",

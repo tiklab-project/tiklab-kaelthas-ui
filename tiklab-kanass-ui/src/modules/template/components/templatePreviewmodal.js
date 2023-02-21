@@ -51,40 +51,11 @@ const TemplatePreviewmodal = (props) => {
 		// updateDocument(data)
     }
     return (
-        <Modal
-            title="查看模板"
-            visible={previewModalVisible}
-            onOk={()=>onFinish()} 
-            onCancel={()=>setPreviewModalVisible(false)}
-            width = "80vh"
-            className="template-previewmodal"
-        >   
+       
         <div>
-            <Form
-                form={form}
-                name="basic"
-                initialValues={{ remember: true }}
-            >   
-                <div className="previewmodal-top">
-                    <svg className="icon" aria-hidden="true">
-                        <use xlinkHref= "#icon-paihang"></use>
-                    </svg>
-                    <div className="previewmodal-from">
-                        <div className="title">
-                            {template && template.name}
-                        </div>
-                        <div className="doc">
-                            {template && template.description}
-                        </div>
-                    </div>
-                </div>
-                
-                
-            </Form>
+           
             <PreviewEditor value = {value} onChange = {(value)=> initTemplate(value)}/>
         </div>
-            
-        </Modal>
     )
 }
 

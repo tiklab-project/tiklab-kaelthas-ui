@@ -71,7 +71,6 @@ const DocumentExamine = (props) => {
         })
     }
 
-  
 
     return (
         <div className="document-examine">
@@ -85,7 +84,7 @@ const DocumentExamine = (props) => {
                     }
                     
                     <svg className="user-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-shou"></use>
+                        <use xlinkHref="#icon-collection"></use>
                     </svg>
                     {/* <span className="comment-item">
                         <svg className="user-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
@@ -103,8 +102,6 @@ const DocumentExamine = (props) => {
                         }
                         {docInfo.likenumInt}
                     </span> */}
-
-                    <div className="inline"></div>
                     <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button>
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>

@@ -18,27 +18,29 @@ import Button from "../../../common/button/button";
 const { confirm } = Modal;
 const Template = (props)=>{
     const { templateStore } = props;
-    const { findDocumentTemplatePage,deleteDocumentTemplate,templatePageParams } = templateStore;
+    const { findDocumentTemplatePage,deleteDocumentTemplate,templatePageParams, templateList } = templateStore;
     const [addModalVisible,setAddModalVisible] = useState(false)
     const [previewModalVisible,setPreviewModalVisible] = useState(false)
     const [editOrAdd,setEditOrAdd] = useState()
     const [modalName,setModalName] = useState()
     const [hoverId,setHoverId] = useState()
-    const [templateList,setTemplateList] = useState()
+    // const [templateList,setTemplateList] = useState()
     const [templateId,setTemplate] = useState()
 
     useEffect(()=> {
         findDocumentTemplatePage().then(data=> {
-            if(data.code === 0){
-                setTemplateList(data.data.dataList)
-            }
+            // if(data.code === 0){
+            //     setTemplateList(data.data.dataList)
+            // }
         })
     },[])
     const addModal = () => {
-        setAddModalVisible(true)
-        setEditOrAdd("add")
-        setModalName("添加模板")
+        // setAddModalVisible(true)
+        // setEditOrAdd("add")
+        // setModalName("添加模板")
+        props.history.push("/index/setting/templateAdd")
     }
+
 
     const editModal = (id) => {
         setAddModalVisible(true)
@@ -61,11 +63,7 @@ const Template = (props)=>{
             cancelText: '取消',
             onOk() {
                 deleteDocumentTemplate(id).then(data=> {
-                    findDocumentTemplatePage().then(data=> {
-                        if(data.code === 0){
-                            setTemplateList(data.data.dataList)
-                        }
-                    })
+                    findDocumentTemplatePage()
                 })
             },
             onCancel() {
@@ -89,14 +87,16 @@ const Template = (props)=>{
             }
         })
     }
-
+    const goTemplateDetail = (id) => {
+        props.history.push(`/index/setting/templateView/${id}`)
+    }
     const columns = [
         {
             title: "模板名称",
             dataIndex: "name",
             key: "name",
             align: "left",
-            render: (text, record) => <div onClick={() => goWikidetail(record)} className="wiki-title">
+            render: (text, record) => <div onClick={() => goTemplateDetail(record.id)} className="template-title">
                 {
                     record.iconUrl ?
                         <img
@@ -111,15 +111,15 @@ const Template = (props)=>{
                             className="img-icon"
                         />
                 }
-                <span className="wiki-name">{text}</span>
+                <span className="template-name">{text}</span>
             </div>,
         },
-        {
-            title: "模板描述",
-            dataIndex: "description",
-            key: "description",
-            align: "left",
-        },
+        // {
+        //     title: "模板描述",
+        //     dataIndex: "description",
+        //     key: "description",
+        //     align: "left",
+        // },
         {
             title: "操作",
             dataIndex: "action",
@@ -128,16 +128,7 @@ const Template = (props)=>{
             width: "15%",
             render: (text, record) => (
                 <Space size="middle">
-                     <span className="span-botton  delete" onClick={() => editModal(record.id)}>
-                        <svg className="botton-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-edit"></use>
-                        </svg>
-                    </span>
-                    <span className="span-botton  delete" onClick={() => previewModal(record.id)}>
-                        <svg className="botton-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-view"></use>
-                        </svg>
-                    </span>
+                    
                     <span className="span-botton  delete" onClick={() => showDeleteConfirm(record.name, record.id)}>
                         <svg className="botton-icon" aria-hidden="true">
                             <use xlinkHref="#icon-delete"></use>
@@ -167,21 +158,21 @@ const Template = (props)=>{
                 </Col>
             </Row>
         </Layout>
-        <TemplateAddmodal 
+        {/* <TemplateAddmodal 
             modalName= {modalName} 
             editOrAdd= {editOrAdd}
             addModalVisible = {addModalVisible}
             setAddModalVisible = {setAddModalVisible}
             setTemplateList = {setTemplateList}
             templateId = {templateId}
-        />
-        <TemplatePreviewmodal 
+        /> */}
+        {/* <TemplatePreviewmodal 
             name="添加知识库" 
             type="add"
             previewModalVisible = {previewModalVisible}
             setPreviewModalVisible = {setPreviewModalVisible}
             templateId ={templateId}
-        />
+        /> */}
         </Fragment>
     )
 }

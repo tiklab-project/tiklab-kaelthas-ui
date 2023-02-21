@@ -7,12 +7,12 @@
  * @LastEditTime: 2021-09-08 16:34:04
  */
 import { observable, action } from "mobx";
-import { GreateDocumentTemplate,FindDocumentTemplatePage,FindDocumentTemplate,UpdateDocumentTemplate,
+import { CreateDocumentTemplate,FindDocumentTemplatePage,FindDocumentTemplate,UpdateDocumentTemplate,
     DeleteDocumentTemplate
 } from "../api/templateApi";
 
 export class TemplateStore {
-    @observable templatelist = [];
+    @observable templateList = [];
     @observable templatePageParams = {
         current: 1,
         pageSize: 10,
@@ -20,8 +20,13 @@ export class TemplateStore {
     };
 
     @action
-	greateDocumentTemplate = async(value) => {
-        const data = await GreateDocumentTemplate(value)
+    setTemPlateList = (value) => {
+        this.templateList = value;
+    }
+
+    @action
+	createDocumentTemplate = async(value) => {
+        const data = await CreateDocumentTemplate(value)
         return data;
     }
 
@@ -39,7 +44,10 @@ export class TemplateStore {
                 currentPage: this.templatePageParams.current
             }
         }
-        const data = await FindDocumentTemplatePage(params)
+        const data = await FindDocumentTemplatePage(params);
+        if(data.code === 0){
+            this.templateList = data.data.dataList
+        }
         return data;
     }
 

@@ -9,7 +9,7 @@
 import {service} from "../../../common/utils/requset";
 
 // 创建模板
-export function GreateDocumentTemplate(data){
+export function CreateDocumentTemplate(data){
     return service.request({
         url: "/documentTemplate/createDocumentTemplate",
         method: "post",
