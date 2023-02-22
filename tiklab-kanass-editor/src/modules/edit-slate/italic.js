@@ -10,7 +10,7 @@ import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
 import { Popover  } from 'antd';
 const ItalicEditor = (props) => {
-    const {editor} = props;
+    const {editor, active} = props;
 
     const selectItalic = (event) => {
         event.preventDefault();
@@ -38,8 +38,7 @@ const ItalicEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectItalic(event)} key="italic">
-            {/* <i className="iconfont iconitalic"></i> */}
+        <span className={`tool-item ${active ? "tool-active" : ""}`} onMouseDown = {(event)=> selectItalic(event)} key="italic">
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-italic"></use>
             </svg>

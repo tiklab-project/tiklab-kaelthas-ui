@@ -6,12 +6,13 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-10-27 15:00:34
  */
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Transforms, Editor, Element } from "slate";
 import "./align.scss"
 import { inject,observer } from "mobx-react";
+
 const AlignEditor = (props) => {
-    const {editor,slatestore} = props;
+    const {editor,slatestore, active} = props;
     const {editorType,setEditorType} = slatestore;
     const aligns = [
         {   
@@ -31,6 +32,9 @@ const AlignEditor = (props) => {
             value: "center"
         },
     ]
+
+    
+
     const showBox = (event) => {
         event.preventDefault();
         if(editorType === "align") {
@@ -69,13 +73,15 @@ const AlignEditor = (props) => {
             setEditorType("")
         }
     };
-
+    
     return (
         <div className="align-editor" key="align">
-            <div onMouseDown={(event) => showBox(event)} className = "align-botton">
-                {/* <i className="iconfont iconalign-justify"></i> */}
+            <div onMouseDown={(event) => showBox(event)} className = "align-botton" >
                 <svg className="slate-iconfont" aria-hidden="true">
-                    <use xlinkHref={`#icon-align-justify`}></use>
+                    <use xlinkHref={`#icon-align-${active ? active : "left"}`}></use>
+                </svg>
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref={`#icon-down`}></use>
                 </svg>
 			</div>
             {
@@ -100,5 +106,5 @@ const AlignEditor = (props) => {
         </div>
     )
 }
-// export default AlignEditor;
+
 export default inject('slatestore')(observer(AlignEditor))

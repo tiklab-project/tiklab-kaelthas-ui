@@ -1,7 +1,7 @@
 .edit-big {
     .edit-big-toolbar {
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
         align-items: center;
         padding: 10px 0;
         // border-top: 1px solid rgb(235,236,240);
@@ -16,10 +16,16 @@
         .tool-item {
             width: 30px;
             text-align: center;
+            padding: 3px 0;
             i {
                 font-size: 16px;
                 font-weight: 600;
             }
+        }
+        .tool-active {
+            border-radius: 5px;
+            background-color: #e8ecf6;
+            
         }
         
     }

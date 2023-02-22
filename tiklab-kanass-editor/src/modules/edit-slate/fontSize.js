@@ -12,9 +12,9 @@ import { Transforms, Editor, Text } from "slate";
 import "./fontSize.scss"
 import { inject,observer } from "mobx-react";
 const FontSize = (props) => {
-    const {editor,slatestore} = props;
+    const {editor,slatestore, active} = props;
+    console.log(active)
     const {editorType,setEditorType} = slatestore;
-    // const [isVisible,setIsVisible] = useState(false)
     const showBox = (event) => {
         event.preventDefault();
         // setIsVisible(!isVisible)
@@ -54,7 +54,7 @@ const FontSize = (props) => {
     return (
         <div className="fontSize-editor" key="fontSize">
             <div onMouseDown={(event) => showBox(event)} className = "fontSize-botton">
-                字号
+                {active ? active : "字号"}
 			</div>
             {
                 editorType === "fontSize" && <div className="fontSize-box">

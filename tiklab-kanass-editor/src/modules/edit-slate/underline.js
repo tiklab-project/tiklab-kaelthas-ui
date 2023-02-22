@@ -10,7 +10,7 @@ import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
 
 const UnderlineEditor = (props) => {
-    const {editor} = props;
+    const {editor, active} = props;
     
 
     const selectUnderline = (event) => {
@@ -39,8 +39,7 @@ const UnderlineEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectUnderline(event)} key="underline">
-            {/* <i className="iconfont iconunderline"></i> */}
+        <span className={`tool-item ${active ? "tool-active" : ""}`} onMouseDown = {(event)=> selectUnderline(event)} key="underline">
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-underline"></use>
             </svg>

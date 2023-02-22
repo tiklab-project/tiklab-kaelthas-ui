@@ -19,8 +19,8 @@ import { Transforms, Editor, Text } from "slate";
 import "./lineHeight.scss"
 import { inject,observer } from "mobx-react";
 const LineHeightEditor = (props) => {
-    const {editor,slatestore} = props;
-    // const [isVisible,setIsVisible] = useState(false)
+    const {editor,slatestore, active} = props;
+    console.log(active)
     const {editorType,setEditorType} = slatestore;
     const showBox = (event) => {
         event.preventDefault();
@@ -61,7 +61,7 @@ const LineHeightEditor = (props) => {
     return (
         <div className="lineHeight-editor" key="lineHeight">
             <div onMouseDown={(event) => showBox(event)} className = "lineHeight-botton" >
-                行间距
+                {active ? active : "行间距"}
             </div>
             {
                 editorType === "lineHeight" && <div className="lineHeight-box">

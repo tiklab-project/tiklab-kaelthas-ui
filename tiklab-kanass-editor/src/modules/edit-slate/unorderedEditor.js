@@ -55,7 +55,7 @@ const withUnordered = editor => {
 }
 const LIST_TYPES = ['numbered-list', 'bulleted-list']
 const UnorderedEditor = (props) => {
-    const { editor } = props;
+    const { editor, isBlockActive } = props;
 
 
     const selectUnordered = (format) => {
@@ -95,33 +95,34 @@ const UnorderedEditor = (props) => {
 
     return (
         <Fragment>
-            <span className="tool-item" 
+            <span 
+                className={`tool-item ${isBlockActive(editor, "bulleted-list", "type")? "tool-active" : "" } `} 
                 format="bulleted-list" 
                 onMouseDown={(event) => selectUnordered("bulleted-list")}
                 key="bulleted"
+                // active = {isBlockActive(editor, "bulleted-list", "type")}
             >
-                {/* <i className="iconfont iconlist-check"></i> */}
                 <svg className="slate-iconfont" aria-hidden="true">
                     <use xlinkHref="#icon-list-check"></use>
                 </svg>
             </span>
             <span 
-                className="tool-item" format="numbered-list" 
+                className={`tool-item ${isBlockActive(editor, "numbered-list", "type")? "tool-active" : ""} `} 
+                format="numbered-list" 
                 onMouseDown={(event) => selectUnordered("numbered-list")}
                 key="numbered"
+                // active = {isBlockActive(editor, "numbered-list", "type")}
             >
-                {/* <i className="iconfont iconlist-ordered"></i> */}
                 <svg className="slate-iconfont" aria-hidden="true">
                     <use xlinkHref="#icon-list-ordered"></use>
                 </svg>
             </span>
             <span 
-                className="tool-item" 
+                className={`tool-item ${isBlockActive(editor, "block-quote", "type") ? "tool-active" : ""}`} 
                 format="block-quote" 
                 onMouseDown={(event) => selectUnordered("block-quote")}
                 key="block"
             >
-                {/* <i className="iconfont icondouble-quotes-l-copy"></i> */}
                 <svg className="slate-iconfont" aria-hidden="true">
                     <use xlinkHref="#icon-double-quotes-l"></use>
                 </svg>

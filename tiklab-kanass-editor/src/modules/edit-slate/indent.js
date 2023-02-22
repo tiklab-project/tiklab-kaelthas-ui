@@ -39,7 +39,7 @@ const withIndent = editor => {
     return editor
 }
 const IndentEditor = (props) => {
-    const {editor} = props;
+    const {editor, isBlockActive} = props;
     const wrapIndent = (editor) => {
         event.preventDefault()
         CustomEditor.toggleIndentMark(editor)
@@ -57,13 +57,11 @@ const IndentEditor = (props) => {
                     SlateElement.isElement(n) &&
                     n.type === "indent" ,
             })
-            // console.log(match)
-            // match && setIndent([...match])
             return match;
         },
         toggleIndentMark(editor) {
             const isActive = CustomEditor.isIndentMarkActive(editor)
-            console.log(indent)
+            console.log(isActive)
             Transforms.unwrapNodes(editor, {
                 match: n => !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === "indent",
                 split: true,
@@ -84,16 +82,19 @@ const IndentEditor = (props) => {
     return (   
         <Fragment>
             <div key="indent">
-                <span className="tool-item" onMouseDown = {(event) => wrapIndent(editor)}>
-                    {/* <i className="iconfont iconindent"></i> */}
+                <span 
+                    // className={`tool-item ${isBlockActive(editor, "block-quote", "type") ? "tool-active" : ""}`} 
+                    onMouseDown = {(event) => wrapIndent(editor)}>
                     <svg className="slate-iconfont" aria-hidden="true">
                         <use xlinkHref="#icon-indent-increase"></use>
                     </svg>
                 </span>
             </div>
             <div key="unindent">
-                <span className="tool-item" onMouseDown = {(event) => wrapUnIndent(editor)}>
-                    {/* <i className="iconfont iconindent-decrease"></i> */}
+                <span 
+                    // className={`tool-item ${isBlockActive(editor, "indent", "type") ? "tool-active" : ""}`} 
+                    onMouseDown = {(event) => wrapUnIndent(editor)}
+                >
                     <svg className="slate-iconfont" aria-hidden="true">
                         <use xlinkHref="#icon-indent-decrease"></use>
                     </svg>

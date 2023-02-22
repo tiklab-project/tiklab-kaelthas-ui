@@ -11,7 +11,8 @@ import { Transforms, Editor, Text, Node } from "slate";
 import "./color.scss"
 import { inject,observer } from "mobx-react";
 const ColorEditor = (props) => {
-    const {editor,slatestore} = props;
+    const {editor,slatestore, active} = props;
+    console.log(active)
     const {editorType,setEditorType} = slatestore;
     const [isVisible,setIsVisible] = useState(false)
     const colors = [
@@ -74,9 +75,11 @@ const ColorEditor = (props) => {
     return (
         <div className="color-editor" key="color">
             <div onMouseDown={(event) => showBox(event)} className = "color-botton">
-                {/* <i className="iconfont iconfont-color"></i> */}
-                <svg className="slate-iconfont" aria-hidden="true">
+                <svg className="slate-iconfont" aria-hidden="true" style={{color: active}}>
                     <use xlinkHref="#icon-font-color"></use>
+                </svg>
+                <svg className="slate-iconfont" aria-hidden="true">
+                    <use xlinkHref={`#icon-down`}></use>
                 </svg>
 			</div>
             {

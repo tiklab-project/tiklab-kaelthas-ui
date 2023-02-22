@@ -10,7 +10,7 @@ import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
 import { Popover  } from 'antd';
 const SubEditor = (props) => {
-    const {editor} = props;
+    const {editor, active} = props;
 
     const selectSub = (event) => {
         event.preventDefault();
@@ -38,7 +38,7 @@ const SubEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectSub(event)} key="sub">
+        <span className={`tool-item ${active ? "tool-active" : ""}`} onMouseDown = {(event)=> selectSub(event)} key="sub">
             {/* <i className="iconfont iconsubscript-2"></i> */}
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-subscript-2"></use>

@@ -10,7 +10,7 @@ import React from "react";
 import { Transforms, Editor, Text, Node } from "slate";
 
 const StrikeEditor = (props) => {
-    const {editor} = props;
+    const {editor, active} = props;
     
 
     const selectStrike = (event) => {
@@ -39,8 +39,7 @@ const StrikeEditor = (props) => {
     };
 
     return (   
-        <span className="tool-item" onMouseDown = {(event)=> selectStrike(event)} key="strike">
-            {/* <i className="iconfont iconstrikethrough"></i> */}
+        <span className={`tool-item ${active ? "tool-active" : ""}`} onMouseDown = {(event)=> selectStrike(event)} key="strike">
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-strikethrough"></use>
             </svg>

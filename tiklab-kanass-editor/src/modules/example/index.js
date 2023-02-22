@@ -9,11 +9,9 @@
 import React, { Fragment, useState } from "react";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
-import Editor from "../edit-slate/editor";
-import Menu from "../edit-slate/editorBigMenu";
-import EditorContent from "../edit-slate/editorBigContent"
-import EditorEdit from "../edit-slate/editorBigMenu";
-import PreviewEditor from "../edit-slate/previewEditor";
+import EditorBig from "../edit-slate/editorBig";
+import EditorBigContent from "../edit-slate/editorBigContent";
+import { Row, Col } from "antd";
 // showMenu = {true}
 const ExampleEditor = () => {
     const [showMenu, setShowMenu] = useState(false);
@@ -36,7 +34,7 @@ const ExampleEditor = () => {
             type: 'paragraph',
             children: [{ text: 'A line of text in a paragraph.' }],
         },
-       
+
     ])
 
     const submit = (value) => {
@@ -45,12 +43,21 @@ const ExampleEditor = () => {
     return (
         <Fragment>
             <div onClick={() => { setShowMenu(!showMenu) }}>确定</div>
-            <Menu editor = {editor}/>
-            <EditorContent 
+            <EditorBig
                 value={value}
                 onChange={value => submit(value)}
-                editor = {editor}
-            />
+                editor={editor}
+            >
+                <Row>
+                    <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
+                        <EditorBigContent
+                            value={value}
+                            // onChange={value => submit(value)}
+                            editor={editor}
+                        />
+                    </Col>
+                </Row>
+            </EditorBig>
         </Fragment>
 
     )

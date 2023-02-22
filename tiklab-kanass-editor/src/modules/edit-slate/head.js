@@ -22,7 +22,8 @@ import { inject,observer } from "mobx-react";
 const { Option } = Select;
 
 const HeadEditor = (props) => {
-    const {editor, slatestore, editorValue} = props;
+    const {editor, slatestore, active} = props;
+    console.log(active)
     const {editorType,setEditorType} = slatestore;
     // const [isVisible,setIsVisible] = useState(false)
     const showBox = (event) => {
@@ -113,7 +114,7 @@ const HeadEditor = (props) => {
     return (
         <div className="head-editor" key="head">
             <div onMouseDown={(event) => showBox(event)} className = "head-botton">
-                文本样式
+               {active ? active : "文本样式"} 
 			</div>
             {
                 editorType === "head" && <div className="head-box">

@@ -7,11 +7,11 @@
  * @LastEditTime: 2021-10-27 15:00:34
  */
 import React, { useState } from "react";
-import { Transforms, Editor, Element } from "slate";
+import { Transforms, Editor } from "slate";
 import "./align.scss"
 import { inject, observer } from "mobx-react";
 const CodeEditor = (props) => {
-    const { editor, slatestore } = props;
+    const { editor, slatestore, active } = props;
     const { editorType, setEditorType } = slatestore;
 
     const selectCode = (event) => {
@@ -42,7 +42,7 @@ const CodeEditor = (props) => {
     };
 
     return (
-        <span className="tool-item" onMouseDown={(event) => selectCode(event)} key="code">
+        <span className={`tool-item ${active ? "tool-active" : ""}`} onMouseDown={(event) => selectCode(event)} key="code">
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-code-view"></use>
             </svg>

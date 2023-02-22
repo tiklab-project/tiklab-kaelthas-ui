@@ -1,90 +1,19 @@
-import React, { useMemo, useState, useCallback, Fragment, useImperativeHandle, useEffect } from "react";
-import { createEditor, Transforms, Editor, Text, Location, PointRef } from "slate";
+import React, { useCallback } from "react";
+import { Transforms, Editor } from "slate";
 import "./editorBig.scss";
-// Import the Slate components and React plugin.
-import { Slate, Editable, withReact, ReactEditor, useSlateStatic } from "slate-react";
-
-
-import LinkEditor, { withLinks } from "./link"
-import ImageEditor, { withImage } from "./image"
-import CheckListsEditor, { withChecklists } from "./checkListsEditor"
-import DividerEditor, { withDivider } from "./divider"
-import Emoji, { withEmoji } from "./emoji"
+import { Editable } from "slate-react";
 import { inject, observer } from "mobx-react";
 import renderElement from "./renderElement"
-import Leaf from "./leaf"
-import withTables from "./table/table/withTables"
+import Leaf from "./leaf";
 
-const CustomEditor = {
-	isBoldMarkActive(editor) {
-		const [match] = Editor.nodes(editor, {
-			match: (n) => n.bold === true,
-			universal: true,
-		});
-
-		return !!match;
-	},
-
-	isCodeBlockActive(editor) {
-		const [match] = Editor.nodes(editor, {
-			match: (n) => n.type === "code",
-		});
-
-		return !!match;
-	},
-
-	isAntdButtonBlockActive(editor) {
-		const [match] = Editor.nodes(editor, {
-			match: (n) => n.type === "antdButton",
-		});
-
-		return !!match;
-	},
-
-	toggleBoldMark(editor) {
-		const isActive = CustomEditor.isBoldMarkActive(editor);
-		Transforms.setNodes(
-			editor,
-			{ bold: isActive ? null : true },
-			{ match: (n) => Text.isText(n), split: true }
-		);
-
-
-	},
-
-	toggleCodeBlock(editor) {
-		const isActive = CustomEditor.isCodeBlockActive(editor);
-		Transforms.setNodes(
-			editor,
-			{ type: isActive ? null : "code" },
-			{ match: (n) => Editor.isBlock(editor, n) }
-		);
-	},
-
-	toggleAntdButtonBlock(editor) {
-		const isActive = CustomEditor.isAntdButtonBlockActive(editor);
-		Transforms.setNodes(
-			editor,
-			{ type: isActive ? null : "antdButton" },
-			{ match: (n) => Editor.isBlock(editor, n) }
-		);
-	},
-};
 
 // 定义我们的应用…
 const EditorBigContent = (props) => {
-	const { onChange, value, focusEditor, minHeight, editor } = props;
+	const { value, minHeight, editor } = props;
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
 
-	useEffect(() => {
-		if (focusEditor) {
-			// ReactEditor.focus(editor);
-			return;
-		}
-
-	}, [])
 
 	const setTree = () => {
 		let paddingHead = [0, 0, 0, 0, 0, 0]
@@ -166,22 +95,13 @@ const EditorBigContent = (props) => {
 	}
 
 	return (
-		<Slate
-			editor={editor}
-			value={value}
-			onChange={(value) => onChange(value)}
-		>
-
-			<Editable
-				renderElement={useCallback((props) => renderElement(props, editor), [])}
-				renderLeaf={renderLeaf}
-				className="edit-box"
-				style={{ minHeight: minHeight }}
-				onKeyUp={event => clickKey(event)}
-			/>
-		</Slate>
-
-
+		<Editable
+			renderElement={useCallback((props) => renderElement(props, editor), [])}
+			renderLeaf={renderLeaf}
+			className="edit-box"
+			style={{ minHeight: minHeight }}
+			onKeyUp={event => clickKey(event)}
+		/>
 	);
 };
 export default inject('slatestore')(observer(EditorBigContent))

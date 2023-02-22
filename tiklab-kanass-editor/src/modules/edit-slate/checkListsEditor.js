@@ -54,7 +54,7 @@ const withChecklists = editor => {
 }
 
 const CheckListsEditor = (props) => {
-    const { editor } = props;
+    const { editor, active } = props;
 
 
     const selectCheckLists = (event) => {
@@ -87,10 +87,11 @@ const CheckListsEditor = (props) => {
     };
 
     return (
-        <span className="tool-item" onMouseDown={(event) => selectCheckLists(event)}
+        <span 
+            // className={`tool-item ${active ? "tool-active" : ""}`} 
+            onMouseDown={(event) => selectCheckLists(event)}
             key="check-list"
         >
-            {/* <i className="iconfont iconxuanzhong"></i> */}
             <svg className="slate-iconfont" aria-hidden="true">
                 <use xlinkHref="#icon-xuanzhong"></use>
             </svg>
