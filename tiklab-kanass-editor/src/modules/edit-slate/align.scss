@@ -1,8 +1,4 @@
 .align-editor {
-    // border-left: 1px solid #F7F8FA;
-    // border-right: 1px solid #F7F8FA;
-    // padding: 0 10px;
-    margin: 0 10px;
     position: relative;
     .align-botton {
         border-width: 0px;
@@ -22,13 +18,14 @@
         white-space: nowrap;
         // background: rgb(37, 56, 88);
         cursor: pointer;
-        height: 2.28571em;
-        line-height: 2.28571em;
+        // height: 2.28571em;
+        // line-height: 2.28571em;
         padding: 0px 10px;
         vertical-align: middle;
         width: 100%;
         -webkit-box-pack: center;
         justify-content: center;
+        height: 28px;
         // color: rgb(244, 245, 247) !important;
     }
     .align-box {

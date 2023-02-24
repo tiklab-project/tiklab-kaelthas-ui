@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-12-20 14:54:55
  */
 import React,{Fragment} from "react";
+import DateElement from "./dateElement";
 // import { Fragment } from "react";
 const Leaf = (props) => {
 	let { attributes, children, leaf} = props
@@ -72,14 +73,6 @@ const Leaf = (props) => {
 				{children}
 			</div>
 	}
-	// else if(leaf.indent) {
-	// 	children = <div
-	// 			{...attributes}
-	// 			style={{ paddingLeft: leaf.indent ? leaf.indent : "inherit" }}
-	// 		> 
-	// 			{children}
-	// 		</div>
-	// }
 	if(leaf.lineHeight) {
 		children = <span
 				{...attributes}

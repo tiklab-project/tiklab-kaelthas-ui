@@ -1,15 +1,17 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { Transforms, Editor } from "slate";
 import "./editorBig.scss";
 import { Editable } from "slate-react";
 import { inject, observer } from "mobx-react";
 import renderElement from "./renderElement"
 import Leaf from "./leaf";
-
+import { EditorContext } from "./editorBig"
 
 // 定义我们的应用…
 const EditorBigContent = (props) => {
-	const { value, minHeight, editor } = props;
+	const { value, minHeight } = props;
+	const editor = useContext(EditorContext)
+	console.log(editor)
 	const renderLeaf = useCallback((props) => {
 		return <Leaf {...props} />;
 	}, []);
@@ -78,10 +80,10 @@ const EditorBigContent = (props) => {
 		switch (event.keyCode) {
 			case 13:
 				const [match] = Editor.nodes(editor, {
-					match: n => n.type === 'head',
+					match: n => n.type === 'head' || n.type === 'date',
 				})
 				console.log(match)
-				if (match && match[0].type === "head") {
+				if (match && (match[0].type === "head" || match[0].type === "date")) {
 					Transforms.setNodes(
 						editor,
 						{ type: 'paragraph' }

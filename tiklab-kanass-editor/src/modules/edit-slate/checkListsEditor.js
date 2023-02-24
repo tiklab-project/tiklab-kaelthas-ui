@@ -88,7 +88,7 @@ const CheckListsEditor = (props) => {
 
     return (
         <span 
-            // className={`tool-item ${active ? "tool-active" : ""}`} 
+            className={`tool-item ${active ? "tool-active" : ""}`} 
             onMouseDown={(event) => selectCheckLists(event)}
             key="check-list"
         >

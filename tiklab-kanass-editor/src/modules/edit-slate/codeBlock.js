@@ -39,23 +39,11 @@ const CodeBlock = (props) => {
     const [select, setSelect] = useState()
     const onFocus = ()=>{
         const [path] =  ReactEditor.findPath(editor,element);
-        const select = {
-            anchor: {
-                offset: 0,
-                path: [path]
-            },
-            focus: {
-                offset: 0,
-                path: [path]
-            }
-        }
         setSelect({
             offset: 0,
             path: [path]
         })
         console.log(ReactEditor.findPath(editor,element))
-        // if(!blurFn) return
-        // blurFn()
     }
 
     const changeCode = (value) => {
@@ -65,8 +53,8 @@ const CodeBlock = (props) => {
             { type: "code", codeValue: value },
             {at: select},
         );
-        
     }
+    
     return (
         <div 
             className="code-block"

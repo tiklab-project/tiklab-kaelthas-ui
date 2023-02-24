@@ -16,6 +16,7 @@ import CheckListItemElement from "./check-lists"
 import EmojiElement from "./emojiElement"
 import TableElement from "./table/table/tableElement"
 import CodeBlock from "./codeBlock"
+import DateElement from "./dateElement"
 import "./renderElement.scss"
 const renderElement = (props, editor) => {
     const { element, attributes, children } = props;
@@ -63,6 +64,8 @@ const renderElement = (props, editor) => {
             return <EmojiElement {...props} />
         case "table":
             return <TableElement {...props}>{children}</TableElement>
+        case "date":
+            return <DateElement  {...props} editor={editor} />
         default:
             return <DefaultElement {...props} />;
     }

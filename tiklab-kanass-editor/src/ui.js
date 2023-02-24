@@ -9,7 +9,7 @@
 import DocumentEditor from "./module/modules/edit-slate/editor";
 import PreviewEditor from "./module/modules/edit-slate/previewEditor";
 import EditorBigContent from "./module/modules/edit-slate/editorBigContent";
-import EditorBigMenu from "./module/modules/edit-slate/editorBigMenu";
+import EditorBig from "./module/modules/edit-slate/editorBig";
 import {SlateStore, SLATE_STORE} from "./module/modules/edit-slate/store/slateStore";
 export {
     DocumentEditor,
@@ -17,5 +17,5 @@ export {
     SLATE_STORE,
     PreviewEditor,
     EditorBigContent,
-    EditorBigMenu
+    EditorBig
 }

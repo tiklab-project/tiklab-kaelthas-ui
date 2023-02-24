@@ -13,7 +13,7 @@ import { Link, withRouter } from "react-router-dom";
 import "./documentEdit.scss";
 import { createEditor } from "slate";
 import { Editable, Slate, withReact } from "slate-react";
-import { EditorBigContent, EditorBigMenu, PreviewEditor, DocumentEditor } from "tiklab-slate-ui";
+import { EditorBigContent, EditorBig, PreviewEditor, DocumentEditor } from "tiklab-slate-ui";
 import Button from "../../../../common/button/button";
 
 
@@ -78,7 +78,7 @@ const DocumentEdit = (props) => {
             name: value.target.value
         }
         updateDocument(data).then(res => {
-            if(res.code === 0){
+            if (res.code === 0) {
                 console.log(res.code)
                 document.getElementById("examine-title").innerHTML = value.target.value;
                 document.getElementById("file-" + documentId).innerHTML = value.target.value
@@ -89,7 +89,7 @@ const DocumentEdit = (props) => {
     return (
         <div className="documnet-edit">
             <div className="edit-top">
-                <div className="edit-title"  id = "examine-title">{docInfo.name}</div>
+                <div className="edit-title" id="examine-title">{docInfo.name}</div>
                 <div className="edit-right">
                     <Button type="primary" onClick={() => save()}>保存</Button>
                     <Button onClick={() => props.history.goBack()}>取消</Button>
@@ -98,7 +98,7 @@ const DocumentEdit = (props) => {
                     </svg>
                 </div>
             </div>
-            <EditorBigMenu editor={editor} />
+            {/* <EditorBigMenu editor={editor} />
             <Row className="document-examine-content">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                 <div className="document-title">
@@ -121,7 +121,34 @@ const DocumentEdit = (props) => {
                     }
 
                 </Col>
-            </Row>
+            </Row> */}
+            {
+                value && <EditorBig
+                    value={value}
+                    onChange={value => setValue(value)}
+                >
+                    <>
+                        <Row className="document-examine-content">
+                            <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
+                                <div className="document-title">
+                                    <Input
+                                        className="document-title-input"
+                                        bordered={false}
+                                        onChange={(value) => setTitleValue(value.target.value)}
+                                        value={titleValue}
+                                        onPressEnter={(value) => changeTitle(value)}
+                                        onBlur={(value) => changeTitle(value)}
+                                    />
+                                </div>
+                                <EditorBigContent
+                                    value={value}
+                                />
+                            </Col>
+                        </Row>
+                    </>
+
+                </EditorBig>
+            }
 
 
 

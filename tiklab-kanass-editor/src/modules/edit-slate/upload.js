@@ -14,6 +14,46 @@ import "./upload.scss"
 import Tabs from "./tabs"
 const { Dragger } = Upload;
 // const { TabPane } = Tabs;
+
+const withImage = editor => {
+    const { insertData, insertText, isVoid,isInline } = editor
+    editor.isVoid = element => {
+        return element.type === 'image' ? true : isVoid(element)
+    }
+    editor.isInline = element => {
+        return element.type === 'attachment' ? true : isInline(element)
+    }
+    editor.insertData = data => {
+		const text = data.getData('text/plain')
+		const { files } = data
+
+		if (files && files.length > 0) {
+			for (const file of files) {
+				const reader = new FileReader()
+				const [mime] = file.type.split('/')
+
+				if (mime === 'image') {
+					reader.addEventListener('load', () => {
+						const url = reader.result
+						insertImage(editor, url)
+					})
+
+					reader.readAsDataURL(file)
+				}
+			}
+		}else {
+			insertData(data)
+		}
+    }
+
+	const insertImage = (editor, url) => {
+		const text = { text: '' }
+		const image = { type: 'image', url, children: [text] }
+		Transforms.insertNodes(editor, image)
+	}
+    return editor
+}
+
 const AttUpload = (props) => {
 	const { editor } = props
 	const [isModalVisible, setIsModalVisible] = useState(false);
@@ -25,14 +65,6 @@ const AttUpload = (props) => {
 		setIsModalVisible(!isModalVisible);
 	};
 
-	const handleOk = () => {
-		setIsModalVisible(false);
-
-	};
-
-	const handleCancel = () => {
-		setIsModalVisible(false);
-	};
 	const ticket = "";
 	const params = {
 		name: 'uploadFile',
@@ -135,7 +167,6 @@ const AttUpload = (props) => {
 	return (
 		<div className = "upload-editor" key="upload">
 			<span onMouseDown={(event) => showModal(event)}>
-				{/* <i className="iconfont iconimage" style={{fontWeight: 600}}></i> */}
 				<svg className="slate-iconfont" aria-hidden="true">
                     <use xlinkHref="#icon-image"></use>
                 </svg>
@@ -184,4 +215,5 @@ const AttUpload = (props) => {
 };
 
 export default AttUpload;
+export {withImage};
 

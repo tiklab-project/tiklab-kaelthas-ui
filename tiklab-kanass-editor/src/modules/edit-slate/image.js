@@ -17,22 +17,15 @@ const withImage = editor => {
     editor.isInline = element => {
         return element.type === 'attachment' ? true : isInline(element)
     }
-    // editor.insertText = text => {
-    //     if (text) {
-    //         wrapImage(editor, text)
-    //     } else {
-    //         insertText(text)
-    //     }
-    // }
-    // editor.insertData = data => {
-    //     const text = data.getData('text/plain')
+    editor.insertData = data => {
+        const text = data.getData('text/plain')
 
-    //     if (text) {
-    //         wrapImage(editor, text)
-    //     } else {
-    //         insertData(data)
-    //     }
-    // }
+        if (text) {
+            wrapImage(editor, text)
+        } else {
+            insertData(data)
+        }
+    }
     return editor
 }
 

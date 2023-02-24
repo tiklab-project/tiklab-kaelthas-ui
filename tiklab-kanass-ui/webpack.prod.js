@@ -132,7 +132,7 @@ module.exports = merge(baseWebpackConfig, {
                     name: 'chunk-antv',
                     chunks: 'all',
                     test: /[\\/]node_modules[\\/]@antv[\\/]/,
-                    priority: -10,
+                    priority: -20,
                     reuseExistingChunk: true
                 },
                 antdUI: {

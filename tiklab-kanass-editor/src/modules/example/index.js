@@ -7,8 +7,6 @@
  * @LastEditTime: 2022-04-23 14:20:48
  */
 import React, { Fragment, useState } from "react";
-import { createEditor } from "slate";
-import { Editable, Slate, withReact } from "slate-react";
 import EditorBig from "../edit-slate/editorBig";
 import EditorBigContent from "../edit-slate/editorBigContent";
 import { Row, Col } from "antd";
@@ -27,7 +25,7 @@ const ExampleEditor = () => {
         //     children: [{ text: "ww" }]
         // }
     ])
-    const [editor] = useState(() => withReact(createEditor()))
+    // const [editor] = useState(() => withReact(createEditor()))
 
     const [initialValue, setInitialValue] = useState([
         {
@@ -40,23 +38,28 @@ const ExampleEditor = () => {
     const submit = (value) => {
         setValue(value)
     }
+  
     return (
         <Fragment>
             <div onClick={() => { setShowMenu(!showMenu) }}>确定</div>
             <EditorBig
                 value={value}
                 onChange={value => submit(value)}
-                editor={editor}
             >
-                <Row>
-                    <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
-                        <EditorBigContent
-                            value={value}
+                <>
+                    <div>标题</div>
+                   
+                    <Row>
+                        <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
+                            <EditorBigContent
+                                value={value}
                             // onChange={value => submit(value)}
-                            editor={editor}
-                        />
-                    </Col>
-                </Row>
+                            // editor={editor}
+                            />
+                        </Col>
+                    </Row>
+                </>
+
             </EditorBig>
         </Fragment>
 
