@@ -98,30 +98,6 @@ const DocumentEdit = (props) => {
                     </svg>
                 </div>
             </div>
-            {/* <EditorBigMenu editor={editor} />
-            <Row className="document-examine-content">
-                <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
-                <div className="document-title">
-                        <Input 
-                            className="document-title-input" 
-                            bordered={false}
-                            onChange = {(value) => setTitleValue(value.target.value)}
-                            value = {titleValue}
-                            onPressEnter = {(value) => changeTitle(value)}
-                            onBlur = {(value) => changeTitle(value)}
-                        />
-                    </div>
-
-                    {
-                        value && <EditorBigContent
-                            value={value}
-                            onChange={setValue}
-                            editor={editor}
-                        />
-                    }
-
-                </Col>
-            </Row> */}
             {
                 value && <EditorBig
                     value={value}

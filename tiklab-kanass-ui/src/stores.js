@@ -10,12 +10,12 @@ import { createContext } from 'react';
 
 import {WIKI_STORE,WikiStore} from "./modules/wiki/wiki/store/wikiStore";
 import {WIKIDETAIL_STORE,WikiDetailStore} from "./modules/wiki/common/store/wikiDetailStore";
-import {SEARCH_STORE,SearchStore} from "./modules/search/store/search";
+import {SEARCH_STORE,SearchStore} from "./modules/home/search/store/search";
 import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./modules/wiki/common/store/wikiLogStore"
-import {HOME_STORE, HomeStore} from "./modules/home/store/homeStore"
-import {TEMPLATE_STORE,TemplateStore} from "./modules/template/store/templateStore"
+import {HOME_STORE, HomeStore} from "./modules/home/home/store/homeStore"
+import {TEMPLATE_STORE,TemplateStore} from "./modules/setting/template/store/templateStore"
 import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
-import {SHARE_STORE,ShareStore} from "./modules/share/store/shareStore"
+import {SHARE_STORE,ShareStore} from "./modules/wiki/share/store/shareStore"
 import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork";
 import {SURVEY_STORE, SurveyStore} from "./modules/wiki/survey/store/surveyStore";
 

@@ -15,8 +15,6 @@ import { useTranslation } from 'react-i18next';
 import AddLog from "./addLog"
 import ChangeWikiModal from "./changeWikiModal"
 import MoveLogList from "./moveLogList"
-import TemplateList from "./templateList"
-import { PrivilegeProject } from "tiklab-privilege-ui";
 import { getUser } from 'tiklab-core-ui';
 const { Sider } = Layout;
 const WikideAside = (props) => {
@@ -38,9 +36,6 @@ const WikideAside = (props) => {
     const wikiId = props.match.params.wikiId;
     const [isHover, setIsHover] = useState(false)
 
-    const [changeTemplateVisible, setChangeTemplateVisible] = useState()
-
-    const [templateId, setTemplateId] = useState()
 
     const [modalTitle, setModalTitle] = useState()
     const userId = getUser().userId
@@ -91,19 +86,6 @@ const WikideAside = (props) => {
         }
     }
 
-    /**
-     * 点击折叠或展开菜单栏
-     */
-    const toggleCollapsed = () => {
-        SetIsShowText(!isShowText)
-    }
-    /**
-     * 显示切换知识库弹窗
-     */
-    const showModal = () => {
-        setChangeWikiVisible(true)
-    };
-
     // 添加按钮下拉菜单
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
@@ -143,8 +125,6 @@ const WikideAside = (props) => {
             setUserList(data.dataList)
         })
         if (value.key === "document") {
-            // setChangeTemplateVisible(true)
-            // setModalTitle("添加文档")
             const data = {
                 name: "未命名文档",
                 repository: { id: wikiId },
@@ -164,7 +144,6 @@ const WikideAside = (props) => {
                     // 左侧导航
                     setSelectKey(data.data)
                 }
-
             })
         } else if (value.key === "mindMap") {
             setContentValue({ nodes: [], edges: [] })
@@ -577,7 +556,7 @@ const WikideAside = (props) => {
                 updateWikiCatalogue={updateWikiCatalogue}
                 moveCategoryParentId={moveCategoryParentId}
             />
-            <TemplateList changeTemplateVisible={changeTemplateVisible}
+            {/* <TemplateList changeTemplateVisible={changeTemplateVisible}
                 setChangeTemplateVisible={setChangeTemplateVisible}
                 templateId={templateId}
                 setTemplateId={setTemplateId}
@@ -585,7 +564,7 @@ const WikideAside = (props) => {
                 contentValue={contentValue}
                 setContentValue={setContentValue}
 
-            />
+            /> */}
         </Fragment>
     )
 }

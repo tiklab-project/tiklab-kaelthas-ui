@@ -12,13 +12,13 @@ import { Redirect } from "react-router-dom";
 
 const Login = AsyncComponent(() => import('./modules/login/login'))
 const Logout = AsyncComponent(() => import('./modules/login/logout'))
-const Home = AsyncComponent(() => import('./modules/home/components/home'))
-const Index = AsyncComponent(() => import('./modules/home/components/portal'))
-const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/components/wikiDetail'))
+const Home = AsyncComponent(() => import('./modules/home/home/components/home'))
+const Index = AsyncComponent(() => import('./modules/home/home/components/portal'))
+const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/containers/wikiDetail'))
 const Survey = AsyncComponent(() => import('./modules/wiki/survey/containers/survey'))
-const DynamicList = AsyncComponent(() => import("./modules/home/components/dynamicList"))
+const DynamicList = AsyncComponent(() => import("./modules/home/home/components/dynamicList"))
 
-const LogDetail = AsyncComponent(() => import('./modules/wiki/common/components/logDetail'))
+const LogDetail = AsyncComponent(() => import('./modules/wiki/common/components/categoryDetail'))
 const BrainMap = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'))
 const DocumentMindMapEdit = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowEdit'))
 
@@ -28,56 +28,56 @@ const DocumentEdit = AsyncComponent(() => import("./modules/wiki/document/compon
 const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/document/components/documnetExamine"))
 const DocumentAddEdit = AsyncComponent(() => import("./modules/wiki/document/components/documentAddEdit"))
 
-const WikiSet = AsyncComponent(() => import("./modules/wikiSet/common/containers/wikiSet"))
+const WikiSet = AsyncComponent(() => import("./modules/wiki/wikiSet/common/containers/wikiSet"))
 const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
 const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
-const WikiBasicInfo = AsyncComponent(() => import('./modules/wikiSet/basic-info/containers/basicInfo'))
-const Template = AsyncComponent(() => import('./modules/template/components/template'))
-const TemplateAdd = AsyncComponent(() => import('./modules/template/components/templateAddmodal'))
+const WikiBasicInfo = AsyncComponent(() => import('./modules/wiki/wikiSet/basicInfo/containers/basicInfo'))
+const Template = AsyncComponent(() => import('./modules/setting/template/components/template'))
+const TemplateAdd = AsyncComponent(() => import('./modules/setting/template/components/templateAddmodal'))
 // 分享文档页面
-const ShareDocument = AsyncComponent(() => import('./modules/share/components/shareDocument'))
+const ShareDocument = AsyncComponent(() => import('./modules/wiki/share/components/shareDocument'))
 // 分享文档页面
-const PassWord = AsyncComponent(() => import('./modules/share/components/passWord'))
+const PassWord = AsyncComponent(() => import('./modules/wiki/share/components/passWord'))
 
 
-const LoadData = AsyncComponent(() => import('./modules/sysmgr/load-data/loadData'))
+const LoadData = AsyncComponent(() => import('./modules/setting/loadData/loadData'))
 
 // 消息
-const ProjectMessageSendType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageSendType'))
-const ProjectMessageType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageType'))
-const ProjectMessageTemplate = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageTemplate'))
-const ProjectMessageManagement = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageManagement'))
-const ProjectMessageNotice = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNotice'))
-const ProjectMessageNoticeSystem = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNoticeSystem'))
+const ProjectMessageSendType = AsyncComponent(() => import('./modules/setting/message/projectMessageSendType'))
+const ProjectMessageType = AsyncComponent(() => import('./modules/setting/message/projectMessageType'))
+const ProjectMessageTemplate = AsyncComponent(() => import('./modules/setting/message/projectMessageTemplate'))
+const ProjectMessageManagement = AsyncComponent(() => import('./modules/setting/message/projectMessageManagement'))
+const ProjectMessageNotice = AsyncComponent(() => import('./modules/setting/message/projectMessageNotice'))
+const ProjectMessageNoticeSystem = AsyncComponent(() => import('./modules/setting/message/projectMessageNoticeSystem'))
 
-const Setting = AsyncComponent(() => import('./modules/sysmgr/common/containers/setting'))
-const ProjectPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/projectPlugin'))
+const Setting = AsyncComponent(() => import('./modules/setting/common/containers/setting'))
+const ProjectPlugin = AsyncComponent(() => import('./modules/setting/plugin/projectPlugin'))
 
-const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/systemFeature'))
-const SystemRoleBuilt = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRoleBuilt'))
-const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRole'))
-const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
-const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
+const SystemFeature = AsyncComponent(() => import('./modules/setting/privilege/systemFeature'))
+const SystemRoleBuilt = AsyncComponent(() => import('./modules/setting/privilege/systemRoleBuilt'))
+const SystemRole = AsyncComponent(() => import('./modules/setting/privilege/systemRole'))
+const ProjectFeature = AsyncComponent(() => import('./modules/setting/privilege/projectFeature'))
+const ProjectRole = AsyncComponent(() => import('./modules/setting/privilege/projectRole'))
 
 //组织用户
-const OrgaContent = AsyncComponent(() => import('./modules/sysmgr/orga/orga'))
-const OrgaUser = AsyncComponent(() => import('./modules/sysmgr/orga/user'))
-const ProjectDirectory = AsyncComponent(() => import("./modules/sysmgr/user/projectDirectory"))
-const ProjectUserGroup = AsyncComponent(() => import("./modules/sysmgr/user/projectUserGroup"))
-const ProjectSystemUserGroup = AsyncComponent(() => import("./modules/sysmgr/user/projectSystemUserGroup"))
+const OrgaContent = AsyncComponent(() => import('./modules/setting/orga/orga'))
+const OrgaUser = AsyncComponent(() => import('./modules/setting/orga/user'))
+const ProjectDirectory = AsyncComponent(() => import("./modules/setting/user/projectDirectory"))
+const ProjectUserGroup = AsyncComponent(() => import("./modules/setting/user/projectUserGroup"))
+const ProjectSystemUserGroup = AsyncComponent(() => import("./modules/setting/user/projectSystemUserGroup"))
 
 
 //工时
-const TaskListContent = AsyncComponent(() => import('./modules/sysmgr/todo/taskList.js'))
-const TodoTempListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTempList'))
-const MyTodoTaskContent = AsyncComponent(() => import('./modules/sysmgr/todo/myTodoTask'))
-const TodoTypeListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTypeList'))
+const TaskListContent = AsyncComponent(() => import('./modules/setting/todo/taskList.js'))
+const TodoTempListContent = AsyncComponent(() => import('./modules/setting/todo/todoTempList'))
+const MyTodoTaskContent = AsyncComponent(() => import('./modules/setting/todo/myTodoTask'))
+const TodoTypeListContent = AsyncComponent(() => import('./modules/setting/todo/todoTypeList'))
 
-const LogList = AsyncComponent(() => import('./modules/sysmgr/log/log.js'))
-const LogTemplateList = AsyncComponent(() => import('./modules/sysmgr/log/myLogTemplateList'))
-const ProjectLogTypeList = AsyncComponent(() => import('./modules/sysmgr/log/logTypeList'))
+const LogList = AsyncComponent(() => import('./modules/setting/log/log.js'))
+const LogTemplateList = AsyncComponent(() => import('./modules/setting/log/myLogTemplateList'))
+const ProjectLogTypeList = AsyncComponent(() => import('./modules/setting/log/logTypeList'))
 
-const LicenceVersion = AsyncComponent(() => import('./modules/sysmgr/version/version'))
+const LicenceVersion = AsyncComponent(() => import('./modules/setting/version/version'))
 
 const routes = [
     {

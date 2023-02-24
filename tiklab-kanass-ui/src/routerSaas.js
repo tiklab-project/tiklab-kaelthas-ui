@@ -31,9 +31,9 @@ const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDoma
 const Template = AsyncComponent(() => import('./modules/template/components/template'))
 
 // 分享文档页面
-const ShareDocument = AsyncComponent(() => import('./modules/share/components/shareDocument'))
+const ShareDocument = AsyncComponent(() => import('./modules/wiki/share/components/shareDocument'))
 // 分享文档页面
-const PassWord = AsyncComponent(() => import('./modules/share/components/passWord'))
+const PassWord = AsyncComponent(() => import('./modules/wiki/share/components/passWord'))
 
 
 const LoadData = AsyncComponent(() => import('./modules/sysmgr/load-data/loadData'))

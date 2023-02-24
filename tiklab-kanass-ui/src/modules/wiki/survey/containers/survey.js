@@ -4,8 +4,6 @@ import { withRouter } from "react-router";
 import { inject, observer } from "mobx-react";
 import Button from "../../../../common/button/button";
 import AddLog from "../../common/components/addLog"
-import MoveLogList from "../../common/components/moveLogList"
-import TemplateList from "../../common/components/templateList"
 
 import "../components/survey.scss";
 import { getUser } from "tiklab-core-ui";
@@ -17,17 +15,14 @@ const Survey = (props) => {
 
     const { findRepository, findLogpage, opLogList } = surveyStore;
 
-    const { findDmPrjRolePage, setWikiCatalogueList, createDocumentRecent } = WikiCatalogueStore;
+    const { findDmPrjRolePage, setWikiCatalogueList, createDocumentRecent, addWikiCataDocument } = WikiCatalogueStore;
 
     const [repositoryInfo, setRepositoryInfo] = useState();
     const wikiId = props.match.params.wikiId
     const [form] = Form.useForm();
-
-    const [changeTemplateVisible, setChangeTemplateVisible] = useState()
     const [modalTitle, setModalTitle] = useState()
     const [contentValue, setContentValue] = useState()
     const [selectKey, setSelectKey] = useState();
-    const [templateId, setTemplateId] = useState();
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
 
     const userId = getUser().id
@@ -71,9 +66,9 @@ const Survey = (props) => {
             <Menu.Item key="document">
                 添加页面
             </Menu.Item>
-            <Menu.Item key="mindMap">
+            {/* <Menu.Item key="mindMap">
                 添加脑图
-            </Menu.Item>
+            </Menu.Item> */}
         </Menu>
     };
 
@@ -86,13 +81,34 @@ const Survey = (props) => {
             setUserList(data.dataList)
         })
         if (value.key === "document") {
-            setChangeTemplateVisible(true)
-            setModalTitle("添加文档")
-        } else if (value.key === "mindMap") {
-            setContentValue({ nodes: [], edges: [] })
-            setAddModalVisible(true)
-            setModalTitle("添加脑图")
-        } else if (value.key === "category") {
+            const data = {
+                name: "未命名文档",
+                repository: { id: wikiId },
+                master: { id: userId },
+                typeId: "document",
+                formatType: "document",
+                category: {id:id},
+            }
+            console.log(id)
+            addWikiCataDocument(data).then((data) => {
+                if (data.code === 0) {
+                    findWikiCatalogue(wikiId).then((data) => {
+                        setWikiCatalogueList(data)
+                    })
+
+                    props.history.push(`/index/wikidetail/${wikiId}/doc/${data.data}`)
+                    // 左侧导航
+                    setSelectKey(data.data)
+                }
+
+            })
+        } 
+        // else if (value.key === "mindMap") {
+        //     setContentValue({ nodes: [], edges: [] })
+        //     setAddModalVisible(true)
+        //     setModalTitle("添加脑图")
+        // } 
+        else if (value.key === "category") {
             setAddModalVisible(true)
             setModalTitle("添加目录")
         }
@@ -324,7 +340,7 @@ const Survey = (props) => {
                         modalTitle={modalTitle}
                         {...props}
                     />
-                    <TemplateList changeTemplateVisible={changeTemplateVisible}
+                    {/* <TemplateList changeTemplateVisible={changeTemplateVisible}
                         setChangeTemplateVisible={setChangeTemplateVisible}
                         templateId={templateId}
                         setTemplateId={setTemplateId}
@@ -332,7 +348,7 @@ const Survey = (props) => {
                         contentValue={contentValue}
                         setContentValue={setContentValue}
 
-                    />
+                    /> */}
 
                 </Col>
             </Row>
