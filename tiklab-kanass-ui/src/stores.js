@@ -8,16 +8,16 @@
  */
 import { createContext } from 'react';
 
-import {WIKI_STORE,WikiStore} from "./modules/wiki/wiki/store/wikiStore";
-import {WIKIDETAIL_STORE,WikiDetailStore} from "./modules/wiki/common/store/wikiDetailStore";
-import {SEARCH_STORE,SearchStore} from "./modules/home/search/store/search";
-import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./modules/wiki/common/store/wikiLogStore"
-import {HOME_STORE, HomeStore} from "./modules/home/home/store/homeStore"
-import {TEMPLATE_STORE,TemplateStore} from "./modules/setting/template/store/templateStore"
-import {WIKICOMMON_STORE,WikiCommon} from "./modules/wiki/common/store/wikiCommon"
-import {SHARE_STORE,ShareStore} from "./modules/wiki/share/store/shareStore"
-import {WIKIWORK_STORE,WikiWork} from "./modules/wiki/common/store/wikiWork";
-import {SURVEY_STORE, SurveyStore} from "./modules/wiki/survey/store/surveyStore";
+import {WIKI_STORE,WikiStore} from "./wiki/wiki/store/WikiStore";
+import {WIKIDETAIL_STORE,WikiDetailStore} from "./wiki/common/store/WikiDetailStore";
+import {SEARCH_STORE,SearchStore} from "./home/search/store/search";
+import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./wiki/common/store/WikiLogStore"
+import {HOME_STORE, HomeStore} from "./home/home/store/homeStore"
+import {TEMPLATE_STORE,TemplateStore} from "./setting/template/store/templateStore"
+import {WIKICOMMON_STORE,WikiCommon} from "./wiki/common/store/WikiCommon"
+import {SHARE_STORE,ShareStore} from "./wiki/share/store/ShareStore"
+import {WIKIWORK_STORE,WikiWork} from "./wiki/common/store/WikiWork";
+import {SURVEY_STORE, SurveyStore} from "./wiki/survey/store/SurveyStore";
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"

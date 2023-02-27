@@ -9,7 +9,7 @@
 import React,{useEffect,useState} from 'react';
 import ReactDOM from 'react-dom';
 import {HashRouter} from "react-router-dom";
-import routers from './routers';
+import Routes from './Routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import {store } from "./stores"
@@ -46,12 +46,12 @@ const Index = observer(() => {
     useVersion("kanass")
 
     const [pluginData,setPluginData] = useState({
-        routes: routers,
+        routes: Routes,
         pluginStore:[],
         languageStore:[]
     });
     useEffect(() => {
-        initFetch(fetchMethod, routers, resources,i18n).then(res => {
+        initFetch(fetchMethod, Routes, resources,i18n).then(res => {
             setPluginData(res)
             setVisable(false)
         })

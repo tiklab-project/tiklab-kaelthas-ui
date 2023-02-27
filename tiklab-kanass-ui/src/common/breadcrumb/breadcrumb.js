@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router";
 
-import "./breadcrumb.scss"
+import "./Breadcrumb.scss"
 const Breadcumb = (props) => {
     const { homeImage, firstText, secondText, firstUrl, children } = props;
 

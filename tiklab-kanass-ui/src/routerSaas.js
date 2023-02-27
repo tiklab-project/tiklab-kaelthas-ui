@@ -10,72 +10,76 @@ import React from 'react';
 import AsyncComponent from './common/lazy/SyncComponent'
 import { Redirect } from "react-router-dom";
 
-const Login = AsyncComponent(() => import('./modules/login/login'))
-const Logout = AsyncComponent(() => import('./modules/login/logout'))
-const Home = AsyncComponent(() => import('./modules/home/components/home'))
-const Index = AsyncComponent(() => import('./modules/home/components/portal'))
-const WikiDetail = AsyncComponent(() => import('./modules/wiki/common/components/wikiDetail'))
-const LogDetail = AsyncComponent(()=> import('./modules/wiki/common/components/logDetail'))
-const BrainMap = AsyncComponent(()=> import('./modules/wiki/brainMapFlow/components/brainMapFlowExamine'))
-const DocumentMindMapEdit = AsyncComponent(() => import('./modules/wiki/brainMapFlow/components/brainMapFlowEdit'))
+const Login = AsyncComponent(() => import('./login/Login'))
+const Logout = AsyncComponent(() => import('./login/Logout'))
+const Home = AsyncComponent(() => import('./home/home/components/home'))
+const Index = AsyncComponent(() => import('./home/home/containers/Portal'))
+const WikiDetail = AsyncComponent(() => import('./wiki/common/containers/WikiDetail'))
+const Survey = AsyncComponent(() => import('./wiki/survey/containers/Survey'))
+const DynamicList = AsyncComponent(() => import("./home/home/components/dynamicList"))
+
+const LogDetail = AsyncComponent(() => import('./wiki/common/components/CategoryDetail'))
+const BrainMap = AsyncComponent(() => import('./wiki/brainMapFlow/components/BrainMapFlowExamine'))
+const DocumentMindMapEdit = AsyncComponent(() => import('./wiki/brainMapFlow/components/BrainMapFlowEdit'))
 
 // 知识库
-const wiki = AsyncComponent(() => import('./modules/wiki/wiki/components/wikiList'))
-const DocumentDetail = AsyncComponent(() => import('./modules/wiki/common/components/documentDetail'))
-const DocumentEdit = AsyncComponent(() => import("./modules/wiki/common/components/documentEdit"))
-const DocumnetExamine = AsyncComponent(() => import("./modules/wiki/common/components/documnetExamine"))
+const wiki = AsyncComponent(() => import('./wiki/wiki/components/WikiList'))
+const DocumentEdit = AsyncComponent(() => import("./wiki/document/components/DocumentEdit"))
+const DocumnetExamine = AsyncComponent(() => import("./wiki/document/components/DocumnetExamine"))
+const DocumentAddEdit = AsyncComponent(() => import("./wiki/document/components/DocumentAddEdit"))
 
-const WikiDomainRole = AsyncComponent(() => import('./modules/wiki/user/wikiDomainRole'))
-const WikiDomainUser = AsyncComponent(() => import('./modules/wiki/user/wikiDomainUser'))
-
-const Template = AsyncComponent(() => import('./modules/template/components/template'))
-
+const WikiSet = AsyncComponent(() => import("./wiki/wikiSet/common/containers/WikiSet"))
+const WikiDomainRole = AsyncComponent(() => import('./wiki/user/WikiDomainRole'))
+const WikiDomainUser = AsyncComponent(() => import('./wiki/user/WikiDomainUser'))
+const WikiBasicInfo = AsyncComponent(() => import('./wiki/wikiSet/basicInfo/containers/BasicInfo'))
+const Template = AsyncComponent(() => import('./setting/template/components/template'))
+const TemplateAdd = AsyncComponent(() => import('./setting/template/components/templateAddmodal'))
 // 分享文档页面
-const ShareDocument = AsyncComponent(() => import('./modules/wiki/share/components/shareDocument'))
+const ShareDocument = AsyncComponent(() => import('./wiki/share/components/ShareDocument'))
 // 分享文档页面
-const PassWord = AsyncComponent(() => import('./modules/wiki/share/components/passWord'))
+const PassWord = AsyncComponent(() => import('./wiki/share/components/PassWord'))
 
 
-const LoadData = AsyncComponent(() => import('./modules/sysmgr/load-data/loadData'))
+const LoadData = AsyncComponent(() => import('./setting/loadData/LoadData'))
 
 // 消息
-const ProjectMessageSendType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageSendType'))
-const ProjectMessageType = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageType'))
-const ProjectMessageTemplate = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageTemplate'))
-const ProjectMessageManagement = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageManagement'))
-const ProjectMessageNotice = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNotice'))
-const ProjectMessageNoticeSystem = AsyncComponent(() => import('./modules/sysmgr/message/projectMessageNoticeSystem'))
+const ProjectMessageSendType = AsyncComponent(() => import('./setting/message/ProjectMessageSendType'))
+const ProjectMessageType = AsyncComponent(() => import('./setting/message/ProjectMessageType'))
+const ProjectMessageTemplate = AsyncComponent(() => import('./setting/message/ProjectMessageTemplate'))
+const ProjectMessageManagement = AsyncComponent(() => import('./setting/message/ProjectMessageManagement'))
+const ProjectMessageNotice = AsyncComponent(() => import('./setting/message/ProjectMessageNotice'))
+const ProjectMessageNoticeSystem = AsyncComponent(() => import('./setting/message/ProjectMessageNoticeSystem'))
 
-const Setting = AsyncComponent(() => import('./modules/sysmgr/common/containers/setting'))
-const ProjectPlugin = AsyncComponent(() => import('./modules/sysmgr/plugin/projectPlugin'))
+const Setting = AsyncComponent(() => import('./setting/common/containers/Setting'))
+const ProjectPlugin = AsyncComponent(() => import('./setting/plugin/ProjectPlugin'))
 
-const SystemFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/systemFeature'))
-const SystemRoleBuilt = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRoleBuilt'))
-const SystemRole = AsyncComponent(() => import('./modules/sysmgr/privilege/systemRole'))
-const ProjectFeature = AsyncComponent(() => import('./modules/sysmgr/privilege/projectFeature'))
-const ProjectRole = AsyncComponent(() => import('./modules/sysmgr/privilege/projectRole'))
+const SystemFeature = AsyncComponent(() => import('./setting/privilege/SystemFeature'))
+const SystemRoleBuilt = AsyncComponent(() => import('./setting/privilege/SystemRoleBuilt'))
+const SystemRole = AsyncComponent(() => import('./setting/privilege/SystemRole'))
+const ProjectFeature = AsyncComponent(() => import('./setting/privilege/ProjectFeature'))
+const ProjectRole = AsyncComponent(() => import('./setting/privilege/ProjectRole'))
 
 //组织用户
-const OrgaContent = AsyncComponent(() => import('./modules/sysmgr/orga/orga'))
-const OrgaUser = AsyncComponent(() => import('./modules/sysmgr/orga/user'))
-const ProjectDirectory = AsyncComponent(()=> import("./modules/sysmgr/user/projectDirectory"))
-const ProjectUserGroup = AsyncComponent(()=> import("./modules/sysmgr/user/projectUserGroup"))
-const ProjectSystemUserGroup = AsyncComponent(() => import("./modules/sysmgr/user/projectSystemUserGroup"))
+const OrgaContent = AsyncComponent(() => import('./setting/orga/Orga'))
+const OrgaUser = AsyncComponent(() => import('./setting/orga/User'))
+const ProjectDirectory = AsyncComponent(() => import("./setting/user/ProjectDirectory"))
+const ProjectUserGroup = AsyncComponent(() => import("./setting/user/ProjectUserGroup"))
+const ProjectSystemUserGroup = AsyncComponent(() => import("./setting/user/ProjectSystemUserGroup"))
 
 
 //工时
-const TaskListContent = AsyncComponent(() => import('./modules/sysmgr/todo/taskList.js'))
-const TodoTempListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTempList'))
-const MyTodoTaskContent = AsyncComponent(() => import('./modules/sysmgr/todo/myTodoTask'))
-const TodoTypeListContent = AsyncComponent(() => import('./modules/sysmgr/todo/todoTypeList'))
+const TaskListContent = AsyncComponent(() => import('./setting/todo/TaskList.js'))
+const TodoTempListContent = AsyncComponent(() => import('./setting/todo/TodoTempList'))
+const MyTodoTaskContent = AsyncComponent(() => import('./setting/todo/MyTodoTask'))
+const TodoTypeListContent = AsyncComponent(() => import('./setting/todo/TodoTypeList'))
 
-const LogList = AsyncComponent(() => import('./modules/sysmgr/log/log.js'))
-const LogTemplateList = AsyncComponent(() => import('./modules/sysmgr/log/myLogTemplateList'))
-const ProjectLogTypeList = AsyncComponent(() => import('./modules/sysmgr/log/logTypeList'))
+const LogList = AsyncComponent(() => import('./setting/log/Log.js'))
+const LogTemplateList = AsyncComponent(() => import('./setting/log/MyLogTemplateList'))
+const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeList'))
 
-const LicenceVersion = AsyncComponent(() => import('./modules/sysmgr/version/version'))
+const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
 
-const routes=[
+const RoutesSaas = [
     {
         path: "/login",
         exact: true,
@@ -107,6 +111,12 @@ const routes=[
                 key: 'home'
             },
             {
+                path: "/index/dynamic",
+                exact: true,
+                component: DynamicList,
+                key: 'dynamic'
+            },
+            {
                 path: "/index/wiki",
                 exact: true,
                 component: wiki,
@@ -120,43 +130,88 @@ const routes=[
                 key: 'template'
             },
             {
-                path: "/index/wikidetail",
+                path: "/index/wikidetail/:wikiId",
                 component: WikiDetail,
                 routes: [
                     {
-                        path: "/index/wikidetail/doc/:id",
-                        component: DocumnetExamine
+                        path: "/index/wikidetail/:wikiId/survey",
+                        component: Survey
                     },
                     {
-                        path: "/index/wikidetail/docEdit/:id",
+                        path: "/index/wikidetail/:wikiId/dynamicList",
+                        component: DynamicList
+                    },
+                    {
+                        path: "/index/wikidetail/:wikiId/doc/:id",
+                        component: DocumnetExamine
+                    },{
+                        path: "/index/wikidetail/:wikiId/add/:id",
+                        component: DocumentAddEdit
+                    },
+                    {
+                        path: "/index/wikidetail/:wikiId/docEdit/:id",
                         component: DocumentEdit
                     },
                     {
-                        path: "/index/wikidetail/folder/:id",
+                        path: "/index/wikidetail/:wikiId/folder/:id",
                         component: LogDetail
                     },
                     {
-                        path: "/index/wikidetail/mindmap/:id",
+                        path: "/index/wikidetail/:wikiId/mindmap/:id",
                         component: BrainMap
                     },
                     {
-                        path: "/index/wikidetail/mindmapEdit/:id",
+                        path: "/index/wikidetail/:wikiId/mindmapEdit/:id",
                         component: DocumentMindMapEdit
                     },
                     {
-                        path: "/index/wikidetail/wikiDomainRole",
-                        component: WikiDomainRole
+                        path: "/index/wikidetail/:wikiId/brainMap",
+                        component: BrainMap
                     },
                     {
-                        path: "/index/wikidetail/wikiDomainUser",
-                        component: WikiDomainUser
+                        path: "/index/wikidetail/:wikiId/wikiSet",
+                        component: WikiSet,
+                        routes: [
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/basicInfo",
+                                component: WikiBasicInfo
+                            },
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/user",
+                                component: WikiDomainUser,
+                                exact: true
+                            },
+                            {
+                                path: "/index/wikidetail/:wikiId/wikiSet/domainRole",
+                                component: WikiDomainRole
+                            }
+                        ]
                     },
                     
+                ]
+            },
+            {
+                path: "/index/wikiSet/:wikiId",
+                component: WikiSet,
+                routes: [
                     {
-                        path: "/index/wikidetail/brainMap",
-                        component: BrainMap
+                        path: "/index/wikiSet/:wikiId/basicInfo",
+                        component: WikiBasicInfo
+                    },
+                    {
+                        path: "/index/wikiSet/:wikiId/user",
+                        component: WikiDomainUser,
+                        exact: true
+                    },
+                    {
+                        path: "/index/wikiSet/:wikiId/domainRole",
+                        component: WikiDomainRole
                     }
                 ]
+            },
+            {
+                path: "/index/wikiSet/:wikiId/basicInfo",
+                component: WikiBasicInfo
             },
             {
                 path: "/index/setting",
@@ -173,6 +228,16 @@ const routes=[
                         exact: true,
                         component: Template,
                         key: 'template'
+                    },
+                    {
+                        path: "/index/setting/templateAdd",
+                        component: TemplateAdd,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/templateView/:templateId",
+                        component: TemplateAdd,
+                        exact: true
                     },
                     {
                         path: "/index/setting/user",
@@ -308,7 +373,7 @@ const routes=[
                 ]
             },
         ]
-            
+
     },
     {
         path: "/",
@@ -316,4 +381,4 @@ const routes=[
         exact: true
     },
 ]
-export default routes;
+export default RoutesSaas;
