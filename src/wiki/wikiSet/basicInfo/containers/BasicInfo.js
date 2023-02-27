@@ -12,7 +12,7 @@ import { Input, Form, Select, DatePicker, Button, Modal, Row, Col, message } fro
 import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
-import WikiIcon from "../components/wikiChangeIcon"
+import WikiIcon from "../components/WikiChangeIcon"
 
 const BasicInfo = props => {
     const layout = {

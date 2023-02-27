@@ -32,8 +32,8 @@ const WikiSet = AsyncComponent(() => import("./wiki/wikiSet/common/containers/Wi
 const WikiDomainRole = AsyncComponent(() => import('./wiki/user/WikiDomainRole'))
 const WikiDomainUser = AsyncComponent(() => import('./wiki/user/WikiDomainUser'))
 const WikiBasicInfo = AsyncComponent(() => import('./wiki/wikiSet/basicInfo/containers/BasicInfo'))
-const Template = AsyncComponent(() => import('./setting/template/components/template'))
-const TemplateAdd = AsyncComponent(() => import('./setting/template/components/templateAddmodal'))
+const Template = AsyncComponent(() => import('./setting/template/container/Template'))
+const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./wiki/share/components/ShareDocument'))
 // 分享文档页面
