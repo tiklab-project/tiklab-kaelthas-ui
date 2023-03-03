@@ -8,16 +8,16 @@
  */
 import { createContext } from 'react';
 
-import {WIKI_STORE,WikiStore} from "./wiki/wiki/store/WikiStore";
-import {WIKIDETAIL_STORE,WikiDetailStore} from "./wiki/common/store/WikiDetailStore";
+import {WIKI_STORE,WikiStore} from "./repository/repository/store/WikiStore";
+import {WIKIDETAIL_STORE,WikiDetailStore} from "./repository/common/store/WikiDetailStore";
 import {SEARCH_STORE,SearchStore} from "./home/search/store/search";
-import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./wiki/common/store/WikiLogStore"
+import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./repository/common/store/WikiLogStore"
 import {HOME_STORE, HomeStore} from "./home/home/store/homeStore"
 import {TEMPLATE_STORE,TemplateStore} from "./setting/template/store/templateStore"
-import {WIKICOMMON_STORE,WikiCommon} from "./wiki/common/store/WikiCommon"
-import {SHARE_STORE,ShareStore} from "./wiki/share/store/ShareStore"
-import {WIKIWORK_STORE,WikiWork} from "./wiki/common/store/WikiWork";
-import {SURVEY_STORE, SurveyStore} from "./wiki/survey/store/SurveyStore";
+import {WIKICOMMON_STORE,WikiCommon} from "./repository/common/store/WikiCommon"
+import {SHARE_STORE,ShareStore} from "./document/share/store/ShareStore"
+import {WIKIWORK_STORE,WikiWork} from "./repository/common/store/WikiWork";
+import {SURVEY_STORE, SurveyStore} from "./repository/survey/store/SurveyStore";
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"

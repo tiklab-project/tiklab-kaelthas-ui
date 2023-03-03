@@ -11,9 +11,9 @@ import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import { PreviewEditor } from "tiklab-slate-ui"
 import "./documentExamine.scss"
-import Share from "../../common/components/Share";
+import Share from "../../share/components/ShareDocument";
 import { getUser } from "tiklab-core-ui";
-import Comment from "../../common/components/Comment";
+import Comment from "../../common/Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
 
 

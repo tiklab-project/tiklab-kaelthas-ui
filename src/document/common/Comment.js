@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Input, Empty } from "antd";
-import Button from "../../../common/button/button";
+import Button from "../../common/button/button";
 import "./comment.scss"
 import { getUser } from "tiklab-core-ui";
 import moment from "moment";

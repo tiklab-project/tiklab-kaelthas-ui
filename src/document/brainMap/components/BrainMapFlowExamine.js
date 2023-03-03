@@ -10,10 +10,10 @@ import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import "./brainMapFlowExamine.scss"
-import Share from "../../common/components/Share";
+import Share from "../../common/Share";
 import BrainMapFlowRead from "./BrainMapFlowRead"
 import { getUser } from "tiklab-core-ui";
-import Comment from "../../common/components/Comment";
+import Comment from "../../common/Comment";
 
 const BrainMapExamine = (props) => {
     const { wikiCommon, WikiCatalogueStore } = props;
