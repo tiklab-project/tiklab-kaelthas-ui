@@ -8,15 +8,15 @@
  */
 import { createContext } from 'react';
 
-import {WIKI_STORE,WikiStore} from "./repository/repository/store/WikiStore";
-import {WIKIDETAIL_STORE,WikiDetailStore} from "./repository/common/store/WikiDetailStore";
+import {REPOSITORY_STORE,RepositoryStore} from "./repository/repository/store/RepositoryStore";
+import {REPOSITORYDETAIL_STORE,RepositoryDetailStore} from "./repository/common/store/RepositoryDetailStore";
 import {SEARCH_STORE,SearchStore} from "./home/search/store/search";
-import {WIKICATELOGUE_STORE,WikiCatalogueStore} from "./repository/common/store/WikiLogStore"
+import {REPOSITORYCATELOGUE_STORE,RepositoryCatalogueStore} from "./repository/common/store/RepositoryLogStore"
 import {HOME_STORE, HomeStore} from "./home/home/store/homeStore"
 import {TEMPLATE_STORE,TemplateStore} from "./setting/template/store/templateStore"
-import {WIKICOMMON_STORE,WikiCommon} from "./repository/common/store/WikiCommon"
+import {REPOSITORYCOMMON_STORE,RepositoryCommon} from "./repository/common/store/RepositoryCommon"
 import {SHARE_STORE,ShareStore} from "./document/share/store/ShareStore"
-import {WIKIWORK_STORE,WikiWork} from "./repository/common/store/WikiWork";
+import {REPOSITORYWORK_STORE,RepositoryWork} from "./repository/common/store/RepositoryWork";
 import {SURVEY_STORE, SurveyStore} from "./repository/survey/store/SurveyStore";
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
@@ -24,15 +24,15 @@ import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"
 
 function createStores() {
     return {
-        [WIKI_STORE]:new WikiStore(),
-        [WIKIDETAIL_STORE]: new WikiDetailStore(),
+        [REPOSITORY_STORE]:new RepositoryStore(),
+        [REPOSITORYDETAIL_STORE]: new RepositoryDetailStore(),
         [SEARCH_STORE]: new SearchStore(),
-        [WIKICATELOGUE_STORE]: new WikiCatalogueStore(),
+        [REPOSITORYCATELOGUE_STORE]: new RepositoryCatalogueStore(),
         [SLATE_STORE]: new SlateStore(),
         [TEMPLATE_STORE]: new TemplateStore(),
-        [WIKICOMMON_STORE]: new WikiCommon(),
+        [REPOSITORYCOMMON_STORE]: new RepositoryCommon(),
         [SHARE_STORE]: new ShareStore(),
-        [WIKIWORK_STORE]: new WikiWork(),
+        [REPOSITORYWORK_STORE]: new RepositoryWork(),
         [EAM_STORE]: new EamStore(),
         [HOME_STORE]: new HomeStore(),
         [SURVEY_STORE]: new SurveyStore()

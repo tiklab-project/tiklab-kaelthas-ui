@@ -1,21 +1,21 @@
 
 
-.wiki-set-delete {
+.repository-set-delete {
     color: var(--tiklab-blue);
 }
 
 
-.wiki-set-basicinfo {
+.repository-set-basicinfo {
     padding: 10px;
-    .wiki-set-title {
+    .repository-set-title {
         height: 40px;
         line-height: 40px;
         font-size: 15px;
         margin-bottom: 10px;
     }
-    .wiki-set-icon {
+    .repository-set-icon {
         border-bottom: 1px solid #d9d9d9;
-        .wiki-form-icon {
+        .repository-form-icon {
             align-items: center;
             .form-icon-col {
                 display: flex;
@@ -24,7 +24,7 @@
             }
         }
     }
-    .wiki-set-icon-block {
+    .repository-set-icon-block {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -41,7 +41,7 @@
         font-size: 12px;
     }
 }
-.wiki-info {
+.repository-info {
     border-bottom: 1px solid #d9d9d9;
     padding-bottom: 15px;
     .ant-form-item {
@@ -49,13 +49,13 @@
     }
     
 }
-.wiki-icon-modal {
-    .wiki-icon-box {
+.repository-icon-modal {
+    .repository-icon-box {
         width: 320px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        .wiki-icon {
+        .repository-icon {
             margin-right: 10px;
             box-sizing: content-box;
         }

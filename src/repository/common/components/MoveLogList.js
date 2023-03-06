@@ -11,11 +11,11 @@ import { Modal} from 'antd';
 import "./moveLogList.scss"
 import { withRouter } from 'react-router';
 const MoveLogList = (props) => {
-    const { wikiCatalogueList, moveLogListVisible,
-        setMoveLogListVisible,setWikiCatalogueList,formatType,
-        moveCategoryId,findWikiCatalogue,updateDocument,updateWikiCatalogue,moveCategoryParentId } = props;
+    const { repositoryCatalogueList, moveLogListVisible,
+        setMoveLogListVisible,setRepositoryCatalogueList,formatType,
+        moveCategoryId,findRepositoryCatalogue,updateDocument,updateRepositoryCatalogue,moveCategoryParentId } = props;
     const [selectKey,setSelectKey] = useState()
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
     const onFinish = () => {
         let value;
         if(formatType === "category"){
@@ -29,10 +29,10 @@ const MoveLogList = (props) => {
                     id: moveCategoryId
                 }
             }
-            updateWikiCatalogue(value).then((res)=> {
+            updateRepositoryCatalogue(value).then((res)=> {
                 if(res.code === 0){
-                    findWikiCatalogue(wikiId).then((data)=> {
-                        setWikiCatalogueList(data)
+                    findRepositoryCatalogue(repositoryId).then((data)=> {
+                        setRepositoryCatalogueList(data)
                     })
                     setMoveLogListVisible(false)
                 }
@@ -50,8 +50,8 @@ const MoveLogList = (props) => {
             }
             updateDocument(value).then((res)=> {
                 if(res.code === 0){
-                    findWikiCatalogue(wikiId).then((data)=> {
-                        setWikiCatalogueList(data)
+                    findRepositoryCatalogue(repositoryId).then((data)=> {
+                        setRepositoryCatalogueList(data)
                     })
                     setMoveLogListVisible(false)
                 }
@@ -77,10 +77,10 @@ const MoveLogList = (props) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((category) => {
             if(category.formatType === "category" && moveCategoryParentId !== category.id){
-                return <div className={`${!isExpandedTree(faid) ||  selectKey !== faid ? null : 'wiki-menu-submenu-hidden'}`}
+                return <div className={`${!isExpandedTree(faid) ||  selectKey !== faid ? null : 'repository-menu-submenu-hidden'}`}
                     key={category.id}
                 >
-                <div className={`wiki-menu-submenu ${category.id === selectKey ? "wiki-menu-select" : ""} `}
+                <div className={`repository-menu-submenu ${category.id === selectKey ? "repository-menu-select" : ""} `}
                     key={category.id}
                     onClick={() => setSelectKey(category.id)}
                 >
@@ -120,7 +120,7 @@ const MoveLogList = (props) => {
         >
             <div className="move-menu">
                 {
-                    moveLogListVisible && wikiCatalogueList && logTree(wikiCatalogueList, 1, 0)
+                    moveLogListVisible && repositoryCatalogueList && logTree(repositoryCatalogueList, 1, 0)
                 }
             </div>
         </Modal>

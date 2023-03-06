@@ -1,7 +1,6 @@
 import { observable, action} from "mobx";
-import { FindDocumentList, FindDocumentRecentList, FindMessageDispatchItemPage, Findlogpage, FindRecentRepositoryList } from "../api/home";
 import { getUser } from 'tiklab-core-ui';
-
+import { Service } from "../../../common/utils/requset";
 export class HomeStore {
     @observable currentLink = "home";
     @observable opLogList = [];
@@ -12,13 +11,13 @@ export class HomeStore {
     
     @action
     findDocumentList= async(value)=> {
-        const data = await FindDocumentList(value);
+        const data = await Service("/document/findDocumentList",value);
         return data;
     }
 
     @action
     findDocumentRecentList= async(value)=> {
-        const data = await FindDocumentRecentList(value);
+        const data = await Service("/documentRecent/findDocumentRecentList",value);
         return data;
     }
 
@@ -34,7 +33,7 @@ export class HomeStore {
             status: value.status,
             bgroup: "teamwire"
         }
-        const data = await FindMessageDispatchItemPage(params)
+        const data = await Service("/message/messageItem/findMessageItemPage",params);
         if(data.code === 0){
             this.messageTotal = data.data.totalPage;
             if(value.page === 1){
@@ -67,7 +66,7 @@ export class HomeStore {
                 repositoryId: value.repositoryId
             }
         }
-        const data = await Findlogpage(params);
+        const data = await Service("/oplog/findlogpage",params);
         if(data.code === 0) {
             this.opLogList = data.data.dataList
         }
@@ -76,7 +75,7 @@ export class HomeStore {
 
     @action
     findRecentRepositoryList= async(value)=> {
-        const data = await FindRecentRepositoryList(value);
+        const data = await Service("/repository/findRecentRepositoryList",params);
         return data;
     }
 

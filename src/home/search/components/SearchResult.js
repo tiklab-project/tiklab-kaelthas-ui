@@ -2,18 +2,18 @@ import React,{Fragment, useEffect, useRef, useState} from "react";
 import { Pagination } from 'antd';
 import "./search.scss";
 import { Row, Col,Tabs } from 'antd';
-import wiki from "../../assets/images/wiki.png";
+import repository from "../../assets/images/repository.png";
 import { observer, inject } from "mobx-react";
 const { TabPane } = Tabs;
 
 const SearchResult = (props) => {
-    const {searchStore,wikiDetailStore} = props
+    const {searchStore,repositoryDetailStore} = props
     const {getSearchSore,sortList,searchForPage,keyword,searchCondition,setKeyWord,searchList,getSearch} = searchStore;
-    const {setWikiId} = wikiDetailStore
+    const {setRepositoryId} = repositoryDetailStore
     const [lastRecord,setLastRecord] = useState()
     const table = (data) => {
         switch(data){
-            case "wiki": 
+            case "repository": 
                 return "知识库";
             case "WorkItem": 
                 return "事项";
@@ -52,10 +52,10 @@ const SearchResult = (props) => {
         })
     }
 
-    const toWiki = async(wiki) => {
-        setWikiId(wiki.id)
-        localStorage.setItem("wiki",wiki.id)
-        await props.history.push("/index/wikidetail/survey")
+    const toRepository = async(repository) => {
+        setRepositoryId(repository.id)
+        localStorage.setItem("repository",repository.id)
+        await props.history.push("/index/repositorydetail/survey")
         setShow("hidden")
         // location.reload();
 
@@ -63,7 +63,7 @@ const SearchResult = (props) => {
 
     const toWorkItem = async(id) => {
         // setWorkId(id)
-        await props.history.push("/index/wikidetail/work")
+        await props.history.push("/index/repositorydetail/work")
         setShow("hidden")
         // location.reload();
 
@@ -119,7 +119,7 @@ const SearchResult = (props) => {
                                             {
                                                 (()=> {
                                                     switch(item.index) {
-                                                        case "wiki": 
+                                                        case "repository": 
                                                             return <div className="sort-title">知识库</div>;
                                                         case "WorkItem":
                                                             return <div className="sort-title">事项</div>;
@@ -132,14 +132,14 @@ const SearchResult = (props) => {
                                                                 {
                                                                     (()=> {
                                                                         switch(item.index) {
-                                                                            case "wiki": 
-                                                                                return <div className="item-one" onClick={()=>toWiki(toItem)}>
-                                                                                            <img src={wiki} alt=""/>
-                                                                                            <span>{toItem.wikiName}</span>
+                                                                            case "repository": 
+                                                                                return <div className="item-one" onClick={()=>toRepository(toItem)}>
+                                                                                            <img src={repository} alt=""/>
+                                                                                            <span>{toItem.repositoryName}</span>
                                                                                         </div>;
                                                                             case "WorkItem":
-                                                                                return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.wiki.id)}>
-                                                                                            <img src={wiki} alt=""/>
+                                                                                return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.repository.id)}>
+                                                                                            <img src={repository} alt=""/>
                                                                                             <span>{toItem.title}</span>
                                                                                         </div>;
                                                                         }
@@ -160,30 +160,30 @@ const SearchResult = (props) => {
                                 return <TabPane tab={`${table(item.index)}(${item.totalRecord})`} key={item.index} >
                                 {
                                     itemList && itemList.map((itemWork)=> {
-                                        return <div className="wiki-box" key={itemWork.id}>
-                                                <div className="wiki-item">
+                                        return <div className="repository-box" key={itemWork.id}>
+                                                <div className="repository-item">
                                                 {
                                                     (()=> {
                                                         switch(item.index) {
-                                                            case "wiki": 
-                                                                return <div className="wiki-contant" onClick={()=>toWiki(itemWork.id)}>
-                                                                    <div className="wiki-title">{itemWork.wikiName}</div>
+                                                            case "repository": 
+                                                                return <div className="repository-contant" onClick={()=>toRepository(itemWork.id)}>
+                                                                    <div className="repository-title">{itemWork.repositoryName}</div>
                                                                     <div >
-                                                                        <span className="wiki-item-name">知识库ID:</span>{itemWork.id}
+                                                                        <span className="repository-item-name">知识库ID:</span>{itemWork.id}
                                                                     </div>
                                                                     <div>
-                                                                        <span className="wiki-item-name">知识库详情:  </span>
+                                                                        <span className="repository-item-name">知识库详情:  </span>
                                                                         协同办公知识库协同办公知识库协同办公知识库协同办公知识库协同办公知识库
                                                                     </div>
                                                                 </div>
                                                             case "WorkItem":
-                                                                return <div className="wiki-contant" onClick={()=>toWorkItem(itemWork.id)}>
-                                                                    <div className="wiki-title">{itemWork.title}</div>
+                                                                return <div className="repository-contant" onClick={()=>toWorkItem(itemWork.id)}>
+                                                                    <div className="repository-title">{itemWork.title}</div>
                                                                     <div >
-                                                                        <span className="wiki-item-name">事项ID:</span>{itemWork.id}
+                                                                        <span className="repository-item-name">事项ID:</span>{itemWork.id}
                                                                     </div>
                                                                     <div>
-                                                                        <span className="wiki-item-name">事项详情:  </span>
+                                                                        <span className="repository-item-name">事项详情:  </span>
                                                                         协同办公知识库协同办公知识库协同办公知识库协同办公知识库协同办公知识库
                                                                     </div>
                                                                 </div>
@@ -205,4 +205,4 @@ const SearchResult = (props) => {
         
     )
 }
-export default inject("searchStore","wikiDetailStore")(observer(SearchResult));
+export default inject("searchStore","repositoryDetailStore")(observer(SearchResult));

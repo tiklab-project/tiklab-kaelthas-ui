@@ -27,8 +27,8 @@ module.exports = merge(baseWebpackConfig, {
         new BundleAnalyzerPlugin({defaultSizes: 'parsed'}),
         new optimizeCss({
             assetNameRegExp: /\.css$/g,
-            cssWikicessor: require('cssnano'),
-            cssWikicessorOptions: {
+            cssRepositorycessor: require('cssnano'),
+            cssRepositorycessorOptions: {
                 safe: true,
                 discardComments: {
                     removeAll: true

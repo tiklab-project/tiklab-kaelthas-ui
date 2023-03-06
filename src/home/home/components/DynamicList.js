@@ -6,13 +6,13 @@ import { Select, Row, Col } from "antd";
 import "./dynamicList.scss";
 
 const DynamicList = (props) => {
-    const { homeStore, wikiStore } = props;
+    const { homeStore, repositoryStore } = props;
     const { findLogpage, opLogList } = homeStore;
-    const { findRepositoryList, wikilist } = wikiStore;
+    const { findRepositoryList, repositorylist } = repositoryStore;
     const userId = getUser().userId;
     const [projectList, setProjectList] = useState()
     const [firstText, setFirstText] = useState();
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
 
     useEffect(() => {
         if (props.route.path === "/index/dynamic") {
@@ -22,9 +22,9 @@ const DynamicList = (props) => {
         }
 
         console.log(props)
-        if (props.route.path === "/index/wikidetail/:wikiId/dynamicList") {
+        if (props.route.path === "/index/repositorydetail/:repositoryId/dynamicList") {
             setFirstText("知识库概况")
-            findLogpage({ userId: userId, repositoryId: wikiId })
+            findLogpage({ userId: userId, repositoryId: repositoryId })
         }
         return;
     }, [])
@@ -69,7 +69,7 @@ const DynamicList = (props) => {
                                 width={100}
                             >
                                 {
-                                    wikilist && wikilist.map((item) => {
+                                    repositorylist && repositorylist.map((item) => {
                                         return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
                                     })
                                 }
@@ -92,4 +92,4 @@ const DynamicList = (props) => {
         </Row>
     )
 }
-export default inject('homeStore', 'wikiStore')(observer(DynamicList));
+export default inject('homeStore', 'repositoryStore')(observer(DynamicList));

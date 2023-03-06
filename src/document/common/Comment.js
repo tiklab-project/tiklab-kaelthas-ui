@@ -8,8 +8,8 @@ import { getUser } from "tiklab-core-ui";
 import moment from "moment";
 
 const Comment = (props) => {
-    const { wikiCommon, documentId, setShowComment } = props;
-    const { createComment, findCommentPage } = wikiCommon;
+    const { repositoryCommon, documentId, setShowComment } = props;
+    const { createComment, findCommentPage } = repositoryCommon;
     const [commontContent, setCommontContent] = useState();
     const [commonList, setCommonList] = useState();
     const userId = getUser().userId;
@@ -220,4 +220,4 @@ const Comment = (props) => {
     )
 }
 
-export default inject("wikiCommon")(observer(Comment));
+export default inject("repositoryCommon")(observer(Comment));

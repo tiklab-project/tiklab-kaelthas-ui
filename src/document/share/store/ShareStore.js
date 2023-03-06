@@ -7,27 +7,26 @@
  * @LastEditTime: 2021-09-15 14:50:10
  */
 import { observable, action } from "mobx";
-import {DocumentView,CommnetView,VerifyAuthCode,JudgeAuthCode} from "../api/ShareApi"
-
+import { Service } from "../../../common/utils/requset";
 export class ShareStore {
 
     @action
     documentView = async(value)=> {
         const params = new FormData()
         params.append("id", value.documentId)
-        const data = await DocumentView(params);
+        const data = await Service("/document/view", params);
         return data;
     }
 
     @action
     commentView = async(value)=> {
-        const data = await CommnetView(value);
+        const data = await Service("/comment/view", value);
         return data;
     }
 
     @action
     verifyAuthCode = async(value)=> {
-        const data = await VerifyAuthCode(value);
+        const data = await Service("/share/verifyAuthCode", value);
         return data;
     }
 
@@ -35,7 +34,7 @@ export class ShareStore {
     judgeAuthCode = async(value)=> {
         const params = new FormData()
         params.append("shareLink", value.shareLink)
-        const data = await JudgeAuthCode(params);
+        const data = await Service("/share/judgeAuthCode", value);
         return data;
     }
 }

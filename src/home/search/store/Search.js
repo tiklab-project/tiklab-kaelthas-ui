@@ -7,8 +7,7 @@
  * @LastEditTime: 2022-01-18 09:44:02
  */
 import { observable, action  } from "mobx";
-import { Search,SearchSort,SearchForPage } from "../api/search";
-
+import { Service } from "../../../common/utils/requset";
 //删除事项
 export class SearchStore{
     @observable searchList = []
@@ -24,49 +23,37 @@ export class SearchStore{
         this.keyword = value
     }
     @action
-    getSearch = (value) => {
+    getSearch = async(value) => {
         const params = new FormData();
         if(value){
             params.append('keyword', value ); 
         }else {
             params.append('keyword', null ); 
         }
-        return new Wikimise((resolve,reject)=>{
-            Search(params).then(response => {
-                if(response.code=== 0){
-                    this.searchList = response.data.responseList;
-                }
-                resolve(response.data)
-            }).catch(error => {
-                console.log(error)
-                reject()
-            })
-        })
+        const data = await Service("/search/searchForTop",value);
+        if(data.code=== 0){
+            this.searchList = data.data.responseList;
+        }
+        return data;
     }
 
     @action
-    getSearchSore = (value) => {
+    getSearchSore = async(value) => {
         const params = new FormData();
         if(value){
             params.append('keyword', value ); 
         }else {
             params.append('keyword', null ); 
         }
-        return new Wikimise((resolve,reject)=>{
-            SearchSort(params).then(response => {
-                if(response.code=== 0){
-                    this.sortList = response.data.responseList;
-                }
-                resolve(response.data)
-            }).catch(error => {
-                console.log(error)
-                reject()
-            })
-        })
+        const data = await Service("/search/searchForCount",value);
+        if(data.code=== 0){
+            this.sortList = data.data.responseList;
+        }
+        return data;
     }
 
     @action
-    searchForPage = (value) => {
+    searchForPage = async(value) => {
         Object.assign(this.searchCondition, {...value})
         const params={
             index: this.searchCondition.index,
@@ -77,17 +64,11 @@ export class SearchStore{
                 lastRecord: this.searchCondition.lastRecord,
             }
         }
-        return new Wikimise((resolve, reject)=> {
-            SearchForPage(params).then(response => {
-                console.log(response)
-                if(response.code=== 0){
-                    this.searchCondition.total = response.data.totalRecord;
-                }
-                resolve(response.data)
-            }).catch(error => {
-                reject(error)
-            })
-        })
+        const data = await Service("/search/searchForPage",params);
+        if(data.code=== 0){
+            this.searchCondition.total = response.data.totalRecord;
+        }
+        return data;
     }
 }
 

@@ -33,8 +33,8 @@ const plugin_url =  JSON.stringify( 'http://localhost:8080/plugins/config.json')
 
 const pickerData = JSON.stringify([
     {
-        value: 'wiki',
-        label: 'Wiki系统',
+        value: 'repository',
+        label: 'Repository系统',
         url: 'http://192.168.2.10:3001/'
     },
     {
@@ -43,8 +43,8 @@ const pickerData = JSON.stringify([
         url: 'http://192.168.2.8:3001/'
     },
     {
-        value: 'wikital',
-        label: 'wikital系统',
+        value: 'repositorytal',
+        label: 'repositorytal系统',
         url: 'http://192.168.2.6:8000/'
     }
 ])

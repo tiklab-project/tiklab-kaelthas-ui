@@ -13,26 +13,26 @@ import { Redirect } from "react-router-dom";
 const Login = AsyncComponent(() => import('./login/Login'))
 const Logout = AsyncComponent(() => import('./login/Logout'))
 const Home = AsyncComponent(() => import('./home/home/components/home'))
-const Index = AsyncComponent(() => import('./home/home/containers/Portal'))
-const WikiDetail = AsyncComponent(() => import('./repository/common/containers/WikiDetail'))
-const Survey = AsyncComponent(() => import('./repository/survey/containers/Survey'))
+const Index = AsyncComponent(() => import('./home/home/components/Portal'))
+const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
+const Survey = AsyncComponent(() => import('./repository/survey/components/Survey'))
 const DynamicList = AsyncComponent(() => import("./home/home/components/dynamicList"))
 
-const LogDetail = AsyncComponent(() => import('./repository/common/components/CategoryDetail'))
+const LogDetail = AsyncComponent(() => import('./repository/category/CategoryDetail'))
 const BrainMap = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowExamine'))
 const DocumentMindMapEdit = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowEdit'))
 
 // 知识库
-const wiki = AsyncComponent(() => import('./repository/repository/components/WikiList'))
+const repository = AsyncComponent(() => import('./repository/repository/components/RepositoryList'))
 const DocumentEdit = AsyncComponent(() => import("./document/document/components/DocumentEdit"))
 const DocumnetExamine = AsyncComponent(() => import("./document/document/components/DocumnetExamine"))
 const DocumentAddEdit = AsyncComponent(() => import("./document/document/components/DocumentAddEdit"))
 
-const WikiSet = AsyncComponent(() => import("./repository/setting/common/containers/WikiSet"))
-const WikiDomainRole = AsyncComponent(() => import('./repository/user/WikiDomainRole'))
-const WikiDomainUser = AsyncComponent(() => import('./repository/user/WikiDomainUser'))
-const WikiBasicInfo = AsyncComponent(() => import('./repository/setting/basicInfo/containers/BasicInfo'))
-const Template = AsyncComponent(() => import('./setting/template/container/Template'))
+const RepositorySet = AsyncComponent(() => import("./repository/setting/common/components/RepositorySet"))
+const RepositoryDomainRole = AsyncComponent(() => import('./repository/user/RepositoryDomainRole'))
+const RepositoryDomainUser = AsyncComponent(() => import('./repository/user/RepositoryDomainUser'))
+const RepositoryBasicInfo = AsyncComponent(() => import('./repository/setting/basicInfo/components/BasicInfo'))
+const Template = AsyncComponent(() => import('./setting/template/components/TemplateList'))
 const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
@@ -50,7 +50,7 @@ const ProjectMessageManagement = AsyncComponent(() => import('./setting/message/
 const ProjectMessageNotice = AsyncComponent(() => import('./setting/message/ProjectMessageNotice'))
 const ProjectMessageNoticeSystem = AsyncComponent(() => import('./setting/message/ProjectMessageNoticeSystem'))
 
-const Setting = AsyncComponent(() => import('./setting/common/containers/Setting'))
+const Setting = AsyncComponent(() => import('./setting/common/components/Setting'))
 const ProjectPlugin = AsyncComponent(() => import('./setting/plugin/ProjectPlugin'))
 
 const SystemFeature = AsyncComponent(() => import('./setting/privilege/SystemFeature'))
@@ -117,10 +117,10 @@ const Routes = [
                 key: 'dynamic'
             },
             {
-                path: "/index/wiki",
+                path: "/index/repository",
                 exact: true,
-                component: wiki,
-                key: 'wiki'
+                component: repository,
+                key: 'repository'
 
             },
             {
@@ -130,60 +130,60 @@ const Routes = [
                 key: 'template'
             },
             {
-                path: "/index/wikidetail/:wikiId",
-                component: WikiDetail,
+                path: "/index/repositorydetail/:repositoryId",
+                component: RepositoryDetail,
                 routes: [
                     {
-                        path: "/index/wikidetail/:wikiId/survey",
+                        path: "/index/repositorydetail/:repositoryId/survey",
                         component: Survey
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/dynamicList",
+                        path: "/index/repositorydetail/:repositoryId/dynamicList",
                         component: DynamicList
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/doc/:id",
+                        path: "/index/repositorydetail/:repositoryId/doc/:id",
                         component: DocumnetExamine
                     },{
-                        path: "/index/wikidetail/:wikiId/add/:id",
+                        path: "/index/repositorydetail/:repositoryId/add/:id",
                         component: DocumentAddEdit
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/docEdit/:id",
+                        path: "/index/repositorydetail/:repositoryId/docEdit/:id",
                         component: DocumentEdit
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/folder/:id",
+                        path: "/index/repositorydetail/:repositoryId/folder/:id",
                         component: LogDetail
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/mindmap/:id",
+                        path: "/index/repositorydetail/:repositoryId/mindmap/:id",
                         component: BrainMap
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/mindmapEdit/:id",
+                        path: "/index/repositorydetail/:repositoryId/mindmapEdit/:id",
                         component: DocumentMindMapEdit
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/brainMap",
+                        path: "/index/repositorydetail/:repositoryId/brainMap",
                         component: BrainMap
                     },
                     {
-                        path: "/index/wikidetail/:wikiId/wikiSet",
-                        component: WikiSet,
+                        path: "/index/repositorydetail/:repositoryId/repositorySet",
+                        component: RepositorySet,
                         routes: [
                             {
-                                path: "/index/wikidetail/:wikiId/wikiSet/basicInfo",
-                                component: WikiBasicInfo
+                                path: "/index/repositorydetail/:repositoryId/repositorySet/basicInfo",
+                                component: RepositoryBasicInfo
                             },
                             {
-                                path: "/index/wikidetail/:wikiId/wikiSet/user",
-                                component: WikiDomainUser,
+                                path: "/index/repositorydetail/:repositoryId/repositorySet/user",
+                                component: RepositoryDomainUser,
                                 exact: true
                             },
                             {
-                                path: "/index/wikidetail/:wikiId/wikiSet/domainRole",
-                                component: WikiDomainRole
+                                path: "/index/repositorydetail/:repositoryId/repositorySet/domainRole",
+                                component: RepositoryDomainRole
                             }
                         ]
                     },
@@ -191,27 +191,27 @@ const Routes = [
                 ]
             },
             {
-                path: "/index/wikiSet/:wikiId",
-                component: WikiSet,
+                path: "/index/repositorySet/:repositoryId",
+                component: RepositorySet,
                 routes: [
                     {
-                        path: "/index/wikiSet/:wikiId/basicInfo",
-                        component: WikiBasicInfo
+                        path: "/index/repositorySet/:repositoryId/basicInfo",
+                        component: RepositoryBasicInfo
                     },
                     {
-                        path: "/index/wikiSet/:wikiId/user",
-                        component: WikiDomainUser,
+                        path: "/index/repositorySet/:repositoryId/user",
+                        component: RepositoryDomainUser,
                         exact: true
                     },
                     {
-                        path: "/index/wikiSet/:wikiId/domainRole",
-                        component: WikiDomainRole
+                        path: "/index/repositorySet/:repositoryId/domainRole",
+                        component: RepositoryDomainRole
                     }
                 ]
             },
             {
-                path: "/index/wikiSet/:wikiId/basicInfo",
-                component: WikiBasicInfo
+                path: "/index/repositorySet/:repositoryId/basicInfo",
+                component: RepositoryBasicInfo
             },
             {
                 path: "/index/setting",

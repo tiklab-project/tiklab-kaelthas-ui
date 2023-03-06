@@ -17,11 +17,11 @@ const { Header, Content, Footer, Sider } = Layout;
 const TemplateList = (props) => {
     const { templateStore, setTemplateVisible,
         templateVisible, documentId,
-        WikiCatalogueStore, setContentValue } = props;
+        RepositoryCatalogueStore, setContentValue } = props;
     const { findDocumentTemplatePage, findDocumentTemplate } = templateStore;
     const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
-    const { updateDocument } = WikiCatalogueStore;
-    const wikiId = props.match.params.wikiId;
+    const { updateDocument } = RepositoryCatalogueStore;
+    const repositoryId = props.match.params.repositoryId;
     const [value, setValue] = useState([
         {
             type: "paragraph",
@@ -48,7 +48,7 @@ const TemplateList = (props) => {
         updateDocument(data).then(res => {
             if(res.code === 0){
                 setTemplateVisible(false)
-                props.history.push(`/index/wikidetail/${wikiId}/docEdit/${documentId}`)
+                props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)
             }
         })
     }
@@ -109,4 +109,4 @@ const TemplateList = (props) => {
         </div>
     )
 }
-export default inject("templateStore", "WikiCatalogueStore")(observer(TemplateList));
+export default inject("templateStore", "RepositoryCatalogueStore")(observer(TemplateList));

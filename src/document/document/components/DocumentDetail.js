@@ -14,8 +14,8 @@ import DocumentExamine from "./DocumnetExamine";
 import {Link,withRouter} from "react-router-dom";
 import DocumentEdit from "./DocumentEdit"
 const DocumentDetail = (props)=>{
-    const {WikiCatalogueStore,wikiwork} = props;
-    const {docDetail,setDocDetail,updateDocument,findDocument} = WikiCatalogueStore;
+    const {RepositoryCatalogueStore,repositorywork} = props;
+    const {docDetail,setDocDetail,updateDocument,findDocument} = RepositoryCatalogueStore;
 
     const [docInfo, setDocInfo] = useState({name: "",likenumInt: "",commentNumber: ""})
     
@@ -69,4 +69,4 @@ const DocumentDetail = (props)=>{
         </div>
     )
 }
-export default inject('wikiDetailStore','wikiStore',"WikiCatalogueStore","wikiwork")(observer(withRouter(DocumentDetail)));
+export default inject('repositoryDetailStore','repositoryStore',"RepositoryCatalogueStore","repositorywork")(observer(withRouter(DocumentDetail)));

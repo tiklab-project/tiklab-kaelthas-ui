@@ -15,12 +15,12 @@ import { Link, withRouter } from "react-router-dom";
 import "./documentAddEdit.scss";
 import TemplateList from "./SelectTemplateList"
 const DocumentAddEdit = (props) => {
-    const {WikiCatalogueStore, title, templateStore} = props;
+    const {RepositoryCatalogueStore, title, templateStore} = props;
     const [titleValue, setTitleValue] = useState(title);
-    const { updateDocument } = WikiCatalogueStore;
+    const { updateDocument } = RepositoryCatalogueStore;
     const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
     const [documentId, setDocumentId] = useState(props.match.params.id);
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
     const [templateVisible, setTemplateVisible] = useState(false);
     const { findDocumentTemplatePage, findDocumentTemplate } = templateStore;
     const [templateList, setTemplateList] = useState()
@@ -64,7 +64,7 @@ const DocumentAddEdit = (props) => {
         }
         updateDocument(data).then(res => {
             if(res.code === 0){
-                props.history.push(`/index/wikidetail/${wikiId}/docEdit/${documentId}`)
+                props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)
             }
         })
     }
@@ -76,7 +76,7 @@ const DocumentAddEdit = (props) => {
         }
         updateDocument(data).then(res => {
             if(res.code === 0){
-                props.history.push(`/index/wikidetail/${wikiId}/docEdit/${documentId}`)
+                props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)
             }
         })
     }
@@ -132,4 +132,4 @@ const DocumentAddEdit = (props) => {
 
     )
 }
-export default withRouter(inject('WikiCatalogueStore', 'templateStore')(observer(DocumentAddEdit)));
+export default withRouter(inject('RepositoryCatalogueStore', 'templateStore')(observer(DocumentAddEdit)));

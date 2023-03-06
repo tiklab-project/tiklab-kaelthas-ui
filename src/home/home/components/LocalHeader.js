@@ -60,7 +60,7 @@ const Header = props => {
             return (
                 <div className={'frame-header-link'}>
                     <div key='home' onClick={() => changeCurrentLink(routers[0])} className={`frame-header-link-item ${menuKey === "home" ? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
-                    <div key='wiki' onClick={() => changeCurrentLink(routers[1])} className={`frame-header-link-item ${menuKey === "wiki" ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
+                    <div key='repository' onClick={() => changeCurrentLink(routers[1])} className={`frame-header-link-item ${menuKey === "repository" ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
                 </div>
             )
         }

@@ -10,7 +10,7 @@ const Home = (props) => {
     const { findDocumentList, findDocumentRecentList, opLogList, findLogpage, findRecentRepositoryList } = homeStore;
     const [recentEditDocumentList, setRecentEditDocumentList] = useState([]);
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
-    const [recentWikiDocumentList, setRecentWikiDocumentList] = useState([]);
+    const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
     useEffect(() => {
 
@@ -32,28 +32,28 @@ const Home = (props) => {
 
         })
 
-        findRecentRepositoryList({ model: "wiki" }).then(res => {
+        findRecentRepositoryList({ model: "repository" }).then(res => {
             if (res.code === 0) {
-                setRecentWikiDocumentList(res.data)
+                setRecentRepositoryDocumentList(res.data)
             }
 
         })
 
     }, [])
 
-    const goWikiDetail = wiki => {
-        // localStorage.setItem("wiki", JSON.stringify(wiki.repository))
-        props.history.push(`/index/wikidetail/${wiki.id}/survey`)
+    const goRepositoryDetail = repository => {
+        // localStorage.setItem("repository", JSON.stringify(repository.repository))
+        props.history.push(`/index/repositorydetail/${repository.id}/survey`)
     }
     const goDocumentDetail = item => {
-        // localStorage.setItem("wiki", JSON.stringify(item.repository))
+        // localStorage.setItem("repository", JSON.stringify(item.repository))
         if (item.model === "document") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/wikidetail/${item.repository.id}/doc/${item.modelId}`)
+            props.history.push(`/index/repositorydetail/${item.repository.id}/doc/${item.modelId}`)
         }
         if (item.model === "mindMap") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/wikidetail/${item.repository.id}/mindmap/${item.modelId}`)
+            props.history.push(`/index/repositorydetail/${item.repository.id}/mindmap/${item.modelId}`)
         }
 
     }
@@ -67,9 +67,9 @@ const Home = (props) => {
                             <div className="repository-title">最近访问知识库</div>
                             <div className="repository-box">
                                 {
-                                    recentWikiDocumentList && recentWikiDocumentList.map(item => {
+                                    recentRepositoryDocumentList && recentRepositoryDocumentList.map(item => {
                                         return <Fragment>
-                                            <div className="repository-item" key={item.id} onClick={() => goWikiDetail(item)}>
+                                            <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)}>
                                                 <div className="item-title">
                                                     {
                                                         item.iconUrl ?

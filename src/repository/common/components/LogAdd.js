@@ -13,10 +13,10 @@ import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 
 const LogAdd = (props) => {
-    const {addModalVisible,setAddModalVisible,setWikiCatalogueList,modalTitle,
-        WikiCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
-    const {addWikiCatalogue,addWikiCataDocument,findWikiCatalogue} = WikiCatalogueStore;
-    const wikiId = props.match.params.wikiId;
+    const {addModalVisible,setAddModalVisible,setRepositoryCatalogueList,modalTitle,
+        RepositoryCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
+    const {addRepositoryCatalogue,addRepositoryCataDocument,findRepositoryCatalogue} = RepositoryCatalogueStore;
+    const repositoryId = props.match.params.repositoryId;
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;
@@ -24,7 +24,7 @@ const LogAdd = (props) => {
                 if(catalogueId){
                     data = {
                         ...values,
-                        repository:{id: wikiId},
+                        repository:{id: repositoryId},
                         parentCategory: {id:catalogueId},
                         master: {id: values.master},
                         typeId: values.formatType
@@ -32,15 +32,15 @@ const LogAdd = (props) => {
                 } else {
                     data = {
                         ...values,
-                        repository:{id: wikiId},
+                        repository:{id: repositoryId},
                         master: {id: values.master},
                         typeId: values.formatType
                     }
                 }
-                addWikiCatalogue(data).then((data)=> {
+                addRepositoryCatalogue(data).then((data)=> {
                     if(data.code === 0){
-                        findWikiCatalogue(wikiId).then((data)=> {
-                            setWikiCatalogueList(data)
+                        findRepositoryCatalogue(repositoryId).then((data)=> {
+                            setRepositoryCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
                         form.resetFields()
@@ -50,7 +50,7 @@ const LogAdd = (props) => {
             }else {
                 // data = {
                 //     ...values,
-                //     repository:{id: wikiId},
+                //     repository:{id: repositoryId},
                 //     category: {id:catalogueId},
                 //     details:JSON.stringify(contentValue),
                 //     master: {id: values.master},
@@ -59,7 +59,7 @@ const LogAdd = (props) => {
                 if(catalogueId){
                     data = {
                         ...values,
-                        repository:{id: wikiId},
+                        repository:{id: repositoryId},
                         category: {id:catalogueId},
                         details:JSON.stringify(contentValue),
                         master: {id: values.master},
@@ -68,24 +68,24 @@ const LogAdd = (props) => {
                 } else {
                     data = {
                         ...values,
-                        repository:{id: wikiId},
+                        repository:{id: repositoryId},
                         details:JSON.stringify(contentValue),
                         master: {id: values.master},
                         typeId: values.formatType
                     }
                 }
-                addWikiCataDocument(data).then((data)=> {
+                addRepositoryCataDocument(data).then((data)=> {
                     if(data.code === 0) {
-                        findWikiCatalogue(wikiId).then((data)=> {
-                            setWikiCatalogueList(data)
+                        findRepositoryCatalogue(repositoryId).then((data)=> {
+                            setRepositoryCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
                         localStorage.setItem("documentId", data.data);
                         if(values.formatType === "mindMap"){
-                            props.history.push(`/index/wikidetail/${wikiId}/mindmap/${data.data}`)
+                            props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${data.data}`)
                         }
                         if(values.formatType === "document"){
-                            props.history.push(`/index/wikidetail/${wikiId}/doc/${data.data}`)
+                            props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
                         }
                         // 左侧导航
                         setSelectKey(data.data)
@@ -153,4 +153,4 @@ const LogAdd = (props) => {
     )
 }
 
-export default inject("WikiCatalogueStore")(observer(LogAdd));
+export default inject("RepositoryCatalogueStore")(observer(LogAdd));

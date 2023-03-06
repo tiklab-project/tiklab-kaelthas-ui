@@ -96,43 +96,43 @@
             cursor: pointer;
         }
     }
-    .wiki-box{
-        .wiki-contant {
+    .repository-box{
+        .repository-contant {
             line-height: 30px;
             border-bottom: 1px solid #f0f0f0;
             padding-bottom: 10px;
-            .wiki-title {
+            .repository-title {
                 color: #0053ca;
                 font-size: 18px;
                 font-weight: 600;
             }
-            .wiki-item-name {
+            .repository-item-name {
                 font-weight: 600;
             }
         }
-        .wiki-card-item {
+        .repository-card-item {
             box-shadow: rgba(9,30,66,0.25) 0px 1px 1px, rgba(9,30,66,0.31) 0px 0px 1px;
             width: 30%;
             margin: 10px;
             border-radius: 5px;
             padding: 10px;
             line-height: 30px;
-            .wiki-card-contant {
+            .repository-card-contant {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
                 img {
                     width: 36px;
                 }
-                .wiki-card-title {
+                .repository-card-title {
                     color: #202d40;
                     font-weight: 600;
                 }
-                .wiki-card-item-name {
+                .repository-card-item-name {
                     color: #d5d5d5
                 }
             }
-            .wiki-card-bottom {
+            .repository-card-bottom {
                 border-top: 1px solid #f0f0f0;
                 font-size: 12px;
             }

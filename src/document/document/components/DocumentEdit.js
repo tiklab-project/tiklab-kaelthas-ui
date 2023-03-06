@@ -18,11 +18,11 @@ import Button from "../../../common/button/button";
 
 
 const DocumentEdit = (props) => {
-    const { onChange, WikiCatalogueStore } = props;
-    const { findDocument, updateDocument } = WikiCatalogueStore;
+    const { onChange, RepositoryCatalogueStore } = props;
+    const { findDocument, updateDocument } = RepositoryCatalogueStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
     const [value, setValue] = useState()
     const [editor] = useState(() => withReact(createEditor()))
     const [titleValue, setTitleValue] = useState();
@@ -65,7 +65,7 @@ const DocumentEdit = (props) => {
         }
         updateDocument(data).then(res => {
             if (res.code === 0) {
-                props.history.push(`/index/wikidetail/${wikiId}/doc/${documentId}`)
+                props.history.push(`/index/repositorydetail/${repositoryId}/doc/${documentId}`)
             }
         })
     }
@@ -131,4 +131,4 @@ const DocumentEdit = (props) => {
         </div>
     )
 }
-export default inject('wikiDetailStore', 'wikiStore', "WikiCatalogueStore")(observer(withRouter(DocumentEdit)));
+export default inject('repositoryDetailStore', 'repositoryStore', "RepositoryCatalogueStore")(observer(withRouter(DocumentEdit)));

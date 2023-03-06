@@ -3,7 +3,7 @@
     height: calc(100vh - 48px);
     overflow: auto;
 
-    .wiki-top {
+    .repository-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -54,15 +54,15 @@
         }
     }
 
-    .wiki-menu {
-        .wiki-menu-submenu {
+    .repository-menu {
+        .repository-menu-submenu {
             height: 40px;
             line-height: 40px;
             display: flex;
             align-items: center;
         }
 
-        .wiki-menu-submenu-hidden {
+        .repository-menu-submenu-hidden {
             display: none;
         }
 

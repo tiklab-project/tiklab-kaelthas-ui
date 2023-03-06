@@ -16,13 +16,13 @@ import { getUser } from "tiklab-core-ui";
 import Comment from "../../common/Comment";
 
 const BrainMapExamine = (props) => {
-    const { wikiCommon, WikiCatalogueStore } = props;
+    const { repositoryCommon, RepositoryCatalogueStore } = props;
     const documentId = localStorage.getItem("documentId");
-    const { createComment, findCommentPage, createLike, createShare, updateShare, } = wikiCommon;
-    const { docDetail, findDocument } = WikiCatalogueStore;
+    const { createComment, findCommentPage, createLike, createShare, updateShare, } = repositoryCommon;
+    const { docDetail, findDocument } = RepositoryCatalogueStore;
     const [shareVisible, setShareVisible] = useState(false)
     const [commonList, setCommonList] = useState()
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
     const [like, setLike] = useState(false)
     const userId = getUser().userId;
@@ -133,7 +133,7 @@ const BrainMapExamine = (props) => {
             <div className="examine-top">
                 <div className="examine-title">{docInfo.name}</div>
                 <div className="mindmap-right">
-                    <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/wikidetail/${wikiId}/mindmapEdit/${documentId}`)}>
+                    <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/mindmapEdit/${documentId}`)}>
                         <use xlinkHref="#icon-edit"></use>
                     </svg>
                     <svg className="user-icon" aria-hidden="true">
@@ -182,4 +182,4 @@ const BrainMapExamine = (props) => {
     )
 }
 
-export default inject("wikiCommon", "WikiCatalogueStore")(observer(BrainMapExamine));
+export default inject("repositoryCommon", "RepositoryCatalogueStore")(observer(BrainMapExamine));

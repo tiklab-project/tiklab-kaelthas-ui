@@ -18,17 +18,17 @@ import DocumentAddEdit from "./DocumentAddEdit";
 
 
 const DocumentExamine = (props) => {
-    const { wikiCommon, WikiCatalogueStore } = props;
+    const { repositoryCommon, RepositoryCatalogueStore } = props;
     const documentId = props.match.params.id;
-    const { findDocument } = WikiCatalogueStore;
+    const { findDocument } = RepositoryCatalogueStore;
     
-    const { createComment, findCommentPage, createLike, createShare, updateShare } = wikiCommon
+    const { createComment, findCommentPage, createLike, createShare, updateShare } = repositoryCommon
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
     const [showComment, setShowComment] = useState(false);
-    const wikiId = props.match.params.wikiId;
+    const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
     const [title, seTitle] = useState()
     const [value, setValue] = useState()
@@ -78,7 +78,7 @@ const DocumentExamine = (props) => {
                 <div className="examine-title" id = "examine-title">{docInfo.name}</div>
                 <div className="document-edit">
                     {
-                        value && <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/wikidetail/${wikiId}/docEdit/${documentId}`)}>
+                        value && <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
                         <use xlinkHref="#icon-edit"></use>
                     </svg>
                     }
@@ -152,4 +152,4 @@ const DocumentExamine = (props) => {
     )
 }
 
-export default inject("wikiCommon", "WikiCatalogueStore")(observer(DocumentExamine));
+export default inject("repositoryCommon", "RepositoryCatalogueStore")(observer(DocumentExamine));

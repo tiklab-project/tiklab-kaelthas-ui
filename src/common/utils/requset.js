@@ -10,6 +10,15 @@ import axios from "axios";
 
 import {Axios as service} from "tiklab-core-ui";
 
+const Service = (url, data) => {
+    return service.request({
+        url: url,
+        method: "post",
+        data: data
+    })
+}
+
+
 const serviceLoc = axios.create({
     // baseURL: '/devapi',
     timeout: 5000
@@ -30,4 +39,4 @@ serviceLoc.interceptors.response.use(function (response) {
     // 对响应错误做点什么
     return Promise.reject(error);
 })
-export {service,serviceLoc};
+export {service,serviceLoc, Service};

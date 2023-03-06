@@ -7,10 +7,7 @@
  * @LastEditTime: 2021-09-08 16:34:04
  */
 import { observable, action } from "mobx";
-import { CreateDocumentTemplate,FindDocumentTemplatePage,FindDocumentTemplate,UpdateDocumentTemplate,
-    DeleteDocumentTemplate
-} from "../api/TemplateApi";
-
+import { Service } from "../../../common/utils/requset";
 export class TemplateStore {
     @observable templateList = [];
     @observable templatePageParams = {
@@ -26,7 +23,7 @@ export class TemplateStore {
 
     @action
 	createDocumentTemplate = async(value) => {
-        const data = await CreateDocumentTemplate(value)
+        const data = await Service("/documentTemplate/createDocumentTemplate",value);
         return data;
     }
 
@@ -44,7 +41,7 @@ export class TemplateStore {
                 currentPage: this.templatePageParams.current
             }
         }
-        const data = await FindDocumentTemplatePage(params);
+        const data = await Service("/documentTemplate/findDocumentTemplatePage",params);
         if(data.code === 0){
             this.templateList = data.data.dataList
         }
@@ -52,26 +49,24 @@ export class TemplateStore {
     }
 
     @action
-	findDocumentTemplate = (values) => {
+	findDocumentTemplate = async(values) => {
         const param = new FormData()
         param.append("id", values)
-
-		const data = FindDocumentTemplate(param)
+        const data = await Service("/documentTemplate/findDocumentTemplatePage",param);
         return data
     }
 
     @action
 	updateDocumentTemplate = async(value) => {
-        const data = await UpdateDocumentTemplate(value)
+        const data = await Service("/documentTemplate/updateDocumentTemplate",value);
         return data;
     }
 
     @action
-	deleteDocumentTemplate = (values) => {
+	deleteDocumentTemplate = async(values) => {
         const param = new FormData()
         param.append("id", values)
-
-		const data = DeleteDocumentTemplate(param)
+        const data = await Service("/documentTemplate/deleteDocumentTemplate",param);
         return data
     }
 }

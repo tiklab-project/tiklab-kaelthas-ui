@@ -96,7 +96,7 @@ const ShareDocument = (props) => {
     return (
         <div className="document-examine">
         <Row style={{height: "100%"}}>
-            <Col className="wikidetail-content-col" xl={{span: 18,offset:3}} lg={{span: 20,offset:2}}>
+            <Col className="repositorydetail-content-col" xl={{span: 18,offset:3}} lg={{span: 20,offset:2}}>
             <div>
                 <div className="examine-title" style={{marginTop: "20px"}}>{docInfo.name}<span className="examine-type">类型：{docInfo.type === "doc" ? "文档" : "目录"}</span></div>
                 <PreviewEditor value={value}/>

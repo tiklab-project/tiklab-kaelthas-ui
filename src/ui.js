@@ -7,10 +7,10 @@
  * @LastEditTime: 2021-06-02 14:32:29
  */
 
-import wikiRoutes from "./routerSaas";
+import repositoryRoutes from "./routerSaas";
 import {store} from "./stores"
 
 export {
-    wikiRoutes,
+    repositoryRoutes,
     store
 }

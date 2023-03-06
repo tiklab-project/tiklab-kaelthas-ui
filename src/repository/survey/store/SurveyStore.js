@@ -1,6 +1,5 @@
 import { observable, action } from "mobx";
-import { FindRepository, Findlogpage } from "../api/SurveyApi";
-
+import { Service } from "../../../common/utils/requset";
 export class SurveyStore {
     @observable opLogList = [];
 
@@ -8,7 +7,7 @@ export class SurveyStore {
     findRepository = async(value) => {
         const params = new FormData();
         params.append("id", value.id)
-		const data =  await FindRepository(params);
+        const data = await Service("/repository/findRepository",params);
         return data;
     }
 
@@ -25,7 +24,7 @@ export class SurveyStore {
                 repositoryId: value.repositoryId
             }
         }
-        const data = await Findlogpage(params);
+        const data = await Service("/oplog/findlogpage",params);
         if(data.code === 0) {
             this.opLogList = data.data.dataList
         }

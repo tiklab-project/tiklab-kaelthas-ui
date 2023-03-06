@@ -15,8 +15,8 @@ import BrainMapFlow from "./BrainMapFlow";
 import Button from "../../../common/button/button";
 
 const DocumentMindMapEdit = (props) => {
-    const { onChange, WikiCatalogueStore } = props;
-    const { findDocument, updateDocument } = WikiCatalogueStore;
+    const { onChange, RepositoryCatalogueStore } = props;
+    const { findDocument, updateDocument } = RepositoryCatalogueStore;
     const documentId = localStorage.getItem("documentId");
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
     const [graphData, setGraphData] = useState(
@@ -25,7 +25,7 @@ const DocumentMindMapEdit = (props) => {
 
     const save = () => {
         saveDocument(graphData)
-        // props.history.push(`/index/wikidetail/mindmap/${documentId}`)
+        // props.history.push(`/index/repositorydetail/mindmap/${documentId}`)
         props.history.goBack()
         // editRef.current.submit()
     }
@@ -78,4 +78,4 @@ const DocumentMindMapEdit = (props) => {
         </div>
     )
 }
-export default inject('wikiDetailStore', 'wikiStore', "WikiCatalogueStore")(observer(withRouter(DocumentMindMapEdit)));
+export default inject('repositoryDetailStore', 'repositoryStore', "RepositoryCatalogueStore")(observer(withRouter(DocumentMindMapEdit)));
