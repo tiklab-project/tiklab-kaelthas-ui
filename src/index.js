@@ -17,8 +17,7 @@ import {orgStores} from "tiklab-user-ui/es/store";
 import { privilegeStores } from 'tiklab-privilege-ui/es/store'
 import {getUser} from 'tiklab-core-ui'
 import {messageModuleStores} from 'tiklab-message-ui/es/store'
-import { createContainer, initFetch } from 'tiklab-plugin-ui/es/_utils';
-import { useVersion } from 'tiklab-eam-ui/es/_utils'
+import { pluginLoader, PluginProvider } from "tiklab-plugin-core-ui";
 import './common/language/i18n';
 import "./index.scss";
 import {observer} from "mobx-react"
@@ -41,9 +40,9 @@ const Index = observer(() => {
     // allStore.authConfigStore.getFindAuthConfig()
     const userInfo = getUser()
     if (userInfo && userInfo.userId) {
-        allStore.systemRoleStore.getSystemPermissions(userInfo.userId, "teamwire")
+        allStore.systemRoleStore.getSystemPermissions(userInfo.userId, "kanass")
     }
-    useVersion("kanass")
+    // useVersion("kanass")
 
     const [pluginData,setPluginData] = useState({
         routes: Routes,
@@ -51,18 +50,16 @@ const Index = observer(() => {
         languageStore:[]
     });
     useEffect(() => {
-        initFetch(fetchMethod, Routes, resources,i18n).then(res => {
+        pluginLoader(Routes, resources,i18n).then(res => {
             setPluginData(res)
             setVisable(false)
         })
     }, []);
 
-    const CounterContainer = createContainer();
-
     if(visable) return <div>加载。。。</div>
 
     return (
-        <CounterContainer.Provider initialState={pluginData}>
+        <PluginProvider store={pluginData}>
             <Provider {...allStore}>
                 <HashRouter >
                     {
@@ -70,7 +67,7 @@ const Index = observer(() => {
                     }
                 </HashRouter>
             </Provider>
-        </CounterContainer.Provider>
+        </PluginProvider>
     )
 });
 

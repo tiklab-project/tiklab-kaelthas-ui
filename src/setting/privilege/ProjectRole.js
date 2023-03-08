@@ -1,19 +1,17 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { ProjectRoleList } from 'tiklab-privilege-ui';
+import { ProjectRole } from 'tiklab-privilege-ui';
 import { inject, observer } from "mobx-react";
 
-const ProjectRole = props => {
+const ProjectRoleList = props => {
     
 
     return (
-        // <div className="test">
-            < ProjectRoleList
+            < ProjectRole
                 bgroup={'teamwire'}
                 isBase = {true}
                 {...props}
             />
-        // </div>
     )
 }
 
-export default inject("privilegeDomainRoleStore")(observer(ProjectRole));
+export default inject("privilegeDomainRoleStore")(observer(ProjectRoleList));

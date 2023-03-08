@@ -12,8 +12,8 @@ import { renderRoutes } from "react-router-config";
 import LocalHeader from "./localHeader";
 import "../components/header.scss";
 
-import { WorkAppConfig, verifyUserHoc } from 'tiklab-eam-ui';
-import { connect } from 'tiklab-plugin-ui/es/_utils';
+import { UserVerify } from 'tiklab-eam-ui';
+import { connect } from 'tiklab-plugin-core-ui/es';
 import Search from "../../search/components/Search";
 
 const Layout = (props) => {
@@ -64,7 +64,7 @@ const Layout = (props) => {
 }
 
 
-const IndexHoc = verifyUserHoc(Layout, '/noAuth')
+const IndexHoc = UserVerify(Layout, '/noAuth')
 function mapStateToProps(state) {
     return {
         pluginStore: state.pluginStore

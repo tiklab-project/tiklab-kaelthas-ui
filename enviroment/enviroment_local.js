@@ -13,7 +13,11 @@ const base_url = JSON.stringify(api);
 const url = "http://127.0.0.1:8060/";
 const plugin_base_url = JSON.stringify(url);
 
-let plugin_url = `http://127.0.0.1:3004/plugin.json`;
+// let plugin_url = `http://127.0.0.1:3004/plugin.json`;
+// plugin_url = JSON.stringify(plugin_url);
+
+let plugin_url = `/pluginConfig/getPluginConfig`;
+// let plugin_url = `http://192.168.10.16:3000/plugin.json`;
 plugin_url = JSON.stringify(plugin_url);
 
 let fetchMethod = "get"
@@ -25,9 +29,8 @@ let env = "local";
 env = JSON.stringify(env)
 const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
-const version = JSON.stringify('');
-const client = JSON.stringify('');
-
+const version = JSON.stringify('ce');
+const client = JSON.stringify('web');
 
 const isSaas = false;
 

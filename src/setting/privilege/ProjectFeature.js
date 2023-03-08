@@ -1,19 +1,17 @@
-import React, { Fragment, useEffect,useState } from "react";
-import { ProjectFeatureList } from 'tiklab-privilege-ui';
+import React from "react";
+import { ProjectFeature } from 'tiklab-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 // 系统功能管理
-const ProjectFeature = props => {
+const ProjectFeatureList = props => {
 
 
     return (
-        // <div className="test">
-            <ProjectFeatureList
-                bgroup={'teamwire'}
-                {...props}
-            />
-        // </div>
+        <ProjectFeature
+            bgroup={'teamwire'}
+            {...props}
+        />
     )
 }
 
-export default inject("privilegeProjectFeatureStore")(observer(ProjectFeature));
+export default inject("privilegeProjectFeatureStore")(observer(ProjectFeatureList));

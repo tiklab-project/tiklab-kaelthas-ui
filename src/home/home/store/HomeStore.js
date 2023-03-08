@@ -75,7 +75,7 @@ export class HomeStore {
 
     @action
     findRecentRepositoryList= async(value)=> {
-        const data = await Service("/repository/findRecentRepositoryList",params);
+        const data = await Service("/repository/findRecentRepositoryList",value);
         return data;
     }
 

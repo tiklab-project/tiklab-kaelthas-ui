@@ -7,14 +7,14 @@
  * @LastEditTime: 2021-09-16 10:41:59
  */
 import React from "react";
-import { DomainRoleList } from 'tiklab-privilege-ui';
+import { DomainRole } from 'tiklab-privilege-ui';
 
 const RepositoryDomainRole = props => {
     const repositoryId = JSON.parse(localStorage.getItem("repository")).id;
 
     return (
         <div style={{backgroundColor: "#fff",height: "100%"}}>
-            <DomainRoleList
+            <DomainRole
                 {...props}
                 domainId={repositoryId}
             />
