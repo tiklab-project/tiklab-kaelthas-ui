@@ -14,7 +14,6 @@
         margin-bottom: 10px;
     }
     .repository-set-icon {
-        border-bottom: 1px solid #d9d9d9;
         .repository-form-icon {
             align-items: center;
             .form-icon-col {
@@ -23,6 +22,13 @@
                 gap: 10px;
             }
         }
+    }
+
+    .repository-info-title {
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 600;
     }
     .repository-set-icon-block {
         display: flex;
@@ -39,6 +45,7 @@
         border-radius: 4px;
         width: 100px;
         font-size: 12px;
+        cursor: pointer;
     }
 }
 .repository-info {

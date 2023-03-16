@@ -1,6 +1,5 @@
 .brainmap-edit {
     background-color: #fff;
-    // padding: 20px;
     height: calc(100vh - 50px);
     overflow: auto;
     .edit-top {
@@ -33,7 +32,7 @@
         justify-content: space-between;
         align-items: center;
         gap: 10px;
-        .user-icon {
+        .icon-svg {
             width: 20px;
             height: 20px;
             margin-right: 20px;

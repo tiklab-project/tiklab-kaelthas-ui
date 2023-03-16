@@ -52,7 +52,7 @@ export class TemplateStore {
 	findDocumentTemplate = async(values) => {
         const param = new FormData()
         param.append("id", values)
-        const data = await Service("/documentTemplate/findDocumentTemplatePage",param);
+        const data = await Service("/documentTemplate/findDocumentTemplate",param);
         return data
     }
 

@@ -4,16 +4,17 @@ import 'moment/locale/zh-cn';
 import { getUser } from 'tiklab-core-ui';
 import { observer, inject } from "mobx-react";
 import "./repositoryAdd.scss";
-import Button from "../../../common/button/button";
+
 import RepositoryAddInfo from "./RepositoryAddInfo";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 
+import { useHistory, useLocation } from 'react-router-dom';
 
-const RepositoryAddmodal = (props) => {
+const RepositoryAdd = (props) => {
     const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
     const { name, repositoryStore, selectTabs } = props;
-        
+    const history = useHistory();
     const { addRepositorylist, getUseList, findRepositoryList } = repositoryStore;
 
 
@@ -35,7 +36,7 @@ const RepositoryAddmodal = (props) => {
             <Breadcumb
                 firstText="添加知识库"
             >
-                <div onClick={() => setVisible(false)} className = "repositoryadd-close">
+                <div onClick={() => history.replace("/index/repository")} className="repositoryadd-close">
                     <svg className="svg-icon" aria-hidden="true">
                         <use xlinkHref="#icon-close"></use>
                     </svg>
@@ -46,41 +47,24 @@ const RepositoryAddmodal = (props) => {
 
 
     return (
-        <>
-            <div >
-                <Button type="primary" onClick={showModal} buttonText={name} >
-                </Button>
-                <Modal
-                    visible={visible}
-                    onCancel={onCancel}
-                    cancelText="取消"
-                    okText="确定"
-                    footer={false}
-                    className="repository-addmodel"
-                    mask={false}
-                    closable={false}
-                    width={"100vw"}
+        <div >
+            <Row>
+                <Col
+                    className="repository-type-col"
+                    lg={{ span: "18", offset: "3" }}
+                    xl={{ span: "14", offset: "5" }}
+                    xxl={{ span: "10", offset: "7" }}
+                    style={{ height: "100%" }}
                 >
-                    <Row>
-                        <Col 
-                            className="repository-type-col"
-                            lg={{ span: "18", offset: "3" }} 
-                            xl={{ span: "14", offset: "5" }} 
-                            xxl={{ span: "10", offset: "7" }} 
-                            style={{ height: "100%" }}
-                        >
-                            <Head />
-                            <div>
-                                <RepositoryAddInfo addRepositorylist={addRepositorylist} findRepositoryList = {findRepositoryList} setVisible={setVisible} selectTabs = {selectTabs}/>
-                            </div>
-                        </Col>
-                    </Row>
+                    <Head />
+                    <div>
+                        <RepositoryAddInfo addRepositorylist={addRepositorylist} findRepositoryList={findRepositoryList} setVisible={setVisible} selectTabs={selectTabs} />
+                    </div>
+                </Col>
+            </Row>
 
-
-                </Modal>
-            </div>
-        </>
+        </div>
     );
 };
 
-export default inject("repositoryStore")(observer(RepositoryAddmodal));
+export default inject("repositoryStore")(observer(RepositoryAdd));

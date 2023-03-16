@@ -11,20 +11,17 @@ import { Row, Col, Input } from 'antd';
 import { observer, inject } from "mobx-react";
 import { Link, withRouter } from "react-router-dom";
 import "./documentEdit.scss";
-import { createEditor } from "slate";
-import { Editable, Slate, withReact } from "slate-react";
 import { EditorBigContent, EditorBig, PreviewEditor, DocumentEditor } from "tiklab-slate-ui";
 import Button from "../../../common/button/button";
 
 
 const DocumentEdit = (props) => {
-    const { onChange, RepositoryCatalogueStore } = props;
+    const { RepositoryCatalogueStore } = props;
     const { findDocument, updateDocument } = RepositoryCatalogueStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
     const repositoryId = props.match.params.repositoryId;
     const [value, setValue] = useState()
-    const [editor] = useState(() => withReact(createEditor()))
     const [titleValue, setTitleValue] = useState();
 
     useEffect(() => {

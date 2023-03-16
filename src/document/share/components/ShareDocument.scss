@@ -4,7 +4,6 @@
         font-weight: 600;
         line-height: 30px;
         height: 30px;
-        margin-bottom: 20px;
         
     }
     .examine-type {
@@ -14,7 +13,6 @@
     }
     .preview-editor {
         min-height: 300px;
-        box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
     }
     .examine-comment {
         display: flex;
@@ -40,7 +38,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        .user-icon {
+        .icon-svg {
             width: 30px;
             height: 30px;
             border-radius: 15px;
@@ -63,7 +61,7 @@
             align-items: center;
             justify-content: flex-start;
             margin: 20px 0;
-            .user-icon {
+            .icon-svg {
                 width: 30px;
                 height: 30px;
                 border-radius: 15px;

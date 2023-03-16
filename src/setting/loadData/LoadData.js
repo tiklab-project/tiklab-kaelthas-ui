@@ -41,10 +41,10 @@ const LoadData = props => {
                 <div className="load">
                     <Breadcumb
                         firstText="系统集成"
-                        secondText="jira集成"
+                        secondText="Confluence集成"
                     />
                     <div className="load-jira">
-                        <div>从本地文件导入Jira数据</div>
+                        <div>从本地文件导入Confluence数据</div>
                         <div className="load-box">
                             上传附件：
                             <Upload {...uploadProps}>

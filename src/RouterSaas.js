@@ -13,31 +13,31 @@ import { Redirect } from "react-router-dom";
 const Login = AsyncComponent(() => import('./login/Login'))
 const Logout = AsyncComponent(() => import('./login/Logout'))
 const Home = AsyncComponent(() => import('./home/home/components/home'))
-const Index = AsyncComponent(() => import('./home/home/containers/Portal'))
-const RepositoryDetail = AsyncComponent(() => import('./repository/common/containers/RepositoryDetail'))
-const Survey = AsyncComponent(() => import('./repository/survey/containers/Survey'))
+const Index = AsyncComponent(() => import('./home/home/components/Portal'))
+const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
+const Survey = AsyncComponent(() => import('./repository/survey/components/Survey'))
 const DynamicList = AsyncComponent(() => import("./home/home/components/dynamicList"))
 
-const LogDetail = AsyncComponent(() => import('./repository/common/components/CategoryDetail'))
-const BrainMap = AsyncComponent(() => import('./repository/brainMapFlow/components/BrainMapFlowExamine'))
-const DocumentMindMapEdit = AsyncComponent(() => import('./repository/brainMapFlow/components/BrainMapFlowEdit'))
+const LogDetail = AsyncComponent(() => import('./repository/category/CategoryDetail'))
+const BrainMap = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowExamine'))
+const DocumentMindMapEdit = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowEdit'))
 
 // 知识库
 const repository = AsyncComponent(() => import('./repository/repository/components/RepositoryList'))
-const DocumentEdit = AsyncComponent(() => import("./repository/document/components/DocumentEdit"))
-const DocumnetExamine = AsyncComponent(() => import("./repository/document/components/DocumnetExamine"))
-const DocumentAddEdit = AsyncComponent(() => import("./repository/document/components/DocumentAddEdit"))
+const DocumentEdit = AsyncComponent(() => import("./document/document/components/DocumentEdit"))
+const DocumnetExamine = AsyncComponent(() => import("./document/document/components/DocumnetExamine"))
+const DocumentAddEdit = AsyncComponent(() => import("./document/document/components/DocumentAddEdit"))
 
-const RepositorySet = AsyncComponent(() => import("./repository/repositorySet/common/containers/RepositorySet"))
+const RepositorySet = AsyncComponent(() => import("./repository/setting/common/components/RepositorySet"))
 const RepositoryDomainRole = AsyncComponent(() => import('./repository/user/RepositoryDomainRole'))
 const RepositoryDomainUser = AsyncComponent(() => import('./repository/user/RepositoryDomainUser'))
-const RepositoryBasicInfo = AsyncComponent(() => import('./repository/repositorySet/basicInfo/containers/BasicInfo'))
-const Template = AsyncComponent(() => import('./setting/template/components/template'))
-const TemplateAdd = AsyncComponent(() => import('./setting/template/components/templateAddmodal'))
+const RepositoryBasicInfo = AsyncComponent(() => import('./repository/setting/basicInfo/components/BasicInfo'))
+const Template = AsyncComponent(() => import('./setting/template/components/TemplateList'))
+const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
 // 分享文档页面
-const ShareDocument = AsyncComponent(() => import('./repository/share/components/ShareDocument'))
+const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
 // 分享文档页面
-const PassWord = AsyncComponent(() => import('./repository/share/components/PassWord'))
+const PassWord = AsyncComponent(() => import('./document/share/components/PassWord'))
 
 
 const LoadData = AsyncComponent(() => import('./setting/loadData/LoadData'))
@@ -50,7 +50,7 @@ const ProjectMessageManagement = AsyncComponent(() => import('./setting/message/
 const ProjectMessageNotice = AsyncComponent(() => import('./setting/message/ProjectMessageNotice'))
 const ProjectMessageNoticeSystem = AsyncComponent(() => import('./setting/message/ProjectMessageNoticeSystem'))
 
-const Setting = AsyncComponent(() => import('./setting/common/containers/Setting'))
+const Setting = AsyncComponent(() => import('./setting/common/components/Setting'))
 const ProjectPlugin = AsyncComponent(() => import('./setting/plugin/ProjectPlugin'))
 
 const SystemFeature = AsyncComponent(() => import('./setting/privilege/SystemFeature'))
@@ -78,13 +78,8 @@ const LogTemplateList = AsyncComponent(() => import('./setting/log/MyLogTemplate
 const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeList'))
 
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
-
-const RoutesSaas = [
-    {
-        path: "/login",
-        exact: true,
-        component: Login,
-    },
+const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
+const Routes = [
     {
         path: "/logout",
         exact: true,
@@ -366,6 +361,11 @@ const RoutesSaas = [
                         exact: true
                     },
                     {
+                        path: "/index/setting/product",
+                        component: ProjectAuth,
+                        exact: true
+                    },
+                    {
                         path: "/index/setting/plugin",
                         component: ProjectPlugin,
                         exact: true
@@ -381,4 +381,4 @@ const RoutesSaas = [
         exact: true
     },
 ]
-export default RoutesSaas;
+export default Routes;

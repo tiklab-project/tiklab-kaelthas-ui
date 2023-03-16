@@ -242,6 +242,14 @@ const Survey = (props) => {
 
     }
 
+    /**
+     * 跳转到日志详情
+     * @param {地址} url 
+     */
+    const goOpLogDetail = (url) => {
+        window.location.href = url
+    }
+    
     return (
         <div className="repository-survey">
             <Row >

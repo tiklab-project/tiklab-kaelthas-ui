@@ -68,7 +68,7 @@ const RepositoryAddInfo = (props) => {
                 }
                 if (res.code === 0) {
                     message.success('添加成功');
-                    setVisible(false);
+                    props.history.goBack();
                     selectTabs(4)
                     // findRepositoryList({masterId: userId})
                     // props.history.push(`/index/repositorydetail/${res.data}/survey`)

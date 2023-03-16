@@ -134,7 +134,7 @@ const Comment = (props) => {
             </div>
             <div className="comment-list">
                 <div className="edit-comment">
-                    <svg className="user-icon" aria-hidden="true">
+                    <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-user5"></use>
                     </svg>
                     <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
@@ -146,7 +146,7 @@ const Comment = (props) => {
                             commonList && commonList.map(item => {
                                 return <div className="comment-item" key={item.id}>
                                     <div className="comment-user">
-                                        <svg className="user-icon" aria-hidden="true">
+                                        <svg className="icon-svg" aria-hidden="true">
                                             <use xlinkHref="#icon-user5"></use>
                                         </svg>
                                         <span className="user-name">{item.user.name}</span>
@@ -167,7 +167,7 @@ const Comment = (props) => {
 
                                     </div>
                                     <div className={`edit-comment ${reply === item.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
-                                        <svg className="user-icon" aria-hidden="true">
+                                        <svg className="icon-svg" aria-hidden="true">
                                             <use xlinkHref="#icon-user5"></use>
                                         </svg>
                                         <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
@@ -177,7 +177,7 @@ const Comment = (props) => {
                                         item.commentList && item.commentList.map(children => {
                                             return <div className="comment-item commnet-children-item" key={children.id}>
                                                 <div className="comment-user">
-                                                    <svg className="user-icon" aria-hidden="true">
+                                                    <svg className="icon-svg" aria-hidden="true">
                                                         <use xlinkHref="#icon-user5"></use>
                                                     </svg>
                                                     <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
@@ -192,7 +192,7 @@ const Comment = (props) => {
                                                     <span>赞</span>
                                                 </div>
                                                 <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
-                                                    <svg className="user-icon" aria-hidden="true">
+                                                    <svg className="icon-svg" aria-hidden="true">
                                                         <use xlinkHref="#icon-user5"></use>
                                                     </svg>
                                                     <Input placeholder="请输入评论" onChange={value => commonInput(value)} />

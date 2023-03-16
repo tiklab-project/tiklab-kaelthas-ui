@@ -36,7 +36,7 @@ const PassWord = (props) => {
         </div>
         <div className="password-box">
             <div className="box-title">
-                <svg className="user-icon" aria-hidden="true">
+                <svg className="icon-svg" aria-hidden="true">
                     <use xlinkHref="#icon-user5"></use>
                 </svg>
                 <span>

@@ -78,25 +78,25 @@ const DocumentExamine = (props) => {
                 <div className="examine-title" id = "examine-title">{docInfo.name}</div>
                 <div className="document-edit">
                     {
-                        value && <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
+                        value && <svg className="icon-svg" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
                         <use xlinkHref="#icon-edit"></use>
                     </svg>
                     }
                     
-                    <svg className="user-icon" aria-hidden="true">
+                    <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
                     {/* <span className="comment-item">
-                        <svg className="user-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
+                        <svg className="icon-svg" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
                             <use xlinkHref="#icon-comments"></use>
                         </svg>
                         {docInfo.commentNumber}
                     </span>
                     <span className="comment-item" onClick={addDocLike}>
                         {
-                            like ? <svg className="user-icon" aria-hidden="true">
+                            like ? <svg className="icon-svg" aria-hidden="true">
                                 <use xlinkHref="#icon-zan"></use>
-                            </svg> : <svg className="user-icon" aria-hidden="true">
+                            </svg> : <svg className="icon-svg" aria-hidden="true">
                                 <use xlinkHref="#icon-dianzan"></use>
                             </svg>
                         }
@@ -147,7 +147,7 @@ const DocumentExamine = (props) => {
                 
             </div>
 
-            <Share shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
+            {/* <Share shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} /> */}
         </div>
     )
 }

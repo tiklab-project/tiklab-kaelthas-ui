@@ -2,7 +2,7 @@ import React,{Fragment, useEffect, useRef, useState} from "react";
 import { Pagination } from 'antd';
 import "./search.scss";
 import { Row, Col,Tabs } from 'antd';
-import repository from "../../assets/images/repository.png";
+import repository from "../../../assets/images/repository.png";
 import { observer, inject } from "mobx-react";
 const { TabPane } = Tabs;
 

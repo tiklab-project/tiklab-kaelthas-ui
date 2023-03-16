@@ -13,7 +13,8 @@ import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
 import RepositoryIcon from "./RespositoryChangeIcon"
-
+import { Collapse } from 'antd';
+const { Panel } = Collapse;
 const BasicInfo = props => {
     const layout = {
         labelCol: {
@@ -90,7 +91,7 @@ const BasicInfo = props => {
         form.validateFields().then((values) => {
             const data = {
                 ...values,
-                master: {id: values.master},
+                master: { id: values.master },
                 id: repositoryId
             }
 
@@ -100,7 +101,7 @@ const BasicInfo = props => {
             //     updateRepository(data)
             // }
             updateRepository(data).then(res => {
-                if(res.code === 0){
+                if (res.code === 0) {
                     message.info('修改成功');
                 }
             })
@@ -140,6 +141,40 @@ const BasicInfo = props => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    const repositoryInfoDesc = () => (
+        <div>
+            <div className="repository-info-title">
+                <svg aria-hidden="true" className="img-icon" fill="#fff">
+                    <use xlinkHref="#icon-projectDetail"></use>
+                </svg>
+                知识库信息
+            </div>
+            <div style={{fontSize: "12px", color: "#999"}}> 
+                <svg aria-hidden="true" className="img-icon" fill="#fff">
+                    <use></use>
+                </svg>
+                知识库信息图标信息，可见范围，负责人等信息，可点击修改</div>
+        </div>
+    );
+
+    const repositoryDelete = () => (
+        <div>
+            <div className="repository-info-title">
+                <svg aria-hidden="true" className="img-icon" fill="#fff">
+                    <use xlinkHref="#icon-projectDelete"></use>
+                </svg>
+                删除知识库
+            </div>
+            <div style={{fontSize: "12px", color: "#999"}}> 
+                <svg aria-hidden="true" className="img-icon" fill="#fff">
+                    <use></use>
+                </svg>
+                删除知识库
+            </div>
+        </div>
+    );
+
     return (
         <Row>
             <Col lg={{ span: 24 }} xxl={{ span: "18", offset: "3" }}>
@@ -147,68 +182,68 @@ const BasicInfo = props => {
                     <Breadcumb
                         firstText="知识库信息"
                     />
-                    <div className="repository-set-icon">
-                        <div className="repository-set-title">
-                            知识库信息
-                        </div>
-                        <Form.Item
-                            label="知识库图标"
-                            className="repository-form-icon"
-                            {...layout}
-                            labelAlign="left"
-                        >
-                            <div className="form-icon-col">
-                                <div className="form-icon">
-                                    {
-                                        iconUrl ?
-                                            <img
-                                                src={('/images/' + iconUrl)}
-                                                alt="" width={60} height={60}
-                                            />
-                                            :
-                                            <img
-                                                src={('images/repository1.png')}
-                                                alt="" width={60} height={60}
-                                            />
-                                    }
-                                </div>
 
-                                <span>知识库图标，可点击更改按钮修改icon</span>
-                            </div>
-                        </Form.Item>
-                        <Form.Item
-                            {...formTailLayout}
-                            labelAlign="left"
-                        >
-                            {/* <PrivilegeProjectButton code={'RepositoryEdit'} domainId={repositoryId}  {...props}> */}
-                            <div className="change-botton" onClick={() => setVisible(true)}>
-                                更改图标
-                            </div>
-                            {/* </PrivilegeProjectButton> */}
-                        </Form.Item>
+                    <Collapse expandIconPosition={"right"}>
+                        <Panel header={repositoryInfoDesc()} key="1">
+                            <div className="repository-set-icon">
+                                <Form.Item
+                                    label="知识库图标"
+                                    className="repository-form-icon"
+                                    {...layout}
+                                    labelAlign="left"
+                                >
+                                    <div className="form-icon-col">
+                                        <div className="form-icon">
+                                            {
+                                                iconUrl ?
+                                                    <img
+                                                        src={('/images/' + iconUrl)}
+                                                        alt="" width={60} height={60}
+                                                    />
+                                                    :
+                                                    <img
+                                                        src={('images/repository1.png')}
+                                                        alt="" width={60} height={60}
+                                                    />
+                                            }
+                                        </div>
+
+                                        <span>知识库图标，可点击更改按钮修改icon</span>
+                                    </div>
+                                </Form.Item>
+                                <Form.Item
+                                    {...formTailLayout}
+                                    labelAlign="left"
+                                >
+                                    {/* <PrivilegeProjectButton code={'RepositoryEdit'} domainId={repositoryId}  {...props}> */}
+                                    <div className="change-botton" onClick={() => setVisible(true)}>
+                                        更改图标
+                                    </div>
+                                    {/* </PrivilegeProjectButton> */}
+                                </Form.Item>
 
 
-                        {/* </div> */}
+                                {/* </div> */}
 
-                        <Form
-                            {...layout}
-                            name="basic"
-                            initialValues={{
-                                remember: true,
-                            }}
-                            form={form}
-                            onFinish={onFinish}
-                            onFieldsChange={() => setDisabled(false)}
-                            labelAlign={"left"}
-                            // onValuesChange={onFinish}
-                        >
-                            <Form.Item
-                                label="知识库名称"
-                                name="name"
-                            >
-                                <Input placeholder="知识库名称" />
-                            </Form.Item>
-                            {/* <Form.Item
+                                <Form
+                                    {...layout}
+                                    name="basic"
+                                    initialValues={{
+                                        remember: true,
+                                    }}
+                                    form={form}
+                                    onFinish={onFinish}
+                                    onFieldsChange={() => setDisabled(false)}
+                                    labelAlign={"left"}
+                                // onValuesChange={onFinish}
+                                >
+                                    <Form.Item
+                                        label="知识库名称"
+                                        name="name"
+                                    >
+                                        <Input placeholder="知识库名称" />
+                                    </Form.Item>
+                                    {/* <Form.Item
                                 label="知识库类型"
                                 name="repositoryType"
                             >
@@ -223,83 +258,81 @@ const BasicInfo = props => {
                                     }
                                 </Select>
                             </Form.Item> */}
-                            <Form.Item
-                                label="可见人员"
-                                name="limits"
-                            >
-                                <Select
-                                    allowClear
-                                >
-                                    <Select.Option value="0" key="0">全部成员</Select.Option>
-                                    <Select.Option value="1" key="1">知识库成员</Select.Option>
-                                </Select>
-                            </Form.Item>
+                                    <Form.Item
+                                        label="可见人员"
+                                        name="limits"
+                                    >
+                                        <Select
+                                            allowClear
+                                        >
+                                            <Select.Option value="0" key="0">全部成员</Select.Option>
+                                            <Select.Option value="1" key="1">知识库成员</Select.Option>
+                                        </Select>
+                                    </Form.Item>
 
-                            <Form.Item
-                                label="负责人"
-                                name="master"
-                                rules={[
-                                    {
-                                        required: false,
-                                        message: '请输入知识库编码',
-                                    }
-                                ]}
-                            >
-                                <Select
-                                    placeholder="负责人"
-                                    allowClear
-                                >
-                                    {
-                                        uselist && uselist.map((item, index) => {
-                                            return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
-                                        })
-                                    }
-                                </Select>
-                            </Form.Item>
-                            <Form.Item
-                                label="知识库描述"
-                                name="desc"
-                            >
-                                <Input placeholder="知识库描述" />
-                            </Form.Item>
-                            <Form.Item {...formTailLayout} >
-                                <Button onClick={() => cancel()}>
-                                    取消
-                                </Button>
-                                <Button htmlType="submit" type="primary" disabled={disable}>
-                                    保存
-                                </Button>
-                            </Form.Item>
-                        </Form>
-                    </div>
-
-
-
-                    <div className="repository-set-icon">
-
-                        <div className="repository-set-title">
-                            删除知识库
-                        </div>
-
-                        <div className="repository-set-icon-block">
-                            <div>
-
-                                <span> 此知识库及其目录将在回收站中保留 60 天，之后将被永久删除</span>
+                                    <Form.Item
+                                        label="负责人"
+                                        name="master"
+                                        rules={[
+                                            {
+                                                required: false,
+                                                message: '请输入知识库编码',
+                                            }
+                                        ]}
+                                    >
+                                        <Select
+                                            placeholder="负责人"
+                                            allowClear
+                                        >
+                                            {
+                                                uselist && uselist.map((item, index) => {
+                                                    return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
+                                                })
+                                            }
+                                        </Select>
+                                    </Form.Item>
+                                    <Form.Item
+                                        label="知识库描述"
+                                        name="desc"
+                                    >
+                                        <Input placeholder="知识库描述" />
+                                    </Form.Item>
+                                    <Form.Item {...formTailLayout} >
+                                        <Button onClick={() => cancel()}>
+                                            取消
+                                        </Button>
+                                        <Button htmlType="submit" type="primary" disabled={disable}>
+                                            保存
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
                             </div>
+                        </Panel>
+                        <Panel header={repositoryDelete()} key="2">
+                            <div className="repository-set-icon">
+                                {/* <div className="repository-set-title">
+                                    删除知识库
+                                </div> */}
+                                <div className="repository-set-icon-block">
+                                    <div>
 
-                        </div>
-                        <Form.Item
-                            {...formTailLayout}
-                            labelAlign="left"
-                        >
-                            {/* <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}> */}
-                            <div className="change-botton" onClick={() => showModal()}>
-                                删除知识库
+                                        <span> 此知识库及其目录将在回收站中保留 60 天，之后将被永久删除</span>
+                                    </div>
+
+                                </div>
+                                <Form.Item
+                                    {...formTailLayout}
+                                    labelAlign="left"
+                                >
+                                    {/* <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}> */}
+                                    <div className="change-botton" onClick={() => showModal()}>
+                                        删除知识库
+                                    </div>
+                                    {/* </PrivilegeProjectButton> */}
+                                </Form.Item>
                             </div>
-                            {/* </PrivilegeProjectButton> */}
-                        </Form.Item>
-                    </div>
-
+                        </Panel>
+                    </Collapse>
 
                 </div>
                 <Modal title="是否删除" visible={isModalVisible} closable={false} onOk={handleOk} onCancel={handleCancel} okText={"确定"} cancelText={"取消"}>

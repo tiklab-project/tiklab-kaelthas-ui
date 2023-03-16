@@ -11,7 +11,14 @@ export class RepositoryStore {
         current: 1,
         pageSize: 10
     };
+    @observable
+    activeTabs = "2";
 
+    @action
+    setActiveTabs = (value) => {
+        this.activeTabs = value
+    }
+    
     @action
     findRepositoryList = async(params) => {
         const data = await Service("/repository/findRepositoryList",params);

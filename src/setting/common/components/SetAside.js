@@ -9,9 +9,7 @@
 import React,{Fragment,useState,useEffect} from 'react';
 import { DownOutlined,UpOutlined} from '@ant-design/icons';
 import {withRouter} from "react-router-dom";
-import {inject, observer} from "mobx-react";
 import {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter}  from "./SetRouter"
-import { PLUGIN_STORE} from "tiklab-plugin-ui";
 //import "../../../../assets/font-icon/iconfont";
 
 const SetAside=(props)=>  {

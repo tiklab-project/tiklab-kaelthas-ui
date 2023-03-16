@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-09-16 10:41:59
  */
 import React from "react";
-import { DomainRole } from 'tiklab-privilege-ui';
+import { DomainRole } from 'tiklab-user-ui';
 
 const RepositoryDomainRole = props => {
     const repositoryId = JSON.parse(localStorage.getItem("repository")).id;

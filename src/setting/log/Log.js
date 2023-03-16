@@ -1,8 +1,8 @@
 import React from 'react';
-import {LogList as List} from 'tiklab-oplog-ui'
+import {MyLog} from 'tiklab-security-ui'
 
 const LogList = (props) => {
-    return <List bgroup = "kanass" {...props}/>
+    return <MyLog bgroup = "kanass" {...props}/>
 }
 
 export default LogList;

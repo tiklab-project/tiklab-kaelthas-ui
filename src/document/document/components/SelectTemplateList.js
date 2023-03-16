@@ -76,7 +76,8 @@ const TemplateList = (props) => {
                             position: 'absolute',
                             left: 0,
                             top: 0,
-                            height: "100%"
+                            height: "100%",
+                            background: "#fff"
                         }}
                     >
                         <Menu theme="light" mode="inline" defaultSelectedKeys={['entry']}>

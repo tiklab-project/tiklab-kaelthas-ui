@@ -1,22 +1,22 @@
-import React, { Fragment, useEffect, useState } from "react";
-import { Breadcrumb, Input, Table, Space, Button, Divider, Row, Col } from 'antd';
-import RepositoryAddmodal from "./RepositoryAdd";
+import React, { useRef, useEffect, useState } from "react";
+import { Breadcrumb, Input, Table, Space, Divider, Row, Col } from 'antd';
 import { observer, inject } from "mobx-react";
 import { Link, withRouter } from "react-router-dom";
 import { getUser } from "tiklab-core-ui";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import InputSearch from "../../../common/input/inputSearch";
-import "./repository.scss"
+import Button from "../../../common/button/button";
+import "./repository.scss";
+import { useHistory, useLocation } from 'react-router-dom';
 const { Search } = Input;
 const Repositorycontent = (props) => {
     const { repositoryStore } = props;
     const { findRepositoryList, addRepositorylist, searchrepository, createDocumentRecent,
         repositorylist, delerepositoryList, updateRepository, findRecentRepositoryList, createRepositoryFocus,
-        findRepositoryFocusList, deleteRepositoryFocusByCondition } = repositoryStore;
+        findRepositoryFocusList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = repositoryStore;
     const userId = getUser().userId;
-    const [activeTabs, setActiveTabs] = useState("2");
     const [focusRepositoryList, setFocusRepositoryList] = useState([])
-    const wiliTab = [
+    const repositoryTab = [
         {
             title: '所有知识库',
             key: '1',
@@ -38,19 +38,14 @@ const Repositorycontent = (props) => {
             icon: "programbuild"
         }
     ]
-
+    const history = useHistory()
     useEffect(() => {
-        findRecentRepositoryList({ model: "repository" })
-        findRepositoryFocusList({}).then(data => {
-            if (data.code === 0) {
-                let ids = []
-                data.data.map(item => {
-                    ids.push(item.id)
-                })
-                setFocusRepositoryList(ids)
-            }
-        })
-    }, [])
+        if(activeTabs === "2"){
+            findRecentRepositoryList({ model: "repository" })
+        }
+        
+        return
+    }, [activeTabs])
 
     const columns = [
         {
@@ -224,6 +219,10 @@ const Repositorycontent = (props) => {
         })
     }
 
+    const goRepositoryAdd = () => {
+        history.push("/index/repositoryAdd")
+
+    }
     return (
         <div className="repository">
             <Row>
@@ -231,18 +230,20 @@ const Repositorycontent = (props) => {
                     <Breadcumb
                         firstText="知识库"
                     >
-                        <RepositoryAddmodal
+                        {/* <RepositoryAddmodal
                             name="添加知识库"
                             type="add"
                             selectTabs = {selectTabs}
-                        />
+                        /> */}
+                        <Button type="primary" onClick={() => goRepositoryAdd()} buttonText={"添加知识库"} >
+                        </Button>
                     </Breadcumb>
 
                     <div className="repository-tabs-search">
                         <div className="repository-filter">
                             <div className="repository-tabs">
                                 {
-                                    wiliTab.map(item => {
+                                    repositoryTab.map(item => {
                                         return <div
                                             className={`repository-tab ${activeTabs === item.key ? "active-tabs" : ""}`}
                                             key={item.key}

@@ -100,7 +100,7 @@ const setDevEamRouter= [
         code: 9,
         children: [
             {
-                title: 'JIRA',
+                title: 'Confluence',
                 icon: 'systemcenter',
                 key: '/index/setting/loadData',
                 encoded: "SysMessageManagement",
@@ -130,6 +130,13 @@ const setDevEamRouter= [
         key: '/index/setting/version',
         encoded: "SysPlugin",
         code: 11,
+    },
+    {
+        title: "产品授权",
+        icon: 'plugin',
+        key: '/index/setting/product',
+        encoded: "SysPlugin",
+        code: 13,
     },
     {
         title: "基础数据",
@@ -312,7 +319,7 @@ const setPrdEamRouter= [
         code: 9,
         children: [
             {
-                title: 'JIRA',
+                title: 'Confluence',
                 icon: 'systemcenter',
                 key: '/index/setting/loadData',
                 encoded: "SysMessageManagement",
@@ -342,6 +349,13 @@ const setPrdEamRouter= [
         key: '/index/setting/version',
         encoded: "SysPlugin",
         code: 11,
+    },
+    {
+        title: "产品授权",
+        icon: 'plugin',
+        key: '/index/setting/product',
+        encoded: "SysPlugin",
+        code: 13,
     }
 ];
 
@@ -438,7 +452,7 @@ const setDevRouter= [
         code: 9,
         children: [
             {
-                title: 'JIRA',
+                title: 'Confluence',
                 icon: 'systemcenter',
                 key: '/index/setting/loadData',
                 encoded: "SysMessageManagement",
@@ -468,6 +482,13 @@ const setDevRouter= [
         key: '/index/setting/version',
         encoded: "SysPlugin",
         code: 11,
+    },
+    {
+        title: "产品授权",
+        icon: 'plugin',
+        key: '/index/setting/product',
+        encoded: "SysPlugin",
+        code: 13,
     }
 ];
 
@@ -564,7 +585,7 @@ const setPrdRouter= [
         code: 9,
         children: [
             {
-                title: 'JIRA',
+                title: 'Confluence',
                 icon: 'systemcenter',
                 key: '/index/setting/loadData',
                 encoded: "SysMessageManagement",
@@ -594,6 +615,13 @@ const setPrdRouter= [
         key: '/index/setting/version',
         encoded: "SysPlugin",
         code: 11,
+    },
+    {
+        title: "产品授权",
+        icon: 'plugin',
+        key: '/index/setting/product',
+        encoded: "SysPlugin",
+        code: 13,
     }
 ];
 export  {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter};

@@ -110,7 +110,7 @@ const TemplateAddmodal = (props) => {
                         editorValue &&
                         <EditorBig
                             value={editorValue}
-                            onChange={value => setValue(value)}
+                            onChange={value => setEditorValue(value)}
                         >
                             <>
                                 <div className="template-content">

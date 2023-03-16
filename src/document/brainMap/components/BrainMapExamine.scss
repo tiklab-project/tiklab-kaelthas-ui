@@ -41,7 +41,7 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        .user-icon {
+        .icon-svg {
             width: 30px;
             height: 30px;
             border-radius: 15px;
@@ -54,8 +54,6 @@
     }
 
     .comment-list {
-        // box-shadow: rgb(179,186,197) 0px 0px 1px 0px, rgb(193,199,208) 0px 1px 1px 0px;
-        // padding: 10px 20px;
         margin: 20px 0;
         .title {
             font-size: 18px;
@@ -66,7 +64,7 @@
             align-items: center;
             justify-content: flex-start;
             margin: 20px 0;
-            .user-icon {
+            .icon-svg {
                 width: 30px;
                 height: 30px;
                 border-radius: 15px;

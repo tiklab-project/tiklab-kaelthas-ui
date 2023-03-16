@@ -13,6 +13,7 @@ import { Redirect } from "react-router-dom";
 const Login = AsyncComponent(() => import('./login/Login'))
 const Logout = AsyncComponent(() => import('./login/Logout'))
 const Home = AsyncComponent(() => import('./home/home/components/home'))
+
 const Index = AsyncComponent(() => import('./home/home/components/Portal'))
 const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
 const Survey = AsyncComponent(() => import('./repository/survey/components/Survey'))
@@ -23,7 +24,8 @@ const BrainMap = AsyncComponent(() => import('./document/brainMap/components/Bra
 const DocumentMindMapEdit = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowEdit'))
 
 // 知识库
-const repository = AsyncComponent(() => import('./repository/repository/components/RepositoryList'))
+const Repository = AsyncComponent(() => import('./repository/repository/components/RepositoryList'))
+const RepositoryAdd = AsyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 const DocumentEdit = AsyncComponent(() => import("./document/document/components/DocumentEdit"))
 const DocumnetExamine = AsyncComponent(() => import("./document/document/components/DocumnetExamine"))
 const DocumentAddEdit = AsyncComponent(() => import("./document/document/components/DocumentAddEdit"))
@@ -78,7 +80,7 @@ const LogTemplateList = AsyncComponent(() => import('./setting/log/MyLogTemplate
 const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeList'))
 
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
-
+const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
 const Routes = [
     {
         path: "/login",
@@ -110,6 +112,7 @@ const Routes = [
                 component: Home,
                 key: 'home'
             },
+            
             {
                 path: "/index/dynamic",
                 exact: true,
@@ -119,9 +122,15 @@ const Routes = [
             {
                 path: "/index/repository",
                 exact: true,
-                component: repository,
+                component: Repository,
                 key: 'repository'
 
+            },
+            {
+                path: "/index/repositoryAdd",
+                exact: true,
+                component: RepositoryAdd,
+                key: 'home'
             },
             {
                 path: "/index/template",
@@ -363,6 +372,11 @@ const Routes = [
                     {
                         path: "/index/setting/loadData",
                         component: LoadData,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/product",
+                        component: ProjectAuth,
                         exact: true
                     },
                     {

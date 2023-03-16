@@ -133,14 +133,14 @@ const BrainMapExamine = (props) => {
             <div className="examine-top">
                 <div className="examine-title">{docInfo.name}</div>
                 <div className="mindmap-right">
-                    <svg className="user-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/mindmapEdit/${documentId}`)}>
+                    <svg className="icon-svg" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/mindmapEdit/${documentId}`)}>
                         <use xlinkHref="#icon-edit"></use>
                     </svg>
-                    <svg className="user-icon" aria-hidden="true">
+                    <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-shou"></use>
                     </svg>
                     <span className="comment-item">
-                        <svg className="user-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
+                        <svg className="icon-svg" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
                             <use xlinkHref="#icon-comments"></use>
                         </svg>
                         {docInfo.commentNumber}
@@ -148,9 +148,9 @@ const BrainMapExamine = (props) => {
 
                     <span className="comment-item" onClick={addDocLike}>
                         {
-                            like ? <svg className="user-icon" aria-hidden="true">
+                            like ? <svg className="icon-svg" aria-hidden="true">
                                 <use xlinkHref="#icon-zan"></use>
-                            </svg> : <svg className="user-icon" aria-hidden="true">
+                            </svg> : <svg className="icon-svg" aria-hidden="true">
                                 <use xlinkHref="#icon-dianzan"></use>
                             </svg>
                         }
