@@ -20,7 +20,7 @@ import {REPOSITORYWORK_STORE,RepositoryWork} from "./repository/common/store/Rep
 import {SURVEY_STORE, SurveyStore} from "./repository/survey/store/SurveyStore";
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
-import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"
+// import {SLATE_STORE,SlateStore} from "tiklab-slate-ui"
 
 function createStores() {
     return {
@@ -28,7 +28,7 @@ function createStores() {
         [REPOSITORYDETAIL_STORE]: new RepositoryDetailStore(),
         [SEARCH_STORE]: new SearchStore(),
         [REPOSITORYCATELOGUE_STORE]: new RepositoryCatalogueStore(),
-        [SLATE_STORE]: new SlateStore(),
+        // [SLATE_STORE]: new SlateStore(),
         [TEMPLATE_STORE]: new TemplateStore(),
         [REPOSITORYCOMMON_STORE]: new RepositoryCommon(),
         [SHARE_STORE]: new ShareStore(),

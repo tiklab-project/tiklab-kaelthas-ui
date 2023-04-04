@@ -50,10 +50,10 @@ export class RepositoryStore {
         const param = new FormData()
         param.append("id", values)
 
-        const data = await Service("/repository/deleteRepository",values);
-        if(data.code=== 0){
-            this.getRepositorylist()
-        }
+        const data = await Service("/repository/deleteRepository",param);
+        // if(data.code=== 0){
+        //     this.getRepositorylist()
+        // }
         return data;
     }
 
@@ -122,7 +122,7 @@ export class RepositoryStore {
     }
 
     @action
-    findRepositoryFocusList = async(value) => {
+    findFocusRepositoryList = async(value) => {
         const data = await Service("/repository/findFocusRepositoryList", value);
         if(data.code === 0){
             this.repositorylist = data.data;

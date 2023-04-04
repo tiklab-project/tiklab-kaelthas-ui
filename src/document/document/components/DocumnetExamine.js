@@ -113,7 +113,7 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <PreviewEditor value={value} onChange = {setValue}/>
+                                <PreviewEditor value={value} />
                             </div>
                         </Col>
                     </Row>

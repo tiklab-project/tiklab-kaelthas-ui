@@ -43,18 +43,6 @@ const BasicInfo = props => {
     const [iconUrl, setIconUrl] = useState();
     const [visible, setVisible] = useState(false);
     const [repositoryInfo, setRepositoryInfo] = useState()
-    // 周期
-    const rangeConfig = {
-        rules: [
-            {
-                type: 'array',
-                required: true,
-                message: 'Please select time!',
-            }
-        ]
-    };
-    const dateFormat = 'YYYY/MM/DD';
-
     useEffect(() => {
         info()
         getUseList()
@@ -129,8 +117,9 @@ const BasicInfo = props => {
         setIsModalVisible(true);
     };
 
+        
     const handleOk = () => {
-        deleproList(repositoryId).then(response => {
+        delerepositoryList(repositoryId).then(response => {
             if (response.code === 0) {
                 props.history.push("/index/repository")
             }

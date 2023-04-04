@@ -8,15 +8,26 @@
  */
 
 import React from 'react';
-import {withRouter} from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 
 const LogAdd = (props) => {
     const {addModalVisible,setAddModalVisible,setRepositoryCatalogueList,modalTitle,
         RepositoryCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
-    const {addRepositoryCatalogue,addRepositoryCataDocument,findRepositoryCatalogue} = RepositoryCatalogueStore;
+    const {addRepositoryCatalogue,addRepositoryCataDocument,findRepositoryCatalogue, expandedTree, setExpandedTree} = RepositoryCatalogueStore;
     const repositoryId = props.match.params.repositoryId;
+
+    const isExpandedTree = (key) => {
+        return expandedTree.some(item => item === key)
+    }
+    const setOpenOrClose = key => {
+        if (isExpandedTree(key)) {
+            return
+        } else {
+            setExpandedTree(expandedTree.concat(key));
+        }
+    }
+
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;
@@ -43,19 +54,15 @@ const LogAdd = (props) => {
                             setRepositoryCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
+                        if(catalogueId){
+                            setOpenOrClose(catalogueId)
+                        }
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${data.data}`)
                         form.resetFields()
                     }
                     
                 }) 
             }else {
-                // data = {
-                //     ...values,
-                //     repository:{id: repositoryId},
-                //     category: {id:catalogueId},
-                //     details:JSON.stringify(contentValue),
-                //     master: {id: values.master},
-                //     typeId: values.formatType
-                // }
                 if(catalogueId){
                     data = {
                         ...values,
@@ -89,6 +96,8 @@ const LogAdd = (props) => {
                         }
                         // 左侧导航
                         setSelectKey(data.data)
+                        // 如果是在某个目录下面，展开这个目录
+                       
                         form.resetFields()
                     }
                     

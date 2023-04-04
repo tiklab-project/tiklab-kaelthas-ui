@@ -1,20 +1,17 @@
 import React, { Fragment } from "react";
 import { Modal, Form, Input, Select, DatePicker, Row, Col, message } from 'antd';
-import locale from 'antd/es/date-picker/locale/zh_CN';
 import "./repositoryAddInfo.scss";
 import Button from "../../../common/button/button"
 import { useState } from "react";
-import { getUser } from "tiklab-core-ui";
 import { withRouter } from "react-router";
+import { observer, inject } from "mobx-react";
 const { TextArea } = Input;
-const { RangePicker } = DatePicker;
 
 const layout = {
     labelCol: {
         span: 6,
     }
 };
-
 
 const iconList = [
     {
@@ -40,18 +37,9 @@ const iconList = [
 ]
 
 const RepositoryAddInfo = (props) => {
-    const { addRepositorylist, setVisible, findRepositoryList, selectTabs } = props;
+    const { addRepositorylist, setVisible, repositoryStore } = props;
+    const {activeTabs, setActiveTabs } = repositoryStore;
     const [form] = Form.useForm();
-    const rangeConfig = {
-        rules: [
-            {
-                type: 'array',
-                required: true,
-                message: 'Please select time!',
-            }
-        ]
-    };
-    const userId = getUser().userId;
     const [iconUrl, setIconUrl] = useState("repository1.png")
 
     const onFinish = () => {
@@ -69,7 +57,7 @@ const RepositoryAddInfo = (props) => {
                 if (res.code === 0) {
                     message.success('添加成功');
                     props.history.goBack();
-                    selectTabs(4)
+                    setActiveTabs("4")
                     // findRepositoryList({masterId: userId})
                     // props.history.push(`/index/repositorydetail/${res.data}/survey`)
                 }
@@ -200,5 +188,4 @@ const RepositoryAddInfo = (props) => {
 
     )
 }
-
-export default withRouter(RepositoryAddInfo);
+export default withRouter(inject('repositoryStore')(observer(RepositoryAddInfo)));

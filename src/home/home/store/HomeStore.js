@@ -31,7 +31,7 @@ export class HomeStore {
             sendType: 'site',
             receiver: getUser().userId,
             status: value.status,
-            bgroup: "teamwire"
+            bgroup: "kanass"
         }
         const data = await Service("/message/messageItem/findMessageItemPage",params);
         if(data.code === 0){
@@ -76,6 +76,17 @@ export class HomeStore {
     @action
     findRecentRepositoryList= async(value)=> {
         const data = await Service("/repository/findRecentRepositoryList",value);
+        return data;
+    }
+
+    /**
+     * 更新信息状态
+     * @param {信息id，状态} value 
+     * @returns 
+     */
+    @action
+    updateMessageDispatchItem = async (value) => {
+        const data = await Service("/message/messageItem/updateMessageItem", value)
         return data;
     }
 

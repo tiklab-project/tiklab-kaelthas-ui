@@ -8,12 +8,11 @@ import InputSearch from "../../../common/input/inputSearch";
 import Button from "../../../common/button/button";
 import "./repository.scss";
 import { useHistory, useLocation } from 'react-router-dom';
-const { Search } = Input;
 const Repositorycontent = (props) => {
     const { repositoryStore } = props;
-    const { findRepositoryList, addRepositorylist, searchrepository, createDocumentRecent,
-        repositorylist, delerepositoryList, updateRepository, findRecentRepositoryList, createRepositoryFocus,
-        findRepositoryFocusList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = repositoryStore;
+    const { findRepositoryList, createDocumentRecent,
+        repositorylist, findRecentRepositoryList, createRepositoryFocus,
+        findFocusRepositoryList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = repositoryStore;
     const userId = getUser().userId;
     const [focusRepositoryList, setFocusRepositoryList] = useState([])
     const repositoryTab = [
@@ -40,13 +39,22 @@ const Repositorycontent = (props) => {
     ]
     const history = useHistory()
     useEffect(() => {
-        if(activeTabs === "2"){
-            findRecentRepositoryList({ model: "repository" })
-        }
-        
+        selectTabs(activeTabs)
+        findFocusRepository()
         return
     }, [activeTabs])
 
+    const findFocusRepository = (id) => {
+        findFocusRepositoryList({ masterId: id }).then(res => {
+            if (res.code === 0) {
+                const focusList = res.data;
+                focusList.map(item => {
+                    focusRepositoryList.push(item.id)
+                })
+                setFocusRepositoryList(focusRepositoryList)
+            }
+        })
+    }
     const columns = [
         {
             title: "知识库名称",
@@ -71,13 +79,6 @@ const Repositorycontent = (props) => {
                 <span className="repository-name">{text}</span>
             </div>,
         },
-        // {
-        //     title: "知识库编码",
-        //     dataIndex: "id",
-        //     key: "id",
-        //     align: "left",
-
-        // },
         {
             title: "负责人",
             dataIndex: ["master", "name"],
@@ -92,22 +93,6 @@ const Repositorycontent = (props) => {
             align: "left",
             width: "20%"
         },
-        // {
-        //     title: "知识库状态",
-        //     dataIndex: "repositoryState",
-        //     key: "repositoryState",
-        //     align: "center",
-        //     render: (text) =>(()=>{
-        //                 switch(text){
-        //                     case "1": 
-        //                         return <span>未开始</span>
-        //                     case "2": 
-        //                         return <span>已开始</span>
-        //                     case "3": 
-        //                         return <span>已结束</span>
-        //                     }
-        //             })()
-        // },
         {
             title: "操作",
             dataIndex: "action",
@@ -126,11 +111,6 @@ const Repositorycontent = (props) => {
                                 <use xlinkHref="#icon-nofocus"></use>
                             </svg>
                     }
-                    <span className="span-botton  delete" onClick={() => delerepositoryList(record.id)}>
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-delete"></use>
-                        </svg>
-                    </span>
                 </Space>
             ),
         },
@@ -156,22 +136,22 @@ const Repositorycontent = (props) => {
 
     const onSearch = value => {
         console.log(value)
-        // switch (activeTabs) {
-        //     case "1":
-        //         findJoinProjectList({ projectName: value, creator: null })
-        //         break;
-        //     case "2":
-        //         findRecentProjectPage({ projectName: value })
-        //         break;
-        //     case "3":
-        //         findProjectList({ master: userId, projectName: value })
-        //         break;
-        //     case "4":
-        //         findJoinProjectList({ creator: userId, projectName: value });
-        //         break
-        //     default:
-        //         break;
-        // }
+        switch (activeTabs) {
+            case "1":
+                findRepositoryList({name:value})
+                break;
+            case "2":
+                findRecentRepositoryList({ master: userId, name:value })
+                break;
+            case "3":
+                findFocusRepositoryList({ masterId: userId, name:value })
+                break;
+            case "4":
+                findRepositoryList({ masterId: userId, name:value });
+                break
+            default:
+                break;
+        }
     };
 
     const selectTabs = (key) => {
@@ -184,7 +164,7 @@ const Repositorycontent = (props) => {
                 findRecentRepositoryList({ master: userId })
                 break;
             case "3":
-                findRepositoryFocusList({ masterId: userId })
+                findFocusRepositoryList({ masterId: userId })
                 break;
             case "4":
                 findRepositoryList({ masterId: userId });
@@ -221,8 +201,9 @@ const Repositorycontent = (props) => {
 
     const goRepositoryAdd = () => {
         history.push("/index/repositoryAdd")
-
     }
+
+   
     return (
         <div className="repository">
             <Row>

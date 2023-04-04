@@ -35,12 +35,10 @@ const Index = observer(() => {
         ...messageModuleStores,
         ...store
     }
-    // allStore.authConfigStore.getFindAuthConfig()
     const userInfo = getUser()
     if (userInfo && userInfo.userId) {
         allStore.systemRoleStore.getSystemPermissions(userInfo.userId, "kanass")
     }
-    // useVersion("kanass")
 
     const [pluginData,setPluginData] = useState({
         routes: Routes,

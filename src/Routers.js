@@ -81,6 +81,7 @@ const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeLis
 
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
 const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
+const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
 const Routes = [
     {
         path: "/login",
@@ -91,6 +92,11 @@ const Routes = [
         path: "/logout",
         exact: true,
         component: Logout,
+    },
+    {
+        path: "/no-auth",
+        exact: true,
+        component: VailProductUserPage,
     },
     {
         path: "/shareDocument/:id/:shareId",

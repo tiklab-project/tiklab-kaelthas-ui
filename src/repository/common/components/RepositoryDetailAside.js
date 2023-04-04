@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-12-22 14:33:43
  */
 
-import React, { Fragment, useState, useEffect, useId } from 'react';
+import React, { Fragment, useState, useEffect, useId, useRef } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Menu, Dropdown, Button, Modal, Layout, Form } from 'antd';
@@ -23,13 +23,13 @@ const RepositorydeAside = (props) => {
     const { searchrepository, repository, repositorylist, RepositoryCatalogueStore } = props;
     //语言包
     const { t } = useTranslation();
+    const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
         findDmPrjRolePage, repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        addRepositoryCataDocument } = RepositoryCatalogueStore;
+        addRepositoryCataDocument, expandedTree, setExpandedTree } = RepositoryCatalogueStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
-
     const [selectKey, setSelectKey] = useState(id);
     const [isShowText, SetIsShowText] = useState(true)
     const [changeRepositoryVisible, setChangeRepositoryVisible] = useState(null)
@@ -45,7 +45,6 @@ const RepositorydeAside = (props) => {
     useEffect(() => {
         findRepositoryCatalogue(repositoryId).then((data) => {
             setRepositoryCatalogueList(data)
-            console.log(repositoryCatalogueList)
         })
     }, [])
 
@@ -56,12 +55,12 @@ const RepositorydeAside = (props) => {
         } else {
             setSelectKey(id)
         }
-
         return
     }, [id])
 
     //点击左侧菜单
-    const selectKeyFun = (item) => {
+    const selectKeyFun = (event,item) => {
+        event.stopPropagation()
         const params = {
             name: item.name,
             model: item.typeId,
@@ -102,8 +101,8 @@ const RepositorydeAside = (props) => {
     };
 
     // 编辑
-    const editMenu = (id, formatType, fid) => {
-        return <Menu onClick={(value) => editCatelogue(value, id, formatType, fid)}>
+    const editMenu = (fItem, item, fId,index) => {
+        return <Menu onClick={(value) => editCatelogue(fItem, value, item, fId, index)}>
             <Menu.Item key="edit">
                 重命名
             </Menu.Item>
@@ -131,7 +130,7 @@ const RepositorydeAside = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: {id:id},
+                category: { id: id },
             }
             console.log(id)
             addRepositoryCataDocument(data).then((data) => {
@@ -152,6 +151,7 @@ const RepositorydeAside = (props) => {
         } else if (value.key === "category") {
             setAddModalVisible(true)
             setModalTitle("添加目录")
+
         }
         // 
         form.setFieldsValue({
@@ -162,7 +162,8 @@ const RepositorydeAside = (props) => {
     //更新目录
     const inputRef = React.useRef(null);
     const [isRename, setIsRename] = useState()
-    const editCatelogue = (value, id, formatType, fid) => {
+    const editCatelogue = (fItem, value, item, fId, index) => {
+        const {id, formatType} = item;
         value.domEvent.stopPropagation()
         if (value.key === "edit") {
             setIsRename(id)
@@ -173,6 +174,9 @@ const RepositorydeAside = (props) => {
                     if (data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data) => {
                             setRepositoryCatalogueList(data)
+                            console.log(fItem)
+                            // 删除之后显示页面处理
+                           
                         })
                     }
                 })
@@ -182,16 +186,59 @@ const RepositorydeAside = (props) => {
                     if (data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data) => {
                             setRepositoryCatalogueList(data)
+                            console.log(fItem)
+                            // if(fItem.length > 1){
+                            //     if(index !== fItem.length){
+                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index-1].id}`)
+                            //     }
+                            //     if(index !== 0){
+                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index+1].id}`)
+                            //     }
+                            // }else{
+                            //     if(fId == 0){
+                            //         props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
+                            //     }else {
+                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fId}`)
+                            //     }
+                                
+                            // }
                         })
                     }
                 })
+            }
+
+            if(fItem.length > 1){
+                if(index !== fItem.length){
+                    if(fItem[index-1].formatType === "category"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index-1].id}`)
+                    }
+                    if(fItem[index-1].formatType === "document"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index-1].id}`)
+                    }
+                }
+                if(index !== 0){
+                    if(fItem[index+1].formatType === "category"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
+                    }
+                    if(fItem[index+1].formatType === "document"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
+                    }
+                    
+                }
+            }else{
+                if(fId == 0){
+                    props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
+                }else {
+                    props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fId}`)
+                }
+                
             }
         }
         if (value.key === "move") {
             setMoveLogListVisible(true)
             setMoveCategoryId(id)
             setFormatType(formatType)
-            setMoveCategoryParentId(fid)
+            setMoveCategoryParentId(fId)
         }
     }
     useEffect(() => {
@@ -227,8 +274,11 @@ const RepositorydeAside = (props) => {
     const [addModalVisible, setAddModalVisible] = useState()
 
     //折叠菜单
-    const [expandedTree, setExpandedTree] = useState([0])
+    // const [expandedTree, setExpandedTree] = useState([0])
     // 树的展开与闭合
+    // useEffect(() => {
+    //     isExpandedTree()
+    // },[expandedTree])
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
@@ -248,18 +298,22 @@ const RepositorydeAside = (props) => {
     const moveWorkItem = () => {
         const dragEvent = event.target
         dragEvent.style.background = "#d0e5f2";
-
     }
 
-    const moveStart = (moveId, fId, formatType) => {
-
+    const moveStart = (event, moveId, fId, formatType) => {
+        console.log(moveId, fId)
         event.stopPropagation();
         const dragEvent = event.target
         dragEvent.style.background = "#d0e5f2";
 
         // 被拖拽盒子的起始id
         setMoveCategoryId(moveId)
-        setMoveCategoryParentId(fId)
+        if (fId === 0) {
+            setMoveCategoryParentId("nullString")
+        } else {
+            setMoveCategoryParentId(fId)
+        }
+
         setFormatType(formatType)
     }
 
@@ -275,8 +329,15 @@ const RepositorydeAside = (props) => {
     const changeLog = (targetId) => {
         event.preventDefault();
         let value;
+        // console.log(moveRef.current[moveCategoryId], moveCategoryId, event.target)
+        if (formatType === "category") {
+            if (moveRef.current[moveCategoryId].contains(event.target) || moveRef.current[moveCategoryId].current == event.target) {
+                console.log("不可放置")
+                return
+            }
+        }
 
-        if (targetId && targetId !== moveCategoryParentId) {
+        if (targetId && targetId !== moveCategoryParentId && targetId !== moveCategoryId) {
             if (formatType === "category") {
                 if (targetId) {
                     value = {
@@ -319,31 +380,33 @@ const RepositorydeAside = (props) => {
     }
 
 
-    const logTree = (item, levels, faid) => {
+    const logTree = (fItems, item, levels, faid, index) => {
         let newLevels = 0;
         return <div className={`${isExpandedTree(faid) ? "" : 'repository-menu-submenu-hidden'}`}
             key={item.id}
             onDrop={() => changeLog(item.id)}
+            onClick={(event) => selectKeyFun(event,item)}
+            onMouseOver={(event) => {event.stopPropagation(), setIsHover(item.id)}}
+            onMouseLeave={(event) => {event.stopPropagation(), setIsHover(null)}}
+            onDrag={() => moveWorkItem()}
+            onDragOver={dragover}
+            draggable="true"
+            onDragStart={(event) => moveStart(event, item.id, faid, item.formatType)}
+            onDragEnd={() => moveEnd()}
+            ref={el => (moveRef.current[item.id] = el)}
         >
             <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
                 key={item.id}
-                onClick={() => selectKeyFun(item)}
-                onMouseOver={() => setIsHover(item.id)}
-                onMouseLeave={() => setIsHover(null)}
-                onDrag={() => moveWorkItem()}
-                onDragOver={dragover}
-                draggable="true"
-                onDragStart={() => moveStart(item.id, faid, item.formatType)}
-                onDragEnd={() => moveEnd()}
+
             >
                 <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
                     {
                         (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
                             isExpandedTree(item.id) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                <use xlinkHref="#icon-right" ></use>
+                                <use xlinkHref="#icon-down" ></use>
                             </svg> :
                                 <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                    <use xlinkHref="#icon-down" ></use>
+                                    <use xlinkHref="#icon-right" ></use>
                                 </svg> : <svg className="img-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-circle"></use>
                             </svg>
@@ -356,7 +419,7 @@ const RepositorydeAside = (props) => {
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
-                        
+
                     >{item.name} </span>
                 </div>
                 <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
@@ -365,7 +428,7 @@ const RepositorydeAside = (props) => {
                             <use xlinkHref="#icon-plusBlue"></use>
                         </svg>
                     </Dropdown>
-                    <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
+                    <Dropdown overlay={() => editMenu(fItems, item, faid, index)} placement="bottomLeft">
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-moreBlue"></use>
                         </svg>
@@ -374,35 +437,36 @@ const RepositorydeAside = (props) => {
             </div>
             {
                 item.children && item.children.length > 0 && (newLevels = levels + 1) &&
-                item.children.map(childItem => {
-                    return logTree(childItem, newLevels, item.id)
+                item.children.map((childItem, index) => {
+                    return logTree(item.children, childItem, newLevels, item.id, index)
                 })
             }
             {
                 item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
-                item.documents.map(childItem => {
+                item.documents.map((childItem, index) => {
                     if (childItem.typeId !== "mindMap") {
-                        return fileTree(childItem, newLevels, item.id)
+                        return fileTree(item.documents, childItem, newLevels, item.id, index)
                     }
 
                 })
             }
         </div>
     }
-    const fileTree = (item, levels, faid) => {
-        return <div className={`${isExpandedTree(faid) ? null : 'repository-menu-submenu-hidden'}`}
+    const fileTree = (fItems, item, levels, fId, index) => {
+        return <div className={`${isExpandedTree(fId) ? null : 'repository-menu-submenu-hidden'}`}
             key={item.id}
-           
         >
             <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
                 key={item.id}
-                onClick={() => selectKeyFun(item)}
-                onMouseOver={() => setIsHover(item.id)} onMouseLeave={() => setIsHover(null)}
+                onClick={(event) => selectKeyFun(event,item)}
+                onMouseOver={(event) => {event.stopPropagation(),setIsHover(item.id)}} 
+                onMouseLeave={(event) => {event.stopPropagation(),setIsHover(null)}}
                 onDragOver={dragover}
                 onDrag={() => moveWorkItem()}
                 draggable="true"
-                onDragStart={() => moveStart(item.id, faid, item.formatType)}
+                onDragStart={(event) => moveStart(event,item.id, fId, item.formatType)}
                 onDragEnd={() => moveEnd()}
+                ref={el => (moveRef.current[item.id] = el)}
             >
                 <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
                     <svg className="img-icon" aria-hidden="true">
@@ -423,11 +487,11 @@ const RepositorydeAside = (props) => {
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
-                        id = {"file-" + item.id}
+                        id={"file-" + item.id}
                     >{item.name} </span>
                 </div>
                 <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                    <Dropdown overlay={() => editMenu(item.id, item.formatType, faid)} placement="bottomLeft">
+                    <Dropdown overlay={() => editMenu(fItems, item, fId, index)} placement="bottomLeft">
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-moreBlue"></use>
                         </svg>
@@ -459,7 +523,7 @@ const RepositorydeAside = (props) => {
                             {/* <svg className="img-icon" aria-hidden="true">
                                 <use xlinkHref="#icon-folder"></use>
                             </svg> */}
-                            {repository?.name}
+                            <span>{repository?.name}</span>
                         </span>
                         <div className="repository-toggleCollapsed">
                             <ChangeRepositoryModal
@@ -510,12 +574,12 @@ const RepositorydeAside = (props) => {
                         </div>
 
                         {
-                            repositoryCatalogueList && repositoryCatalogueList.map(item => {
+                            repositoryCatalogueList && repositoryCatalogueList.map((item,index) => {
                                 if (item.typeId === "document") {
-                                    return fileTree(item, 0, 0)
+                                    return fileTree(repositoryCatalogueList,item, 0, 0, index)
                                 }
                                 if (item.formatType === "category") {
-                                    return logTree(item, 0, 0)
+                                    return logTree(repositoryCatalogueList,item, 0, 0, index)
                                 }
                             })
                         }

@@ -14,8 +14,9 @@ import AddLog from "../common/components/LogAdd"
 import { getUser } from "tiklab-core-ui";
 const LogDetail = (props) => {
     const { RepositoryCatalogueStore } = props;
-    const { detailRepositoryLog, findCategoryDocument, findDmPrjRolePage, setRepositoryCatalogueList, createDocumentRecent, addRepositoryCataDocument } = RepositoryCatalogueStore
-    const categoryId = localStorage.getItem("categoryId");
+    const { detailRepositoryLog, findCategoryDocument, findDmPrjRolePage, setRepositoryCatalogueList, 
+        createDocumentRecent, addRepositoryCataDocument,  expandedTree, setExpandedTree, findRepositoryCatalogue } = RepositoryCatalogueStore
+    const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
     // 当前知识库id
@@ -32,7 +33,6 @@ const LogDetail = (props) => {
     }, [categoryId])
 
     const [addModalVisible, setAddModalVisible] = useState()
-    const [templateId, setTemplateId] = useState()
     // 添加按钮下拉菜单
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
@@ -59,6 +59,18 @@ const LogDetail = (props) => {
     const [form] = Form.useForm();
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
+
+    const isExpandedTree = (key) => {
+        return expandedTree.some(item => item === key)
+    }
+    const setOpenOrClose = key => {
+        if (isExpandedTree(key)) {
+            setExpandedTree(expandedTree.filter(item => item !== key))
+        } else {
+            setExpandedTree(expandedTree.concat(key));
+        }
+    }
+
     const selectAddType = (value, id) => {
         setCatalogueId(id)
         findDmPrjRolePage(repositoryId).then(data => {
@@ -66,6 +78,7 @@ const LogDetail = (props) => {
         })
         if (value.key === "category") {
             setAddModalVisible(true)
+            
         } else {
             const data = {
                 name: "未命名文档",
@@ -73,22 +86,20 @@ const LogDetail = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: {id:id},
+                category: { id: id },
             }
-            console.log(id)
             addRepositoryCataDocument(data).then((data) => {
                 if (data.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-
+                    setOpenOrClose(id)
                     props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
                     // 左侧导航
                     setSelectKey(data.data)
+                    findRepositoryCatalogue(repositoryId).then((data) => {
+                        setRepositoryCatalogueList(data)
+                    })
                 }
             })
         }
-        // 
         form.setFieldsValue({
             formatType: value.key
         })
@@ -147,36 +158,36 @@ const LogDetail = (props) => {
 
                         <div className="log-child">
                             {
-                                logList && logList.length > 0 ?  logList.map(item => {
+                                logList && logList.length > 0 ? logList.map(item => {
                                     return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
-                                            <div className="log-child-name" style={{flex: 1}}>
-                                                {
-                                                    item.formatType && item.formatType === "category" &&
-                                                    <svg className="log-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-folder"></use>
-                                                    </svg>
-                                                }
-                                                {
-                                                    item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
-                                                    <svg className="log-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-minmap"></use>
-                                                    </svg>
-                                                }
-                                                {
-                                                    item.formatType && item.formatType === "document" && item.typeId === "document" &&
-                                                    <svg className="log-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-file"></use>
-                                                    </svg>
-                                                }
+                                        <div className="log-child-name" style={{ flex: 1 }}>
+                                            {
+                                                item.formatType && item.formatType === "category" &&
+                                                <svg className="log-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-folder"></use>
+                                                </svg>
+                                            }
+                                            {
+                                                item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
+                                                <svg className="log-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-minmap"></use>
+                                                </svg>
+                                            }
+                                            {
+                                                item.formatType && item.formatType === "document" && item.typeId === "document" &&
+                                                <svg className="log-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-file"></use>
+                                                </svg>
+                                            }
 
-                                                <span>{item.name}</span>
-                                            </div>
-                                            <div  style={{flex: 1}}>{item.master.nickname}</div>
-                                            <div  style={{flex: 1}}>{item.updateTime}</div>
+                                            <span>{item.name}</span>
                                         </div>
+                                        <div style={{ flex: 1 }}>{item.master.nickname}</div>
+                                        <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                    </div>
                                 })
-                                :
-                                <Empty image="/images/nodata.png" description="暂时没有内容~" />
+                                    :
+                                    <Empty image="/images/nodata.png" description="暂时没有内容~" />
                             }
                         </div>
 
@@ -192,6 +203,7 @@ const LogDetail = (props) => {
                 contentValue={contentValue}
                 setSelectKey={setSelectKey}
                 userList={userList}
+                modalTitle={"添加目录"}
                 {...props}
             />
             {/* <TemplateList

@@ -13,6 +13,9 @@ import {FindRepositoryCatalogue,AddRepositoryCatalogue,DetailRepositoryLog,AddRe
 export class RepositoryCatalogueStore {
     // 知识库id
     @observable repositoryCatalogue = [];
+    @observable
+    expandedTree = [0];
+    // const [expandedTree, setExpandedTree] = useState([0])
     // 目录树
     @observable repositoryCatalogueList = [];
     @observable docDetail = [{
@@ -20,6 +23,11 @@ export class RepositoryCatalogueStore {
         type: "",
         content: ""
     }]
+
+    @action
+    setExpandedTree = (value) => {
+        this.expandedTree = value;
+    }
     /**
      * 
      * @param {*} id 

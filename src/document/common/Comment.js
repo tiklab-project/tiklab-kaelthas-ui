@@ -13,7 +13,7 @@ const Comment = (props) => {
     const [commontContent, setCommontContent] = useState();
     const [commonList, setCommonList] = useState();
     const userId = getUser().userId;
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(10);
     const [totalPage, setTotalPage] = useState(0)
     useEffect(() => {
         const value = {

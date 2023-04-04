@@ -64,7 +64,7 @@ const Layout = (props) => {
 }
 
 
-const IndexHoc = UserVerify(Layout, '/noAuth')
+const IndexHoc = UserVerify(Layout, '/no-auth')
 function mapStateToProps(state) {
     return {
         pluginStore: state.pluginStore

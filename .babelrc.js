@@ -129,6 +129,7 @@ const plugins = [
         }, 
         "tiklab-security-ui"
     ],
+   
     [
         "@babel/plugin-proposal-decorators",
         {
