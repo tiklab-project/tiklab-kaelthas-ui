@@ -4,7 +4,7 @@
     .document-examine-content {
         display: flex;
         justify-content: space-between;
-        height: calc(100vh - 48px);
+        height: calc(100vh - 98px);
     }
     .document-examine-row {
         height: calc(100vh - 100px);
@@ -61,6 +61,9 @@
         right: 20px;
         .comment-box-item {
             padding: 5px;
+        }
+        .comment-item {
+            cursor: pointer;
         }
         .top-item {
             border-bottom: #f0f0f0 1px solid;

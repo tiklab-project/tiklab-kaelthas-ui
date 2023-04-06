@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import "./brainMapFlowExamine.scss"
-import Share from "../../common/Share";
+import Share from "../../common/ShareModal";
 import BrainMapFlowRead from "./BrainMapFlowRead"
 import { getUser } from "tiklab-core-ui";
 import Comment from "../../common/Comment";

@@ -138,7 +138,9 @@ const RepositorydeAside = (props) => {
                     findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
                     })
-
+                    if (!isExpandedTree(id)) {
+                        setExpandedTree(expandedTree.concat(id));
+                    }
                     props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
                     // 左侧导航
                     setSelectKey(data.data)
@@ -174,9 +176,6 @@ const RepositorydeAside = (props) => {
                     if (data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data) => {
                             setRepositoryCatalogueList(data)
-                            console.log(fItem)
-                            // 删除之后显示页面处理
-                           
                         })
                     }
                 })
@@ -186,44 +185,26 @@ const RepositorydeAside = (props) => {
                     if (data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data) => {
                             setRepositoryCatalogueList(data)
-                            console.log(fItem)
-                            // if(fItem.length > 1){
-                            //     if(index !== fItem.length){
-                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index-1].id}`)
-                            //     }
-                            //     if(index !== 0){
-                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index+1].id}`)
-                            //     }
-                            // }else{
-                            //     if(fId == 0){
-                            //         props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
-                            //     }else {
-                            //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fId}`)
-                            //     }
-                                
-                            // }
                         })
                     }
                 })
             }
 
             if(fItem.length > 1){
-                if(index !== fItem.length){
-                    if(fItem[index-1].formatType === "category"){
+                if(index !== fItem.length - 1){
+                    if(fItem[index+1].typeId === "category"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
+                    }
+                    if(fItem[index+1].typeId === "document"){
+                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index+1].id}`)
+                    }
+                }else {
+                    if(fItem[index-1].typeId === "category"){
                         props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index-1].id}`)
                     }
-                    if(fItem[index-1].formatType === "document"){
+                    if(fItem[index-1].typeId === "document"){
                         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index-1].id}`)
                     }
-                }
-                if(index !== 0){
-                    if(fItem[index+1].formatType === "category"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
-                    }
-                    if(fItem[index+1].formatType === "document"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
-                    }
-                    
                 }
             }else{
                 if(fId == 0){
@@ -520,9 +501,6 @@ const RepositorydeAside = (props) => {
                                         className="img-icon"
                                     />
                             }
-                            {/* <svg className="img-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-folder"></use>
-                            </svg> */}
                             <span>{repository?.name}</span>
                         </span>
                         <div className="repository-toggleCollapsed">

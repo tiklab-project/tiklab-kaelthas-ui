@@ -23,7 +23,7 @@ import {observer} from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
 import "./assets/index";
-
+import "tiklab-slate-ui/es/tiklab-slate.css"
 enableAxiosCE()
 const Index = observer(() => {
     const {i18n} = useTranslation();

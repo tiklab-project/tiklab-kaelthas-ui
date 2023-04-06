@@ -7,6 +7,7 @@
  * @LastEditTime: 2021-09-10 16:51:01
  */
 import { observable, action} from "mobx";
+import { Service } from "../../../common/utils/requset";
 import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../api/RepositoryCommon"
 export class RepositoryCommon {
     @observable repositoryCommonList = [];
@@ -20,12 +21,20 @@ export class RepositoryCommon {
     createComment = async(value)=> {
         console.log(value)
         const data = await CreateComment(value);
-        return data.data;
+        return data;
     }
 
     @action
     findCommentPage = async(value)=> {
         const data = await FindCommentPage(value)
+        return data;
+    }
+
+    @action
+    deleteComment = async(value)=> {
+        const params = new FormData();
+        params.append("id", value.id)
+        const data = await Service("/comment/deleteComment",params);
         return data;
     }
 

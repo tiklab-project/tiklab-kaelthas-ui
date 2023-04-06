@@ -11,7 +11,7 @@ import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import { PreviewEditor } from "tiklab-slate-ui"
 import "./documentExamine.scss"
-import Share from "../../share/components/ShareDocument";
+import ShareModal from "../../common/ShareModal";
 import { getUser } from "tiklab-core-ui";
 import Comment from "../../common/Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
@@ -22,7 +22,7 @@ const DocumentExamine = (props) => {
     const documentId = props.match.params.id;
     const { findDocument } = RepositoryCatalogueStore;
     
-    const { createComment, findCommentPage, createLike, createShare, updateShare } = repositoryCommon
+    const { createLike, createShare, updateShare } = repositoryCommon
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
@@ -32,7 +32,6 @@ const DocumentExamine = (props) => {
     const [like, setLike] = useState(false)
     const [title, seTitle] = useState()
     const [value, setValue] = useState()
-    const [titleValue, setTitleValue] = useState(title);
 
     useEffect(() => {
         seTitle()
@@ -86,22 +85,6 @@ const DocumentExamine = (props) => {
                     <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
-                    {/* <span className="comment-item">
-                        <svg className="icon-svg" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
-                            <use xlinkHref="#icon-comments"></use>
-                        </svg>
-                        {docInfo.commentNumber}
-                    </span>
-                    <span className="comment-item" onClick={addDocLike}>
-                        {
-                            like ? <svg className="icon-svg" aria-hidden="true">
-                                <use xlinkHref="#icon-zan"></use>
-                            </svg> : <svg className="icon-svg" aria-hidden="true">
-                                <use xlinkHref="#icon-dianzan"></use>
-                            </svg>
-                        }
-                        {docInfo.likenumInt}
-                    </span> */}
                     <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button>
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>
@@ -147,7 +130,7 @@ const DocumentExamine = (props) => {
                 
             </div>
 
-            {/* <Share shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} /> */}
+            <ShareModal shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
         </div>
     )
 }

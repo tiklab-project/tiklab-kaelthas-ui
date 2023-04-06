@@ -8,8 +8,8 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { Modal, Radio , Button, Input } from 'antd';
-import "./share.scss"
-const Share = (props) => {
+import "./shareModal.scss"
+const ShareModal = (props) => {
     const { shareVisible, setShareVisible, docInfo,createShare,updateShare } = props;
     const documentId = localStorage.getItem("documentId");
     const [value, setValue] = React.useState("false");
@@ -152,11 +152,11 @@ const Share = (props) => {
             </Radio.Group>
             {
                 value === "public" ? <div className="share-link link-box" ref={link} id="link">
-                    <div className="share-text">链接地址:</div><div className="share-content">http://192.168.2.3:3001/#/shareDocument/{documentId}/{shareLink}</div>
+                    <div className="share-text">链接地址:</div><div className="share-content">http://127.0.0.1:3004/#/shareDocument/{documentId}/{shareLink}</div>
                 </div> : <div ref={link} id="link" className = "link-box">
                     <div className="share-link" >
                         <div className="share-text">链接地址：</div>
-                        <div className="share-content">http://192.168.2.3:3001/#/shareDocument/{documentId}/{shareLink}</div>
+                        <div className="share-content">http://127.0.0.1:3004/#/shareDocument/{documentId}/{shareLink}</div>
                     </div>
                     {
                         authCode && <div className="share-link"><div className="share-text">密码：</div><div className="share-content">{authCode}</div></div>
@@ -178,7 +178,7 @@ const Share = (props) => {
                 </div>
                 <div className="share-item" >
                     <svg className="share-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-firend"></use>
+                        <use xlinkHref="#icon-friend"></use>
                     </svg>
                     <span className="share-name">朋友圈</span>
                 </div>
@@ -204,4 +204,4 @@ const Share = (props) => {
         </Modal>
     )
 }
-export default Share;
+export default ShareModal;

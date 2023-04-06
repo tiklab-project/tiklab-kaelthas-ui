@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
-import { Input, Empty } from "antd";
+import { Input, Empty, message } from "antd";
 import Button from "../../common/button/button";
 import "./comment.scss"
 import { getUser } from "tiklab-core-ui";
@@ -9,98 +9,115 @@ import moment from "moment";
 
 const Comment = (props) => {
     const { repositoryCommon, documentId, setShowComment } = props;
-    const { createComment, findCommentPage } = repositoryCommon;
-    const [commontContent, setCommontContent] = useState();
-    const [commonList, setCommonList] = useState();
+    const { createComment, findCommentPage, deleteComment } = repositoryCommon;
+    const [commentFirstContent, setCommentFirstContent] = useState();
+    const [commentSecondContent, setCommentSecondContent] = useState();
+    const [commentThirdContent, setCommentThirdContent] = useState();
+    const [commentList, setCommentList] = useState();
     const userId = getUser().userId;
-    const [currentPage, setCurrentPage] = useState(10);
+    const userName = getUser().name;
+    const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0)
     useEffect(() => {
         const value = {
             documentId: documentId,
             pageParam: {
-                pageSize: 1,
+                pageSize: 10,
                 currentPage: currentPage,
             }
         }
         findCommentPage(value).then(data => {
             if (data.code === 0) {
-                console.log(data)
-                setCommonList(data.data.dataList)
+                setCommentList(data.data.dataList)
                 setTotalPage(data.data.totalPage)
             }
         })
     }, [documentId])
 
 
-    const commonInput = (value) => {
-        setCommontContent(value.target.value)
-    }
-    const announce = () => {
-        const value = {
-            document: {
-                id: documentId
-            },
-            details: commontContent,
-            user: { id: userId },
 
+    const announce = () => {
+        if (commentFirstContent) {
+            const value = {
+                document: {
+                    id: documentId
+                },
+                details: commentFirstContent,
+                user: { id: userId, name: userName }
+            }
+            createComment(value).then(data => {
+                if (data.code === 0) {
+                    value.id = data.data
+                    value.commentList = []
+                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data, user: { name: getUser().name } }
+                    commentList.unshift(newCommon)
+                    setCommentList([...commentList])
+                    setCommentFirstContent(null)
+                }
+
+            })
+        } else {
+            message.info("请输入内容")
         }
-        createComment(value).then(data => {
-            const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data, user: { name: getUser().name } }
-            commonList.unshift(newCommon)
-            setCommonList([...commonList])
-            setCommontContent(null)
-            console.log(commonList)
-            // findCommentPage({ documentId: documentId }).then(data => {
-            //     console.log(data)
-            //     if (data.code === 0) {
-            //         setCommonList(data.data)
-            //         setCommontContent("")
-            //     }
-            // })
-        })
+
     }
     //回复评论
     const [reply, setReply] = useState()
 
-    const announceReply = (id) => {
-        const value = {
-            firstOneCommentId: id,
-            parentCommentId: id,
-            document: {
-                id: documentId
-            },
-            details: commontContent,
-            user: { id: userId },
+    const announceReply = (id, index, aimAtUser) => {
+        if (commentSecondContent) {
+            const value = {
+                firstOneCommentId: id,
+                parentCommentId: id,
+                document: {
+                    id: documentId
+                },
+                details: commentSecondContent,
+                user: { id: userId, name: userName },
+                aimAtUser: aimAtUser
+            }
+            createComment(value).then(data => {
+                if (data.code === 0) {
+                    setReply(null)
+                    value.id = data.data
+                    commentList[index].commentList.unshift(value)
+                    setCommentList([...commentList])
+                    setCommentSecondContent(null)
+                }
 
+            })
+        } else {
+            message.info("请输入内容")
         }
-        createComment(value).then(data => {
-            const list = commonList.unshift(value)
-            setCommonList(list)
 
-        })
     }
 
     const [childrenReply, setChildrenReply] = useState()
-    const announceThirdReply = (firstOneCommentId, parentCommentId) => {
-        const data = {
-            firstOneCommentId: firstOneCommentId,
-            parentCommentId: parentCommentId,
-            document: {
-                id: documentId
-            },
-            details: commontContent,
-            user: { id: userId }
-        }
-        createComment(data).then(data => {
-            findCommentPage({ documentId: documentId }).then(data => {
-                console.log(data)
+    const announceThirdReply = (firstOneCommentId, parentCommentId, index, aimAtUser) => {
+        if (commentThirdContent) {
+            const value = {
+                firstOneCommentId: firstOneCommentId,
+                parentCommentId: parentCommentId,
+                document: {
+                    id: documentId
+                },
+                details: commentThirdContent,
+                user: { id: userId, name: userName },
+                aimAtUser: aimAtUser
+            }
+            createComment(value).then(data => {
                 if (data.code === 0) {
+                    value.id = data.data
                     setChildrenReply(null)
-                    setCommonList(data.data)
+                    commentList[index].commentList.unshift(value)
+                    setCommentList([...commentList])
+                    setCommentThirdContent(null)
                 }
             })
-        })
+        }else {
+            message.info("请输入内容")
+        }
+
     }
 
 
@@ -117,13 +134,31 @@ const Comment = (props) => {
 
         findCommentPage(data).then(data => {
             if (data.code === 0) {
-                const list = commonList.concat(data.data.dataList)
-                setCommonList(list)
+                const list = commentList.concat(data.data.dataList)
+                setCommentList(list)
                 setTotalPage(data.data.totalPage)
             }
         })
     }
 
+    const deleteFirst = (id) => {
+        deleteComment({ id: id }).then(res => {
+            if (res.code === 0) {
+                const list = commentList.filter((item) => item.id !== id);
+                setCommentList(list)
+            }
+        })
+    }
+
+    const deleteSecond = (fid, id) => {
+        deleteComment({ id: id }).then(res => {
+            if (res.code === 0) {
+                const list = commentList[fid].commentList.filter((item) => item.id !== id);
+                commentList[fid].commentList = list;
+                setCommentList([...commentList])
+            }
+        })
+    }
     return (
         <div className="comment">
             <div className="comment-top">
@@ -137,13 +172,13 @@ const Comment = (props) => {
                     <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-user5"></use>
                     </svg>
-                    <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
-                    <Button type="primary" onClick={() => announce()}>发布</Button>
+                    <Input placeholder="请输入评论" value={commentFirstContent} onChange={value => setCommentFirstContent(value.target.value)} />
+                    <Button type="primary" onClick={() => announce()} disable={commentSecondContent}>发布</Button>
                 </div>
                 {
-                    commonList && commonList.length > 0 ? <>
+                    commentList && commentList.length > 0 ? <>
                         {
-                            commonList && commonList.map(item => {
+                            commentList && commentList.map((item, index) => {
                                 return <div className="comment-item" key={item.id}>
                                     <div className="comment-user">
                                         <svg className="icon-svg" aria-hidden="true">
@@ -159,10 +194,10 @@ const Comment = (props) => {
                                             {item.createTime}
                                         </div>
                                         <div>
-                                            <span>编辑</span>
-                                            <span>删除</span>
-                                            <span onClick={() => setReply(item.id)}>回复</span>
-                                            <span>赞</span>
+                                            <span className="comment-edit">编辑</span>
+                                            <span onClick={() => deleteFirst(item.id)} className="comment-delete">删除</span>
+                                            <span onClick={() => setReply(item.id)} className="comment-reply">回复</span>
+                                            <span className="comment-like">赞</span>
                                         </div>
 
                                     </div>
@@ -170,11 +205,11 @@ const Comment = (props) => {
                                         <svg className="icon-svg" aria-hidden="true">
                                             <use xlinkHref="#icon-user5"></use>
                                         </svg>
-                                        <Input placeholder="请输入评论" value={commontContent} onChange={value => commonInput(value)} />
-                                        <Button type="primary" onClick={() => announceReply(item.id)}>发布</Button>
+                                        <Input placeholder="请输入评论" value={commentSecondContent} onChange={value => setCommentSecondContent(value.target.value)} />
+                                        <Button type="primary" onClick={() => announceReply(item.id, index, item.user)} disable={commentSecondContent}>发布</Button>
                                     </div>
                                     {
-                                        item.commentList && item.commentList.map(children => {
+                                        item.commentList && item.commentList.map((children, childrenIndex) => {
                                             return <div className="comment-item commnet-children-item" key={children.id}>
                                                 <div className="comment-user">
                                                     <svg className="icon-svg" aria-hidden="true">
@@ -186,17 +221,17 @@ const Comment = (props) => {
                                                     {children.details}
                                                 </div>
                                                 <div className="comment-operate">
-                                                    <span>编辑</span>
-                                                    <span>删除</span>
-                                                    <span onClick={() => setChildrenReply(children.id)}>回复</span>
-                                                    <span>赞</span>
+                                                    <span className="comment-edit">编辑</span>
+                                                    <span className="comment-delete" onClick={() => deleteSecond(index, children.id)}>删除</span>
+                                                    <span className="comment-reply" onClick={() => setChildrenReply(children.id)}>回复</span>
+                                                    <span className="comment-like">赞</span>
                                                 </div>
                                                 <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
                                                     <svg className="icon-svg" aria-hidden="true">
                                                         <use xlinkHref="#icon-user5"></use>
                                                     </svg>
-                                                    <Input placeholder="请输入评论" onChange={value => commonInput(value)} />
-                                                    <Button type="primary" onClick={() => announceThirdReply(item.id, children.id)}>发布</Button>
+                                                    <Input placeholder="请输入评论" value={commentThirdContent} onChange={value => setCommentThirdContent(value.target.value)} />
+                                                    <Button type="primary" disable={commentThirdContent} onClick={() => announceThirdReply(item.id, children.id, index, children.user)}>发布</Button>
                                                 </div>
                                             </div>
 
@@ -210,8 +245,8 @@ const Comment = (props) => {
                             totalPage > 1 && currentPage < totalPage && <div className="comment-more-botton" onClick={() => nextPageCommon()}>查看更多...</div>
                         }
                     </>
-                    :
-                    <Empty image="/images/nodata.png" description="暂时没有评价~" />
+                        :
+                        <Empty image="/images/nodata.png" description="暂时没有评价~" />
                 }
 
 
