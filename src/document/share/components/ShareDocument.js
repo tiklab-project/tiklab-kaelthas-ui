@@ -19,7 +19,7 @@ import { inject, observer } from "mobx-react";
 import { Row, Col, Input, Button } from 'antd';
 import { PreviewEditor } from "tiklab-slate-ui"
 import "./shareDocument.scss"
-import Comment from "../../common/CommentShare";
+import Comment from "./CommentShare";
 import { withRouter } from "react-router";
 const ShareDocument = (props) => {
     const { shareStore } = props;

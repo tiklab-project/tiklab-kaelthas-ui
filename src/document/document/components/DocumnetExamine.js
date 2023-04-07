@@ -11,18 +11,18 @@ import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import { PreviewEditor } from "tiklab-slate-ui"
 import "./documentExamine.scss"
-import ShareModal from "../../common/ShareModal";
+import ShareModal from "../../share/components/ShareModal";
 import { getUser } from "tiklab-core-ui";
-import Comment from "../../common/Comment";
+import Comment from "./Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
 
 
 const DocumentExamine = (props) => {
-    const { repositoryCommon, RepositoryCatalogueStore } = props;
+    const { commentStore, RepositoryCatalogueStore } = props;
     const documentId = props.match.params.id;
     const { findDocument } = RepositoryCatalogueStore;
-    
-    const { createLike, createShare, updateShare } = repositoryCommon
+
+    const { createLike, createShare, updateShare, deleteLike } = commentStore
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
@@ -30,6 +30,8 @@ const DocumentExamine = (props) => {
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
+    let [likeNum, setLikeNum] = useState()
+    let [commentNum, setCommentNum] = useState()
     const [title, seTitle] = useState()
     const [value, setValue] = useState()
 
@@ -39,15 +41,15 @@ const DocumentExamine = (props) => {
         findDocument(documentId).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
-                    console.log("1")
                     setValue(JSON.parse(data.data.details))
                 } else {
-                    console.log("2")
                     setValue()
                 }
                 setDocInfo(data.data)
                 seTitle(data.data.name)
                 setLike(data.data.like)
+                setLikeNum(data.data.likenumInt)
+                setCommentNum(data.data.commentNumber)
             }
         })
 
@@ -62,26 +64,37 @@ const DocumentExamine = (props) => {
             likeUser: { id: userId },
             likeType: "doc"
         }
-        createLike(data).then(res => {
-            if (res.code === 0) {
-                setLike(true)
+        if (like) {
+            deleteLike(data).then(res => {
+                setLike(false)
+                likeNum = likeNum - 1;
+                setLikeNum(likeNum)
+            })
+        } else {
+            createLike(data).then(res => {
+                if (res.code === 0) {
+                    setLike(true)
+                    likeNum = likeNum + 1;
+                    setLikeNum(likeNum)
+                }
+            })
+        }
 
-            }
-        })
+
     }
 
 
     return (
         <div className="document-examine">
             <div className="examine-top">
-                <div className="examine-title" id = "examine-title">{docInfo.name}</div>
+                <div className="examine-title" id="examine-title">{docInfo.name}</div>
                 <div className="document-edit">
                     {
                         value && <svg className="icon-svg" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
-                        <use xlinkHref="#icon-edit"></use>
-                    </svg>
+                            <use xlinkHref="#icon-edit"></use>
+                        </svg>
                     }
-                    
+
                     <svg className="icon-svg" aria-hidden="true">
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
@@ -101,33 +114,33 @@ const DocumentExamine = (props) => {
                         </Col>
                     </Row>
                     {
-                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} />
+                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum = {commentNum} setCommentNum = {setCommentNum}/>
                     }
 
                 </div>
-                :
-                <DocumentAddEdit title = {title}/>
+                    :
+                    <DocumentAddEdit title={title} />
             }
             <div className="comment-box">
-                <div className="comment-box-item top-item" >
-                    <span className="comment-item">
-                        <svg className="midden-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
-                            <use xlinkHref="#icon-comments"></use>
-                        </svg>
-                    </span>
+                <div className="comment-box-item top-item">
+                    <svg className="midden-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
+                        <use xlinkHref="#icon-comment"></use>
+                    </svg>
+                    <div className="commnet-num">{commentNum}</div>
                 </div>
-                <div  className="comment-box-item">
+                <div className="comment-box-item">
                     <span className="comment-item" onClick={addDocLike}>
-                    {
-                        like ? <svg className="midden-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-zan"></use>
-                        </svg> : <svg className="midden-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-dianzan"></use>
-                        </svg>
-                    }
-                </span>
+                        {
+                            like ? <svg className="midden-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-zan"></use>
+                            </svg> : <svg className="midden-icon" aria-hidden="true">
+                                <use xlinkHref="#icon-dianzan"></use>
+                            </svg>
+                        }
+                    </span>
+                    <div className="commnet-num" style={{ top: "37px" }}>{likeNum}</div>
                 </div>
-                
+
             </div>
 
             <ShareModal shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
@@ -135,4 +148,4 @@ const DocumentExamine = (props) => {
     )
 }
 
-export default inject("repositoryCommon", "RepositoryCatalogueStore")(observer(DocumentExamine));
+export default inject("commentStore", "RepositoryCatalogueStore")(observer(DocumentExamine));

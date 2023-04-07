@@ -47,8 +47,6 @@ const RepositorySetDetail = (props)=>{
         <Layout className="repository-set">
             <RepositorySetAside 
                 repositoryName={repositoryname}
-                // prolist={prolist} 
-                // searchpro = {searchpro} 
                 {...props}
             />
             <Layout>

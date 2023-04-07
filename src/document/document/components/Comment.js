@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Input, Empty, message } from "antd";
-import Button from "../../common/button/button";
+import Button from "../../../common/button/button";
 import "./comment.scss"
 import { getUser } from "tiklab-core-ui";
 import moment from "moment";
 
 const Comment = (props) => {
-    const { repositoryCommon, documentId, setShowComment } = props;
-    const { createComment, findCommentPage, deleteComment } = repositoryCommon;
+    const { commentStore, documentId, setShowComment, commentNum, setCommentNum } = props;
+    const { createComment, findCommentPage, deleteComment, deleteCommentCondition } = commentStore;
     const [commentFirstContent, setCommentFirstContent] = useState();
     const [commentSecondContent, setCommentSecondContent] = useState();
     const [commentThirdContent, setCommentThirdContent] = useState();
@@ -49,10 +49,11 @@ const Comment = (props) => {
                 if (data.code === 0) {
                     value.id = data.data
                     value.commentList = []
-                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data, user: { name: getUser().name } }
+                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data.data, user: { name: getUser().name,id: userId } }
                     commentList.unshift(newCommon)
                     setCommentList([...commentList])
                     setCommentFirstContent(null)
+                    setCommentNum(commentNum + 1)
                 }
 
             })
@@ -83,6 +84,7 @@ const Comment = (props) => {
                     commentList[index].commentList.unshift(value)
                     setCommentList([...commentList])
                     setCommentSecondContent(null)
+                    setCommentNum(commentNum + 1)
                 }
 
             })
@@ -112,6 +114,7 @@ const Comment = (props) => {
                     commentList[index].commentList.unshift(value)
                     setCommentList([...commentList])
                     setCommentThirdContent(null)
+                    setCommentNum(commentNum + 1)
                 }
             })
         }else {
@@ -127,7 +130,7 @@ const Comment = (props) => {
         const data = {
             documentId: documentId,
             pageParam: {
-                pageSize: 1,
+                pageSize: 2,
                 currentPage: page,
             }
         }
@@ -141,11 +144,13 @@ const Comment = (props) => {
         })
     }
 
-    const deleteFirst = (id) => {
-        deleteComment({ id: id }).then(res => {
+    const deleteFirst = (id, index) => {
+        deleteCommentCondition({ firstOneCommentId: id }).then(res => {
             if (res.code === 0) {
                 const list = commentList.filter((item) => item.id !== id);
                 setCommentList(list)
+                const num = commentList[index].commentList.length + 1
+                setCommentNum(commentNum - num)
             }
         })
     }
@@ -156,6 +161,7 @@ const Comment = (props) => {
                 const list = commentList[fid].commentList.filter((item) => item.id !== id);
                 commentList[fid].commentList = list;
                 setCommentList([...commentList])
+                setCommentNum(commentNum - 1)
             }
         })
     }
@@ -194,8 +200,8 @@ const Comment = (props) => {
                                             {item.createTime}
                                         </div>
                                         <div>
-                                            <span className="comment-edit">编辑</span>
-                                            <span onClick={() => deleteFirst(item.id)} className="comment-delete">删除</span>
+                                            {/* <span className="comment-edit" onClick={() => updataFirst(item.id)}>编辑</span> */}
+                                            <span onClick={() => deleteFirst(item.id, index)} className="comment-delete">删除</span>
                                             <span onClick={() => setReply(item.id)} className="comment-reply">回复</span>
                                             <span className="comment-like">赞</span>
                                         </div>
@@ -221,7 +227,7 @@ const Comment = (props) => {
                                                     {children.details}
                                                 </div>
                                                 <div className="comment-operate">
-                                                    <span className="comment-edit">编辑</span>
+                                                    {/* <span className="comment-edit">编辑</span> */}
                                                     <span className="comment-delete" onClick={() => deleteSecond(index, children.id)}>删除</span>
                                                     <span className="comment-reply" onClick={() => setChildrenReply(children.id)}>回复</span>
                                                     <span className="comment-like">赞</span>
@@ -255,4 +261,4 @@ const Comment = (props) => {
     )
 }
 
-export default inject("repositoryCommon")(observer(Comment));
+export default inject("commentStore")(observer(Comment));

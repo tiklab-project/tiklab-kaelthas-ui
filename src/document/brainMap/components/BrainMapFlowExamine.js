@@ -10,15 +10,15 @@ import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
 import "./brainMapFlowExamine.scss"
-import Share from "../../common/ShareModal";
+import Share from "../../share/components/ShareModal";
 import BrainMapFlowRead from "./BrainMapFlowRead"
 import { getUser } from "tiklab-core-ui";
-import Comment from "../../common/Comment";
+import Comment from "../../document/components/Comment";
 
 const BrainMapExamine = (props) => {
-    const { repositoryCommon, RepositoryCatalogueStore } = props;
+    const { commentStore, RepositoryCatalogueStore } = props;
     const documentId = localStorage.getItem("documentId");
-    const { createComment, findCommentPage, createLike, createShare, updateShare, } = repositoryCommon;
+    const { createComment, findCommentPage, createLike, createShare, updateShare, } = commentStore;
     const { docDetail, findDocument } = RepositoryCatalogueStore;
     const [shareVisible, setShareVisible] = useState(false)
     const [commonList, setCommonList] = useState()
@@ -182,4 +182,4 @@ const BrainMapExamine = (props) => {
     )
 }
 
-export default inject("repositoryCommon", "RepositoryCatalogueStore")(observer(BrainMapExamine));
+export default inject("commentStore", "RepositoryCatalogueStore")(observer(BrainMapExamine));

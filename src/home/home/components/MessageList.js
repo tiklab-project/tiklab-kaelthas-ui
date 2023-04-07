@@ -19,16 +19,15 @@ const MessageList = (props) => {
     const [open, setOpen] = useState(false);
     const messageRef = useRef()
 
-    useEffect(() => {
-        if (open) {
-            findMessageDispatchItemPage({ page: 1, status: currenTab })
-        }
-        findMessageDispatchItemPage({ page: 1, status: "0" }).then(res => {
-            if(res.code === 0) {
-                setUnReadMessage(res.data.totalRecord)
-            }
-        })
-    }, [open])
+    // useEffect(() => {
+    //     if (open) {
+    //         
+    //     }
+    // }, [open])
+    const openDrawer = () => {
+        setOpen(true)
+        findMessageDispatchItemPage({ page: 1, status: currenTab })
+    }
 
     useEffect(() => {
         window.addEventListener("mousedown", closeModal, false);
@@ -76,7 +75,7 @@ const MessageList = (props) => {
     }
     return (
         <div ref = {messageRef}>
-            <a className="frame-header-language" data-title="消息提示" onClick={() => setOpen(true)}>
+            <a className="frame-header-language" data-title="消息提示" onClick={() => openDrawer()}>
                 <Badge count={unReadMessage} size="small">
                     <Avatar
                         size="small" style={{ background: "transparent", fontSize: "22px" }} icon={<MessageOutlined style={{ color: "#fff" }} />} />
@@ -101,9 +100,12 @@ const MessageList = (props) => {
             // }
             >
                 <div className="message-content">
+                    {
+                        console.log(messageList)
+                    }
                     <Tabs onChange={onChange} size = "small" activeKey = {currenTab}>
                         <Tabs.TabPane tab="未读" key="0">
-                            <div className="message-box" ref={todoMessageList}>
+                            <div className="message-box">
                                 {
                                     messageList && messageList.length > 0 && messageList.map(item => {
                                         return <div className="message-list" key={item.id} >
@@ -125,7 +127,7 @@ const MessageList = (props) => {
                             </div>
                         </Tabs.TabPane>
                         <Tabs.TabPane tab="已读" key="1">
-                            <div className="message-box" ref={todoMessageList}>
+                            <div className="message-box">
                                 {
                                     messageList && messageList.length > 0 && messageList.map(item => {
                                         return <div className="message-list" key={item.id} >

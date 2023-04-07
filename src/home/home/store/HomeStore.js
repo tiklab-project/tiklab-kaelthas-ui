@@ -4,6 +4,7 @@ import { Service } from "../../../common/utils/requset";
 export class HomeStore {
     @observable currentLink = "home";
     @observable opLogList = [];
+    @observable messageList = []
     @action
     setCurrentLink = (value) => {
         this.currentLink = value
@@ -42,13 +43,12 @@ export class HomeStore {
             if(value.page > 1 && this.isMessageReachBottom) {
                 this.messageList.push(...data.data.dataList);
             }
-
-           
             if(value.page >= this.messageTotal) {
                 this.isMessageReachBottom = false
             }else {
                 this.isMessageReachBottom = true
             }
+            console.log(this.messageList)
         }
         return data;
     }

@@ -8,8 +8,8 @@
  */
 import { observable, action} from "mobx";
 import { Service } from "../../../common/utils/requset";
-import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../api/RepositoryCommon"
-export class RepositoryCommon {
+import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../../../repository/common/api/RepositoryCommon"
+export class CommentStore {
     @observable repositoryCommonList = [];
     @observable commonPageParams = {
         pageParam: {
@@ -26,8 +26,9 @@ export class RepositoryCommon {
 
     @action
     findCommentPage = async(value)=> {
-        const data = await FindCommentPage(value)
+        const data = await Service("/comment/findCommentTreePage",value);
         return data;
+
     }
 
     @action
@@ -39,8 +40,20 @@ export class RepositoryCommon {
     }
 
     @action
+    deleteCommentCondition = async(value)=> {
+        const data = await Service("/comment/deleteCommentCondition",value);
+        return data;
+    }
+
+    @action
     createLike = async(value)=> {
         const data = await CreateLike(value)
+        return data;
+    }
+
+    @action
+    deleteLike = async(value)=> {
+        const data = await Service("/like/deleteLikeCondition",value);
         return data;
     }
 
@@ -57,4 +70,4 @@ export class RepositoryCommon {
     }
 }
 
-export const REPOSITORYCOMMON_STORE = "repositoryCommon"
+export const COMMENT_STORE = "commentStore"

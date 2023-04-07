@@ -1,16 +1,19 @@
 .document-examine {
     background-color: #fff;
     position: relative;
+
     .document-examine-content {
         display: flex;
         justify-content: space-between;
         height: calc(100vh - 98px);
     }
+
     .document-examine-row {
         height: calc(100vh - 100px);
         overflow: auto;
         flex: 1;
     }
+
     .examine-top {
         line-height: 50px;
         height: 50px;
@@ -19,27 +22,33 @@
         justify-content: space-between;
         border: 1px solid #f7f8fa;
         padding: 0 20px;
+
         .examine-title {
             font-size: 18px;
             font-weight: 600;
         }
+
         .comment-item {
             display: flex;
             align-items: center;
         }
+
         .document-edit {
             display: flex;
             align-items: center;
             gap: 10px;
+
             .icon-svg {
                 width: 20px;
                 height: 20px;
             }
+
             .right-icon {
                 width: 20px;
                 height: 20px;
             }
         }
+
         .inline {
             border-left: 2px solid #f0f0f0;
             height: 20px;
@@ -51,6 +60,7 @@
     .preview-editor {
         min-height: 300px;
     }
+
     .comment-box {
         box-shadow: rgb(112 144 176 / 24%) 0px 0px 1px 0px, rgb(112 144 176 / 12%) 0px 6px 24px 4px;
         padding: 6px;
@@ -59,16 +69,27 @@
         position: absolute;
         bottom: 150;
         right: 20px;
+
         .comment-box-item {
             padding: 5px;
         }
+
         .comment-item {
             cursor: pointer;
         }
+
         .top-item {
             border-bottom: #f0f0f0 1px solid;
         }
+
+        .commnet-num {
+            font-size: 11px;
+            transform: scale(.8);
+            position: absolute;
+            top: 0;
+            right: 4px;
+        }
     }
-    
-    
+
+
 }
