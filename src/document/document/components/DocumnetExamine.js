@@ -143,7 +143,7 @@ const DocumentExamine = (props) => {
 
             </div>
 
-            <ShareModal shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
+            <ShareModal documentIds = {[documentId]} shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
         </div>
     )
 }

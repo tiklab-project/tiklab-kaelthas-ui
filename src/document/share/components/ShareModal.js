@@ -10,15 +10,15 @@ import React, { useState, useEffect, useRef } from "react";
 import { Modal, Radio , Button, Input } from 'antd';
 import "./shareModal.scss"
 const ShareModal = (props) => {
-    const { shareVisible, setShareVisible, docInfo,createShare,updateShare } = props;
-    const documentId = localStorage.getItem("documentId");
-    const [value, setValue] = React.useState("false");
+    const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds } = props;
+    // const documentId = localStorage.getItem("documentId");
+    const [value, setValue] = React.useState("publish");
     const [shareLink,setShareLink] = useState()
     const [authCode,setAuthCode] = useState()
     const link = useRef(null)
     const onChange = e => {
         setValue(e.target.value);
-        updateShare({shareLink: shareLink,whetherAuthCode: e.target.value}).then(data=> {
+        updateShare({id: shareLink,limits: e.target.value}).then(data=> {
             console.log(data)
             if(data.code === 0) {
                 if(e.target.value === true){
@@ -27,23 +27,23 @@ const ShareModal = (props) => {
                     setAuthCode(null)
                 }
                 setAuthCode(data.data.authCode)
-                setShareLink(data.data.shareLink)
+                setShareLink(data.data.id)
             }
         })
     };
     const onFinish = () => { }
     useEffect(()=> {
         if(shareVisible === true) {
-            createShare({documentId: documentId,whetherAuthCode: value}).then(data=> {
+            createShare({documentIds: documentIds,categoryIds: categoryIds,limits: value}).then(data=> {
                 console.log(data)
                 if(data.code === 0) {
-                    setShareLink(data.data.shareLink)
+                    setShareLink(data.data.id)
                     setAuthCode(data.data.authCode)
                 }
             })
         }
         
-    },[shareVisible,documentId])
+    },[shareVisible,documentIds])
     // 分享qq空间
     const shareToQZon = (pic) => {
         console.log(window.location.href)
@@ -52,7 +52,7 @@ const ShareModal = (props) => {
             /*分享地址(可选)*/
             desc: '文档',
             /*分享理由(可选)*/
-            title: docInfo.name || "",
+            title: docInfo?.name || "",
             /*分享标题(可选)*/
             summary: authCode ? `密码：${authCode}`: "",
             /*分享描述(可选)*/
@@ -76,7 +76,7 @@ const ShareModal = (props) => {
             url: window.location.href,
             desc: '文档',
             /*分享理由*/
-            title: docInfo.name || '',
+            title: docInfo?.name || '',
             /*分享标题(可选)*/
             summary: '分享',
             /*分享描述(可选)*/
@@ -147,16 +147,16 @@ const ShareModal = (props) => {
             destroyOnClose={true}
         >   
             <Radio.Group onChange={onChange} value={value}>
-                <Radio value="false">公开链接</Radio>
-                <Radio value= "true">私密链接</Radio>
+                <Radio value="publish">公开链接</Radio>
+                <Radio value= "private">私密链接</Radio>
             </Radio.Group>
             {
                 value === "public" ? <div className="share-link link-box" ref={link} id="link">
-                    <div className="share-text">链接地址:</div><div className="share-content">http://127.0.0.1:3004/#/shareDocument/{documentId}/{shareLink}</div>
+                    <div className="share-text">链接地址:</div><div className="share-content">http://127.0.0.1:3004/#/shareDocument/{shareLink}</div>
                 </div> : <div ref={link} id="link" className = "link-box">
                     <div className="share-link" >
                         <div className="share-text">链接地址：</div>
-                        <div className="share-content">http://127.0.0.1:3004/#/shareDocument/{documentId}/{shareLink}</div>
+                        <div className="share-content">http://127.0.0.1:3004/#/shareDocument/{shareLink}</div>
                     </div>
                     {
                         authCode && <div className="share-link"><div className="share-text">密码：</div><div className="share-content">{authCode}</div></div>

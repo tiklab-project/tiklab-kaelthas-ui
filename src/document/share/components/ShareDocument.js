@@ -37,11 +37,12 @@ const ShareDocument = (props) => {
     const [commonList, setCommonList] = useState()
     useEffect(() => {
         const shareLink = new FormData();
-        shareLink.append("shareLink", `${props.match.params.shareId}${props.location.search}`)
+        shareLink.append("shareLink", `${props.match.params.shareId}`)
         judgeAuthCode(shareLink).then(data => {
+            // console.log(props.location.state)
             if (data.data === "true") {
                 if (!props.location.state) {
-                    window.location.href = `http://127.0.0.1:3004/#/passWord/${props.match.params.id}/${props.match.params.shareId}${props.location.search}`
+                    window.location.href = `http://127.0.0.1:3004/#/passWord/${props.match.params.shareId}`
                 } else {
                     commentView({ documentId: props.match.params.id }).then(data => {
                         console.log(data)

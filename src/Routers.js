@@ -38,6 +38,7 @@ const Template = AsyncComponent(() => import('./setting/template/components/Temp
 const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
+const SharePage = AsyncComponent(()=> import('./document/share/components/SharePortal'))
 // 分享文档页面
 const PassWord = AsyncComponent(() => import('./document/share/components/PassWord'))
 
@@ -99,12 +100,17 @@ const Routes = [
         component: VailProductUserPage,
     },
     {
-        path: "/shareDocument/:id/:shareId",
+        path: "/shareDocument/:shareId",
         exact: true,
         component: ShareDocument,
     },
     {
-        path: "/passWord/:id/:shareId",
+        path: "/sharePage/:shareId",
+        exact: true,
+        component: SharePage,
+    },
+    {
+        path: "/passWord/:shareId",
         exact: true,
         component: PassWord,
     },

@@ -13,7 +13,8 @@ import { observer, inject } from "mobx-react";
 import { Menu, Dropdown, Button, Modal, Layout, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
 import AddLog from "./LogAdd"
-import ChangeRepositoryModal from "./RepositoryChangeModal"
+import ChangeRepositoryModal from "./RepositoryChangeModal";
+import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
 const { Sider } = Layout;
@@ -39,6 +40,8 @@ const RepositorydeAside = (props) => {
 
     const [modalTitle, setModalTitle] = useState()
     const userId = getUser().userId
+    
+    const [shareListVisible, setShareListVisible] = useState(false)
 
     // 模板内容
     const [contentValue, setContentValue] = useState()
@@ -111,6 +114,9 @@ const RepositorydeAside = (props) => {
             </Menu.Item>
             <Menu.Item key="move">
                 移动
+            </Menu.Item>
+            <Menu.Item key="share">
+                分享
             </Menu.Item>
         </Menu>
     };
@@ -220,6 +226,9 @@ const RepositorydeAside = (props) => {
             setMoveCategoryId(id)
             setFormatType(formatType)
             setMoveCategoryParentId(fId)
+        }
+        if (value.key === "share") {
+            setShareListVisible(true)
         }
     }
     useEffect(() => {
@@ -419,10 +428,16 @@ const RepositorydeAside = (props) => {
             {
                 item.children && item.children.length > 0 && (newLevels = levels + 1) &&
                 item.children.map((childItem, index) => {
-                    return logTree(item.children, childItem, newLevels, item.id, index)
+                    if(childItem.formatType === "document"){
+                        return fileTree(item.children, childItem, newLevels, item.id, index)
+                    }
+                    if(childItem.formatType === "category"){
+                        return logTree(item.children, childItem, newLevels, item.id, index)
+                    }
+                    
                 })
             }
-            {
+            {/* {
                 item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
                 item.documents.map((childItem, index) => {
                     if (childItem.typeId !== "mindMap") {
@@ -430,7 +445,7 @@ const RepositorydeAside = (props) => {
                     }
 
                 })
-            }
+            } */}
         </div>
     }
     const fileTree = (fItems, item, levels, fId, index) => {
@@ -526,17 +541,6 @@ const RepositorydeAside = (props) => {
                             onMouseLeave={() => setIsHover(null)}
                         >
                             <div className="repository-menu-firstmenu-left">
-                                {/* {
-                                    repositoryCatalogueList && repositoryCatalogueList.length > 0 ?
-                                        isExpandedTree(0) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(0)}>
-                                            <use xlinkHref="#icon-right" ></use>
-                                        </svg> :
-                                            <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(0)}>
-                                                <use xlinkHref="#icon-down" ></use>
-                                            </svg> : <svg className="img-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-circle"></use>
-                                        </svg>
-                                } */}
                                 <svg className="img-icon" aria-hidden="true">
                                     <use xlinkHref="#icon-repository"></use>
                                 </svg>
@@ -598,15 +602,11 @@ const RepositorydeAside = (props) => {
                 updateRepositoryCatalogue={updateRepositoryCatalogue}
                 moveCategoryParentId={moveCategoryParentId}
             />
-            {/* <TemplateList changeTemplateVisible={changeTemplateVisible}
-                setChangeTemplateVisible={setChangeTemplateVisible}
-                templateId={templateId}
-                setTemplateId={setTemplateId}
-                setAddModalVisible={setAddModalVisible}
-                contentValue={contentValue}
-                setContentValue={setContentValue}
-
-            /> */}
+            <ShareListModal 
+                repositoryCatalogueList={repositoryCatalogueList}
+                shareListVisible = {shareListVisible}
+                setShareListVisible = {setShareListVisible}
+            />
         </Fragment>
     )
 }

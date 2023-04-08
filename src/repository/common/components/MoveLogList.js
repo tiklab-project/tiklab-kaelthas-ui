@@ -77,7 +77,7 @@ const MoveLogList = (props) => {
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((category) => {
-            if(category.formatType === "category" && moveCategoryParentId !== category.id){
+            if(category.formatType === "category"){
                 return <div className={`${!isExpandedTree(faid) ||  selectKey !== faid ? null : 'repository-menu-submenu-hidden'}`}
                     key={category.id}
                 >
