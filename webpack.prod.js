@@ -92,13 +92,6 @@ module.exports = merge(baseWebpackConfig, {
                     priority: 50,
                     reuseExistingChunk: true
                 },
-                tiklabSlateUI: {
-                    name: 'chunk-tiklab-slate-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]tiklab-slate-ui[\\/]/,
-                    priority: 70,
-                    reuseExistingChunk: true
-                },
                 mobx: {
                     name: 'chunk-mobx',
                     chunks: 'all',

@@ -36,88 +36,57 @@ const ShareDocument = (props) => {
 
     const [commonList, setCommonList] = useState()
     useEffect(() => {
-        const shareLink = new FormData();
-        shareLink.append("shareLink", `${props.match.params.shareId}`)
-        judgeAuthCode(shareLink).then(data => {
-            // console.log(props.location.state)
-            if (data.data === "true") {
-                if (!props.location.state) {
-                    window.location.href = `http://127.0.0.1:3004/#/passWord/${props.match.params.shareId}`
-                } else {
-                    commentView({ documentId: props.match.params.id }).then(data => {
-                        console.log(data)
-                        if (data.code === 0) {
-                            setCommonList(data.data)
-                        }
-                    })
-                    documentView({ documentId: props.match.params.id }).then((data) => {
-                        if (data.code === 0) {
-                            if (data.data.details) {
-                                setValue(JSON.parse(data.data.details))
-                                console.log()
-                            } else {
-                                setValue([
-                                    {
-                                        type: "paragraph",
-                                        children: [{ text: "" }],
-                                    },
-                                ])
-                            }
-                            setDocInfo(data.data)
-                        }
-                    })
-                }
+        commentView({ documentId: props.match.params.id }).then(data => {
+            console.log(data)
+            if (data.code === 0) {
+                setCommonList(data.data)
             }
-            if (data.data === "false") {
-                commentView({ documentId: props.match.params.id }).then(data => {
-                    console.log(data)
-                    if (data.code === 0) {
-                        setCommonList(data.data)
-                    }
-                })
-                documentView({ documentId: props.match.params.id }).then((data) => {
-                    if (data.code === 0) {
-                        if (data.data.details) {
-                            setValue(JSON.parse(data.data.details))
-                            console.log()
-                        } else {
-                            setValue([
-                                {
-                                    type: "paragraph",
-                                    children: [{ text: "" }],
-                                },
-                            ])
-                        }
-                        setDocInfo(data.data)
-                    }
-                })
+        })
+        documentView({ documentId: props.match.params.id }).then((data) => {
+            if (data.code === 0) {
+                if (data.data.details) {
+                    setValue(JSON.parse(data.data.details))
+                    console.log()
+                } else {
+                    setValue([
+                        {
+                            type: "paragraph",
+                            children: [{ text: "" }],
+                        },
+                    ])
+                }
+                setDocInfo(data.data)
             }
         })
 
-    }, [])
+    }, [props.match.params.id])
     return (
         <div className="document-share-examine">
-            <Row style={{ height: "100%", flex: 1, overflow: "auto" }}>
-                <Col className="repositorydetail-content-col" xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
-                    <div>
-                        <div className="examine-title"><span className="examine-name">{docInfo.name}</span><span className="examine-type">类型：{docInfo.type === "doc" ? "文档" : "目录"}</span></div>
-                        <PreviewEditor value={value} />
-                    </div>
+            <div className="examine-title">
+                <span className="examine-name">{docInfo.name}</span>
+            </div>
+            <div className="examine-content">
+                <Row style={{ flex: 1, overflow: "auto" }}>
+                    <Col className="repositorydetail-content-col" xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
+                        <div style={{paddingTop: "10px"}}>
+                            <PreviewEditor value={value} />
+                        </div>
 
-                </Col>
-            </Row>
-            {
-                showComment && <Comment documentId={props.match.params.id} setShowComment={setShowComment} />
-            }
+                    </Col>
+                </Row>
+                {
+                    showComment && <Comment documentId={props.match.params.id} setShowComment={setShowComment} />
+                }
+            </div>
+
+
             <div className="comment-box">
-                <div className="comment-box-item" >
-                    <span className="comment-item" onClick={() => setShowComment(!showComment)}>
-                        <svg className="midden-icon" aria-hidden="true" >
-                            <use xlinkHref="#icon-comments"></use>
-                        </svg>
-                    </span>
+                <div className="comment-box-item">
+                    <svg className="midden-icon" aria-hidden="true" onClick={() => setShowComment(!showComment)}>
+                        <use xlinkHref="#icon-comment"></use>
+                    </svg>
+                    <div className="commnet-num">{docInfo.commentNumber}</div>
                 </div>
-
             </div>
         </div>
 

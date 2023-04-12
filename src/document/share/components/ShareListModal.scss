@@ -1,4 +1,14 @@
-.ant-tree-switcher{
-    display: flex;
-    align-items: center;
+.share-list {
+    .ant-tree-switcher{
+        display: flex;
+        align-items: center;
+    }
+    .ant-tree-treenode {
+        padding: 10 0;
+    }
+    .share-icon {
+        margin: 3px;
+        width: 18px;
+        height: 18px;
+    }
 }

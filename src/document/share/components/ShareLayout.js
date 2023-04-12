@@ -8,38 +8,17 @@
  */
 import React, { useEffect, useState } from 'react';
 import logo from "../../../assets/images/logo_k3.png";
-import "./SharePortal.scss";
-import ShareDocument from "./ShareDocument";
+import "./ShareLayout.scss";
+import ShareAside from "./ShareAside";
+import {Layout } from "antd"
 import { Dropdown, Space } from "antd";
+import { renderRoutes } from "react-router-config";
+const ShareLayout = (props) => {
+    const {route} = props;
+    useEffect(() => {
+       
 
-const SharePortal = (props) => {
-
-    const routers = [
-        {
-            to: '/index/home',
-            title: '首页',
-            key: 'home'
-        },
-        {
-            to: '/index/repository',
-            title: '知识库',
-            key: 'repository'
-        },
-        {
-            to: '/index/sysmgr/systemFeature',
-            title: '系统',
-            key: 'sysmgr'
-        }
-    ]
-
-    const projectLogout = () => {
-        props.history.push({
-            pathname: '/logout',
-            state: {
-                preRoute: props.location.pathname
-            }
-        })
-    }
+    }, [])
     const helpMenu = (
         <div className="help-box">
             <div className="help-head">
@@ -111,10 +90,18 @@ const SharePortal = (props) => {
                     </div>
                 </div>
             </div>
-            <ShareDocument />
+            <Layout className="repositorydetail">
+                <ShareAside
+                    {...props}
+                />
+                <Layout className="repositorydetail-content">
+                    {renderRoutes(route.routes)}
+                </Layout>
+                
+            </Layout>
         </div>
     )
 }
 
 
-export default SharePortal;
+export default ShareLayout;

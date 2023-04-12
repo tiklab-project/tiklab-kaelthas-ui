@@ -115,6 +115,8 @@ const LogAdd = (props) => {
             onOk={()=>onFinish()} 
             onCancel={()=>setAddModalVisible(false)}
             destroyOnClose={true}
+            okText = "确定"
+            cancelText = "取消"
         >
             <Form
                 form={form}

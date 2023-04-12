@@ -10,6 +10,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Modal, Radio , Button, Input } from 'antd';
 import "./shareModal.scss"
 const ShareModal = (props) => {
+    const origin = location.origin;
     const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds } = props;
     // const documentId = localStorage.getItem("documentId");
     const [value, setValue] = React.useState("publish");
@@ -101,7 +102,7 @@ const ShareModal = (props) => {
             /** 是否显示分享数，1显示(可选)*/
             title: docInfo.name,
             /** 分享的文字内容(可选，默认为所在页面的title)*/
-            pic: 'http://127.0.0.1:3001/images/logo.png',
+            pic: `${origin}/images/logo.png`,
             /**分享图片的路径(可选)*/
             rnd: new Date().valueOf()
         }
@@ -145,6 +146,8 @@ const ShareModal = (props) => {
             onOk={() => onFinish()}
             onCancel={() => setShareVisible(false)}
             destroyOnClose={true}
+            cancelText = "取消"
+            okText = "确认"
         >   
             <Radio.Group onChange={onChange} value={value}>
                 <Radio value="publish">公开链接</Radio>
@@ -152,11 +155,11 @@ const ShareModal = (props) => {
             </Radio.Group>
             {
                 value === "public" ? <div className="share-link link-box" ref={link} id="link">
-                    <div className="share-text">链接地址:</div><div className="share-content">http://127.0.0.1:3004/#/shareDocument/{shareLink}</div>
+                    <div className="share-text">链接地址:</div><div className="share-content">{origin}/#/share/{shareLink}</div>
                 </div> : <div ref={link} id="link" className = "link-box">
                     <div className="share-link" >
                         <div className="share-text">链接地址：</div>
-                        <div className="share-content">http://127.0.0.1:3004/#/shareDocument/{shareLink}</div>
+                        <div className="share-content">{origin}/#/share/{shareLink}</div>
                     </div>
                     {
                         authCode && <div className="share-link"><div className="share-text">密码：</div><div className="share-content">{authCode}</div></div>

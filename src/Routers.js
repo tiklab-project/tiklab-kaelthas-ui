@@ -13,6 +13,7 @@ import { Redirect } from "react-router-dom";
 const Login = AsyncComponent(() => import('./login/Login'))
 const Logout = AsyncComponent(() => import('./login/Logout'))
 const Home = AsyncComponent(() => import('./home/home/components/home'))
+const ProjectNotFound = AsyncComponent(() => import("./setting/common/components/ProjectNotFond"))
 
 const Index = AsyncComponent(() => import('./home/home/components/Portal'))
 const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
@@ -38,7 +39,9 @@ const Template = AsyncComponent(() => import('./setting/template/components/Temp
 const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
-const SharePage = AsyncComponent(()=> import('./document/share/components/SharePortal'))
+const SharePage = AsyncComponent(()=> import('./document/share/components/ShareLayout'))
+const ShareCategory = AsyncComponent(() => import('./document/share/components/PassWord'))
+const ShareCategoryDetail = AsyncComponent(() => import('./document/share/components/ShareCategoryDetail'))
 // 分享文档页面
 const PassWord = AsyncComponent(() => import('./document/share/components/PassWord'))
 
@@ -83,6 +86,7 @@ const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeLis
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
 const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
 const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
+
 const Routes = [
     {
         path: "/login",
@@ -100,20 +104,26 @@ const Routes = [
         component: VailProductUserPage,
     },
     {
-        path: "/shareDocument/:shareId",
-        exact: true,
-        component: ShareDocument,
-    },
-    {
-        path: "/sharePage/:shareId",
-        exact: true,
+        path: "/share/:shareId",
         component: SharePage,
+        routes: [
+              {
+                    path: "/share/:shareId/doc/:id",
+                    component: ShareDocument,
+                },
+                {
+                    path: "/share/:shareId/category/:id",
+                    component: ShareCategoryDetail,
+                },
+                
+        ]
     },
     {
         path: "/passWord/:shareId",
         exact: true,
         component: PassWord,
     },
+  
     {
         path: "/index",
         component: Index,
@@ -124,7 +134,12 @@ const Routes = [
                 component: Home,
                 key: 'home'
             },
-            
+            {
+                path:"/index/404",
+                exact: true,
+                component: ProjectNotFound,
+                key: 'NotFound'
+            },
             {
                 path: "/index/dynamic",
                 exact: true,

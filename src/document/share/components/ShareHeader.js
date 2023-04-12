@@ -12,7 +12,6 @@ import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
 
 import { getVersionInfo, getUser } from 'tiklab-core-ui';
-import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import { AppLink } from 'tiklab-integration-ui';
 import UserIcon from "../../../common/UserIcon/UserIcon"
@@ -228,7 +227,6 @@ const Header = props => {
                                 </Space>
                             </div>
                         </div>
-                        <Message />
                         <div className="frame-header-icon">
                             <div className="frame-header-help" data-title="帮助与支持">
                                 <Dropdown overlay={helpMenu} trigger={"click"}>

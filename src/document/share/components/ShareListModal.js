@@ -9,7 +9,7 @@ const ShareListModal = (props) => {
     const [documentIds, setDocumentIds] = useState([])
     const [categoryIds, setCateGoryIds] = useState([])
     const [shareVisible, setShareVisible] = useState(false)
-    const { createShare, updateShare} = commentStore;
+    const { createShare, updateShare } = commentStore;
 
     const onSelect = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
@@ -20,9 +20,9 @@ const ShareListModal = (props) => {
         let documents = [];
         let categorys = []
         list.map(item => {
-            if(item?.formatType === "document"){
+            if (item?.formatType === "document") {
                 documents.push(item.id)
-            }else {
+            } else {
                 categorys.push(item.key)
             }
         })
@@ -32,44 +32,62 @@ const ShareListModal = (props) => {
         console.log(documents, categorys)
 
     };
-    const onFinish = () => { 
+    const onFinish = () => {
         setShareVisible(true)
     }
     const renderTreeNodes = data =>
         data.map(item => {
             if (item.children) {
                 return (
-                    <TreeNode 
-                        title={item.name} 
-                        key={item.id} 
+                    <TreeNode
+                        title={item.name}
+                        key={item.id}
                         dataRef={item}
-                        icon={({ selected }) => <Icon type={selected ? 'frown' : 'frown-o'} />}
-                        >
+                        formatType={item.formatType}
+                        icon={({ formatType }) => {
+                            return <svg className="share-icon" aria-hidden="true">
+                                <use xlinkHref={formatType === "document" ? "#icon-file" : "#icon-folder"} ></use>
+                            </svg>
+                        }}
+                    >
                         {renderTreeNodes(item.children)}
                     </TreeNode>
                 );
             }
-            return <TreeNode title={item.name}  key={item.id} {...item} dataRef={item} />;
+            return <TreeNode
+                title={item.name}
+                icon={({ formatType }) => {
+                    return <svg className="share-icon" aria-hidden="true">
+                        <use xlinkHref={formatType === "document" ? "#icon-file" : "#icon-folder"} ></use>
+                    </svg>
+                }}
+                formatType={item.formatType}
+                key={item.id} {...item}
+                dataRef={item}
+            />;
         });
     return (
-        <Fragment>
+        <div className="share-list-modal">
             <Modal
                 title="选择移动目录"
                 visible={shareListVisible}
-                cancelText = "取消"
-                okText = "确认"
+                cancelText="取消"
+                okText="确认"
                 onOk={() => onFinish()}
                 onCancel={() => setShareListVisible(false)}
             >
-                
-                <Tree checkable onSelect={onSelect}
-                    onCheck={onCheck}>
-                    {renderTreeNodes(repositoryCatalogueList)}
-                </Tree>
+                <div className="share-list">
+                    <Tree checkable showIcon onSelect={onSelect}
+                        onCheck={onCheck}>
+                        {renderTreeNodes(repositoryCatalogueList)}
+                    </Tree>
+                </div>
+
+
             </Modal>
-            <ShareModal documentIds = {documentIds} categoryIds = {categoryIds} shareVisible={shareVisible} setShareVisible={setShareVisible} createShare={createShare} updateShare={updateShare} />
-        </Fragment>
-        
+            <ShareModal documentIds={documentIds} categoryIds={categoryIds} shareVisible={shareVisible} setShareVisible={setShareVisible} createShare={createShare} updateShare={updateShare} />
+        </div>
+
 
     );
 };

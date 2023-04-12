@@ -22,7 +22,7 @@ const PassWord = (props) => {
     const jump = ()=> {
         verifyAuthCode({shareLink:`${props.match.params.shareId}${props.location.search}`,authCode:value}).then((data)=> {
             if(data.data === "true"){
-                props.history.push({pathname: `/shareDocument/${props.match.params.id}/${props.match.params.shareId}${props.location.search}`,state: {password: data.data}})
+                props.history.push({pathname: `/share/${props.match.params.shareId}`,state: {password: data.data}})
             }
         })
     }

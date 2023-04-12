@@ -36,15 +36,14 @@
         "@antv/xflow": "^1.0.48",
         "@province-city-china/level": "^7.1.3",
         "antd": "^4.15.2",
-        "tiklab-core-ui": "^1.0.0",
-        "tiklab-eam-ui": "^1.0.0",
-        "tiklab-flow-ui": "^1.0.0",
-        "tiklab-form-ui": "^1.0.0",
+        "tiklab-core-ui": "^1.0.1",
+        "tiklab-eam-ui": "^1.0.1",
+        "tiklab-flow-ui": "^1.0.1",
+        "tiklab-form-ui": "^1.0.1",
         "tiklab-licence-ui": "^1.0.1",
-        "tiklab-message-ui": "^1.0.0",
-        "tiklab-plugin-ui": "^1.0.0",
-        "tiklab-user-ui": "^1.0.0",
-        "tiklab-project-widget": "^1.0.0",
+        "tiklab-message-ui": "^1.0.1",
+        "tiklab-plugin-ui": "^1.0.1",
+        "tiklab-user-ui": "^1.0.1",
         "i18next": "^19.8.4",
         "i18next-browser-languagedetector": "^6.0.1",
         "mobx": "^5.15.4",
@@ -62,7 +61,8 @@
         "tiklab-plugin-manager-ui": "^1.0.1",
         "tiklab-security-ui": "^1.0.1",
         "tiklab-todotask-ui": "^1.0.1",
-        "tiklab-integration-ui": "^1.0.1"
+        "tiklab-integration-ui": "^1.0.1",
+        "tiklab-slate-ui": "^1.0.1"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.1",
@@ -150,7 +150,10 @@
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^5.4.0",
-        "webpack-parallel-uglify-plugin": "^1.1.2"
+        "webpack-parallel-uglify-plugin": "^1.1.2",
+        "slate": "^0.66.0",
+        "slate-history": "^0.65.3",
+        "slate-react": "^0.66.0"
     },
     "dependencies": {
         "@ant-design/icons": "^4.3.0",

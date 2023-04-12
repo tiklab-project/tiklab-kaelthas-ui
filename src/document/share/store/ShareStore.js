@@ -37,5 +37,11 @@ export class ShareStore {
         const data = await Service("/share/judgeAuthCode", value);
         return data;
     }
+
+    @action
+    findShareCategory = async(value)=> {
+        const data = await Service("/share/findShareCategory", value);
+        return data;
+    }
 }
 export const SHARE_STORE = "shareStore"
