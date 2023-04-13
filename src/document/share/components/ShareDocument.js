@@ -23,7 +23,6 @@ import Comment from "./CommentShare";
 import { withRouter } from "react-router";
 const ShareDocument = (props) => {
     const { shareStore } = props;
-
     const { documentView, commentView, judgeAuthCode } = shareStore;
     const [showComment, setShowComment] = useState(false);
     const [value, setValue] = useState([
@@ -46,7 +45,6 @@ const ShareDocument = (props) => {
             if (data.code === 0) {
                 if (data.data.details) {
                     setValue(JSON.parse(data.data.details))
-                    console.log()
                 } else {
                     setValue([
                         {

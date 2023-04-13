@@ -123,7 +123,26 @@ const Routes = [
         exact: true,
         component: PassWord,
     },
-  
+    // {
+    //     path: "/share/:shareId/tenant/:tenant",
+    //     component: SharePage,
+    //     routes: [
+    //           {
+    //                 path: "/share/:shareId/tenant/:tenant/doc/:id",
+    //                 component: ShareDocument,
+    //             },
+    //             {
+    //                 path: "/share/:shareId/tenant/:tenant/category/:id",
+    //                 component: ShareCategoryDetail,
+    //             },
+                
+    //     ]
+    // },
+    // {
+    //     path: "/passWord/:shareId/tenant/:tenant",
+    //     exact: true,
+    //     component: PassWord,
+    // },
     {
         path: "/index",
         component: Index,

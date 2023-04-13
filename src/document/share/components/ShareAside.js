@@ -12,18 +12,18 @@ import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Layout, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
-import "./ShareAside.scss"
+import "./ShareAside.scss";
 const { Sider } = Layout;
 const ShareAside = (props) => {
     // 解析props
-    console.log(props)
-    const [form] = Form.useForm();
+    const origin = location.origin;
     const { shareStore } = props;
+    console.log(props)
+    const tenant = props.location.search.split("=")[1];
     //语言包
     const { t } = useTranslation();
     const moveRef = useRef([]);
-    const { findShareCategory, judgeAuthCode} = shareStore;
-
+    const { findShareCategory, judgeAuthCode, setTenant } = shareStore;
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
     const [isShowText, SetIsShowText] = useState(true)
@@ -32,7 +32,8 @@ const ShareAside = (props) => {
     const [repositoryCatalogueList, setRepositoryCatalogueList] = useState([])
 
     useEffect(() => {
-        setSelectKey(id)
+        setSelectKey(id);
+        setTenant(tenant);
         return
     }, [id])
 
@@ -43,18 +44,19 @@ const ShareAside = (props) => {
             // console.log(props.location.state)
             if (data.data === "true") {
                 if (!props.location.state) {
-                    window.location.href = `http://127.0.0.1:3004/#/passWord/${shareLink}`
+                    if(version === "ce"){
+                        window.location.href = `${origin}/#/passWord/${shareLink}`
+                    }
+                    if(version === "cloud"){
+                        window.location.href = `${origin}/#/passWord/${shareLink}?tenant=${tenant}`
+                    }
+                    
                 } else {
                     findShareCategory(params).then((data) => {
                         if (data.code === 0) {
                             setRepositoryCatalogueList(data.data)
                             const item = data.data[0]
-                            if (item?.formatType === "category") {
-                                props.history.push(`/share/${shareLink}/category/${item.id}`)
-                            }
-                            if (item?.formatType === "document") {
-                                props.history.push(`/share/${shareLink}/doc/${item.id}`)
-                            }
+                            setUrl(item)
                             setSelectKey(item.id)
                         }
                     })
@@ -66,12 +68,7 @@ const ShareAside = (props) => {
                     if (data.code === 0) {
                         setRepositoryCatalogueList(data.data)
                         const item = data.data[0]
-                        if (item?.formatType === "category") {
-                            props.history.push(`/share/${shareLink}/category/${item.id}`)
-                        }
-                        if (item?.formatType === "document") {
-                            props.history.push(`/share/${shareLink}/doc/${item.id}`)
-                        }
+                        setUrl(item)
                         setSelectKey(item.id)
                     }
                 })
@@ -81,17 +78,30 @@ const ShareAside = (props) => {
     }, [shareLink])
 
 
+    const setUrl = (item) => {
+        if (version === "ce") {
+            if (item.formatType === "category") {
+                props.history.push(`/share/${shareLink}/category/${item.id}`)
+            }
+            if (item.typeId === "document") {
+                props.history.push(`/share/${shareLink}/doc/${item.id}`)
+            }
+        }
+        if (version === "cloud") {
+            if (item.formatType === "category") {
+                props.history.push(`/share/${shareLink}/category/${item.id}?tenant=${tenant}`)
+            }
+            if (item.typeId === "document") {
+                props.history.push(`/share/${shareLink}/doc/${item.id}?tenant=${tenant}`)
+            }
+        }
 
+    }
     //点击左侧菜单
     const selectKeyFun = (event, item) => {
         event.stopPropagation()
         setSelectKey(item.id)
-        if (item.formatType === "category") {
-            props.history.push(`/share/${shareLink}/category/${item.id}`)
-        }
-        if (item.typeId === "document") {
-            props.history.push(`/share/${shareLink}/doc/${item.id}`)
-        }
+        setUrl(item)
     }
     //更新目录
     const inputRef = React.useRef(null);

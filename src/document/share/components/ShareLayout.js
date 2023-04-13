@@ -7,16 +7,15 @@
  * @LastEditTime: 2022-04-25 16:14:15
  */
 import React, { useEffect, useState } from 'react';
-import logo from "../../../assets/images/logo_k3.png";
 import "./ShareLayout.scss";
 import ShareAside from "./ShareAside";
-import {Layout } from "antd"
+import { Layout } from "antd"
 import { Dropdown, Space } from "antd";
 import { renderRoutes } from "react-router-config";
 const ShareLayout = (props) => {
-    const {route} = props;
+    const { route } = props;
     useEffect(() => {
-       
+
 
     }, [])
     const helpMenu = (
@@ -77,7 +76,11 @@ const ShareLayout = (props) => {
     return (
         <div className="share-page">
             <div className="share-page-head">
-                <div className='share-page-logo'><img src={logo} alt={'logo'} /></div>
+                <div className='share-page-logo'>
+                    <img
+                        src={('images/logo_k3.png')}
+                    />
+                </div>
                 <div className="share-header-icon">
                     <div className="share-header-help" data-title="帮助与支持">
                         <Dropdown overlay={helpMenu} trigger={"click"}>
@@ -97,7 +100,7 @@ const ShareLayout = (props) => {
                 <Layout className="repositorydetail-content">
                     {renderRoutes(route.routes)}
                 </Layout>
-                
+
             </Layout>
         </div>
     )

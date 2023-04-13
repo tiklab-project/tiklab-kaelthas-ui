@@ -9,29 +9,39 @@
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import { inject, observer } from "mobx-react";
 import { Input, Button } from 'antd';
-import logo from "../../../assets/images/logo.png"
 import "./passWord.scss"
 import { withRouter } from "react-router";
+import { useHistory } from 'react-router-dom';
 const PassWord = (props) => {
     const {shareStore} = props;
-    const { verifyAuthCode } = shareStore
+    const { verifyAuthCode, setTenant } = shareStore;
+    const tenant = props.location.search.split("=")[1];
     const [value,setValue] = useState();
+    const history = useHistory();
+    console.log(history)
     const change = (e) => {
         setValue(e.target.value)
     }
     const jump = ()=> {
-        verifyAuthCode({shareLink:`${props.match.params.shareId}${props.location.search}`,authCode:value}).then((data)=> {
+        verifyAuthCode({shareLink:`${props.match.params.shareId}`,authCode:value}).then((data)=> {
             if(data.data === "true"){
-                props.history.push({pathname: `/share/${props.match.params.shareId}`,state: {password: data.data}})
+                if(version === "ce"){
+                    // props.location.search = "tenant=111111"
+                    props.history.push({pathname: `/share/${props.match.params.shareId}`, state: {password: data.data}})
+                    
+                }
+                if(version === "cloud"){
+                    props.history.push({pathname: `/share/${props.match.params.shareId}`,search: `?tenant=${tenant}`, state: {password: data.data}})
+                }
             }
         })
     }
     useEffect(()=> {
-        
+        setTenant(tenant)
     })
     return <div className="documment-password">
         <div className="password-log">
-            <img src={logo} alt="" />
+            <img src={('images/logo.png')} alt="" />
             <span>知识库</span>
         </div>
         <div className="password-box">
@@ -42,7 +52,6 @@ const PassWord = (props) => {
                 <span>
                     admin
                 </span>
-
             </div>
             <div className="box-content">
                 <div className="box-text">请填写提取码：</div>
@@ -56,4 +65,4 @@ const PassWord = (props) => {
     </div>
 }
 // export default PassWord;
-export default inject("shareStore")(observer(withRouter(PassWord)));
+export default withRouter(inject("shareStore")(observer(withRouter(PassWord))));

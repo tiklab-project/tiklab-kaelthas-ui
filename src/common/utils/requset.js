@@ -18,6 +18,14 @@ const Service = (url, data) => {
     })
 }
 
+const ServiceShare = (url, data, tenant) => {
+    return service.request({
+        url: url,
+        method: "post",
+        data: data,
+        header: {tenant: tenant}
+    })
+}
 
 const serviceLoc = axios.create({
     // baseURL: '/devapi',
@@ -39,4 +47,4 @@ serviceLoc.interceptors.response.use(function (response) {
     // 对响应错误做点什么
     return Promise.reject(error);
 })
-export {service,serviceLoc, Service};
+export {service,serviceLoc, Service, ServiceShare};

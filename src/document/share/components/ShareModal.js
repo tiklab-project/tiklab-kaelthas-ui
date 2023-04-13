@@ -8,15 +8,19 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { Modal, Radio , Button, Input } from 'antd';
-import "./shareModal.scss"
+import "./shareModal.scss";
+import {getUser} from "tiklab-core-ui"
 const ShareModal = (props) => {
     const origin = location.origin;
     const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds } = props;
     // const documentId = localStorage.getItem("documentId");
     const [value, setValue] = React.useState("publish");
     const [shareLink,setShareLink] = useState()
+    const [shareUrl, setShareUrl] = useState()
     const [authCode,setAuthCode] = useState()
     const link = useRef(null)
+    const user = getUser()
+    console.log(user)
     const onChange = e => {
         setValue(e.target.value);
         updateShare({id: shareLink,limits: e.target.value}).then(data=> {
@@ -29,6 +33,13 @@ const ShareModal = (props) => {
                 }
                 setAuthCode(data.data.authCode)
                 setShareLink(data.data.id)
+                if(version === "ce"){
+                    setShareUrl(`${origin}/#/share/${data.data.id}`)
+                }
+                if(version === "cloud"){
+                    setShareUrl(`${origin}/#/share/${data.data.id}?tenant=${user.tenant}`)
+                }
+                
             }
         })
     };
@@ -40,6 +51,12 @@ const ShareModal = (props) => {
                 if(data.code === 0) {
                     setShareLink(data.data.id)
                     setAuthCode(data.data.authCode)
+                    if(version === "ce"){
+                        setShareUrl(`${origin}/#/share/${data.data.id}`)
+                    }
+                    if(version === "cloud"){
+                        setShareUrl(`${origin}/#/share/${data.data.id}?tenant=${user.tenant}`)
+                    }
                 }
             })
         }
@@ -139,6 +156,8 @@ const ShareModal = (props) => {
         } 
         document.execCommand("Copy"); // 执行浏览器复制命令
     }
+
+   
     return (
         <Modal
             title="分享"
@@ -155,11 +174,11 @@ const ShareModal = (props) => {
             </Radio.Group>
             {
                 value === "public" ? <div className="share-link link-box" ref={link} id="link">
-                    <div className="share-text">链接地址:</div><div className="share-content">{origin}/#/share/{shareLink}</div>
+                    <div className="share-text">链接地址:</div><div className="share-content">{shareUrl}</div>
                 </div> : <div ref={link} id="link" className = "link-box">
                     <div className="share-link" >
                         <div className="share-text">链接地址：</div>
-                        <div className="share-content">{origin}/#/share/{shareLink}</div>
+                        <div className="share-content">{shareUrl}</div>
                     </div>
                     {
                         authCode && <div className="share-link"><div className="share-text">密码：</div><div className="share-content">{authCode}</div></div>

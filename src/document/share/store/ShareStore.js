@@ -7,26 +7,32 @@
  * @LastEditTime: 2021-09-15 14:50:10
  */
 import { observable, action } from "mobx";
-import { Service } from "../../../common/utils/requset";
+import { ServiceShare } from "../../../common/utils/requset";
 export class ShareStore {
+    @observable tenant = null;
+
+    @action
+    setTenant  = (value) => {
+        this.tenant = value
+    }
 
     @action
     documentView = async(value)=> {
         const params = new FormData()
         params.append("id", value.documentId)
-        const data = await Service("/document/view", params);
+        const data = await ServiceShare("/document/view", params, this.tenant);
         return data;
     }
 
     @action
     commentView = async(value)=> {
-        const data = await Service("/comment/view", value);
+        const data = await ServiceShare("/comment/view", value, this.tenant);
         return data;
     }
 
     @action
     verifyAuthCode = async(value)=> {
-        const data = await Service("/share/verifyAuthCode", value);
+        const data = await ServiceShare("/share/verifyAuthCode", value, this.tenant);
         return data;
     }
 
@@ -34,13 +40,13 @@ export class ShareStore {
     judgeAuthCode = async(value)=> {
         const params = new FormData()
         params.append("shareLink", value.shareLink)
-        const data = await Service("/share/judgeAuthCode", value);
+        const data = await ServiceShare("/share/judgeAuthCode", value, this.tenant);
         return data;
     }
 
     @action
     findShareCategory = async(value)=> {
-        const data = await Service("/share/findShareCategory", value);
+        const data = await ServiceShare("/share/findShareCategory", value, this.tenant);
         return data;
     }
 }
