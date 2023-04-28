@@ -12,7 +12,7 @@ import RepositorydeAside from "./RepositoryDetailAside";
 import "../components/RepositoryLayout.scss";
 import { renderRoutes } from "react-router-config";
 import {observer, inject} from "mobx-react";
-
+import {getUser} from "tiklab-core-ui"
 const RepositoryDetail = (props)=>{
     // 解析props
     const {repositoryStore,repositoryDetailStore,systemRoleStore,route} = props;
@@ -24,14 +24,11 @@ const RepositoryDetail = (props)=>{
     useEffect(() => {
         // 从信息页面跳入知识库详情页面时，获取知识库id
         let search = props.location.search;
-        // if(search !== "") {
-        //     search = search.split("=")
-        //     localStorage.setItem("repository", search[1]);
-        //     setRepositoryId(search[1])
-        // }
         searchrepository(repositoryId).then((res)=> {
             console.log(res)
             localStorage.setItem("repository", JSON.stringify(res.data));
+            const isPublish = res.data?.projectLimits === "0" ? true : false
+            systemRoleStore.getInitProjectPermissions(getUser().userId, res.data.id, isPublish)
             setRepository(res.data)
         })
 

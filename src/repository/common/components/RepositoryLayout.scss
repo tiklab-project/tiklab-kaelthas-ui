@@ -15,7 +15,7 @@
                 background-color: var(--tiklab-gray-600);
                 border-right: 1px solid #f0f2f5;
                 height: calc(100vh - 48px);
-
+                width: 270px;
                 ul {
                     padding: 0;
                     margin: 0;
@@ -107,6 +107,16 @@
                             line-height: 30px;
                             display: inline-block;
                             border-radius: 2px;
+                            width: 120px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+
+                        .repository-view {
+                            width: 120px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     }
 

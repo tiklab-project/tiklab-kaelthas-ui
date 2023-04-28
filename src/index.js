@@ -13,7 +13,7 @@ import Routes from './Routers';
 import {renderRoutes} from "react-router-config";
 import { Provider } from 'mobx-react';
 import {store } from "./stores"
-import {orgStores, privilegeStores} from "tiklab-user-ui/es/store";
+import {orgStores} from "tiklab-user-ui/es/store";
 import {getUser, enableAxiosCE} from 'tiklab-core-ui'
 import {messageModuleStores} from 'tiklab-message-ui/es/store'
 import { pluginLoader, PluginProvider } from "tiklab-plugin-core-ui";
@@ -23,7 +23,8 @@ import {observer} from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
 import "./assets/index";
-import "tiklab-slate-ui/es/tiklab-slate.css"
+import "tiklab-slate-ui/es/tiklab-slate.css";
+import {privilegeStores} from "tiklab-privilege-ui/es/store";
 enableAxiosCE()
 const Index = observer(() => {
     const {i18n} = useTranslation();
@@ -34,10 +35,6 @@ const Index = observer(() => {
         ...orgStores,
         ...messageModuleStores,
         ...store
-    }
-    const userInfo = getUser()
-    if (userInfo && userInfo.userId) {
-        allStore.systemRoleStore.getSystemPermissions(userInfo.userId, "kanass")
     }
 
     const [pluginData,setPluginData] = useState({

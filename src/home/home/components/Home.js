@@ -12,6 +12,7 @@ const Home = (props) => {
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
+   
     useEffect(() => {
 
         findLogpage({ userId: userId })

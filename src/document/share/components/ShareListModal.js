@@ -69,7 +69,7 @@ const ShareListModal = (props) => {
     return (
         <div className="share-list-modal">
             <Modal
-                title="选择移动目录"
+                title="选择分享目录"
                 visible={shareListVisible}
                 cancelText="取消"
                 okText="确认"

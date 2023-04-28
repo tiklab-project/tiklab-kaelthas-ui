@@ -87,7 +87,12 @@ const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
 const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
 const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
 
-const RoutesSaas = [
+const Routes = [
+    {
+        path: "/login",
+        exact: true,
+        component: Login,
+    },
     {
         path: "/logout",
         exact: true,
@@ -118,7 +123,26 @@ const RoutesSaas = [
         exact: true,
         component: PassWord,
     },
-  
+    // {
+    //     path: "/share/:shareId/tenant/:tenant",
+    //     component: SharePage,
+    //     routes: [
+    //           {
+    //                 path: "/share/:shareId/tenant/:tenant/doc/:id",
+    //                 component: ShareDocument,
+    //             },
+    //             {
+    //                 path: "/share/:shareId/tenant/:tenant/category/:id",
+    //                 component: ShareCategoryDetail,
+    //             },
+                
+    //     ]
+    // },
+    // {
+    //     path: "/passWord/:shareId/tenant/:tenant",
+    //     exact: true,
+    //     component: PassWord,
+    // },
     {
         path: "/index",
         component: Index,
@@ -417,4 +441,4 @@ const RoutesSaas = [
         exact: true
     },
 ]
-export default RoutesSaas;
+export default Routes;

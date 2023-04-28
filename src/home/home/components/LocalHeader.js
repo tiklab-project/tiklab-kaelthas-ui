@@ -11,26 +11,28 @@ import { useTranslation } from "react-i18next";
 import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
 
-import { getVersionInfo, getUser } from 'tiklab-core-ui';
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import { AppLink } from 'tiklab-integration-ui';
 import UserIcon from "../../../common/UserIcon/UserIcon"
 import { useEffect } from 'react';
-
+import { getUser } from 'tiklab-core-ui';
 
 const Header = props => {
     const {
         logo,
         languageSelectData = [], // 切换语言包的数据
         routers,
-        homeStore
+        homeStore,
+        systemRoleStore
     } = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/index/home") ? sessionStorage.getItem("menuKey") : "home";
 
     useEffect(() => {
-        
+        if (user && user.userId) {
+            systemRoleStore.getSystemPermissions(user.userId, "kanass")
+        }
     }, [])
 
     const { currentLink, setCurrentLink } = homeStore;
@@ -257,4 +259,4 @@ const Header = props => {
         </Row>
     )
 }
-export default withRouter(inject('homeStore')(observer(Header)));
+export default withRouter(inject('homeStore', "systemRoleStore")(observer(Header)));

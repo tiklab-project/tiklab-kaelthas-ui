@@ -29,13 +29,13 @@ const RepositorySetAside = (props) => {
             encoded: "Survey",
         },
         {
-            title: `${t('user')}`,
+            title: '成员',
             icon: 'survey',
             key: `/index/repositorySet/${repositoryId}/user`,
             encoded: "User",
         },
         {
-            title: `${t('privilege')}`,
+            title: '权限',
             icon: 'survey',
             key: `/index/repositorySet/${repositoryId}/domainRole`,
             encoded: "Privilege",

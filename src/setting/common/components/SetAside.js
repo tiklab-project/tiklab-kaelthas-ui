@@ -11,7 +11,7 @@ import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { withRouter } from "react-router-dom";
 import { setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter } from "./SetRouter"
 //import "../../../../assets/font-icon/iconfont";
-import { PrivilegeButton } from "tiklab-user-ui"
+import { PrivilegeButton } from "tiklab-privilege-ui"
 const SetAside = (props) => {
     // 无子级菜单处理
     const [selectKey, setSelectKey] = useState("/index/organ/organ");

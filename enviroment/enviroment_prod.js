@@ -29,11 +29,10 @@ env = JSON.stringify(env)
 
 const appKey = JSON.stringify('');
 const appSecret = JSON.stringify('');
-const version = JSON.stringify('');
-const client = JSON.stringify('');
 const isSaas = false;
 const mobile_url = JSON.stringify("/mobile.html")
-
+const version = JSON.stringify('ce');
+const client = JSON.stringify('web');
 module.exports = {
     base_url,
     userProduction,

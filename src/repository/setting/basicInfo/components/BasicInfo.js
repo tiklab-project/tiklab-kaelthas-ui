@@ -12,7 +12,8 @@ import { Input, Form, Select, DatePicker, Button, Modal, Row, Col, message } fro
 import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
-import RepositoryIcon from "./RespositoryChangeIcon"
+import RepositoryIcon from "./RespositoryChangeIcon";
+import {PrivilegeProjectButton} from "tiklab-privilege-ui";
 import { Collapse } from 'antd';
 const { Panel } = Collapse;
 const BasicInfo = props => {
@@ -117,7 +118,7 @@ const BasicInfo = props => {
         setIsModalVisible(true);
     };
 
-        
+
     const handleOk = () => {
         delerepositoryList(repositoryId).then(response => {
             if (response.code === 0) {
@@ -139,7 +140,7 @@ const BasicInfo = props => {
                 </svg>
                 知识库信息
             </div>
-            <div style={{fontSize: "12px", color: "#999"}}> 
+            <div style={{ fontSize: "12px", color: "#999" }}>
                 <svg aria-hidden="true" className="img-icon" fill="#fff">
                     <use></use>
                 </svg>
@@ -155,7 +156,7 @@ const BasicInfo = props => {
                 </svg>
                 删除知识库
             </div>
-            <div style={{fontSize: "12px", color: "#999"}}> 
+            <div style={{ fontSize: "12px", color: "#999" }}>
                 <svg aria-hidden="true" className="img-icon" fill="#fff">
                     <use></use>
                 </svg>
@@ -313,11 +314,11 @@ const BasicInfo = props => {
                                     {...formTailLayout}
                                     labelAlign="left"
                                 >
-                                    {/* <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}> */}
-                                    <div className="change-botton" onClick={() => showModal()}>
-                                        删除知识库
-                                    </div>
-                                    {/* </PrivilegeProjectButton> */}
+                                    <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}>
+                                        <div className="change-botton" onClick={() => showModal()}>
+                                            删除知识库
+                                        </div>
+                                    </PrivilegeProjectButton>
                                 </Form.Item>
                             </div>
                         </Panel>

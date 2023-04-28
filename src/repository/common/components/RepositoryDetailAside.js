@@ -404,7 +404,7 @@ const RepositorydeAside = (props) => {
                     <svg className="img-icon" aria-hidden="true">
                         <use xlinkHref="#icon-folder"></use>
                     </svg>
-                    <span className={`${isRename === item.id ? "repository-input" : ""}`}
+                    <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
                         contentEditable={isRename === item.id ? true : false}
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
@@ -478,7 +478,7 @@ const RepositorydeAside = (props) => {
                             <use xlinkHref="#icon-minmap"></use>
                         </svg>
                     }
-                    <span className={`${isRename === item.id ? "repository-input" : ""}`}
+                    <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
                         contentEditable={isRename === item.id ? true : false}
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
@@ -498,7 +498,7 @@ const RepositorydeAside = (props) => {
     }
     return (
         <Fragment>
-            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="250">
+            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="270">
                 <div className={`repository-aside ${isShowText ? "" : "repository-icon"}`}>
                     <div className="repository-title title">
                         <span className="repository-title-left">
