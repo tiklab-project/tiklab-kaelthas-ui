@@ -15,7 +15,7 @@ import {TEMPLATE_STORE,TemplateStore} from "./setting/template/store/templateSto
 import {COMMENT_STORE,CommentStore} from "./document/document/store/CommentStore"
 import {SHARE_STORE,ShareStore} from "./document/share/store/ShareStore"
 import {REPOSITORYWORK_STORE,RepositoryWork} from "./repository/common/store/RepositoryWork";
-import {SURVEY_STORE, SurveyStore} from "./repository/survey/store/SurveyStore";
+import {SURVEY_STORE, SurveyStore} from "./repository/overview/store/SurveyStore";
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 

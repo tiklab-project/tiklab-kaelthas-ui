@@ -115,13 +115,6 @@ const setDevEamRouter= [
         code: 11,
     },
     {
-        title: "产品授权",
-        icon: 'plugin',
-        id: '/index/setting/product',
-        purviewCode: "SysProductAuth",
-        code: 13,
-    },
-    {
         title: "基础数据",
         icon: 'systemcenter',
         id: '/index/setting/systemFeature',
@@ -314,13 +307,6 @@ const setPrdEamRouter= [
         id: '/index/setting/version',
         purviewCode: "SysVersion",
         code: 11,
-    },
-    {
-        title: "产品授权",
-        icon: 'plugin',
-        id: '/index/setting/product',
-        purviewCode: "SysProductAuth",
-        code: 13,
     }
 ];
 
@@ -429,13 +415,6 @@ const setDevRouter= [
         id: '/index/setting/version',
         purviewCode: "SysVersion",
         code: 11,
-    },
-    {
-        title: "产品授权",
-        icon: 'plugin',
-        id: '/index/setting/product',
-        purviewCode: "SysProductAuth",
-        code: 13,
     },
     {
         title: "基础数据",
@@ -631,13 +610,6 @@ const setPrdRouter= [
         id: '/index/setting/version',
         purviewCode: "SysVersion",
         code: 11,
-    },
-    {
-        title: "产品授权",
-        icon: 'plugin',
-        id: '/index/setting/product',
-        purviewCode: "SysProductAuth",
-        code: 13,
     }
 ];
 export  {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter};

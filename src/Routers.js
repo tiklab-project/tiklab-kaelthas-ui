@@ -17,7 +17,7 @@ const ProjectNotFound = AsyncComponent(() => import("./setting/common/components
 
 const Index = AsyncComponent(() => import('./home/home/components/Portal'))
 const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
-const Survey = AsyncComponent(() => import('./repository/survey/components/Survey'))
+const Survey = AsyncComponent(() => import('./repository/overview/components/Survey'))
 const DynamicList = AsyncComponent(() => import("./home/home/components/dynamicList"))
 
 const LogDetail = AsyncComponent(() => import('./repository/category/CategoryDetail'))

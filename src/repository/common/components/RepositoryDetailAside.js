@@ -66,7 +66,7 @@ const RepositorydeAside = (props) => {
         event.stopPropagation()
         const params = {
             name: item.name,
-            model: item.typeId,
+            model: item.formatType,
             modelId: item.id,
             master: { id: userId },
             repository: { id: repositoryId }

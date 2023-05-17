@@ -3,9 +3,10 @@ import { Row, Col, Tabs, Form, Dropdown, Menu, Empty } from 'antd';
 import { withRouter } from "react-router";
 import { inject, observer } from "mobx-react";
 import Button from "../../../common/button/button";
-import AddLog from "../../common/components/LogAdd"
+import AddLog from "../../common/components/LogAdd";
 
-import "../components/survey.scss";
+const { TabPane } = Tabs;
+import "./survey.scss";
 import { getUser } from "tiklab-core-ui";
 
 const Survey = (props) => {
@@ -42,7 +43,7 @@ const Survey = (props) => {
 
         const recentParams = {
             masterId: userId,
-            models: ["document", "mindMap"],
+            model: "category",
             repositoryId: repositoryId,
             orderParams: [{
                 name: "recentTime",
@@ -87,7 +88,7 @@ const Survey = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: {id:id},
+                category: { id: id },
             }
             console.log(id)
             addRepositoryCataDocument(data).then((data) => {
@@ -102,7 +103,7 @@ const Survey = (props) => {
                 }
 
             })
-        } 
+        }
         // else if (value.key === "mindMap") {
         //     setContentValue({ nodes: [], edges: [] })
         //     setAddModalVisible(true)
@@ -235,11 +236,9 @@ const Survey = (props) => {
             localStorage.setItem("documentId", item.modelId);
             props.history.push(`/index/repositorydetail/${item.repository.id}/doc/${item.modelId}`)
         }
-        if (item.model === "mindMap") {
-            localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/repositorydetail/${item.repository.id}/mindmap/${item.modelId}`)
+        if (item.model === "category") {
+            props.history.push(`/index/repositorydetail/${item.repository.id}/folder/${item.modelId}`)
         }
-
     }
 
     /**
@@ -249,7 +248,25 @@ const Survey = (props) => {
     const goOpLogDetail = (url) => {
         window.location.href = url
     }
-    
+
+    const changeTabs = (activeKey) => {
+        const recentParams = {
+            masterId: userId,
+            model: activeKey,
+            repositoryId: repositoryId,
+            orderParams: [{
+                name: "recentTime",
+                orderType: "asc"
+            }]
+        }
+        findDocumentRecentList(recentParams).then(res => {
+            if (res.code === 0) {
+                setRecentViewDocumentList([...res.data])
+            }
+
+        })
+    }
+
     return (
         <div className="repository-survey">
             <Row >
@@ -265,7 +282,16 @@ const Survey = (props) => {
                                         </svg>
                                         <div className="top-name">
                                             <div className="name">{repositoryInfo?.name}</div>
-                                            <div className="desc">{repositoryInfo.desc ? repositoryInfo.desc : "暂无介绍"}</div>
+                                            <div className="desc">
+                                                <span>
+                                                    目录 {repositoryInfo.categoryNum ? repositoryInfo.categoryNum : 0}
+                                                </span>
+                                                
+                                                <span>
+                                                    文档 {repositoryInfo.documentNum ? repositoryInfo.documentNum : 0}
+                                                </span>
+
+                                            </div>
                                             {/* <div className="master"></div> */}
                                         </div>
 
@@ -284,31 +310,61 @@ const Survey = (props) => {
 
                         <div className="home-document">
                             <div className="document-box-title">
-                                <span className="name">最近查看的文档</span>
+                                <span className="name">最近查看</span>
                             </div>
-                            <div>
-                                {
-                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-paihang"></use>
-                                                </svg>
-                                                <span>{item.name}</span>
-                                            </div>
+                            <Tabs defaultActiveKey="1" onChange={(activeKey) => changeTabs(activeKey)}>
+                                <TabPane tab="目录" key="category">
+                                    <div>
+                                        {
+                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                                    <div className='document-name' style={{ flex: 1 }}>
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-folder"></use>
+                                                        </svg>
+                                                        <span>{item.name}</span>
+                                                    </div>
 
-                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                            <div style={{ flex: 1 }}>
-                                                <svg className="icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-point"></use>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    })
-                                }
-                            </div>
+                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                                    <div style={{ flex: 1 }}>
+                                                        <svg className="icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-point"></use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="文档" key="document">
+                                    <div>
+                                        {
+                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                                    <div className='document-name' style={{ flex: 1 }}>
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-file"></use>
+                                                        </svg>
+                                                        <span>{item.name}</span>
+                                                    </div>
+
+                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                                    <div style={{ flex: 1 }}>
+                                                        <svg className="icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-point"></use>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                            </Tabs>
+
                         </div>
                         <div className="home-dynamic">
                             <div className="dynamic-box-title">

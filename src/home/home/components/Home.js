@@ -12,14 +12,14 @@ const Home = (props) => {
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
-   
+
     useEffect(() => {
 
         findLogpage({ userId: userId })
-      
+
         const recentParams = {
             masterId: userId,
-            models: ["document", "mindMap"],
+            model: "repository",
             orderParams: [{
                 name: "recentTime",
                 orderType: "asc"
@@ -52,13 +52,29 @@ const Home = (props) => {
             localStorage.setItem("documentId", item.modelId);
             props.history.push(`/index/repositorydetail/${item.repository.id}/doc/${item.modelId}`)
         }
-        if (item.model === "mindMap") {
-            localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/repositorydetail/${item.repository.id}/mindmap/${item.modelId}`)
+        if (item.model === "repository") {
+            props.history.push(`/index/repositorydetail/${item.repository.id}/survey`)
         }
+        sessionStorage.setItem("menuKey", "repository")
 
     }
 
+    const changeTabs = (activeKey) => {
+        const recentParams = {
+            masterId: userId,
+            model: activeKey,
+            orderParams: [{
+                name: "recentTime",
+                orderType: "asc"
+            }]
+        }
+        findDocumentRecentList(recentParams).then(res => {
+            if (res.code === 0) {
+                setRecentViewDocumentList([...res.data])
+            }
+
+        })
+    }
     return (
         <div className="home">
             <Row className="home-row">
@@ -105,51 +121,52 @@ const Home = (props) => {
                             <div className="document-box-title">
                                 <span className="name">最近查看的文档</span>
                             </div>
-                            <div>
-                                {
-                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-paihang"></use>
-                                                </svg>
-                                                <span>{item.name}</span>
-                                            </div>
+                            <Tabs defaultActiveKey="1" onChange={(activeKey) => changeTabs(activeKey)}>
+                                <TabPane tab="知识库" key="repository">
+                                    <div>
+                                        {
+                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                                    <div className='document-name' style={{ flex: 1 }}>
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-paihang"></use>
+                                                        </svg>
+                                                        <span>{item.name}</span>
+                                                    </div>
 
-                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.recentTime}</div>
-                                        </div>
-                                    })
-                                }
-                            </div>
+                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.recentTime}</div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="文档" key="document">
+                                    <div>
+                                        {
+                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                                    <div className='document-name' style={{ flex: 1 }}>
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-file"></use>
+                                                        </svg>
+                                                        <span>{item.name}</span>
+                                                    </div>
+
+                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
+                                                    <div style={{ flex: 1 }}>{item.recentTime}</div>
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+                                </TabPane>
+                            </Tabs>
+
                         </div>
 
-                        <div className="home-dynamic">
-                            <div className="dynamic-box-title">
-                                <span className="name">相关动态</span>
-                                <div className="more" onClick={() => { props.history.push(`/index/dynamic`) }}>
-                                    <svg aria-hidden="true" className="svg-icon">
-                                        <use xlinkHref="#icon-rightjump"></use>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div className="dynamic-list">
-                                {
-                                    opLogList.length > 0 ? opLogList.map(item => {
-                                        return <div
-                                            dangerouslySetInnerHTML={{ __html: item.data }}
-                                            className="dynamic-item"
-                                            key={item.id}
-                                            onClick={() => goOpLogDetail(item.link)}
-                                        />
-                                    })
-                                        :
-                                        <Empty image="/images/nodata.png" description="暂时没有动态~" />
-                                }
-                            </div>
-                        </div>
-                        
+
 
 
                     </div>

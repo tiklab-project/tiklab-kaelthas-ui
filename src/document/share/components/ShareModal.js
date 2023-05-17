@@ -20,7 +20,6 @@ const ShareModal = (props) => {
     const [authCode,setAuthCode] = useState()
     const link = useRef(null)
     const user = getUser()
-    console.log(user)
     const onChange = e => {
         setValue(e.target.value);
         updateShare({id: shareLink,limits: e.target.value}).then(data=> {
