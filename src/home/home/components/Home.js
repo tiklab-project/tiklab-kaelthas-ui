@@ -81,7 +81,7 @@ const Home = (props) => {
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
                     <div>
                         <div className="home-repository">
-                            <div className="repository-title">最近访问知识库</div>
+                            <div className="repository-title">我最近访问知识库</div>
                             <div className="repository-box">
                                 {
                                     recentRepositoryDocumentList && recentRepositoryDocumentList.map(item => {
@@ -119,50 +119,26 @@ const Home = (props) => {
 
                         <div className="home-document">
                             <div className="document-box-title">
-                                <span className="name">最近查看的文档</span>
+                                <span className="name">我最近查看的文档</span>
                             </div>
-                            <Tabs defaultActiveKey="1" onChange={(activeKey) => changeTabs(activeKey)}>
-                                <TabPane tab="知识库" key="repository">
-                                    <div>
-                                        {
-                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                                    <div className='document-name' style={{ flex: 1 }}>
-                                                        <svg className="document-icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-paihang"></use>
-                                                        </svg>
-                                                        <span>{item.name}</span>
-                                                    </div>
+                            <div>
+                                {
+                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                            <div className='document-name' style={{ flex: 1 }}>
+                                                <svg className="document-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-file"></use>
+                                                </svg>
+                                                <span>{item.name}</span>
+                                            </div>
 
-                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.recentTime}</div>
-                                                </div>
-                                            })
-                                        }
-                                    </div>
-                                </TabPane>
-                                <TabPane tab="文档" key="document">
-                                    <div>
-                                        {
-                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                                    <div className='document-name' style={{ flex: 1 }}>
-                                                        <svg className="document-icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-file"></use>
-                                                        </svg>
-                                                        <span>{item.name}</span>
-                                                    </div>
-
-                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.recentTime}</div>
-                                                </div>
-                                            })
-                                        }
-                                    </div>
-                                </TabPane>
-                            </Tabs>
+                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                            <div style={{ flex: 1 }}>{item.master.name}</div>
+                                            <div style={{ flex: 1 }}>{item.recentTime}</div>
+                                        </div>
+                                    })
+                                }
+                            </div>
 
                         </div>
 

@@ -27,7 +27,14 @@
                     font-size: 20px;
                     line-height: 50px;
                 }
+                .user {
+                    display: flex;
+                    align-items: center;
 
+                }
+                .user-img {
+                    margin-left: -5px;
+                }
                 .desc {
                     color: var(--tiklab-gray-500);
                     display: flex;

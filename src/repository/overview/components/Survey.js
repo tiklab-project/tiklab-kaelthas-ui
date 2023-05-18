@@ -4,6 +4,7 @@ import { withRouter } from "react-router";
 import { inject, observer } from "mobx-react";
 import Button from "../../../common/button/button";
 import AddLog from "../../common/components/LogAdd";
+import UserIcon from "../../../common/UserIcon/UserIcon";
 
 const { TabPane } = Tabs;
 import "./survey.scss";
@@ -14,7 +15,7 @@ const Survey = (props) => {
 
     const { findDocumentRecentList } = homeStore;
 
-    const { findRepository, findLogpage, opLogList } = surveyStore;
+    const { findRepository, findLogpage, opLogList, findUserList } = surveyStore;
 
     const { findDmPrjRolePage, setRepositoryCatalogueList, createDocumentRecent, addRepositoryCataDocument } = RepositoryCatalogueStore;
 
@@ -25,7 +26,7 @@ const Survey = (props) => {
     const [contentValue, setContentValue] = useState()
     const [selectKey, setSelectKey] = useState();
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
-
+    const [userList, setUserList] = useState();
     const userId = getUser().id
 
     useEffect(() => {
@@ -36,11 +37,6 @@ const Survey = (props) => {
                 setRepositoryInfo(res.data)
             }
         })
-
-        // findRepositoryCatalogue(repositoryId).then((data) => {
-        //     setRepositoryCatalogueList(data)
-        // })
-
         const recentParams = {
             masterId: userId,
             model: "category",
@@ -55,6 +51,13 @@ const Survey = (props) => {
                 setRecentViewDocumentList([...res.data])
             }
 
+        })
+
+        findUserList({domainId: repositoryId}).then(res => {
+            // console.log(res)
+            if(res.code === 0){
+                setUserList(res.data)
+            }
         })
 
     }, [])
@@ -74,13 +77,12 @@ const Survey = (props) => {
     };
 
     const [catalogueId, setCatalogueId] = useState()
-    const [userList, setUserList] = useState()
     const [addModalVisible, setAddModalVisible] = useState()
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        findDmPrjRolePage(repositoryId).then(data => {
-            setUserList(data.dataList)
-        })
+        // findDmPrjRolePage(repositoryId).then(data => {
+        //     setUserList(data.dataList)
+        // })
         if (value.key === "document") {
             const data = {
                 name: "未命名文档",
@@ -280,19 +282,29 @@ const Survey = (props) => {
                                         <svg className="top-icon" aria-hidden="true">
                                             <use xlinkHref="#icon-zhishi"></use>
                                         </svg>
+
                                         <div className="top-name">
                                             <div className="name">{repositoryInfo?.name}</div>
+                                            <div className="user">
+                                                {
+                                                    userList && userList.length > 0 && userList.map((item, index) => {
+                                                        if(index < 5) {
+                                                            return <div ><UserIcon size = "big" name = {item.user.nickname}></UserIcon></div>
+                                                        }
+                                                        
+                                                    })
+                                                }
+                                                <div className="user-img"><UserIcon  size = "big" name = "..."></UserIcon></div>
+                                            </div>
                                             <div className="desc">
                                                 <span>
                                                     目录 {repositoryInfo.categoryNum ? repositoryInfo.categoryNum : 0}
                                                 </span>
-                                                
                                                 <span>
                                                     文档 {repositoryInfo.documentNum ? repositoryInfo.documentNum : 0}
                                                 </span>
 
                                             </div>
-                                            {/* <div className="master"></div> */}
                                         </div>
 
                                     </div>
@@ -312,58 +324,29 @@ const Survey = (props) => {
                             <div className="document-box-title">
                                 <span className="name">最近查看</span>
                             </div>
-                            <Tabs defaultActiveKey="1" onChange={(activeKey) => changeTabs(activeKey)}>
-                                <TabPane tab="目录" key="category">
-                                    <div>
-                                        {
-                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                                    <div className='document-name' style={{ flex: 1 }}>
-                                                        <svg className="document-icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-folder"></use>
-                                                        </svg>
-                                                        <span>{item.name}</span>
-                                                    </div>
+                            <div>
+                                {
+                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                            <div className='document-name' style={{ flex: 1 }}>
+                                                <svg className="document-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-file"></use>
+                                                </svg>
+                                                <span>{item.name}</span>
+                                            </div>
 
-                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                                    <div style={{ flex: 1 }}>
-                                                        <svg className="icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-point"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            })
-                                        }
-                                    </div>
-                                </TabPane>
-                                <TabPane tab="文档" key="document">
-                                    <div>
-                                        {
-                                            recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                                return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                                    <div className='document-name' style={{ flex: 1 }}>
-                                                        <svg className="document-icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-file"></use>
-                                                        </svg>
-                                                        <span>{item.name}</span>
-                                                    </div>
-
-                                                    <div style={{ flex: 1 }}>{item.repository.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.master.name}</div>
-                                                    <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                                    <div style={{ flex: 1 }}>
-                                                        <svg className="icon" aria-hidden="true">
-                                                            <use xlinkHref="#icon-point"></use>
-                                                        </svg>
-                                                    </div>
-                                                </div>
-                                            })
-                                        }
-                                    </div>
-                                </TabPane>
-                            </Tabs>
+                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                            <div style={{ flex: 1 }}>{item.master.name}</div>
+                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                            <div style={{ flex: 1 }}>
+                                                <svg className="icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-point"></use>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    })
+                                }
+                            </div>
 
                         </div>
                         <div className="home-dynamic">

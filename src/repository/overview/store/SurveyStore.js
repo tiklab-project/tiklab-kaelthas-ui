@@ -30,6 +30,13 @@ export class SurveyStore {
         }
         return data;
     }
+
+    @action
+    findUserList = async(value) => {
+        const data = await Service("/dmUser/findDmUserList",value);
+        return data;
+    }
+
 }
 
 export const SURVEY_STORE = "surveyStore"
