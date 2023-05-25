@@ -53,9 +53,9 @@ const Survey = (props) => {
 
         })
 
-        findUserList({domainId: repositoryId}).then(res => {
+        findUserList({ domainId: repositoryId }).then(res => {
             // console.log(res)
-            if(res.code === 0){
+            if (res.code === 0) {
                 setUserList(res.data)
             }
         })
@@ -86,7 +86,7 @@ const Survey = (props) => {
         if (value.key === "document") {
             const data = {
                 name: "未命名文档",
-                repository: { id: repositoryId },
+                wikiRepository: { id: repositoryId },
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
@@ -236,10 +236,10 @@ const Survey = (props) => {
     const goDocumentDetail = item => {
         if (item.model === "document") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/repositorydetail/${item.repository.id}/doc/${item.modelId}`)
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
         }
         if (item.model === "category") {
-            props.history.push(`/index/repositorydetail/${item.repository.id}/folder/${item.modelId}`)
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/folder/${item.modelId}`)
         }
     }
 
@@ -288,13 +288,17 @@ const Survey = (props) => {
                                             <div className="user">
                                                 {
                                                     userList && userList.length > 0 && userList.map((item, index) => {
-                                                        if(index < 5) {
-                                                            return <div ><UserIcon size = "big" name = {item.user.nickname}></UserIcon></div>
+                                                        if (index < 5) {
+                                                            return <div ><UserIcon size="big" name={item.user.nickname}></UserIcon></div>
                                                         }
-                                                        
+
                                                     })
                                                 }
-                                                <div className="user-img"><UserIcon  size = "big" name = "..."></UserIcon></div>
+                                                <div className="user-more" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/user`)}>
+                                                    <svg className="user-more-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-more"></use>
+                                                    </svg>
+                                                </div>
                                             </div>
                                             <div className="desc">
                                                 <span>
@@ -335,7 +339,7 @@ const Survey = (props) => {
                                                 <span>{item.name}</span>
                                             </div>
 
-                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                            <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
                                             <div style={{ flex: 1 }}>{item.master.name}</div>
                                             <div style={{ flex: 1 }}>{item.updateTime}</div>
                                             <div style={{ flex: 1 }}>

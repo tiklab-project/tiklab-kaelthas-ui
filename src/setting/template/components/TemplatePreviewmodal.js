@@ -13,7 +13,7 @@ import "./templatePreviewModal.scss"
 import { PreviewEditor } from "tiklab-slate-ui"
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
-    const {previewModalVisible,setPreviewModalVisible,templateStore,templateId} = props;
+    const {previewModalVisible,setPreviewModalVisible,templateStore,templateId, workStore} = props;
     const {findDocumentTemplate} = templateStore;
     const [template,setTemplate] = useState()
     const [value, setValue] = useState([
@@ -54,9 +54,9 @@ const TemplatePreviewmodal = (props) => {
        
         <div>
            
-            <PreviewEditor value = {value} onChange = {(value)=> initTemplate(value)}/>
+            <PreviewEditor value = {value} onChange = {(value)=> initTemplate(value)} workStore = {workStore}/>
         </div>
     )
 }
 
-export default inject("templateStore")(observer(TemplatePreviewmodal));
+export default inject("templateStore", "workStore")(observer(TemplatePreviewmodal));

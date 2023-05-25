@@ -72,6 +72,8 @@ const ProjectDirectory = AsyncComponent(() => import("./setting/user/ProjectDire
 const ProjectUserGroup = AsyncComponent(() => import("./setting/user/ProjectUserGroup"))
 const ProjectSystemUserGroup = AsyncComponent(() => import("./setting/user/ProjectSystemUserGroup"))
 
+// 系统集成
+const UrlData = AsyncComponent(() => import('./setting/systemIntegration/components/UrlData'));
 
 //工时
 const TaskListContent = AsyncComponent(() => import('./setting/todo/TaskList.js'))
@@ -123,26 +125,6 @@ const Routes = [
         exact: true,
         component: PassWord,
     },
-    // {
-    //     path: "/share/:shareId/tenant/:tenant",
-    //     component: SharePage,
-    //     routes: [
-    //           {
-    //                 path: "/share/:shareId/tenant/:tenant/doc/:id",
-    //                 component: ShareDocument,
-    //             },
-    //             {
-    //                 path: "/share/:shareId/tenant/:tenant/category/:id",
-    //                 component: ShareCategoryDetail,
-    //             },
-                
-    //     ]
-    // },
-    // {
-    //     path: "/passWord/:shareId/tenant/:tenant",
-    //     exact: true,
-    //     component: PassWord,
-    // },
     {
         path: "/index",
         component: Index,
@@ -429,11 +411,15 @@ const Routes = [
                         path: "/index/setting/plugin",
                         component: ProjectPlugin,
                         exact: true
+                    },
+                    {
+                        path: "/index/setting/urlData",
+                        component: UrlData,
+                        exact: true
                     }
                 ]
             },
         ]
-
     },
     {
         path: "/",

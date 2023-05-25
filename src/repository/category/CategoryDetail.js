@@ -82,7 +82,7 @@ const LogDetail = (props) => {
         } else {
             const data = {
                 name: "未命名文档",
-                repository: { id: repositoryId },
+                wikiRepository: { id: repositoryId },
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",

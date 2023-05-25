@@ -75,7 +75,7 @@ const LogAdd = (props) => {
                 } else {
                     data = {
                         ...values,
-                        repository:{id: repositoryId},
+                        wikiRepository:{id: repositoryId},
                         details:JSON.stringify(contentValue),
                         master: {id: values.master},
                         typeId: values.formatType

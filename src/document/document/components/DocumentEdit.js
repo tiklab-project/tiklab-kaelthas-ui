@@ -11,12 +11,15 @@ import { Row, Col, Input } from 'antd';
 import { observer, inject } from "mobx-react";
 import { Link, withRouter } from "react-router-dom";
 import "./documentEdit.scss";
-import { EditorBigContent, EditorBig, PreviewEditor, DocumentEditor } from "tiklab-slate-ui";
+// import EditorBigContent from "../../../modules/edit-slate/editorBigContent";
+// import EditorBig from "../../../modules/edit-slate/editorBig";
+import { EditorBigContent, EditorBig } from "tiklab-slate-ui";
 import Button from "../../../common/button/button";
 
 
 const DocumentEdit = (props) => {
-    const { RepositoryCatalogueStore } = props;
+    const { RepositoryCatalogueStore, workStore } = props;
+    console.log(workStore)
     const { findDocument, updateDocument } = RepositoryCatalogueStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
@@ -99,6 +102,7 @@ const DocumentEdit = (props) => {
                 value && <EditorBig
                     value={value}
                     onChange={value => setValue(value)}
+                    workStore= {workStore}
                 >
                     <>
                         <Row className="document-examine-content">
@@ -115,6 +119,7 @@ const DocumentEdit = (props) => {
                                 </div>
                                 <EditorBigContent
                                     value={value}
+                                    workStore= {workStore}
                                 />
                             </Col>
                         </Row>
@@ -128,4 +133,4 @@ const DocumentEdit = (props) => {
         </div>
     )
 }
-export default inject('repositoryDetailStore', 'repositoryStore', "RepositoryCatalogueStore")(observer(withRouter(DocumentEdit)));
+export default inject('repositoryDetailStore', 'repositoryStore', "RepositoryCatalogueStore", "workStore")(observer(withRouter(DocumentEdit)));

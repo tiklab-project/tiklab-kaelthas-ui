@@ -50,10 +50,10 @@ const Home = (props) => {
         // localStorage.setItem("repository", JSON.stringify(item.repository))
         if (item.model === "document") {
             localStorage.setItem("documentId", item.modelId);
-            props.history.push(`/index/repositorydetail/${item.repository.id}/doc/${item.modelId}`)
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
         }
         if (item.model === "repository") {
-            props.history.push(`/index/repositorydetail/${item.repository.id}/survey`)
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/survey`)
         }
         sessionStorage.setItem("menuKey", "repository")
 
@@ -132,7 +132,7 @@ const Home = (props) => {
                                                 <span>{item.name}</span>
                                             </div>
 
-                                            <div style={{ flex: 1 }}>{item.repository.name}</div>
+                                            <div style={{ flex: 1 }}>{item.wikiRepository?.name}</div>
                                             <div style={{ flex: 1 }}>{item.master.name}</div>
                                             <div style={{ flex: 1 }}>{item.recentTime}</div>
                                         </div>

@@ -22,7 +22,7 @@ import "./shareDocument.scss"
 import Comment from "./CommentShare";
 import { withRouter } from "react-router";
 const ShareDocument = (props) => {
-    const { shareStore } = props;
+    const { shareStore, workStore } = props;
     const { documentView, commentView, judgeAuthCode } = shareStore;
     const [showComment, setShowComment] = useState(false);
     const [value, setValue] = useState([
@@ -67,7 +67,7 @@ const ShareDocument = (props) => {
                 <Row style={{ flex: 1, overflow: "auto" }}>
                     <Col className="repositorydetail-content-col" xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
                         <div style={{paddingTop: "10px"}}>
-                            <PreviewEditor value={value} />
+                            <PreviewEditor value={value} workStore = {workStore}/>
                         </div>
 
                     </Col>
@@ -92,4 +92,4 @@ const ShareDocument = (props) => {
     )
 }
 
-export default inject("shareStore")(observer(withRouter(ShareDocument)));
+export default inject("shareStore", "workStore")(observer(withRouter(ShareDocument)));

@@ -30,7 +30,22 @@
                 .user {
                     display: flex;
                     align-items: center;
-
+                    .user-more {
+                        width: 25px;
+                        height: 25px;
+                        border-radius: 25px;
+                        font-size: 16px;
+                        background-color: #ddd;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: #fff;
+                        cursor: pointer;
+                    }
+                    .user-more-icon {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
                 .user-img {
                     margin-left: -5px;

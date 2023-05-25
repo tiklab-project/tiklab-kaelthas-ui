@@ -132,7 +132,7 @@ const RepositorydeAside = (props) => {
         if (value.key === "document") {
             const data = {
                 name: "未命名文档",
-                repository: { id: repositoryId },
+                wikiRepository: { id: repositoryId },
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",

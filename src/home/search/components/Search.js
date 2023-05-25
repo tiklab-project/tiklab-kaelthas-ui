@@ -100,7 +100,7 @@ const Search = (props) => {
                                                                                         <span>{toItem.repositoryName}</span>
                                                                                     </div>;
                                                                         case "WorkItem":
-                                                                            return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.repository)}>
+                                                                            return <div className="item-one" onClick={()=>toWorkItem(toItem.id, toItem.wikiRepository)}>
                                                                                         <img src={repository} alt=""/>
                                                                                         <span>{toItem.title}</span>
                                                                                     </div>;

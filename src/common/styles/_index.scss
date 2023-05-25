@@ -30,10 +30,15 @@
     background: #fff;
     font-weight: 400;
     padding: 8px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #f0f0f0;
 }
 .ant-table-tbody>tr>td {
     border-bottom: 0;
     padding: 8px;
+    border: 0;
 }
 .ant-table table {
     border-bottom: 1px solid #f0f0f0;

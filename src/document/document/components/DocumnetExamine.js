@@ -9,7 +9,7 @@
 import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
 import { inject, observer } from "mobx-react";
 import { Divider, Input, Button, Row, Col } from 'antd';
-import { PreviewEditor } from "tiklab-slate-ui"
+import {PreviewEditor} from "tiklab-slate-ui"
 import "./documentExamine.scss"
 import ShareModal from "../../share/components/ShareModal";
 import { getUser } from "tiklab-core-ui";
@@ -18,7 +18,8 @@ import DocumentAddEdit from "./DocumentAddEdit";
 
 
 const DocumentExamine = (props) => {
-    const { commentStore, RepositoryCatalogueStore } = props;
+    const { commentStore, RepositoryCatalogueStore, workStore } = props;
+    // console.log(workStore)
     const documentId = props.match.params.id;
     const { findDocument } = RepositoryCatalogueStore;
 
@@ -109,7 +110,7 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <PreviewEditor value={value} />
+                                <PreviewEditor value={value} workStore = {workStore}/>
                             </div>
                         </Col>
                     </Row>
@@ -148,4 +149,4 @@ const DocumentExamine = (props) => {
     )
 }
 
-export default inject("commentStore", "RepositoryCatalogueStore")(observer(DocumentExamine));
+export default inject("commentStore", "RepositoryCatalogueStore", "workStore")(observer(DocumentExamine));

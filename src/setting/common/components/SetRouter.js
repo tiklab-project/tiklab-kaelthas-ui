@@ -92,6 +92,19 @@ const setDevEamRouter= [
         code: 8,
     },
     {
+        title: "系统集成",
+        icon: 'systemcenter',
+        id: '/index/setting/loadData',
+        code: 9,
+        children: [
+            {
+                title: '地址配置',
+                id: '/index/setting/urlData',
+                code: 9-1,
+            }
+        ]
+    },
+    {
         title: "安全",
         icon: 'systemcenter',
         id: '/index/setting/log',
@@ -114,6 +127,7 @@ const setDevEamRouter= [
         purviewCode: "SysVersion",
         code: 11,
     },
+   
     {
         title: "基础数据",
         icon: 'systemcenter',
@@ -286,6 +300,19 @@ const setPrdEamRouter= [
         code: 8,
     },
     {
+        title: "系统集成",
+        icon: 'systemcenter',
+        id: '/index/setting/loadData',
+        code: 9,
+        children: [
+            {
+                title: '地址配置',
+                id: '/index/setting/urlData',
+                code: 9-2,
+            }
+        ]
+    },
+    {
         title: "安全",
         icon: 'systemcenter',
         id: '/index/setting/log',
@@ -392,6 +419,19 @@ const setDevRouter= [
         id: '/index/setting/plugin',
         purviewCode: "SysPlugin",
         code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        id: '/index/setting/loadData',
+        code: 9,
+        children: [
+            {
+                title: '地址配置',
+                id: '/index/setting/urlData',
+                code: 9-2,
+            }
+        ]
     },
     {
         title: "安全",
@@ -587,6 +627,19 @@ const setPrdRouter= [
         id: '/index/setting/plugin',
         purviewCode: "SysPlugin",
         code: 8,
+    },
+    {
+        title: "系统集成",
+        icon: 'systemcenter',
+        id: '/index/setting/loadData',
+        code: 9,
+        children: [
+            {
+                title: '地址配置',
+                id: '/index/setting/urlData',
+                code: 9-2,
+            }
+        ]
     },
     {
         title: "安全",
