@@ -111,7 +111,7 @@ const LogDetail = (props) => {
             model: item.typeId,
             modelId: item.id,
             master: { id: userId },
-            repository: { id: repositoryId }
+            wikiRepository: { id: repositoryId }
         }
         createDocumentRecent(params)
         setSelectKey(item.id)

@@ -69,7 +69,7 @@ const RepositorydeAside = (props) => {
             model: item.formatType,
             modelId: item.id,
             master: { id: userId },
-            repository: { id: repositoryId }
+            wikiRepository: { id: repositoryId }
         }
         createDocumentRecent(params)
         setSelectKey(item.id)

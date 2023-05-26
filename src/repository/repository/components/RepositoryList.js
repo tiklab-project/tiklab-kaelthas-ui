@@ -122,7 +122,7 @@ const Repositorycontent = (props) => {
             model: "repository",
             modelId: repository.id,
             master: { id: userId },
-            repository: { id: repository.id }
+            wikiRepository: { id: repository.id }
         }
         createDocumentRecent(params)
 

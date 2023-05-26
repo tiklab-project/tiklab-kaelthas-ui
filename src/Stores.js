@@ -19,7 +19,6 @@ import {SURVEY_STORE, SurveyStore} from "./repository/overview/store/SurveyStore
 
 import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 import {WORK_STORE,WorkStore} from "./document/document/store/WorkStore";
-import {SlateStore, SLATE_STORE} from "./modules/edit-slate/store/slateStore";
 import {URLDATA_STORE, UrlDataStore} from "./setting/systemIntegration/store/UrlDataStore";
 function createStores() {
     return {
@@ -27,7 +26,6 @@ function createStores() {
         [REPOSITORYDETAIL_STORE]: new RepositoryDetailStore(),
         [SEARCH_STORE]: new SearchStore(),
         [REPOSITORYCATELOGUE_STORE]: new RepositoryCatalogueStore(),
-        [SLATE_STORE]: new SlateStore(),
         [TEMPLATE_STORE]: new TemplateStore(),
         [COMMENT_STORE]: new CommentStore(),
         [SHARE_STORE]: new ShareStore(),

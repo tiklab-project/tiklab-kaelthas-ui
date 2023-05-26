@@ -39,7 +39,7 @@ const Survey = (props) => {
         })
         const recentParams = {
             masterId: userId,
-            model: "category",
+            model: "document",
             repositoryId: repositoryId,
             orderParams: [{
                 name: "recentTime",
@@ -141,7 +141,7 @@ const Survey = (props) => {
             model: item.typeId,
             modelId: item.id,
             master: { id: userId },
-            repository: { id: repositoryId }
+            wikiRepository: { id: repositoryId }
         }
         createDocumentRecent(params)
         setSelectKey(item.id)
