@@ -247,7 +247,7 @@ const Header = props => {
                             <div className="frame-header-name" data-title="个人资料与设置">
                                 <Dropdown overlay={useMenu} trigger={"click"}>
                                     <Space>
-                                        <UserIcon />
+                                        <UserIcon size = "big" name= {user.nickname}/>
                                     </Space>
                                 </Dropdown>
                             </div>
