@@ -19,7 +19,7 @@ const Home = (props) => {
 
         const recentParams = {
             masterId: userId,
-            model: "repository",
+            model: "document",
             orderParams: [{
                 name: "recentTime",
                 orderType: "asc"

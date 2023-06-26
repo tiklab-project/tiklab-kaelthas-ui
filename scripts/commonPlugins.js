@@ -17,9 +17,13 @@ import postcss from "rollup-plugin-postcss";
 // 可以将.json文件转为es6模块供rollup处理
 import json from '@rollup/plugin-json';
 
+import {NODE_ENV} from './constant';
+
 import image from '@rollup/plugin-image';
 
-import {NODE_ENV} from './constant';
+import copy from 'rollup-plugin-copy';
+
+import url from 'rollup-plugin-url';
 
 const extensions = ['.js', '.jsx']
 
@@ -36,15 +40,24 @@ const commonPlugins = [
     json(),
     postcss(),
     replace({
-        // exclude: 'node_modules/**',
+        exclude: 'node_modules/**',
         'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
         preventAssignment:true,
     }),
-    image({
-        output: `dist/images`,
-        extensions: /\.(png|jpg|jpeg|gif|svg)$/,
-        limit: 8192
-    })
+    url({
+        include: ['**/*.svg', '**/*.png', '**/*.jpg'],
+        limit: 0,
+        fileName: '[name][extname]',
+        destDir: 'es/src/assets/images',
+        publicPath: '/images/'
+    }),
+    // copy({
+    //     targets: [
+    //       { src: 'src/assets/*', dest: 'es/src/assets' },
+    //       // 添加其他图片格式的配置
+    //     ],
+    //     flatten: false, // 设置为true时，只拷贝文件，不复制目录结构
+    // }),
 ];
 
 export default commonPlugins;

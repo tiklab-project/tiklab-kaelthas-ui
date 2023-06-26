@@ -120,13 +120,13 @@ const setDevEamRouter= [
             }
         ]
     }, 
-    {
-        title: "版本与许可证",
-        icon: 'plugin',
-        id: '/index/setting/version',
-        purviewCode: "SysVersion",
-        code: 11,
-    },
+    // {
+    //     title: "版本与许可证",
+    //     icon: 'plugin',
+    //     id: '/index/setting/version',
+    //     purviewCode: "SysVersion",
+    //     code: 11,
+    // },
    
     {
         title: "基础数据",
@@ -328,13 +328,13 @@ const setPrdEamRouter= [
             }
         ]
     }, 
-    {
-        title: "版本与许可证",
-        icon: 'plugin',
-        id: '/index/setting/version',
-        purviewCode: "SysVersion",
-        code: 11,
-    }
+    // {
+    //     title: "版本与许可证",
+    //     icon: 'plugin',
+    //     id: '/index/setting/version',
+    //     purviewCode: "SysVersion",
+    //     code: 11,
+    // }
 ];
 
 const setDevRouter= [
@@ -449,13 +449,13 @@ const setDevRouter= [
             }
         ]
     }, 
-    {
-        title: "版本与许可证",
-        icon: 'plugin',
-        id: '/index/setting/version',
-        purviewCode: "SysVersion",
-        code: 11,
-    },
+    // {
+    //     title: "版本与许可证",
+    //     icon: 'plugin',
+    //     id: '/index/setting/version',
+    //     purviewCode: "SysVersion",
+    //     code: 11,
+    // },
     {
         title: "基础数据",
         icon: 'systemcenter',
@@ -657,12 +657,12 @@ const setPrdRouter= [
             }
         ]
     }, 
-    {
-        title: "版本与许可证",
-        icon: 'plugin',
-        id: '/index/setting/version',
-        purviewCode: "SysVersion",
-        code: 11,
-    }
+    // {
+    //     title: "版本与许可证",
+    //     icon: 'plugin',
+    //     id: '/index/setting/version',
+    //     purviewCode: "SysVersion",
+    //     code: 11,
+    // }
 ];
 export  {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter};

@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from 'react';
 import logo from "../../../assets/images/logo_k3.png";
 import { renderRoutes } from "react-router-config";
-import LocalHeader from "./localHeader";
+import LocalHeader from "./LocalHeader";
 import "../components/header.scss";
 
 import { UserVerify } from 'tiklab-eam-ui';

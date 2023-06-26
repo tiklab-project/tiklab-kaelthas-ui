@@ -17,7 +17,6 @@ import {SHARE_STORE,ShareStore} from "./document/share/store/ShareStore"
 import {REPOSITORYWORK_STORE,RepositoryWork} from "./repository/common/store/RepositoryWork";
 import {SURVEY_STORE, SurveyStore} from "./repository/overview/store/SurveyStore";
 
-import {EAM_STORE, EamStore} from 'tiklab-eam-ui/es/store';
 import {WORK_STORE,WorkStore} from "./document/document/store/WorkStore";
 import {URLDATA_STORE, UrlDataStore} from "./setting/systemIntegration/store/UrlDataStore";
 function createStores() {
@@ -30,7 +29,6 @@ function createStores() {
         [COMMENT_STORE]: new CommentStore(),
         [SHARE_STORE]: new ShareStore(),
         [REPOSITORYWORK_STORE]: new RepositoryWork(),
-        [EAM_STORE]: new EamStore(),
         [HOME_STORE]: new HomeStore(),
         [SURVEY_STORE]: new SurveyStore(),
         [WORK_STORE]: new WorkStore(),

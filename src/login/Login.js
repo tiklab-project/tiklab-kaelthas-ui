@@ -24,4 +24,4 @@ const ProjectLogin = (props) => {
         </div>
     )
 }
-export default inject("eamStore")(observer(ProjectLogin));
+export default ProjectLogin;
