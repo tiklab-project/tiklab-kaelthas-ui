@@ -14,10 +14,11 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-13 13:56:29
  */
-import React, { useMemo, useEffect, useCallback, useState, useRef, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
-import { Row, Col, Input, Button } from 'antd';
-import { PreviewEditor } from "tiklab-slate-ui"
+import { Row, Col } from 'antd';
+import { PreviewEditor } from "tiklab-slate-ui";
+import "tiklab-slate-ui/es/tiklab-slate.css";
 import "./shareDocument.scss"
 import Comment from "./CommentShare";
 import { withRouter } from "react-router";

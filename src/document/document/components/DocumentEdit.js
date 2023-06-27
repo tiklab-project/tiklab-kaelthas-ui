@@ -6,21 +6,18 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-13 13:13:00
  */
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col, Input } from 'antd';
 import { observer, inject } from "mobx-react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./documentEdit.scss";
-// import EditorBigContent from "../../../modules/edit-slate/editorBigContent";
-// import EditorBig from "../../../modules/edit-slate/editorBig";
 import { EditorBigContent, EditorBig } from "tiklab-slate-ui";
 import Button from "../../../common/button/button";
-
-
+import DocumentStore from "../store/DocumentStore";
+import "tiklab-slate-ui/es/tiklab-slate.css";
 const DocumentEdit = (props) => {
-    const { RepositoryCatalogueStore, workStore } = props;
-    console.log(workStore)
-    const { findDocument, updateDocument } = RepositoryCatalogueStore;
+    const { workStore } = props;
+    const { findDocument, updateDocument } = DocumentStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
     const repositoryId = props.match.params.repositoryId;
@@ -133,4 +130,4 @@ const DocumentEdit = (props) => {
         </div>
     )
 }
-export default inject('repositoryDetailStore', 'repositoryStore', "RepositoryCatalogueStore", "workStore")(observer(withRouter(DocumentEdit)));
+export default inject("workStore")(observer(withRouter(DocumentEdit)));

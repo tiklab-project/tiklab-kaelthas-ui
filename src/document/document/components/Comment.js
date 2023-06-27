@@ -6,10 +6,10 @@ import Button from "../../../common/button/button";
 import "./comment.scss"
 import { getUser } from "tiklab-core-ui";
 import moment from "moment";
-
+import CommentStore from "../store/CommentStore"
 const Comment = (props) => {
-    const { commentStore, documentId, setShowComment, commentNum, setCommentNum } = props;
-    const { createComment, findCommentPage, deleteComment, deleteCommentCondition } = commentStore;
+    const { documentId, setShowComment, commentNum, setCommentNum } = props;
+    const { createComment, findCommentPage, deleteComment, deleteCommentCondition } = CommentStore;
     const [commentFirstContent, setCommentFirstContent] = useState();
     const [commentSecondContent, setCommentSecondContent] = useState();
     const [commentThirdContent, setCommentThirdContent] = useState();
@@ -261,4 +261,4 @@ const Comment = (props) => {
     )
 }
 
-export default inject("commentStore")(observer(Comment));
+export default observer(Comment);

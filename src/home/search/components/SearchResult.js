@@ -1,15 +1,14 @@
-import React,{Fragment, useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState} from "react";
 import { Pagination } from 'antd';
 import "./search.scss";
 import { Row, Col,Tabs } from 'antd';
 import repository from "../../../assets/images/repository.png";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
+import SearchStore from "../store/Search";
 const { TabPane } = Tabs;
 
 const SearchResult = (props) => {
-    const {searchStore,repositoryDetailStore} = props
-    const {getSearchSore,sortList,searchForPage,keyword,searchCondition,setKeyWord,searchList,getSearch} = searchStore;
-    const {setRepositoryId} = repositoryDetailStore
+    const {getSearchSore,sortList,searchForPage,keyword,searchCondition,setKeyWord,searchList,getSearch} = SearchStore;
     const [lastRecord,setLastRecord] = useState()
     const table = (data) => {
         switch(data){
@@ -205,4 +204,4 @@ const SearchResult = (props) => {
         
     )
 }
-export default inject("searchStore","repositoryDetailStore")(observer(SearchResult));
+export default observer(SearchResult);

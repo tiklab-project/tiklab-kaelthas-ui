@@ -7,10 +7,13 @@
  * @LastEditTime: 2021-06-02 14:32:29
  */
 
-import repositoryRoutes from "./routerSaas";
+import repositoryRoutes from "./Routers";
+import repositoryCloudRoutes from "./RouterSaas";
 import {store} from "./stores"
-
+import HomeStore from "./home/home/store/HomeStore";
 export {
     repositoryRoutes,
-    store
+    repositoryCloudRoutes,
+    store,
+    HomeStore
 }

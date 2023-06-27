@@ -12,14 +12,11 @@ import { withRouter } from "react-router-dom";
 import { Layout, Button } from "antd";
 
 import { useTranslation } from 'react-i18next';
-//import "../../../../assets/font-icon/iconfont";
 const { Sider } = Layout;
 
 const RepositorySetAside = (props) => {
-    console.log(props)
     const { t } = useTranslation();
     const repositoryId = props.match.params.repositoryId;
-    const repositoryName = JSON.parse(localStorage.getItem("repository")).repositoryName
     // 路由
     const repositoryrouter = [
         {
@@ -46,10 +43,6 @@ const RepositorySetAside = (props) => {
 
     // 菜单是否折叠
     const [isShowText, SetIsShowText] = useState(true)
-
-    // 当前项目id
-    // const repositoryId = props.match.params.id
-
 
     useEffect(() => {
         // 初次进入激活导航菜单
@@ -93,9 +86,6 @@ const RepositorySetAside = (props) => {
                         返回知识库
                         </span>
                     </div>
-                    {/* <div className="repository-set-back">
-                        返回知识库
-                    </div> */}
                     <ul className="repository-menu">
                         {
                             repositoryrouter && repositoryrouter.map(Item => {

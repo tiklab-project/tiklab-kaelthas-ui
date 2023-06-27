@@ -9,13 +9,16 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Dropdown, Form, Menu, Row, Col, Empty } from 'antd';
 import "./categoryDetail.scss"
-import { observer, inject } from "mobx-react";
-import AddLog from "../common/components/LogAdd"
+import { observer, inject, Provider } from "mobx-react";
+import CategoryAdd from "../common/components/CategoryAdd"
 import { getUser } from "tiklab-core-ui";
-const LogDetail = (props) => {
-    const { RepositoryCatalogueStore } = props;
+import CategoryStore from "../common/store/CategoryStore"
+const CategoryDetail = (props) => {
+    const store = {
+        categoryStore: CategoryStore
+    }
     const { detailRepositoryLog, findCategoryDocument, findDmPrjRolePage, setRepositoryCatalogueList, 
-        createDocumentRecent, addRepositoryCataDocument,  expandedTree, setExpandedTree, findRepositoryCatalogue } = RepositoryCatalogueStore
+        createDocumentRecent, createDocument,  expandedTree, setExpandedTree, findRepositoryCatalogue } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
@@ -74,7 +77,7 @@ const LogDetail = (props) => {
     const selectAddType = (value, id) => {
         setCatalogueId(id)
         findDmPrjRolePage(repositoryId).then(data => {
-            setUserList(data.dataList)
+            setUserList(data.data)
         })
         if (value.key === "category") {
             setAddModalVisible(true)
@@ -86,9 +89,9 @@ const LogDetail = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: { id: id },
+                wikiCategory: { id: id },
             }
-            addRepositoryCataDocument(data).then((data) => {
+            createDocument(data).then((data) => {
                 if (data.code === 0) {
                     setOpenOrClose(id)
                     props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
@@ -130,7 +133,7 @@ const LogDetail = (props) => {
         }
     }
 
-    return (
+    return (<Provider {...store}>
         <div className="log-detail">
             <Row>
                 <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
@@ -194,7 +197,7 @@ const LogDetail = (props) => {
                     </div>
                 </Col>
             </Row>
-            <AddLog
+            <CategoryAdd
                 setAddModalVisible={setAddModalVisible}
                 addModalVisible={addModalVisible}
                 setRepositoryCatalogueList={setRepositoryCatalogueList}
@@ -206,17 +209,9 @@ const LogDetail = (props) => {
                 modalTitle={"添加目录"}
                 {...props}
             />
-            {/* <TemplateList
-                changeTemplateVisible={changeTemplateVisible}
-                setChangeTemplateVisible={setChangeTemplateVisible}
-                templateId={templateId}
-                setTemplateId={setTemplateId}
-                setAddModalVisible={setAddModalVisible}
-                contentValue={contentValue}
-                setContentValue={setContentValue}
-
-            /> */}
         </div>
+    </Provider>
+        
     )
 }
-export default inject("RepositoryCatalogueStore")(observer(LogDetail));
+export default observer(CategoryDetail);

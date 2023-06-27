@@ -1,18 +1,18 @@
-import React, { useRef, useEffect, useState } from "react";
-import { Breadcrumb, Input, Table, Space, Divider, Row, Col } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Table, Space, Row, Col } from 'antd';
 import { observer, inject } from "mobx-react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { getUser } from "tiklab-core-ui";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import InputSearch from "../../../common/input/inputSearch";
 import Button from "../../../common/button/button";
 import "./repository.scss";
-import { useHistory, useLocation } from 'react-router-dom';
-const Repositorycontent = (props) => {
-    const { repositoryStore } = props;
+import { useHistory } from 'react-router-dom';
+import RepositoryStore from "../store/RepositoryStore";
+const RepositoryList = (props) => {
     const { findRepositoryList, createDocumentRecent,
         repositorylist, findRecentRepositoryList, createRepositoryFocus,
-        findFocusRepositoryList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = repositoryStore;
+        findFocusRepositoryList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = RepositoryStore;
     const userId = getUser().userId;
     const [focusRepositoryList, setFocusRepositoryList] = useState([])
     const repositoryTab = [
@@ -126,7 +126,6 @@ const Repositorycontent = (props) => {
         }
         createDocumentRecent(params)
 
-        // repositoryDetailStore.setRepositoryId(id)
         props.history.push({ pathname: `/index/repositorydetail/${repository.id}/survey` })
     }
 
@@ -211,11 +210,6 @@ const Repositorycontent = (props) => {
                     <Breadcumb
                         firstText="知识库"
                     >
-                        {/* <RepositoryAddmodal
-                            name="添加知识库"
-                            type="add"
-                            selectTabs = {selectTabs}
-                        /> */}
                         <Button type="primary" onClick={() => goRepositoryAdd()} buttonText={"添加知识库"} >
                         </Button>
                     </Breadcumb>
@@ -252,4 +246,4 @@ const Repositorycontent = (props) => {
         </div>
     )
 }
-export default withRouter(inject('repositoryStore')(observer(Repositorycontent)));
+export default withRouter(observer(RepositoryList));

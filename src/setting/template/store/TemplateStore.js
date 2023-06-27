@@ -8,7 +8,7 @@
  */
 import { observable, action } from "mobx";
 import { Service } from "../../../common/utils/requset";
-export class TemplateStore {
+class TemplateStore {
     @observable templateList = [];
     @observable templatePageParams = {
         current: 1,
@@ -70,4 +70,4 @@ export class TemplateStore {
         return data
     }
 }
-export const TEMPLATE_STORE = "templateStore"
+export default new TemplateStore();

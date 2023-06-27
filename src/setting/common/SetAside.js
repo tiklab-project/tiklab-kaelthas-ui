@@ -9,18 +9,13 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { DownOutlined, UpOutlined } from '@ant-design/icons';
 import { withRouter } from "react-router-dom";
-import { setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter } from "./SetRouter"
-//import "../../../../assets/font-icon/iconfont";
+import { setDevRouter, setPrdRouter } from "./SetRouter"
 import { PrivilegeButton } from "tiklab-privilege-ui"
 const SetAside = (props) => {
     // 无子级菜单处理
     const [selectKey, setSelectKey] = useState("/index/organ/organ");
 
-
-    //true 内嵌 false 统一
-    const authType = JSON.parse(localStorage.getItem("authConfig")).authType;
-    const authUrl = JSON.parse(localStorage.getItem("authConfig")).authUrl;
-    const [router, setRouterMenu] = useState(setDevEamRouter)
+    const [router, setRouterMenu] = useState(setDevRouter)
     const select = (key, index) => {
 
         props.history.push(key)
@@ -29,16 +24,10 @@ const SetAside = (props) => {
     }
 
     useEffect(() => {
-        if (env === "local" && authType === true) {
-            setRouterMenu(setDevEamRouter)
-        }
-        if (env === "local" && authType === false) {
+        if (env === "local") {
             setRouterMenu(setDevRouter)
         }
-        if (env !== "local" && authType === true) {
-            setRouterMenu(setPrdEamRouter)
-        }
-        if (env !== "local" && authType === false) {
+        if (env !== "local") {
             setRouterMenu(setPrdRouter)
         }
         return

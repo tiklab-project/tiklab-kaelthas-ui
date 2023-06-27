@@ -7,17 +7,20 @@
  * @LastEditTime: 2021-12-07 15:07:14
  */
 import React, { useState,useEffect } from "react";
-import { Layout,Row,Col } from 'antd';
+import { Layout } from 'antd';
 import RepositorySetAside from "../components/RepositorySetAside";
 import "../components/repositorySet.scss";
 import { renderRoutes } from "react-router-config";
-import {observer, inject} from "mobx-react";
 import { getUser } from "tiklab-core-ui";
+import RepositorySetStore from "../store/RepositorySetStore";
+import { Provider } from "mobx-react";
 
 const RepositorySetDetail = (props)=>{
-    const route = props.route
-    const { repositoryStore } = props;
-    const { findRepositoryList, searchrepository } = repositoryStore;
+    const route = props.route;
+    const store = {
+        repositorySetStore: RepositorySetStore
+    }
+    const { findRepositoryList, findRepository } = RepositorySetStore;
     const userId = getUser().userId;
 
     // 当前项目名字
@@ -34,7 +37,7 @@ const RepositorySetDetail = (props)=>{
             search = search.split("=")
             localStorage.setItem("repositoryId", search[1]);
         }
-        searchrepository({id: repositoryId}).then((res)=> {
+        findRepository({id: repositoryId}).then((res)=> {
             setRepositoryname(res.repositoryName)
         })
         //获取项目列表
@@ -43,8 +46,8 @@ const RepositorySetDetail = (props)=>{
     }, [repositoryId])
 
 
-    return (
-        <Layout className="repository-set">
+    return (<Provider {...store}>
+         <Layout className="repository-set">
             <RepositorySetAside 
                 repositoryName={repositoryname}
                 {...props}
@@ -54,7 +57,9 @@ const RepositorySetDetail = (props)=>{
             </Layout>
             
         </Layout>
+    </Provider>
+       
     )
     
 }
-export default inject('repositoryStore')(observer(RepositorySetDetail));
+export default RepositorySetDetail;

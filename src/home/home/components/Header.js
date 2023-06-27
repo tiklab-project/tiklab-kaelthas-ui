@@ -17,13 +17,11 @@ import { AppLink } from 'tiklab-integration-ui';
 import UserIcon from "../../../common/UserIcon/UserIcon"
 import { useEffect } from 'react';
 import { getUser } from 'tiklab-core-ui';
-
 const Header = props => {
     const {
         logo,
         languageSelectData = [], // 切换语言包的数据
         routers,
-        homeStore,
         systemRoleStore
     } = props;
 
@@ -34,8 +32,6 @@ const Header = props => {
             systemRoleStore.getSystemPermissions(user.userId, "kanass")
         }
     }, [])
-
-    const { currentLink, setCurrentLink } = homeStore;
 
     const { i18n } = useTranslation();
 
@@ -53,7 +49,6 @@ const Header = props => {
     const changeCurrentLink = item => {
         localStorage.removeItem("sprintId")
         props.history.push(item.to)
-        setCurrentLink(item.key)
         sessionStorage.setItem("menuKey", item.key)
     }
 
@@ -134,7 +129,6 @@ const Header = props => {
 
     const goSet = (url) => {
         props.history.push(url)
-        setCurrentLink("set")
         sessionStorage.setItem("menuKey", "set")
     };
 
@@ -259,4 +253,4 @@ const Header = props => {
         </Row>
     )
 }
-export default withRouter(inject('homeStore', "systemRoleStore")(observer(Header)));
+export default withRouter(inject( "systemRoleStore")(observer(Header)));

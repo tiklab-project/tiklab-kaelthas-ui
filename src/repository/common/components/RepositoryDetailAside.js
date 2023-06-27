@@ -10,10 +10,10 @@
 import React, { Fragment, useState, useEffect, useId, useRef } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Menu, Dropdown, Button, Modal, Layout, Form } from 'antd';
+import { Menu, Dropdown, Layout, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
-import AddLog from "./LogAdd"
-import ChangeRepositoryModal from "./RepositoryChangeModal";
+import CategoryAdd from "./CategoryAdd"
+import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
@@ -21,13 +21,13 @@ const { Sider } = Layout;
 const RepositorydeAside = (props) => {
     // 解析props
     const [form] = Form.useForm();
-    const { searchrepository, repository, repositorylist, RepositoryCatalogueStore } = props;
+    const { searchrepository, repository, repositorylist, categoryStore } = props;
     //语言包
     const { t } = useTranslation();
     const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
         findDmPrjRolePage, repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        addRepositoryCataDocument, expandedTree, setExpandedTree } = RepositoryCatalogueStore;
+        createDocument, expandedTree, setExpandedTree } = categoryStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -127,7 +127,7 @@ const RepositorydeAside = (props) => {
     const selectAddType = (value, id) => {
         setCatalogueId(id)
         findDmPrjRolePage(repositoryId).then(data => {
-            setUserList(data.dataList)
+            setUserList(data.data)
         })
         if (value.key === "document") {
             const data = {
@@ -136,10 +136,10 @@ const RepositorydeAside = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: { id: id },
+                wikiCategory: { id: id },
             }
             console.log(id)
-            addRepositoryCataDocument(data).then((data) => {
+            createDocument(data).then((data) => {
                 if (data.code === 0) {
                     findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
@@ -331,7 +331,7 @@ const RepositorydeAside = (props) => {
             if (formatType === "category") {
                 if (targetId) {
                     value = {
-                        parentCategory: { id: targetId },
+                        parentWikiCategory: { id: targetId },
                         id: moveCategoryId
                     }
                 } else {
@@ -349,7 +349,7 @@ const RepositorydeAside = (props) => {
             } else {
                 if (targetId) {
                     value = {
-                        category: { id: targetId },
+                        wikiCategory: { id: targetId },
                         id: moveCategoryId
                     }
                 } else {
@@ -519,7 +519,7 @@ const RepositorydeAside = (props) => {
                             <span>{repository?.name}</span>
                         </span>
                         <div className="repository-toggleCollapsed">
-                            <ChangeRepositoryModal
+                            <RepositoryChangeModal
                                 searchrepository={searchrepository}
                                 repositorylist={repositorylist}
                                 changeRepositoryVisible={changeRepositoryVisible}
@@ -578,7 +578,7 @@ const RepositorydeAside = (props) => {
                 </div>
             </Sider>
 
-            <AddLog
+            <CategoryAdd
                 setAddModalVisible={setAddModalVisible}
                 addModalVisible={addModalVisible}
                 setRepositoryCatalogueList={setRepositoryCatalogueList}
@@ -610,4 +610,4 @@ const RepositorydeAside = (props) => {
         </Fragment>
     )
 }
-export default withRouter(inject("repositoryDetailStore", "RepositoryCatalogueStore")(observer(RepositorydeAside)));
+export default withRouter(inject("categoryStore")(observer(RepositorydeAside)));

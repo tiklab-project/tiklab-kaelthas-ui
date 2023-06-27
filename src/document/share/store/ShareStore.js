@@ -8,7 +8,7 @@
  */
 import { observable, action } from "mobx";
 import { ServiceShare } from "../../../common/utils/requset";
-export class ShareStore {
+class ShareStore {
     @observable tenant = null;
 
     @action
@@ -49,5 +49,21 @@ export class ShareStore {
         const data = await ServiceShare("/share/findShareCategory", value, this.tenant);
         return data;
     }
+
+    @action
+    findCategory= async(params)=> {
+        const data = new FormData()
+        data.append("id", params.id)
+        const detailRepositoryLog = await Service("/category/findCategory", data);
+        return detailRepositoryLog.data;
+    }
+
+    @action
+    findCategoryDocument= async(id)=> {
+        const params = new FormData()
+        params.append("id", id)
+        const data = await Service("/category/findCategoryDocument", params);
+        return data;
+    }
 }
-export const SHARE_STORE = "shareStore"
+export default new ShareStore();

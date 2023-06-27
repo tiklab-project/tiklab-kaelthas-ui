@@ -6,16 +6,13 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-12-22 14:34:53
  */
+import { Service } from "../../../common/utils/requset";
 import { observable, action} from "mobx";
-import {FindRepositoryCatalogue,AddRepositoryCatalogue,DetailRepositoryLog,AddRepositoryCataDocument,
-    UpdateRepositoryCatalogue,DeleteRepositoryLog,UpdateDocument,FindDocument,DeleteDocument,
-    FindCategoryDocument,FindDmPrjRolePage, CreateDocumentRecent} from "../api/RepositoryLog"
-export class RepositoryCatalogueStore {
+export class CategoryStore {
     // 知识库id
     @observable repositoryCatalogue = [];
     @observable
     expandedTree = [0];
-    // const [expandedTree, setExpandedTree] = useState([0])
     // 目录树
     @observable repositoryCatalogueList = [];
     @observable docDetail = [{
@@ -46,28 +43,29 @@ export class RepositoryCatalogueStore {
         const categoryQuery = {
             repositoryId: id
         }
-        const data = await FindRepositoryCatalogue(categoryQuery);
+        
+        const data = await Service("/category/findCategoryListTree", categoryQuery)
         return data.data;
     }
 
     @action
     addRepositoryCatalogue= async(params)=> {
-        const data = await AddRepositoryCatalogue(params);
+        const data = await Service("/category/createCategory", params);
         return data;
     }
 
     @action
     updateRepositoryCatalogue= async(params)=> {
-        const data = await UpdateRepositoryCatalogue(params);
+        const data = await Service("/category/updateCategory", params);
         return data;
     }
 
     // 删除目录
     @action
     deleteRepositoryLog= async(id)=> {
-        const param = new FormData()
-        param.append("id", id)
-        const data = await DeleteRepositoryLog(param);
+        const params = new FormData()
+        params.append("id", id)
+        const data = await Service("/category/deleteCategory", params);
         return data;
     }
 
@@ -75,8 +73,7 @@ export class RepositoryCatalogueStore {
     detailRepositoryLog= async(params)=> {
         const data = new FormData()
         data.append("id", params.id)
-        const detailRepositoryLog = await DetailRepositoryLog(data);
-        // this.docDetail = detailRepositoryLog.data.list[0];
+        const detailRepositoryLog = await Service("/category/findCategory", data);
         return detailRepositoryLog.data;
     }
 
@@ -87,60 +84,50 @@ export class RepositoryCatalogueStore {
 
     // 创建文档
     @action
-    addRepositoryCataDocument = async(params) => {
-        const data = await AddRepositoryCataDocument(params);
+    createDocument = async(params) => {
+        const data = await Service("/document/createDocument", params);
         return data;
     }
     // 创建文档
     @action
     updateDocument = async(params) => {
-        const data = await UpdateDocument(params);
+        const data = await Service("/document/updateDocument", params);
         return data;
     }
 
     // 获取文档
-    @action
-    findDocument = async(id) => {
-        const params = new FormData()
-        params.append("id", id)
-        const data = await FindDocument(params);
-        return data;
-    }
-
-     // 删除文档
-    @action
-    deleteDocument= async(id)=> {
-        const param = new FormData()
-        param.append("id", id)
-        const data = await DeleteDocument(param);
-        return data;
-    }
 
     @action
     findCategoryDocument= async(id)=> {
-        const param = new FormData()
-        param.append("id", id)
-        const data = await FindCategoryDocument(param);
+        const params = new FormData()
+        params.append("id", id)
+        const data = await Service("/category/findCategoryDocument", params);
         return data;
     }
 
     // 查找项目成员
     @action
     findDmPrjRolePage= async(id)=> {
-        const param ={
+        const params ={
             domainId: id,
             pageParam: {pageSize: 10, currentPage: 1}
         }
-        const data = await FindDmPrjRolePage(param);
+        const data = await Service("/dmUser/findDmUserPage", params);
         return data.data;
     }
 
     @action
     createDocumentRecent= async(value)=> {
-        
-        const data = await CreateDocumentRecent(value);
+        const data = await Service("/documentRecent/createDocumentRecent", value);
         return data.data;
+    }
+    @action
+    deleteDocument= async(id)=> {
+        const param = new FormData()
+        param.append("id", id)
+        const data = await Service("/document/deleteDocument", param);
+        return data;
     }
 }
 
-export const REPOSITORYCATELOGUE_STORE = "RepositoryCatalogueStore"
+export default new CategoryStore();

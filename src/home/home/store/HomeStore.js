@@ -1,7 +1,7 @@
 import { observable, action} from "mobx";
 import { getUser } from 'tiklab-core-ui';
 import { Service } from "../../../common/utils/requset";
-export class HomeStore {
+class HomeStore {
     @observable currentLink = "home";
     @observable opLogList = [];
     @observable messageList = []
@@ -53,25 +53,7 @@ export class HomeStore {
         return data;
     }
 
-    @action
-    findLogpage = async(value)=> {
-        const params={
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1
-            },
-            bgroup: "kanass",
-            userId: value.userId,
-            content: {
-                repositoryId: value.repositoryId
-            }
-        }
-        const data = await Service("/oplog/findlogpage",params);
-        if(data.code === 0) {
-            this.opLogList = data.data.dataList
-        }
-        return data;
-    }
+    
 
     @action
     findRecentRepositoryList= async(value)=> {
@@ -91,4 +73,4 @@ export class HomeStore {
     }
 
 }
-export const HOME_STORE = "homeStore"
+export default new HomeStore();

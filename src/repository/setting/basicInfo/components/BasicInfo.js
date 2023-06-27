@@ -8,12 +8,12 @@
  */
 import React, { useEffect, useState } from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Form, Select, DatePicker, Button, Modal, Row, Col, message } from "antd";
+import { Input, Form, Select, Button, Modal, Row, Col, message } from "antd";
 import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
 import RepositoryIcon from "./RespositoryChangeIcon";
-import {PrivilegeProjectButton} from "tiklab-privilege-ui";
+import { PrivilegeProjectButton } from "tiklab-privilege-ui";
 import { Collapse } from 'antd';
 const { Panel } = Collapse;
 const BasicInfo = props => {
@@ -36,26 +36,22 @@ const BasicInfo = props => {
     };
 
     const [form] = Form.useForm();
-    console.log(props.match.params.repositoryId)
     const repositoryId = props.match.params.repositoryId;
-    const { repositoryStore } = props;
-    const { delerepositoryList, updateRepository, searchrepository, getUseList, uselist } = repositoryStore;
+    const { repositorySetStore } = props;
+    const { deleteRepository, updateRepository, findRepository, findAllUser, uselist } = repositorySetStore;
     const [disable, setDisabled] = useState(true);
     const [iconUrl, setIconUrl] = useState();
     const [visible, setVisible] = useState(false);
-    const [repositoryInfo, setRepositoryInfo] = useState()
     useEffect(() => {
         info()
-        getUseList()
+        findAllUser()
         return;
     }, [])
 
     const info = () => {
-        searchrepository(repositoryId).then((response) => {
+        findRepository(repositoryId).then((response) => {
             if (response.code === 0) {
                 const data = response.data;
-                setRepositoryInfo(data)
-                // setIconUrl(data.iconUrl)
                 form.setFieldsValue({
                     name: data.name,
                     limits: data.limits,
@@ -84,34 +80,14 @@ const BasicInfo = props => {
                 id: repositoryId
             }
 
-            // if (props.type === "add") {
-            //     addProlist(data)
-            // } else {
-            //     updateRepository(data)
-            // }
             updateRepository(data).then(res => {
                 if (res.code === 0) {
                     message.info('修改成功');
                 }
             })
-            // setVisible(false);
         })
     }
-    // 状态类型
-    const status = [
-        {
-            name: "未开始",
-            id: "1"
-        },
-        {
-            name: "进行中",
-            id: "2"
-        },
-        {
-            name: "已结束",
-            id: "3"
-        }
-    ]
+
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const showModal = () => {
@@ -120,7 +96,7 @@ const BasicInfo = props => {
 
 
     const handleOk = () => {
-        delerepositoryList(repositoryId).then(response => {
+        deleteRepository(repositoryId).then(response => {
             if (response.code === 0) {
                 props.history.push("/index/repository")
             }
@@ -225,7 +201,6 @@ const BasicInfo = props => {
                                     onFinish={onFinish}
                                     onFieldsChange={() => setDisabled(false)}
                                     labelAlign={"left"}
-                                // onValuesChange={onFinish}
                                 >
                                     <Form.Item
                                         label="知识库名称"
@@ -233,21 +208,6 @@ const BasicInfo = props => {
                                     >
                                         <Input placeholder="知识库名称" />
                                     </Form.Item>
-                                    {/* <Form.Item
-                                label="知识库类型"
-                                name="repositoryType"
-                            >
-                                <Select
-                                    placeholder="知识库类型"
-                                    allowClear
-                                >
-                                    {
-                                        repositoryTypelist && repositoryTypelist.map((item, index) => {
-                                            return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
-                                        })
-                                    }
-                                </Select>
-                            </Form.Item> */}
                                     <Form.Item
                                         label="可见人员"
                                         name="limits"
@@ -300,9 +260,6 @@ const BasicInfo = props => {
                         </Panel>
                         <Panel header={repositoryDelete()} key="2">
                             <div className="repository-set-icon">
-                                {/* <div className="repository-set-title">
-                                    删除知识库
-                                </div> */}
                                 <div className="repository-set-icon-block">
                                     <div>
 
@@ -341,4 +298,4 @@ const BasicInfo = props => {
     )
 }
 
-export default inject("repositoryStore")(observer(BasicInfo));
+export default inject("repositorySetStore")(observer(BasicInfo));

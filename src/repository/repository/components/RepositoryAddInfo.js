@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import { Modal, Form, Input, Select, DatePicker, Row, Col, message } from 'antd';
+import { Form, Input, message } from 'antd';
 import "./repositoryAddInfo.scss";
 import Button from "../../../common/button/button"
 import { useState } from "react";
 import { withRouter } from "react-router";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 const { TextArea } = Input;
 
 const layout = {
@@ -37,8 +37,7 @@ const iconList = [
 ]
 
 const RepositoryAddInfo = (props) => {
-    const { addRepositorylist, setVisible, repositoryStore } = props;
-    const {activeTabs, setActiveTabs } = repositoryStore;
+    const { addRepositorylist, setVisible } = props;
     const [form] = Form.useForm();
     const [iconUrl, setIconUrl] = useState("repository1.png")
 
@@ -57,7 +56,6 @@ const RepositoryAddInfo = (props) => {
                 if (res.code === 0) {
                     message.success('添加成功');
                     props.history.goBack();
-                    setActiveTabs("4")
                     // findRepositoryList({masterId: userId})
                     // props.history.push(`/index/repositorydetail/${res.data}/survey`)
                 }
@@ -188,4 +186,4 @@ const RepositoryAddInfo = (props) => {
 
     )
 }
-export default withRouter(inject('repositoryStore')(observer(RepositoryAddInfo)));
+export default withRouter(observer(RepositoryAddInfo));

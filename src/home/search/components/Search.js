@@ -2,13 +2,11 @@ import React,{Fragment, useEffect, useState} from "react";
 import { SearchOutlined } from '@ant-design/icons';
 import "../components/Search.scss"
 import repository from "../../../assets/images/repository.png"
-
-import { observer, inject } from "mobx-react";
+import SearchStore from "../store/Search";
+import { observer } from "mobx-react";
 
 const Search = (props) => {
-    const {searchStore,repositoryDetailStore } = props;
-    const {getSearch,searchList,getSearchSore,setKeyWord} = searchStore;
-    const {setRepositoryId} = repositoryDetailStore
+    const {getSearch,searchList,getSearchSore,setKeyWord} = SearchStore;
     useEffect(() => {
         
         return
@@ -118,4 +116,4 @@ const Search = (props) => {
         </Fragment>
     )
 }
-export default inject("searchStore","repositoryDetailStore")(observer(Search));
+export default observer(Search);

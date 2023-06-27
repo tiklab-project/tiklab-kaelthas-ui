@@ -6,10 +6,10 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-25 16:14:15
  */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import logo from "../../../assets/images/logo_k3.png";
 import { renderRoutes } from "react-router-config";
-import LocalHeader from "./LocalHeader";
+import Header from "./Header";
 import "../components/header.scss";
 
 import { UserVerify } from 'tiklab-eam-ui';
@@ -48,14 +48,14 @@ const Layout = (props) => {
 
     return (
         <div className="frame">
-            <LocalHeader
+            <Header
                 {...props}
                 logo={logo}
                 projectLogout={projectLogout}
                 search={<Search {...props}/>}
                 routers={routers}
             >
-            </LocalHeader>
+            </Header>
             <div className="frame-content">
                 {renderRoutes(route)}
             </div>

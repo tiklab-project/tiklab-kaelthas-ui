@@ -1,22 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "./home.scss";
-import { Tabs, Row, Col, Empty } from 'antd';
-import { inject, observer } from 'mobx-react';
+import { Row, Col } from 'antd';
+import { observer } from 'mobx-react';
 import { getUser } from 'tiklab-core-ui';
-const { TabPane } = Tabs;
-
+import HomeStore from "../store/HomeStore";
 const Home = (props) => {
-    const { homeStore } = props;
-    const { findDocumentList, findDocumentRecentList, opLogList, findLogpage, findRecentRepositoryList } = homeStore;
-    const [recentEditDocumentList, setRecentEditDocumentList] = useState([]);
+    const { findDocumentRecentList, findRecentRepositoryList } = HomeStore;
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
 
     useEffect(() => {
-
-        findLogpage({ userId: userId })
-
         const recentParams = {
             masterId: userId,
             model: "document",
@@ -43,11 +37,9 @@ const Home = (props) => {
     }, [])
 
     const goRepositoryDetail = repository => {
-        // localStorage.setItem("repository", JSON.stringify(repository.repository))
         props.history.push(`/index/repositorydetail/${repository.id}/survey`)
     }
     const goDocumentDetail = item => {
-        // localStorage.setItem("repository", JSON.stringify(item.repository))
         if (item.model === "document") {
             localStorage.setItem("documentId", item.modelId);
             props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
@@ -57,23 +49,6 @@ const Home = (props) => {
         }
         sessionStorage.setItem("menuKey", "repository")
 
-    }
-
-    const changeTabs = (activeKey) => {
-        const recentParams = {
-            masterId: userId,
-            model: activeKey,
-            orderParams: [{
-                name: "recentTime",
-                orderType: "asc"
-            }]
-        }
-        findDocumentRecentList(recentParams).then(res => {
-            if (res.code === 0) {
-                setRecentViewDocumentList([...res.data])
-            }
-
-        })
     }
     return (
         <div className="home">
@@ -154,4 +129,4 @@ const Home = (props) => {
     );
 }
 
-export default inject("homeStore")(observer(Home));
+export default observer(Home);

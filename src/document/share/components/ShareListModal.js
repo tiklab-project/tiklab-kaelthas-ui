@@ -1,15 +1,16 @@
-import { Input, Tree, Modal } from 'antd';
-import React, { Fragment, useMemo, useState } from 'react';
+import { Tree, Modal } from 'antd';
+import React, { useState } from 'react';
 import "./ShareListModal.scss";
 import ShareModal from './ShareModal';
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
+import CommentStore from "../../document/store/CommentStore";
 const { TreeNode } = Tree;
 const ShareListModal = (props) => {
-    const { shareListVisible, setShareListVisible, repositoryCatalogueList, commentStore } = props;
+    const { shareListVisible, setShareListVisible, repositoryCatalogueList } = props;
     const [documentIds, setDocumentIds] = useState([])
     const [categoryIds, setCateGoryIds] = useState([])
     const [shareVisible, setShareVisible] = useState(false)
-    const { createShare, updateShare } = commentStore;
+    const { createShare, updateShare } = CommentStore;
 
     const onSelect = (selectedKeys, info) => {
         console.log('selected', selectedKeys, info);
@@ -92,4 +93,4 @@ const ShareListModal = (props) => {
     );
 };
 
-export default inject("commentStore")(observer(ShareListModal));
+export default observer(ShareListModal);

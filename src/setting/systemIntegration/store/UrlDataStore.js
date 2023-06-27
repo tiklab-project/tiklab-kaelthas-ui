@@ -33,4 +33,4 @@ export class UrlDataStore {
     }
 }
 
-export const URLDATA_STORE = "urlDataStore"
+export default new UrlDataStore();

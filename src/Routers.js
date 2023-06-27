@@ -12,17 +12,16 @@ import { Redirect } from "react-router-dom";
 
 const Login = AsyncComponent(() => import('./login/Login'))
 const Logout = AsyncComponent(() => import('./login/Logout'))
-const Home = AsyncComponent(() => import('./home/home/components/home'))
-const ProjectNotFound = AsyncComponent(() => import("./setting/common/components/ProjectNotFond"))
+const Home = AsyncComponent(() => import('./home/home/components/Home'))
+const ProjectNotFound = AsyncComponent(() => import("./setting/common/ProjectNotFond"))
 
-const Index = AsyncComponent(() => import('./home/home/components/Portal'))
+const Index = AsyncComponent(() => import('./home/home/components/Layout'))
 const RepositoryDetail = AsyncComponent(() => import('./repository/common/components/RepositoryLayout'))
 const Survey = AsyncComponent(() => import('./repository/overview/components/Survey'))
-const DynamicList = AsyncComponent(() => import("./home/home/components/dynamicList"))
+const DynamicList = AsyncComponent(() => import("./repository/overview/components/DynamicList"))
 
 const LogDetail = AsyncComponent(() => import('./repository/category/CategoryDetail'))
-const BrainMap = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowExamine'))
-const DocumentMindMapEdit = AsyncComponent(() => import('./document/brainMap/components/BrainMapFlowEdit'))
+
 
 // 知识库
 const Repository = AsyncComponent(() => import('./repository/repository/components/RepositoryList'))
@@ -56,7 +55,7 @@ const ProjectMessageManagement = AsyncComponent(() => import('./setting/message/
 const ProjectMessageNotice = AsyncComponent(() => import('./setting/message/ProjectMessageNotice'))
 const ProjectMessageNoticeSystem = AsyncComponent(() => import('./setting/message/ProjectMessageNoticeSystem'))
 
-const Setting = AsyncComponent(() => import('./setting/common/components/Setting'))
+const Setting = AsyncComponent(() => import('./setting/common/Setting'))
 const ProjectPlugin = AsyncComponent(() => import('./setting/plugin/ProjectPlugin'))
 
 const SystemFeature = AsyncComponent(() => import('./setting/privilege/SystemFeature'))
@@ -86,7 +85,6 @@ const LogTemplateList = AsyncComponent(() => import('./setting/log/MyLogTemplate
 const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeList'))
 
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
-const ProjectAuth = AsyncComponent(() => import('./setting/version/Product'))
 const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
 
 const Routes = [
@@ -142,12 +140,6 @@ const Routes = [
                 key: 'NotFound'
             },
             {
-                path: "/index/dynamic",
-                exact: true,
-                component: DynamicList,
-                key: 'dynamic'
-            },
-            {
                 path: "/index/repository",
                 exact: true,
                 component: Repository,
@@ -193,18 +185,18 @@ const Routes = [
                         path: "/index/repositorydetail/:repositoryId/folder/:id",
                         component: LogDetail
                     },
-                    {
-                        path: "/index/repositorydetail/:repositoryId/mindmap/:id",
-                        component: BrainMap
-                    },
-                    {
-                        path: "/index/repositorydetail/:repositoryId/mindmapEdit/:id",
-                        component: DocumentMindMapEdit
-                    },
-                    {
-                        path: "/index/repositorydetail/:repositoryId/brainMap",
-                        component: BrainMap
-                    },
+                    // {
+                    //     path: "/index/repositorydetail/:repositoryId/mindmap/:id",
+                    //     component: BrainMap
+                    // },
+                    // {
+                    //     path: "/index/repositorydetail/:repositoryId/mindmapEdit/:id",
+                    //     component: DocumentMindMapEdit
+                    // },
+                    // {
+                    //     path: "/index/repositorydetail/:repositoryId/brainMap",
+                    //     component: BrainMap
+                    // },
                     {
                         path: "/index/repositorydetail/:repositoryId/repositorySet",
                         component: RepositorySet,
@@ -393,18 +385,8 @@ const Routes = [
                         exact: true
                     },
                     {
-                        path: "/index/setting/version",
-                        component: LicenceVersion,
-                        exact: true
-                    },
-                    {
                         path: "/index/setting/loadData",
                         component: LoadData,
-                        exact: true
-                    },
-                    {
-                        path: "/index/setting/product",
-                        component: ProjectAuth,
                         exact: true
                     },
                     {
@@ -415,6 +397,11 @@ const Routes = [
                     {
                         path: "/index/setting/urlData",
                         component: UrlData,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/version",
+                        component: LicenceVersion,
                         exact: true
                     }
                 ]

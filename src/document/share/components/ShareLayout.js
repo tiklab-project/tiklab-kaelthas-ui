@@ -6,18 +6,21 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-25 16:14:15
  */
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import "./ShareLayout.scss";
 import ShareAside from "./ShareAside";
 import { Layout } from "antd"
 import { Dropdown, Space } from "antd";
 import { renderRoutes } from "react-router-config";
+import CommentStore from "../../document/store/CommentStore";
+import ShareStore from '../store/ShareStore';
+import { Provider } from 'mobx-react';
 const ShareLayout = (props) => {
     const { route } = props;
-    useEffect(() => {
-
-
-    }, [])
+    const store = {
+        commentStore: CommentStore,
+        shareStore: ShareStore
+    }
     const helpMenu = (
         <div className="help-box">
             <div className="help-head">
@@ -73,8 +76,8 @@ const ShareLayout = (props) => {
             </div>
         </div>
     )
-    return (
-        <div className="share-page">
+    return (<Provider {...store}>
+         <div className="share-page">
             <div className="share-page-head">
                 <div className='share-page-logo'>
                     <img
@@ -103,6 +106,8 @@ const ShareLayout = (props) => {
 
             </Layout>
         </div>
+    </Provider>
+       
     )
 }
 

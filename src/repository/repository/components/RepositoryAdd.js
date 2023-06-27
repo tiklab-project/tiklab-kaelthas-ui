@@ -1,35 +1,19 @@
 import React, { useState } from "react";
-import { Modal, Form, Select, DatePicker, message, Row, Col, Steps, Breadcrumb } from 'antd';
+import { Row, Col } from 'antd';
 import 'moment/locale/zh-cn';
-import { getUser } from 'tiklab-core-ui';
 import { observer, inject } from "mobx-react";
 import "./repositoryAdd.scss";
 
 import RepositoryAddInfo from "./RepositoryAddInfo";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 
-import { useHistory, useLocation } from 'react-router-dom';
-
+import { useHistory } from 'react-router-dom';
+import RepositoryStore from "../store/RepositoryStore";
 const RepositoryAdd = (props) => {
-    const [form] = Form.useForm();
     const [visible, setVisible] = React.useState(false);
-    const { name, repositoryStore, selectTabs } = props;
+    const { selectTabs } = props;
     const history = useHistory();
-    const { addRepositorylist, getUseList, findRepositoryList } = repositoryStore;
-
-
-
-    const showModal = () => {
-        setVisible(true);
-        getUseList()
-    };
-
-
-    const onCancel = () => {
-        form.resetFields();
-        setVisible(false);
-    };
-
+    const { addRepositorylist, findRepositoryList } = RepositoryStore;
 
     const Head = () => {
         return (

@@ -6,24 +6,27 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-10-22 15:38:49
  */
-import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
-import { inject, observer } from "mobx-react";
-import { Divider, Input, Button, Row, Col } from 'antd';
-import {PreviewEditor} from "tiklab-slate-ui"
+import React, { useEffect, useState } from "react";
+import { Provider, inject, observer } from "mobx-react";
+import { Button, Row, Col } from 'antd';
+import {PreviewEditor} from "tiklab-slate-ui";
+import "tiklab-slate-ui/es/tiklab-slate.css";
 import "./documentExamine.scss"
 import ShareModal from "../../share/components/ShareModal";
 import { getUser } from "tiklab-core-ui";
 import Comment from "./Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
-
-
+import CommentShare from "../../share/components/CommentShare";
+import DocumentStore from "../store/DocumentStore";
 const DocumentExamine = (props) => {
-    const { commentStore, RepositoryCatalogueStore, workStore } = props;
-    // console.log(workStore)
+    const { workStore } = props;
+    const store = {
+        documentStore: DocumentStore
+    }
     const documentId = props.match.params.id;
-    const { findDocument } = RepositoryCatalogueStore;
+    const { findDocument } = DocumentStore;
 
-    const { createLike, createShare, updateShare, deleteLike } = commentStore
+    const { createLike, createShare, updateShare, deleteLike } = CommentShare
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
@@ -85,7 +88,7 @@ const DocumentExamine = (props) => {
     }
 
 
-    return (
+    return (<Provider {...store}>
         <div className="document-examine">
             <div className="examine-top">
                 <div className="examine-title" id="examine-title">{docInfo.name}</div>
@@ -119,8 +122,8 @@ const DocumentExamine = (props) => {
                     }
 
                 </div>
-                    :
-                    <DocumentAddEdit title={title} />
+                :
+                <DocumentAddEdit title={title} />
             }
             <div className="comment-box">
                 <div className="comment-box-item top-item">
@@ -146,7 +149,9 @@ const DocumentExamine = (props) => {
 
             <ShareModal documentIds = {[documentId]} shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
         </div>
+    </Provider>
+        
     )
 }
 
-export default inject("commentStore", "RepositoryCatalogueStore", "workStore")(observer(DocumentExamine));
+export default inject("workStore")(observer(DocumentExamine));

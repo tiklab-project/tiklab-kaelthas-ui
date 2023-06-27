@@ -7,18 +7,18 @@
  * @LastEditTime: 2021-09-08 16:20:06
  */
 import React, { useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Modal, Select, Form, Input, Row, Col } from 'antd';
+import { Input, Row, Col } from 'antd';
 import { EditorBig, EditorBigContent } from "tiklab-slate-ui";
+import "tiklab-slate-ui/es/tiklab-slate.css";
 import { createEditor } from "slate";
-import { Editable, Slate, withReact } from "slate-react";
+import { withReact } from "slate-react";
 import Button from "../../../common/button/button";
+import TemplateStore from "../store/TemplateStore";
 import "./templateAddmodal.scss"
 const TemplateAddmodal = (props) => {
-    const { templateStore } = props;
     const templateId = props.match.params.templateId;
-    const { createDocumentTemplate, findDocumentTemplatePage, findDocumentTemplate, updateDocumentTemplate } = templateStore;
+    const { createDocumentTemplate, findDocumentTemplatePage, findDocumentTemplate, updateDocumentTemplate } = TemplateStore;
     const [editorValue, setEditorValue] = useState([
         {
             type: "paragraph",
@@ -138,4 +138,4 @@ const TemplateAddmodal = (props) => {
     )
 }
 
-export default inject("templateStore")(observer(TemplateAddmodal));
+export default observer(TemplateAddmodal);

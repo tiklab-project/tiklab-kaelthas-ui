@@ -11,10 +11,10 @@ import React from 'react';
 import { observer, inject } from "mobx-react";
 import { Modal,Select,Form,Input   } from 'antd';
 
-const LogAdd = (props) => {
+const CategoryAdd = (props) => {
     const {addModalVisible,setAddModalVisible,setRepositoryCatalogueList,modalTitle,
-        RepositoryCatalogueStore,catalogueId,form,contentValue,setSelectKey,userList} = props
-    const {addRepositoryCatalogue,addRepositoryCataDocument,findRepositoryCatalogue, expandedTree, setExpandedTree} = RepositoryCatalogueStore;
+        catalogueId,form,contentValue,setSelectKey,userList, categoryStore} = props
+    const {addRepositoryCatalogue,createDocument,findRepositoryCatalogue, expandedTree, setExpandedTree} = categoryStore;
     const repositoryId = props.match.params.repositoryId;
 
     const isExpandedTree = (key) => {
@@ -35,15 +35,15 @@ const LogAdd = (props) => {
                 if(catalogueId){
                     data = {
                         ...values,
-                        repository:{id: repositoryId},
-                        parentCategory: {id:catalogueId},
+                        wikiRepository:{id: repositoryId},
+                        parentWikiCategory: {id:catalogueId},
                         master: {id: values.master},
                         typeId: values.formatType
                     }
                 } else {
                     data = {
                         ...values,
-                        repository:{id: repositoryId},
+                        wikiRepository:{id: repositoryId},
                         master: {id: values.master},
                         typeId: values.formatType
                     }
@@ -81,7 +81,7 @@ const LogAdd = (props) => {
                         typeId: values.formatType
                     }
                 }
-                addRepositoryCataDocument(data).then((data)=> {
+                createDocument(data).then((data)=> {
                     if(data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data)=> {
                             setRepositoryCatalogueList(data)
@@ -164,4 +164,4 @@ const LogAdd = (props) => {
     )
 }
 
-export default inject("RepositoryCatalogueStore")(observer(LogAdd));
+export default inject("categoryStore")(observer(CategoryAdd));

@@ -7,29 +7,30 @@
  * @LastEditTime: 2021-09-29 09:14:34
  */
 
-import React, { Fragment, useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { observer, inject } from "mobx-react";
-import { Row, Col, Button, Input } from 'antd';
+import { Row, Col, Input } from 'antd';
 import "./documentDetail.scss";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import "./documentAddEdit.scss";
-import TemplateList from "./SelectTemplateList"
+import SelectTemplateList from "./SelectTemplateList";
+import DocumentStore from "../store/DocumentStore";
 const DocumentAddEdit = (props) => {
-    const {RepositoryCatalogueStore, title, templateStore} = props;
+    const {title} = props;
     const [titleValue, setTitleValue] = useState(title);
-    const { updateDocument } = RepositoryCatalogueStore;
+    const { updateDocument } = DocumentStore;
     const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
-    const [documentId, setDocumentId] = useState(props.match.params.id);
+    const documentId = props.match.params.id;
     const repositoryId = props.match.params.repositoryId;
     const [templateVisible, setTemplateVisible] = useState(false);
-    const { findDocumentTemplatePage, findDocumentTemplate } = templateStore;
+    const { findDocumentTemplateList } = DocumentStore;
     const [templateList, setTemplateList] = useState()
 
     useEffect(() => {
         setTitleValue(title)
-        findDocumentTemplatePage().then(data => {
+        findDocumentTemplateList().then(data => {
             if (data.code === 0) {
-                setTemplateList(data.data.dataList)
+                setTemplateList(data.data)
             }
         })
         return
@@ -37,7 +38,6 @@ const DocumentAddEdit = (props) => {
 
     const changeTitle = (value) => {
         setTitleValue(value.target.value)
-        console.log(documentId)
         
         const data = {
             id: documentId,
@@ -125,11 +125,11 @@ const DocumentAddEdit = (props) => {
                             }
                         </div>
                     </div>
-                    <TemplateList {...props} documentId = {documentId} setTemplateVisible = {setTemplateVisible} templateVisible = {templateVisible}/>
+                    <SelectTemplateList {...props} documentId = {documentId} setTemplateVisible = {setTemplateVisible} templateVisible = {templateVisible}/>
                 </Col>
             </Row>
         </div>
 
     )
 }
-export default withRouter(inject('RepositoryCatalogueStore', 'templateStore')(observer(DocumentAddEdit)));
+export default withRouter(inject('documentStore')(observer(DocumentAddEdit)));

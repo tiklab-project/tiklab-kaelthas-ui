@@ -21,7 +21,7 @@ const MoveLogList = (props) => {
         if(formatType === "category"){
             if(selectKey){
                 value = {
-                    parentCategory:{id:selectKey},
+                    parentWikiCategory:{id:selectKey},
                     id: moveCategoryId
                 }
             }else {
@@ -40,7 +40,7 @@ const MoveLogList = (props) => {
         }else {
             if(selectKey){
                 value = {
-                    category:{id:selectKey},
+                    wikiCategory:{id:selectKey},
                     id: moveCategoryId
                 }
             }else {

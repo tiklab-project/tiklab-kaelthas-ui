@@ -23,7 +23,6 @@ import { observer } from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
 import "./assets/index";
-import "tiklab-slate-ui/es/tiklab-slate.css";
 import { privilegeStores } from "tiklab-privilege-ui/es/store";
 import zhCN from 'antd/es/locale/zh_CN';
 import { ConfigProvider } from 'antd';

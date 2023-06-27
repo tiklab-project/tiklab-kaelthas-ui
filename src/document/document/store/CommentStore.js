@@ -8,8 +8,7 @@
  */
 import { observable, action} from "mobx";
 import { Service } from "../../../common/utils/requset";
-import {CreateComment,FindCommentPage,CreateLike,CreateShare,UpdateShare} from "../../../repository/common/api/RepositoryCommon"
-export class CommentStore {
+class CommentStore {
     @observable repositoryCommonList = [];
     @observable commonPageParams = {
         pageParam: {
@@ -20,7 +19,7 @@ export class CommentStore {
     @action
     createComment = async(value)=> {
         console.log(value)
-        const data = await CreateComment(value);
+        const data = await Service("/comment/createComment",value);
         return data;
     }
 
@@ -47,7 +46,7 @@ export class CommentStore {
 
     @action
     createLike = async(value)=> {
-        const data = await CreateLike(value)
+        const data = await  Service("/like/createLike",value);
         return data;
     }
 
@@ -59,15 +58,15 @@ export class CommentStore {
 
     @action
     createShare = async(value)=> {
-        const data = await CreateShare(value)
+        const data = await Service("/share/addShare",value);
         return data;
     }
 
     @action
     updateShare = async(value)=> {
-        const data = await UpdateShare(value)
+        const data = await Service("/share/cutHaveOrNotAuthCode",value);
         return data;
     }
 }
 
-export const COMMENT_STORE = "commentStore"
+export default new CommentStore();

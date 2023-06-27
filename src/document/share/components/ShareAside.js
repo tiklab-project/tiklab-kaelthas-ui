@@ -212,14 +212,6 @@ const ShareAside = (props) => {
             <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="250">
                 <div className={`repository-aside ${isShowText ? "" : "repository-icon"}`}>
                     <div className="repository-menu">
-                        {/* <div className="repository-menu-firstmenu">
-                            <div className="repository-menu-firstmenu-left">
-                                <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-repository"></use>
-                                </svg>
-                                <span>知识库</span>
-                            </div>
-                        </div> */}
                         {
                             repositoryCatalogueList && repositoryCatalogueList.map((item, index) => {
                                 if (item.typeId === "document") {

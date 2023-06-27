@@ -1,11 +1,11 @@
 
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
-import { Input, Empty } from "antd";
+import { Empty } from "antd";
 import "./CommentShare.scss"
 const Comment = (props) => {
     const { commentStore, documentId, setShowComment, shareStore } = props;
-    const { createComment, findCommentPage } = commentStore;
+    const { findCommentPage } = commentStore;
     const { commentView } = shareStore;
     const [commonList, setCommonList] = useState();
     const [currentPage, setCurrentPage] = useState(10);

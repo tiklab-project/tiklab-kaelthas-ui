@@ -8,14 +8,15 @@
  */
 import React, { useState,useEffect } from "react";
 import { observer, inject } from "mobx-react";
-import { Modal,Select,Form,Input   } from 'antd';
+import { Form } from 'antd';
 import "./templatePreviewModal.scss"
-import { PreviewEditor } from "tiklab-slate-ui"
+import { PreviewEditor } from "tiklab-slate-ui";
+import "tiklab-slate-ui/es/tiklab-slate.css";
+import TemplateStore from "../store/TemplateStore";
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
-    const {previewModalVisible,setPreviewModalVisible,templateStore,templateId, workStore} = props;
-    const {findDocumentTemplate} = templateStore;
-    const [template,setTemplate] = useState()
+    const {previewModalVisible,templateId, workStore} = props;
+    const {findDocumentTemplate} = TemplateStore;
     const [value, setValue] = useState([
 		{
 			type: "paragraph",
@@ -31,11 +32,6 @@ const TemplatePreviewmodal = (props) => {
             findDocumentTemplate(templateId).then(data => {
                 const value = data.data
                 if(data.code === 0){
-                    // form.setFieldsValue({   
-                    //     name: value.name,
-                    //     description: value.description
-                    // })
-                    setTemplate({...value})
                     setValue(JSON.parse(value.details))
                 }
             })
@@ -59,4 +55,4 @@ const TemplatePreviewmodal = (props) => {
     )
 }
 
-export default inject("templateStore", "workStore")(observer(TemplatePreviewmodal));
+export default inject("workStore")(observer(TemplatePreviewmodal));

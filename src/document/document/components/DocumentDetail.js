@@ -6,16 +6,19 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-29 09:14:34
  */
-import React,{Fragment,useEffect,useState,useRef} from "react";
-import { Breadcrumb,Input,Divider } from 'antd';
-import { observer,inject } from "mobx-react";
+import React,{useState} from "react";
+import { Breadcrumb} from 'antd';
+import { Provider, observer } from "mobx-react";
 import "./documentDetail.scss";
 import DocumentExamine from "./DocumnetExamine";
-import {Link,withRouter} from "react-router-dom";
-import DocumentEdit from "./DocumentEdit"
+import {withRouter} from "react-router-dom";
+import DocumentEdit from "./DocumentEdit";
+import DocumentStore from "../store/DocumentStore";
 const DocumentDetail = (props)=>{
-    const {RepositoryCatalogueStore,repositorywork} = props;
-    const {docDetail,setDocDetail,updateDocument,findDocument} = RepositoryCatalogueStore;
+    const store = {
+        documentStore: DocumentStore
+    }
+    const {docDetail,updateDocument,findDocument} = DocumentStore;
 
     const [docInfo, setDocInfo] = useState({name: "",likenumInt: "",commentNumber: ""})
     
@@ -46,7 +49,7 @@ const DocumentDetail = (props)=>{
 		}
 		updateDocument(data)
     }
-    return (
+    return (<Provider {...store}>
         <div className="documnet-detail">
             <div className="documnet-detail-header">
                 <Breadcrumb>
@@ -67,6 +70,8 @@ const DocumentDetail = (props)=>{
                     <DocumentEdit docDetail = {docDetail} onChange ={(value) => saveDocument(value)} docInfo = {docInfo} value={value} {...props}/>
             }
         </div>
+    </Provider>
+        
     )
 }
-export default inject('repositoryDetailStore','repositoryStore',"RepositoryCatalogueStore","repositorywork")(observer(withRouter(DocumentDetail)));
+export default observer(withRouter(DocumentDetail));

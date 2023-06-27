@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./RepositoryChangeModal.scss";
-import { useTranslation } from 'react-i18next';
 import { withRouter } from "react-router";
-import { inject, observer } from "mobx-react";
 
-const ChangeRepositoryModel = (props) => {
-    const { repositorylist, searchrepository, setWorkType, repository } = props;
+const RepositoryChangeModal = (props) => {
+    const { repositorylist, searchrepository } = props;
 
     const [showMenu, setShowMenu] = useState(false);
     const [selectRepository, setSelectRepository] = useState(false)
@@ -112,4 +110,4 @@ const ChangeRepositoryModel = (props) => {
         </div>
     )
 }
-export default withRouter(inject("repositoryDetailStore")(observer(ChangeRepositoryModel)));
+export default withRouter(RepositoryChangeModal);

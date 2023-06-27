@@ -1,23 +1,18 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { Row, Col, Tabs, Form, Dropdown, Menu, Empty } from 'antd';
+import { Row, Col, Form, Dropdown, Menu, Empty } from 'antd';
 import { withRouter } from "react-router";
-import { inject, observer } from "mobx-react";
+import { observer } from "mobx-react";
 import Button from "../../../common/button/button";
-import AddLog from "../../common/components/LogAdd";
+import CategoryAdd from "../../common/components/CategoryAdd";
 import UserIcon from "../../../common/UserIcon/UserIcon";
-
-const { TabPane } = Tabs;
 import "./survey.scss";
 import { getUser } from "tiklab-core-ui";
-
+import SurveyStore from "../store/SurveyStore";
+import CategoryStore from "../../common/store/CategoryStore"
 const Survey = (props) => {
-    const { surveyStore, RepositoryCatalogueStore, homeStore } = props;
+    const { findRepository, findLogpage, opLogList, findUserList,findDocumentRecentList } = SurveyStore;
 
-    const { findDocumentRecentList } = homeStore;
-
-    const { findRepository, findLogpage, opLogList, findUserList } = surveyStore;
-
-    const { findDmPrjRolePage, setRepositoryCatalogueList, createDocumentRecent, addRepositoryCataDocument } = RepositoryCatalogueStore;
+    const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue } = CategoryStore;
 
     const [repositoryInfo, setRepositoryInfo] = useState();
     const repositoryId = props.match.params.repositoryId
@@ -80,9 +75,6 @@ const Survey = (props) => {
     const [addModalVisible, setAddModalVisible] = useState()
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        // findDmPrjRolePage(repositoryId).then(data => {
-        //     setUserList(data.dataList)
-        // })
         if (value.key === "document") {
             const data = {
                 name: "未命名文档",
@@ -90,10 +82,10 @@ const Survey = (props) => {
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                category: { id: id },
+                wikiCategory: { id: id },
             }
             console.log(id)
-            addRepositoryCataDocument(data).then((data) => {
+            createDocument(data).then((data) => {
                 if (data.code === 0) {
                     findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
@@ -106,12 +98,7 @@ const Survey = (props) => {
 
             })
         }
-        // else if (value.key === "mindMap") {
-        //     setContentValue({ nodes: [], edges: [] })
-        //     setAddModalVisible(true)
-        //     setModalTitle("添加脑图")
-        // } 
-        else if (value.key === "category") {
+        if (value.key === "category") {
             setAddModalVisible(true)
             setModalTitle("添加目录")
         }
@@ -251,26 +238,7 @@ const Survey = (props) => {
         window.location.href = url
     }
 
-    const changeTabs = (activeKey) => {
-        const recentParams = {
-            masterId: userId,
-            model: activeKey,
-            repositoryId: repositoryId,
-            orderParams: [{
-                name: "recentTime",
-                orderType: "asc"
-            }]
-        }
-        findDocumentRecentList(recentParams).then(res => {
-            if (res.code === 0) {
-                setRecentViewDocumentList([...res.data])
-            }
-
-        })
-    }
-
-    return (
-        <div className="repository-survey">
+    return (<div className="repository-survey">
             <Row >
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="repository-col">
                     <div>
@@ -379,7 +347,7 @@ const Survey = (props) => {
                         </div>
                     </div>
 
-                    <AddLog
+                    <CategoryAdd
                         setAddModalVisible={setAddModalVisible}
                         addModalVisible={addModalVisible}
                         setRepositoryCatalogueList={setRepositoryCatalogueList}
@@ -391,15 +359,6 @@ const Survey = (props) => {
                         modalTitle={modalTitle}
                         {...props}
                     />
-                    {/* <TemplateList changeTemplateVisible={changeTemplateVisible}
-                        setChangeTemplateVisible={setChangeTemplateVisible}
-                        templateId={templateId}
-                        setTemplateId={setTemplateId}
-                        setAddModalVisible={setAddModalVisible}
-                        contentValue={contentValue}
-                        setContentValue={setContentValue}
-
-                    /> */}
 
                 </Col>
             </Row>
@@ -407,4 +366,4 @@ const Survey = (props) => {
     )
 }
 
-export default withRouter(inject("surveyStore", "RepositoryCatalogueStore", "homeStore")(observer(Survey)));
+export default withRouter(observer(Survey));

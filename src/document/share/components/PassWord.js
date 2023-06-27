@@ -12,9 +12,9 @@ import { Input, Button } from 'antd';
 import "./passWord.scss"
 import { withRouter } from "react-router";
 import { useHistory } from 'react-router-dom';
+import ShareStore from "../store/ShareStore";
 const PassWord = (props) => {
-    const {shareStore} = props;
-    const { verifyAuthCode, setTenant } = shareStore;
+    const { verifyAuthCode, setTenant } = ShareStore;
     const tenant = props.location.search.split("=")[1];
     const [value,setValue] = useState();
     const history = useHistory();
@@ -64,5 +64,4 @@ const PassWord = (props) => {
 
     </div>
 }
-// export default PassWord;
-export default withRouter(inject("shareStore")(observer(withRouter(PassWord))));
+export default withRouter(observer(withRouter(PassWord)));

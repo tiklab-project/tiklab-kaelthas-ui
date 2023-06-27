@@ -7,12 +7,12 @@
  * @LastEditTime: 2021-12-22 14:04:36
  */
 import React, { useState, useEffect, Fragment } from "react";
-import { Dropdown, Form, Menu, Row, Col, Empty } from 'antd';
+import { Row, Col, Empty } from 'antd';
 import "./ShareCategoryDetail.scss"
 import { observer, inject } from "mobx-react";
 const ShareCategoryDetail = (props) => {
-    const { RepositoryCatalogueStore } = props;
-    const { detailRepositoryLog, findCategoryDocument } = RepositoryCatalogueStore;
+    const {shareStore} = props;
+    const { findCategory, findCategoryDocument } = shareStore;
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
@@ -20,7 +20,7 @@ const ShareCategoryDetail = (props) => {
     const shareId = props.match.params.shareId;
 
     useEffect(() => {
-        detailRepositoryLog({ id: categoryId }).then(data => {
+        findCategory({ id: categoryId }).then(data => {
             setLogDetail(data)
         })
         findCategoryDocument(categoryId).then(data => {
@@ -110,4 +110,4 @@ const ShareCategoryDetail = (props) => {
         </div>
     )
 }
-export default inject("RepositoryCatalogueStore")(observer(ShareCategoryDetail));
+export default inject("shareStore")(observer(ShareCategoryDetail));

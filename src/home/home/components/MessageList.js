@@ -1,29 +1,19 @@
 import React, { useState, useRef } from 'react';
 import { Drawer, Tabs, Badge, Avatar, } from 'antd';
-import { observer, inject } from "mobx-react";
-import { MessageOutlined, DownOutlined } from '@ant-design/icons';
+import { observer } from "mobx-react";
+import { MessageOutlined } from '@ant-design/icons';
 import "./MessageList.scss"
 import { withRouter } from 'react-router';
 import { useEffect } from 'react';
-
+import HomeStore from "../store/HomeStore";
 
 const MessageList = (props) => {
-    const todoMessageList = useRef()
-
-    const { homeStore } = props;
-    const [placement, setPlacement] = useState('left');
-    const { findMessageDispatchItemPage, messageTotal, messageList, isMessageReachBottom, updateMessageDispatchItem } = homeStore;
+    const { findMessageDispatchItemPage, messageTotal, messageList, isMessageReachBottom, updateMessageDispatchItem } = HomeStore;
     const [currenTab, setCurrentTab] = useState("0")
     const [currentPage, setCurrentPage] = useState(0)
-    const [unReadMessage, setUnReadMessage] = useState(0)
     const [open, setOpen] = useState(false);
     const messageRef = useRef()
 
-    // useEffect(() => {
-    //     if (open) {
-    //         
-    //     }
-    // }, [open])
     const openDrawer = () => {
         setOpen(true)
         findMessageDispatchItemPage({ page: 1, status: currenTab })
@@ -76,7 +66,7 @@ const MessageList = (props) => {
     return (
         <div ref = {messageRef}>
             <a className="frame-header-language" data-title="消息提示" onClick={() => openDrawer()}>
-                <Badge count={unReadMessage} size="small">
+                <Badge count={0} size="small">
                     <Avatar
                         size="small" style={{ background: "transparent", fontSize: "22px" }} icon={<MessageOutlined style={{ color: "#fff" }} />} />
                 </Badge>
@@ -87,22 +77,13 @@ const MessageList = (props) => {
                 closable={true}
                 onClose={onClose}
                 visible={open}
-                key={placement}
                 className="frame-header-drawer"
                 mask={false}
                 destroyOnClose={true}
                 width={375}
                 getContainer = {false}
-            // extra={
-            //     <Space>
-            //         <CloseOutlined onClick={() => { setOpen(false) }} />
-            //     </Space>
-            // }
             >
                 <div className="message-content">
-                    {
-                        console.log(messageList)
-                    }
                     <Tabs onChange={onChange} size = "small" activeKey = {currenTab}>
                         <Tabs.TabPane tab="未读" key="0">
                             <div className="message-box">
@@ -152,4 +133,4 @@ const MessageList = (props) => {
         </div>
     );
 };
-export default withRouter(inject('homeStore')(observer(MessageList)));
+export default withRouter(observer(MessageList));

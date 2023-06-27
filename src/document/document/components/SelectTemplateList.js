@@ -8,32 +8,23 @@
  */
 import React, { useState, useEffect } from 'react';
 import { observer, inject } from "mobx-react";
-import { Modal, Button, Layout, Menu } from 'antd';
+import { Modal, Layout, Menu } from 'antd';
 import { VideoCameraOutlined } from '@ant-design/icons';
 import "./selectTemplateList.scss"
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
-const TemplateList = (props) => {
-    const { templateStore, setTemplateVisible,
-        templateVisible, documentId,
-        RepositoryCatalogueStore, setContentValue } = props;
-    const { findDocumentTemplatePage, findDocumentTemplate } = templateStore;
+const SelectTemplateList = (props) => {
+    const { setTemplateVisible,templateVisible, documentId, documentStore } = props;
     const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
-    const { updateDocument } = RepositoryCatalogueStore;
+    const { updateDocument, findDocumentTemplateList } = documentStore;
     const repositoryId = props.match.params.repositoryId;
-    const [value, setValue] = useState([
-        {
-            type: "paragraph",
-            children: [{ text: "" }],
-        },
-    ])
+
     const [templateList, setTemplateList] = useState()
 
     useEffect(() => {
-        // setContentValue(value)
-        findDocumentTemplatePage().then(data => {
+        findDocumentTemplateList().then(data => {
             if (data.code === 0) {
-                setTemplateList(data.data.dataList)
+                setTemplateList(data.data)
             }
         })
     }, [])
@@ -109,4 +100,4 @@ const TemplateList = (props) => {
         </div>
     )
 }
-export default inject("templateStore", "RepositoryCatalogueStore")(observer(TemplateList));
+export default inject("documentStore")(observer(SelectTemplateList));

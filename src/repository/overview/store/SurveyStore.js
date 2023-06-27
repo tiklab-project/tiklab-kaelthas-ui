@@ -4,18 +4,23 @@ export class SurveyStore {
     @observable opLogList = [];
 
     @action
+    findDocumentRecentList= async(value)=> {
+        const data = await Service("/documentRecent/findDocumentRecentList",value);
+        return data;
+    }
+    
+    @action
     findRepository = async(value) => {
         const params = new FormData();
         params.append("id", value.id)
         const data = await Service("/repository/findRepository",params);
         return data;
     }
-
     @action
     findLogpage = async(value)=> {
         const params={
             pageParam: {
-                pageSize: 20,
+                pageSize: 10,
                 currentPage: 1
             },
             bgroup: "kanass",
@@ -39,4 +44,4 @@ export class SurveyStore {
 
 }
 
-export const SURVEY_STORE = "surveyStore"
+export default new SurveyStore();

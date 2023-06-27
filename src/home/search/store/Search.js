@@ -9,7 +9,7 @@
 import { observable, action  } from "mobx";
 import { Service } from "../../../common/utils/requset";
 //删除事项
-export class SearchStore{
+class SearchStore{
     @observable searchList = []
     @observable sortList = []
     @observable keyword = ""
@@ -72,4 +72,4 @@ export class SearchStore{
     }
 }
 
-export const SEARCH_STORE = "searchStore"
+export default new SearchStore();

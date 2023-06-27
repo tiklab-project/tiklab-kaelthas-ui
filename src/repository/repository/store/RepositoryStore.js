@@ -49,11 +49,7 @@ export class RepositoryStore {
 	delerepositoryList = async(values) => {
         const param = new FormData()
         param.append("id", values)
-
         const data = await Service("/repository/deleteRepository",param);
-        // if(data.code=== 0){
-        //     this.getRepositorylist()
-        // }
         return data;
     }
 
@@ -138,4 +134,4 @@ export class RepositoryStore {
     
 }
 
-export const REPOSITORY_STORE = "repositoryStore"
+export default new RepositoryStore();

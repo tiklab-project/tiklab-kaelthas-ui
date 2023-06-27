@@ -7,29 +7,21 @@
  * @LastEditTime: 2022-03-23 17:51:33
  */
 import React, { Fragment, useState, useEffect } from 'react';
-import { observer, inject } from "mobx-react";
-import { Layout, Col, Row } from 'antd';
+import { Layout } from 'antd';
 import SetAside from "./SetAside";
-import "../components/Orga.scss"
+import "./Setting.scss"
 import { renderRoutes } from "react-router-config";
 import {SystemNav} from "tiklab-privilege-ui";
-import {setDevEamRouter, setDevRouter, setPrdEamRouter, setPrdRouter}  from "./SetRouter";
+import {setDevRouter, setPrdRouter}  from "./SetRouter";
 const { Sider, Content } = Layout;
 const Setting = (props) => {
     const route = props.route;
-    const [router,setRouterMenu] = useState(setDevEamRouter)
-    const authType = JSON.parse(localStorage.getItem("authConfig")).authType;
+    const [router,setRouterMenu] = useState(setDevRouter)
     useEffect(() => {
-        if(env === "local" && authType === true){
-            setRouterMenu(setDevEamRouter)
-        }
-        if(env === "local" && authType === false){
+        if(env === "local"){
             setRouterMenu(setDevRouter)
         }
-        if(env !== "local" && authType === true){
-            setRouterMenu(setPrdEamRouter)
-        }
-        if(env !== "local" && authType === false){
+        if(env !== "local"){
             setRouterMenu(setPrdRouter)
         }
         return 

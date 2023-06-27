@@ -7,23 +7,25 @@
  * @LastEditTime: 2021-08-30 15:06:15
  */
 import React, { useState,useEffect } from "react";
-import { Layout,Row,Col } from 'antd';
+import { Layout} from 'antd';
 import RepositorydeAside from "./RepositoryDetailAside";
 import "../components/RepositoryLayout.scss";
 import { renderRoutes } from "react-router-config";
-import {observer, inject} from "mobx-react";
-import {getUser} from "tiklab-core-ui"
+import {observer, inject, Provider} from "mobx-react";
+import {getUser} from "tiklab-core-ui";
+import RepositoryStore from "../../repository/store/RepositoryStore";
+import CategoryStore from "../store/CategoryStore"
 const RepositoryDetail = (props)=>{
     // 解析props
-    const {repositoryStore,repositoryDetailStore,systemRoleStore,route} = props;
-
-    const {searchrepository, findRepositoryList, repositorylist} = repositoryStore;
+    const {systemRoleStore,route} = props;
+    const store = {
+        categoryStore: CategoryStore
+    }
+    const {searchrepository, findRepositoryList, repositorylist} = RepositoryStore;
     const repositoryId = props.match.params.repositoryId;
     const [repository, setRepository] = useState()
 
     useEffect(() => {
-        // 从信息页面跳入知识库详情页面时，获取知识库id
-        let search = props.location.search;
         searchrepository(repositoryId).then((res)=> {
             console.log(res)
             localStorage.setItem("repository", JSON.stringify(res.data));
@@ -40,7 +42,7 @@ const RepositoryDetail = (props)=>{
     }, [repositoryId])
 
 
-    return (
+    return (<Provider {...store}>
         <Layout className="repositorydetail">
             <RepositorydeAside 
                 repository={repository}
@@ -53,7 +55,9 @@ const RepositoryDetail = (props)=>{
             </Layout>
             
         </Layout>
+    </Provider>
+        
     )
     
 }
-export default inject("systemRoleStore",'repositoryStore','repositoryDetailStore')(observer(RepositoryDetail));
+export default inject("systemRoleStore")(observer(RepositoryDetail));
