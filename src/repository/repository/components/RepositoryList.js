@@ -65,7 +65,7 @@ const RepositoryList = (props) => {
                 {
                     record.iconUrl ?
                         <img
-                            src={('/images/' + record.iconUrl)}
+                            src={version === "cloud" ? (base_url + record.iconUrl + "?tenant=" + tenant) : (base_url + record.iconUrl)}
                             alt=""
                             className="img-icon"
                         />

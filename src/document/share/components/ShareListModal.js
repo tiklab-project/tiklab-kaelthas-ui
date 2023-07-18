@@ -37,7 +37,7 @@ const ShareListModal = (props) => {
         setShareVisible(true)
     }
     const renderTreeNodes = data =>
-        data.map(item => {
+        data?.map(item => {
             if (item.children) {
                 return (
                     <TreeNode

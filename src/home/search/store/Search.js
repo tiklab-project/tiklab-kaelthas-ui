@@ -10,7 +10,8 @@ import { observable, action  } from "mobx";
 import { Service } from "../../../common/utils/requset";
 //删除事项
 class SearchStore{
-    @observable searchList = []
+    @observable searchWikiList = []
+    @observable searchDocumentList = []
     @observable sortList = []
     @observable keyword = ""
     @observable searchCondition = {
@@ -30,9 +31,10 @@ class SearchStore{
         }else {
             params.append('keyword', null ); 
         }
-        const data = await Service("/search/searchForTop",value);
+        const data = await Service("/search/searchForTop",params);
         if(data.code=== 0){
-            this.searchList = data.data.responseList;
+            this.searchWikiList = data.data.wiki;
+            this.searchDocumentList = data.data.document;
         }
         return data;
     }
@@ -67,6 +69,26 @@ class SearchStore{
         const data = await Service("/search/searchForPage",params);
         if(data.code=== 0){
             this.searchCondition.total = response.data.totalRecord;
+        }
+        return data;
+    }
+
+    @action
+    findDocumentRecentList= async(value)=> {
+        const data = await Service("/documentRecent/findDocumentRecentList",value);
+        if(data.code === 0){
+            this.searchDocumentList = data.data;
+            
+        }
+        
+        return data;
+    }
+
+    @action
+    findRecentRepositoryList= async(value)=> {
+        const data = await Service("/repository/findRecentRepositoryList",value);
+        if(data.code === 0){
+            this.searchWikiList = data.data;
         }
         return data;
     }

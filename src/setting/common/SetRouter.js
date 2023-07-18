@@ -188,14 +188,14 @@ const setDevRouter= [
                 title: '日志模板',
                 icon: 'systemcenter',
                 id: '/index/setting/myLogTemplateList',
-                purviewCode: "SysLogTemplate",
+                // purviewCode: "SysLogTemplate",
                 code: 12-10,
             },
             {
                 title: '日志类型',
                 icon: 'systemcenter',
                 id: '/index/setting/projectLogTypeList',
-                purviewCode: "SysLogType",
+                // purviewCode: "SysLogType",
                 code: 12-11,
             },
             {

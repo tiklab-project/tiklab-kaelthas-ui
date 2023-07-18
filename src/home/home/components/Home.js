@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import "./home.scss";
-import { Row, Col } from 'antd';
+import { Row, Col, Empty } from 'antd';
 import { observer } from 'mobx-react';
 import { getUser } from 'tiklab-core-ui';
 import HomeStore from "../store/HomeStore";
@@ -9,7 +9,7 @@ const Home = (props) => {
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
-
+    const tenant = getUser().tenant;
     useEffect(() => {
         const recentParams = {
             masterId: userId,
@@ -29,7 +29,7 @@ const Home = (props) => {
 
         findRecentRepositoryList({ model: "repository" }).then(res => {
             if (res.code === 0) {
-                setRecentRepositoryDocumentList(res.data)
+                setRecentRepositoryDocumentList(res.data.slice(0, 5))
             }
 
         })
@@ -66,7 +66,8 @@ const Home = (props) => {
                                                     {
                                                         item.iconUrl ?
                                                             <img
-                                                                src={('/images/' + item.iconUrl)}
+                                                                src={version === "cloud" ? (base_url + item.iconUrl + "?tenant=" + tenant) : (base_url + item.iconUrl)}
+                                                                   
                                                                 alt=""
                                                                 className="img-icon"
                                                             />
@@ -98,7 +99,7 @@ const Home = (props) => {
                             </div>
                             <div>
                                 {
-                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                    recentViewDocumentList && recentViewDocumentList.length > 0 ?  recentViewDocumentList.map((item) => {
                                         return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
                                             <div className='document-name' style={{ flex: 1 }}>
                                                 <svg className="document-icon" aria-hidden="true">
@@ -112,6 +113,8 @@ const Home = (props) => {
                                             <div style={{ flex: 1 }}>{item.recentTime}</div>
                                         </div>
                                     })
+                                    :
+                                    <Empty image="/images/nodata.png" description="暂时没有数据~" />
                                 }
                             </div>
 

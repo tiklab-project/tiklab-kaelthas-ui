@@ -12,9 +12,10 @@ import { Input, Form, Select, Button, Modal, Row, Col, message } from "antd";
 import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
-import RepositoryIcon from "./RespositoryChangeIcon";
+import RepositoryIcon from "./RepositoryChangeIcon";
 import { PrivilegeProjectButton } from "tiklab-privilege-ui";
 import { Collapse } from 'antd';
+import { getUser } from "tiklab-core-ui";
 const { Panel } = Collapse;
 const BasicInfo = props => {
     const layout = {
@@ -42,6 +43,7 @@ const BasicInfo = props => {
     const [disable, setDisabled] = useState(true);
     const [iconUrl, setIconUrl] = useState();
     const [visible, setVisible] = useState(false);
+    const tenant = getUser().tenant;
     useEffect(() => {
         info()
         findAllUser()
@@ -58,6 +60,7 @@ const BasicInfo = props => {
                     desc: data.desc,
                     master: data.master.id
                 })
+                setIconUrl(response.data.iconUrl)
             }
 
         })
@@ -163,7 +166,7 @@ const BasicInfo = props => {
                                             {
                                                 iconUrl ?
                                                     <img
-                                                        src={('/images/' + iconUrl)}
+                                                        src={version === "cloud" ? (base_url + iconUrl + "?tenant=" + tenant) : (base_url + iconUrl)}
                                                         alt="" width={60} height={60}
                                                     />
                                                     :

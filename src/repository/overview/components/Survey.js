@@ -10,7 +10,7 @@ import { getUser } from "tiklab-core-ui";
 import SurveyStore from "../store/SurveyStore";
 import CategoryStore from "../../common/store/CategoryStore"
 const Survey = (props) => {
-    const { findRepository, findLogpage, opLogList, findUserList,findDocumentRecentList } = SurveyStore;
+    const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList } = SurveyStore;
 
     const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue } = CategoryStore;
 
@@ -22,8 +22,8 @@ const Survey = (props) => {
     const [selectKey, setSelectKey] = useState();
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [userList, setUserList] = useState();
-    const userId = getUser().id
-
+    const userId = getUser().id;
+    const tenant = getUser().tenant;
     useEffect(() => {
         findLogpage({ userId: userId, repositoryId: repositoryId })
 
@@ -55,7 +55,7 @@ const Survey = (props) => {
             }
         })
 
-    }, [])
+    }, [repositoryId])
 
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
@@ -239,130 +239,144 @@ const Survey = (props) => {
     }
 
     return (<div className="repository-survey">
-            <Row >
-                <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="repository-col">
-                    <div>
-                        {
-                            repositoryInfo && <Fragment>
-                                <div className="repository-top">
+        <Row >
+            <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="repository-col">
+                <div>
+                    {
+                        repositoryInfo && <Fragment>
+                            <div className="repository-top">
 
-                                    <div className="top-left">
-                                        <svg className="top-icon" aria-hidden="true">
+                                <div className="top-left">
+                                    {/* <svg className="top-icon" aria-hidden="true">
                                             <use xlinkHref="#icon-zhishi"></use>
-                                        </svg>
+                                        </svg> */}
+                                    {
+                                        repositoryInfo.iconUrl ?
+                                            <img
+                                                src={version === "cloud" ? (base_url + repositoryInfo.iconUrl + "?tenant=" + tenant) : (base_url + repositoryInfo.iconUrl)}
+                                                alt=""
+                                                className="repository-icon"
+                                            />
+                                            :
+                                            <img
+                                                src={('images/repository1.png')}
+                                                alt=""
+                                                className="repository-icon"
+                                            />
+                                    }
 
-                                        <div className="top-name">
-                                            <div className="name">{repositoryInfo?.name}</div>
-                                            <div className="user">
-                                                {
-                                                    userList && userList.length > 0 && userList.map((item, index) => {
-                                                        if (index < 5) {
-                                                            return <div ><UserIcon size="big" name={item.user.nickname}></UserIcon></div>
-                                                        }
+                                    <div className="top-name">
+                                        <div className="name">{repositoryInfo?.name}</div>
+                                        <div className="user">
+                                            {
+                                                userList && userList.length > 0 && userList.map((item, index) => {
+                                                    if (index < 5) {
+                                                        return <div ><UserIcon size="big" name={item.user.nickname}></UserIcon></div>
+                                                    }
 
-                                                    })
-                                                }
-                                                <div className="user-more" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/user`)}>
-                                                    <svg className="user-more-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-more"></use>
-                                                    </svg>
-                                                </div>
-                                            </div>
-                                            <div className="desc">
-                                                <span>
-                                                    目录 {repositoryInfo.categoryNum ? repositoryInfo.categoryNum : 0}
-                                                </span>
-                                                <span>
-                                                    文档 {repositoryInfo.documentNum ? repositoryInfo.documentNum : 0}
-                                                </span>
-
+                                                })
+                                            }
+                                            <div className="user-more" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/user`)}>
+                                                <svg className="user-more-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-more"></use>
+                                                </svg>
                                             </div>
                                         </div>
+                                        <div className="desc">
+                                            <span>
+                                                目录 {repositoryInfo.categoryNum ? repositoryInfo.categoryNum : 0}
+                                            </span>
+                                            <span>
+                                                文档 {repositoryInfo.documentNum ? repositoryInfo.documentNum : 0}
+                                            </span>
 
+                                        </div>
                                     </div>
 
-                                    <div className="top-right">
-                                        <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
-                                            <div className="top-add-botton">添加</div>
-                                            {/* <div>sdsd</div>  */}
-                                        </Dropdown>
-                                        <Button>分享</Button>
-                                    </div>
                                 </div>
-                            </Fragment>
-                        }
 
-                        <div className="home-document">
-                            <div className="document-box-title">
-                                <span className="name">最近查看</span>
+                                <div className="top-right">
+                                    <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
+                                        <div className="top-add-botton">添加</div>
+                                        {/* <div>sdsd</div>  */}
+                                    </Dropdown>
+                                    <Button>分享</Button>
+                                </div>
                             </div>
-                            <div>
-                                {
-                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-file"></use>
-                                                </svg>
-                                                <span>{item.name}</span>
-                                            </div>
+                        </Fragment>
+                    }
 
-                                            <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                            <div style={{ flex: 1 }}>
-                                                <svg className="icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-point"></use>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    })
-                                }
-                            </div>
-
+                    <div className="home-document">
+                        <div className="document-box-title">
+                            <span className="name">最近查看</span>
                         </div>
-                        <div className="home-dynamic">
-                            <div className="dynamic-box-title">
-                                <span className="name">相关动态</span>
-                                <div className="more" onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/dynamicList`) }}>
-                                    <svg aria-hidden="true" className="svg-icon">
-                                        <use xlinkHref="#icon-rightjump"></use>
-                                    </svg>
-                                </div>
+                        <div>
+                            {
+                                recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                    return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                        <div className='document-name' style={{ flex: 1 }}>
+                                            <svg className="document-icon" aria-hidden="true">
+                                                <use xlinkHref="#icon-file"></use>
+                                            </svg>
+                                            <span>{item.name}</span>
+                                        </div>
+
+                                        <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
+                                        <div style={{ flex: 1 }}>{item.master.name}</div>
+                                        <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                        <div style={{ flex: 1 }}>
+                                            <svg className="icon" aria-hidden="true">
+                                                <use xlinkHref="#icon-point"></use>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+
+                    </div>
+                    <div className="home-dynamic">
+                        <div className="dynamic-box-title">
+                            <span className="name">相关动态</span>
+                            <div className="more" onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/dynamicList`) }}>
+                                <svg aria-hidden="true" className="svg-icon">
+                                    <use xlinkHref="#icon-rightjump"></use>
+                                </svg>
                             </div>
-                            <div className="dynamic-list">
-                                {
-                                    opLogList.length > 0 ? opLogList.map(item => {
-                                        return <div
-                                            dangerouslySetInnerHTML={{ __html: item.data }}
-                                            className="dynamic-item"
-                                            key={item.id}
-                                            onClick={() => goOpLogDetail(item.link)}
-                                        />
-                                    })
-                                        :
-                                        <Empty image="/images/nodata.png" description="暂时没有动态~" />
-                                }
-                            </div>
+                        </div>
+                        <div className="dynamic-list">
+                            {
+                                opLogList.length > 0 ? opLogList.map(item => {
+                                    return <div
+                                        dangerouslySetInnerHTML={{ __html: item.data }}
+                                        className="dynamic-item"
+                                        key={item.id}
+                                        onClick={() => goOpLogDetail(item.link)}
+                                    />
+                                })
+                                    :
+                                    <Empty image="/images/nodata.png" description="暂时没有动态~" />
+                            }
                         </div>
                     </div>
+                </div>
 
-                    <CategoryAdd
-                        setAddModalVisible={setAddModalVisible}
-                        addModalVisible={addModalVisible}
-                        setRepositoryCatalogueList={setRepositoryCatalogueList}
-                        form={form}
-                        catalogueId={catalogueId}
-                        contentValue={contentValue}
-                        setSelectKey={setSelectKey}
-                        userList={userList}
-                        modalTitle={modalTitle}
-                        {...props}
-                    />
+                <CategoryAdd
+                    setAddModalVisible={setAddModalVisible}
+                    addModalVisible={addModalVisible}
+                    setRepositoryCatalogueList={setRepositoryCatalogueList}
+                    form={form}
+                    catalogueId={catalogueId}
+                    contentValue={contentValue}
+                    setSelectKey={setSelectKey}
+                    userList={userList}
+                    modalTitle={modalTitle}
+                    {...props}
+                />
 
-                </Col>
-            </Row>
-        </div>
+            </Col>
+        </Row>
+    </div>
     )
 }
 

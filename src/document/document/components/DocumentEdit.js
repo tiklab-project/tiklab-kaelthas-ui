@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-13 13:13:00
  */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Row, Col, Input } from 'antd';
 import { observer, inject } from "mobx-react";
 import { withRouter } from "react-router-dom";
@@ -23,7 +23,7 @@ const DocumentEdit = (props) => {
     const repositoryId = props.match.params.repositoryId;
     const [value, setValue] = useState()
     const [titleValue, setTitleValue] = useState();
-
+    const editRef = useRef(); 
     useEffect(() => {
         setValue()
         console.log("编辑")
@@ -58,7 +58,8 @@ const DocumentEdit = (props) => {
         const serialize = JSON.stringify(value)
         const data = {
             id: documentId,
-            details: serialize
+            details: serialize,
+            detailText:  editRef.current.innerText
         }
         updateDocument(data).then(res => {
             if (res.code === 0) {
@@ -83,6 +84,11 @@ const DocumentEdit = (props) => {
         })
     }
 
+    const getText = () => {
+        console.log(editRef)
+        const content = editRef.current.innerText;
+        console.log(content)
+    }
     return (
         <div className="documnet-edit">
             <div className="edit-top">
@@ -114,10 +120,13 @@ const DocumentEdit = (props) => {
                                         onBlur={(value) => changeTitle(value)}
                                     />
                                 </div>
-                                <EditorBigContent
+                                <div ref = {editRef}>
+                                    <EditorBigContent
                                     value={value}
                                     workStore= {workStore}
                                 />
+                                </div>
+                                <div onClick={() => getText()}>sdd</div>
                             </Col>
                         </Row>
                     </>

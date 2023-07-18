@@ -11,7 +11,10 @@
         margin: 15px 0;
         background: #fff;
         border-radius: 4px;
-
+        .repository-icon {
+            width: 50px;
+            margin-right: 10px;
+        }
         .top-left {
             display: flex;
             align-items: center;

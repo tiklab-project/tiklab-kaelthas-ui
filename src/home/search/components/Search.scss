@@ -17,7 +17,12 @@
         }
     }
     
-    
+    .search-short-box {
+        width: 200px;
+    }
+    .search-long-box {
+        width: 500px;
+    }
     
     
 }
@@ -38,6 +43,7 @@
         
         .sort-title {
             color: #202d407a;
+            font-weight: 600;
             font-size: 12px;
             padding-left: 10px;
             height: 20px;
@@ -48,9 +54,8 @@
                 padding: 0 10px;
                 display: flex;
                 align-items: center;
-                height: 40px;
-                background-color: #f5f7fa;
-                margin-bottom: 10px;
+                height: 35px;
+                cursor: pointer;
                 img {
                     width: 20px;
                     height: 20px;
@@ -58,11 +63,18 @@
                 span{
                     width: 100px;
                     text-align: left;
-                    margin-left: 20px;
+                    margin-left: 10px;
                     overflow: hidden;
+                    flex: 1;
+                }
+                .item-desc {
+                    color: #999;
+                    font-size: 12px;
                 }
             }
-            
+            .item-one:hover {
+                background-color: #f5f7fa;
+            }
         }
     }
 }

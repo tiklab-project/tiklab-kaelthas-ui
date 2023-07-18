@@ -39,7 +39,8 @@ const RepositorydeAside = (props) => {
 
 
     const [modalTitle, setModalTitle] = useState()
-    const userId = getUser().userId
+    const userId = getUser().userId;
+    const tenant = getUser().tenant;
     
     const [shareListVisible, setShareListVisible] = useState(false)
 
@@ -505,7 +506,7 @@ const RepositorydeAside = (props) => {
                             {
                                 repository?.iconUrl ?
                                     <img
-                                        src={('/images/' + repository?.iconUrl)}
+                                        src={version === "cloud" ? (base_url + repository.iconUrl + "?tenant=" + tenant) : (base_url + repository.iconUrl)}
                                         alt=""
                                         className="img-icon"
                                     />
@@ -565,15 +566,12 @@ const RepositorydeAside = (props) => {
                                 }
                             })
                         }
-                        {/* </div> */}
                     </div>
                     <div className="repository-setting-menu" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/basicInfo`)}>
-                        {/* <span style={{ marginRight: "20px" }}> */}
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-set"></use>
                         </svg>
                         设置
-                        {/* </span> */}
                     </div>
                 </div>
             </Sider>

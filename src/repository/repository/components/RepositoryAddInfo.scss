@@ -48,17 +48,7 @@
     .ant-picker {
         border: 0;
     }
-    .repository-icon-box {
-        width: 320px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        .upload-icon {
-            width: 30px;
-            height: 30px;
-        }
-    }
+   
 
 
     .repository-limit {
@@ -97,16 +87,27 @@
 
     
 
-    .repository-icon {
-        box-sizing: content-box;
-        padding: 5px;
-        img {
+    
+
+    .repository-icon-box {
+        width: 320px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
+        .repository-icon {
+            box-sizing: content-box;
+            img {
+                width: 30px;
+                height: 30px;
+                margin: 0;
+            }
+        }
+        .upload-icon {
             width: 30px;
             height: 30px;
-            margin: 0;
         }
     }
-
     .repository-add-submit {
         display: flex;
         gap: 20px;

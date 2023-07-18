@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
-import { Form, Input, message } from 'antd';
+import React, { Fragment, useEffect } from "react";
+import { Form, Input, message, Upload } from 'antd';
 import "./repositoryAddInfo.scss";
-import Button from "../../../common/button/button"
+import Button from "../../../common/button/button";
+import UploadIcon1 from "../../../assets/images/uploadIcon.png";
 import { useState } from "react";
 import { withRouter } from "react-router";
-import { observer } from "mobx-react";
+import { inject, observer } from "mobx-react";
+import { getUser } from "tiklab-core-ui";
 const { TextArea } = Input;
 
 const layout = {
@@ -13,33 +15,23 @@ const layout = {
     }
 };
 
-const iconList = [
-    {
-        iconUrl: "repository1.png",
-        key: "repository1"
-    },
-    {
-        iconUrl: "repository2.png",
-        key: "repository2"
-    },
-    {
-        iconUrl: "repository3.png",
-        key: "repository3"
-    },
-    {
-        iconUrl: "repository4.png",
-        key: "repository4"
-    },
-    {
-        iconUrl: "repository5.png",
-        key: "repository5"
-    }
-]
 
 const RepositoryAddInfo = (props) => {
-    const { addRepositorylist, setVisible } = props;
+    const { addRepositorylist, repositoryStore } = props;
     const [form] = Form.useForm();
     const [iconUrl, setIconUrl] = useState("repository1.png")
+    const [iconList, setIconList] = useState();
+    const { findIconList, creatIcon } = repositoryStore;
+
+    useEffect(() => {
+        getIconList()
+    }, [])
+
+    const getIconList = () => {
+        findIconList({ iconType: "repository" }).then((res) => {
+            setIconList(res.data)
+        })
+    }
 
     const onFinish = () => {
         form.validateFields().then((values) => {
@@ -69,6 +61,37 @@ const RepositoryAddInfo = (props) => {
             return Promise.resolve();
         }
         return Promise.reject(new Error('Price must be greater than zero!'));
+    };
+
+    const ticket = getUser().ticket;
+    const tenant = getUser().tenant;
+    const upLoadIcon = {
+        name: 'uploadFile',
+        action: `${base_url}dfs/upload`,
+        showUploadList: false,
+        headers: {
+            ticket: ticket,
+            tenant: tenant
+        },
+        onChange(info) {
+            if (info.file.status === 'done') {
+                console.log(info.file, info.fileList);
+                const res = info.file.response.data;
+                const params = {
+                    iconName: info.file.name,
+                    iconUrl: "image/" + res,
+                    iconType: "repository"
+                }
+                creatIcon(params).then((res) => {
+                    if (res.code === 0) {
+                        getIconList()
+                    }
+                })
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        }
     };
     const [limtValue, setLimitValue] = useState("0");
     const LimitComponents = ({ value = {}, onChange }) => {
@@ -105,6 +128,8 @@ const RepositoryAddInfo = (props) => {
             </div>
         )
     }
+
+
     return (
         <Fragment>
             <div className="repository-addinfo">
@@ -132,7 +157,7 @@ const RepositoryAddInfo = (props) => {
                     >
                         <Input placeholder="使用中英文、数字、空格组合" />
                     </Form.Item>
-                    
+
                     <Form.Item
                         label="可见范围"
                         name="limits"
@@ -164,15 +189,24 @@ const RepositoryAddInfo = (props) => {
                             {
                                 iconList && iconList.map((item) => {
                                     return <div key={item.key} className={`repository-icon  ${item.iconUrl === iconUrl ? "icon-select" : null}`} onClick={() => { setIconUrl(item.iconUrl) }}>
-                       
-                                        <img src={('/images/' + item.iconUrl)} alt="" className="img-icon" />
+
+                                        <img
+                                            src={version === "cloud" ? (base_url + item.iconUrl + "?tenant=" + tenant) : (base_url + item.iconUrl)}
+                                            alt="" className="img-icon" />
                                     </div>
                                 })
                             }
+                            <Upload {...upLoadIcon}>
+                                <div className="project-icon">
+                                    <img src={UploadIcon1} alt="" className="list-img" />
+                                </div>
+                            </Upload>
                         </div>
+
+
                     </Form.Item>
                     <div className="repository-add-submit">
-                        <Button htmlType="button" onClick={() => setVisible(false)}>
+                        <Button htmlType="button" onClick={() => props.history.goBack()}>
                             取消
                         </Button>
 
@@ -186,4 +220,4 @@ const RepositoryAddInfo = (props) => {
 
     )
 }
-export default withRouter(observer(RepositoryAddInfo));
+export default inject("repositoryStore")(withRouter(observer(RepositoryAddInfo)));
