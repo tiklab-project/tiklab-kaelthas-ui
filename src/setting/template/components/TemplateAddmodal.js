@@ -16,21 +16,19 @@ import { withReact } from "slate-react";
 import Button from "../../../common/button/button";
 import TemplateStore from "../store/TemplateStore";
 import "./templateAddmodal.scss"
+import { getUser } from "tiklab-core-ui";
 const TemplateAddmodal = (props) => {
     const templateId = props.match.params.templateId;
     const { createDocumentTemplate, findDocumentTemplatePage, findDocumentTemplate, updateDocumentTemplate } = TemplateStore;
-    const [editorValue, setEditorValue] = useState([
-        {
-            type: "paragraph",
-            children: [{ text: "" }],
-        },
-    ])
+    const [editorValue, setEditorValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
     const [editor] = useState(() => withReact(createEditor()))
     const [titleValue, setTitleValue] = useState("未命名模板");
     const [buttonText, setButtonText] = useState(templateId ? "更改模板" : "创建模板")
     const changeEditor = (value) => {
         setEditorValue(value)
     }
+    const ticket = getUser().ticket;
+    const tenant = getUser().tenant;
     useEffect(() => {
         if (templateId) {
             setEditorValue()
@@ -38,7 +36,7 @@ const TemplateAddmodal = (props) => {
                 const value = data.data
                 if (data.code === 0) {
                     setTitleValue(value.name)
-                    setEditorValue(JSON.parse(value.details))
+                    setEditorValue(value.details)
                 }
             })
         }
@@ -50,7 +48,7 @@ const TemplateAddmodal = (props) => {
         const serialize = JSON.stringify(editorValue)
         const data = {
             name: titleValue,
-            details: serialize
+            details: editorValue
         }
 
         if (!templateId) {
@@ -111,6 +109,9 @@ const TemplateAddmodal = (props) => {
                         <EditorBig
                             value={editorValue}
                             onChange={value => setEditorValue(value)}
+                            base_url = {base_url}
+                            ticket = {ticket}
+                            tenant = {tenant}
                         >
                             <>
                                 <div className="template-content">

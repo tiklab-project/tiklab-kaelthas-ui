@@ -23,36 +23,22 @@ import "./shareDocument.scss"
 import Comment from "./CommentShare";
 import { withRouter } from "react-router";
 const ShareDocument = (props) => {
-    const { shareStore, workStore } = props;
+    const { shareStore, relationWorkStore } = props;
     const { documentView, commentView, judgeAuthCode } = shareStore;
     const [showComment, setShowComment] = useState(false);
-    const [value, setValue] = useState([
-        {
-            type: "paragraph",
-            children: [{ text: "" }],
-        },
-    ])
+    const [value, setValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "" })
-
-    const [commonList, setCommonList] = useState()
     useEffect(() => {
         commentView({ documentId: props.match.params.id }).then(data => {
             console.log(data)
-            if (data.code === 0) {
-                setCommonList(data.data)
-            }
+            
         })
         documentView({ documentId: props.match.params.id }).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
-                    setValue(JSON.parse(data.data.details))
+                    setValue(data.data.details)
                 } else {
-                    setValue([
-                        {
-                            type: "paragraph",
-                            children: [{ text: "" }],
-                        },
-                    ])
+                    setValue("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
                 }
                 setDocInfo(data.data)
             }
@@ -68,7 +54,7 @@ const ShareDocument = (props) => {
                 <Row style={{ flex: 1, overflow: "auto" }}>
                     <Col className="repositorydetail-content-col" xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
                         <div style={{paddingTop: "10px"}}>
-                            <PreviewEditor value={value} workStore = {workStore}/>
+                            <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {base_url}/>
                         </div>
 
                     </Col>
@@ -93,4 +79,4 @@ const ShareDocument = (props) => {
     )
 }
 
-export default inject("shareStore", "workStore")(observer(withRouter(ShareDocument)));
+export default inject("shareStore", "relationWorkStore")(observer(withRouter(ShareDocument)));

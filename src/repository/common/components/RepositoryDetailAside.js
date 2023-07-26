@@ -26,8 +26,8 @@ const RepositorydeAside = (props) => {
     const { t } = useTranslation();
     const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
-        findDmPrjRolePage, repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        createDocument, expandedTree, setExpandedTree } = categoryStore;
+        repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
+        createDocument, expandedTree, setExpandedTree,findDmUserList } = categoryStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -79,11 +79,9 @@ const RepositorydeAside = (props) => {
             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
         if (item.typeId === "mindMap") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${item.id}`)
 
         }
@@ -127,8 +125,8 @@ const RepositorydeAside = (props) => {
     const [userList, setUserList] = useState()
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        findDmPrjRolePage(repositoryId).then(data => {
-            setUserList(data.data)
+        findDmUserList(repositoryId).then(data => {
+            setUserList(data)
         })
         if (value.key === "document") {
             const data = {

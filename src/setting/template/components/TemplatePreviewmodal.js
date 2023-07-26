@@ -15,14 +15,9 @@ import "tiklab-slate-ui/es/tiklab-slate.css";
 import TemplateStore from "../store/TemplateStore";
 const TemplatePreviewmodal = (props) => {
     const [form] = Form.useForm();
-    const {previewModalVisible,templateId, workStore} = props;
+    const {previewModalVisible,templateId, relationWorkStore} = props;
     const {findDocumentTemplate} = TemplateStore;
-    const [value, setValue] = useState([
-		{
-			type: "paragraph",
-			children: [{ text: "空白文档" }],
-		},
-	])
+    const [value, setValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
     const onFinish = () => {
         form.validateFields().then((values) => {
         })
@@ -32,7 +27,7 @@ const TemplatePreviewmodal = (props) => {
             findDocumentTemplate(templateId).then(data => {
                 const value = data.data
                 if(data.code === 0){
-                    setValue(JSON.parse(value.details))
+                    setValue(value.details)
                 }
             })
         }
@@ -50,9 +45,9 @@ const TemplatePreviewmodal = (props) => {
        
         <div>
            
-            <PreviewEditor value = {value} onChange = {(value)=> initTemplate(value)} workStore = {workStore}/>
+            <PreviewEditor value = {value} onChange = {(value)=> initTemplate(value)} relationWorkStore = {relationWorkStore}/>
         </div>
     )
 }
 
-export default inject("workStore")(observer(TemplatePreviewmodal));
+export default inject("relationWorkStore")(observer(TemplatePreviewmodal));

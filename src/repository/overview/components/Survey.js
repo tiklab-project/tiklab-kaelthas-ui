@@ -137,11 +137,9 @@ const Survey = (props) => {
             props.history.push(`/index/repositorydetail/folder/${item.id}`)
         }
         if (item.typeId === "document") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/doc/${item.id}`)
         }
         if (item.typeId === "mindMap") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/mindmap/${item.id}`)
 
         }
@@ -222,7 +220,6 @@ const Survey = (props) => {
 
     const goDocumentDetail = item => {
         if (item.model === "document") {
-            localStorage.setItem("documentId", item.modelId);
             props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
         }
         if (item.model === "category") {

@@ -1,6 +1,6 @@
 import { observable, action} from "mobx";
 import { Service } from "../../../common/utils/requset";
-export class WorkStore {
+export class RelationWorkStore {
     @observable projectList = [];
     @observable userList = [];
     @observable userList = [];
@@ -89,4 +89,4 @@ export class WorkStore {
     }
 
 }
-export const WORK_STORE = "workStore"
+export const RELATIONWORK_STORE = "relationWorkStore"

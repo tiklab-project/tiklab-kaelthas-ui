@@ -15,8 +15,9 @@ import { EditorBigContent, EditorBig } from "tiklab-slate-ui";
 import Button from "../../../common/button/button";
 import DocumentStore from "../store/DocumentStore";
 import "tiklab-slate-ui/es/tiklab-slate.css";
+import { getUser } from "tiklab-core-ui";
 const DocumentEdit = (props) => {
-    const { workStore } = props;
+    const { relationWorkStore } = props;
     const { findDocument, updateDocument } = DocumentStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
@@ -24,6 +25,8 @@ const DocumentEdit = (props) => {
     const [value, setValue] = useState()
     const [titleValue, setTitleValue] = useState();
     const editRef = useRef(); 
+    const ticket = getUser().ticket;
+    const tenant = getUser().tenant;
     useEffect(() => {
         setValue()
         console.log("编辑")
@@ -31,15 +34,10 @@ const DocumentEdit = (props) => {
             if (data.code === 0) {
                 if (data.data.details) {
                     setTitleValue(data.data.name)
-                    setValue(JSON.parse(data.data.details))
+                    setValue(data.data.details)
                 } else {
                     console.log("9090")
-                    setValue([
-                        {
-                            type: "paragraph",
-                            children: [{ text: "" }],
-                        },
-                    ])
+                    setValue("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
                 }
                 setDocInfo(data.data)
             }
@@ -58,7 +56,7 @@ const DocumentEdit = (props) => {
         const serialize = JSON.stringify(value)
         const data = {
             id: documentId,
-            details: serialize,
+            details: value,
             detailText:  editRef.current.innerText
         }
         updateDocument(data).then(res => {
@@ -83,12 +81,7 @@ const DocumentEdit = (props) => {
             }
         })
     }
-
-    const getText = () => {
-        console.log(editRef)
-        const content = editRef.current.innerText;
-        console.log(content)
-    }
+    
     return (
         <div className="documnet-edit">
             <div className="edit-top">
@@ -105,7 +98,10 @@ const DocumentEdit = (props) => {
                 value && <EditorBig
                     value={value}
                     onChange={value => setValue(value)}
-                    workStore= {workStore}
+                    relationWorkStore= {relationWorkStore}
+                    base_url = {base_url}
+                    ticket = {ticket}
+                    tenant = {tenant}
                 >
                     <>
                         <Row className="document-examine-content">
@@ -122,11 +118,12 @@ const DocumentEdit = (props) => {
                                 </div>
                                 <div ref = {editRef}>
                                     <EditorBigContent
-                                    value={value}
-                                    workStore= {workStore}
+                                        value={value}
+                                        relationWorkStore= {relationWorkStore}
+                                        
+                                        // target = {target}
                                 />
                                 </div>
-                                <div onClick={() => getText()}>sdd</div>
                             </Col>
                         </Row>
                     </>
@@ -139,4 +136,4 @@ const DocumentEdit = (props) => {
         </div>
     )
 }
-export default inject("workStore")(observer(withRouter(DocumentEdit)));
+export default inject("relationWorkStore")(observer(withRouter(DocumentEdit)));

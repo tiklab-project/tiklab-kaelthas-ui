@@ -13,7 +13,6 @@ import {getUser} from "tiklab-core-ui"
 const ShareModal = (props) => {
     const origin = location.origin;
     const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds } = props;
-    // const documentId = localStorage.getItem("documentId");
     const [value, setValue] = React.useState("publish");
     const [shareLink,setShareLink] = useState()
     const [shareUrl, setShareUrl] = useState()

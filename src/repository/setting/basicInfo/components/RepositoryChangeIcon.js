@@ -38,7 +38,7 @@ const RepositoryIcon = (props) => {
     const tenant = getUser().tenant;
     const upLoadIcon = {
         name: 'uploadFile',
-        action: `${base_url}dfs/upload`,
+        action: `${base_url}/dfs/upload`,
         showUploadList: false,
         headers: {
             ticket: ticket,
@@ -50,7 +50,7 @@ const RepositoryIcon = (props) => {
                 const res = info.file.response.data;
                 const params = {
                     iconName: info.file.name,
-                    iconUrl: "image/" + res,
+                    iconUrl: "/image/" + res,
                     iconType: "repository"
                 }
                 creatIcon(params).then((res) => {

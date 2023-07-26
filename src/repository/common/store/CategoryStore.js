@@ -107,12 +107,12 @@ export class CategoryStore {
 
     // 查找项目成员
     @action
-    findDmPrjRolePage= async(id)=> {
+    findDmUserList= async(id)=> {
         const params ={
             domainId: id,
             pageParam: {pageSize: 10, currentPage: 1}
         }
-        const data = await Service("/dmUser/findDmUserPage", params);
+        const data = await Service("/dmUser/findDmUserList", params);
         return data.data;
     }
 

@@ -7,10 +7,10 @@
  * @LastEditTime: 2021-10-29 17:53:09
  */
 
-import {WORK_STORE,WorkStore} from "./document/document/store/WorkStore";
+import {RELATIONWORK_STORE,RelationWorkStore} from "./document/document/store/RelationWorkStore";
 function createStores() {
     return {
-        [WORK_STORE]: new WorkStore()
+        [RELATIONWORK_STORE]: new RelationWorkStore()
     };
 }
 

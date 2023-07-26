@@ -3,7 +3,7 @@ import { DomainUser} from 'tiklab-user-ui';
 import { observer, inject } from "mobx-react";
 
 const RepositoryDomainUser = props => {
-    const repositoryId = JSON.parse(localStorage.getItem("repository")).id;
+    const repositoryId = props.match.params.repositoryId
     return (
         <div style={{backgroundColor: "#fff",height: "100%"}}>
             <DomainUser

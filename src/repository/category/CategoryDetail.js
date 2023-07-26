@@ -17,13 +17,13 @@ const CategoryDetail = (props) => {
     const store = {
         categoryStore: CategoryStore
     }
-    const { detailRepositoryLog, findCategoryDocument, findDmPrjRolePage, setRepositoryCatalogueList, 
+    const { detailRepositoryLog, findCategoryDocument, setRepositoryCatalogueList, 
         createDocumentRecent, createDocument,  expandedTree, setExpandedTree, findRepositoryCatalogue } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
     // 当前知识库id
-    const repositoryId = JSON.parse(localStorage.getItem("repository")).id;
+    const repositoryId = props.match.params.repositoryId;
     const userId = getUser().userId
 
     useEffect(() => {
@@ -76,7 +76,8 @@ const CategoryDetail = (props) => {
 
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        findDmPrjRolePage(repositoryId).then(data => {
+        findDmUserList(repositoryId).then(data => {
+            debugger
             setUserList(data.data)
         })
         if (value.key === "category") {
@@ -123,11 +124,9 @@ const CategoryDetail = (props) => {
             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
         if (item.typeId === "mindMap") {
-            localStorage.setItem("documentId", item.id);
             props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${item.id}`)
 
         }

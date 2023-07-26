@@ -87,7 +87,6 @@ const CategoryAdd = (props) => {
                             setRepositoryCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
-                        localStorage.setItem("documentId", data.data);
                         if(values.formatType === "mindMap"){
                             props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${data.data}`)
                         }

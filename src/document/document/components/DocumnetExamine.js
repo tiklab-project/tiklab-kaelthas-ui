@@ -19,18 +19,18 @@ import DocumentAddEdit from "./DocumentAddEdit";
 import CommentShare from "../../share/components/CommentShare";
 import DocumentStore from "../store/DocumentStore";
 const DocumentExamine = (props) => {
-    const { workStore } = props;
+    const { relationWorkStore } = props;
     const store = {
         documentStore: DocumentStore
     }
     const documentId = props.match.params.id;
     const { findDocument } = DocumentStore;
 
-    const { createLike, createShare, updateShare, deleteLike } = CommentShare
+    const { createLike, createShare, updateShare, deleteLike } = CommentShare;
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
-    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
+    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" }})
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
@@ -45,7 +45,7 @@ const DocumentExamine = (props) => {
         findDocument(documentId).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
-                    setValue(JSON.parse(data.data.details))
+                    setValue(data.data.details)
                 } else {
                     setValue()
                 }
@@ -113,7 +113,7 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <PreviewEditor value={value} workStore = {workStore}/>
+                                <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {base_url}/>
                             </div>
                         </Col>
                     </Row>
@@ -154,4 +154,4 @@ const DocumentExamine = (props) => {
     )
 }
 
-export default inject("workStore")(observer(DocumentExamine));
+export default inject("relationWorkStore")(observer(DocumentExamine));

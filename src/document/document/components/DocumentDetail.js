@@ -28,7 +28,7 @@ const DocumentDetail = (props)=>{
         seteditOrExamine(type)
     }
     
-    const documentId = localStorage.getItem("documentId");
+    const documentId = props.match.params.id;
    
     // 初始化
    

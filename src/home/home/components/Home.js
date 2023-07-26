@@ -4,12 +4,14 @@ import { Row, Col, Empty } from 'antd';
 import { observer } from 'mobx-react';
 import { getUser } from 'tiklab-core-ui';
 import HomeStore from "../store/HomeStore";
+import Cookies from 'js-cookie';
 const Home = (props) => {
     const { findDocumentRecentList, findRecentRepositoryList } = HomeStore;
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().id
     const tenant = getUser().tenant;
+    
     useEffect(() => {
         const recentParams = {
             masterId: userId,
@@ -41,7 +43,6 @@ const Home = (props) => {
     }
     const goDocumentDetail = item => {
         if (item.model === "document") {
-            localStorage.setItem("documentId", item.modelId);
             props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
         }
         if (item.model === "repository") {
