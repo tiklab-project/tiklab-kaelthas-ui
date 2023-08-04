@@ -30,6 +30,7 @@ const DocumentExamine = (props) => {
     const [shareVisible, setShareVisible] = useState(false)
 
     const userId = getUser().userId;
+    const tenant = getUser().tenant;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" }})
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
@@ -113,7 +114,7 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {base_url}/>
+                                <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {upload_url} tenant = {tenant}/>
                             </div>
                         </Col>
                     </Row>

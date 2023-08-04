@@ -14,6 +14,7 @@ const RepositoryList = (props) => {
         repositorylist, findRecentRepositoryList, createRepositoryFocus,
         findFocusRepositoryList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = RepositoryStore;
     const userId = getUser().userId;
+    const tenant = getUser().tenant;
     const [focusRepositoryList, setFocusRepositoryList] = useState([])
     const repositoryTab = [
         {
@@ -65,7 +66,7 @@ const RepositoryList = (props) => {
                 {
                     record.iconUrl ?
                         <img
-                            src={version === "cloud" ? (base_url + record.iconUrl + "?tenant=" + tenant) : (base_url + record.iconUrl)}
+                            src={version === "cloud" ? (upload_url + record.iconUrl + "?tenant=" + tenant) : (upload_url + record.iconUrl)}
                             alt=""
                             className="img-icon"
                         />

@@ -38,7 +38,7 @@ const RepositoryIcon = (props) => {
     const tenant = getUser().tenant;
     const upLoadIcon = {
         name: 'uploadFile',
-        action: `${base_url}/dfs/upload`,
+        action: `${upload_url}/dfs/upload`,
         showUploadList: false,
         headers: {
             ticket: ticket,
@@ -94,7 +94,7 @@ const RepositoryIcon = (props) => {
                                 iconList && iconList.map((item) => {
                                     return <div className={`repository-icon ${item.iconUrl === repositoryIconUrl ? "icon-select" : null}`} key={item.key} onClick={() => { setProjectIconUrl(item.iconUrl) }}>
                                         <img 
-                                            src={version === "cloud" ? (base_url + item.iconUrl + "?tenant=" + tenant) : (base_url + item.iconUrl)}
+                                            src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
                                             className="list-img"
                                         />
                                     </div>

@@ -67,7 +67,7 @@ const Home = (props) => {
                                                     {
                                                         item.iconUrl ?
                                                             <img
-                                                                src={version === "cloud" ? (base_url + item.iconUrl + "?tenant=" + tenant) : (base_url + item.iconUrl)}
+                                                                src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
                                                                    
                                                                 alt=""
                                                                 className="img-icon"

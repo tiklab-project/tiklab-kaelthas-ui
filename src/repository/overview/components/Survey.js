@@ -250,7 +250,7 @@ const Survey = (props) => {
                                     {
                                         repositoryInfo.iconUrl ?
                                             <img
-                                                src={version === "cloud" ? (base_url + repositoryInfo.iconUrl + "?tenant=" + tenant) : (base_url + repositoryInfo.iconUrl)}
+                                                src={version === "cloud" ? (upload_url + repositoryInfo.iconUrl + "?tenant=" + tenant) : (upload_url + repositoryInfo.iconUrl)}
                                                 alt=""
                                                 className="repository-icon"
                                             />

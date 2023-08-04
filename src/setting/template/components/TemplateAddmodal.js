@@ -109,7 +109,7 @@ const TemplateAddmodal = (props) => {
                         <EditorBig
                             value={editorValue}
                             onChange={value => setEditorValue(value)}
-                            base_url = {base_url}
+                            base_url = {upload_url}
                             ticket = {ticket}
                             tenant = {tenant}
                         >

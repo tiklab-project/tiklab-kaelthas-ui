@@ -67,7 +67,7 @@ const RepositoryAddInfo = (props) => {
     const tenant = getUser().tenant;
     const upLoadIcon = {
         name: 'uploadFile',
-        action: `${base_url}/dfs/upload`,
+        action: `${upload_url}/dfs/upload`,
         showUploadList: false,
         headers: {
             ticket: ticket,
@@ -191,7 +191,7 @@ const RepositoryAddInfo = (props) => {
                                     return <div key={item.key} className={`repository-icon  ${item.iconUrl === iconUrl ? "icon-select" : null}`} onClick={() => { setIconUrl(item.iconUrl) }}>
 
                                         <img
-                                            src={version === "cloud" ? (base_url + item.iconUrl + "?tenant=" + tenant) : (base_url + item.iconUrl)}
+                                            src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
                                             alt="" className="img-icon" />
                                     </div>
                                 })

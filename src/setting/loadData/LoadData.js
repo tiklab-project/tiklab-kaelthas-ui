@@ -16,7 +16,7 @@ const LoadData = props => {
     const ticket = getUser().ticket;
     const uploadProps = {
         name: 'uploadFile',
-        action: `${base_url}/importDate/importJireDate`,
+        action: `${upload_url}/importDate/importJireDate`,
         headers: {
             authorization: 'authorization-text',
         },

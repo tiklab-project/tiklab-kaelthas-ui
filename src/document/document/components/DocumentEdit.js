@@ -99,7 +99,7 @@ const DocumentEdit = (props) => {
                     value={value}
                     onChange={value => setValue(value)}
                     relationWorkStore= {relationWorkStore}
-                    base_url = {base_url}
+                    base_url = {upload_url}
                     ticket = {ticket}
                     tenant = {tenant}
                 >

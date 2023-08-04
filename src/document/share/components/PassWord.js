@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-09-16 09:20:33
  */
-import React, { useMemo, useEffect, useCallback, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Input, Button } from 'antd';
 import "./passWord.scss"
@@ -26,7 +26,6 @@ const PassWord = (props) => {
         verifyAuthCode({shareLink:`${props.match.params.shareId}`,authCode:value}).then((data)=> {
             if(data.data === "true"){
                 if(version === "ce"){
-                    // props.location.search = "tenant=111111"
                     props.history.push({pathname: `/share/${props.match.params.shareId}`, state: {password: data.data}})
                     
                 }

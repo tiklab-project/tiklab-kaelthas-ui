@@ -129,7 +129,7 @@ const Search = (props) => {
                                                     return <div className="item-box" key={wikiItem.id}>
                                                         <div className="item-one" onClick={() => toRepository(wikiItem)}>
                                                             <img
-                                                                src={version === "cloud" ? (base_url + wikiItem.iconUrl + "?tenant=" + tenant) : (base_url + wikiItem.iconUrl)}
+                                                                src={version === "cloud" ? (upload_url + wikiItem.iconUrl + "?tenant=" + tenant) : (upload_url + wikiItem.iconUrl)}
                                                                 alt=""
                                                             />
                                                             <span>{wikiItem.name}</span>
@@ -184,7 +184,7 @@ const Search = (props) => {
                                                         return <div className="item-box" key={wikiItem.id}>
                                                             <div className="item-one" onClick={() => toRepository(wikiItem)}>
                                                                 <img
-                                                                    src={version === "cloud" ? (base_url + wikiItem.iconUrl + "?tenant=" + tenant) : (base_url + wikiItem.iconUrl)}
+                                                                    src={version === "cloud" ? (upload_url + wikiItem.iconUrl + "?tenant=" + tenant) : (upload_url + wikiItem.iconUrl)}
                                                                     alt=""
                                                                 />
                                                                 <span>{wikiItem.name}</span>

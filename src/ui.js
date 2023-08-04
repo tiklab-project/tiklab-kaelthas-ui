@@ -11,9 +11,11 @@ import repositoryRoutes from "./Routers";
 import repositoryCloudRoutes from "./RouterSaas";
 import {store} from "./stores"
 import HomeStore from "./home/home/store/HomeStore";
+import Search from "./home/search/components/Search";
 export {
     repositoryRoutes,
     repositoryCloudRoutes,
     store,
-    HomeStore
+    HomeStore,
+    Search
 }

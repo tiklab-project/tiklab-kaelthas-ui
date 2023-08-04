@@ -504,7 +504,7 @@ const RepositorydeAside = (props) => {
                             {
                                 repository?.iconUrl ?
                                     <img
-                                        src={version === "cloud" ? (base_url + repository.iconUrl + "?tenant=" + tenant) : (base_url + repository.iconUrl)}
+                                        src={version === "cloud" ? (upload_url + repository.iconUrl + "?tenant=" + tenant) : (upload_url + repository.iconUrl)}
                                         alt=""
                                         className="img-icon"
                                     />

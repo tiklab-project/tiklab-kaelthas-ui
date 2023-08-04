@@ -54,7 +54,7 @@ const ShareDocument = (props) => {
                 <Row style={{ flex: 1, overflow: "auto" }}>
                     <Col className="repositorydetail-content-col" xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
                         <div style={{paddingTop: "10px"}}>
-                            <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {base_url}/>
+                            <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {upload_url}/>
                         </div>
 
                     </Col>

@@ -166,7 +166,7 @@ const BasicInfo = props => {
                                             {
                                                 iconUrl ?
                                                     <img
-                                                        src={version === "cloud" ? (base_url + iconUrl + "?tenant=" + tenant) : (base_url + iconUrl)}
+                                                        src={version === "cloud" ? (upload_url + iconUrl + "?tenant=" + tenant) : (upload_url + iconUrl)}
                                                         alt="" width={60} height={60}
                                                     />
                                                     :
