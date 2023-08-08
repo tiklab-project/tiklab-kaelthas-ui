@@ -26,7 +26,7 @@
     "author": "",
     "license": "ISC",
     "publishConfig": {
-        "registry": "http://172.13.1.11:8081/repository/npm-hosted"
+        "registry": "http://172.13.1.24:8080/repository/npm-hosted/"
     },
     "peerDependencies": {
         "@ant-design/icons": "^4.3.0",
@@ -56,7 +56,6 @@
         "tiklab-plugin-manager-ui": "^1.0.1",
         "tiklab-security-ui": "^1.0.1",
         "tiklab-todotask-ui": "^1.0.1",
-        "tiklab-integration-ui": "^1.0.1",
         "tiklab-slate-ui": "^1.0.1",
         "tiklab-privilege-ui": "^1.0.1"
     },
@@ -171,10 +170,8 @@
         "react-router-config": "^5.1.1",
         "react-router-dom": "^5.2.0",
         "rollup-plugin-copy": "^3.4.0",
-        "rollup-plugin-url": "^3.0.1",
         "tiklab-core-ui": "^1.0.1",
         "tiklab-eam-ui": "^1.0.1",
-        "tiklab-integration-ui": "^1.0.1",
         "tiklab-licence-ui": "^1.0.1",
         "tiklab-message-ui": "^1.0.1",
         "tiklab-plugin-core-ui": "^1.0.1",
