@@ -1,0 +1,82 @@
+.share-page {
+    .share-page-head {
+        display: flex;
+        align-items: center;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .05);
+        justify-content: space-between;
+        position: relative;
+        z-index: 3;
+        background-color: var(--tiklab-blue);
+        padding-right: 10px;
+        .share-page-logo {
+            height: var(--tiklab-head-height);
+            width: 100px;
+            margin-right: 20px;
+            margin-left: 10px;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+        }
+        .share-page-icon {
+            position: relative;
+            text-align: center;
+
+            .ant-avatar {
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        .share-page-help {
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 25px;
+        }
+
+        .share-page-help:hover {
+            background-color: #5d70ea66;
+
+        }
+       
+    }
+}
+.help-box {
+    width: 200px;
+    background: #fff;
+    box-shadow: var(--ds-shadow-overlay, 0 4px 8px -2px rgba(9, 30, 66, 0.25), 0 0 1px rgba(9, 30, 66, 0.31));
+    border-radius: 4px;
+
+    .help-head {
+        font-size: 15px;
+        font-weight: var(--tiklab-font-weight-bold);
+        padding: 10px 20px 10px;
+    }
+    .help-item {
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .help-item-left {
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .help-item:hover {
+        background-color: #F4F5F7;
+    }
+
+    .help-item-icon {
+        margin: 0 10px;
+    }
+
+}
