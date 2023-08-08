@@ -1,0 +1,44 @@
+
+.template-add {
+    height: calc(100vh - 60px);
+    overflow: auto;
+    .template-add-breadcrumb {
+        font-size: var(--tiklab-font-16);
+        font-weight: var(--tiklab-font-weight-bold);
+        display: flex;
+        align-items: center;
+        .template-back {
+            cursor: pointer;
+        }
+    }
+    .template-title-input {
+        margin: 20px 0;
+        height: 50px;
+        line-height: 50px;
+        padding: 0;
+        font-size: 30px;
+        font-weight: 600;
+    }
+    .template-add-title {
+        background: #fff;
+        position: sticky;
+        top: 0;
+        z-index: 3;
+    }
+    .template-add-top {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        font-weight: 600;
+        align-items: center;
+    }
+    .edit-big-toolbar {
+        justify-content: flex-start;
+    }
+    .edit-big {
+        position: sticky;
+        top: 52;
+        z-index: 3;
+        background-color: #fff;
+    }
+}
