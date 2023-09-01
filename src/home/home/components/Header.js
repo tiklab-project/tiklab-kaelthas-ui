@@ -6,7 +6,7 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2022-04-25 10:16:03
  */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
@@ -14,8 +14,7 @@ import { withRouter } from 'react-router';
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import { AppLink } from 'tiklab-licence-ui';
-import UserIcon from "../../../common/UserIcon/UserIcon"
-import { useEffect } from 'react';
+import UserIcon from "../../../common/UserIcon/UserIcon";
 import { getUser } from 'tiklab-core-ui';
 const Header = props => {
     const {
