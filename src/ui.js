@@ -7,15 +7,13 @@
  * @LastEditTime: 2021-06-02 14:32:29
  */
 
-import repositoryRoutes from "./Routers";
-import repositoryCloudRoutes from "./RouterSaas";
+import wikiRoutes from "./Routers";
 import {store} from "./stores"
-import HomeStore from "./home/home/store/HomeStore";
+import Header from "./home/home/components/Header";
 import Search from "./home/search/components/Search";
 export {
-    repositoryRoutes,
-    repositoryCloudRoutes,
+    wikiRoutes,
     store,
-    HomeStore,
+    Header,
     Search
 }

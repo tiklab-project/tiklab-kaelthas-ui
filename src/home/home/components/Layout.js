@@ -14,8 +14,7 @@ import "../components/header.scss";
 
 import { UserVerify } from 'tiklab-eam-ui';
 import { connect } from 'tiklab-plugin-core-ui/es';
-import Search from "../../search/components/Search";
-
+import { AppLink, HelpLink, AvatarLink } from 'tiklab-licence-ui';
 const Layout = (props) => {
     const route = props.route ? props.route.routes : [];
 
@@ -37,23 +36,17 @@ const Layout = (props) => {
         }
     ]
 
-    const projectLogout = () => {
-        props.history.push({
-            pathname: '/logout',
-            state:{
-                preRoute: props.location.pathname
-            }
-        })
-    }
+
 
     return (
         <div className="frame">
             <Header
                 {...props}
                 logo={logo}
-                projectLogout={projectLogout}
-                search={<Search {...props}/>}
                 routers={routers}
+                AppLink={AppLink}
+                HelpLink={HelpLink}
+                AvatarLink={AvatarLink}
             >
             </Header>
             <div className="frame-content">
