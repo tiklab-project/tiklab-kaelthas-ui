@@ -10,14 +10,14 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
-
+import logo from "../../../assets/images/logo_k3.png";
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import { AppLink } from 'tiklab-licence-ui';
 import { getUser } from 'tiklab-core-ui';
 import Search from "../../search/components/Search";
 const Header = props => {
-    const {logo,routers,systemRoleStore, HelpLink,  AvatarLink} = props;
+    const {systemRoleStore, HelpLink,  AvatarLink} = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/index/home") ? sessionStorage.getItem("menuKey") : "home";
 
@@ -27,7 +27,23 @@ const Header = props => {
         }
     }, [])
 
-  
+    const routers = [
+        {
+            to:'/index/home',
+            title: '首页',
+            key: 'home'
+        },
+        {
+            to:'/index/repository',
+            title:'知识库',
+            key: 'repository'
+        },
+        {
+            to:'/index/sysmgr/systemFeature',
+            title:'系统',
+            key: 'sysmgr'
+        }
+    ]
     const user = getUser();
 
     const changeCurrentLink = item => {
@@ -46,9 +62,6 @@ const Header = props => {
             )
         }
     }
-
-
-
 
     const goSet = (url) => {
         props.history.push(url)

@@ -76,6 +76,7 @@ const RepositorydeAside = (props) => {
         setSelectKey(item.id)
         if (item.formatType === "category") {
             localStorage.setItem("categoryId", item.id);
+            setOpenClickCategory(item.id)
             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
@@ -262,12 +263,7 @@ const RepositorydeAside = (props) => {
     }
     const [addModalVisible, setAddModalVisible] = useState()
 
-    //折叠菜单
-    // const [expandedTree, setExpandedTree] = useState([0])
-    // 树的展开与闭合
-    // useEffect(() => {
-    //     isExpandedTree()
-    // },[expandedTree])
+
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
@@ -275,6 +271,13 @@ const RepositorydeAside = (props) => {
         if (isExpandedTree(key)) {
             setExpandedTree(expandedTree.filter(item => item !== key))
         } else {
+            setExpandedTree(expandedTree.concat(key));
+        }
+    }
+
+    const setOpenClickCategory = key => {
+
+        if (!isExpandedTree(key)){
             setExpandedTree(expandedTree.concat(key));
         }
     }
