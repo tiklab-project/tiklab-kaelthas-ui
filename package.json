@@ -169,6 +169,7 @@
         "tiklab-core-ui": "^1.0.1",
         "tiklab-eam-ui": "^1.0.1",
         "tiklab-licence-ui": "^1.0.1",
+        "tiklab-markdown-ui": "^1.0.0",
         "tiklab-message-ui": "^1.0.1",
         "tiklab-plugin-core-ui": "^1.0.1",
         "tiklab-plugin-manager-ui": "^1.0.1",

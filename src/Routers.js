@@ -30,6 +30,9 @@ const DocumentEdit = AsyncComponent(() => import("./document/document/components
 const DocumnetExamine = AsyncComponent(() => import("./document/document/components/DocumnetExamine"))
 const DocumentAddEdit = AsyncComponent(() => import("./document/document/components/DocumentAddEdit"))
 
+const MarkdownDocumentEdit = AsyncComponent(() => import("./document/markdown/components/markdownEdit"))
+const MarkdownDocumentView = AsyncComponent(() => import("./document/markdown/components/markdownView"))
+
 const RepositorySet = AsyncComponent(() => import("./repository/setting/common/components/RepositorySet"))
 const RepositoryDomainRole = AsyncComponent(() => import('./repository/user/RepositoryDomainRole'))
 const RepositoryDomainUser = AsyncComponent(() => import('./repository/user/RepositoryDomainUser'))
@@ -181,22 +184,24 @@ const Routes = [
                         path: "/index/repositorydetail/:repositoryId/docEdit/:id",
                         component: DocumentEdit
                     },
+
+                    {
+                        path: "/index/repositorydetail/:repositoryId/docEdit/:id",
+                        component: DocumentEdit
+                    },
+
+                    {
+                        path: "/index/repositorydetail/:repositoryId/markdownEdit/:id",
+                        component: MarkdownDocumentEdit
+                    },
+                    {
+                        path: "/index/repositorydetail/:repositoryId/markdownView/:id",
+                        component: MarkdownDocumentView
+                    },
                     {
                         path: "/index/repositorydetail/:repositoryId/folder/:id",
                         component: LogDetail
                     },
-                    // {
-                    //     path: "/index/repositorydetail/:repositoryId/mindmap/:id",
-                    //     component: BrainMap
-                    // },
-                    // {
-                    //     path: "/index/repositorydetail/:repositoryId/mindmapEdit/:id",
-                    //     component: DocumentMindMapEdit
-                    // },
-                    // {
-                    //     path: "/index/repositorydetail/:repositoryId/brainMap",
-                    //     component: BrainMap
-                    // },
                     {
                         path: "/index/repositorydetail/:repositoryId/repositorySet",
                         component: RepositorySet,

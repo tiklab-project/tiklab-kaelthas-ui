@@ -81,16 +81,17 @@ const CategoryAdd = (props) => {
                         typeId: values.formatType
                     }
                 }
+                
                 createDocument(data).then((data)=> {
                     if(data.code === 0) {
                         findRepositoryCatalogue(repositoryId).then((data)=> {
                             setRepositoryCatalogueList(data)
                         })
                         setAddModalVisible(!addModalVisible)
-                        if(values.formatType === "mindMap"){
+                        if(values.typeId === "markdown"){
                             props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${data.data}`)
                         }
-                        if(values.formatType === "document"){
+                        if(values.typeId === "document"){
                             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
                         }
                         // 左侧导航

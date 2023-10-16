@@ -22,7 +22,7 @@ const Survey = (props) => {
     const [selectKey, setSelectKey] = useState();
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [userList, setUserList] = useState();
-    const userId = getUser().id;
+    const userId = getUser().userId;
     const tenant = getUser().tenant;
     useEffect(() => {
         findLogpage({ userId: userId, repositoryId: repositoryId })
@@ -65,9 +65,9 @@ const Survey = (props) => {
             <Menu.Item key="document">
                 添加页面
             </Menu.Item>
-            {/* <Menu.Item key="mindMap">
-                添加脑图
-            </Menu.Item> */}
+            <Menu.Item key="markdown">
+                添加Markdown
+            </Menu.Item>
         </Menu>
     };
 
@@ -96,6 +96,44 @@ const Survey = (props) => {
                     setSelectKey(data.data)
                 }
 
+            })
+        }
+        if (value.key === "markdown") {
+            const data = {
+                name: "未命名文档",
+                wikiRepository: { id: repositoryId },
+                master: { id: userId },
+                typeId: "markdown",
+                formatType: "document",
+                wikiCategory: { id: id },
+                details: JSON.stringify([
+                    {
+                        type: "code",
+                        children: [
+                            {
+                                type: 'paragraph',
+                                children: [
+                                    {
+                                        text:'',
+                                    },
+                                ],
+                            },
+                        ]
+                    }
+                ])
+            }
+            createDocument(data).then((data) => {
+                if (data.code === 0) {
+                    findRepositoryCatalogue(repositoryId).then((data) => {
+                        setRepositoryCatalogueList(data)
+                    })
+                    if (!isExpandedTree(id)) {
+                        setExpandedTree(expandedTree.concat(id));
+                    }
+                    props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
+                    // 左侧导航
+                    setSelectKey(data.data)
+                }
             })
         }
         if (value.key === "category") {

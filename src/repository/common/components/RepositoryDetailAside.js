@@ -27,7 +27,7 @@ const RepositorydeAside = (props) => {
     const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
         repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        createDocument, expandedTree, setExpandedTree,findDmUserList } = categoryStore;
+        createDocument, expandedTree, setExpandedTree, findDmUserList } = categoryStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -41,7 +41,7 @@ const RepositorydeAside = (props) => {
     const [modalTitle, setModalTitle] = useState()
     const userId = getUser().userId;
     const tenant = getUser().tenant;
-    
+
     const [shareListVisible, setShareListVisible] = useState(false)
 
     // 模板内容
@@ -63,7 +63,7 @@ const RepositorydeAside = (props) => {
     }, [id])
 
     //点击左侧菜单
-    const selectKeyFun = (event,item) => {
+    const selectKeyFun = (event, item) => {
         event.stopPropagation()
         const params = {
             name: item.name,
@@ -82,8 +82,8 @@ const RepositorydeAside = (props) => {
         if (item.typeId === "document") {
             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
-        if (item.typeId === "mindMap") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${item.id}`)
+        if (item.typeId === "markdown") {
+            props.history.push(`/index/repositorydetail/${repositoryId}/markdownView/${item.id}`)
 
         }
     }
@@ -97,14 +97,14 @@ const RepositorydeAside = (props) => {
             <Menu.Item key="document">
                 添加页面
             </Menu.Item>
-            {/* <Menu.Item key="mindMap">
-                添加脑图
-            </Menu.Item> */}
+            <Menu.Item key="markdown">
+                添加Markdown
+            </Menu.Item>
         </Menu>
     };
 
     // 编辑
-    const editMenu = (fItem, item, fId,index) => {
+    const editMenu = (fItem, item, fId, index) => {
         return <Menu onClick={(value) => editCatelogue(fItem, value, item, fId, index)}>
             <Menu.Item key="edit">
                 重命名
@@ -138,7 +138,6 @@ const RepositorydeAside = (props) => {
                 formatType: "document",
                 wikiCategory: { id: id },
             }
-            console.log(id)
             createDocument(data).then((data) => {
                 if (data.code === 0) {
                     findRepositoryCatalogue(repositoryId).then((data) => {
@@ -152,10 +151,43 @@ const RepositorydeAside = (props) => {
                     setSelectKey(data.data)
                 }
             })
-        } else if (value.key === "mindMap") {
-            setContentValue({ nodes: [], edges: [] })
-            setAddModalVisible(true)
-            setModalTitle("添加脑图")
+        } else if (value.key === "markdown") {
+            const data = {
+                name: "未命名文档",
+                wikiRepository: { id: repositoryId },
+                master: { id: userId },
+                typeId: "markdown",
+                formatType: "document",
+                wikiCategory: { id: id },
+                details: JSON.stringify([
+                    {
+                        type: "code",
+                        children: [
+                            {
+                                type: 'paragraph',
+                                children: [
+                                    {
+                                        text:'',
+                                    },
+                                ],
+                            },
+                        ]
+                    }
+                ])
+            }
+            createDocument(data).then((data) => {
+                if (data.code === 0) {
+                    findRepositoryCatalogue(repositoryId).then((data) => {
+                        setRepositoryCatalogueList(data)
+                    })
+                    if (!isExpandedTree(id)) {
+                        setExpandedTree(expandedTree.concat(id));
+                    }
+                    props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
+                    // 左侧导航
+                    setSelectKey(data.data)
+                }
+            })
         } else if (value.key === "category") {
             setAddModalVisible(true)
             setModalTitle("添加目录")
@@ -171,7 +203,7 @@ const RepositorydeAside = (props) => {
     const inputRef = React.useRef(null);
     const [isRename, setIsRename] = useState()
     const editCatelogue = (fItem, value, item, fId, index) => {
-        const {id, formatType} = item;
+        const { id, formatType } = item;
         value.domEvent.stopPropagation()
         if (value.key === "edit") {
             setIsRename(id)
@@ -196,29 +228,29 @@ const RepositorydeAside = (props) => {
                 })
             }
 
-            if(fItem.length > 1){
-                if(index !== fItem.length - 1){
-                    if(fItem[index+1].typeId === "category"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index+1].id}`)
+            if (fItem.length > 1) {
+                if (index !== fItem.length - 1) {
+                    if (fItem[index + 1].typeId === "category") {
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index + 1].id}`)
                     }
-                    if(fItem[index+1].typeId === "document"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index+1].id}`)
+                    if (fItem[index + 1].typeId === "document") {
+                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index + 1].id}`)
                     }
-                }else {
-                    if(fItem[index-1].typeId === "category"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index-1].id}`)
+                } else {
+                    if (fItem[index - 1].typeId === "category") {
+                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index - 1].id}`)
                     }
-                    if(fItem[index-1].typeId === "document"){
-                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index-1].id}`)
+                    if (fItem[index - 1].typeId === "document") {
+                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index - 1].id}`)
                     }
                 }
-            }else{
-                if(fId == 0){
+            } else {
+                if (fId == 0) {
                     props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
-                }else {
+                } else {
                     props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fId}`)
                 }
-                
+
             }
         }
         if (value.key === "move") {
@@ -277,7 +309,7 @@ const RepositorydeAside = (props) => {
 
     const setOpenClickCategory = key => {
 
-        if (!isExpandedTree(key)){
+        if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
         }
     }
@@ -377,9 +409,9 @@ const RepositorydeAside = (props) => {
         return <div className={`${isExpandedTree(faid) ? "" : 'repository-menu-submenu-hidden'}`}
             key={item.id}
             onDrop={() => changeLog(item.id)}
-            onClick={(event) => selectKeyFun(event,item)}
-            onMouseOver={(event) => {event.stopPropagation(), setIsHover(item.id)}}
-            onMouseLeave={(event) => {event.stopPropagation(), setIsHover(null)}}
+            onClick={(event) => selectKeyFun(event, item)}
+            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
             onDrag={() => moveWorkItem()}
             onDragOver={dragover}
             draggable="true"
@@ -430,24 +462,15 @@ const RepositorydeAside = (props) => {
             {
                 item.children && item.children.length > 0 && (newLevels = levels + 1) &&
                 item.children.map((childItem, index) => {
-                    if(childItem.formatType === "document"){
+                    if (childItem.formatType === "document") {
                         return fileTree(item.children, childItem, newLevels, item.id, index)
                     }
-                    if(childItem.formatType === "category"){
+                    if (childItem.formatType === "category") {
                         return logTree(item.children, childItem, newLevels, item.id, index)
-                    }
-                    
-                })
-            }
-            {/* {
-                item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
-                item.documents.map((childItem, index) => {
-                    if (childItem.typeId !== "mindMap") {
-                        return fileTree(item.documents, childItem, newLevels, item.id, index)
                     }
 
                 })
-            } */}
+            }
         </div>
     }
     const fileTree = (fItems, item, levels, fId, index) => {
@@ -456,13 +479,13 @@ const RepositorydeAside = (props) => {
         >
             <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
                 key={item.id}
-                onClick={(event) => selectKeyFun(event,item)}
-                onMouseOver={(event) => {event.stopPropagation(),setIsHover(item.id)}} 
-                onMouseLeave={(event) => {event.stopPropagation(),setIsHover(null)}}
+                onClick={(event) => selectKeyFun(event, item)}
+                onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+                onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
                 onDragOver={dragover}
                 onDrag={() => moveWorkItem()}
                 draggable="true"
-                onDragStart={(event) => moveStart(event,item.id, fId, item.formatType)}
+                onDragStart={(event) => moveStart(event, item.id, fId, item.formatType)}
                 onDragEnd={() => moveEnd()}
                 ref={el => (moveRef.current[item.id] = el)}
             >
@@ -476,7 +499,7 @@ const RepositorydeAside = (props) => {
                         </svg>
                     }
                     {
-                        item.typeId === "mindMap" && <svg className="img-icon" aria-hidden="true">
+                        item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-minmap"></use>
                         </svg>
                     }
@@ -558,12 +581,12 @@ const RepositorydeAside = (props) => {
                         </div>
 
                         {
-                            repositoryCatalogueList && repositoryCatalogueList.map((item,index) => {
-                                if (item.typeId === "document") {
-                                    return fileTree(repositoryCatalogueList,item, 0, 0, index)
+                            repositoryCatalogueList && repositoryCatalogueList.map((item, index) => {
+                                if (item.formatType === "document") {
+                                    return fileTree(repositoryCatalogueList, item, 0, 0, index)
                                 }
                                 if (item.formatType === "category") {
-                                    return logTree(repositoryCatalogueList,item, 0, 0, index)
+                                    return logTree(repositoryCatalogueList, item, 0, 0, index)
                                 }
                             })
                         }
@@ -601,10 +624,10 @@ const RepositorydeAside = (props) => {
                 updateRepositoryCatalogue={updateRepositoryCatalogue}
                 moveCategoryParentId={moveCategoryParentId}
             />
-            <ShareListModal 
+            <ShareListModal
                 repositoryCatalogueList={repositoryCatalogueList}
-                shareListVisible = {shareListVisible}
-                setShareListVisible = {setShareListVisible}
+                shareListVisible={shareListVisible}
+                setShareListVisible={setShareListVisible}
             />
         </Fragment>
     )

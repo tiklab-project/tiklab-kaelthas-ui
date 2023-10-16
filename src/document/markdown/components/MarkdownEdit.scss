@@ -1,0 +1,89 @@
+
+.document-markdown-edit {
+    background-color: #fff;
+    height: calc(100vh - 48px);
+    .edit-top {
+        line-height: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        border-bottom: 1px solid #EFF1F7;
+        background-color: #F7F9FE;
+        .edit-title {
+            font-size: 18px;
+            font-weight: 600;
+            height: 40px;
+            outline: none;
+            line-height: 40px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            padding: 0 10px; 
+        }
+        .edit-title:hover {
+            background-color: #fff;
+        }
+        // .edit-title:focus-visible {
+        //     outline: 0;
+        //     border: 2px solid var(--tiklab-blue);
+        //     min-width: 100px;
+        //     border-radius: 2px;
+        //     padding: 0 10px;
+        //     background-color: transparent;
+        // }
+        .edit-title-focus {
+            background-color: #fff;
+            // border: 1px solid var(--tiklab-blue);
+        }
+        .document-edit {
+            display: flex;
+            align-items: center;
+        }
+        .inline {
+            border-left: 2px solid #f0f0f0;
+            height: 20px;
+            width: 1px;
+            margin-right: 20px;
+        }
+        
+    }
+    .edit-big {
+        background-color: #F7F9FE;
+        padding-left: 13px;
+        .edit-big-toolbar {
+            border-bottom: 0;
+            justify-content: flex-start;
+            
+
+        }
+    }
+    .edit-right {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        .icon-svg {
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+        }
+        .right-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+    .document-examine-content {
+        margin-top: 10px;
+        height: calc(100% - 120px);
+        overflow: auto;
+    }
+    .document-title-input {
+        margin: 20px 0;
+        height: 50px;
+        line-height: 50px;
+        padding: 0;
+        font-size: 30px;
+        font-weight: 600;
+    }
+}
