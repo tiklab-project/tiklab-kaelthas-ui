@@ -12,7 +12,7 @@ import "./shareModal.scss";
 import {getUser} from "tiklab-core-ui"
 const ShareModal = (props) => {
     const origin = location.origin;
-    const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds } = props;
+    const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds, type } = props;
     const [value, setValue] = React.useState("publish");
     const [shareLink,setShareLink] = useState()
     const [shareUrl, setShareUrl] = useState()
@@ -44,7 +44,7 @@ const ShareModal = (props) => {
     const onFinish = () => { }
     useEffect(()=> {
         if(shareVisible === true) {
-            createShare({documentIds: documentIds,categoryIds: categoryIds,limits: value}).then(data=> {
+            createShare({documentIds: documentIds,categoryIds: categoryIds,limits: value, type: type}).then(data=> {
                 console.log(data)
                 if(data.code === 0) {
                     setShareLink(data.data.id)

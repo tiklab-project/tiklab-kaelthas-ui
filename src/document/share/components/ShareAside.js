@@ -86,6 +86,9 @@ const ShareAside = (props) => {
             if (item.typeId === "document") {
                 props.history.push(`/share/${shareLink}/doc/${item.id}`)
             }
+            if (item.typeId === "markdown") {
+                props.history.push(`/share/${shareLink}/markdown/${item.id}`)
+            }
         }
         if (version === "cloud") {
             if (item.formatType === "category") {
@@ -93,6 +96,9 @@ const ShareAside = (props) => {
             }
             if (item.typeId === "document") {
                 props.history.push(`/share/${shareLink}/doc/${item.id}?tenant=${tenant}`)
+            }
+            if (item.typeId === "markdown") {
+                props.history.push(`/share/${shareLink}/markdown/${item.id}?tenant=${tenant}`)
             }
         }
 
@@ -195,7 +201,7 @@ const ShareAside = (props) => {
                         </svg>
                     }
                     {
-                        item.typeId === "mindMap" && <svg className="img-icon" aria-hidden="true">
+                        item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-minmap"></use>
                         </svg>
                     }
@@ -214,7 +220,7 @@ const ShareAside = (props) => {
                     <div className="repository-menu">
                         {
                             repositoryCatalogueList && repositoryCatalogueList.map((item, index) => {
-                                if (item.typeId === "document") {
+                                if (item.formatType === "document") {
                                     return fileTree(repositoryCatalogueList, item, 0, 0, index)
                                 }
                                 if (item.formatType === "category") {

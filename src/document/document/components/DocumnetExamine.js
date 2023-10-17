@@ -16,7 +16,7 @@ import ShareModal from "../../share/components/ShareModal";
 import { getUser } from "tiklab-core-ui";
 import Comment from "./Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
-import CommentShare from "../../share/components/CommentShare";
+import CommentShare from "../store/CommentStore";
 import DocumentStore from "../store/DocumentStore";
 const DocumentExamine = (props) => {
     const { relationWorkStore } = props;
@@ -148,7 +148,15 @@ const DocumentExamine = (props) => {
 
             </div>
 
-            <ShareModal documentIds = {[documentId]} shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
+            <ShareModal 
+                documentIds = {[documentId]} 
+                shareVisible={shareVisible} 
+                setShareVisible={setShareVisible} 
+                docInfo={docInfo} 
+                createShare={createShare} 
+                updateShare={updateShare} 
+                type = {"document"}
+            />
         </div>
     </Provider>
         

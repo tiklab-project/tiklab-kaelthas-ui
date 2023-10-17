@@ -31,7 +31,7 @@ const MarkdownEdit = (props) => {
                     const value = data.data.details;
                     setValue(JSON.parse(value))
                 } else {
-                    setValue( {
+                    setValue( [{
                         type: 'code',
                         children: [
                             {
@@ -44,7 +44,7 @@ const MarkdownEdit = (props) => {
                                 ],
                             }
                         ]
-                    })
+                    }])
                 }
                 setDocInfo(data.data)
             }

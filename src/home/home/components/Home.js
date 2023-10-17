@@ -9,27 +9,34 @@ const Home = (props) => {
     const { findDocumentRecentList, findRecentRepositoryList } = HomeStore;
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
-    const userId = getUser().id
+    const userId = getUser().userId
     const tenant = getUser().tenant;
     
     useEffect(() => {
-        const recentParams = {
+        const recentDocumentParams = {
             masterId: userId,
             model: "document",
             orderParams: [{
                 name: "recentTime",
-                orderType: "asc"
+                orderType: "desc"
             }]
         }
-        findDocumentRecentList(recentParams).then(res => {
+        findDocumentRecentList(recentDocumentParams).then(res => {
             console.log(res)
             if (res.code === 0) {
                 setRecentViewDocumentList([...res.data])
             }
 
         })
-
-        findRecentRepositoryList({ model: "repository" }).then(res => {
+        const recentRepositoryParams = {
+            masterId: userId,
+            model: "repository",
+            orderParams: [{
+                name: "recentTime",
+                orderType: "desc"
+            }]
+        }
+        findRecentRepositoryList(recentRepositoryParams).then(res => {
             if (res.code === 0) {
                 setRecentRepositoryDocumentList(res.data.slice(0, 5))
             }
@@ -60,7 +67,7 @@ const Home = (props) => {
                             <div className="repository-title">我最近访问知识库</div>
                             <div className="repository-box">
                                 {
-                                    recentRepositoryDocumentList && recentRepositoryDocumentList.map(item => {
+                                    recentRepositoryDocumentList.length > 0 ? recentRepositoryDocumentList.map(item => {
                                         return <Fragment>
                                             <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)}>
                                                 <div className="item-title">
@@ -89,6 +96,9 @@ const Home = (props) => {
 
                                         </Fragment>
                                     })
+                                    :
+
+                                    <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
                                 }
 
                             </div>

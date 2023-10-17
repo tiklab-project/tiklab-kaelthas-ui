@@ -27,15 +27,10 @@ const ShareCategoryDetail = (props) => {
             setLogList(data.data)
         })
     }, [categoryId])
-
-
-
+    
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
 
-
-
-   
 
     const goToDocument = (item) => {
         setSelectKey(item.id)

@@ -18,7 +18,8 @@ const CategoryDetail = (props) => {
         categoryStore: CategoryStore
     }
     const { detailRepositoryLog, findCategoryDocument, setRepositoryCatalogueList, 
-        createDocumentRecent, createDocument,  expandedTree, setExpandedTree, findRepositoryCatalogue } = CategoryStore
+        createDocumentRecent, createDocument,  expandedTree, setExpandedTree, 
+        findRepositoryCatalogue, findDmUserList } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
     const [logDetail, setLogDetail] = useState();
@@ -44,6 +45,9 @@ const CategoryDetail = (props) => {
             </Menu.Item>
             <Menu.Item key="document">
                 添加页面
+            </Menu.Item>
+            <Menu.Item key="markdown">
+                添加Markdown
             </Menu.Item>
         </Menu>
     };
@@ -76,14 +80,13 @@ const CategoryDetail = (props) => {
 
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        findDmUserList(repositoryId).then(data => {
-            debugger
-            setUserList(data.data)
-        })
+        
         if (value.key === "category") {
             setAddModalVisible(true)
-            
-        } else {
+            findDmUserList(repositoryId).then(data => {
+                setUserList(data)
+            })
+        } else if(value.key === "document") {
             const data = {
                 name: "未命名文档",
                 wikiRepository: { id: repositoryId },
@@ -101,6 +104,43 @@ const CategoryDetail = (props) => {
                     findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
                     })
+                }
+            })
+        }else if(value.key === "markdown") {
+            const data = {
+                name: "未命名文档",
+                wikiRepository: { id: repositoryId },
+                master: { id: userId },
+                typeId: "markdown",
+                formatType: "document",
+                wikiCategory: { id: id },
+                details: JSON.stringify([
+                    {
+                        type: "code",
+                        children: [
+                            {
+                                type: 'paragraph',
+                                children: [
+                                    {
+                                        text:'',
+                                    },
+                                ],
+                            },
+                        ]
+                    }
+                ])
+            }
+            createDocument(data).then((data) => {
+                if (data.code === 0) {
+                    findRepositoryCatalogue(repositoryId).then((data) => {
+                        setRepositoryCatalogueList(data)
+                    })
+                    if (!isExpandedTree(id)) {
+                        setExpandedTree(expandedTree.concat(id));
+                    }
+                    props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
+                    // 左侧导航
+                    setSelectKey(data.data)
                 }
             })
         }
@@ -126,8 +166,8 @@ const CategoryDetail = (props) => {
         if (item.typeId === "document") {
             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
-        if (item.typeId === "mindMap") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${item.id}`)
+        if (item.typeId === "markdown") {
+            props.history.push(`/index/repositorydetail/${repositoryId}/markdown/${item.id}`)
 
         }
     }

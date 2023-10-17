@@ -39,7 +39,7 @@ const Comment = (props) => {
     const announce = () => {
         if (commentFirstContent) {
             const value = {
-                document: {
+                wikiDocument: {
                     id: documentId
                 },
                 details: commentFirstContent,
@@ -49,7 +49,7 @@ const Comment = (props) => {
                 if (data.code === 0) {
                     value.id = data.data
                     value.commentList = []
-                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data.data, user: { name: getUser().name,id: userId } }
+                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data.data, user: { name: getUser().name, id: userId } }
                     commentList.unshift(newCommon)
                     setCommentList([...commentList])
                     setCommentFirstContent(null)
@@ -70,7 +70,7 @@ const Comment = (props) => {
             const value = {
                 firstOneCommentId: id,
                 parentCommentId: id,
-                document: {
+                wikiDocument: {
                     id: documentId
                 },
                 details: commentSecondContent,
@@ -100,7 +100,7 @@ const Comment = (props) => {
             const value = {
                 firstOneCommentId: firstOneCommentId,
                 parentCommentId: parentCommentId,
-                document: {
+                wikiDocument: {
                     id: documentId
                 },
                 details: commentThirdContent,
@@ -117,7 +117,7 @@ const Comment = (props) => {
                     setCommentNum(commentNum + 1)
                 }
             })
-        }else {
+        } else {
             message.info("请输入内容")
         }
 
@@ -197,7 +197,7 @@ const Comment = (props) => {
                                     </div>
                                     <div className="comment-operate">
                                         <div>
-                                            {item.createTime}
+                                            {item.createTime.slice(5, 16)}
                                         </div>
                                         <div>
                                             {/* <span className="comment-edit" onClick={() => updataFirst(item.id)}>编辑</span> */}
@@ -228,9 +228,15 @@ const Comment = (props) => {
                                                 </div>
                                                 <div className="comment-operate">
                                                     {/* <span className="comment-edit">编辑</span> */}
-                                                    <span className="comment-delete" onClick={() => deleteSecond(index, children.id)}>删除</span>
-                                                    <span className="comment-reply" onClick={() => setChildrenReply(children.id)}>回复</span>
-                                                    <span className="comment-like">赞</span>
+                                                    <div>
+                                                        {item.createTime.slice(5, 16)}
+                                                    </div>
+                                                    <div>
+                                                        <span className="comment-delete" onClick={() => deleteSecond(index, children.id)}>删除</span>
+                                                        <span className="comment-reply" onClick={() => setChildrenReply(children.id)}>回复</span>
+                                                        <span className="comment-like">赞</span>
+                                                    </div>
+
                                                 </div>
                                                 <div className={`edit-comment ${childrenReply === children.id ? "edit-comment-show" : "edit-comment-hidden"}`}>
                                                     <svg className="icon-svg" aria-hidden="true">

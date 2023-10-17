@@ -8,7 +8,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Provider, inject, observer } from "mobx-react";
-import { Button, Row, Col } from 'antd';
+import { Button, Row, Col, Dropdown } from 'antd';
 import { MarkdownView } from "tiklab-markdown-ui";
 import "tiklab-markdown-ui/es/tiklab-markdown.css";
 import "./markdownView.scss"
@@ -30,7 +30,7 @@ const DocumentExamine = (props) => {
 
     const userId = getUser().userId;
     const tenant = getUser().tenant;
-    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" }})
+    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
@@ -38,6 +38,7 @@ const DocumentExamine = (props) => {
     let [commentNum, setCommentNum] = useState()
     const [title, seTitle] = useState()
     const [value, setValue] = useState()
+    const [markdownValue, setMarkdownValue] = useState();
 
     useEffect(() => {
         seTitle()
@@ -47,6 +48,7 @@ const DocumentExamine = (props) => {
                 if (data.data.details) {
                     const value = data.data.details
                     setValue(JSON.parse(value))
+                    setMarkdownValue(data.data.detailText)
                     console.log(JSON.parse(value))
                 } else {
                     setValue()
@@ -88,7 +90,21 @@ const DocumentExamine = (props) => {
 
 
     }
+    const moreMenu = (
+        <div className="help-box">
+            <div className="help-head" onClick={() => downMorkDown()}>
+                下载
+            </div>
+        </div>
+    )
 
+    const downMorkDown = () => {
+        const url = `data:,${markdownValue}`;
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${title}.md`;
+        a.click();
+    }
 
     return (<Provider {...store}>
         <div className="document-markdown-examine">
@@ -105,9 +121,15 @@ const DocumentExamine = (props) => {
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
                     <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button>
-                    <svg className="right-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-point"></use>
-                    </svg>
+                    <Dropdown
+                        overlay={moreMenu}
+                        placement="bottomLeft"
+                    >
+                        <svg className="right-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-point"></use>
+                        </svg>
+                    </Dropdown>
+
                 </div>
             </div>
             {
@@ -115,17 +137,17 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <MarkdownView value={value} relationWorkStore = {relationWorkStore} base_url = {upload_url} tenant = {tenant}/>
+                                <MarkdownView value={value} base_url={upload_url} tenant={tenant} />
                             </div>
                         </Col>
                     </Row>
                     {
-                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum = {commentNum} setCommentNum = {setCommentNum}/>
+                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum={commentNum} setCommentNum={setCommentNum} />
                     }
 
                 </div>
-                :
-                <> </>
+                    :
+                    <> </>
             }
             <div className="comment-box">
                 <div className="comment-box-item top-item">
@@ -149,10 +171,10 @@ const DocumentExamine = (props) => {
 
             </div>
 
-            <ShareModal documentIds = {[documentId]} shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
+            <ShareModal documentIds={[documentId]} shareVisible={shareVisible} setShareVisible={setShareVisible} docInfo={docInfo} createShare={createShare} updateShare={updateShare} />
         </div>
     </Provider>
-        
+
     )
 }
 

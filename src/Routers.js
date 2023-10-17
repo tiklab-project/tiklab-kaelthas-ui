@@ -44,6 +44,7 @@ const ShareDocument = AsyncComponent(() => import('./document/share/components/S
 const SharePage = AsyncComponent(()=> import('./document/share/components/ShareLayout'))
 const ShareCategory = AsyncComponent(() => import('./document/share/components/PassWord'))
 const ShareCategoryDetail = AsyncComponent(() => import('./document/share/components/ShareCategoryDetail'))
+const ShareMarkdown = AsyncComponent(() => import("./document/share/components/ShareMarkdown"))
 // 分享文档页面
 const PassWord = AsyncComponent(() => import('./document/share/components/PassWord'))
 
@@ -117,6 +118,10 @@ const Routes = [
                 {
                     path: "/share/:shareId/category/:id",
                     component: ShareCategoryDetail,
+                },
+                {
+                    path: "/share/:shareId/markdown/:id",
+                    component: ShareMarkdown,
                 },
                 
         ]

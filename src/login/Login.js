@@ -9,7 +9,6 @@
 import React from "react";
 import {Login} from 'tiklab-eam-ui'
 import logo from "../assets/images/logo.png";
-import {observer, inject} from 'mobx-react'
 const ProjectLogin = (props) => {
 
     return (
@@ -17,7 +16,7 @@ const ProjectLogin = (props) => {
             <Login 
                 {...props}
                 logoImg={logo}
-                loginGoRouter={'/index/home'}
+                loginGoRouter={'/index/repository'}
                 vaildUserAuthRouter = {"/no-auth"}
                 title = {'知识库管理'}
             />

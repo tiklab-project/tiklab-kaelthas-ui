@@ -23,6 +23,9 @@
             gap: 15px;
             padding: 10px 0;
             overflow: hidden;
+            .ant-empty {
+                width: 100%;
+            }
         }
         .repository-item {
             width: 240px;
