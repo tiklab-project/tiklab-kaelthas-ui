@@ -74,7 +74,7 @@ const ShareAside = (props) => {
                 })
             }
         })
-
+        return;
     }, [shareLink])
 
 
@@ -120,6 +120,7 @@ const ShareAside = (props) => {
             range.selectAllChildren(inputRef.current);
             range.collapseToEnd()
         }
+        return;
     }, [isRename])
 
 

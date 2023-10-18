@@ -40,6 +40,7 @@ const TemplateAddmodal = (props) => {
                 }
             })
         }
+        return;
     }, [templateId])
 
 

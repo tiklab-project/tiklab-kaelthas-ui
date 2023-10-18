@@ -49,7 +49,7 @@ const MarkdownEdit = (props) => {
                 setDocInfo(data.data)
             }
         })
-
+        return;
     }, [documentId])
 
     const save = () => {

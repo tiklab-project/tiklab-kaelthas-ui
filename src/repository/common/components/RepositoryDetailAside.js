@@ -50,6 +50,7 @@ const RepositorydeAside = (props) => {
         findRepositoryCatalogue(repositoryId).then((data) => {
             setRepositoryCatalogueList(data)
         })
+        return;
     }, [])
 
     useEffect(() => {
@@ -270,6 +271,7 @@ const RepositorydeAside = (props) => {
             range.selectAllChildren(inputRef.current);
             range.collapseToEnd()
         }
+        return;
     }, [isRename])
 
     const reName = (value, id, formatType) => {

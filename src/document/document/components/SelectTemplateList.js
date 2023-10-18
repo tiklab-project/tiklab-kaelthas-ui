@@ -27,6 +27,7 @@ const SelectTemplateList = (props) => {
                 setTemplateList(data.data)
             }
         })
+        return;
     }, [])
 
    

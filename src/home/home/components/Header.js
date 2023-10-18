@@ -25,6 +25,7 @@ const Header = props => {
         if (user && user.userId) {
             systemRoleStore.getSystemPermissions(user.userId, "kanass")
         }
+        return;
     }, [])
 
     const routers = [

@@ -26,6 +26,7 @@ const ShareCategoryDetail = (props) => {
         findCategoryDocument(categoryId).then(data => {
             setLogList(data.data)
         })
+        return;
     }, [categoryId])
     
     // 当前选中目录id

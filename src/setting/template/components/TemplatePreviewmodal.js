@@ -31,6 +31,7 @@ const TemplatePreviewmodal = (props) => {
                 }
             })
         }
+        return;
     },[templateId, previewModalVisible])
     const initTemplate = (value) => {
         // setValue(value)

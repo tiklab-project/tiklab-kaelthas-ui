@@ -54,7 +54,7 @@ const Survey = (props) => {
                 setUserList(res.data)
             }
         })
-
+        return;
     }, [repositoryId])
 
     const addMenu = (id) => {

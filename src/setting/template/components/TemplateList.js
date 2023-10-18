@@ -21,6 +21,7 @@ const Template = (props)=>{
 
     useEffect(()=> {
         findDocumentTemplatePage()
+        return;
     },[])
     const addModal = () => {
         props.history.push("/index/setting/templateAdd")

@@ -57,7 +57,7 @@ const DocumentExamine = (props) => {
                 setCommentNum(data.data.commentNumber)
             }
         })
-
+        return;
     }, [documentId])
 
 

@@ -81,6 +81,7 @@ const useAppConfig = (isSSO) => {
         if (!isSSO) {
             getWorkList()
         }
+        return;
     },[]);
 
     useEffect(() => {
@@ -90,6 +91,7 @@ const useAppConfig = (isSSO) => {
                 appUrl: edit.appUrl
             })
         }
+        return;
     }, [edit]);
 
 

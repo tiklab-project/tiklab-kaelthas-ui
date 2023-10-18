@@ -79,6 +79,7 @@ const UrlData = () => {
         findAllSystemUrl().then(res => {
             setUrlDataList(res.data)
         })
+        return;
     }, [])
 
     const addUrl = () => {

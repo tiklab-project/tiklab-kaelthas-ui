@@ -60,7 +60,7 @@ const DocumentExamine = (props) => {
                 setCommentNum(data.data.commentNumber)
             }
         })
-
+        return;
     }, [documentId])
 
 
@@ -91,8 +91,8 @@ const DocumentExamine = (props) => {
 
     }
     const moreMenu = (
-        <div className="help-box">
-            <div className="help-head" onClick={() => downMorkDown()}>
+        <div className="more-box">
+            <div className="markbox-download" onClick={() => downMorkDown()}>
                 下载
             </div>
         </div>
@@ -124,6 +124,7 @@ const DocumentExamine = (props) => {
                     <Dropdown
                         overlay={moreMenu}
                         placement="bottomLeft"
+                        trigger ="click"
                     >
                         <svg className="right-icon" aria-hidden="true">
                             <use xlinkHref="#icon-point"></use>

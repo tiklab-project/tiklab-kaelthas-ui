@@ -48,6 +48,7 @@ const Index = observer(() => {
             setPluginData(res)
             setVisable(false)
         })
+        return;
     }, []);
 
     if (visable) return <div>加载。。。</div>

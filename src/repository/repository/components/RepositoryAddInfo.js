@@ -25,6 +25,7 @@ const RepositoryAddInfo = (props) => {
 
     useEffect(() => {
         getIconList()
+        return;
     }, [])
 
     const getIconList = () => {

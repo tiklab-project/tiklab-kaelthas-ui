@@ -34,6 +34,7 @@ const CategoryDetail = (props) => {
         findCategoryDocument(categoryId).then(data => {
             setLogList(data.data)
         })
+        return;
     }, [categoryId])
 
     const [addModalVisible, setAddModalVisible] = useState()

@@ -56,6 +56,7 @@
         "tiklab-security-ui": "^1.0.1",
         "tiklab-todotask-ui": "^1.0.1",
         "tiklab-slate-ui": "^1.0.1",
+        "tiklab-markdown-ui": "^1.0.0",
         "tiklab-privilege-ui": "^1.0.1"
     },
     "devDependencies": {

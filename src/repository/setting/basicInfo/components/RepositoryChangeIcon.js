@@ -18,6 +18,7 @@ const RepositoryIcon = (props) => {
     
     useEffect(() => {
         getIconList()
+        return;
     }, [])
 
     const getIconList = () => {

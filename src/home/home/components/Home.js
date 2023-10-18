@@ -42,7 +42,7 @@ const Home = (props) => {
             }
 
         })
-
+        return;
     }, [])
 
     const goRepositoryDetail = repository => {

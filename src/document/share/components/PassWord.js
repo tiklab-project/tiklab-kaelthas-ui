@@ -37,7 +37,8 @@ const PassWord = (props) => {
     }
     useEffect(()=> {
         setTenant(tenant)
-    })
+        return;
+    }, [])
     return <div className="documment-password">
         <div className="password-log">
             <img src={('images/logo.png')} alt="" />

@@ -29,7 +29,6 @@ const DocumentEdit = (props) => {
     const tenant = getUser().tenant;
     useEffect(() => {
         setValue()
-        console.log("编辑")
         findDocument(documentId).then((data) => {
             if (data.code === 0) {
                 if (data.data.details) {
@@ -42,7 +41,7 @@ const DocumentEdit = (props) => {
                 setDocInfo(data.data)
             }
         })
-
+        return;
     }, [documentId])
 
     const save = () => {

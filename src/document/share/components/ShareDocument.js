@@ -43,7 +43,7 @@ const ShareDocument = (props) => {
                 setDocInfo(data.data)
             }
         })
-
+        return;
     }, [props.match.params.id])
     return (
         <div className="document-share-examine">

@@ -58,7 +58,7 @@ const ShareModal = (props) => {
                 }
             })
         }
-        
+        return;
     },[shareVisible,documentIds])
     // 分享qq空间
     const shareToQZon = (pic) => {

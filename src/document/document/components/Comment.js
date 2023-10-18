@@ -32,6 +32,7 @@ const Comment = (props) => {
                 setTotalPage(data.data.totalPage)
             }
         })
+        return;
     }, [documentId])
 
 
