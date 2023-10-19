@@ -53,6 +53,7 @@ const MarkdownEdit = (props) => {
     }, [documentId])
 
     const save = () => {
+        console.log(value)
         saveDocument(value)
 
         // editRef.current.submit()

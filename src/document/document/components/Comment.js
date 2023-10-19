@@ -16,6 +16,7 @@ const Comment = (props) => {
     const [commentList, setCommentList] = useState();
     const userId = getUser().userId;
     const userName = getUser().name;
+    const nickname = getUser().nickname;
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0)
     useEffect(() => {
@@ -44,13 +45,13 @@ const Comment = (props) => {
                     id: documentId
                 },
                 details: commentFirstContent,
-                user: { id: userId, name: userName }
+                user: { id: userId, name: userName, nickname: nickname }
             }
             createComment(value).then(data => {
                 if (data.code === 0) {
                     value.id = data.data
                     value.commentList = []
-                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data.data, user: { name: getUser().name, id: userId } }
+                    const newCommon = { ...value, createTime: moment(new Date()).format('YYYY-MM-DD HH:mm:ss'), id: data.data }
                     commentList.unshift(newCommon)
                     setCommentList([...commentList])
                     setCommentFirstContent(null)
@@ -75,7 +76,7 @@ const Comment = (props) => {
                     id: documentId
                 },
                 details: commentSecondContent,
-                user: { id: userId, name: userName },
+                user: { id: userId, name: userName, nickname: nickname },
                 aimAtUser: aimAtUser
             }
             createComment(value).then(data => {
@@ -105,7 +106,7 @@ const Comment = (props) => {
                     id: documentId
                 },
                 details: commentThirdContent,
-                user: { id: userId, name: userName },
+                user: { id: userId, name: userName, nickname: nickname },
                 aimAtUser: aimAtUser
             }
             createComment(value).then(data => {
@@ -191,7 +192,7 @@ const Comment = (props) => {
                                         <svg className="icon-svg" aria-hidden="true">
                                             <use xlinkHref="#icon-user5"></use>
                                         </svg>
-                                        <span className="user-name">{item.user.name}</span>
+                                        <span className="user-name">{item.user.nickname}</span>
                                     </div>
                                     <div className="comment-content">
                                         {item.details}

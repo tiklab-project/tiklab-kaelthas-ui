@@ -60,13 +60,30 @@ const Survey = (props) => {
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
             <Menu.Item key="category">
-                添加目录
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-folder"></use>
+                    </svg>
+                    目录
+                </div>
+
             </Menu.Item>
             <Menu.Item key="document">
-                添加页面
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-file"></use>
+                    </svg>
+                    文档
+                </div>
+
             </Menu.Item>
             <Menu.Item key="markdown">
-                添加Markdown
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-minmap"></use>
+                    </svg>
+                    Markdown
+                </div>
             </Menu.Item>
         </Menu>
     };
@@ -114,7 +131,7 @@ const Survey = (props) => {
                                 type: 'paragraph',
                                 children: [
                                     {
-                                        text:'',
+                                        text: '',
                                     },
                                 ],
                             },
@@ -282,9 +299,6 @@ const Survey = (props) => {
                             <div className="repository-top">
 
                                 <div className="top-left">
-                                    {/* <svg className="top-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-zhishi"></use>
-                                        </svg> */}
                                     {
                                         repositoryInfo.iconUrl ?
                                             <img
@@ -333,7 +347,6 @@ const Survey = (props) => {
                                 <div className="top-right">
                                     <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
                                         <div className="top-add-botton">添加</div>
-                                        {/* <div>sdsd</div>  */}
                                     </Dropdown>
                                     <Button>分享</Button>
                                 </div>
@@ -350,16 +363,25 @@ const Survey = (props) => {
                                 recentViewDocumentList && recentViewDocumentList.map((item) => {
                                     return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
                                         <div className='document-name' style={{ flex: 1 }}>
-                                            <svg className="document-icon" aria-hidden="true">
-                                                <use xlinkHref="#icon-file"></use>
-                                            </svg>
+                                            {
+                                                item.typeId === "markdown" &&
+                                                <svg className="document-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-minmap"></use>
+                                                </svg>
+                                            }
+                                            {
+                                                item.typeId === "document" &&
+                                                <svg className="document-icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-file"></use>
+                                                </svg>
+                                            }
                                             <span>{item.name}</span>
                                         </div>
 
                                         <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
                                         <div style={{ flex: 1 }}>{item.master.name}</div>
                                         <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                        <div style={{ flex: 1 }}>
+                                        <div>
                                             <svg className="icon" aria-hidden="true">
                                                 <use xlinkHref="#icon-point"></use>
                                             </svg>

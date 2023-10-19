@@ -17,6 +17,7 @@ import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
+import "./RepositoryDetailAside.scss"
 const { Sider } = Layout;
 const RepositorydeAside = (props) => {
     // 解析props
@@ -93,13 +94,30 @@ const RepositorydeAside = (props) => {
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
             <Menu.Item key="category">
-                添加目录
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-folder"></use>
+                    </svg>
+                    目录
+                </div>
+
             </Menu.Item>
             <Menu.Item key="document">
-                添加页面
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-file"></use>
+                    </svg>
+                    文档
+                </div>
+
             </Menu.Item>
             <Menu.Item key="markdown">
-                添加Markdown
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-minmap"></use>
+                    </svg>
+                    Markdown
+                </div>
             </Menu.Item>
         </Menu>
     };
@@ -525,7 +543,7 @@ const RepositorydeAside = (props) => {
     }
     return (
         <Fragment>
-            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="270">
+            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="270" className= "repositorydetail-aside">
                 <div className={`repository-aside ${isShowText ? "" : "repository-icon"}`}>
                     <div className="repository-title title">
                         <span className="repository-title-left">

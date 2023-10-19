@@ -17,8 +17,8 @@ const CategoryDetail = (props) => {
     const store = {
         categoryStore: CategoryStore
     }
-    const { detailRepositoryLog, findCategoryDocument, setRepositoryCatalogueList, 
-        createDocumentRecent, createDocument,  expandedTree, setExpandedTree, 
+    const { detailRepositoryLog, findCategoryDocument, setRepositoryCatalogueList,
+        createDocumentRecent, createDocument, expandedTree, setExpandedTree,
         findRepositoryCatalogue, findDmUserList } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
@@ -42,13 +42,30 @@ const CategoryDetail = (props) => {
     const addMenu = (id) => {
         return <Menu onClick={(value) => selectAddType(value, id)}>
             <Menu.Item key="category">
-                添加目录
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-folder"></use>
+                    </svg>
+                    目录
+                </div>
+
             </Menu.Item>
             <Menu.Item key="document">
-                添加页面
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-file"></use>
+                    </svg>
+                    文档
+                </div>
+
             </Menu.Item>
             <Menu.Item key="markdown">
-                添加Markdown
+                <div className="content-add-menu">
+                    <svg className="content-add-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-minmap"></use>
+                    </svg>
+                    Markdown
+                </div>
             </Menu.Item>
         </Menu>
     };
@@ -81,13 +98,13 @@ const CategoryDetail = (props) => {
 
     const selectAddType = (value, id) => {
         setCatalogueId(id)
-        
+
         if (value.key === "category") {
             setAddModalVisible(true)
             findDmUserList(repositoryId).then(data => {
                 setUserList(data)
             })
-        } else if(value.key === "document") {
+        } else if (value.key === "document") {
             const data = {
                 name: "未命名文档",
                 wikiRepository: { id: repositoryId },
@@ -107,7 +124,7 @@ const CategoryDetail = (props) => {
                     })
                 }
             })
-        }else if(value.key === "markdown") {
+        } else if (value.key === "markdown") {
             const data = {
                 name: "未命名文档",
                 wikiRepository: { id: repositoryId },
@@ -123,7 +140,7 @@ const CategoryDetail = (props) => {
                                 type: 'paragraph',
                                 children: [
                                     {
-                                        text:'',
+                                        text: '',
                                     },
                                 ],
                             },
@@ -211,7 +228,7 @@ const CategoryDetail = (props) => {
                                                 </svg>
                                             }
                                             {
-                                                item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
+                                                item.formatType && item.formatType === "document" && item.typeId === "markdown" &&
                                                 <svg className="log-icon" aria-hidden="true">
                                                     <use xlinkHref="#icon-minmap"></use>
                                                 </svg>
@@ -251,7 +268,7 @@ const CategoryDetail = (props) => {
             />
         </div>
     </Provider>
-        
+
     )
 }
 export default observer(CategoryDetail);
