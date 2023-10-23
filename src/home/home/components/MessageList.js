@@ -68,7 +68,7 @@ const MessageList = (props) => {
             <a className="frame-header-language" data-title="消息提示" onClick={() => openDrawer()}>
                 <Badge count={0} size="small">
                     <Avatar
-                        size="small" style={{ background: "transparent", fontSize: "22px" }} icon={<MessageOutlined style={{ color: "#fff" }} />} />
+                        size="small" style={{ background: "transparent", fontSize: "22px" }} icon={<MessageOutlined style={{ color: "#2c2c2c" }} />} />
                 </Badge>
             </a>
             <Drawer

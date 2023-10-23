@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from "react-i18next";
 import { Col, Row, Dropdown, Menu,  Space } from "antd";
 import { withRouter } from 'react-router';
-import logo from "../../../assets/images/logo_k3.png";
+import logo from "../../../assets/images/logo_k4.png";
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import { AppLink } from 'tiklab-licence-ui';
@@ -57,8 +57,8 @@ const Header = props => {
         if (routers) {
             return (
                 <div className={'frame-header-link'}>
-                    <div key='home' onClick={() => changeCurrentLink(routers[0])} className={`frame-header-link-item ${menuKey === "home" ? 'frame-header-link-active' : null}`}> {routers[0].title}</div>
-                    <div key='repository' onClick={() => changeCurrentLink(routers[1])} className={`frame-header-link-item ${menuKey === "repository" ? 'frame-header-link-active' : null}`}> {routers[1].title}</div>
+                    <div key='home' onClick={() => changeCurrentLink(routers[0])} className={`frame-header-link-item ${menuKey === "home" ? 'frame-header-link-active' : null}`}> <span>{routers[0].title}</span> </div>
+                    <div key='repository' onClick={() => changeCurrentLink(routers[1])} className={`frame-header-link-item ${menuKey === "repository" ? 'frame-header-link-active' : null}`}> <span>{routers[1].title}</span> </div>
                 </div>
             )
         }
