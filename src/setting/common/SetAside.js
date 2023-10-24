@@ -44,10 +44,12 @@ const SetAside = (props) => {
                     code={data.encoded}
                 >
                     <span className="orga-aside-item-left">
+                        {
+                            deep === 0 && <svg className="img-icon" aria-hidden="true">
+                                <use xlinkHref={`#icon-${data.icon}`}></use>
+                            </svg>
+                        }
 
-                        <svg className="svg-icon" aria-hidden="true">
-                            <use xlinkHref={`#icon-${data.icon}`}></use>
-                        </svg>
                         <span>{data.title}</span>
                     </span>
 
@@ -77,7 +79,7 @@ const SetAside = (props) => {
                 <li key={item.code} title={item.title} className="orga-aside-li">
                     <div className="orga-aside-item orga-aside-first" style={{ paddingLeft: `${deep * 20 + 20}` }} onClick={() => setOpenOrClose(item.id)}>
                         <span to={item.id} className="orga-aside-item-left">
-                            <svg className="svg-icon" aria-hidden="true">
+                            <svg className="img-icon" aria-hidden="true">
                                 <use xlinkHref={`#icon-${item.icon}`}></use>
                             </svg>
                             <span className="orga-aside-title">{item.title}</span>

@@ -10,7 +10,7 @@
 const setDevRouter= [
     {
         title: "用户与部门",
-        icon: 'orgamanage',
+        icon: 'systemuser',
         id: '/index/setting/organ',
         purviewCode: "orga",
         code: 1,
@@ -49,13 +49,13 @@ const setDevRouter= [
     },
     {
         title: '模板',
-        icon: 'systemcenter',
+        icon: 'systemtemplate',
         id: "/index/setting/template",
         code: 14
     },
     {
         title: '权限',
-        icon: 'systemcenter',
+        icon: 'systempermissions',
         id: "/index/setting/systemRole",
         purviewCode: "SysPermission",
         code: 2
@@ -63,7 +63,7 @@ const setDevRouter= [
     
     {
         title: "消息",
-        icon: 'messagecenter',
+        icon: 'systemmessage',
         id: '/index/setting/messageNotice',
         purviewCode: "SysMessage",
         code: 4,
@@ -86,14 +86,14 @@ const setDevRouter= [
     },
     {
         title: "插件",
-        icon: 'plugin',
+        icon: 'systemplugin',
         id: '/index/setting/plugin',
         purviewCode: "SysPlugin",
         code: 8,
     },
     {
         title: "系统集成",
-        icon: 'systemcenter',
+        icon: 'systemIntergrtion',
         id: '/index/setting/loadData',
         code: 9,
         children: [
@@ -106,7 +106,7 @@ const setDevRouter= [
     },
     {
         title: "安全",
-        icon: 'systemcenter',
+        icon: 'systemlog',
         id: '/index/setting/log',
         // purviewCode: "SysLog",
         code: 10,
@@ -127,7 +127,7 @@ const setDevRouter= [
     }, 
     {
         title: "版本与许可证",
-        icon: 'plugin',
+        icon: 'systemversion',
         id: '/index/setting/version',
         purviewCode: "SysVersion",
         code: 11,
@@ -224,7 +224,7 @@ const setDevRouter= [
 const setPrdRouter= [
     {
         title: "用户与部门",
-        icon: 'orgamanage',
+        icon: 'systemuser',
         id: '/index/setting/organ',
         purviewCode: "orga",
         code: 1,
@@ -263,20 +263,20 @@ const setPrdRouter= [
     },
     {
         title: '模板',
-        icon: 'systemcenter',
+        icon: 'systemtemplate',
         id: "/index/setting/template",
         code: 14
     },
     {
         title: '权限',
-        icon: 'systemcenter',
+        icon: 'systempermissions',
         id: "/index/setting/systemRole",
         purviewCode: "SysPermission",
         code: 2
     },
     {
         title: "消息",
-        icon: 'messagecenter',
+        icon: 'systemmessage',
         id: '/index/setting/messageNotice',
         purviewCode: "SysMessage",
         code: 4,
@@ -299,14 +299,14 @@ const setPrdRouter= [
     },
     {
         title: "插件",
-        icon: 'plugin',
+        icon: 'systemplugin',
         id: '/index/setting/plugin',
         purviewCode: "SysPlugin",
         code: 8,
     },
     {
         title: "系统集成",
-        icon: 'systemcenter',
+        icon: 'systemIntergrtion',
         id: '/index/setting/loadData',
         code: 9,
         children: [
@@ -319,7 +319,7 @@ const setPrdRouter= [
     },
     {
         title: "安全",
-        icon: 'systemcenter',
+        icon: 'systemlog',
         id: '/index/setting/log',
         // purviewCode: "SysLog",
         code: 10,
@@ -341,7 +341,7 @@ const setPrdRouter= [
     }, 
     {
         title: "版本与许可证",
-        icon: 'plugin',
+        icon: 'systemversion',
         id: '/index/setting/version',
         purviewCode: "SysVersion",
         code: 11,
