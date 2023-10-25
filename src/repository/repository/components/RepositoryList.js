@@ -9,6 +9,7 @@ import Button from "../../../common/button/button";
 import "./repository.scss";
 import { useHistory } from 'react-router-dom';
 import RepositoryStore from "../store/RepositoryStore";
+import setImageUrl from "../../../common/utils/setImageUrl";
 const RepositoryList = (props) => {
     const { findRepositoryList, createDocumentRecent,
         repositorylist, findRecentRepositoryList, createRepositoryFocus,
@@ -63,20 +64,11 @@ const RepositoryList = (props) => {
             key: "name",
             align: "left",
             render: (text, record) => <div onClick={() => goRepositorydetail(record)} className="repository-title">
-                {
-                    record.iconUrl ?
-                        <img
-                            src={version === "cloud" ? (upload_url + record.iconUrl + "?tenant=" + tenant) : (upload_url + record.iconUrl)}
-                            alt=""
-                            className="img-icon"
-                        />
-                        :
-                        <img
-                            src={('images/repository1.png')}
-                            alt=""
-                            className="img-icon"
-                        />
-                }
+                <img
+                    src={setImageUrl(record.iconUrl)}
+                    alt=""
+                    className="img-icon"
+                />
                 <span className="repository-name">{text}</span>
             </div>,
         },
@@ -138,16 +130,16 @@ const RepositoryList = (props) => {
         console.log(value)
         switch (activeTabs) {
             case "1":
-                findRepositoryList({name:value})
+                findRepositoryList({ name: value })
                 break;
             case "2":
-                findRecentRepositoryList({ master: userId, name:value })
+                findRecentRepositoryList({ master: userId, name: value })
                 break;
             case "3":
-                findFocusRepositoryList({ masterId: userId, name:value })
+                findFocusRepositoryList({ masterId: userId, name: value })
                 break;
             case "4":
-                findRepositoryList({ masterId: userId, name:value });
+                findRepositoryList({ masterId: userId, name: value });
                 break
             default:
                 break;
@@ -203,7 +195,7 @@ const RepositoryList = (props) => {
         history.push("/index/repositoryAdd")
     }
 
-   
+
     return (
         <div className="repository">
             <Row>
@@ -239,7 +231,7 @@ const RepositoryList = (props) => {
                             dataSource={repositorylist}
                             rowKey={record => record.id}
                             onChange={handleTableChange}
-                            pagination = {false}
+                            pagination={false}
                         />
                     </div>
                 </Col>

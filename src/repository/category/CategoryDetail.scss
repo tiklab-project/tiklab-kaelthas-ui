@@ -103,10 +103,18 @@
             justify-content: space-between;
             padding: 0 10px;
             border-radius: 4px;
-            .log-child-name {
+            .log-child-title {
                 display: flex;
                 align-items: center;
+                .log-child-name {
+                    cursor: pointer;
+                    width: 120px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
             }
+            
         }
         .log-child-list:hover {
             background-color: var(--tiklab-gray-300);

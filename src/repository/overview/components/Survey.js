@@ -358,39 +358,42 @@ const Survey = (props) => {
                         <div className="document-box-title">
                             <span className="name">最近查看</span>
                         </div>
-                        <div>
-                            {
-                                recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                    return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                        <div className='document-name' style={{ flex: 1 }}>
-                                            {
-                                                item.typeId === "markdown" &&
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-minmap"></use>
-                                                </svg>
-                                            }
-                                            {
-                                                item.typeId === "document" &&
-                                                <svg className="document-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-file"></use>
-                                                </svg>
-                                            }
-                                            <span>{item.name}</span>
-                                        </div>
+                        {
+                            recentViewDocumentList.length > 0 ? <div>
+                                {
+                                    recentViewDocumentList && recentViewDocumentList.map((item) => {
+                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
+                                            <div className='document-name' style={{ flex: 1 }}>
+                                                {
+                                                    item.typeId === "markdown" &&
+                                                    <svg className="document-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-minmap"></use>
+                                                    </svg>
+                                                }
+                                                {
+                                                    item.typeId === "document" &&
+                                                    <svg className="document-icon" aria-hidden="true">
+                                                        <use xlinkHref="#icon-file"></use>
+                                                    </svg>
+                                                }
+                                                <span>{item.name}</span>
+                                            </div>
 
-                                        <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
-                                        <div style={{ flex: 1 }}>{item.master.name}</div>
-                                        <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                        <div>
-                                            <svg className="icon" aria-hidden="true">
-                                                <use xlinkHref="#icon-point"></use>
-                                            </svg>
+                                            <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
+                                            <div style={{ flex: 1 }}>{item.master.name}</div>
+                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                            <div>
+                                                <svg className="icon" aria-hidden="true">
+                                                    <use xlinkHref="#icon-point"></use>
+                                                </svg>
+                                            </div>
                                         </div>
-                                    </div>
-                                })
-                            }
-                        </div>
-
+                                    })
+                                }
+                            </div>
+                            :
+                            <Empty image="/images/nodata.png" description="暂时没有查看过文档~" />
+                        }
                     </div>
                     <div className="home-dynamic">
                         <div className="dynamic-box-title">

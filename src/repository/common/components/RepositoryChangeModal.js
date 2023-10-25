@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./RepositoryChangeModal.scss";
 import { withRouter } from "react-router";
+import setImageUrl from "../../../common/utils/setImageUrl";
 
 const RepositoryChangeModal = (props) => {
     const { repositorylist, searchrepository } = props;
@@ -85,22 +86,11 @@ const RepositoryChangeModal = (props) => {
                             onMouseOut={handleMouseOut}
 
                         >
-                            {
-                                item.iconUrl ?
-                                    <img
-                                        src={('images/' + item.iconUrl)}
-                                        className="img-icon"
-                                        title={item.name}
-                                        alt=""
-                                    />
-                                    :
-                                    <img
-                                        className="img-icon"
-                                        src={('images/repository1.png')}
-                                        title={item.name}
-                                        alt=""
-                                    />
-                            }
+                            <img
+                                src={setImageUrl(item.iconUrl)}
+                                alt=""
+                                className="img-icon"
+                            />
                             {item.name}
                         </div>
                     })

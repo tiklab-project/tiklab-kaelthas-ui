@@ -523,13 +523,17 @@ const RepositorydeAside = (props) => {
                             <use xlinkHref="#icon-minmap"></use>
                         </svg>
                     }
-                    <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                    <span 
+                        className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
                         contentEditable={isRename === item.id ? true : false}
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
                         id={"file-" + item.id}
-                    >{item.name} </span>
+                        title = {item.name}
+                    >
+                        {item.name}
+                    </span>
                 </div>
                 <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
                     <Dropdown overlay={() => editMenu(fItems, item, fId, index)} placement="bottomLeft">
@@ -633,15 +637,10 @@ const RepositorydeAside = (props) => {
                 {...props}
             />
             <MoveLogList
-                repositoryCatalogueList={repositoryCatalogueList}
                 moveLogListVisible={moveLogListVisible}
-                setRepositoryCatalogueList={setRepositoryCatalogueList}
                 setMoveLogListVisible={setMoveLogListVisible}
-                findRepositoryCatalogue={findRepositoryCatalogue}
-                updateDocument={updateDocument}
                 formatType={formatType}
                 moveCategoryId={moveCategoryId}
-                updateRepositoryCatalogue={updateRepositoryCatalogue}
                 moveCategoryParentId={moveCategoryParentId}
             />
             <ShareListModal

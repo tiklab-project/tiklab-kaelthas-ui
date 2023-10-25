@@ -6,51 +6,53 @@
  * @LastEditors: 袁婕轩
  * @LastEditTime: 2021-12-20 14:35:10
  */
-import React,{Fragment, useState,useEffect} from 'react';
-import { Modal} from 'antd';
-import "./moveLogList.scss"
+import React, { useState } from 'react';
+import { Modal } from 'antd';
+import "./moveLogList.scss";
+import { observer, inject } from "mobx-react";
 import { withRouter } from 'react-router';
 const MoveLogList = (props) => {
-    const { repositoryCatalogueList, moveLogListVisible,
-        setMoveLogListVisible,setRepositoryCatalogueList,formatType,
-        moveCategoryId,findRepositoryCatalogue,updateDocument,updateRepositoryCatalogue,moveCategoryParentId } = props;
-    const [selectKey,setSelectKey] = useState()
+    const { moveLogListVisible, setMoveLogListVisible, formatType,
+        moveCategoryId, categoryStore, moveCategoryParentId } = props;
+    const { findRepositoryCatalogue, repositoryCatalogueList, setRepositoryCatalogueList, updateDocument, 
+        updateRepositoryCatalogue } = categoryStore
+    const [selectKey, setSelectKey] = useState()
     const repositoryId = props.match.params.repositoryId;
     const onFinish = () => {
         let value;
-        if(formatType === "category"){
-            if(selectKey){
+        if (formatType === "category") {
+            if (selectKey) {
                 value = {
-                    parentWikiCategory:{id:selectKey},
+                    parentWikiCategory: { id: selectKey },
                     id: moveCategoryId
                 }
-            }else {
+            } else {
                 value = {
                     id: moveCategoryId
                 }
             }
-            updateRepositoryCatalogue(value).then((res)=> {
-                if(res.code === 0){
-                    findRepositoryCatalogue(repositoryId).then((data)=> {
+            updateRepositoryCatalogue(value).then((res) => {
+                if (res.code === 0) {
+                    findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
                     })
                     setMoveLogListVisible(false)
                 }
             })
-        }else {
-            if(selectKey){
+        } else {
+            if (selectKey) {
                 value = {
-                    wikiCategory:{id:selectKey},
+                    wikiCategory: { id: selectKey },
                     id: moveCategoryId
                 }
-            }else {
+            } else {
                 value = {
                     id: moveCategoryId
                 }
             }
-            updateDocument(value).then((res)=> {
-                if(res.code === 0){
-                    findRepositoryCatalogue(repositoryId).then((data)=> {
+            updateDocument(value).then((res) => {
+                if (res.code === 0) {
+                    findRepositoryCatalogue(repositoryId).then((data) => {
                         setRepositoryCatalogueList(data)
                     })
                     setMoveLogListVisible(false)
@@ -58,7 +60,7 @@ const MoveLogList = (props) => {
             })
         }
     }
-    
+
     /**
     * 折叠菜单
     */
@@ -77,41 +79,45 @@ const MoveLogList = (props) => {
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((category) => {
-            if(category.formatType === "category"){
-                return <div className={`${!isExpandedTree(faid) ||  selectKey !== faid ? null : 'repository-menu-submenu-hidden'}`}
+            if (category.formatType === "category") {
+                return <div 
+                className={`${!isExpandedTree(faid) || selectKey !== faid ? null : 'repository-menu-submenu-hidden'}}
+                `}
+
                     key={category.id}
                 >
-                <div className={`repository-menu-submenu ${category.id === selectKey ? "repository-menu-select" : ""} `}
-                    key={category.id}
-                    onClick={() => setSelectKey(category.id)}
-                >
-                    <div style={{ paddingLeft: levels * 10 }}>
-                        {
-                            (category.children && category.children.length > 0) ?
-                                isExpandedTree(category.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
-                                    <use xlinkHref="#icon-right" ></use>
-                                </svg> :
-                                    <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
-                                        <use xlinkHref="#icon-down" ></use>
-                                    </svg> : <svg className="icon" aria-hidden="true">
-                                    <use xlinkHref=""></use>
-                                </svg>
-                        }
-                        <svg className="icon" aria-hidden="true">
-                            <use xlinkHref="#icon-folder"></use>
-                        </svg>
-                        <span>{category.name} </span>
+                    <div className={`repository-menu-submenu ${category.id === selectKey ? "repository-menu-select" : ""} `}
+                        key={category.id}
+                        onClick={() => setSelectKey(category.id)}
+                    >
+                        <div style={{ paddingLeft: levels * 10 }}>
+                            {
+                                (category.children && category.children.length > 0) ?
+                                    isExpandedTree(category.id) ? <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
+                                        <use xlinkHref="#icon-right" ></use>
+                                    </svg>
+                                        :
+                                        <svg className="icon" aria-hidden="true" onClick={() => setOpenOrClose(category.id)}>
+                                            <use xlinkHref="#icon-down" ></use>
+                                        </svg> : <svg className="icon" aria-hidden="true">
+                                        <use xlinkHref=""></use>
+                                    </svg>
+                            }
+                            <svg className="icon" aria-hidden="true">
+                                <use xlinkHref="#icon-folder"></use>
+                            </svg>
+                            <span>{category.name} </span>
+                        </div>
                     </div>
+                    {
+                        category.children && category.children.length > 0 && (newLevels = levels + 1) && logTree(category.children, newLevels, category.id)
+                    }
                 </div>
-                {
-                    category.children && category.children.length > 0 && (newLevels = levels + 1) && logTree(category.children, newLevels, category.id)
-                }
-            </div>
             }
-            
+
         })
     }
-    
+
     return (
         <Modal
             title="选择移动目录"
@@ -127,4 +133,4 @@ const MoveLogList = (props) => {
         </Modal>
     )
 }
-export default withRouter(MoveLogList);
+export default withRouter(inject("categoryStore")(observer(MoveLogList)));

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { withRouter } from "react-router";
 import { inject, observer } from "mobx-react";
 import { getUser } from "tiklab-core-ui";
+import setImageUrl from "../../../common/utils/setImageUrl";
 const { TextArea } = Input;
 
 const layout = {
@@ -31,6 +32,7 @@ const RepositoryAddInfo = (props) => {
     const getIconList = () => {
         findIconList({ iconType: "repository" }).then((res) => {
             setIconList(res.data)
+            setIconUrl(res.data[0]?.iconUrl)
         })
     }
 
@@ -190,10 +192,10 @@ const RepositoryAddInfo = (props) => {
                             {
                                 iconList && iconList.map((item) => {
                                     return <div key={item.key} className={`repository-icon  ${item.iconUrl === iconUrl ? "icon-select" : null}`} onClick={() => { setIconUrl(item.iconUrl) }}>
-
                                         <img
-                                            src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
-                                            alt="" className="img-icon" />
+                                            src={setImageUrl(item.iconUrl)}
+                                            alt="" className="img-icon" 
+                                        />
                                     </div>
                                 })
                             }
