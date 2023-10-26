@@ -108,7 +108,7 @@
                     }
 
                     .repository-view {
-                        width: 120px;
+                        max-width: 120px;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
@@ -147,7 +147,10 @@
             .hidden-menu {
                 display: none;
             }
-
+            .icon-action {
+                width: 42px;
+                flex-shrink: 0;
+            }
             .icon-show {
                 display: block;
             }

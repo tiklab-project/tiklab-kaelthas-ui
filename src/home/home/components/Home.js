@@ -4,7 +4,6 @@ import { Row, Col, Empty } from 'antd';
 import { observer } from 'mobx-react';
 import { getUser } from 'tiklab-core-ui';
 import HomeStore from "../store/HomeStore";
-import Cookies from 'js-cookie';
 const Home = (props) => {
     const { findDocumentRecentList, findRecentRepositoryList } = HomeStore;
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
@@ -69,7 +68,7 @@ const Home = (props) => {
                                 {
                                     recentRepositoryDocumentList.length > 0 ? recentRepositoryDocumentList.map(item => {
                                         return <Fragment>
-                                            <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)}>
+                                            <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)} >
                                                 <div className="item-title">
                                                     {
                                                         item.iconUrl ?
@@ -130,10 +129,6 @@ const Home = (props) => {
                             </div>
 
                         </div>
-
-
-
-
                     </div>
 
                 </Col>

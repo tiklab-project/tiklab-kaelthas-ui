@@ -41,7 +41,7 @@ const PassWord = (props) => {
     }, [])
     return <div className="documment-password">
         <div className="password-log">
-            <img src={('images/logo.png')} alt="" />
+            <img src={('images/logo_k5.png')} alt="" />
             <span>知识库</span>
         </div>
         <div className="password-box">

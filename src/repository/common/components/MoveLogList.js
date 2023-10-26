@@ -76,19 +76,27 @@ const MoveLogList = (props) => {
             setExpandedTree(expandedTree.concat(key));
         }
     }
+    const selectMoveParent = (categoryId) => {
+        if(categoryId === moveCategoryId || categoryId === moveCategoryParentId){
+            return
+        }else {
+            setSelectKey()
+        }
+        
+    }
     const logTree = (data, levels, faid) => {
         let newLevels = 0;
         return data && data.length > 0 && data.map((category) => {
             if (category.formatType === "category") {
                 return <div 
-                className={`${!isExpandedTree(faid) || selectKey !== faid ? null : 'repository-menu-submenu-hidden'}}
+                className={`${!isExpandedTree(faid) || selectKey !== faid ? "" : 'category-menu-submenu-hidden'}
+                    ${category.id === moveCategoryId || category.id === moveCategoryParentId ? "category-disable-select" : "category-allow-select"}
                 `}
-
                     key={category.id}
                 >
-                    <div className={`repository-menu-submenu ${category.id === selectKey ? "repository-menu-select" : ""} `}
+                    <div className={`category-menu-submenu ${category.id === selectKey ? "category-menu-select" : ""} `}
                         key={category.id}
-                        onClick={() => setSelectKey(category.id)}
+                        onClick={() => selectMoveParent(category.id) }
                     >
                         <div style={{ paddingLeft: levels * 10 }}>
                             {

@@ -96,14 +96,14 @@ const RepositoryIcon = (props) => {
                                     return <div className={`repository-icon ${item.iconUrl === repositoryIconUrl ? "icon-select" : null}`} key={item.key} onClick={() => { setProjectIconUrl(item.iconUrl) }}>
                                         <img 
                                             src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
-                                            className="list-img"
+                                            className="midden-icon-25"
                                         />
                                     </div>
                                 })
                             }
                             <Upload {...upLoadIcon}>
                                 <div className="project-icon">
-                                    <img src={UploadIcon1} alt="" className="list-img" />
+                                    <img src={UploadIcon1} alt="" className="midden-icon-25" />
                                 </div>
                             </Upload>
                         </div>

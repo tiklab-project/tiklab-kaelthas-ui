@@ -10,6 +10,7 @@ import "./repository.scss";
 import { useHistory } from 'react-router-dom';
 import RepositoryStore from "../store/RepositoryStore";
 import setImageUrl from "../../../common/utils/setImageUrl";
+import { useDebounce } from "../../../common/utils/debounce";
 const RepositoryList = (props) => {
     const { findRepositoryList, createDocumentRecent,
         repositorylist, findRecentRepositoryList, createRepositoryFocus,
@@ -126,7 +127,7 @@ const RepositoryList = (props) => {
         findRepositoryList({ current: pagination.current })
     }
 
-    const onSearch = value => {
+    const onSearch = useDebounce(value => {
         console.log(value)
         switch (activeTabs) {
             case "1":
@@ -144,7 +145,7 @@ const RepositoryList = (props) => {
             default:
                 break;
         }
-    };
+    }, [500]) ;
 
     const selectTabs = (key) => {
         setActiveTabs(key)

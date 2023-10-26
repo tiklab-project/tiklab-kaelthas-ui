@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Table, Space, Button, Row, Col, message } from 'antd';
+import { Table, Space, Row, Col, message } from 'antd';
 import Breadcumb from "../../../common/breadcrumb/Breadcrumb";
 import "./UrlData.scss";
 import { Provider, observer } from "mobx-react";
 import UrlAddData from "./UrlAddData";
 import UrlDataStore from "../store/UrlDataStore";
+import Button from "../../../common/button/button";
 const UrlData = () => {
     const store = {
         urlDataStore: UrlDataStore

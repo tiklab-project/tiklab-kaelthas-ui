@@ -7,11 +7,12 @@
  * @LastEditTime: 2022-01-21 13:11:30
  */
 import React from "react";
-import { Upload, message, Button, Row, Col } from 'antd';
+import { Upload, message, Row, Col } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import "./JiraLoadData.scss";
 import Breadcumb from "../../../common/breadcrumb/Breadcrumb";
-import { getUser } from 'tiklab-core-ui'
+import Button from "../../../common/button/button";
+import { getUser } from 'tiklab-core-ui';
 const LoadData = props => {
     const ticket = getUser().ticket;
     const uploadProps = {

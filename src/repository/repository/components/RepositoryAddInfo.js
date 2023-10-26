@@ -49,10 +49,9 @@ const RepositoryAddInfo = (props) => {
                     message.error(res.msg);
                 }
                 if (res.code === 0) {
-                    message.success('添加成功');
-                    props.history.goBack();
+                    message.success('添加成功');;
                     // findRepositoryList({masterId: userId})
-                    // props.history.push(`/index/repositorydetail/${res.data}/survey`)
+                    props.history.push(`/index/repositorydetail/${res.data}/survey`)
                 }
             })
         })

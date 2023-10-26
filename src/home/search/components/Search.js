@@ -6,6 +6,7 @@ import { observer } from "mobx-react";
 import { useDebounce, useThrottle } from "../../../common/utils/debounce";
 import { getUser } from "tiklab-core-ui";
 import { Empty } from "antd";
+import { withRouter } from "react-router";
 const Search = (props) => {
     const { getSearch, searchDocumentList, searchWikiList, getSearchSore, setKeyWord, findDocumentRecentList, findRecentRepositoryList } = SearchStore;
     const [show, setShow] = useState(false);
@@ -46,7 +47,6 @@ const Search = (props) => {
             findRecent()
             setIsSeach(false)
         }
-
         setShow(true)
     }, 500)
     useEffect(() => {
@@ -240,4 +240,4 @@ const Search = (props) => {
         </Fragment>
     )
 }
-export default observer(Search);
+export default withRouter(observer(Search));

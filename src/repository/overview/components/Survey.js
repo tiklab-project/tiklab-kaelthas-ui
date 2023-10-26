@@ -12,7 +12,8 @@ import CategoryStore from "../../common/store/CategoryStore"
 const Survey = (props) => {
     const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList } = SurveyStore;
 
-    const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue } = CategoryStore;
+    const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue,
+        expandedTree, setExpandedTree } = CategoryStore;
 
     const [repositoryInfo, setRepositoryInfo] = useState();
     const repositoryId = props.match.params.repositoryId
@@ -163,123 +164,28 @@ const Survey = (props) => {
         })
     }
 
-    const [expandedTree, setExpandedTree] = useState([])
     // 树的展开与闭合
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
     const setOpenOrClose = key => {
-        if (isExpandedTree(key)) {
-            setExpandedTree(expandedTree.filter(item => item !== key))
-        } else {
+        if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
         }
     }
 
-    const selectKeyFun = (item) => {
-        console.log(item)
-        const params = {
-            name: item.name,
-            model: item.typeId,
-            modelId: item.id,
-            master: { id: userId },
-            wikiRepository: { id: repositoryId }
-        }
-        createDocumentRecent(params)
-        setSelectKey(item.id)
-        if (item.formatType === "category") {
-            localStorage.setItem("categoryId", item.id);
-            props.history.push(`/index/repositorydetail/folder/${item.id}`)
-        }
-        if (item.typeId === "document") {
-            props.history.push(`/index/repositorydetail/doc/${item.id}`)
-        }
-        if (item.typeId === "mindMap") {
-            props.history.push(`/index/repositorydetail/mindmap/${item.id}`)
-
-        }
-    }
-
-    const logTree = (item, levels, faid) => {
-        let newLevels = 0;
-        return <div className={`${!isExpandedTree(faid) ? "" : 'repository-menu-submenu-hidden'}`}
-            key={item.id}
-        >
-            <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
-                key={item.id}
-                style={{ paddingLeft: levels * 10 }}
-            >
-                {
-                    (item.children && item.children.length > 0) || (item.documents && item.documents.length > 0) ?
-                        isExpandedTree(item.id) ? <svg className="open-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                            <use xlinkHref="#icon-rightline" ></use>
-                        </svg> :
-                            <svg className="open-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                <use xlinkHref="#icon-downline" ></use>
-                            </svg> : <svg className="img-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-circle"></use>
-                        </svg>
-                }
-                <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-folder"></use>
-                </svg>
-                <span
-                    onClick={() => selectKeyFun(item)}
-                >{item.name} </span>
-                <div className="category-line"></div>
-                <span>{item.updateTime}</span>
-            </div>
-            {
-                item.children && item.children.length > 0 && (newLevels = levels + 1) &&
-                item.children.map(childItem => {
-                    return logTree(childItem, newLevels, item.id)
-
-                })
-
-            }
-            {
-                item.documents && item.documents.length > 0 && (newLevels = levels + 1) &&
-                item.documents.map(childItem => {
-                    return fileTree(childItem, newLevels, item.id)
-                })
-            }
-        </div>
-    }
-    const fileTree = (item, levels, faid) => {
-        return <div className={`${!isExpandedTree(faid) ? null : 'repository-menu-submenu-hidden'}`}
-            key={item.id}
-        >
-            <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
-                key={item.id}
-                style={{ paddingLeft: levels * 10 }}
-            >
-                <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-circle"></use>
-                </svg>
-                {
-                    item.typeId === "document" && <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-file"></use>
-                    </svg>
-                }
-                {
-                    item.typeId === "mindMap" && <svg className="icon" aria-hidden="true">
-                        <use xlinkHref="#icon-minmap"></use>
-                    </svg>
-                }
-                <span onClick={() => selectKeyFun(item)}>{item.name} </span>
-                <div className="category-line"></div>
-                <span>{item.updateTime}</span>
-            </div>
-        </div>
-    }
 
     const goDocumentDetail = item => {
-        if (item.model === "document") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
+        if (item.typeId === "document") {
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.id}`)
         }
-        if (item.model === "category") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/folder/${item.modelId}`)
+        if (item.typeId === "markdown") {
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/markdownView/${item.id}`)
         }
+        if (item.typeId === "category") {
+            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/folder/${item.id}`)
+        }
+        setOpenOrClose(item.wikiCategory?.id)
     }
 
     /**

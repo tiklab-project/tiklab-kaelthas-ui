@@ -43,6 +43,7 @@ const BasicInfo = props => {
     const [disable, setDisabled] = useState(true);
     const [iconUrl, setIconUrl] = useState();
     const [visible, setVisible] = useState(false);
+    const [repositoryInfo, setRepositoryInfo] = useState()
     const tenant = getUser().tenant;
     useEffect(() => {
         info()
@@ -60,6 +61,7 @@ const BasicInfo = props => {
                     desc: data.desc,
                     master: data.master.id
                 })
+                setRepositoryInfo(data)
                 setIconUrl(response.data.iconUrl)
             }
 
@@ -68,11 +70,12 @@ const BasicInfo = props => {
 
     const cancel = () => {
         form.setFieldsValue({
-            name: data.name,
-            limits: data.limits,
-            desc: data.desc,
-            master: data.master
+            name: repositoryInfo.name,
+            limits: repositoryInfo.limits,
+            desc: repositoryInfo.desc,
+            master: repositoryInfo.master.id
         })
+        setDisabled(true)
     }
 
     const onFinish = () => {
@@ -239,7 +242,7 @@ const BasicInfo = props => {
                                         >
                                             {
                                                 uselist && uselist.map((item, index) => {
-                                                    return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
+                                                    return <Select.Option value={item.id} key={item.id}>{item.nickname}</Select.Option>
                                                 })
                                             }
                                         </Select>

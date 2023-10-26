@@ -90,16 +90,15 @@
     
 
     .repository-icon-box {
-        width: 320px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        gap: 5px;
+        gap: 10px;
         .repository-icon {
             box-sizing: content-box;
             img {
-                width: 30px;
-                height: 30px;
+                width: 25px;
+                height: 25px;
                 margin: 0;
             }
         }

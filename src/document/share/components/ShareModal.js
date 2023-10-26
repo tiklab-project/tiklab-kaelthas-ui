@@ -49,7 +49,7 @@ const ShareModal = (props) => {
                 if(data.code === 0) {
                     setShareLink(data.data.id)
                     setAuthCode(data.data.authCode)
-                    if(version === "ce"){
+                    if(version !== "cloud"){
                         setShareUrl(`${origin}/#/share/${data.data.id}`)
                     }
                     if(version === "cloud"){

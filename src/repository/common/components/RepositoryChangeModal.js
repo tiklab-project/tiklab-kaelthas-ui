@@ -5,7 +5,7 @@ import setImageUrl from "../../../common/utils/setImageUrl";
 
 const RepositoryChangeModal = (props) => {
     const { repositorylist, searchrepository } = props;
-
+    const showRepositoryList = repositorylist.length > 5 ? repositorylist.slice(0, 6) : repositorylist;
     const [showMenu, setShowMenu] = useState(false);
     const [selectRepository, setSelectRepository] = useState(false)
 
@@ -78,7 +78,7 @@ const RepositoryChangeModal = (props) => {
             >
                 <div className="change-repository-head">切换知识库</div>
                 {
-                    repositorylist && repositorylist.map((item) => {
+                    showRepositoryList && showRepositoryList.map((item) => {
                         return <div className={`change-repository-name ${item.id === selectRepository ? "change-repository-selectName" : ""}`}
                             onClick={() => selectRepositoryId(item.id)}
                             key={item.id}
@@ -94,6 +94,9 @@ const RepositoryChangeModal = (props) => {
                             {item.name}
                         </div>
                     })
+                }
+                {
+                    repositorylist.length > 5 && <div className="change-repository-more" onClick={() => props.history.push("/index/repository")}>查看更多</div>
                 }
             </div>
         </div>

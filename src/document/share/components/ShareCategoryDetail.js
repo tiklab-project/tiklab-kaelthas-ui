@@ -69,7 +69,7 @@ const ShareCategoryDetail = (props) => {
                             {
                                 logList && logList.length > 0 ? logList.map(item => {
                                     return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
-                                        <div className="log-child-name" style={{ flex: 1 }}>
+                                        <div className="log-child-title" style={{ flex: 1 }}>
                                             {
                                                 item.formatType && item.formatType === "category" &&
                                                 <svg className="log-icon" aria-hidden="true">
@@ -89,7 +89,7 @@ const ShareCategoryDetail = (props) => {
                                                 </svg>
                                             }
 
-                                            <span>{item.name}</span>
+                                            <span className="log-child-name" title = {item.name}>{item.name}</span>
                                         </div>
                                         <div style={{ flex: 1 }}>{item.master.nickname}</div>
                                         <div style={{ flex: 1 }}>{item.updateTime}</div>

@@ -18,7 +18,6 @@ const ShareAside = (props) => {
     // 解析props
     const origin = location.origin;
     const { shareStore } = props;
-    console.log(props)
     const tenant = props.location.search.split("=")[1];
     //语言包
     const { t } = useTranslation();
@@ -163,9 +162,9 @@ const ShareAside = (props) => {
                     <svg className="img-icon" aria-hidden="true">
                         <use xlinkHref="#icon-folder"></use>
                     </svg>
-                    <span className={`${isRename === item.id ? "repository-input" : ""}`}
+                    <span className= "repository-view"
                         ref={isRename === item.id ? inputRef : null}
-
+                        title = {item.name}
                     >{item.name} </span>
                 </div>
             </div>
@@ -206,10 +205,13 @@ const ShareAside = (props) => {
                             <use xlinkHref="#icon-minmap"></use>
                         </svg>
                     }
-                    <span className={`${isRename === item.id ? "repository-input" : ""}`}
+                    <span className= "repository-view"
                         ref={isRename === item.id ? inputRef : null}
                         id={"file-" + item.id}
-                    >{item.name} </span>
+                        title = {item.name}
+                    >
+                        {item.name} 
+                    </span>
                 </div>
             </div>
         </div>

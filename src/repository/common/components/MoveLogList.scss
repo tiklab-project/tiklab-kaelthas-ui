@@ -1,8 +1,8 @@
 .move-menu {
     list-style-type:none;
     min-height: 30vh;
-    cursor: pointer;
-    .repository-menu-submenu {
+    
+    .category-menu-submenu {
         height: 40px;
         display: flex;
         line-height: 40px;
@@ -10,10 +10,11 @@
         align-items: center;
         justify-content: space-between;
         padding: 10px;
+        cursor: pointer;
         i{
             margin-right: 10px;
         }
-        .repository-input {
+        .category-input {
             outline:0;
             box-shadow: 0 0 0 2px #1890ff33;
             min-width: 100px;
@@ -23,13 +24,22 @@
             border-radius: 2px;
         }
     }
-    .repository-menu-submenu:hover {
+    .category-disable-select {
+        opacity: 0.5;
+        user-select: none;
+        pointer-events: none;
+        cursor: not-allowed;
+    }
+    .category-allow-select {
+        cursor: pointer;
+    }
+    .category-menu-submenu:hover {
         background-color: #EDF0F5;
     }
-    .repository-menu-submenu-hidden {
+    .category-menu-submenu-hidden {
         display: none;
     }
-    .repository-menu-select {
+    .category-menu-select {
         background-color: #e3e8f0;
         border-left: 3px solid #0053ca;
     }

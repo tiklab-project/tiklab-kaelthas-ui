@@ -52,7 +52,7 @@ const RepositorydeAside = (props) => {
             setRepositoryCatalogueList(data)
         })
         return;
-    }, [])
+    }, [repositoryId])
 
     useEffect(() => {
         // 初次进入激活导航菜单
@@ -313,6 +313,14 @@ const RepositorydeAside = (props) => {
             })
         }
     }
+    const enterKeyRename = (value,id,formatType ) => {
+        
+        if(value.keyCode === 13){
+            event.stopPropagation();
+            event.preventDefault()
+            reName(value,id,formatType)
+        }
+    }
     const [addModalVisible, setAddModalVisible] = useState()
 
 
@@ -463,10 +471,10 @@ const RepositorydeAside = (props) => {
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
-
+                        onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
                     >{item.name} </span>
                 </div>
-                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
+                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
                     <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-plusBlue"></use>
@@ -528,6 +536,7 @@ const RepositorydeAside = (props) => {
                         contentEditable={isRename === item.id ? true : false}
                         suppressContentEditableWarning
                         onBlur={(value) => reName(value, item.id, item.formatType)}
+                        onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
                         ref={isRename === item.id ? inputRef : null}
                         id={"file-" + item.id}
                         title = {item.name}

@@ -37,6 +37,7 @@
         display: flex;
         width: 100%;
         align-items: center;
+        cursor: pointer;
         .repository-aside-icon {
             width: 15px;
             height: 15px;
@@ -69,12 +70,23 @@
             padding: 0 20px;
             border-bottom: 1px solid #F0F0F0;
         }
+        .change-repository-name {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 20px;
+            cursor: pointer;
+        }
+        .change-repository-more {
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            border-top: 1px solid #F0F0F0;
+            color: var(--tiklab-blue);
+            font-size: 13px;
+        }
     }
-    .change-repository-name {
-        height: 40px;
-        line-height: 40px;
-        padding-left: 20px;
-    }
+    
 
     .change-repository-selectName {
         background-color: var(--tiklab-gray-400);
