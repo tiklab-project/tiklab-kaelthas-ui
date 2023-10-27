@@ -1,143 +1,172 @@
 /*
- * @Descripttion: 
+ * @Descripttion: 迭代添加编辑弹窗
  * @version: 1.0.0
  * @Author: 袁婕轩
- * @Date: 2021-09-07 10:20:57
+ * @Date: 2020-12-18 16:05:16
  * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-09-08 16:20:06
+ * @LastEditTime: 2022-01-21 13:02:38
  */
-import React, { useState, useEffect } from "react";
+
+import React, { useEffect, useState } from "react";
+import { Modal, Button, Form, Input, Select, DatePicker } from 'antd';
 import { observer, inject } from "mobx-react";
-import { Input, Row, Col } from 'antd';
-import { EditorBig, EditorBigContent } from "tiklab-slate-ui";
-import "tiklab-slate-ui/es/tiklab-slate.css";
-import { createEditor } from "slate";
-import { withReact } from "slate-react";
-import Button from "../../../common/button/button";
-import TemplateStore from "../store/TemplateStore";
-import "./templateAddmodal.scss"
-import { getUser } from "tiklab-core-ui";
-const TemplateAddmodal = (props) => {
-    const templateId = props.match.params.templateId;
-    const { createDocumentTemplate, findDocumentTemplatePage, findDocumentTemplate, updateDocumentTemplate } = TemplateStore;
-    const [editorValue, setEditorValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-    const [editor] = useState(() => withReact(createEditor()))
-    const [titleValue, setTitleValue] = useState("未命名模板");
-    const [buttonText, setButtonText] = useState(templateId ? "更改模板" : "创建模板")
-    const changeEditor = (value) => {
-        setEditorValue(value)
-    }
-    const ticket = getUser().ticket;
-    const tenant = getUser().tenant;
+import 'moment/locale/zh-cn';
+import locale from 'antd/es/date-picker/locale/zh_CN';
+import moment from 'moment';
+const { RangePicker } = DatePicker;
+
+const layout = {
+    labelCol: {
+        span: 6,
+    },
+    wrapperCol: {
+        span: 24,
+    },
+};
+
+const TemplateAddModal = (props) => {
+    const [form] = Form.useForm();
+    /**
+     * 显示添加编辑弹窗，若是编辑模型，初始化表单
+     */
+    const showModal = () => {
+        if (props.type === "edit") {
+
+        }
+    };
+
+    /**
+     * 关闭打开弹窗，重新加载数据
+     */
     useEffect(() => {
-        if (templateId) {
-            setEditorValue()
-            findDocumentTemplate(templateId).then(data => {
-                const value = data.data
-                if (data.code === 0) {
-                    setTitleValue(value.name)
-                    setEditorValue(value.details)
-                }
-            })
+        if (visible) {
+            showModal()
         }
         return;
-    }, [templateId])
+    }, [visible])
 
+    /**
+     * 添加表单信息，添加或者编辑
+     */
+    const onFinish = () => {
+        form.validateFields().then((values) => {
+            if (props.type === "add") {
+            } else {
+            }
+            setVisible(false);
+            form.resetFields();
+        })
+    };
 
+    /**
+     * 取消添加或者编制
+     */
+    const onCancel = () => {
+        form.resetFields();
+        setVisible(false);
 
-    const addTemplate = () => {
-        const serialize = JSON.stringify(editorValue)
-        const data = {
-            name: titleValue,
-            details: editorValue
-        }
-
-        if (!templateId) {
-            createDocumentTemplate(data).then(data => {
-                if (data.code === 0) {
-                    findDocumentTemplatePage().then(data => {
-                        if (data.code === 0) {
-                            // setTemplateList(data.data.dataList)
-                            props.history.goBack()
-                        }
-                    })
-                }
-            })
-        } else {
-            data.id = templateId
-            updateDocumentTemplate(data).then(data => {
-                if (data.code === 0) {
-                    findDocumentTemplatePage().then(data => {
-                        if (data.code === 0) {
-                            // setTemplateList(data.data.dataList)
-                            props.history.goBack()
-                        }
-                    })
-                }
-            })
-        }
-
-    }
-
+    };
 
     return (
-        <Row className="template-add">
-            <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
-                <div>
-                    <div className="template-add-title">
-                        <div className="template-add-top">
-                            <div className="template-add-breadcrumb">
-                                <span onClick={() => props.history.goBack()} className="template-back">模板列表</span>
-                                <svg className="svg-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-rightBlue"></use>
-                                </svg>
-                                <span>{titleValue}</span>
-                            </div>
-                            <div>
-                                {
-                                    !titleValue ? <Button>{buttonText}</Button>
-                                        :
-                                        <Button onClick={() => addTemplate()} type="primary">{buttonText}</Button>
-                                }
+        <Modal
+            title={"编辑"}
+            visible={visible}
+            onOk={onFinish}
+            onCancel={onCancel}
+            cancelText="取消"
+            okText="确定"
+            closable={false}
+        >
+            <Form
+                {...layout}
+                name="basic"
+                initialValues={{
+                    remember: true,
+                }}
+                form={form}
+                layout="vertical"
+            >
+                <Form.Item
+                    label="迭代名称"
+                    name="sprintName"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入迭代名称',
+                        },
+                    ]}
+                >
+                    <Input placeholder="迭代名称" />
+                </Form.Item>
+                <Form.Item
+                    label="负责人"
+                    name="master"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入负责人',
+                        },
+                    ]}
+                >
+                    <Select
+                        placeholder="负责人"
+                        allowClear
+                    >
+                        {
+                            uselist && uselist.map((item, index) => {
+                                return <Select.Option value={item.user?.id} key={item.user?.id}>{item.user?.nickname ? item.user?.nickname : item.user?.name}</Select.Option>
+                            })
+                        }
+                    </Select>
+                </Form.Item>
 
-                            </div>
-                        </div>
-
-                    </div>
-
-                    {
-                        editorValue &&
-                        <EditorBig
-                            value={editorValue}
-                            onChange={value => setEditorValue(value)}
-                            base_url = {upload_url}
-                            ticket = {ticket}
-                            tenant = {tenant}
+                {
+                    props.type !== "add" && <Form.Item
+                        label="迭代状态"
+                        name="sprintState"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入迭代状态',
+                            },
+                        ]}
+                    >
+                        <Select
+                            placeholder="迭代状态"
+                            allowClear
                         >
-                            <>
-                                <div className="template-content">
-                                    <Input
-                                        className="template-title-input"
-                                        bordered={false}
-                                        onChange={(value) => setTitleValue(value.target.value)}
-                                        value={titleValue}
-                                        placeholder="标题"
-                                    />
-                                    <EditorBigContent
-                                        value={editorValue}
-                                        onChange={setEditorValue}
-                                    />
+                            {
+                                sprintStateList && sprintStateList.map((item, index) => {
+                                    return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
+                                })
+                            }
+                        </Select>
+                    </Form.Item>
+                }
 
-
-                                </div>
-                            </>
-
-                        </EditorBig>
-                    }
-                </div>
-            </Col>
-        </Row>
-    )
-}
-
-export default observer(TemplateAddmodal);
+                <Form.Item name="startTime" label="计划日期"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请选择计划日期',
+                        },
+                    ]}>
+                    <RangePicker locale={locale} />
+                </Form.Item>
+                <Form.Item
+                    label="迭代描述"
+                    name="desc"
+                    rules={[
+                        {
+                            required: false,
+                            message: '请输入迭代描述',
+                        },
+                    ]}
+                >
+                    <Input placeholder="迭代描述" />
+                </Form.Item>
+            </Form>
+        </Modal>
+    );
+};
+export default inject("sprintStore")(observer(TemplateAddModal));

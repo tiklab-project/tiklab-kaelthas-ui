@@ -47,12 +47,7 @@ const setDevRouter= [
             },
         ]
     },
-    {
-        title: '模板',
-        icon: 'systemtemplate',
-        id: "/index/setting/template",
-        code: 14
-    },
+   
     {
         title: '权限',
         icon: 'systempermissions',
@@ -139,6 +134,12 @@ const setDevRouter= [
         id: '/index/setting/systemFeature',
         code: 12,
         children: [
+            {
+                title: '模板',
+                icon: 'systemtemplate',
+                id: "/index/setting/template",
+                code: 12-1,
+            },
             {
                 title: '用户组',
                 icon: 'projecttype',
@@ -261,12 +262,7 @@ const setPrdRouter= [
             },
         ]
     },
-    {
-        title: '模板',
-        icon: 'systemtemplate',
-        id: "/index/setting/template",
-        code: 14
-    },
+    
     {
         title: '权限',
         icon: 'systempermissions',

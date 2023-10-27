@@ -38,7 +38,7 @@ const RepositoryDomainRole = AsyncComponent(() => import('./repository/user/Repo
 const RepositoryDomainUser = AsyncComponent(() => import('./repository/user/RepositoryDomainUser'))
 const RepositoryBasicInfo = AsyncComponent(() => import('./repository/setting/basicInfo/components/BasicInfo'))
 const Template = AsyncComponent(() => import('./setting/template/components/TemplateList'))
-const TemplateAdd = AsyncComponent(() => import('./setting/template/components/TemplateAddmodal'))
+const TemplateEdit = AsyncComponent(() => import('./setting/template/components/TemplateEdit'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
 const SharePage = AsyncComponent(()=> import('./document/share/components/ShareLayout'))
@@ -270,12 +270,12 @@ const Routes = [
                     },
                     {
                         path: "/index/setting/templateAdd",
-                        component: TemplateAdd,
+                        component: TemplateEdit,
                         exact: true
                     },
                     {
                         path: "/index/setting/templateView/:templateId",
-                        component: TemplateAdd,
+                        component: TemplateEdit,
                         exact: true
                     },
                     {

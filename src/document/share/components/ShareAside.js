@@ -40,10 +40,9 @@ const ShareAside = (props) => {
         const params = new FormData();
         params.append("shareLink", shareLink)
         judgeAuthCode(params).then(data => {
-            // console.log(props.location.state)
             if (data.data === "true") {
                 if (!props.location.state) {
-                    if(version === "ce"){
+                    if(version !== "cloud"){
                         window.location.href = `${origin}/#/passWord/${shareLink}`
                     }
                     if(version === "cloud"){
@@ -78,7 +77,7 @@ const ShareAside = (props) => {
 
 
     const setUrl = (item) => {
-        if (version === "ce") {
+        if (version !== "cloud") {
             if (item.formatType === "category") {
                 props.history.push(`/share/${shareLink}/category/${item.id}`)
             }

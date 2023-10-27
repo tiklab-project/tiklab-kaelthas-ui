@@ -9,11 +9,11 @@
 import React, { useState,useEffect } from "react";
 import { observer, inject } from "mobx-react";
 import { Form } from 'antd';
-import "./templatePreviewModal.scss"
+import "./TemplatePreview.scss"
 import { PreviewEditor } from "tiklab-slate-ui";
 import "tiklab-slate-ui/es/tiklab-slate.css";
 import TemplateStore from "../store/TemplateStore";
-const TemplatePreviewmodal = (props) => {
+const TemplatePreview = (props) => {
     const [form] = Form.useForm();
     const {previewModalVisible,templateId, relationWorkStore} = props;
     const {findDocumentTemplate} = TemplateStore;
@@ -51,4 +51,4 @@ const TemplatePreviewmodal = (props) => {
     )
 }
 
-export default inject("relationWorkStore")(observer(TemplatePreviewmodal));
+export default inject("relationWorkStore")(observer(TemplatePreview));

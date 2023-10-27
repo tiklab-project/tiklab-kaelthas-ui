@@ -57,7 +57,10 @@
         "tiklab-todotask-ui": "^1.0.2",
         "tiklab-slate-ui": "^1.0.2",
         "tiklab-markdown-ui": "^1.0.0",
-        "tiklab-privilege-ui": "^1.0.2"
+        "tiklab-privilege-ui": "^1.0.2",
+        "slate": "^0.66.0",
+        "slate-history": "^0.65.3",
+        "slate-react": "^0.66.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.1",
