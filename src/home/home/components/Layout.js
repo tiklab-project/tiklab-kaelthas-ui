@@ -11,7 +11,6 @@ import React from 'react';
 import { renderRoutes } from "react-router-config";
 import Header from "./Header";
 import "../components/header.scss";
-
 import { UserVerify } from 'tiklab-eam-ui';
 import { connect } from 'tiklab-plugin-core-ui/es';
 import { AppLink, HelpLink, AvatarLink } from 'tiklab-licence-ui';

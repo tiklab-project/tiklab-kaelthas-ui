@@ -14,8 +14,9 @@ import logo from "../../../assets/images/logo_k4.png";
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import Search from "../../search/components/Search";
+import { getUser } from 'tiklab-core-ui';
 const Header = props => {
-    const {systemRoleStore, HelpLink, AppLink, getUser, AvatarLink} = props;
+    const {systemRoleStore, HelpLink, AppLink, AvatarLink} = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/index/home") ? sessionStorage.getItem("menuKey") : "home";
 
