@@ -9,7 +9,7 @@
 import React, { useEffect, useState } from "react";
 import { Provider, inject, observer } from "mobx-react";
 import { Button, Row, Col } from 'antd';
-import {PreviewEditor} from "tiklab-slate-ui";
+import { PreviewEditor } from "tiklab-slate-ui";
 import "tiklab-slate-ui/es/tiklab-slate.css";
 import "./documentExamine.scss"
 import ShareModal from "../../share/components/ShareModal";
@@ -31,7 +31,7 @@ const DocumentExamine = (props) => {
 
     const userId = getUser().userId;
     const tenant = getUser().tenant;
-    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" }})
+    const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } })
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
@@ -91,19 +91,25 @@ const DocumentExamine = (props) => {
 
     return (<Provider {...store}>
         <div className="document-examine">
+            {
+                showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum={commentNum} setCommentNum={setCommentNum} />
+            }
             <div className="examine-top">
                 <div className="examine-title" id="examine-title">{docInfo.name}</div>
-                <div className="document-edit">
+                <div className="document-action">
                     {
-                        value && <svg className="icon-svg" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
+                        value && <svg className="right-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)}>
                             <use xlinkHref="#icon-edit"></use>
                         </svg>
                     }
 
-                    <svg className="icon-svg" aria-hidden="true">
+                    <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
-                    <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button>
+                    <svg className="right-icon" aria-hidden="true" onClick={() => setShareVisible(true)}>
+                        <use xlinkHref="#icon-share"></use>
+                    </svg>
+                    {/* <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} > 分享</Button> */}
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>
                     </svg>
@@ -114,17 +120,15 @@ const DocumentExamine = (props) => {
                     <Row className="document-examine-row">
                         <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                             <div className="document-previeweditor">
-                                <PreviewEditor value={value} relationWorkStore = {relationWorkStore} base_url = {upload_url} tenant = {tenant}/>
+                                <PreviewEditor value={value} relationWorkStore={relationWorkStore} base_url={upload_url} tenant={tenant} />
                             </div>
                         </Col>
                     </Row>
-                    {
-                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum = {commentNum} setCommentNum = {setCommentNum}/>
-                    }
+
 
                 </div>
-                :
-                <DocumentAddEdit title={title} />
+                    :
+                    <DocumentAddEdit title={title} />
             }
             <div className="comment-box">
                 <div className="comment-box-item top-item">
@@ -148,18 +152,18 @@ const DocumentExamine = (props) => {
 
             </div>
 
-            <ShareModal 
-                documentIds = {[documentId]} 
-                shareVisible={shareVisible} 
-                setShareVisible={setShareVisible} 
-                docInfo={docInfo} 
-                createShare={createShare} 
-                updateShare={updateShare} 
-                type = {"document"}
+            <ShareModal
+                documentIds={[documentId]}
+                shareVisible={shareVisible}
+                setShareVisible={setShareVisible}
+                docInfo={docInfo}
+                createShare={createShare}
+                updateShare={updateShare}
+                type={"document"}
             />
         </div>
     </Provider>
-        
+
     )
 }
 

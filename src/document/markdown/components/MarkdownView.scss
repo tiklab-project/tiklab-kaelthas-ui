@@ -38,15 +38,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
-
-            .icon-svg {
-                width: 20px;
-                height: 20px;
-            }
-
             .right-icon {
                 width: 20px;
                 height: 20px;
+                cursor: pointer;
             }
         }
 

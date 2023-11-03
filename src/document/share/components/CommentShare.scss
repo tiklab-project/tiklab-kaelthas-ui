@@ -1,4 +1,4 @@
-.comment {
+.share-comment {
     display: block;
     padding: 10px;
     border-radius: 4px;
@@ -7,7 +7,10 @@
     transition: all 5s linear;
     height: 100%;
     overflow: auto;
-    width: 300px;
+    width: 400px;
+    position: absolute;
+    right: 0;
+    z-index: 10;
     .comment-top {
         display: flex;
         justify-content: space-between;
@@ -49,24 +52,35 @@
         }
     
         .comment-item {
-            .comment-user {
+            .comment-list-top {
                 display: flex;
                 align-items: center;
-                justify-content: flex-start;
+                justify-content: space-between;
                 margin: 20px 0;
-                .icon-svg {
-                    width: 30px;
-                    height: 30px;
-                    border-radius: 15px;
-                    margin-right: 10px;
+                .comment-user {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    .icon-svg {
+                        width: 30px;
+                        height: 30px;
+                        border-radius: 15px;
+                        margin-right: 10px;
+                    }
+                    .user-name {
+                        font-size: 14px;
+                        font-weight: 600;
+                        color: #0053ca;
+                    }
+                    
                 }
-                .user-name {
-                    font-size: 14px;
-                    font-weight: 600;
-                    color: #0053ca;
+                .comment-time {
+                    font-size: 12px;
+                    color: #6b778c;
                 }
-                
             }
+            
+            
             .comment-content {
                 margin-left: 40px;
                 margin-bottom: 20px;

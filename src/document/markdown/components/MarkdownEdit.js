@@ -71,11 +71,12 @@ const MarkdownEdit = (props) => {
             details: JSON.stringify(value),
             detailText: serializeValue
         }
-        updateDocument(data).then(res => {
-            if (res.code === 0) {
-                props.history.push(`/index/repositorydetail/${repositoryId}/markdownView/${documentId}`)
-            }
-        })
+        updateDocument(data)
+        // .then(res => {
+        //     if (res.code === 0) {
+        //         props.history.push(`/index/repositorydetail/${repositoryId}/markdownView/${documentId}`)
+        //     }
+        // })
     }
 
     const changeTitle = (value) => {
@@ -122,7 +123,7 @@ const MarkdownEdit = (props) => {
                 >{docInfo.name}</div>
                 <div className="edit-right">
                     <Button type="primary" onClick={() => save()}>保存</Button>
-                    <Button onClick={() => props.history.goBack()}>取消</Button>
+                    <Button onClick={() => props.history.goBack()}>退出编辑</Button>
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>
                     </svg>

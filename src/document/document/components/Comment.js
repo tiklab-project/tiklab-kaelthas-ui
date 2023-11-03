@@ -7,13 +7,14 @@ import "./comment.scss"
 import { getUser } from "tiklab-core-ui";
 import moment from "moment";
 import CommentStore from "../store/CommentStore"
+import UserIcon from "../../../common/UserIcon/UserIcon";
 const Comment = (props) => {
     const { documentId, setShowComment, commentNum, setCommentNum } = props;
     const { createComment, findCommentPage, deleteComment, deleteCommentCondition } = CommentStore;
     const [commentFirstContent, setCommentFirstContent] = useState();
     const [commentSecondContent, setCommentSecondContent] = useState();
     const [commentThirdContent, setCommentThirdContent] = useState();
-    const [commentList, setCommentList] = useState();
+    const [commentList, setCommentList] = useState([]);
     const userId = getUser().userId;
     const userName = getUser().name;
     const nickname = getUser().nickname;
@@ -188,19 +189,23 @@ const Comment = (props) => {
                         {
                             commentList && commentList.map((item, index) => {
                                 return <div className="comment-item" key={item.id}>
-                                    <div className="comment-user">
-                                        <svg className="icon-svg" aria-hidden="true">
-                                            <use xlinkHref="#icon-user5"></use>
-                                        </svg>
-                                        <span className="user-name">{item.user.nickname}</span>
+                                    <div className="comment-list-top">
+                                        <div className="comment-user">
+                                            {/* <svg className="icon-svg" aria-hidden="true">
+                                                <use xlinkHref="#icon-user5"></use>
+                                            </svg> */}
+                                            <UserIcon size="big" name={item.user.nickname} />
+                                            <span className="user-name">{item.user.nickname}</span>
+                                        </div>
+                                        <div className="comment-time">
+                                            {item.createTime.slice(5, 16)}
+                                        </div>
                                     </div>
                                     <div className="comment-content">
                                         {item.details}
                                     </div>
                                     <div className="comment-operate">
-                                        <div>
-                                            {item.createTime.slice(5, 16)}
-                                        </div>
+
                                         <div>
                                             {/* <span className="comment-edit" onClick={() => updataFirst(item.id)}>编辑</span> */}
                                             <span onClick={() => deleteFirst(item.id, index)} className="comment-delete">删除</span>
@@ -219,20 +224,23 @@ const Comment = (props) => {
                                     {
                                         item.commentList && item.commentList.map((children, childrenIndex) => {
                                             return <div className="comment-item commnet-children-item" key={children.id}>
-                                                <div className="comment-user">
-                                                    <svg className="icon-svg" aria-hidden="true">
-                                                        <use xlinkHref="#icon-user5"></use>
-                                                    </svg>
-                                                    <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
+                                                <div className="comment-list-top" >
+                                                    <div className="comment-user">
+                                                        <UserIcon size="big" name={children.user.nickname} />
+                                                        <span className="user-name">{children.user.name}回复了：{children.aimAtUser.name}</span>
+                                                    </div>
+
+
+                                                    <div className="comment-time">
+                                                        {item.createTime.slice(5, 16)}
+                                                    </div>
                                                 </div>
                                                 <div className="comment-content">
                                                     {children.details}
                                                 </div>
                                                 <div className="comment-operate">
                                                     {/* <span className="comment-edit">编辑</span> */}
-                                                    <div>
-                                                        {item.createTime.slice(5, 16)}
-                                                    </div>
+
                                                     <div>
                                                         <span className="comment-delete" onClick={() => deleteSecond(index, children.id)}>删除</span>
                                                         <span className="comment-reply" onClick={() => setChildrenReply(children.id)}>回复</span>

@@ -72,20 +72,21 @@ const RepositorySetAside = (props) => {
                 <div className={`repository-set-aside ${isShowText ? "" : "repository-icon"}`}>
 
                     <div className="repository-set-title">
+                        <svg className="menu-icon" aria-hidden="true" onClick={() => backRepository()}>
+                            <use xlinkHref="#icon-backrepository"></use>
+                        </svg>
                         <span className={`${isShowText ? "" : "repository-notext"}`} style={{ marginRight: "20px" }}>
                             设置
                         </span>
                     </div>
-                    <div className={`repository-set-back`}
+                    {/* <div className={`repository-set-back`}
                         onClick={() => backRepository()}
                     >
-                        <svg className="menu-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-backrepository"></use>
-                        </svg>
+                       
                         <span>
                         返回知识库
                         </span>
-                    </div>
+                    </div> */}
                     <ul className="repository-menu">
                         {
                             repositoryrouter && repositoryrouter.map(Item => {

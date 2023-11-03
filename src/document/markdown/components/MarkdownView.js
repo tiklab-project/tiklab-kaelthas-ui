@@ -108,23 +108,30 @@ const DocumentExamine = (props) => {
 
     return (<Provider {...store}>
         <div className="document-markdown-examine">
+            {
+                showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum={commentNum} setCommentNum={setCommentNum} />
+            }
+
             <div className="examine-top">
                 <div className="examine-title" id="examine-title">{docInfo.name}</div>
                 <div className="document-edit">
                     {
-                        value && <svg className="icon-svg" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${documentId}`)}>
+                        value && <svg className="right-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${documentId}`)}>
                             <use xlinkHref="#icon-edit"></use>
                         </svg>
                     }
 
-                    <svg className="icon-svg" aria-hidden="true">
+                    <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-collection"></use>
                     </svg>
-                    <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button>
+                    {/* <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} onClick={() => setShareVisible(true)}> 分享</Button> */}
+                    <svg className="right-icon" aria-hidden="true" onClick={() => setShareVisible(true)}>
+                        <use xlinkHref="#icon-share"></use>
+                    </svg>
                     <Dropdown
                         overlay={moreMenu}
                         placement="bottomLeft"
-                        trigger ="click"
+                        trigger="click"
                     >
                         <svg className="right-icon" aria-hidden="true">
                             <use xlinkHref="#icon-point"></use>
@@ -142,9 +149,6 @@ const DocumentExamine = (props) => {
                             </div>
                         </Col>
                     </Row>
-                    {
-                        showComment && <Comment documentId={documentId} setShowComment={setShowComment} commentNum={commentNum} setCommentNum={setCommentNum} />
-                    }
 
                 </div>
                     :

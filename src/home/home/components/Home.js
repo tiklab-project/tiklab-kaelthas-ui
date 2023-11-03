@@ -76,13 +76,13 @@ const Home = (props) => {
                                                                 src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
                                                                    
                                                                 alt=""
-                                                                className="img-icon"
+                                                                className="list-img"
                                                             />
                                                             :
                                                             <img
                                                                 src={('images/repository1.png')}
                                                                 alt=""
-                                                                className="img-icon"
+                                                                className="list-img"
                                                             />
                                                     }
                                                     <span>{item.name}</span>

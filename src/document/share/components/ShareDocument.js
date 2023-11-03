@@ -20,7 +20,7 @@ import { Row, Col } from 'antd';
 import { PreviewEditor } from "tiklab-slate-ui";
 import "tiklab-slate-ui/es/tiklab-slate.css";
 import "./shareDocument.scss"
-import Comment from "./CommentShare";
+import CommentShare from "./CommentShare";
 import { withRouter } from "react-router";
 import { getUser } from "tiklab-core-ui";
 const ShareDocument = (props) => {
@@ -49,6 +49,9 @@ const ShareDocument = (props) => {
     }, [props.match.params.id])
     return (
         <div className="document-share-examine">
+            {
+                    showComment && <CommentShare documentId={props.match.params.id} setShowComment={setShowComment} />
+                }
             <div className="examine-title">
                 <span className="examine-name">{docInfo.name}</span>
             </div>
@@ -61,9 +64,7 @@ const ShareDocument = (props) => {
 
                     </Col>
                 </Row>
-                {
-                    showComment && <Comment documentId={props.match.params.id} setShowComment={setShowComment} />
-                }
+                
             </div>
 
 

@@ -58,11 +58,12 @@ const DocumentEdit = (props) => {
             details: value,
             detailText:  editRef.current.innerText
         }
-        updateDocument(data).then(res => {
-            if (res.code === 0) {
-                props.history.push(`/index/repositorydetail/${repositoryId}/doc/${documentId}`)
-            }
-        })
+        updateDocument(data)
+        // .then(res => {
+        //     if (res.code === 0) {
+        //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${documentId}`)
+        //     }
+        // })
     }
 
     const changeTitle = (value) => {
@@ -87,7 +88,7 @@ const DocumentEdit = (props) => {
                 <div className="edit-title" id="examine-title">{docInfo.name}</div>
                 <div className="edit-right">
                     <Button type="primary" onClick={() => save()}>保存</Button>
-                    <Button onClick={() => props.history.goBack()}>取消</Button>
+                    <Button onClick={() => props.history.goBack()}>退出编辑</Button>
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>
                     </svg>
