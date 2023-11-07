@@ -91,11 +91,17 @@ const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeLis
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
 const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
 const BackupRecoveryContent = AsyncComponent(() => import('./setting/backups/Backups'))
+const Dnd = AsyncComponent(() => import("./repository/common/components/dnd"))
 const Routes = [
     {
         path: "/login",
         exact: true,
         component: Login,
+    },
+    {
+        path: "/Dnd",
+        exact: true,
+        component: Dnd,
     },
     {
         path: "/logout",

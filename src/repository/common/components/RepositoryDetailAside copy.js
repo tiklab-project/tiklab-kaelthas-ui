@@ -8,7 +8,6 @@
  */
 
 import React, { Fragment, useState, useEffect, useId, useRef } from 'react';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
 import { Menu, Dropdown, Layout, Form } from 'antd';
@@ -20,26 +19,6 @@ import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
 import "./RepositoryDetailAside.scss"
 const { Sider } = Layout;
-
-const grid = 8;
-const getItemStyle = (isDragging, draggableStyle) => ({
-    // some basic styles to make the items look a bit nicer
-    userSelect: "none",
-    // padding: grid * 2,
-    // margin: `0 0 ${grid}px 0`,
-
-    // change background colour if dragging
-    background: isDragging ? "lightgreen" : "#fff",
-
-    // styles we need to apply on draggables
-    ...draggableStyle
-});
-
-const getListStyle = isDraggingOver => ({
-    background: isDraggingOver ? "lightblue" : "lightgrey",
-    // padding: grid,
-    // width: 250
-});
 const RepositorydeAside = (props) => {
     // 解析props
     const [form] = Form.useForm();
@@ -478,173 +457,129 @@ const RepositorydeAside = (props) => {
 
         }
     }
-    const onDragEnd = (result) => {
-        // dropped outside the list
-        // if (!result.destination) {
-        //     return;
-        // }
 
-        // const items = reorder(
-        //     this.state.items,
-        //     result.source.index,
-        //     result.destination.index
-        // );
-
-        // this.setState({
-        //     items
-        // });
-        console.log(result)
-    }
 
     const logTree = (fItems, item, levels, faid, index) => {
         let newLevels = 0;
-        return <Draggable key={item.id} draggableId={item.id} index={index}>
-            {(provided, snapshot) => (
-                <div className={`${isExpandedTree(faid) ? "" : 'repository-menu-submenu-hidden'}`}
-                    key={item.id}
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                    )}
-                    onClick={(event) => selectKeyFun(event, item)}
-                // onDrop={() => changeLog(item.id)}
-                // onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
-                // onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
-                // onDrag={() => moveWorkItem()}
-                // onDragOver={dragover}
-                // draggable="true"
-                // onDragStart={(event) => moveStart(event, item.id, faid, item.formatType)}
-                // onDragEnd={() => moveEnd()}
-                // ref={el => (moveRef.current[item.id] = el)}
-                >
-                    <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
-                        key={item.id}
+        return <div className={`${isExpandedTree(faid) ? "" : 'repository-menu-submenu-hidden'}`}
+            key={item.id}
+            onDrop={() => changeLog(item.id)}
+            onClick={(event) => selectKeyFun(event, item)}
+            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
+            onDrag={() => moveWorkItem()}
+            onDragOver={dragover}
+            draggable="true"
+            onDragStart={(event) => moveStart(event, item.id, faid, item.formatType)}
+            onDragEnd={() => moveEnd()}
+            ref={el => (moveRef.current[item.id] = el)}
+        >
+            <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
+                key={item.id}
 
-                    >
-                        <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
-                            {
-                                item.childrenNum && item.childrenNum > 0 ?
-                                    isExpandedTree(item.id) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                        <use xlinkHref="#icon-down" ></use>
-                                    </svg> :
-                                        <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
-                                            <use xlinkHref="#icon-right" ></use>
-                                        </svg> :
-                                    <div className="img-icon" />
-                            }
-                            <svg className="img-icon" aria-hidden="true">
-                                <use xlinkHref="#icon-folder"></use>
-                            </svg>
-                            <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                                contentEditable={isRename === item.id ? true : false}
-                                suppressContentEditableWarning
-                                onBlur={(value) => reName(value, item.id, item.formatType)}
-                                ref={isRename === item.id ? inputRef : null}
-                                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-                            >{item.name} </span>
-                        </div>
-                        <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
-                            <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
-                                <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-plusBlue"></use>
-                                </svg>
-                            </Dropdown>
-                            <Dropdown overlay={() => editMenu(fItems, item, faid, index)} placement="bottomLeft">
-                                <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-moreBlue"></use>
-                                </svg>
-                            </Dropdown>
-                        </div>
-                    </div>
+            >
+                <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
                     {
-                        item.children && item.children.length > 0 && (newLevels = levels + 1) &&
-                        item.children.map((childItem, index) => {
-                            if (childItem.formatType === "document") {
-                                return fileTree(item.children, childItem, newLevels, item.id, index)
-                            }
-                            if (childItem.formatType === "category") {
-                                return logTree(item.children, childItem, newLevels, item.id, index)
-                            }
-
-                        })
+                        item.childrenNum && item.childrenNum > 0 ?
+                            isExpandedTree(item.id) ? <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                <use xlinkHref="#icon-down" ></use>
+                            </svg> :
+                                <svg className="img-icon" aria-hidden="true" onClick={() => setOpenOrClose(item.id)}>
+                                    <use xlinkHref="#icon-right" ></use>
+                                </svg> :
+                            <div className="img-icon" />
                     }
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-folder"></use>
+                    </svg>
+                    <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                        contentEditable={isRename === item.id ? true : false}
+                        suppressContentEditableWarning
+                        onBlur={(value) => reName(value, item.id, item.formatType)}
+                        ref={isRename === item.id ? inputRef : null}
+                        onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+                    >{item.name} </span>
                 </div>
-            )
+                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
+                    <Dropdown overlay={() => addMenu(item.id)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-plusBlue"></use>
+                        </svg>
+                    </Dropdown>
+                    <Dropdown overlay={() => editMenu(fItems, item, faid, index)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-moreBlue"></use>
+                        </svg>
+                    </Dropdown>
+                </div>
+            </div>
+            {
+                item.children && item.children.length > 0 && (newLevels = levels + 1) &&
+                item.children.map((childItem, index) => {
+                    if (childItem.formatType === "document") {
+                        return fileTree(item.children, childItem, newLevels, item.id, index)
+                    }
+                    if (childItem.formatType === "category") {
+                        return logTree(item.children, childItem, newLevels, item.id, index)
+                    }
+
+                })
             }
-        </Draggable>
-
-
+        </div>
     }
     const fileTree = (fItems, item, levels, fId, index) => {
-        return <Draggable key={item.id} draggableId={item.id} index={index}>
-            {(provided, snapshot) => (
-                <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                    style={getItemStyle(
-                        snapshot.isDragging,
-                        provided.draggableProps.style
-                    )}
-                    className={`${isExpandedTree(fId) ? null : 'repository-menu-submenu-hidden'}`}
-                    key={item.id}
-                >
-                    <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
-                        key={item.id}
-                        onClick={(event) => selectKeyFun(event, item)}
-                        onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
-                        onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
-                        onDragOver={dragover}
-                        onDrag={() => moveWorkItem()}
-                        draggable="true"
-                        onDragStart={(event) => moveStart(event, item.id, fId, item.formatType)}
-                        onDragEnd={() => moveEnd()}
-                        ref={el => (moveRef.current[item.id] = el)}
-                    >
-                        <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
-                            {/* <svg className="img-icon" aria-hidden="true">
+        return <div className={`${isExpandedTree(fId) ? null : 'repository-menu-submenu-hidden'}`}
+            key={item.id}
+        >
+            <div className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
+                key={item.id}
+                onClick={(event) => selectKeyFun(event, item)}
+                onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+                onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
+                onDragOver={dragover}
+                onDrag={() => moveWorkItem()}
+                draggable="true"
+                onDragStart={(event) => moveStart(event, item.id, fId, item.formatType)}
+                onDragEnd={() => moveEnd()}
+                ref={el => (moveRef.current[item.id] = el)}
+            >
+                <div style={{ paddingLeft: levels * 21 + 24 }} className="repository-menu-submenu-left">
+                    {/* <svg className="img-icon" aria-hidden="true">
                         <use xlinkHref="#icon-circle"></use>
                     </svg> */}
-                            <div className="img-icon" />
-                            {
-                                item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-file"></use>
-                                </svg>
-                            }
-                            {
-                                item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-minmap"></use>
-                                </svg>
-                            }
-                            <span
-                                className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                                contentEditable={isRename === item.id ? true : false}
-                                suppressContentEditableWarning
-                                onBlur={(value) => reName(value, item.id, item.formatType)}
-                                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-                                ref={isRename === item.id ? inputRef : null}
-                                id={"file-" + item.id}
-                                title={item.name}
-                            >
-                                {item.name}
-                            </span>
-                        </div>
-                        <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                            <Dropdown overlay={() => editMenu(fItems, item, fId, index)} placement="bottomLeft">
-                                <svg className="img-icon" aria-hidden="true">
-                                    <use xlinkHref="#icon-moreBlue"></use>
-                                </svg>
-                            </Dropdown>
-                        </div>
-                    </div>
+                    <div className="img-icon" />
+                    {
+                        item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-file"></use>
+                        </svg>
+                    }
+                    {
+                        item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-minmap"></use>
+                        </svg>
+                    }
+                    <span
+                        className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                        contentEditable={isRename === item.id ? true : false}
+                        suppressContentEditableWarning
+                        onBlur={(value) => reName(value, item.id, item.formatType)}
+                        onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+                        ref={isRename === item.id ? inputRef : null}
+                        id={"file-" + item.id}
+                        title={item.name}
+                    >
+                        {item.name}
+                    </span>
                 </div>
-            )}
-
-        </Draggable>
-
+                <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
+                    <Dropdown overlay={() => editMenu(fItems, item, fId, index)} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-moreBlue"></use>
+                        </svg>
+                    </Dropdown>
+                </div>
+            </div>
+        </div>
     }
     return (
         <Fragment>
@@ -704,41 +639,17 @@ const RepositorydeAside = (props) => {
                                 </Dropdown>
                             </div>
                         </div>
-                        <DragDropContext onDragEnd={(result) => onDragEnd(result)}>
-                            <Droppable droppableId="droppable">
-                                {(provided, snapshot) => (
-                                    <div
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                        style={getListStyle(snapshot.isDraggingOver)}
-                                    >
-                                        {
-                                            repositoryCatalogueList && repositoryCatalogueList.map((item, index) => {
-                                                if (item.formatType === "document") {
-                                                    return fileTree(repositoryCatalogueList, item, 0, 0, index)
-                                                }
-                                                if (item.formatType === "category") {
-                                                    return <Droppable droppableId={item.id} key = {item.id}>
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                {...provided.droppableProps}
-                                                                ref={provided.innerRef}
-                                                                style={getListStyle(snapshot.isDraggingOver)}
-                                                            >
-                                                                {logTree(repositoryCatalogueList, item, 0, 0, index)}
-                                                                {provided.placeholder}
-                                                            </div>
 
-                                                        )}
-                                                    </Droppable>
-                                                }
-                                            })
-                                        }
-                                        {provided.placeholder}
-                                    </div>
-                                )}
-                            </Droppable>
-                        </DragDropContext>
+                        {
+                            repositoryCatalogueList && repositoryCatalogueList.map((item, index) => {
+                                if (item.formatType === "document") {
+                                    return fileTree(repositoryCatalogueList, item, 0, 0, index)
+                                }
+                                if (item.formatType === "category") {
+                                    return logTree(repositoryCatalogueList, item, 0, 0, index)
+                                }
+                            })
+                        }
                     </div>
                     <div className="repository-setting-menu" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/basicInfo`)}>
                         <svg className="img-icon" aria-hidden="true">

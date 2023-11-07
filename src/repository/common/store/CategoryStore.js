@@ -39,13 +39,9 @@ export class CategoryStore {
      * @param {*} id 
      */
     @action
-    findRepositoryCatalogue= async(id)=> {
-        const categoryQuery = {
-            repositoryId: id
-        }
-        
-        const data = await Service("/category/findCategoryListTree", categoryQuery)
-        return data.data;
+    findRepositoryCatalogue= async(value)=> {
+        const data = await Service("/category/findCategoryListTree", value)
+        return data;
     }
 
     @action
