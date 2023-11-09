@@ -51,11 +51,11 @@ class ShareStore {
     }
 
     @action
-    findCategory= async(params)=> {
-        const data = new FormData()
-        data.append("id", params.id)
-        const detailRepositoryLog = await ServiceShare("/category/findCategory", data);
-        return detailRepositoryLog.data;
+    findCategory= async(value)=> {
+        const params = new FormData()
+        params.append("id", value.id)
+        const data = await ServiceShare("/category/findCategory", params);
+        return data.data;
     }
 
     @action

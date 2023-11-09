@@ -13,12 +13,13 @@ import { observer, inject, Provider } from "mobx-react";
 import CategoryAdd from "../common/components/CategoryAdd"
 import { getUser } from "tiklab-core-ui";
 import CategoryStore from "../common/store/CategoryStore"
+import { appendNodeInTree } from "../../common/utils/treeDataAction";
 const CategoryDetail = (props) => {
     const store = {
         categoryStore: CategoryStore
     }
-    const { detailRepositoryLog, findCategoryDocument, setRepositoryCatalogueList,
-        createDocumentRecent, createDocument, expandedTree, setExpandedTree,
+    const { findCategory, findCategoryDocument, setRepositoryCatalogueList,
+        repositoryCatalogueList, createDocumentRecent, createDocument, expandedTree, setExpandedTree,
         findRepositoryCatalogue, findDmUserList } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
@@ -28,8 +29,11 @@ const CategoryDetail = (props) => {
     const userId = getUser().userId
 
     useEffect(() => {
-        detailRepositoryLog({ id: categoryId }).then(data => {
-            setLogDetail(data)
+        findCategory({ id: categoryId }).then(data => {
+            if(data.code === 0){
+                setLogDetail(data.data)
+            }
+            
         })
         findCategoryDocument(categoryId).then(data => {
             setLogList(data.data)
@@ -39,8 +43,8 @@ const CategoryDetail = (props) => {
 
     const [addModalVisible, setAddModalVisible] = useState()
     // 添加按钮下拉菜单
-    const addMenu = (id) => {
-        return <Menu onClick={(value) => selectAddType(value, id)}>
+    const addMenu = (category) => {
+        return <Menu onClick={(value) => selectAddType(value, category)}>
             <Menu.Item key="category">
                 <div className="content-add-menu">
                     <svg className="content-add-icon" aria-hidden="true">
@@ -79,7 +83,7 @@ const CategoryDetail = (props) => {
             children: [{ text: "" }],
         },
     ])
-    const [catalogueId, setCatalogueId] = useState()
+    const [catalogue, setCatalogue] = useState()
     const [userList, setUserList] = useState()
     const [form] = Form.useForm();
     // 当前选中目录id
@@ -96,32 +100,38 @@ const CategoryDetail = (props) => {
         }
     }
 
-    const selectAddType = (value, id) => {
-        setCatalogueId(id)
+    const selectAddType = (value, category) => {
+        
 
         if (value.key === "category") {
+            setCatalogue({id: category.id, dimension: category.dimension})
             setAddModalVisible(true)
             findDmUserList(repositoryId).then(data => {
                 setUserList(data)
             })
         } else if (value.key === "document") {
-            const data = {
+            const param = {
                 name: "未命名文档",
                 wikiRepository: { id: repositoryId },
                 master: { id: userId },
                 typeId: "document",
                 formatType: "document",
-                wikiCategory: { id: id },
+                wikiCategory: { id: category.id },
             }
-            createDocument(data).then((data) => {
+            createDocument(param).then((data) => {
                 if (data.code === 0) {
-                    setOpenOrClose(id)
+                    setOpenOrClose(category.id)
+                    
+                    param.id = data.data;
+                    appendNodeInTree(category.id, repositoryCatalogueList, [param] )
                     props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
                     // 左侧导航
                     setSelectKey(data.data)
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
+                    
+                    // findRepositoryCatalogue(repositoryId).then((data) => {
+                    //     setRepositoryCatalogueList(data)
+                    // })
+                    
                 }
             })
         } else if (value.key === "markdown") {
@@ -209,7 +219,7 @@ const CategoryDetail = (props) => {
                                         </div>
 
                                     </div>
-                                    <Dropdown overlay={() => addMenu(logDetail.id)} placement="bottomLeft">
+                                    <Dropdown overlay={() => addMenu(logDetail)} placement="bottomLeft">
                                         <div className="top-add-botton">添加内容</div>
                                     </Dropdown>
                                 </div>
@@ -259,7 +269,7 @@ const CategoryDetail = (props) => {
                 addModalVisible={addModalVisible}
                 setRepositoryCatalogueList={setRepositoryCatalogueList}
                 form={form}
-                catalogueId={catalogueId}
+                catalogue={catalogue}
                 contentValue={contentValue}
                 setSelectKey={setSelectKey}
                 userList={userList}

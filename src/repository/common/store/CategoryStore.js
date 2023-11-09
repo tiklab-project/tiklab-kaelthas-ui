@@ -45,6 +45,14 @@ export class CategoryStore {
     }
 
     @action
+    findDocument = async(id) => {
+        const params = new FormData()
+        params.append("id", id)
+        const data = await Service("/document/findDocument", params);
+        return data;
+    }
+
+    @action
     addRepositoryCatalogue= async(params)=> {
         const data = await Service("/category/createCategory", params);
         return data;
@@ -66,11 +74,11 @@ export class CategoryStore {
     }
 
     @action
-    detailRepositoryLog= async(params)=> {
-        const data = new FormData()
-        data.append("id", params.id)
-        const detailRepositoryLog = await Service("/category/findCategory", data);
-        return detailRepositoryLog.data;
+    findCategory= async(value)=> {
+        const params = new FormData()
+        params.append("id", value.id)
+        const data = await Service("/category/findCategory", params);
+        return data;
     }
 
     @action

@@ -76,6 +76,12 @@
                         align-items: center;
                     }
                 }
+                .repository-menu-up {
+                    margin-top: 100px;
+                }
+                .repository-menu-down {
+                    margin-bottom: 100px;
+                }
                 .repository-menu-submenu {
                     height: 40px;
                     display: flex;
@@ -84,7 +90,21 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 10px 10px 10px 0;
-
+                    .ant-tree-switcher {
+                       .ant-tree-switcher-icon {
+                         padding: 5px 0;
+                       }
+                    }
+                    .ant-tree-node-content-wrapper {
+                        padding: 0;
+                        
+                    }
+                    .ant-tree-node-selected {
+                        background-color: transparent;
+                    }
+                    .ant-tree-node-content-wrapper:hover {
+                        background-color: transparent;
+                    }
                     .repository-menu-submenu-left {
                         display: flex;
                         align-items: center;

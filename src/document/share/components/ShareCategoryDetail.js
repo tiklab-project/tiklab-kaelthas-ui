@@ -21,7 +21,9 @@ const ShareCategoryDetail = (props) => {
 
     useEffect(() => {
         findCategory({ id: categoryId }).then(data => {
-            setLogDetail(data)
+            if(data.code === 0){
+                setLogDetail(data)
+            }
         })
         findCategoryDocument(categoryId).then(data => {
             setLogList(data.data)

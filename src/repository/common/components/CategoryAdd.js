@@ -9,12 +9,14 @@
 
 import React from 'react';
 import { observer, inject } from "mobx-react";
-import { Modal,Select,Form,Input   } from 'antd';
+import { Modal, Select, Form, Input } from 'antd';
+import { appendNodeInTree } from '../../../common/utils/treeDataAction';
 
 const CategoryAdd = (props) => {
-    const {addModalVisible,setAddModalVisible,setRepositoryCatalogueList,modalTitle,
-        catalogueId,form,contentValue,setSelectKey,userList, categoryStore} = props
-    const {addRepositoryCatalogue,createDocument,findRepositoryCatalogue, expandedTree, setExpandedTree} = categoryStore;
+    const { addModalVisible, setAddModalVisible, modalTitle,
+        catalogue, form, contentValue, setSelectKey, userList, categoryStore } = props
+    const { addRepositoryCatalogue, createDocument, findRepositoryCatalogue, setRepositoryCatalogueList,
+        repositoryCatalogueList, expandedTree, setExpandedTree, findCategory } = categoryStore;
     const repositoryId = props.match.params.repositoryId;
 
     const isExpandedTree = (key) => {
@@ -31,78 +33,43 @@ const CategoryAdd = (props) => {
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;
-            if(values.formatType === "category"){
-                if(catalogueId){
-                    data = {
-                        ...values,
-                        wikiRepository:{id: repositoryId},
-                        parentWikiCategory: {id:catalogueId},
-                        master: {id: values.master},
-                        typeId: values.formatType
-                    }
-                } else {
-                    data = {
-                        ...values,
-                        wikiRepository:{id: repositoryId},
-                        master: {id: values.master},
-                        typeId: values.formatType
-                    }
+            if (catalogue) {
+                data = {
+                    ...values,
+                    wikiRepository: { id: repositoryId },
+                    parentWikiCategory: { id: catalogue.id },
+                    dimension: catalogue.dimension + 1,
+                    master: { id: values.master },
+                    typeId: "category",
+                    formatType: "category"
                 }
-                addRepositoryCatalogue(data).then((data)=> {
-                    if(data.code === 0){
-                        findRepositoryCatalogue(repositoryId).then((data)=> {
-                            setRepositoryCatalogueList(data)
-                        })
-                        setAddModalVisible(!addModalVisible)
-                        if(catalogueId){
-                            setOpenOrClose(catalogueId)
-                        }
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${data.data}`)
-                        form.resetFields()
-                    }
-                    
-                }) 
-            }else {
-                if(catalogueId){
-                    data = {
-                        ...values,
-                        repository:{id: repositoryId},
-                        category: {id:catalogueId},
-                        details:JSON.stringify(contentValue),
-                        master: {id: values.master},
-                        typeId: values.formatType
-                    }
-                } else {
-                    data = {
-                        ...values,
-                        wikiRepository:{id: repositoryId},
-                        details:JSON.stringify(contentValue),
-                        master: {id: values.master},
-                        typeId: values.formatType
-                    }
+            } else {
+                data = {
+                    ...values,
+                    wikiRepository: { id: repositoryId },
+                    master: { id: values.master },
+                    dimension: 1,
+                    typeId: "category",
+                    formatType: "category"
                 }
-                
-                createDocument(data).then((data)=> {
-                    if(data.code === 0) {
-                        findRepositoryCatalogue(repositoryId).then((data)=> {
-                            setRepositoryCatalogueList(data)
-                        })
-                        setAddModalVisible(!addModalVisible)
-                        if(values.typeId === "markdown"){
-                            props.history.push(`/index/repositorydetail/${repositoryId}/mindmap/${data.data}`)
-                        }
-                        if(values.typeId === "document"){
-                            props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
-                        }
-                        // 左侧导航
-                        setSelectKey(data.data)
-                        // 如果是在某个目录下面，展开这个目录
-                       
-                        form.resetFields()
-                    }
-                    
-                })
             }
+            addRepositoryCatalogue(data).then((data) => {
+                if (data.code === 0) {
+                    findCategory({ id: data.data }).then(res => {
+                        if (res.code === 0) {
+                           const list =  appendNodeInTree(catalogue?.id, repositoryCatalogueList, [res.data]);
+                           setRepositoryCatalogueList([...list])
+                        }
+                    })
+                    setAddModalVisible(!addModalVisible)
+                    if (catalogue?.id) {
+                        setOpenOrClose(catalogue.id)
+                    }
+                    props.history.push(`/index/repositorydetail/${repositoryId}/folder/${data.data}`)
+                    form.resetFields()
+                }
+
+            })
         })
     }
     // const selectType = () => {
@@ -110,13 +77,13 @@ const CategoryAdd = (props) => {
     // }
     return (
         <Modal
-            title={modalTitle}
+            title={"添加目录"}
             visible={addModalVisible}
-            onOk={()=>onFinish()} 
-            onCancel={()=>setAddModalVisible(false)}
+            onOk={() => onFinish()}
+            onCancel={() => setAddModalVisible(false)}
             destroyOnClose={true}
-            okText = "确定"
-            cancelText = "取消"
+            okText="确定"
+            cancelText="取消"
         >
             <Form
                 form={form}
@@ -132,31 +99,19 @@ const CategoryAdd = (props) => {
                 >
                     <Input />
                 </Form.Item>
-                <Form.Item label="负责人" name="master"  rules={[{ required: true }]} >
+                <Form.Item label="负责人" name="master" rules={[{ required: true }]} >
                     <Select
                         placeholder="负责人"
                         allowClear
                         className="work-select"
                         key="master"
-                        style={{ minWidth: '80px'}}
-                    >   
+                        style={{ minWidth: '80px' }}
+                    >
                         {
-                            userList && userList.map((item)=>{
+                            userList && userList.map((item) => {
                                 return <Select.Option value={item.user.id} key={item.user.id}>{item.user.name}</Select.Option>
                             })
                         }
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    label="类型"
-                    name="formatType"
-                    rules={[{ required: true, message: '请选择类型!' }]}
-                    hidden = {true}
-                >
-                    <Select  onChange = {(value) => selectType(value)}>
-                        <Select.Option value="category">目录</Select.Option>
-                        <Select.Option value="document">页面</Select.Option>
-                        <Select.Option value="mindMap">脑图</Select.Option>
                     </Select>
                 </Form.Item>
             </Form>
