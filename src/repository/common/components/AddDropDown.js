@@ -49,7 +49,6 @@ const AddDropDown = (props) => {
         </Menu>
     }
     const selectAddType = (value) => {
-
         if (value.key === "category") {
             if(category){
                setCatalogue({id: category.id, dimension: category.dimension}) 

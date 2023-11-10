@@ -66,10 +66,8 @@ export class CategoryStore {
 
     // 删除目录
     @action
-    deleteRepositoryLog= async(id)=> {
-        const params = new FormData()
-        params.append("id", id)
-        const data = await Service("/category/deleteCategory", params);
+    deleteRepositoryLog= async(params)=> {
+        const data = await Service("/category/deleteCategoryAndSort", params);
         return data;
     }
 
@@ -126,10 +124,8 @@ export class CategoryStore {
         return data.data;
     }
     @action
-    deleteDocument= async(id)=> {
-        const param = new FormData()
-        param.append("id", id)
-        const data = await Service("/document/deleteDocument", param);
+    deleteDocument= async(params)=> {
+        const data = await Service("/document/deleteDocumentAndSort", params);
         return data;
     }
 }

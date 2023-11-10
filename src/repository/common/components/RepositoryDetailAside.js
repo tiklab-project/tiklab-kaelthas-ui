@@ -17,7 +17,7 @@ import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
 import "./RepositoryDetailAside.scss"
-import { appendNodeInTree, removeNodeInTree } from '../../../common/utils/treeDataAction';
+import { appendNodeInTree, removeNodeAndSort, updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
 import AddDropDown from './AddDropDown';
 import { DownOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -31,7 +31,7 @@ const RepositorydeAside = (props) => {
     const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
         repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        createDocument, expandedTree, setExpandedTree, findDmUserList, findDocument } = categoryStore;
+        createDocument, expandedTree, setExpandedTree, findDmUserList, findDocument, findCategory } = categoryStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -77,12 +77,12 @@ const RepositorydeAside = (props) => {
             wikiRepository: { id: repositoryId }
         }
         createDocumentRecent(params)
-      
+
         findCategoryChildren(item.id, item.dimension)
         if (item.formatType === "category") {
             localStorage.setItem("categoryId", item.id);
             setOpenClickCategory(item.id)
-            
+
             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
@@ -97,7 +97,7 @@ const RepositorydeAside = (props) => {
         setSelectKey(id)
         const isRequested = requsetedCategory.some(category => category === id);
         if (!isRequested) {
-            findRepositoryCatalogue({ repositoryId: repositoryId, parentWikiCategory: id, dimensions: [dimension+1, dimension + 2] }).then(data => {
+            findRepositoryCatalogue({ repositoryId: repositoryId, parentWikiCategory: id, dimensions: [dimension + 1, dimension + 2] }).then(data => {
                 if (data.code === 0) {
                     const list = appendNodeInTree(id, repositoryCatalogueList, data.data, "overview")
                     setRepositoryCatalogueList([...list])
@@ -109,7 +109,7 @@ const RepositorydeAside = (props) => {
     }
 
     // 编辑
-    const editMenu = (item,index) => {
+    const editMenu = (item, index) => {
         return <Menu onClick={(value) => editCatelogue(value, item, index)}>
             <Menu.Item key="edit">
                 重命名
@@ -132,52 +132,26 @@ const RepositorydeAside = (props) => {
     const inputRef = React.useRef(null);
     const [isRename, setIsRename] = useState()
     const editCatelogue = (value, item, index) => {
-        const { id, formatType } = item;
+        const { id, formatType, sort } = item;
         value.domEvent.stopPropagation()
         if (value.key === "edit") {
             setIsRename(id)
         }
         if (value.key === "delete") {
             if (formatType === "category") {
-                deleteRepositoryLog(id).then(res => {
-                    if(res.code === 0){
-                        removeNodeInTree(repositoryCatalogueList,id)
+                deleteRepositoryLog(item).then(res => {
+                    if (res.code === 0) {
+                        removeNodeAndSort(repositoryCatalogueList, item.parentWikiCategory ? item.parentWikiCategory.id : "nullString", sort)
                     }
                 })
             }
             if (formatType === "document") {
-                deleteDocument(id).then(res => {
-                    if(res.code === 0){
-                        removeNodeInTree(repositoryCatalogueList,id)
+                deleteDocument(item).then(res => {
+                    if (res.code === 0) {
+                        removeNodeAndSort(repositoryCatalogueList, item.wikiCategory ? item.wikiCategory.id : "nullString", sort)
                     }
                 })
             }
-            
-
-            // if (fItem.length > 1) {
-            //     if (index !== fItem.length - 1) {
-            //         if (fItem[index + 1].typeId === "category") {
-            //             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index + 1].id}`)
-            //         }
-            //         if (fItem[index + 1].typeId === "document") {
-            //             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index + 1].id}`)
-            //         }
-            //     } else {
-            //         if (fItem[index - 1].typeId === "category") {
-            //             props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index - 1].id}`)
-            //         }
-            //         if (fItem[index - 1].typeId === "document") {
-            //             props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index - 1].id}`)
-            //         }
-            //     }
-            // } else {
-            //     if (fId == 0) {
-            //         props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
-            //     } else {
-            //         props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fId}`)
-            //     }
-
-            // }
         }
         if (value.key === "move") {
             setMoveLogListVisible(true)
@@ -255,7 +229,7 @@ const RepositorydeAside = (props) => {
     const [formatType, setFormatType] = useState()
     const [moveLogListVisible, setMoveLogListVisible] = useState(false)
     // 拖放效果
-  
+
 
     //必须有onDragOver才能触发onDrop
     const dragover = () => {
@@ -313,11 +287,12 @@ const RepositorydeAside = (props) => {
 
         }
     }
-   
-  
-    const fileTree = (item) => {
+
+
+    const fileTree = (item, index) => {
         return <div
             key={item.id}
+            className={`repository-menu-submenu`}
             onClick={(event) => selectKeyFun(event, item)}
             onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
             onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
@@ -340,20 +315,20 @@ const RepositorydeAside = (props) => {
                     suppressContentEditableWarning
                     onBlur={(value) => reName(value, item.id, item.formatType)}
                     onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-                    
-                    
+
+
                     id={"file-" + item.id}
                     title={item.name}
                 >
-                    {item.id}
+                    {item.name}
                 </span>
             </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                {/* <Dropdown overlay={() => editMenu(fItems, item, fId, index)} placement="bottomLeft">
+                <Dropdown overlay={() => editMenu(item,index)} placement="bottomLeft">
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-moreBlue"></use>
                         </svg>
-                    </Dropdown> */}
+                    </Dropdown>
             </div>
         </div>
 
@@ -361,7 +336,7 @@ const RepositorydeAside = (props) => {
 
     }
 
-    const logTree = (item,index) => {
+    const logTree = (item, index) => {
         return <div className={`repository-menu-submenu`}
             key={item.id}
             onClick={(event) => selectKeyFun(event, item)}
@@ -380,7 +355,7 @@ const RepositorydeAside = (props) => {
                     ref={isRename === item.id ? inputRef : null}
                     // id = {isRename === item.id ? isRename : null}
                     onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-                > {item.id} </span>
+                > {item.name} </span>
             </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
 
@@ -399,10 +374,10 @@ const RepositorydeAside = (props) => {
                 return <Tree.TreeNode
                     title={logTree(item, index)}
                     key={item.id}
-                    dimension = {item.dimension}
-                    sort = {item.sort}
-                    type = {item.formatType}
-                    parentWikiCategory = {item.dimension !== 1 ? item.parentWikiCategory.id : "nullString"}
+                    dimension={item.dimension}
+                    sort={item.sort}
+                    type={item.formatType}
+                    parentWikiCategory={item.dimension !== 1 ? item.parentWikiCategory?.id : "nullString"}
                     disableCheckbox
                     className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""}`}>
                     {categoryTree(item.children)}
@@ -410,12 +385,13 @@ const RepositorydeAside = (props) => {
             }
             if (item.formatType === "document") {
                 return <Tree.TreeNode
-                    title={fileTree(item)}
+                    title={fileTree(item, index)}
                     disableCheckbox
-                    type = {item.formatType}
-                    parentWikiCategory = {item.dimension !== 1 ? item.wikiCategory.id : "nullString"}
+                    type={item.formatType}
+                    dimension={item.dimension}
+                    parentWikiCategory={item.dimension !== 1 ? item.wikiCategory?.id : "nullString"}
                     key={item.id}
-                    sort = {item.sort}
+                    sort={item.sort}
                     className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
                 />
 
@@ -434,133 +410,138 @@ const RepositorydeAside = (props) => {
         return element;
     }
     const onDrop = (info) => {
-        const {event, node, dragNode, dragNodesKeys} = info;
+        const { event, node, dragNode, dragNodesKeys } = info;
         const dropToGap = info.dropToGap;
-        console.log(dropToGap, "dropToGap")
-        console.log(node, "node")
         const dropType = node.type;
-        if(dropType === "document" && dropToGap === false) {
+        if (dropType === "document" && dropToGap === false) {
             return
         }
-       
-        
-        // const sort = dropPos[dropPos.length - 1];
-        console.log(node,dragNode )
-        const dropKey = info.node.key.split('-');
-        const dragKey = info.dragNode.key.split('-');
 
         const dropId = node.key;
         const dropParentId = node.parentWikiCategory;
         const dropSort = node.sort;
-        const dropDimension = node.dropDimension;
-        
+        const dropDimension = node.dimension;
+
 
         const dragId = dragNode.key;
         const dragParentId = dragNode.parentWikiCategory;
         const dragSort = dragNode.sort;
-    
+        const dragDimension = dragNode.dimension;
         const type = dragNode.type;
 
         const dropPos = info.node.pos.split('-');
         const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
-        const dragPos = info.dragNode.pos.split('-');
-        // 最外一层的第一个是true，移动到其他树枝的第一个时是false，移动到不是第一个的位置是true
-        // const dropToGap = info.dropToGap;
-        // console.log(dropToGap, "dropToGap")
-        console.log(dropPosition, "dropPosition")
-        const dropResult = loop(repositoryCatalogueList,dropId);
-        console.log(dropResult)
-        if(dropToGap === false  && dropPosition !== -1){
-            // 下级第一个
-            const params = {
+        let params = {}
+        if (dropToGap === false && dropPosition !== -1) {
+            params = {
                 id: dragId,
-                sort: 1,
+                sort: 0,
                 oldParentId: dragParentId,
                 dimension: dropDimension + 1,
+                oldDimension: dragDimension,
                 oldSort: dragSort,
                 wikiRepository: {
                     id: repositoryId
                 }
             }
-            if(type === "document"){
+            if (type === "document") {
                 params.wikiCategory = {
                     id: dropId
                 }
-                updateDocument(params)
             }
-            if(type === "category"){
+            if (type === "category") {
                 params.parentWikiCategory = {
                     id: dropId
                 }
-                updateRepositoryCatalogue(params)
             }
-            
+
         }
-        if(dropToGap === true  && dropPosition !== -1){
+        if (dropToGap === true && dropPosition !== -1) {
             //同级
-            const params = {
+            params = {
                 id: dragId,
                 sort: dropSort + 1,
                 oldParentId: dragParentId,
                 oldSort: dragSort,
+                oldDimension: dragDimension,
                 dimension: dropDimension,
                 wikiRepository: {
                     id: repositoryId
                 }
             }
-            if(type === "document"){
+            if (type === "document") {
                 params.wikiCategory = {
                     id: dropParentId
                 }
-                updateDocument(params)
             }
-            if(type === "category"){
+            if (type === "category") {
                 params.parentWikiCategory = {
                     id: dropParentId
                 }
-                updateRepositoryCatalogue(params)
             }
 
-           
+
         }
-        if(dropPosition === -1){
-            const params = {
+        if (dropPosition === -1) {
+            params = {
                 id: dragId,
                 sort: 0,
                 oldParentId: dragParentId,
                 oldSort: dragSort,
-                dimension: dropDimension,
+                oldDimension: dragDimension,
+                dimension: 1,
                 wikiRepository: {
                     id: repositoryId
                 }
             }
-            if(type === "document"){
+            if (type === "document") {
                 params.wikiCategory = {
                     id: "nullString"
                 }
-                updateDocument(params).then(res => {
-                    if(res.code === 0){
-                        
-                    }
-                })
             }
-            if(type === "category"){
+            if (type === "category") {
                 params.parentWikiCategory = {
                     id: "nullString"
                 }
-                updateRepositoryCatalogue(params)
             }
-            updateRepositoryCatalogue(params)
         }
-
-        console.log(node)
+        if (type === "category") {
+            updateCategorySort(params)
+        }
+        if (type === "document") {
+            updateDocumentSort(params)
+        }
     }
 
-    const loop = (data,dropKey) =>{
+    const updateDocumentSort = (params) => {
+        updateDocument(params).then(res => {
+            if (res.code === 0) {
+                const node = findNodeById(repositoryCatalogueList, params);
+                params.parentId = params.wikiCategory.id
+                updataTreeSort(repositoryCatalogueList, params, node)
+            }
+        })
+
+    }
+
+    const updateCategorySort = (params) => {
+        updateRepositoryCatalogue(params).then(res => {
+            if (res.code === 0) {
+                const node = findNodeById(repositoryCatalogueList, params);
+                console.log(node)
+                params.parentId = params.parentWikiCategory.id
+                updataTreeSort(repositoryCatalogueList, params, node)
+            }
+        })
+
+
+    }
+
+    const loop = (data, dropKey) => {
         for (const item of data) {
             if (item.id === dropKey) return item
-            if (item.children && item.children.length>0) {
+            if (item.children && item.children.length > 0) {
                 const _item = loop(item.children, dropKey)
                 if (_item) return _item
             }
@@ -626,9 +607,9 @@ const RepositorydeAside = (props) => {
                             rootStyle="repository-menu-tree"
                             blockNode={true}
                             switcherIcon={<DownOutlined />}
-                            expandedKeys = {expandedTree}
-                            onExpand = {(expandedKeys, expanded) => setOpenOrClose(expanded)}
-                            onDrop = {onDrop}
+                            expandedKeys={expandedTree}
+                            onExpand={(expandedKeys, expanded) => setOpenOrClose(expanded)}
+                            onDrop={onDrop}
                         // titleRender = {(nodedata) => setNode(nodedata)}
                         // treeData = {repositoryCatalogueList}
                         >
