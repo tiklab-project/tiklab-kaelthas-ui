@@ -41,7 +41,7 @@ const removeNodeInTree = (tree, id, sort) => { // 通过id从数组（树结构�
 }
 
 
-const removeNodeAndSort = (tree, id, sort) => { // 通过id从数组（树结构）中移除元素
+const removeNodeAndSort = (tree, id, sort) => {
     if (!tree || !tree.length) {
         return
     }
@@ -77,22 +77,24 @@ const insertNodeAndSort = (tree, id, sort, node) => { // 通过id从数组（树
         return
     }
     if (id === "nullString") {
-        tree.splice(sort, 0, node)
+        //  先把老的数组加一，之后再插入新数据，不然新数据也会被加一
         tree.map((item) => {
             if (item.sort >= sort) {
                 item.sort = item.sort + 1
             }
         })
+        tree.splice(sort, 0, node)
     } else {
         tree.forEach(ele => {
             if (ele.id === id) {
-                ele.children.splice(sort, 0, node)
+                
                 console.log(ele.children)
                 ele.children.map((item) => {
                     if (item.sort >= sort) {
                         item.sort = item.sort + 1
                     }
                 })
+                ele.children.splice(sort, 0, node)
             } else {
                 if (ele.children) {
                     insertNodeAndSort(ele.children, id, sort, node)
@@ -105,9 +107,10 @@ const insertNodeAndSort = (tree, id, sort, node) => { // 通过id从数组（树
 const updataTreeSort = (tree, params, node) => { // 通过id从数组（树结构）中移除元素
     const { oldParentId, oldSort, parentId, sort } = params;
     const tree1 = removeNodeAndSort(tree, oldParentId, oldSort)
-    console.log(node)
+    // debugger
+    // console.log(node)
     const tree2 = insertNodeAndSort(tree1, parentId, sort, node)
-    console.log(tree2)
+    // console.log(tree2)
 }
 
 const findNodeById = (tree, params) => {

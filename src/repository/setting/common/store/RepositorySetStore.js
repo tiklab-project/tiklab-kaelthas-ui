@@ -6,7 +6,7 @@ export class RepositorySetStore {
     
     @action
     findRepositoryList = async(params) => {
-        const data = await Service("/repository/findRepositoryList",params);
+        const data = await Service("/repository/findRepositoryListByUser",params);
         if(data.code === 0){
             this.repositorylist = data.data;
         }

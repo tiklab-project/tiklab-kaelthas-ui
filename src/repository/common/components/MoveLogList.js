@@ -7,60 +7,86 @@
  * @LastEditTime: 2021-12-20 14:35:10
  */
 import React, { useState } from 'react';
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import "./moveLogList.scss";
 import { observer, inject } from "mobx-react";
 import { withRouter } from 'react-router';
+import { appendNodeInTree, removeNodeAndSort, updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
+
 const MoveLogList = (props) => {
-    const { moveLogListVisible, setMoveLogListVisible, formatType,
-        moveCategoryId, categoryStore, moveCategoryParentId } = props;
-    const { findRepositoryCatalogue, repositoryCatalogueList, setRepositoryCatalogueList, updateDocument, 
-        updateRepositoryCatalogue } = categoryStore
+    const { moveLogListVisible, setMoveLogListVisible, moveItem, categoryStore } = props;
+    const { repositoryCatalogueList, updateDocument, updateRepositoryCatalogue } = categoryStore
     const [selectKey, setSelectKey] = useState()
     const repositoryId = props.match.params.repositoryId;
+    const parentItem = moveItem?.formatType === "category" ? moveItem?.parentWikiCategory : moveItem?.wikiCategory
     const onFinish = () => {
-        let value;
-        if (formatType === "category") {
-            if (selectKey) {
-                value = {
-                    parentWikiCategory: { id: selectKey },
-                    id: moveCategoryId
+        if(!selectKey) {
+            message.warning('请选择要引动到的目录');
+            return
+        }else {
+            if(moveItem.formatType === "category") {
+                const params = {
+                    id: moveItem.id,
+                    sort: 0,
+                    oldParentId: moveItem.parentWikiCategory ? moveItem.parentWikiCategory.id : "nullString",
+                    dimension: selectKey.dimension + 1,
+                    oldDimension: moveItem.dimension,
+                    oldSort: moveItem.sort,
+                    wikiRepository: {
+                        id: repositoryId
+                    },
+                    parentWikiCategory: {
+                        id: selectKey.id
+                    }
                 }
-            } else {
-                value = {
-                    id: moveCategoryId
-                }
+                updateCategorySort(params)
             }
-            updateRepositoryCatalogue(value).then((res) => {
-                if (res.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-                    setMoveLogListVisible(false)
+
+            if(moveItem.formatType === "document") {
+                const params = {
+                    id: moveItem.id,
+                    sort: 0,
+                    oldParentId: moveItem.wikiCategory ? moveItem.wikiCategory.id : "nullString",
+                    dimension: selectKey.dimension + 1,
+                    oldDimension: moveItem.dimension,
+                    oldSort: moveItem.sort,
+                    wikiRepository: {
+                        id: repositoryId
+                    },
+                    wikiCategory: {
+                        id: selectKey.id
+                    }
                 }
-            })
-        } else {
-            if (selectKey) {
-                value = {
-                    wikiCategory: { id: selectKey },
-                    id: moveCategoryId
-                }
-            } else {
-                value = {
-                    id: moveCategoryId
-                }
+                updateDocumentSort(params)
             }
-            updateDocument(value).then((res) => {
-                if (res.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-                    setMoveLogListVisible(false)
-                }
-            })
+            
         }
+     
+    }
+    const updateDocumentSort = (params) => {
+        updateDocument(params).then(res => {
+            if (res.code === 0) {
+                const node = findNodeById(repositoryCatalogueList, params);
+                console.log(node)
+                params.parentId = params.wikiCategory.id
+                updataTreeSort(repositoryCatalogueList, params, node)
+                setMoveLogListVisible(false)
+            }
+        })
+
     }
 
+    const updateCategorySort = (params) => {
+        updateRepositoryCatalogue(params).then(res => {
+            if (res.code === 0) {
+                const node = findNodeById(repositoryCatalogueList, params);
+                console.log(node)
+                params.parentId = params.parentWikiCategory.id
+                updataTreeSort(repositoryCatalogueList, params, node)
+                setMoveLogListVisible(false)
+            }
+        })
+    }
     /**
     * 折叠菜单
     */
@@ -76,12 +102,13 @@ const MoveLogList = (props) => {
             setExpandedTree(expandedTree.concat(key));
         }
     }
-    const selectMoveParent = (categoryId) => {
-        if(categoryId === moveCategoryId || categoryId === moveCategoryParentId){
-            return
-        }else {
-            setSelectKey()
-        }
+    const selectMoveParent = (category) => {
+        // if(categoryId === moveCategoryId || categoryId === moveCategoryParentId){
+        //     return
+        // }else {
+        //     setSelectKey()
+        // }
+        setSelectKey(category)
         
     }
     const logTree = (data, levels, faid) => {
@@ -90,13 +117,13 @@ const MoveLogList = (props) => {
             if (category.formatType === "category") {
                 return <div 
                 className={`${!isExpandedTree(faid) || selectKey !== faid ? "" : 'category-menu-submenu-hidden'}
-                    ${category.id === moveCategoryId || category.id === moveCategoryParentId ? "category-disable-select" : "category-allow-select"}
+                    ${category.id === moveItem.id || category.id === parentItem?.id ? "category-disable-select" : "category-allow-select"}
                 `}
                     key={category.id}
                 >
-                    <div className={`category-menu-submenu ${category.id === selectKey ? "category-menu-select" : ""} `}
+                    <div className={`category-menu-submenu ${category.id === selectKey?.id ? "category-menu-select" : ""} `}
                         key={category.id}
-                        onClick={() => selectMoveParent(category.id) }
+                        onClick={() => selectMoveParent(category) }
                     >
                         <div style={{ paddingLeft: levels * 10 }}>
                             {

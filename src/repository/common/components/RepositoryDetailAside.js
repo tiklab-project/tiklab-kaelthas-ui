@@ -42,14 +42,13 @@ const RepositorydeAside = (props) => {
     const [isHover, setIsHover] = useState(false)
     const [requsetedCategory, setRequsetedCategory] = useState([])
 
-    const [modalTitle, setModalTitle] = useState()
+
     const userId = getUser().userId;
     const tenant = getUser().tenant;
 
     const [shareListVisible, setShareListVisible] = useState(false)
 
-    // 模板内容
-    const [contentValue, setContentValue] = useState()
+
     useEffect(() => {
         findRepositoryCatalogue({ repositoryId: repositoryId, dimensions: [1, 2] }).then((data) => {
             setRepositoryCatalogueList(data.data)
@@ -155,9 +154,14 @@ const RepositorydeAside = (props) => {
         }
         if (value.key === "move") {
             setMoveLogListVisible(true)
-            setMoveCategoryId(id)
+            setMoveItem(item)
             setFormatType(formatType)
-            setMoveCategoryParentId(fId)
+            if(formatType === "document"){
+                setMoveCategoryParentId(item.wikiCategory ? item.wikiCategory.id : null)
+            }
+            if(formatType === "category"){
+                setMoveCategoryParentId(item.parentWikiCategory ? item.parentWikiCategory.id : null)
+            }
         }
         if (value.key === "share") {
             setShareListVisible(true)
@@ -224,69 +228,11 @@ const RepositorydeAside = (props) => {
         }
     }
 
-    const [moveCategoryId, setMoveCategoryId] = useState()
+    const [moveItem, setMoveItem] = useState()
     const [moveCategoryParentId, setMoveCategoryParentId] = useState()
     const [formatType, setFormatType] = useState()
     const [moveLogListVisible, setMoveLogListVisible] = useState(false)
-    // 拖放效果
 
-
-    //必须有onDragOver才能触发onDrop
-    const dragover = () => {
-        event.preventDefault();
-    }
-
-    const changeLog = (targetId) => {
-        event.preventDefault();
-        let value;
-        if (formatType === "category") {
-            if (moveRef.current[moveCategoryId].contains(event.target) || moveRef.current[moveCategoryId].current == event.target) {
-
-                return
-            }
-        }
-
-        if (targetId && targetId !== moveCategoryParentId && targetId !== moveCategoryId) {
-            if (formatType === "category") {
-                if (targetId) {
-                    value = {
-                        parentWikiCategory: { id: targetId },
-                        id: moveCategoryId
-                    }
-                } else {
-                    value = {
-                        id: moveCategoryId
-                    }
-                }
-                updateRepositoryCatalogue(value).then((res) => {
-                    if (res.code === 0) {
-                        findRepositoryCatalogue(repositoryId).then((data) => {
-                            setRepositoryCatalogueList(data)
-                        })
-                    }
-                })
-            } else {
-                if (targetId) {
-                    value = {
-                        wikiCategory: { id: targetId },
-                        id: moveCategoryId
-                    }
-                } else {
-                    value = {
-                        id: moveCategoryId
-                    }
-                }
-                updateDocument(value).then((res) => {
-                    if (res.code === 0) {
-                        findRepositoryCatalogue(repositoryId).then((data) => {
-                            setRepositoryCatalogueList(data)
-                        })
-                    }
-                })
-            }
-
-        }
-    }
 
 
     const fileTree = (item, index) => {
@@ -325,10 +271,10 @@ const RepositorydeAside = (props) => {
             </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
                 <Dropdown overlay={() => editMenu(item,index)} placement="bottomLeft">
-                        <svg className="img-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-moreBlue"></use>
-                        </svg>
-                    </Dropdown>
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-moreBlue"></use>
+                    </svg>
+                </Dropdown>
             </div>
         </div>
 
@@ -399,16 +345,7 @@ const RepositorydeAside = (props) => {
         })
     }
 
-    const setNode = (item) => {
-        let element = null
-        if (item.formatType === "category") {
-            element = logTree(item)
-        }
-        if (item.formatType === "document") {
-            element = fileTree(item)
-        }
-        return element;
-    }
+
     const onDrop = (info) => {
         const { event, node, dragNode, dragNodesKeys } = info;
         const dropToGap = info.dropToGap;
@@ -433,6 +370,7 @@ const RepositorydeAside = (props) => {
         const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
 
         let params = {}
+        console.log(dropToGap, dropPosition, node, dragNode)
         if (dropToGap === false && dropPosition !== -1) {
             params = {
                 id: dragId,
@@ -458,10 +396,9 @@ const RepositorydeAside = (props) => {
 
         }
         if (dropToGap === true && dropPosition !== -1) {
-            //同级
+            //放在drop的同级
             params = {
                 id: dragId,
-                sort: dropSort + 1,
                 oldParentId: dragParentId,
                 oldSort: dragSort,
                 oldDimension: dragDimension,
@@ -470,6 +407,21 @@ const RepositorydeAside = (props) => {
                     id: repositoryId
                 }
             }
+            
+            // 同级移动
+            if(dropParentId === dragParentId){
+                if(dragSort > dropSort){
+                    params.sort = dropSort + 1
+                }
+                if(dragSort < dropSort){
+                    params.sort = dropSort
+                }
+                if(dragSort === dropSort) return;
+            }else {
+                params.sort = dropSort + 1
+            }
+            
+           
             if (type === "document") {
                 params.wikiCategory = {
                     id: dropParentId
@@ -518,6 +470,7 @@ const RepositorydeAside = (props) => {
         updateDocument(params).then(res => {
             if (res.code === 0) {
                 const node = findNodeById(repositoryCatalogueList, params);
+                console.log(node)
                 params.parentId = params.wikiCategory.id
                 updataTreeSort(repositoryCatalogueList, params, node)
             }
@@ -534,8 +487,6 @@ const RepositorydeAside = (props) => {
                 updataTreeSort(repositoryCatalogueList, params, node)
             }
         })
-
-
     }
 
     const loop = (data, dropKey) => {
@@ -586,7 +537,7 @@ const RepositorydeAside = (props) => {
                         </svg>
                         概况
                     </div>
-                    <div className="repository-menu" onDrop={() => changeLog("nullString")} draggable="true" onDragOver={dragover}>
+                    <div className="repository-menu">
                         <div className="repository-menu-firstmenu"
                             onMouseOver={() => setIsHover(0)}
                             onMouseLeave={() => setIsHover(null)}
@@ -630,9 +581,7 @@ const RepositorydeAside = (props) => {
             <MoveLogList
                 moveLogListVisible={moveLogListVisible}
                 setMoveLogListVisible={setMoveLogListVisible}
-                formatType={formatType}
-                moveCategoryId={moveCategoryId}
-                moveCategoryParentId={moveCategoryParentId}
+                moveItem={moveItem}
             />
             <ShareListModal
                 repositoryCatalogueList={repositoryCatalogueList}
