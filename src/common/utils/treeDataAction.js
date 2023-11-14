@@ -162,4 +162,17 @@ const updateNode = (node, distence) => {
         return item;
     })
 }
-export { appendNodeInTree, removeNodeInTree,removeNodeAndSort,  updataTreeSort, findNodeById };
+
+const replaceTree = (tree, node) => {
+    tree.forEach(item => {
+        if(item.id === node.id){
+            item = node
+        }else {
+            if (item.children) {
+                replaceTree(item.children, node)
+            }
+        }
+        return item;
+    })
+}
+export { appendNodeInTree, removeNodeInTree,removeNodeAndSort,  updataTreeSort, findNodeById, replaceTree };

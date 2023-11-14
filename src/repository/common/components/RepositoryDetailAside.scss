@@ -2,6 +2,7 @@
     background-color: var(--tiklab-gray-600);
     position: relative;
     z-index: 5;
+
     .ant-layout-sider-children {
         position: fixed;
         width: 250px;
@@ -11,6 +12,7 @@
             border-right: 1px solid #f0f2f5;
             height: calc(100vh - 48px);
             width: 270px;
+
             ul {
                 padding: 0;
                 margin: 0;
@@ -43,6 +45,7 @@
                 }
 
             }
+
             .repository-toggleCollapsed {
                 display: flex;
                 position: relative;
@@ -52,7 +55,34 @@
             .setting {
                 border-top: 1px solid #f0f2f5;
             }
+            .repository-menu-node {
+                display: flex;
+                align-items: center;
+                .ant-tree-switcher {
+                    padding: 10px 0;
+                    .ant-tree-switcher-icon {
+                        padding: 5px 0;
+                    }
+                }
+                .ant-tree-node-content-wrapper {
+                    padding: 0;
+                }
 
+                .ant-tree-node-selected {
+                    background-color: transparent;
+                }
+
+                .ant-tree-node-content-wrapper:hover {
+                    background-color: transparent;
+                }
+
+                .ant-tree-node-content-wrapper {
+                    width: 90;
+                }
+            }
+            .repository-menu-node:hover {
+                background-color: #EDF0F5;
+            }
             .repository-menu-select {
                 background-color: #e3e8f0;
                 border-left: 3px solid #0053ca;
@@ -63,6 +93,7 @@
                 height: calc(100% - 120px);
                 cursor: pointer;
                 overflow: auto;
+
                 .repository-menu-firstmenu {
                     height: 40px;
                     display: flex;
@@ -71,39 +102,31 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 10px 10px 10px 24px;
+
                     .repository-menu-firstmenu-left {
                         display: flex;
                         align-items: center;
                     }
                 }
+
                 .repository-menu-up {
                     margin-top: 100px;
                 }
+
                 .repository-menu-down {
                     margin-bottom: 100px;
                 }
+
                 .repository-menu-submenu {
                     height: 40px;
                     display: flex;
                     line-height: 40px;
                     width: 100%;
                     align-items: center;
-                    justify-content: space-between;
+                    // justify-content: space-between;
                     padding: 10px 10px 10px 0;
-                    .ant-tree-switcher {
-                       .ant-tree-switcher-icon {
-                         padding: 5px 0;
-                       }
-                    }
-                    .ant-tree-node-content-wrapper {
-                        padding: 0;
-                        
-                    }
-                    .ant-tree-node-selected {
-                        background-color: transparent;
-                    }
-                    .ant-tree-node-content-wrapper:hover {
-                        background-color: transparent;
+                    .img-icon {
+                        flex-shrink: 0;
                     }
                     .repository-menu-submenu-left {
                         display: flex;
@@ -128,19 +151,12 @@
                     }
 
                     .repository-view {
-                        max-width: 120px;
+                        // max-width: 120px;
                         white-space: nowrap;
                         overflow: hidden;
                         text-overflow: ellipsis;
+                        flex: 1;
                     }
-                }
-
-                .repository-menu-submenu:hover {
-                    background-color: #EDF0F5;
-                }
-
-                .repository-menu-submenu-hidden {
-                    display: none;
                 }
 
                 .iconright {
@@ -167,10 +183,12 @@
             .hidden-menu {
                 display: none;
             }
+
             .icon-action {
                 width: 42px;
                 flex-shrink: 0;
             }
+
             .icon-show {
                 display: block;
             }
@@ -202,9 +220,11 @@
         width: 50px;
     }
 }
+
 .content-add-menu {
     display: flex;
     align-items: center;
+
     .content-add-icon {
         width: 16px;
         height: 16px;

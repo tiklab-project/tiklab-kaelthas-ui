@@ -13,9 +13,8 @@ import { Modal, Select, Form, Input } from 'antd';
 import { appendNodeInTree } from '../../../common/utils/treeDataAction';
 
 const CategoryAdd = (props) => {
-    const { addModalVisible, setAddModalVisible, modalTitle,
-        catalogue, form, contentValue, setSelectKey, userList, categoryStore } = props
-    const { addRepositoryCatalogue, createDocument, findRepositoryCatalogue, setRepositoryCatalogueList,
+    const { treePath, addModalVisible, setAddModalVisible, category, form, userList, categoryStore } = props
+    const { addRepositoryCatalogue, setRepositoryCatalogueList,
         repositoryCatalogueList, expandedTree, setExpandedTree, findCategory } = categoryStore;
     const repositoryId = props.match.params.repositoryId;
 
@@ -33,15 +32,16 @@ const CategoryAdd = (props) => {
     const onFinish = () => {
         form.validateFields().then((values) => {
             let data;
-            if (catalogue) {
+            if (category) {
                 data = {
                     ...values,
                     wikiRepository: { id: repositoryId },
-                    parentWikiCategory: { id: catalogue.id },
-                    dimension: catalogue.dimension + 1,
+                    parentWikiCategory: { id: category.id },
+                    dimension: category.dimension + 1,
                     master: { id: values.master },
                     typeId: "category",
-                    formatType: "category"
+                    formatType: "category",
+                    treePath: treePath
                 }
             } else {
                 data = {
@@ -57,13 +57,13 @@ const CategoryAdd = (props) => {
                 if (data.code === 0) {
                     findCategory({ id: data.data }).then(res => {
                         if (res.code === 0) {
-                           const list =  appendNodeInTree(catalogue?.id, repositoryCatalogueList, [res.data]);
+                           const list =  appendNodeInTree(category?.id, repositoryCatalogueList, [res.data]);
                            setRepositoryCatalogueList([...list])
                         }
                     })
                     setAddModalVisible(!addModalVisible)
-                    if (catalogue?.id) {
-                        setOpenOrClose(catalogue.id)
+                    if (category?.id) {
+                        setOpenOrClose(category.id)
                     }
                     props.history.push(`/index/repositorydetail/${repositoryId}/folder/${data.data}`)
                     form.resetFields()

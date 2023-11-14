@@ -11,8 +11,8 @@ import { observable, action} from "mobx";
 export class CategoryStore {
     // 知识库id
     @observable repositoryCatalogue = [];
-    @observable
-    expandedTree = [0];
+    @observable expandedTree = [];
+    @observable aaa = [];
     // 目录树
     @observable repositoryCatalogueList = [];
     @observable docDetail = [{
@@ -20,10 +20,15 @@ export class CategoryStore {
         type: "",
         content: ""
     }]
-
+    @action
+    setAAA = (value) => {
+        this.aaa = value;
+        console.log(this.aaa)
+    }
     @action
     setExpandedTree = (value) => {
         this.expandedTree = value;
+        console.log(this.expandedTree)
     }
     /**
      * 

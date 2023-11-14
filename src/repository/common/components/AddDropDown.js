@@ -11,12 +11,14 @@ const AddDropDown = (props) => {
     const { category, categoryStore } = props;
     const repositoryId = props.match.params.repositoryId;
     const userId = getUser().userId;
+    const treePath = category ? 
+        (category.treePath ? category.treePath + category.id + ";" :  category.id + ";") : null;
     const [addModalVisible, setAddModalVisible] = useState()
     const [userList, setUserList] = useState()
     const [catalogue, setCatalogue] = useState()
     const [contentValue, setContentValue] = useState()
-    const { findRepositoryCatalogue, repositoryCatalogueList, setRepositoryCatalogueList,
-        createDocument, expandedTree, setExpandedTree, findDmUserList, findDocument } = categoryStore;
+    const { repositoryCatalogueList, setRepositoryCatalogueList,
+        createDocument, findDmUserList, findDocument } = categoryStore;
 
     const addMenu = () => {
         return <Menu onClick={(value) => selectAddType(value)}>
@@ -71,7 +73,11 @@ const AddDropDown = (props) => {
             typeId: "document",
             formatType: "document",
             dimension: category? category.dimension + 1 : 1,
-            wikiCategory: { id: category? category.id : null },
+            wikiCategory: { 
+                id: category ? category.id : null, 
+                treePath:  category ? category.treepath : null
+            },
+            treePath : treePath
         }
         if (value.key === "document") {
             params.typeId = "document"
@@ -131,8 +137,9 @@ const AddDropDown = (props) => {
                 setAddModalVisible={setAddModalVisible}
                 addModalVisible={addModalVisible}
                 form={form}
-                catalogue={catalogue}
+                category={category}
                 contentValue={contentValue}
+                treePath = {treePath}
                 // setSelectKey={setSelectKey}
                 userList={userList}
                 {...props}

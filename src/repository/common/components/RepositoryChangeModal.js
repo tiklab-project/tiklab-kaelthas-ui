@@ -72,8 +72,7 @@ const RepositoryChangeModal = (props) => {
                 </div>
             </div>
 
-            <div
-                className={`change-repository-box ${showMenu ? "menu-show" : "menu-hidden"}`}
+            <div className={`change-repository-box ${showMenu ? "menu-show" : "menu-hidden"}`}
                 ref={modelRef}
             >
                 <div className="change-repository-head">切换知识库</div>

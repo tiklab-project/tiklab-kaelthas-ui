@@ -8,12 +8,14 @@ import UserIcon from "../../../common/UserIcon/UserIcon";
 import "./survey.scss";
 import { getUser } from "tiklab-core-ui";
 import SurveyStore from "../store/SurveyStore";
-import CategoryStore from "../../common/store/CategoryStore"
+import CategoryStore from "../../common/store/CategoryStore";
+import { replaceTree } from '../../../common/utils/treeDataAction';
 const Survey = (props) => {
-    const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList } = SurveyStore;
+    const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList, 
+        findCategoryListTreeById,  } = SurveyStore;
 
     const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue,
-        expandedTree, setExpandedTree } = CategoryStore;
+        expandedTree, setExpandedTree, repositoryCatalogueList, aaa, setAAA } = CategoryStore;
 
     const [repositoryInfo, setRepositoryInfo] = useState();
     const repositoryId = props.match.params.repositoryId
@@ -170,22 +172,57 @@ const Survey = (props) => {
     }
     const setOpenOrClose = key => {
         if (!isExpandedTree(key)) {
-            setExpandedTree(expandedTree.concat(key));
-        }
+            console.log(expandedTree.concat(key))
+            setExpandedTree([...expandedTree.concat(key)]);
+        } 
+        console.log(expandedTree)
     }
 
 
-    const goDocumentDetail = item => {
-        if (item.typeId === "document") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.id}`)
+    const goDocumentDetail = document => {
+        if (document.typeId === "document") {
+            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/doc/${document.id}`)
         }
-        if (item.typeId === "markdown") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/markdownView/${item.id}`)
+        if (document.typeId === "markdown") {
+            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/markdownView/${document.id}`)
         }
-        if (item.typeId === "category") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/folder/${item.id}`)
+        if (document.typeId === "category") {
+            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/folder/${document.id}`)
         }
-        setOpenOrClose(item.wikiCategory?.id)
+        const params = {
+            id: document.id,
+            treePath: document.treePath
+        }
+        setExpandedTree(["000000"])
+        setAAA(["000000"])
+        console.log(aaa)
+        // const list = document.treePath.split(";")
+        // list.map(item => {
+        //      // setOpenOrClose(item)
+        //      debugger
+        //      const a = [...expandedTree, item]
+        //      console.log(a)
+        //      setExpandedTree(a)
+        //      console.log(expandedTree)
+        // })
+        // findCategoryListTreeById(params).then(res => {
+        //     if(res.code === 0){
+        //         replaceTree(repositoryCatalogueList, res.data[0])
+        //         if(document.treePath){
+        //            const list = document.treePath.split(";")
+        //            list.map(item => {
+        //                 // setOpenOrClose(item)
+        //                 debugger
+        //                 const a = [...expandedTree, item]
+        //                 console.log(a)
+        //                 setExpandedTree(a)
+        //                 console.log(expandedTree)
+        //            })
+        //            console.log()
+        //         }
+        //     }
+        // })
+        // setOpenOrClose(item.wikiCategory?.id)
     }
 
     /**

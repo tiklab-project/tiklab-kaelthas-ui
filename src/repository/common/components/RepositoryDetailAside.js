@@ -17,7 +17,8 @@ import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
 import "./RepositoryDetailAside.scss"
-import { appendNodeInTree, removeNodeAndSort, updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
+import { appendNodeInTree, removeNodeAndSort, 
+    updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
 import AddDropDown from './AddDropDown';
 import { DownOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -28,10 +29,9 @@ const RepositorydeAside = (props) => {
     const { searchrepository, repository, repositorylist, categoryStore } = props;
     //语言包
     const { t } = useTranslation();
-    const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
         repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
-        createDocument, expandedTree, setExpandedTree, findDmUserList, findDocument, findCategory } = categoryStore;
+        expandedTree, setExpandedTree } = categoryStore;
 
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
@@ -155,13 +155,6 @@ const RepositorydeAside = (props) => {
         if (value.key === "move") {
             setMoveLogListVisible(true)
             setMoveItem(item)
-            setFormatType(formatType)
-            if(formatType === "document"){
-                setMoveCategoryParentId(item.wikiCategory ? item.wikiCategory.id : null)
-            }
-            if(formatType === "category"){
-                setMoveCategoryParentId(item.parentWikiCategory ? item.parentWikiCategory.id : null)
-            }
         }
         if (value.key === "share") {
             setShareListVisible(true)
@@ -219,6 +212,7 @@ const RepositorydeAside = (props) => {
             findCategoryChildren(id, expanded.node.dimension)
             setExpandedTree(expandedTree.concat(id));
         }
+        console.log(expandedTree)
     }
 
     const setOpenClickCategory = key => {
@@ -226,14 +220,11 @@ const RepositorydeAside = (props) => {
         if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
         }
+        console.log(expandedTree)
     }
 
     const [moveItem, setMoveItem] = useState()
-    const [moveCategoryParentId, setMoveCategoryParentId] = useState()
-    const [formatType, setFormatType] = useState()
     const [moveLogListVisible, setMoveLogListVisible] = useState(false)
-
-
 
     const fileTree = (item, index) => {
         return <div
@@ -243,34 +234,31 @@ const RepositorydeAside = (props) => {
             onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
             onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
         >
-            <div className="repository-menu-submenu-left">
-
-                {
-                    item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-file"></use>
-                    </svg>
-                }
-                {
-                    item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-minmap"></use>
-                    </svg>
-                }
-                <span
-                    className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                    contentEditable={isRename === item.id ? true : false}
-                    suppressContentEditableWarning
-                    onBlur={(value) => reName(value, item.id, item.formatType)}
-                    onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+            {
+                item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-file"></use>
+                </svg>
+            }
+            {
+                item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-minmap"></use>
+                </svg>
+            }
+            <span
+                className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                contentEditable={isRename === item.id ? true : false}
+                suppressContentEditableWarning
+                onBlur={(value) => reName(value, item.id, item.formatType)}
+                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
 
 
-                    id={"file-" + item.id}
-                    title={item.name}
-                >
-                    {item.name}
-                </span>
-            </div>
+                id={"file-" + item.id}
+                title={item.name}
+            >
+                {item.name}
+            </span>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                <Dropdown overlay={() => editMenu(item,index)} placement="bottomLeft">
+                <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
                     <svg className="img-icon" aria-hidden="true">
                         <use xlinkHref="#icon-moreBlue"></use>
                     </svg>
@@ -283,26 +271,24 @@ const RepositorydeAside = (props) => {
     }
 
     const logTree = (item, index) => {
-        return <div className={`repository-menu-submenu`}
+        return <div
+            className={`repository-menu-submenu`}
             key={item.id}
             onClick={(event) => selectKeyFun(event, item)}
             onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
             onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
         >
-
-            <div className="repository-menu-submenu-left" draggable="false">
-                <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-folder"></use>
-                </svg>
-                <span className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                    contentEditable={isRename === item.id ? true : false}
-                    suppressContentEditableWarning
-                    onBlur={(value) => reName(value, item.id, item.formatType)}
-                    ref={isRename === item.id ? inputRef : null}
-                    // id = {isRename === item.id ? isRename : null}
-                    onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-                > {item.name} </span>
-            </div>
+            <svg className="img-icon" aria-hidden="true">
+                <use xlinkHref="#icon-folder"></use>
+            </svg>
+            <div className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                contentEditable={isRename === item.id ? true : false}
+                suppressContentEditableWarning
+                onBlur={(value) => reName(value, item.id, item.formatType)}
+                ref={isRename === item.id ? inputRef : null}
+                // id = {isRename === item.id ? isRename : null}
+                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+            > {item.name} </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
 
                 <AddDropDown category={item} />
@@ -322,10 +308,11 @@ const RepositorydeAside = (props) => {
                     key={item.id}
                     dimension={item.dimension}
                     sort={item.sort}
+                    treePath = {item.treePath}
                     type={item.formatType}
                     parentWikiCategory={item.dimension !== 1 ? item.parentWikiCategory?.id : "nullString"}
                     disableCheckbox
-                    className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""}`}>
+                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""}`}>
                     {categoryTree(item.children)}
                 </Tree.TreeNode>
             }
@@ -335,10 +322,11 @@ const RepositorydeAside = (props) => {
                     disableCheckbox
                     type={item.formatType}
                     dimension={item.dimension}
+                    treePath = {item.treePath}
                     parentWikiCategory={item.dimension !== 1 ? item.wikiCategory?.id : "nullString"}
                     key={item.id}
                     sort={item.sort}
-                    className={`repository-menu-submenu ${item.id === selectKey ? "repository-menu-select" : ""} `}
+                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""} `}
                 />
 
             }
@@ -358,6 +346,7 @@ const RepositorydeAside = (props) => {
         const dropParentId = node.parentWikiCategory;
         const dropSort = node.sort;
         const dropDimension = node.dimension;
+        const dropTreePath = node.treePath;
 
 
         const dragId = dragNode.key;
@@ -365,6 +354,7 @@ const RepositorydeAside = (props) => {
         const dragSort = dragNode.sort;
         const dragDimension = dragNode.dimension;
         const type = dragNode.type;
+        const dragTreePath = dragNode.treePath;
 
         const dropPos = info.node.pos.split('-');
         const dropPosition = info.dropPosition - Number(dropPos[dropPos.length - 1]);
@@ -372,6 +362,7 @@ const RepositorydeAside = (props) => {
         let params = {}
         console.log(dropToGap, dropPosition, node, dragNode)
         if (dropToGap === false && dropPosition !== -1) {
+
             params = {
                 id: dragId,
                 sort: 0,
@@ -379,6 +370,7 @@ const RepositorydeAside = (props) => {
                 dimension: dropDimension + 1,
                 oldDimension: dragDimension,
                 oldSort: dragSort,
+                treePath: dropTreePath ? dropTreePath + dropId + ";" : dropId + ";",
                 wikiRepository: {
                     id: repositoryId
                 }
@@ -403,25 +395,26 @@ const RepositorydeAside = (props) => {
                 oldSort: dragSort,
                 oldDimension: dragDimension,
                 dimension: dropDimension,
+                treePath: dropTreePath,
                 wikiRepository: {
                     id: repositoryId
                 }
             }
-            
+
             // 同级移动
-            if(dropParentId === dragParentId){
-                if(dragSort > dropSort){
+            if (dropParentId === dragParentId) {
+                if (dragSort > dropSort) {
                     params.sort = dropSort + 1
                 }
-                if(dragSort < dropSort){
+                if (dragSort < dropSort) {
                     params.sort = dropSort
                 }
-                if(dragSort === dropSort) return;
-            }else {
+                if (dragSort === dropSort) return;
+            } else {
                 params.sort = dropSort + 1
             }
-            
-           
+
+
             if (type === "document") {
                 params.wikiCategory = {
                     id: dropParentId
@@ -443,6 +436,7 @@ const RepositorydeAside = (props) => {
                 oldSort: dragSort,
                 oldDimension: dragDimension,
                 dimension: 1,
+                treePath: null,
                 wikiRepository: {
                     id: repositoryId
                 }

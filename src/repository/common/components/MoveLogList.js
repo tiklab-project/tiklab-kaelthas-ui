@@ -11,7 +11,7 @@ import { Modal, message } from 'antd';
 import "./moveLogList.scss";
 import { observer, inject } from "mobx-react";
 import { withRouter } from 'react-router';
-import { appendNodeInTree, removeNodeAndSort, updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
+import { updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
 
 const MoveLogList = (props) => {
     const { moveLogListVisible, setMoveLogListVisible, moveItem, categoryStore } = props;
@@ -32,6 +32,7 @@ const MoveLogList = (props) => {
                     dimension: selectKey.dimension + 1,
                     oldDimension: moveItem.dimension,
                     oldSort: moveItem.sort,
+                    treePath: selectKey.treePath ? selectKey.treePath + selectKey.id + ";" : selectKey.id + ";" ,
                     wikiRepository: {
                         id: repositoryId
                     },
@@ -50,6 +51,7 @@ const MoveLogList = (props) => {
                     dimension: selectKey.dimension + 1,
                     oldDimension: moveItem.dimension,
                     oldSort: moveItem.sort,
+                    treePath: selectKey.treePath ? selectKey.treePath + selectKey.id + ";" : selectKey.id + ";" ,
                     wikiRepository: {
                         id: repositoryId
                     },
