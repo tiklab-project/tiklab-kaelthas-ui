@@ -16,12 +16,12 @@ import Button from "../../../common/button/button";
 import DocumentStore from "../store/DocumentStore";
 import "tiklab-slate-ui/es/tiklab-slate.css";
 import { getUser } from "tiklab-core-ui";
+import { updateNodeName } from "../../../common/utils/treeDataAction";
 const DocumentEdit = (props) => {
     const { relationWorkStore } = props;
     const { findDocument, updateDocument } = DocumentStore;
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
-    const repositoryId = props.match.params.repositoryId;
     const [value, setValue] = useState()
     const [titleValue, setTitleValue] = useState();
     const editRef = useRef(); 
@@ -68,16 +68,15 @@ const DocumentEdit = (props) => {
 
     const changeTitle = (value) => {
         setTitleValue(value.target.value)
-        console.log(value)
         const data = {
             id: documentId,
             name: value.target.value
         }
         updateDocument(data).then(res => {
             if (res.code === 0) {
-                console.log(res.code)
                 document.getElementById("examine-title").innerHTML = value.target.value;
-                document.getElementById("file-" + documentId).innerHTML = value.target.value
+                document.getElementById("file-" + documentId).innerHTML = value.target.value;
+                updateNodeName(repositoryCatalogueList, documentId, value.target.value)
             }
         })
     }

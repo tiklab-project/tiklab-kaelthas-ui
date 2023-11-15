@@ -7,12 +7,11 @@
  * @LastEditTime: 2021-12-22 14:34:53
  */
 import { Service } from "../../../common/utils/requset";
-import { observable, action} from "mobx";
+import { observable, action, makeObservable} from "mobx";
 export class CategoryStore {
     // 知识库id
     @observable repositoryCatalogue = [];
     @observable expandedTree = [];
-    @observable aaa = [];
     // 目录树
     @observable repositoryCatalogueList = [];
     @observable docDetail = [{
@@ -20,15 +19,14 @@ export class CategoryStore {
         type: "",
         content: ""
     }]
-    @action
-    setAAA = (value) => {
-        this.aaa = value;
-        console.log(this.aaa)
+    constructor() {
+        this.aaa = [];
+        makeObservable
     }
+
     @action
     setExpandedTree = (value) => {
         this.expandedTree = value;
-        console.log(this.expandedTree)
     }
     /**
      * 

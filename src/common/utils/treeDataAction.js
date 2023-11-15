@@ -164,9 +164,9 @@ const updateNode = (node, distence) => {
 }
 
 const replaceTree = (tree, node) => {
-    tree.forEach(item => {
+    tree.forEach((item, index) => {
         if(item.id === node.id){
-            item = node
+            tree[index] = node;
         }else {
             if (item.children) {
                 replaceTree(item.children, node)
@@ -175,4 +175,17 @@ const replaceTree = (tree, node) => {
         return item;
     })
 }
-export { appendNodeInTree, removeNodeInTree,removeNodeAndSort,  updataTreeSort, findNodeById, replaceTree };
+
+const updateNodeName = (tree, id, name) => {
+    tree.forEach((item, index) => {
+        if(item.id === id){
+            tree[index].name = name;
+        }else {
+            if (item.children) {
+                updateNodeName(item.children, id, name)
+            }
+        }
+        return item;
+    })
+}
+export { appendNodeInTree, removeNodeInTree,removeNodeAndSort,  updataTreeSort, findNodeById, replaceTree, updateNodeName };

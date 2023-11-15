@@ -18,7 +18,7 @@ import MoveLogList from "./MoveLogList"
 import { getUser } from 'tiklab-core-ui';
 import "./RepositoryDetailAside.scss"
 import { appendNodeInTree, removeNodeAndSort, 
-    updataTreeSort, findNodeById } from '../../../common/utils/treeDataAction';
+    updataTreeSort, findNodeById, updateNodeName } from '../../../common/utils/treeDataAction';
 import AddDropDown from './AddDropDown';
 import { DownOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -36,18 +36,17 @@ const RepositorydeAside = (props) => {
     // 当前选中目录id
     const id = props.location.pathname.split("/")[5];
     const [selectKey, setSelectKey] = useState(id);
-    const [isShowText, SetIsShowText] = useState(true)
     const [changeRepositoryVisible, setChangeRepositoryVisible] = useState(null)
     const repositoryId = props.match.params.repositoryId;
     const [isHover, setIsHover] = useState(false)
     const [requsetedCategory, setRequsetedCategory] = useState([])
 
-
     const userId = getUser().userId;
     const tenant = getUser().tenant;
 
     const [shareListVisible, setShareListVisible] = useState(false)
-
+    const inputRef = React.useRef(null);
+    const [isRename, setIsRename] = useState()
 
     useEffect(() => {
         findRepositoryCatalogue({ repositoryId: repositoryId, dimensions: [1, 2] }).then((data) => {
@@ -102,7 +101,6 @@ const RepositorydeAside = (props) => {
                     setRepositoryCatalogueList([...list])
                     setRequsetedCategory(requsetedCategory.concat(id))
                 }
-
             })
         }
     }
@@ -125,11 +123,7 @@ const RepositorydeAside = (props) => {
         </Menu>
     };
 
-
-
     //更新目录
-    const inputRef = React.useRef(null);
-    const [isRename, setIsRename] = useState()
     const editCatelogue = (value, item, index) => {
         const { id, formatType, sort } = item;
         value.domEvent.stopPropagation()
@@ -160,6 +154,7 @@ const RepositorydeAside = (props) => {
             setShareListVisible(true)
         }
     }
+
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.autofocus = true;
@@ -180,6 +175,7 @@ const RepositorydeAside = (props) => {
             updateRepositoryCatalogue(params).then(data => {
                 if (data.code === 0) {
                     setIsRename(null)
+                    updateNodeName(repositoryCatalogueList, id, name)
                 }
             })
         }
@@ -187,12 +183,13 @@ const RepositorydeAside = (props) => {
             updateDocument(params).then(data => {
                 if (data.code === 0) {
                     setIsRename(null)
+                    updateNodeName(repositoryCatalogueList, id, name)
                 }
             })
         }
     }
-    const enterKeyRename = (value, id, formatType) => {
 
+    const enterKeyRename = (value, id, formatType) => {
         if (value.keyCode === 13) {
             event.stopPropagation();
             event.preventDefault()
@@ -200,10 +197,10 @@ const RepositorydeAside = (props) => {
         }
     }
 
-
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
+
     const setOpenOrClose = expanded => {
         const id = expanded.node.key
         if (isExpandedTree(id)) {
@@ -212,127 +209,16 @@ const RepositorydeAside = (props) => {
             findCategoryChildren(id, expanded.node.dimension)
             setExpandedTree(expandedTree.concat(id));
         }
-        console.log(expandedTree)
     }
 
     const setOpenClickCategory = key => {
-
         if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
         }
-        console.log(expandedTree)
     }
 
     const [moveItem, setMoveItem] = useState()
     const [moveLogListVisible, setMoveLogListVisible] = useState(false)
-
-    const fileTree = (item, index) => {
-        return <div
-            key={item.id}
-            className={`repository-menu-submenu`}
-            onClick={(event) => selectKeyFun(event, item)}
-            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
-            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
-        >
-            {
-                item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-file"></use>
-                </svg>
-            }
-            {
-                item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-minmap"></use>
-                </svg>
-            }
-            <span
-                className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                contentEditable={isRename === item.id ? true : false}
-                suppressContentEditableWarning
-                onBlur={(value) => reName(value, item.id, item.formatType)}
-                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-
-
-                id={"file-" + item.id}
-                title={item.name}
-            >
-                {item.name}
-            </span>
-            <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
-                <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
-                    <svg className="img-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-moreBlue"></use>
-                    </svg>
-                </Dropdown>
-            </div>
-        </div>
-
-
-
-    }
-
-    const logTree = (item, index) => {
-        return <div
-            className={`repository-menu-submenu`}
-            key={item.id}
-            onClick={(event) => selectKeyFun(event, item)}
-            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
-            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
-        >
-            <svg className="img-icon" aria-hidden="true">
-                <use xlinkHref="#icon-folder"></use>
-            </svg>
-            <div className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
-                contentEditable={isRename === item.id ? true : false}
-                suppressContentEditableWarning
-                onBlur={(value) => reName(value, item.id, item.formatType)}
-                ref={isRename === item.id ? inputRef : null}
-                // id = {isRename === item.id ? isRename : null}
-                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
-            > {item.name} </div>
-            <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
-
-                <AddDropDown category={item} />
-                <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
-                    <svg className="img-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-moreBlue"></use>
-                    </svg>
-                </Dropdown>
-            </div>
-        </div>
-    }
-    const categoryTree = (data) => {
-        return data?.map((item, index) => {
-            if (item.formatType === "category") {
-                return <Tree.TreeNode
-                    title={logTree(item, index)}
-                    key={item.id}
-                    dimension={item.dimension}
-                    sort={item.sort}
-                    treePath = {item.treePath}
-                    type={item.formatType}
-                    parentWikiCategory={item.dimension !== 1 ? item.parentWikiCategory?.id : "nullString"}
-                    disableCheckbox
-                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""}`}>
-                    {categoryTree(item.children)}
-                </Tree.TreeNode>
-            }
-            if (item.formatType === "document") {
-                return <Tree.TreeNode
-                    title={fileTree(item, index)}
-                    disableCheckbox
-                    type={item.formatType}
-                    dimension={item.dimension}
-                    treePath = {item.treePath}
-                    parentWikiCategory={item.dimension !== 1 ? item.wikiCategory?.id : "nullString"}
-                    key={item.id}
-                    sort={item.sort}
-                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""} `}
-                />
-
-            }
-        })
-    }
-
 
     const onDrop = (info) => {
         const { event, node, dragNode, dragNodesKeys } = info;
@@ -482,20 +368,112 @@ const RepositorydeAside = (props) => {
             }
         })
     }
-
-    const loop = (data, dropKey) => {
-        for (const item of data) {
-            if (item.id === dropKey) return item
-            if (item.children && item.children.length > 0) {
-                const _item = loop(item.children, dropKey)
-                if (_item) return _item
+    const fileTree = (item, index) => {
+        return <div
+            key={item.id}
+            className={`repository-menu-submenu`}
+            onClick={(event) => selectKeyFun(event, item)}
+            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
+        >
+            {
+                item.typeId === "document" && <svg className="img-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-file"></use>
+                </svg>
             }
-        }
+            {
+                item.typeId === "markdown" && <svg className="img-icon" aria-hidden="true">
+                    <use xlinkHref="#icon-minmap"></use>
+                </svg>
+            }
+            <span
+                className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                contentEditable={isRename === item.id ? true : false}
+                suppressContentEditableWarning
+                onBlur={(value) => reName(value, item.id, item.formatType)}
+                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+
+
+                id={"file-" + item.id}
+                title={item.name}
+            >
+                {item.name}
+            </span>
+            <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"}`}>
+                <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-moreBlue"></use>
+                    </svg>
+                </Dropdown>
+            </div>
+        </div>
+    }
+
+    const logTree = (item, index) => {
+        return <div
+            className={`repository-menu-submenu`}
+            key={item.id}
+            onClick={(event) => selectKeyFun(event, item)}
+            onMouseOver={(event) => { event.stopPropagation(), setIsHover(item.id) }}
+            onMouseLeave={(event) => { event.stopPropagation(), setIsHover(null) }}
+        >
+            <svg className="img-icon" aria-hidden="true">
+                <use xlinkHref="#icon-folder"></use>
+            </svg>
+            <div className={`${isRename === item.id ? "repository-input" : "repository-view"}`}
+                contentEditable={isRename === item.id ? true : false}
+                suppressContentEditableWarning
+                onBlur={(value) => reName(value, item.id, item.formatType)}
+                ref={isRename === item.id ? inputRef : null}
+                onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
+            > {item.name} </div>
+            <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
+
+                <AddDropDown category={item} />
+                <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
+                    <svg className="img-icon" aria-hidden="true">
+                        <use xlinkHref="#icon-moreBlue"></use>
+                    </svg>
+                </Dropdown>
+            </div>
+        </div>
+    }
+    const categoryTree = (data) => {
+        return data?.map((item, index) => {
+            if (item.formatType === "category") {
+                return <Tree.TreeNode
+                    title={logTree(item, index)}
+                    key={item.id}
+                    dimension={item.dimension}
+                    sort={item.sort}
+                    treePath = {item.treePath}
+                    type={item.formatType}
+                    parentWikiCategory={item.dimension !== 1 ? item.parentWikiCategory?.id : "nullString"}
+                    disableCheckbox
+                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""}`}>
+                    {categoryTree(item.children)}
+                </Tree.TreeNode>
+            }
+            if (item.formatType === "document") {
+                return <Tree.TreeNode
+                    title={fileTree(item, index)}
+                    disableCheckbox
+                    type={item.formatType}
+                    dimension={item.dimension}
+                    treePath = {item.treePath}
+                    parentWikiCategory={item.dimension !== 1 ? item.wikiCategory?.id : "nullString"}
+                    key={item.id}
+                    sort={item.sort}
+                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""} `}
+                />
+
+            }
+        })
     }
     return (
         <Fragment>
-            <Sider trigger={null} collapsible collapsed={!isShowText} collapsedWidth="50" width="270" className="repositorydetail-aside">
-                <div className={`repository-aside ${isShowText ? "" : "repository-icon"}`}>
+            <Sider trigger={null} collapsible collapsedWidth="50" width="270" className="repositorydetail-aside">
+                <div className='repository-aside'>
                     <div className="repository-title title">
                         <span className="repository-title-left">
                             {
@@ -525,7 +503,8 @@ const RepositorydeAside = (props) => {
                     </div>
                     <div
                         className={`repository-survey ${selectKey === "survey" ? "repository-menu-select" : ""} `}
-                        onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/survey`); setSelectKey("survey") }}>
+                        onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/survey`); setSelectKey("survey") }}
+                    >
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-home"></use>
                         </svg>
@@ -555,14 +534,11 @@ const RepositorydeAside = (props) => {
                             expandedKeys={expandedTree}
                             onExpand={(expandedKeys, expanded) => setOpenOrClose(expanded)}
                             onDrop={onDrop}
-                        // titleRender = {(nodedata) => setNode(nodedata)}
-                        // treeData = {repositoryCatalogueList}
                         >
                             {
                                 categoryTree(repositoryCatalogueList)
                             }
                         </Tree>
-
                     </div>
                     <div className="repository-setting-menu" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/basicInfo`)}>
                         <svg className="img-icon" aria-hidden="true">

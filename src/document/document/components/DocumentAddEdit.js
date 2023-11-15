@@ -15,10 +15,14 @@ import { withRouter } from "react-router-dom";
 import "./documentAddEdit.scss";
 import SelectTemplateList from "./SelectTemplateList";
 import DocumentStore from "../store/DocumentStore";
+import CategoryStore from "../../../repository/common/store/CategoryStore";
+import { updateNodeName } from "../../../common/utils/treeDataAction";
+
 const DocumentAddEdit = (props) => {
     const {title} = props;
     const [titleValue, setTitleValue] = useState(title);
     const { updateDocument } = DocumentStore;
+    const { repositoryCatalogueList } = CategoryStore;
     const imageNames = ["template2.png", "template1.png", "template3.png", "template4.png"];
     const documentId = props.match.params.id;
     const repositoryId = props.match.params.repositoryId;
@@ -45,9 +49,9 @@ const DocumentAddEdit = (props) => {
         }
         updateDocument(data).then(res => {
             if(res.code === 0){
-                console.log(res.code)
                 document.getElementById("examine-title").innerHTML = value.target.value;
-                document.getElementById("file-" + documentId).innerHTML = value.target.value
+                document.getElementById("file-" + documentId).innerHTML = value.target.value;
+                updateNodeName(repositoryCatalogueList, documentId, value.target.value)
             }
         })
     }

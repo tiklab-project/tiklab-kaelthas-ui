@@ -14,6 +14,7 @@ import CategoryAdd from "../common/components/CategoryAdd"
 import { getUser } from "tiklab-core-ui";
 import CategoryStore from "../common/store/CategoryStore"
 import { appendNodeInTree } from "../../common/utils/treeDataAction";
+import AddDropDown from "../common/components/AddDropDown";
 const CategoryDetail = (props) => {
     const store = {
         categoryStore: CategoryStore
@@ -43,36 +44,7 @@ const CategoryDetail = (props) => {
 
     const [addModalVisible, setAddModalVisible] = useState()
     // 添加按钮下拉菜单
-    const addMenu = (category) => {
-        return <Menu onClick={(value) => selectAddType(value, category)}>
-            <Menu.Item key="category">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-folder"></use>
-                    </svg>
-                    目录
-                </div>
-
-            </Menu.Item>
-            <Menu.Item key="document">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-file"></use>
-                    </svg>
-                    文档
-                </div>
-
-            </Menu.Item>
-            <Menu.Item key="markdown">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-minmap"></use>
-                    </svg>
-                    Markdown
-                </div>
-            </Menu.Item>
-        </Menu>
-    };
+   
 
     /**
      * 添加目录
@@ -89,93 +61,6 @@ const CategoryDetail = (props) => {
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
 
-    const isExpandedTree = (key) => {
-        return expandedTree.some(item => item === key)
-    }
-    const setOpenOrClose = key => {
-        if (isExpandedTree(key)) {
-            setExpandedTree(expandedTree.filter(item => item !== key))
-        } else {
-            setExpandedTree(expandedTree.concat(key));
-        }
-    }
-
-    const selectAddType = (value, category) => {
-        
-
-        if (value.key === "category") {
-            setCatalogue({id: category.id, dimension: category.dimension})
-            setAddModalVisible(true)
-            findDmUserList(repositoryId).then(data => {
-                setUserList(data)
-            })
-        } else if (value.key === "document") {
-            const param = {
-                name: "未命名文档",
-                wikiRepository: { id: repositoryId },
-                master: { id: userId },
-                typeId: "document",
-                formatType: "document",
-                wikiCategory: { id: category.id },
-            }
-            createDocument(param).then((data) => {
-                if (data.code === 0) {
-                    setOpenOrClose(category.id)
-                    
-                    param.id = data.data;
-                    appendNodeInTree(category.id, repositoryCatalogueList, [param] )
-                    props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
-                    // 左侧导航
-                    setSelectKey(data.data)
-                    
-                    // findRepositoryCatalogue(repositoryId).then((data) => {
-                    //     setRepositoryCatalogueList(data)
-                    // })
-                    
-                }
-            })
-        } else if (value.key === "markdown") {
-            const data = {
-                name: "未命名文档",
-                wikiRepository: { id: repositoryId },
-                master: { id: userId },
-                typeId: "markdown",
-                formatType: "document",
-                wikiCategory: { id: id },
-                details: JSON.stringify([
-                    {
-                        type: "code",
-                        children: [
-                            {
-                                type: 'paragraph',
-                                children: [
-                                    {
-                                        text: '',
-                                    },
-                                ],
-                            },
-                        ]
-                    }
-                ])
-            }
-            createDocument(data).then((data) => {
-                if (data.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-                    if (!isExpandedTree(id)) {
-                        setExpandedTree(expandedTree.concat(id));
-                    }
-                    props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
-                    // 左侧导航
-                    setSelectKey(data.data)
-                }
-            })
-        }
-        form.setFieldsValue({
-            formatType: value.key
-        })
-    }
 
     const goToDocument = (item) => {
         const params = {
@@ -219,9 +104,7 @@ const CategoryDetail = (props) => {
                                         </div>
 
                                     </div>
-                                    <Dropdown overlay={() => addMenu(logDetail)} placement="bottomLeft">
-                                        <div className="top-add-botton">添加内容</div>
-                                    </Dropdown>
+                                    <AddDropDown category={logDetail} isButton = {true}/>
                                 </div>
                             </Fragment>
                         }

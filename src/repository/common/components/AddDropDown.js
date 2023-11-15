@@ -8,11 +8,11 @@ import { getUser } from "tiklab-core-ui";
 
 const AddDropDown = (props) => {
     const [form] = Form.useForm();
-    const { category, categoryStore } = props;
+    const { category, categoryStore, isButton } = props;
     const repositoryId = props.match.params.repositoryId;
     const userId = getUser().userId;
-    const treePath = category ? 
-        (category.treePath ? category.treePath + category.id + ";" :  category.id + ";") : null;
+    const treePath = category ?
+        (category.treePath ? category.treePath + category.id + ";" : category.id + ";") : null;
     const [addModalVisible, setAddModalVisible] = useState()
     const [userList, setUserList] = useState()
     const [catalogue, setCatalogue] = useState()
@@ -52,10 +52,10 @@ const AddDropDown = (props) => {
     }
     const selectAddType = (value) => {
         if (value.key === "category") {
-            if(category){
-               setCatalogue({id: category.id, dimension: category.dimension}) 
+            if (category) {
+                setCatalogue({ id: category.id, dimension: category.dimension })
             }
-            
+
             setAddModalVisible(true)
             findDmUserList(repositoryId).then(data => {
                 setUserList(data)
@@ -72,12 +72,12 @@ const AddDropDown = (props) => {
             master: { id: userId },
             typeId: "document",
             formatType: "document",
-            dimension: category? category.dimension + 1 : 1,
-            wikiCategory: { 
-                id: category ? category.id : null, 
-                treePath:  category ? category.treepath : null
+            dimension: category ? category.dimension + 1 : 1,
+            wikiCategory: {
+                id: category ? category.id : null,
+                treePath: category ? category.treepath : null
             },
-            treePath : treePath
+            treePath: treePath
         }
         if (value.key === "document") {
             params.typeId = "document"
@@ -127,11 +127,18 @@ const AddDropDown = (props) => {
     }
     return (
         <>
-            <Dropdown overlay={() => addMenu()} placement="bottomLeft">
-                <svg className="img-icon" aria-hidden="true">
-                    <use xlinkHref="#icon-plusBlue"></use>
-                </svg>
-            </Dropdown>
+            {
+                isButton ? <Dropdown overlay={() => addMenu()} placement="bottomLeft">
+                    <div className="top-add-botton">添加</div>
+                </Dropdown>
+                    :
+                    <Dropdown overlay={() => addMenu()} placement="bottomLeft">
+                        <svg className="img-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-plusBlue"></use>
+                        </svg>
+                    </Dropdown>
+            }
+
 
             <CategoryAdd
                 setAddModalVisible={setAddModalVisible}
@@ -139,7 +146,7 @@ const AddDropDown = (props) => {
                 form={form}
                 category={category}
                 contentValue={contentValue}
-                treePath = {treePath}
+                treePath={treePath}
                 // setSelectKey={setSelectKey}
                 userList={userList}
                 {...props}

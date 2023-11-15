@@ -3,26 +3,21 @@ import { Row, Col, Form, Dropdown, Menu, Empty } from 'antd';
 import { withRouter } from "react-router";
 import { observer } from "mobx-react";
 import Button from "../../../common/button/button";
-import CategoryAdd from "../../common/components/CategoryAdd";
 import UserIcon from "../../../common/UserIcon/UserIcon";
 import "./survey.scss";
 import { getUser } from "tiklab-core-ui";
 import SurveyStore from "../store/SurveyStore";
 import CategoryStore from "../../common/store/CategoryStore";
 import { replaceTree } from '../../../common/utils/treeDataAction';
+import AddDropDown from "../../common/components/AddDropDown";
 const Survey = (props) => {
     const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList, 
         findCategoryListTreeById,  } = SurveyStore;
 
-    const { setRepositoryCatalogueList, createDocumentRecent, createDocument, findRepositoryCatalogue,
-        expandedTree, setExpandedTree, repositoryCatalogueList, aaa, setAAA } = CategoryStore;
+    const { expandedTree, setExpandedTree, repositoryCatalogueList } = CategoryStore;
 
     const [repositoryInfo, setRepositoryInfo] = useState();
     const repositoryId = props.match.params.repositoryId
-    const [form] = Form.useForm();
-    const [modalTitle, setModalTitle] = useState()
-    const [contentValue, setContentValue] = useState()
-    const [selectKey, setSelectKey] = useState();
     const [recentViewDocumentList, setRecentViewDocumentList] = useState([]);
     const [userList, setUserList] = useState();
     const userId = getUser().userId;
@@ -52,132 +47,12 @@ const Survey = (props) => {
         })
 
         findUserList({ domainId: repositoryId }).then(res => {
-            // console.log(res)
             if (res.code === 0) {
                 setUserList(res.data)
             }
         })
         return;
     }, [repositoryId])
-
-    const addMenu = (id) => {
-        return <Menu onClick={(value) => selectAddType(value, id)}>
-            <Menu.Item key="category">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-folder"></use>
-                    </svg>
-                    目录
-                </div>
-
-            </Menu.Item>
-            <Menu.Item key="document">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-file"></use>
-                    </svg>
-                    文档
-                </div>
-
-            </Menu.Item>
-            <Menu.Item key="markdown">
-                <div className="content-add-menu">
-                    <svg className="content-add-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-minmap"></use>
-                    </svg>
-                    Markdown
-                </div>
-            </Menu.Item>
-        </Menu>
-    };
-
-    const [catalogueId, setCatalogueId] = useState()
-    const [addModalVisible, setAddModalVisible] = useState()
-    const selectAddType = (value, id) => {
-        setCatalogueId(id)
-        if (value.key === "document") {
-            const data = {
-                name: "未命名文档",
-                wikiRepository: { id: repositoryId },
-                master: { id: userId },
-                typeId: "document",
-                formatType: "document",
-                wikiCategory: { id: id },
-            }
-            console.log(id)
-            createDocument(data).then((data) => {
-                if (data.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-
-                    props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
-                    // 左侧导航
-                    setSelectKey(data.data)
-                }
-
-            })
-        }
-        if (value.key === "markdown") {
-            const data = {
-                name: "未命名文档",
-                wikiRepository: { id: repositoryId },
-                master: { id: userId },
-                typeId: "markdown",
-                formatType: "document",
-                wikiCategory: { id: id },
-                details: JSON.stringify([
-                    {
-                        type: "code",
-                        children: [
-                            {
-                                type: 'paragraph',
-                                children: [
-                                    {
-                                        text: '',
-                                    },
-                                ],
-                            },
-                        ]
-                    }
-                ])
-            }
-            createDocument(data).then((data) => {
-                if (data.code === 0) {
-                    findRepositoryCatalogue(repositoryId).then((data) => {
-                        setRepositoryCatalogueList(data)
-                    })
-                    if (!isExpandedTree(id)) {
-                        setExpandedTree(expandedTree.concat(id));
-                    }
-                    props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
-                    // 左侧导航
-                    setSelectKey(data.data)
-                }
-            })
-        }
-        if (value.key === "category") {
-            setAddModalVisible(true)
-            setModalTitle("添加目录")
-        }
-        // 
-        form.setFieldsValue({
-            formatType: value.key
-        })
-    }
-
-    // 树的展开与闭合
-    const isExpandedTree = (key) => {
-        return expandedTree.some(item => item === key)
-    }
-    const setOpenOrClose = key => {
-        if (!isExpandedTree(key)) {
-            console.log(expandedTree.concat(key))
-            setExpandedTree([...expandedTree.concat(key)]);
-        } 
-        console.log(expandedTree)
-    }
-
 
     const goDocumentDetail = document => {
         if (document.typeId === "document") {
@@ -193,36 +68,20 @@ const Survey = (props) => {
             id: document.id,
             treePath: document.treePath
         }
-        setExpandedTree(["000000"])
-        setAAA(["000000"])
-        console.log(aaa)
-        // const list = document.treePath.split(";")
-        // list.map(item => {
-        //      // setOpenOrClose(item)
-        //      debugger
-        //      const a = [...expandedTree, item]
-        //      console.log(a)
-        //      setExpandedTree(a)
-        //      console.log(expandedTree)
-        // })
-        // findCategoryListTreeById(params).then(res => {
-        //     if(res.code === 0){
-        //         replaceTree(repositoryCatalogueList, res.data[0])
-        //         if(document.treePath){
-        //            const list = document.treePath.split(";")
-        //            list.map(item => {
-        //                 // setOpenOrClose(item)
-        //                 debugger
-        //                 const a = [...expandedTree, item]
-        //                 console.log(a)
-        //                 setExpandedTree(a)
-        //                 console.log(expandedTree)
-        //            })
-        //            console.log()
-        //         }
-        //     }
-        // })
-        // setOpenOrClose(item.wikiCategory?.id)
+        findCategoryListTreeById(params).then(res => {
+            if(res.code === 0){
+                console.log(res.data[0])
+                replaceTree(repositoryCatalogueList, res.data[0])
+                if(document.treePath){
+                    const list =  document.treePath.split(";")
+                    list.pop();
+                    let newExpandedTree = [...expandedTree, ...list]
+                    // 去重
+                    newExpandedTree = Array.from(new Set(newExpandedTree))
+                    setExpandedTree(newExpandedTree)
+                }
+            }
+        })
     }
 
     /**
@@ -288,9 +147,7 @@ const Survey = (props) => {
                                 </div>
 
                                 <div className="top-right">
-                                    <Dropdown overlay={() => addMenu(null)} placement="bottomLeft">
-                                        <div className="top-add-botton">添加</div>
-                                    </Dropdown>
+                                    <AddDropDown category={null} isButton = {true} />
                                     <Button>分享</Button>
                                 </div>
                             </div>
@@ -363,20 +220,6 @@ const Survey = (props) => {
                         </div>
                     </div>
                 </div>
-
-                <CategoryAdd
-                    setAddModalVisible={setAddModalVisible}
-                    addModalVisible={addModalVisible}
-                    setRepositoryCatalogueList={setRepositoryCatalogueList}
-                    form={form}
-                    catalogueId={catalogueId}
-                    contentValue={contentValue}
-                    setSelectKey={setSelectKey}
-                    userList={userList}
-                    modalTitle={modalTitle}
-                    {...props}
-                />
-
             </Col>
         </Row>
     </div>

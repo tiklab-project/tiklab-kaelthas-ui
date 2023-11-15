@@ -109,7 +109,6 @@ const DocumentExamine = (props) => {
                     <svg className="right-icon" aria-hidden="true" onClick={() => setShareVisible(true)}>
                         <use xlinkHref="#icon-share"></use>
                     </svg>
-                    {/* <Button shape="round" style={{ backgroundColor: "#5d70ea", color: "#fff" }} > 分享</Button> */}
                     <svg className="right-icon" aria-hidden="true">
                         <use xlinkHref="#icon-point"></use>
                     </svg>
@@ -124,11 +123,9 @@ const DocumentExamine = (props) => {
                             </div>
                         </Col>
                     </Row>
-
-
                 </div>
-                    :
-                    <DocumentAddEdit title={title} />
+                :
+                <DocumentAddEdit title={title} />
             }
             <div className="comment-box">
                 <div className="comment-box-item top-item">
