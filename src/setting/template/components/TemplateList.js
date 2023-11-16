@@ -14,17 +14,24 @@ import { observer, inject } from "mobx-react";
 import Breadcrumb from "../../../common/breadcrumb/breadcrumb";
 import Button from "../../../common/button/button";
 import TemplateStore from "../store/TemplateStore";
+import TemplateAddModal from "./TemplateAddModal";
+import setImageUrl from "../../../common/utils/setImageUrl";
+
 
 const { confirm } = Modal;
 const Template = (props) => {
-    const { findDocumentTemplatePage, deleteDocumentTemplate, templateList } = TemplateStore;
-
+    const { findDocumentTemplateList, deleteDocumentTemplate, templateList } = TemplateStore;
+    const [showAddModal, setShowAddModal] = useState(false)
+    const [editType, setEditType] = useState()
     useEffect(() => {
-        findDocumentTemplatePage()
+        findDocumentTemplateList()
         return;
     }, [])
     const addModal = () => {
         props.history.push("/index/setting/templateAdd")
+        // setEditType("add")
+        // setShowAddModal(true)
+        
     }
 
     // 删除模板
@@ -37,7 +44,7 @@ const Template = (props) => {
             cancelText: '取消',
             onOk() {
                 deleteDocumentTemplate(id).then(data => {
-                    findDocumentTemplatePage()
+                    findDocumentTemplateList()
                 })
             },
             onCancel() {
@@ -102,14 +109,34 @@ const Template = (props) => {
                         >
                             <Button type="primary" onClick={() => addModal()} >添加模板</Button>
                         </Breadcrumb>
-                        <Table
+                        {/* <Table
                             columns={columns}
                             dataSource={templateList}
                             rowKey={record => record.id}
                             pagination={false}
-                        />
+                        /> */}
+                        <div className="template-list">
+                            {
+                                templateList && templateList.map((item, index) => {
+                                    return <div className="template-box" key={index} onClick={() => selectTemplate(item.details)}>
+                                        <div className="template-name">{item.name}</div>
+                                        <img
+                                            src={setImageUrl(item.iconUrl)}
+                                            alt=""
+                                            className="template-image"
+                                        />
+                                        <div className="template-action">
+                                            <Button className="template-delete" onClick = {()=> showDeleteConfirm(item.name, item.id)}>删除</Button>
+                                            <Button className="template-edit" type="primary" onClick = {() => goTemplateDetail(item.id)}>编辑</Button>
+                                        </div>
+                                    </div>
+                                })
+                            }
+                        </div>
+
                     </Col>
                 </Row>
+                <TemplateAddModal showAddModal = {showAddModal} setShowAddModal = {setShowAddModal} editType = {editType}/>
             </Layout>
         </Fragment>
     )

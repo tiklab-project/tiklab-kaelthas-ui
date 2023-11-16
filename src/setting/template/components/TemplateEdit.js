@@ -17,9 +17,12 @@ import Button from "../../../common/button/button";
 import TemplateStore from "../store/TemplateStore";
 import "./templateEdit.scss"
 import { getUser } from "tiklab-core-ui";
+import html2canvas from "html2canvas";
+import axios from 'axios';
 const TemplateEdit = (props) => {
     const templateId = props.match.params.templateId;
-    const { createDocumentTemplate, findDocumentTemplatePage, findDocumentTemplate, updateDocumentTemplate } = TemplateStore;
+    const { createDocumentTemplate, findDocumentTemplateList, findDocumentTemplate, updateDocumentTemplate, 
+        creatIcon, getIconList } = TemplateStore;
     const [editorValue, setEditorValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
     const [editor] = useState(() => withReact(createEditor()))
     const [titleValue, setTitleValue] = useState("未命名模板");
@@ -45,17 +48,18 @@ const TemplateEdit = (props) => {
 
 
 
-    const addTemplate = () => {
+    const addTemplate = (iconUrl) => {
         const serialize = JSON.stringify(editorValue)
         const data = {
             name: titleValue,
+            iconUrl: iconUrl,
             details: editorValue
         }
 
         if (!templateId) {
             createDocumentTemplate(data).then(data => {
                 if (data.code === 0) {
-                    findDocumentTemplatePage().then(data => {
+                    findDocumentTemplateList().then(data => {
                         if (data.code === 0) {
                             // setTemplateList(data.data.dataList)
                             props.history.goBack()
@@ -67,7 +71,7 @@ const TemplateEdit = (props) => {
             data.id = templateId
             updateDocumentTemplate(data).then(data => {
                 if (data.code === 0) {
-                    findDocumentTemplatePage().then(data => {
+                    findDocumentTemplateList().then(data => {
                         if (data.code === 0) {
                             // setTemplateList(data.data.dataList)
                             props.history.goBack()
@@ -79,11 +83,64 @@ const TemplateEdit = (props) => {
 
     }
 
-
+    const submit = async() =>{
+        const opt = {
+            useCORS: true
+        }
+        let canvas = await html2canvas(document.getElementById("template-detail"), opt);//获取要生成图片的dom区域并转为canvas;记得引入html2canvas插件喔
+        let base64Img = canvas.toDataURL();//将canvas转为base64
+        let formdata = new FormData();
+        formdata.append("uploadFile", toImgStyle(base64Img, Date.now() + '.png'));//此处参数一字段为后端要求，参数二后端要求传递形式为png，所以此处又调用toImgStyle方法将base64转为png格式
+        axios({
+            method: 'post',
+            url: `/dfs/upload`,
+            headers: {
+                ticket: ticket,
+                tenant: tenant
+            },
+            data: formdata,
+            baseURL: base_url
+        }).then(res=> {
+            console.log(res)
+            if(res.data.code === 0){
+                console.log(res.data.data)
+                const params = {
+                    iconName: Date.now() + '.png',
+                    iconUrl: "/image/" + res.data.data,
+                    iconType: "template"
+                }
+                addTemplate("/image/" + res.data.data)
+                // creatIcon(params).then((res) => {
+                //     if (res.code === 0) {
+                //         getIconList()
+                //     }
+                // })
+            }
+        })
+	}
+	
+    /**
+     * base64转图片文件方法**
+     */
+    
+    const toImgStyle = (base64Str, fileName)=>{
+      var arr = base64Str.split(','),
+      mime = arr[0].match(/:(.*?);/)[1], //base64解析出来的图片类型
+      bstr = atob(arr[1]), //对base64串进行操作，去掉url头，并转换为byte   atob为window内置方法
+      len = bstr.length,
+      u8arr = new Uint8Array(len); //
+      while (len--) {
+          u8arr[len] = bstr.charCodeAt(len)
+      };
+      // 创建新的 File 对象实例[utf-8内容，文件名称或者路径，[可选参数，type：文件中的内容mime类型]]
+      return new File([u8arr], fileName, {
+          type: mime
+      })
+    }
     return (
         <Row className="template-add">
             <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
-                <div>
+                <>
                     <div className="template-add-title">
                         <div className="template-add-top">
                             <div className="template-add-breadcrumb">
@@ -97,7 +154,7 @@ const TemplateEdit = (props) => {
                                 {
                                     !titleValue ? <Button>{buttonText}</Button>
                                         :
-                                        <Button onClick={() => addTemplate()} type="primary">{buttonText}</Button>
+                                        <Button onClick={() => submit()} type="primary">{buttonText}</Button>
                                 }
 
                             </div>
@@ -123,10 +180,13 @@ const TemplateEdit = (props) => {
                                         value={titleValue}
                                         placeholder="标题"
                                     />
-                                    <EditorBigContent
+                                    <div id = "template-detail" className="template-detail">
+                                      <EditorBigContent
                                         value={editorValue}
                                         onChange={setEditorValue}
-                                    />
+                                    />   
+                                    </div>
+                                   
 
 
                                 </div>
@@ -134,7 +194,7 @@ const TemplateEdit = (props) => {
 
                         </EditorBig>
                     }
-                </div>
+                </>
             </Col>
         </Row>
     )

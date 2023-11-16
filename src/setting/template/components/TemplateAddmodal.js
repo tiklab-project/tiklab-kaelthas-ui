@@ -8,13 +8,14 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Input, Select, DatePicker } from 'antd';
+import { Modal, Button, Form, Input, Select, DatePicker, Upload } from 'antd';
 import { observer, inject } from "mobx-react";
 import 'moment/locale/zh-cn';
-import locale from 'antd/es/date-picker/locale/zh_CN';
-import moment from 'moment';
-const { RangePicker } = DatePicker;
-
+import TemplateStore from "../store/TemplateStore";
+import { getUser } from "tiklab-core-ui";
+import UploadIcon1 from "../../../assets/images/uploadIcon.png";
+import setImageUrl from "../../../common/utils/setImageUrl";
+import "./TemplateAddModal.scss"
 const layout = {
     labelCol: {
         span: 6,
@@ -25,35 +26,53 @@ const layout = {
 };
 
 const TemplateAddModal = (props) => {
+    const {showAddModal, setShowAddModal, editType,} = props
+    const { findIconList, creatIcon,  createDocumentTemplate, findDocumentTemplateList } = TemplateStore;
+    
     const [form] = Form.useForm();
-    /**
-     * 显示添加编辑弹窗，若是编辑模型，初始化表单
-     */
-    const showModal = () => {
-        if (props.type === "edit") {
-
-        }
-    };
-
+    const [iconUrl, setIconUrl] = useState("template1.png")
+    const [iconList, setIconList] = useState();
+    const ticket = getUser().ticket;
+    const tenant = getUser().tenant;
     /**
      * 关闭打开弹窗，重新加载数据
      */
     useEffect(() => {
-        if (visible) {
-            showModal()
+        if (showAddModal) {
+            getIconList()
         }
         return;
-    }, [visible])
+    }, [showAddModal])
 
+    const getIconList = () => {
+        findIconList({ iconType: "template" }).then((res) => {
+            if(res.code === 0){
+                setIconList(res.data)
+                if(res.data.length > 0){
+                    setIconUrl(res.data[0]?.iconUrl)
+                }
+            }
+            
+        })
+    }
     /**
      * 添加表单信息，添加或者编辑
      */
     const onFinish = () => {
         form.validateFields().then((values) => {
-            if (props.type === "add") {
+            if (editType === "add") {
+                const params = {
+                    name: values.name,
+                    iconUrl: iconUrl
+                }
+                createDocumentTemplate(params).then(res=>{
+                    if(res.code === 0){
+                        findDocumentTemplateList()
+                    }
+                })
             } else {
             }
-            setVisible(false);
+            setShowAddModal(false);
             form.resetFields();
         })
     };
@@ -63,14 +82,41 @@ const TemplateAddModal = (props) => {
      */
     const onCancel = () => {
         form.resetFields();
-        setVisible(false);
+        setShowAddModal(false);
 
     };
-
+    const upLoadIcon = {
+        name: 'uploadFile',
+        action: `${upload_url}/dfs/upload`,
+        showUploadList: false,
+        headers: {
+            ticket: ticket,
+            tenant: tenant
+        },
+        onChange(info) {
+            if (info.file.status === 'done') {
+                console.log(info.file, info.fileList);
+                const res = info.file.response.data;
+                const params = {
+                    iconName: info.file.name,
+                    iconUrl: "/image/" + res,
+                    iconType: "template"
+                }
+                creatIcon(params).then((res) => {
+                    if (res.code === 0) {
+                        getIconList()
+                    }
+                })
+                message.success(`${info.file.name} file uploaded successfully`);
+            } else if (info.file.status === 'error') {
+                message.error(`${info.file.name} file upload failed.`);
+            }
+        }
+    };
     return (
         <Modal
             title={"编辑"}
-            visible={visible}
+            visible={showAddModal}
             onOk={onFinish}
             onCancel={onCancel}
             cancelText="取消"
@@ -87,86 +133,43 @@ const TemplateAddModal = (props) => {
                 layout="vertical"
             >
                 <Form.Item
-                    label="迭代名称"
-                    name="sprintName"
+                    label="模版名称"
+                    name="name"
                     rules={[
                         {
                             required: true,
-                            message: '请输入迭代名称',
+                            message: '请输入模版名称',
                         },
                     ]}
                 >
-                    <Input placeholder="迭代名称" />
+                    <Input placeholder="模版名称" />
                 </Form.Item>
                 <Form.Item
-                    label="负责人"
-                    name="master"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入负责人',
-                        },
-                    ]}
+                    label="图标"
+                    name="icon"
                 >
-                    <Select
-                        placeholder="负责人"
-                        allowClear
-                    >
+                    <div className="template-icon-box">
                         {
-                            uselist && uselist.map((item, index) => {
-                                return <Select.Option value={item.user?.id} key={item.user?.id}>{item.user?.nickname ? item.user?.nickname : item.user?.name}</Select.Option>
+                            iconList && iconList.map((item) => {
+                                return <div key={item.key} className={`template-icon  ${item.iconUrl === iconUrl ? "icon-select" : null}`} onClick={() => { setIconUrl(item.iconUrl) }}>
+                                    <img
+                                        src={setImageUrl(item.iconUrl)}
+                                        alt="" className="img-icon"
+                                    />
+                                </div>
                             })
                         }
-                    </Select>
-                </Form.Item>
+                        <Upload {...upLoadIcon}>
+                            <div className="template-icon">
+                                <img src={UploadIcon1} alt="" className="list-img" />
+                            </div>
+                        </Upload>
+                    </div>
 
-                {
-                    props.type !== "add" && <Form.Item
-                        label="迭代状态"
-                        name="sprintState"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入迭代状态',
-                            },
-                        ]}
-                    >
-                        <Select
-                            placeholder="迭代状态"
-                            allowClear
-                        >
-                            {
-                                sprintStateList && sprintStateList.map((item, index) => {
-                                    return <Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>
-                                })
-                            }
-                        </Select>
-                    </Form.Item>
-                }
 
-                <Form.Item name="startTime" label="计划日期"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择计划日期',
-                        },
-                    ]}>
-                    <RangePicker locale={locale} />
-                </Form.Item>
-                <Form.Item
-                    label="迭代描述"
-                    name="desc"
-                    rules={[
-                        {
-                            required: false,
-                            message: '请输入迭代描述',
-                        },
-                    ]}
-                >
-                    <Input placeholder="迭代描述" />
                 </Form.Item>
             </Form>
         </Modal>
     );
 };
-export default inject("sprintStore")(observer(TemplateAddModal));
+export default observer(TemplateAddModal);

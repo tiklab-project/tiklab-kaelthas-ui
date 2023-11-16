@@ -28,22 +28,18 @@ class TemplateStore {
     }
 
     @action
-	findDocumentTemplatePage = async(value) => {
+	findDocumentTemplateList = async(value) => {
         Object.assign(this.templatePageParams, {...value})
         const params = {
             name: this.templatePageParams.name,
             orderParams: [{
                 name: "name",
                 orderType: "asc"
-            }],
-            pageParam: {
-                pageSize: 10,
-                currentPage: this.templatePageParams.current
-            }
+            }]
         }
-        const data = await Service("/documentTemplate/findDocumentTemplatePage",params);
+        const data = await Service("/documentTemplate/findDocumentTemplateList",params);
         if(data.code === 0){
-            this.templateList = data.data.dataList
+            this.templateList = data.data
         }
         return data;
     }
@@ -68,6 +64,19 @@ class TemplateStore {
         param.append("id", values)
         const data = await Service("/documentTemplate/deleteDocumentTemplate",param);
         return data
+    }
+
+    @action
+    findIconList = async (params) => {
+        const data = await Service("/icon/findIconList", params)
+        return data;
+    }
+
+    @action
+    creatIcon = async (value) => {
+        const data = await Service("/icon/createIcon", value)
+        return data;
+
     }
 }
 export default new TemplateStore();

@@ -1,0 +1,23 @@
+.template-icon-box {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    .template-icon {
+        box-sizing: content-box;
+        img {
+            width: 25px;
+            height: 25px;
+            margin: 0;
+        }
+    }
+    .upload-icon {
+        width: 30px;
+        height: 30px;
+    }
+    .icon-select {
+        border: 1px solid var(--tiklab-blue);
+        box-shadow: 0 0 3px #0063FF56;
+        border-radius: 4px;
+    }
+}

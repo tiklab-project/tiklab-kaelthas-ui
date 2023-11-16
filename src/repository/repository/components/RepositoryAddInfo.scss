@@ -86,9 +86,6 @@
     }
 
     
-
-    
-
     .repository-icon-box {
         display: flex;
         align-items: center;
@@ -106,17 +103,18 @@
             width: 30px;
             height: 30px;
         }
+        .icon-select {
+            border: 1px solid var(--tiklab-blue);
+            box-shadow: 0 0 3px #0063FF56;
+            border-radius: 4px;
+        }
     }
     .repository-add-submit {
         display: flex;
         gap: 20px;
     }
 
-    .icon-select {
-        border: 1px solid var(--tiklab-blue);
-        box-shadow: 0 0 3px #0063FF56;
-        border-radius: 4px;
-    }
+    
 }
 
 .repository-previous {
