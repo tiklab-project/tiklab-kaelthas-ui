@@ -8,28 +8,24 @@
  */
 import React, { useState, useEffect } from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Row, Col } from 'antd';
+import { Input, Row, Col, Modal } from 'antd';
 import { EditorBig, EditorBigContent } from "tiklab-slate-ui";
 import "tiklab-slate-ui/es/tiklab-slate.css";
-import { createEditor } from "slate";
-import { withReact } from "slate-react";
 import Button from "../../../common/button/button";
 import TemplateStore from "../store/TemplateStore";
 import "./templateEdit.scss"
 import { getUser } from "tiklab-core-ui";
 import html2canvas from "html2canvas";
-import axios from 'axios';
 const TemplateEdit = (props) => {
     const templateId = props.match.params.templateId;
-    const { createDocumentTemplate, findDocumentTemplateList, findDocumentTemplate, updateDocumentTemplate, 
-        creatIcon, getIconList } = TemplateStore;
+    const { createDocumentTemplate, findDocumentTemplateList, findDocumentTemplate, 
+        updateDocumentTemplate, upload, getIconList } = TemplateStore;
     const [editorValue, setEditorValue] = useState("[{\"type\":\"paragraph\",\"children\":[{\"text\":\"\"}]}]")
-    const [editor] = useState(() => withReact(createEditor()))
+
     const [titleValue, setTitleValue] = useState("未命名模板");
     const [buttonText, setButtonText] = useState(templateId ? "更改模板" : "创建模板")
-    const changeEditor = (value) => {
-        setEditorValue(value)
-    }
+    const [visable, setVisable] = useState(false)
+
     const ticket = getUser().ticket;
     const tenant = getUser().tenant;
     useEffect(() => {
@@ -52,7 +48,7 @@ const TemplateEdit = (props) => {
         const serialize = JSON.stringify(editorValue)
         const data = {
             name: titleValue,
-            iconUrl: iconUrl,
+            iconUrl: "/image/" +iconUrl,
             details: editorValue
         }
 
@@ -80,10 +76,11 @@ const TemplateEdit = (props) => {
                 }
             })
         }
-
     }
 
+
     const submit = async() =>{
+        let url = ""
         const opt = {
             useCORS: true
         }
@@ -91,32 +88,12 @@ const TemplateEdit = (props) => {
         let base64Img = canvas.toDataURL();//将canvas转为base64
         let formdata = new FormData();
         formdata.append("uploadFile", toImgStyle(base64Img, Date.now() + '.png'));//此处参数一字段为后端要求，参数二后端要求传递形式为png，所以此处又调用toImgStyle方法将base64转为png格式
-        axios({
-            method: 'post',
-            url: `/dfs/upload`,
-            headers: {
-                ticket: ticket,
-                tenant: tenant
-            },
-            data: formdata,
-            baseURL: base_url
-        }).then(res=> {
-            console.log(res)
-            if(res.data.code === 0){
-                console.log(res.data.data)
-                const params = {
-                    iconName: Date.now() + '.png',
-                    iconUrl: "/image/" + res.data.data,
-                    iconType: "template"
-                }
-                addTemplate("/image/" + res.data.data)
-                // creatIcon(params).then((res) => {
-                //     if (res.code === 0) {
-                //         getIconList()
-                //     }
-                // })
+        upload(formdata).then(res => {
+            if(res.code === 0){
+                addTemplate(res.data)
             }
         })
+        return url;
 	}
 	
     /**
@@ -137,6 +114,8 @@ const TemplateEdit = (props) => {
           type: mime
       })
     }
+
+ 
     return (
         <Row className="template-add">
             <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
@@ -144,7 +123,7 @@ const TemplateEdit = (props) => {
                     <div className="template-add-title">
                         <div className="template-add-top">
                             <div className="template-add-breadcrumb">
-                                <span onClick={() => props.history.goBack()} className="template-back">模板列表</span>
+                                <span onClick={() => props.history.goBack()} className="template-back">模板</span>
                                 <svg className="svg-icon" aria-hidden="true">
                                     <use xlinkHref="#icon-rightBlue"></use>
                                 </svg>
@@ -194,6 +173,14 @@ const TemplateEdit = (props) => {
 
                         </EditorBig>
                     }
+                    <Modal
+                        visible={visable}
+                        title={"编辑"}
+                        cancelText="只更改内容"
+                        okText="同时更改内容和图标"
+                    >
+                        <p>是否同时更改图标</p>
+                    </Modal>
                 </>
             </Col>
         </Row>

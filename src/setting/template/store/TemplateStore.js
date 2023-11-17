@@ -78,5 +78,11 @@ class TemplateStore {
         return data;
 
     }
+
+    @action 
+    upload = async(value) => {
+        const data = await Service("/dfs/upload", value)
+        return data;
+    }
 }
 export default new TemplateStore();

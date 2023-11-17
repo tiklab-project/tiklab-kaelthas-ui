@@ -39,6 +39,7 @@ const RepositoryDomainUser = AsyncComponent(() => import('./repository/user/Repo
 const RepositoryBasicInfo = AsyncComponent(() => import('./repository/setting/basicInfo/components/BasicInfo'))
 const Template = AsyncComponent(() => import('./setting/template/components/TemplateList'))
 const TemplateEdit = AsyncComponent(() => import('./setting/template/components/TemplateEdit'))
+const TemplatePreview = AsyncComponent(() => import('./setting/template/components/TemplatePreview'))
 // 分享文档页面
 const ShareDocument = AsyncComponent(() => import('./document/share/components/ShareDocument'))
 const SharePage = AsyncComponent(()=> import('./document/share/components/ShareLayout'))
@@ -281,6 +282,11 @@ const Routes = [
                     },
                     {
                         path: "/index/setting/templateView/:templateId",
+                        component: TemplatePreview,
+                        exact: true
+                    },
+                    {
+                        path: "/index/setting/templateAdd/:templateId",
                         component: TemplateEdit,
                         exact: true
                     },

@@ -15,14 +15,16 @@
 
     .template-list {
         display: flex;
-        gap: 10px;
-
+        gap: 15px;
+        flex-wrap: wrap;
         .template-box {
             padding: 10px;
-            border: 1px solid rgba(126, 134, 142, 0.16);
+            // border: 1px solid rgba(126, 134, 142, 0.16);
             box-sizing: border-box;
             border-radius: 6px;
             position: relative;
+            background: #fafbfc;
+            
             .template-action {
                 display: flex;
                 gap: 10px;
@@ -31,21 +33,37 @@
             .template-image {
                 width: 200px;
                 height: 200px;
+                background-color: #fff;
+                border-radius: 3px;
+                padding: 10px;
+                object-fit: contain;
             }
 
             .template-name {
                 font-size: 16px;
+                margin-bottom: 10px;
+                cursor: pointer;
+            }
+            .template-name:hover {
+                color: var(--tiklab-blue);
             }
             .template-action {
                 display: flex;
                 // justify-content: space-between;
                 gap: 10px;
                 position: absolute;
-                background: #fff;
+                background: #fafbfc;
                 bottom: 0;
                 width: 100%;
                 left: 0;
                 padding: 10px;
+                visibility: hidden;
+            }
+        }
+        .template-box:hover {
+            
+            .template-action {
+                visibility: inherit;
             }
         }
     }

@@ -93,7 +93,7 @@
                 height: calc(100% - 120px);
                 cursor: pointer;
                 overflow: auto;
-
+                background-color: #fff;
                 .repository-menu-firstmenu {
                     height: 40px;
                     display: flex;
@@ -102,7 +102,7 @@
                     align-items: center;
                     justify-content: space-between;
                     padding: 10px 10px 10px 24px;
-
+                    background-color: var(--tiklab-gray-600);
                     .repository-menu-firstmenu-left {
                         display: flex;
                         align-items: center;

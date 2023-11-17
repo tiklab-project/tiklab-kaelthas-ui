@@ -34,8 +34,12 @@ const Template = (props) => {
         
     }
 
+    const goView = (id) => {
+        props.history.push(`/index/setting/templateView/${id}`)
+    }
     // 删除模板
     const showDeleteConfirm = (name, id) => {
+        
         confirm({
             title: `确定删除${name}?`,
             icon: <ExclamationCircleOutlined />,
@@ -53,51 +57,10 @@ const Template = (props) => {
         });
     }
 
-    const goTemplateDetail = (id) => {
-        props.history.push(`/index/setting/templateView/${id}`)
+    const goTemplateEdit = (id) => {
+        props.history.push(`/index/setting/templateAdd/${id}`)
     }
-    const columns = [
-        {
-            title: "模板名称",
-            dataIndex: "name",
-            key: "name",
-            align: "left",
-            render: (text, record) => <div onClick={() => goTemplateDetail(record.id)} className="template-title">
-                {
-                    record.iconUrl ?
-                        <img
-                            src={('/images/' + record.iconUrl)}
-                            alt=""
-                            className="img-icon"
-                        />
-                        :
-                        <img
-                            src={('images/repository1.png')}
-                            alt=""
-                            className="img-icon"
-                        />
-                }
-                <span className="template-name">{text}</span>
-            </div>,
-        },
-        {
-            title: "操作",
-            dataIndex: "action",
-            key: "action",
-            align: "left",
-            width: "15%",
-            render: (text, record) => (
-                <Space size="middle">
 
-                    <span className="span-botton  delete" onClick={() => showDeleteConfirm(record.name, record.id)}>
-                        <svg className="botton-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-delete"></use>
-                        </svg>
-                    </span>
-                </Space>
-            ),
-        },
-    ]
 
     return (
         <Fragment>
@@ -118,8 +81,8 @@ const Template = (props) => {
                         <div className="template-list">
                             {
                                 templateList && templateList.map((item, index) => {
-                                    return <div className="template-box" key={index} onClick={() => selectTemplate(item.details)}>
-                                        <div className="template-name">{item.name}</div>
+                                    return <div className="template-box" key={index}>
+                                        <div className="template-name"  onClick={() => goView(item.id)}>{item.name}</div>
                                         <img
                                             src={setImageUrl(item.iconUrl)}
                                             alt=""
@@ -127,7 +90,7 @@ const Template = (props) => {
                                         />
                                         <div className="template-action">
                                             <Button className="template-delete" onClick = {()=> showDeleteConfirm(item.name, item.id)}>删除</Button>
-                                            <Button className="template-edit" type="primary" onClick = {() => goTemplateDetail(item.id)}>编辑</Button>
+                                            <Button className="template-edit" type="primary" onClick = {() => goTemplateEdit(item.id)}>编辑</Button>
                                         </div>
                                     </div>
                                 })

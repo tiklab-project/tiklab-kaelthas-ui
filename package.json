@@ -58,9 +58,9 @@
         "tiklab-slate-ui": "^1.0.2",
         "tiklab-markdown-ui": "^1.0.0",
         "tiklab-privilege-ui": "^1.0.2",
-        "slate": "^0.66.0",
-        "slate-history": "^0.65.3",
-        "slate-react": "^0.66.0"
+        "slate": "^0.100.0",
+        "slate-history": "^0.100.0",
+        "slate-react": "^0.100.0"
     },
     "devDependencies": {
         "@babel/cli": "^7.12.1",
@@ -124,6 +124,7 @@
         "react-app-rewired": "^2.1.8",
         "react-hot-loader": "^4.13.0",
         "rollup-plugin-babel": "^4.4.0",
+        "rollup-plugin-copy": "^3.4.0",
         "rollup-plugin-filesize": "^9.1.2",
         "rollup-plugin-peer-deps-external": "^2.2.4",
         "rollup-plugin-postcss": "^4.0.2",
@@ -132,11 +133,13 @@
         "rollup-plugin-styles": "^4.0.0",
         "rollup-plugin-terser": "^7.0.2",
         "rollup-plugin-uglify": "^6.0.4",
-        "rollup-plugin-copy": "^3.4.0",
         "sass-loader": "^10.1.1",
         "sass-resources-loader": "^2.2.1",
         "single-spa": "5.9.2",
         "single-spa-react": "4.1.1",
+        "slate": "^0.100.0",
+        "slate-history": "^0.100.0",
+        "slate-react": "^0.100.0",
         "style-loader": "^2.0.0",
         "svg-sprite-loader": "^6.0.11",
         "svgo-loader": "^3.0.1",
@@ -149,10 +152,7 @@
         "webpack-cli": "^3.3.6",
         "webpack-dev-server": "^3.11.0",
         "webpack-merge": "^5.4.0",
-        "webpack-parallel-uglify-plugin": "^1.1.2",
-        "slate": "^0.66.0",
-        "slate-history": "^0.65.3",
-        "slate-react": "^0.66.0"
+        "webpack-parallel-uglify-plugin": "^1.1.2"
     },
     "dependencies": {
         "@ant-design/icons": "4.3.0",

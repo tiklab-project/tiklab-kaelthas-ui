@@ -119,8 +119,7 @@ const DocumentEdit = (props) => {
                                     <EditorBigContent
                                         value={value}
                                         relationWorkStore= {relationWorkStore}
-                                        
-                                        // target = {target}
+
                                 />
                                 </div>
                             </Col>
