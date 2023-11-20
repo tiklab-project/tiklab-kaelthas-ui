@@ -52,7 +52,9 @@ const RepositorydeAside = (props) => {
         findRepositoryCatalogue({ repositoryId: repositoryId, dimensions: [1, 2] }).then((data) => {
             setRepositoryCatalogueList(data.data)
         })
-        return;
+        return ()=> {
+            setExpandedTree([])
+        };
     }, [repositoryId])
 
     useEffect(() => {
