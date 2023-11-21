@@ -1,19 +1,19 @@
 
 
-.repository-set-delete {
-    color: var(--tiklab-blue);
-}
+    // .repository-set-delete {
+    //     color: var(--tiklab-blue);
+    // }
 
 
 .repository-set-basicinfo {
     padding: 10px;
-    .repository-set-title {
-        height: 40px;
-        line-height: 40px;
+    .repository-info-title {
+        display: flex;
+        align-items: center;
         font-size: 15px;
-        margin-bottom: 10px;
+        font-weight: 600;
     }
-    .repository-set-icon {
+    .repository-set-info {
         .repository-form-icon {
             align-items: center;
             .form-icon-col {
@@ -24,18 +24,6 @@
         }
     }
 
-    .repository-info-title {
-        display: flex;
-        align-items: center;
-        font-size: 15px;
-        font-weight: 600;
-    }
-    .repository-set-icon-block {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 15px;
-    }
     .change-botton {
         text-align: center;
         height: 30px;
@@ -47,26 +35,25 @@
         font-size: 12px;
         cursor: pointer;
     }
-}
-.repository-info {
-    border-bottom: 1px solid #d9d9d9;
-    padding-bottom: 15px;
-    .ant-form-item {
-        margin-bottom: 20px;
-    }
-    
-}
-.repository-icon-modal {
-    .repository-icon-box {
+
+    .repository-set-delete {
         display: flex;
+        justify-content: space-between;
         align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        .repository-icon {
-            box-sizing: content-box;
-        }
-        .icon-select {
-            border: 2px solid var(--tiklab-blue);
-        }
     }
 }
+
+// .repository-icon-modal {
+//     .repository-icon-box {
+//         display: flex;
+//         align-items: center;
+//         flex-wrap: wrap;
+//         gap: 10px;
+//         .repository-icon {
+//             box-sizing: content-box;
+//         }
+//         .icon-select {
+//             border: 2px solid var(--tiklab-blue);
+//         }
+//     }
+// }

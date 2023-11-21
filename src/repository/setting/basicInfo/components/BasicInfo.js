@@ -8,7 +8,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { observer, inject } from "mobx-react";
-import { Input, Form, Select, Button, Modal, Row, Col, message } from "antd";
+import { Input, Form, Select, Button, Modal, Row, Col, message, Alert } from "antd";
 import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
@@ -38,13 +38,16 @@ const BasicInfo = props => {
 
     const [form] = Form.useForm();
     const repositoryId = props.match.params.repositoryId;
-    const { repositorySetStore } = props;
+    const { repositorySetStore, systemRoleStore } = props;
     const { deleteRepository, updateRepository, findRepository, findAllUser, uselist } = repositorySetStore;
     const [disable, setDisabled] = useState(true);
     const [iconUrl, setIconUrl] = useState();
     const [visible, setVisible] = useState(false);
     const [repositoryInfo, setRepositoryInfo] = useState()
     const tenant = getUser().tenant;
+    const userId = getUser().userId
+    const [confirmForm] = Form.useForm();
+
     useEffect(() => {
         info()
         findAllUser()
@@ -55,6 +58,7 @@ const BasicInfo = props => {
         findRepository(repositoryId).then((response) => {
             if (response.code === 0) {
                 const data = response.data;
+                
                 form.setFieldsValue({
                     name: data.name,
                     limits: data.limits,
@@ -63,6 +67,8 @@ const BasicInfo = props => {
                 })
                 setRepositoryInfo(data)
                 setIconUrl(response.data.iconUrl)
+                const isPublish = data?.projectLimits === "0" ? true : false
+                systemRoleStore.getInitProjectPermissions(userId, repositoryId, isPublish)
             }
 
         })
@@ -101,14 +107,7 @@ const BasicInfo = props => {
     };
 
 
-    const handleOk = () => {
-        deleteRepository(repositoryId).then(response => {
-            if (response.code === 0) {
-                props.history.push("/index/repository")
-            }
-        })
-        setIsModalVisible(false);
-    };
+    
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -147,6 +146,28 @@ const BasicInfo = props => {
         </div>
     );
 
+    const [confirmProjectName, setConfirmProjectName] = useState();
+    const handleOk = () => {
+        confirmForm.validateFields().then((fieldsValue) => {
+            deleteRepository(repositoryId).then(response => {
+                if (response.code === 0) {
+                    message.success('删除成功');
+                    setIsModalVisible(false);
+                    props.history.push("/index/repository")
+                }
+            })
+
+        })
+    };
+
+    // const handleOk = () => {
+    //     deleteRepository(repositoryId).then(response => {
+    //         if (response.code === 0) {
+    //             props.history.push("/index/repository")
+    //         }
+    //     })
+    //     setIsModalVisible(false);
+    // };
     return (
         <Row>
             <Col lg={{ span: 24 }} xxl={{ span: "18", offset: "3" }}>
@@ -157,7 +178,7 @@ const BasicInfo = props => {
 
                     <Collapse expandIconPosition={"right"}>
                         <Panel header={repositoryInfoDesc()} key="1">
-                            <div className="repository-set-icon">
+                            <div className="repository-set-info">
                                 <Form.Item
                                     label="知识库图标"
                                     className="repository-form-icon"
@@ -265,7 +286,7 @@ const BasicInfo = props => {
                             </div>
                         </Panel>
                         <Panel header={repositoryDelete()} key="2">
-                            <div className="repository-set-icon">
+                            <div className="repository-set-delete">
                                 <div className="repository-set-icon-block">
                                     <div>
 
@@ -273,24 +294,51 @@ const BasicInfo = props => {
                                     </div>
 
                                 </div>
-                                <Form.Item
-                                    {...formTailLayout}
-                                    labelAlign="left"
-                                >
-                                    <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}>
-                                        <div className="change-botton" onClick={() => showModal()}>
-                                            删除知识库
-                                        </div>
-                                    </PrivilegeProjectButton>
-                                </Form.Item>
+
+                                <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}>
+                                    <div className="change-botton" onClick={() => showModal()}>
+                                        删除知识库
+                                    </div>
+                                </PrivilegeProjectButton>
                             </div>
                         </Panel>
                     </Collapse>
-
                 </div>
-                <Modal title="是否删除" visible={isModalVisible} closable={false} onOk={handleOk} onCancel={handleCancel} okText={"确定"} cancelText={"取消"}>
-                    此知识库及其目录将在回收站中保留 60 天，之后将被永久删除。
-                </Modal>
+                <div className="project-delete-confirm">
+                    <Modal title="确定删除" getContainer={false} visible={isModalVisible} closable={false} onOk={handleOk} onCancel={handleCancel} okText={"确定"} cancelText={"取消"}>
+                        <Alert message=" 此知识库及其目录、文档、附件和评论将被永久删除" type="error" showIcon />
+
+                        <Form
+                            form={confirmForm}
+                            name="dependencies"
+                            autoComplete="off"
+                            style={{
+                                maxWidth: 600,
+                            }}
+                            layout="vertical"
+                        >
+                            <Form.Item
+                                label="知识库名称"
+                                name="confirmProjectName"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: `请输入知识库名称`,
+                                    },
+                                    ({ getFieldValue }) => ({
+                                        validator(rule, value) {
+                                            //getFieldValue可以获得其他输入框的内容
+                                            if (repositoryInfo?.name !== value) return Promise.reject(`请输入${repositoryInfo?.name}`);
+                                            return Promise.resolve();
+                                        }
+                                    })
+                                ]}
+                            >
+                                <Input value={confirmProjectName} onChange={(value) => setConfirmProjectName(value.target.value)} />
+                            </Form.Item>
+                        </Form>
+                    </Modal>
+                </div>
 
                 <RepositoryIcon
                     visible={visible}
@@ -304,4 +352,4 @@ const BasicInfo = props => {
     )
 }
 
-export default inject("repositorySetStore")(observer(BasicInfo));
+export default inject("repositorySetStore", "systemRoleStore")(observer(BasicInfo));

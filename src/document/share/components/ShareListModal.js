@@ -1,4 +1,4 @@
-import { Tree, Modal } from 'antd';
+import { Tree, Modal, message } from 'antd';
 import React, { useState } from 'react';
 import "./ShareListModal.scss";
 import ShareModal from './ShareModal';
@@ -22,19 +22,24 @@ const ShareListModal = (props) => {
         let categorys = []
         list.map(item => {
             if (item?.formatType === "document") {
-                documents.push(item.id)
+                documents.push(item.key)
             } else {
                 categorys.push(item.key)
             }
         })
         setDocumentIds(documents)
         setCateGoryIds(categorys)
-
-        console.log(documents, categorys)
+        // console.log(documentIds,categoryIds )
 
     };
     const onFinish = () => {
-        setShareVisible(true)
+        if(documentIds.length > 0 || categoryIds.length > 0){
+            setShareVisible(true) 
+            console.log(documentIds,categoryIds )
+        }else {
+            message.warn("请选择要分享的目录或文档")
+        }
+        
     }
     const renderTreeNodes = data =>
         data?.map(item => {
@@ -63,7 +68,7 @@ const ShareListModal = (props) => {
                     </svg>
                 }}
                 formatType={item.formatType}
-                key={item.id} {...item}
+                key={item.id}
                 dataRef={item}
             />;
         });
