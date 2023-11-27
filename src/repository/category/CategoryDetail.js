@@ -20,7 +20,7 @@ const CategoryDetail = (props) => {
         categoryStore: CategoryStore
     }
     const { findCategory, findCategoryDocument, setRepositoryCatalogueList,
-        repositoryCatalogueList, createDocumentRecent, createDocument, expandedTree, setExpandedTree,
+        repositoryCatalogueList, createRecent, createDocument, expandedTree, setExpandedTree,
         findRepositoryCatalogue, findDmUserList } = CategoryStore
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
@@ -70,7 +70,7 @@ const CategoryDetail = (props) => {
             master: { id: userId },
             wikiRepository: { id: repositoryId }
         }
-        createDocumentRecent(params)
+        createRecent(params)
         setSelectKey(item.id)
         if (item.formatType === "category") {
             localStorage.setItem("categoryId", item.id);

@@ -30,7 +30,7 @@ const RepositorydeAside = (props) => {
     //语言包
     const { t } = useTranslation();
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
-        repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
+        repositoryCatalogueList, setRepositoryCatalogueList, createRecent,
         expandedTree, setExpandedTree } = categoryStore;
 
     // 当前选中目录id
@@ -76,7 +76,7 @@ const RepositorydeAside = (props) => {
             master: { id: userId },
             wikiRepository: { id: repositoryId }
         }
-        createDocumentRecent(params)
+        createRecent(params)
 
         findCategoryChildren(item.id, item.dimension)
         if (item.formatType === "category") {
@@ -500,6 +500,7 @@ const RepositorydeAside = (props) => {
                                 repositorylist={repositorylist}
                                 changeRepositoryVisible={changeRepositoryVisible}
                                 setChangeRepositoryVisible={setChangeRepositoryVisible}
+                                repository = {repository}
                             />
                         </div>
                     </div>

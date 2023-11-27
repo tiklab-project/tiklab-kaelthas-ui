@@ -2,18 +2,34 @@ import React, { useEffect, useRef, useState } from "react";
 import "./RepositoryChangeModal.scss";
 import { withRouter } from "react-router";
 import setImageUrl from "../../../common/utils/setImageUrl";
+import RepositoryStore from "../../repository/store/RepositoryStore";
+import { observer } from "mobx-react";
+import { getUser } from "tiklab-core-ui";
 
 const RepositoryChangeModal = (props) => {
-    const { repositorylist, searchrepository } = props;
-    const showRepositoryList = repositorylist.length > 5 ? repositorylist.slice(0, 6) : repositorylist;
+    const { searchrepository, repository } = props;
+    // const showRepositoryList = repositorylist.length > 5 ? repositorylist.slice(0, 5) : repositorylist;
     const [showMenu, setShowMenu] = useState(false);
     const [selectRepository, setSelectRepository] = useState(false)
-
+    const { findRecentRepositoryList, getAllRepositorylist, allRepositorylist } = RepositoryStore;
+    const [showRepositoryList, setShowRepositoryList] = useState()
+    const userId = getUser().useId;
     const modelRef = useRef()
     const setButton = useRef()
 
     const showMoreMenu = () => {
         setShowMenu(!showMenu)
+        const params = {
+            master: userId,
+            repositoryId: repository?.id
+        }
+        getAllRepositorylist()
+        findRecentRepositoryList(params).then(res => {
+            if (res.code === 0) {
+                setShowRepositoryList(res.data.slice(0, 5))
+            }
+
+        })
         modelRef.current.style.left = setButton.current.clientWidth
     }
 
@@ -75,10 +91,37 @@ const RepositoryChangeModal = (props) => {
             <div className={`change-repository-box ${showMenu ? "menu-show" : "menu-hidden"}`}
                 ref={modelRef}
             >
-                <div className="change-repository-head">切换知识库</div>
+                <div className="change-repository-head">选择知识库</div>
+                {
+                    repository && <div className={`change-repository-item change-repository-selectItem`}
+                        onClick={() => selectRepositoryId(repository?.id)}
+                        key={repository.id}
+                        onMouseOver={() => handleMouseOver(repository.id)}
+                        onMouseOut={handleMouseOut}
+
+                    >
+                        <img
+                            src={setImageUrl(repository.iconUrl)}
+                            alt=""
+                            className="list-img"
+                        />
+                        <div className="item-info">
+                            <div className="item-name">
+                                {repository.name}
+                            </div>
+                            <div className="item-master">
+                                {repository.master.name}
+                            </div>
+                        </div>
+                        <svg className="svg-icon" aria-hidden="true">
+                            <use xlinkHref="#icon-selected"></use>
+                        </svg>
+                    </div>
+                }
+
                 {
                     showRepositoryList && showRepositoryList.map((item) => {
-                        return <div className={`change-repository-name ${item.id === selectRepository ? "change-repository-selectName" : ""}`}
+                        return <div className={`change-repository-item ${item.id === selectRepository ? "change-repository-selectItem" : ""}`}
                             onClick={() => selectRepositoryId(item.id)}
                             key={item.id}
                             onMouseOver={() => handleMouseOver(item.id)}
@@ -88,17 +131,25 @@ const RepositoryChangeModal = (props) => {
                             <img
                                 src={setImageUrl(item.iconUrl)}
                                 alt=""
-                                className="img-icon"
+                                className="list-img"
                             />
-                            {item.name}
+                            <div className="item-info">
+                                <div className="item-name">
+                                    {item.name}
+                                </div>
+                                <div className="item-master">
+                                    {item.master.name}
+                                </div>
+                            </div>
+
                         </div>
                     })
                 }
                 {
-                    repositorylist.length > 5 && <div className="change-repository-more" onClick={() => props.history.push("/index/repository")}>查看更多</div>
+                    allRepositorylist.length > 6 && <div className="change-repository-more" onClick={() => props.history.push("/index/repository")}>查看更多</div>
                 }
             </div>
         </div>
     )
 }
-export default withRouter(RepositoryChangeModal);
+export default withRouter(observer(RepositoryChangeModal));

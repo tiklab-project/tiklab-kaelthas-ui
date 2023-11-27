@@ -30,7 +30,7 @@ export class RepositoryStore {
 
     @action
     getAllRepositorylist = async () => {
-        const data = await Service("/repository/findRepositoryListByUser", params);
+        const data = await Service("/repository/findRepositoryListByUser", {});
         if (data.code === 0) {
             this.allRepositorylist = response.data;
             this.repositorylist = data.data;
@@ -97,8 +97,8 @@ export class RepositoryStore {
     }
 
     @action
-    createDocumentRecent = async (value) => {
-        const data = await Service("/documentRecent/createDocumentRecent", value);
+    createRecent = async (value) => {
+        const data = await Service("/recent/createRecent", value);
         return data.data;
     }
 

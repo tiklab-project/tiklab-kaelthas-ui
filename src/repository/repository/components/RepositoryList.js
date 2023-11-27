@@ -1,23 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Table, Space, Row, Col } from 'antd';
+import React, { useEffect, useState, Fragment } from "react";
+import { Table, Space, Row, Col, Empty } from 'antd';
 import { observer, inject } from "mobx-react";
 import { withRouter } from "react-router-dom";
 import { getUser } from "tiklab-core-ui";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import InputSearch from "../../../common/input/inputSearch";
 import Button from "../../../common/button/button";
-import "./repository.scss";
+import "./RepositoryList.scss";
 import { useHistory } from 'react-router-dom';
 import RepositoryStore from "../store/RepositoryStore";
 import setImageUrl from "../../../common/utils/setImageUrl";
 import { useDebounce } from "../../../common/utils/debounce";
 const RepositoryList = (props) => {
-    const { findRepositoryList, createDocumentRecent,
+    const { findRepositoryList, createRecent,
         repositorylist, findRecentRepositoryList, createRepositoryFocus,
         findFocusRepositoryList, deleteRepositoryFocusByCondition, activeTabs, setActiveTabs } = RepositoryStore;
     const userId = getUser().userId;
     const tenant = getUser().tenant;
     const [focusRepositoryList, setFocusRepositoryList] = useState([])
+    const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
+
     const repositoryTab = [
         {
             title: '所有知识库',
@@ -44,6 +46,21 @@ const RepositoryList = (props) => {
     useEffect(() => {
         selectTabs(activeTabs)
         findFocusRepository()
+        const recentRepositoryParams = {
+            masterId: userId,
+            model: "repository",
+            orderParams: [{
+                name: "recentTime",
+                orderType: "desc"
+            }]
+        }
+        findRecentRepositoryList(recentRepositoryParams).then(res => {
+            if (res.code === 0) {
+                setRecentRepositoryDocumentList(res.data.slice(0, 5))
+            }
+
+        })
+
         return
     }, [activeTabs])
 
@@ -118,7 +135,7 @@ const RepositoryList = (props) => {
             master: { id: userId },
             wikiRepository: { id: repository.id }
         }
-        createDocumentRecent(params)
+        createRecent(params)
 
         props.history.push({ pathname: `/index/repositorydetail/${repository.id}/survey` })
     }
@@ -145,7 +162,7 @@ const RepositoryList = (props) => {
             default:
                 break;
         }
-    }, [500]) ;
+    }, [500]);
 
     const selectTabs = (key) => {
         setActiveTabs(key)
@@ -195,7 +212,9 @@ const RepositoryList = (props) => {
     const goRepositoryAdd = () => {
         history.push("/index/repositoryAdd")
     }
-
+    // const goRepositoryDetail = repository => {
+    //     props.history.push(`/index/repositorydetail/${repository.id}/survey`)
+    // }
 
     return (
         <div className="repository">
@@ -207,7 +226,46 @@ const RepositoryList = (props) => {
                         <Button type="primary" onClick={() => goRepositoryAdd()} buttonText={"添加知识库"} >
                         </Button>
                     </Breadcumb>
+                    <div className="recent-repository">
+                        <div className="repository-title">最近知识库</div>
+                        <div className="repository-box">
+                            {
+                                recentRepositoryDocumentList.length > 0 ? recentRepositoryDocumentList.map(item => {
+                                    return <Fragment>
+                                        <div className="repository-item" key={item.id} onClick={() => goRepositorydetail(item)} >
+                                            <div className="item-title">
+                                                {
+                                                    item.iconUrl ?
+                                                        <img
+                                                            src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
 
+                                                            alt=""
+                                                            className="list-img"
+                                                        />
+                                                        :
+                                                        <img
+                                                            src={('images/repository1.png')}
+                                                            alt=""
+                                                            className="list-img"
+                                                        />
+                                                }
+                                                <span>{item.name}</span>
+                                            </div>
+                                            <div className="item-work">
+                                                <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
+                                                <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
+                                            </div>
+                                        </div>
+
+                                    </Fragment>
+                                })
+                                    :
+
+                                    <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
+                            }
+
+                        </div>
+                    </div>
                     <div className="repository-tabs-search">
                         <div className="repository-filter">
                             <div className="repository-tabs">

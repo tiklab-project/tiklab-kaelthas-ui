@@ -75,7 +75,7 @@ class SearchStore{
 
     @action
     findDocumentRecentList= async(value)=> {
-        const data = await Service("/documentRecent/findDocumentRecentList",value);
+        const data = await Service("/recent/findRecentList",value);
         if(data.code === 0){
             this.searchDocumentList = data.data;
             

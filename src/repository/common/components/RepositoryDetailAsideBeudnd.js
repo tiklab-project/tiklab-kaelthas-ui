@@ -50,7 +50,7 @@ const RepositorydeAside = (props) => {
     const { t } = useTranslation();
     const moveRef = useRef([]);
     const { findRepositoryCatalogue, updateRepositoryCatalogue, deleteRepositoryLog, updateDocument, deleteDocument,
-        repositoryCatalogueList, setRepositoryCatalogueList, createDocumentRecent,
+        repositoryCatalogueList, setRepositoryCatalogueList, createRecent,
         createDocument, expandedTree, setExpandedTree, findDmUserList, findDocument } = categoryStore;
 
     // 当前选中目录id
@@ -98,7 +98,7 @@ const RepositorydeAside = (props) => {
             master: { id: userId },
             wikiRepository: { id: repositoryId }
         }
-        createDocumentRecent(params)
+        createRecent(params)
         setSelectKey(item.id)
         const isRequested = requsetedCategory.some(category => category === item.id);
         if (!isRequested) {

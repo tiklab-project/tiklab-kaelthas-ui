@@ -1,32 +1,30 @@
-.home {
-    height: calc(100vh - 48px);
-    background-color: var(--tiklab-gray-600);
-    overflow: auto;
-    .home-row {
-        height: 100%;
-    }
-    .home-repository {
-        padding: 0 15px 15px;
+.repository {
+    padding: var(--tiklab-padding-item);
+
+    .recent-repository {
         margin-bottom: 15px;
         margin-top: 15px;
         border-radius: 4px;
         background: #fff;
+
         .repository-title {
             height: 40px;
             line-height: 40px;
             font-size: 14px;
-            font-weight: var(--tiklab-font-weight-bold);
         }
+
         .repository-box {
             display: flex;
             justify-content: flex-start;
             gap: 15px;
             padding: 10px 0;
             overflow: hidden;
+
             .ant-empty {
                 width: 100%;
             }
         }
+
         .repository-item {
             width: 240px;
             padding: 15px;
@@ -37,28 +35,34 @@
             background-color: var(--tiklab-gray-600);
             box-sizing: border-box;
             border-bottom: 2px solid var(--tiklab-gray-600);
+
             .item-title {
                 margin-bottom: 10px;
                 font-weight: var(--tiklab-font-weight-bold);
                 display: inline-flex;
                 align-items: center;
                 font-size: 16px;
+
                 .project-icon {
                     width: 30px;
                     height: 30px;
                     margin-right: 10px;
                 }
+
                 .item-icon {
                     width: 20px;
                     height: 20px;
-                    margin-right: 10px; 
+                    margin-right: 10px;
                 }
             }
+
             .item-work {
                 display: flex;
                 gap: 20px;
             }
-            .process-work, .end-work{
+
+            .process-work,
+            .end-work {
                 font-size: 12px;
                 display: inline-flex;
                 width: 100%;
@@ -66,6 +70,7 @@
                 height: 30px;
                 line-height: 30px;
             }
+
             .icon {
                 width: 40px;
                 height: 40px;
@@ -77,53 +82,69 @@
                 font-weight: 600;
             }
         }
+
         .repository-item:hover {
             border-radius: 4px 4px 0 0;
             border-bottom: 2px solid var(--tiklab-blue);
         }
     }
 
-    .home-document {
-        padding: 0  15px 15px;
-        background: #fff;
-        border-radius: 4px;
-        margin-bottom: 15px;
-        .document-box-title {
-            width: 100%;
-            height: 40px;
-            line-height: 40px;
-            font-weight: var(--tiklab-font-weight-bold);
-            display: flex;
-            justify-content: space-between;
-            .more:hover{
-                text-decoration:underline;
-            }
-            .more {
-                color: var(--tiklab-blue);
-                margin-left: 10px;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-            }
+    .repository-filter {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        line-height: 50px;
+        gap: 20px;
+
+        .vertical-bar {
+            width: 1px;
+            height: 15px;
+            background-color: #d7d7d7;
+            margin: 0 10px;
         }
 
-        .document-list-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 40px;
-            line-height: 40px;
+        .active-tabs {
+            color: #000;
+            border-bottom: 2px solid var(--tiklab-blue);
         }
-        .document-name {
-            display: flex;
-            align-items: center;
+
+        .filter-search {
+            width: 150px;
+            border-radius: 4px;
+            ;
+        }
+    }
+
+    .repository-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        height: 50px;
+        line-height: 50px;
+
+        .repository-tab {
+            font-size: var(--tiklab-font-13);
+            ;
+            cursor: pointer;
+            height: 50px;
+            line-height: 50px;
+            margin-right: 20px;
+        }
+
+        .repository-tab:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .repository-title {
+        display: flex;
+        align-items: center;
+
+        .repository-name {
             cursor: pointer;
             color: var(--tiklab-blue);
         }
-        .document-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
     }
+
 }

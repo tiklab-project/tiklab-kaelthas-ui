@@ -122,8 +122,8 @@ export class CategoryStore {
     }
 
     @action
-    createDocumentRecent= async(value)=> {
-        const data = await Service("/documentRecent/createDocumentRecent", value);
+    createRecent= async(value)=> {
+        const data = await Service("/recent/createRecent", value);
         return data.data;
     }
     @action

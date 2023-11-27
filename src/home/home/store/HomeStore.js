@@ -18,7 +18,7 @@ class HomeStore {
 
     @action
     findDocumentRecentList= async(value)=> {
-        const data = await Service("/documentRecent/findDocumentRecentList",value);
+        const data = await Service("/recent/findRecentList",value);
         return data;
     }
 
