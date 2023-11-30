@@ -62,7 +62,7 @@ const RepositoryList = (props) => {
         })
 
         return
-    }, [activeTabs])
+    }, [])
 
     const findFocusRepository = (id) => {
         findFocusRepositoryList({ masterId: id }).then(res => {

@@ -14,12 +14,15 @@ import "./documentEdit.scss";
 import { EditorBigContent, EditorBig } from "tiklab-slate-ui";
 import Button from "../../../common/button/button";
 import DocumentStore from "../store/DocumentStore";
+import CategoryStore from "../../../repository/common/store/CategoryStore";
 import "tiklab-slate-ui/es/tiklab-slate.css";
 import { getUser } from "tiklab-core-ui";
+import { useDebounce } from "../../../common/utils/debounce";
 import { updateNodeName } from "../../../common/utils/treeDataAction";
 const DocumentEdit = (props) => {
     const { relationWorkStore } = props;
     const { findDocument, updateDocument } = DocumentStore;
+    const { repositoryCatalogueList } = CategoryStore
     const documentId = props.match.params.id;
     const [docInfo, setDocInfo] = useState({ name: "", likenumInt: "", commentNumber: "", master: { name: "" } });
     const [value, setValue] = useState()
@@ -59,12 +62,18 @@ const DocumentEdit = (props) => {
             detailText:  editRef.current.innerText
         }
         updateDocument(data)
-        // .then(res => {
-        //     if (res.code === 0) {
-        //         props.history.push(`/index/repositorydetail/${repositoryId}/doc/${documentId}`)
-        //     }
-        // })
     }
+
+    const updataDesc = useDebounce((value) => {
+        setValue(value);
+
+        const data = {
+            id: documentId,
+            details: value,
+            detailText:  editRef.current.innerText
+        }
+        updateDocument(data)
+    }, [500])
 
     const changeTitle = (value) => {
         setTitleValue(value.target.value)
@@ -96,7 +105,7 @@ const DocumentEdit = (props) => {
             {
                 value && <EditorBig
                     value={value}
-                    onChange={value => setValue(value)}
+                    onChange={value => updataDesc(value)}
                     relationWorkStore= {relationWorkStore}
                     base_url = {upload_url}
                     ticket = {ticket}

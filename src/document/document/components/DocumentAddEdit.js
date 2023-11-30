@@ -17,6 +17,7 @@ import SelectTemplateList from "./SelectTemplateList";
 import DocumentStore from "../store/DocumentStore";
 import CategoryStore from "../../../repository/common/store/CategoryStore";
 import { updateNodeName } from "../../../common/utils/treeDataAction";
+import setImageUrl from "../../../common/utils/setImageUrl";
 
 const DocumentAddEdit = (props) => {
     const {title} = props;
@@ -119,7 +120,7 @@ const DocumentAddEdit = (props) => {
                                 templateList && templateList.map((item, index) => {
                                     return <div className="template-box" key = {index} onClick = {() => selectTemplate(item.details)}>
                                         <img
-                                            src={('/images/' + imageNames[index])}
+                                            src={setImageUrl(item.iconUrl)}
                                             alt=""
                                             className="template-image"
                                         />
