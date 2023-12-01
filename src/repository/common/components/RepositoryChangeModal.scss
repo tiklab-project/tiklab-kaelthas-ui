@@ -1,37 +1,37 @@
 .change-repository {
     position: relative;
 
-    .repository-title {
-        display: flex;
-        align-items: center;
-        padding: 10px 15px;
-        color: #000;
-        font-weight: 600;
-        cursor: pointer;
-        .repository-text {
-            margin: 0 10px;
+    // .repository-title {
+    //     display: flex;
+    //     align-items: center;
+    //     padding: 10px 15px;
+    //     color: #000;
+        
+    //     cursor: pointer;
+    //     .repository-text {
+    //         margin: 0 10px;
 
-            .type {
-                font-size: 12px;
-                font-weight: 500;
-            }
-        }
+    //         .type {
+    //             font-size: 12px;
+    //             font-weight: 500;
+    //         }
+    //     }
 
-        span {
-            width: 100px;
-            height: 100%;
-            overflow: hidden;
+    //     span {
+    //         width: 100px;
+    //         height: 100%;
+    //         overflow: hidden;
 
-            i {
-                margin-right: 10px;
-            }
-        }
+    //         i {
+    //             margin-right: 10px;
+    //         }
+    //     }
 
-        .repository-aside-icon {
-            width: 15px;
-            height: 15px;
-        }
-    }
+    //     .repository-aside-icon {
+    //         width: 15px;
+    //         height: 15px;
+    //     }
+    // }
 
     .repository-title-icon {
         display: flex;

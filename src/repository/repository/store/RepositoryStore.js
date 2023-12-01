@@ -12,7 +12,7 @@ export class RepositoryStore {
         pageSize: 10
     };
     @observable
-    activeTabs = "2";
+    activeTabs = "1";
 
     @action
     setActiveTabs = (value) => {
@@ -32,7 +32,7 @@ export class RepositoryStore {
     getAllRepositorylist = async () => {
         const data = await Service("/repository/findRepositoryListByUser", {});
         if (data.code === 0) {
-            this.allRepositorylist = response.data;
+            this.allRepositorylist = data.data;
             this.repositorylist = data.data;
         }
         return data;

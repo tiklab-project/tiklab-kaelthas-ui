@@ -26,11 +26,11 @@ const RepositoryList = (props) => {
             key: '1',
             icon: "project"
         },
-        {
-            title: '我最近浏览的',
-            key: '2',
-            icon: "programrencent"
-        },
+        // {
+        //     title: '我最近浏览的',
+        //     key: '2',
+        //     icon: "programrencent"
+        // },
         {
             title: '我收藏的',
             key: '3',
