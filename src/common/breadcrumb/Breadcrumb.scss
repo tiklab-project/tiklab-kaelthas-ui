@@ -3,11 +3,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
+
     .page-breadcrumb {
         font-size: var(--tiklab-font-16);
-    font-weight: var(--tiklab-font-weight-bold);
+        font-weight: var(--tiklab-font-weight-bold);
         display: flex;
         align-items: center;
+
         .page-link:hover {
             cursor: pointer;
             color: var(--tiklab-blue);

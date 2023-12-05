@@ -56,13 +56,13 @@ const Survey = (props) => {
 
     const goDocumentDetail = document => {
         if (document.typeId === "document") {
-            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/doc/${document.id}`)
+            props.history.push(`/repositorydetail/${document.wikiRepository.id}/doc/${document.id}`)
         }
         if (document.typeId === "markdown") {
-            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/markdownView/${document.id}`)
+            props.history.push(`/repositorydetail/${document.wikiRepository.id}/markdownView/${document.id}`)
         }
         if (document.typeId === "category") {
-            props.history.push(`/index/repositorydetail/${document.wikiRepository.id}/folder/${document.id}`)
+            props.history.push(`/repositorydetail/${document.wikiRepository.id}/folder/${document.id}`)
         }
         const params = {
             id: document.id,
@@ -92,10 +92,10 @@ const Survey = (props) => {
         window.location.href = url
     }
 
-    return (<div className="repository-survey">
-        <Row >
+    return (<div >
+        <Row className="repository-survey-row">
             <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="repository-col">
-                <div>
+                <div className="repository-survey">
                     {
                         repositoryInfo && <Fragment>
                             <div className="repository-top">
@@ -127,7 +127,7 @@ const Survey = (props) => {
 
                                                 })
                                             }
-                                            <div className="user-more" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/user`)}>
+                                            <div className="user-more" onClick={() => props.history.push(`/repositorySet/${repositoryId}/user`)}>
                                                 <svg className="user-more-icon" aria-hidden="true">
                                                     <use xlinkHref="#icon-more"></use>
                                                 </svg>
@@ -198,7 +198,7 @@ const Survey = (props) => {
                     <div className="home-dynamic">
                         <div className="dynamic-box-title">
                             <span className="name">相关动态</span>
-                            <div className="more" onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/dynamicList`) }}>
+                            <div className="more" onClick={() => { props.history.push(`/repositorydetail/${repositoryId}/dynamicList`) }}>
                                 <svg aria-hidden="true" className="svg-icon">
                                     <use xlinkHref="#icon-rightjump"></use>
                                 </svg>

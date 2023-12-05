@@ -22,24 +22,24 @@ const RepositorySetAside = (props) => {
         {
             title: '知识库信息',
             icon: 'survey',
-            key: `/index/repositorySet/${repositoryId}/basicInfo`,
+            key: `/repositorySet/${repositoryId}/basicInfo`,
             encoded: "Survey",
         },
         {
             title: '成员',
             icon: 'survey',
-            key: `/index/repositorySet/${repositoryId}/user`,
+            key: `/repositorySet/${repositoryId}/user`,
             encoded: "User",
         },
         {
             title: '权限',
             icon: 'survey',
-            key: `/index/repositorySet/${repositoryId}/domainRole`,
+            key: `/repositorySet/${repositoryId}/domainRole`,
             encoded: "Privilege",
         }
     ];
     // 当前选中路由
-    const [selectKey, setSelectKey] = useState(`/index/repositorySet/${repositoryId}/basicInfo`);
+    const [selectKey, setSelectKey] = useState(`/repositorySet/${repositoryId}/basicInfo`);
 
     // 菜单是否折叠
     const [isShowText, SetIsShowText] = useState(true)
@@ -62,7 +62,7 @@ const RepositorySetAside = (props) => {
     }
 
     const backRepository = () => {
-        props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
+        props.history.push(`/repositorydetail/${repositoryId}/survey`)
     }
 
 

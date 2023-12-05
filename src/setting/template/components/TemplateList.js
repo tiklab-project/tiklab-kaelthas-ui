@@ -28,14 +28,14 @@ const Template = (props) => {
         return;
     }, [])
     const addModal = () => {
-        props.history.push("/index/setting/templateAdd")
+        props.history.push("/setting/templateAdd")
         // setEditType("add")
         // setShowAddModal(true)
         
     }
 
     const goView = (id) => {
-        props.history.push(`/index/setting/templateView/${id}`)
+        props.history.push(`/setting/templateView/${id}`)
     }
     // 删除模板
     const showDeleteConfirm = (name, id) => {
@@ -58,15 +58,15 @@ const Template = (props) => {
     }
 
     const goTemplateEdit = (id) => {
-        props.history.push(`/index/setting/templateAdd/${id}`)
+        props.history.push(`/setting/templateAdd/${id}`)
     }
 
 
     return (
         <Fragment>
-            <Layout className="repository-template">
-                <Row style={{ height: "100%" }}>
-                    <Col xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }}>
+            {/* <Layout > */}
+                <Row style={{ height: "100%", overflow: "auto" }} >
+                    <Col xl={{ span: 18, offset: 3 }} lg={{ span: 20, offset: 2 }} className="repository-template">
                         <Breadcrumb
                             firstText="文档模板"
                         >
@@ -100,7 +100,7 @@ const Template = (props) => {
                     </Col>
                 </Row>
                 <TemplateAddModal showAddModal = {showAddModal} setShowAddModal = {setShowAddModal} editType = {editType}/>
-            </Layout>
+            {/* </Layout> */}
         </Fragment>
     )
 }

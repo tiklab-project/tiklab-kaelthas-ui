@@ -1,6 +1,10 @@
+.repository-row {
+    height: calc(100vh - 49px);
+    overflow: auto;
+}
 .repository {
     padding: var(--tiklab-padding-item);
-
+    
     .recent-repository {
         margin-bottom: 15px;
         margin-top: 15px;
@@ -8,8 +12,6 @@
         background: #fff;
 
         .repository-title {
-            height: 40px;
-            line-height: 40px;
             font-size: 14px;
         }
 
@@ -26,7 +28,7 @@
         }
 
         .repository-item {
-            width: 240px;
+            flex: 1;
             padding: 15px;
             box-sizing: content-box;
             flex-shrink: 0;
@@ -59,6 +61,9 @@
             .item-work {
                 display: flex;
                 gap: 20px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
 
             .process-work,

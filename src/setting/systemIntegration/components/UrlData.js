@@ -91,7 +91,7 @@ const UrlData = () => {
     return (<Provider {...store}>
          <Fragment>
             <Row >
-                <Col lg={{ span: 24 }} xxl={{ span: "18", offset: "3" }}>
+                <Col lg={{ span: 24 }} xl={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
                     <div className="url-data">
                         <Breadcumb
                             firstText="地址"

@@ -115,13 +115,13 @@ const RepositorydeAside = (props) => {
             localStorage.setItem("categoryId", item.id);
             setOpenClickCategory(item.id)
             setRequsetedCategory(requsetedCategory.concat(item.id))
-            props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
         if (item.typeId === "markdown") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/markdownView/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/markdownView/${item.id}`)
         }
     }
 
@@ -177,24 +177,24 @@ const RepositorydeAside = (props) => {
             if (fItem.length > 1) {
                 if (index !== fItem.length - 1) {
                     if (fItem[index + 1].typeId === "category") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index + 1].id}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/folder/${fItem[index + 1].id}`)
                     }
                     if (fItem[index + 1].typeId === "document") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index + 1].id}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/doc/${fItem[index + 1].id}`)
                     }
                 } else {
                     if (fItem[index - 1].typeId === "category") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fItem[index - 1].id}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/folder/${fItem[index - 1].id}`)
                     }
                     if (fItem[index - 1].typeId === "document") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${fItem[index - 1].id}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/doc/${fItem[index - 1].id}`)
                     }
                 }
             } else {
                 if (fId == 0) {
-                    props.history.push(`/index/repositorydetail/${repositoryId}/survey`)
+                    props.history.push(`/repositorydetail/${repositoryId}/survey`)
                 } else {
-                    props.history.push(`/index/repositorydetail/${repositoryId}/folder/${fId}`)
+                    props.history.push(`/repositorydetail/${repositoryId}/folder/${fId}`)
                 }
 
             }
@@ -573,7 +573,7 @@ const RepositorydeAside = (props) => {
                     </div>
                     <div
                         className={`repository-survey ${selectKey === "survey" ? "repository-menu-select" : ""} `}
-                        onClick={() => { props.history.push(`/index/repositorydetail/${repositoryId}/survey`); setSelectKey("survey") }}>
+                        onClick={() => { props.history.push(`/repositorydetail/${repositoryId}/survey`); setSelectKey("survey") }}>
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-home"></use>
                         </svg>
@@ -620,7 +620,7 @@ const RepositorydeAside = (props) => {
                             </Droppable>
                         </DragDropContext>
                     </div>
-                    <div className="repository-setting-menu" onClick={() => props.history.push(`/index/repositorySet/${repositoryId}/basicInfo`)}>
+                    <div className="repository-setting-menu" onClick={() => props.history.push(`/repositorySet/${repositoryId}/basicInfo`)}>
                         <svg className="img-icon" aria-hidden="true">
                             <use xlinkHref="#icon-set"></use>
                         </svg>

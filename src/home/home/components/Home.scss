@@ -5,15 +5,15 @@
     .home-row {
         height: 100%;
     }
+    .home-content {
+        padding: var(--tiklab-padding);
+    }
     .home-repository {
-        padding: 0 15px 15px;
+        padding: var(--tiklab-padding);
         margin-bottom: 15px;
-        margin-top: 15px;
         border-radius: 4px;
         background: #fff;
         .repository-title {
-            height: 40px;
-            line-height: 40px;
             font-size: 14px;
             font-weight: var(--tiklab-font-weight-bold);
         }
@@ -28,7 +28,7 @@
             }
         }
         .repository-item {
-            width: 240px;
+            flex: 1;
             padding: 15px;
             box-sizing: content-box;
             flex-shrink: 0;
@@ -57,6 +57,9 @@
             .item-work {
                 display: flex;
                 gap: 20px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
             }
             .process-work, .end-work{
                 font-size: 12px;
@@ -84,14 +87,11 @@
     }
 
     .home-document {
-        padding: 0  15px 15px;
+        padding: var(--tiklab-padding);
         background: #fff;
         border-radius: 4px;
-        margin-bottom: 15px;
         .document-box-title {
             width: 100%;
-            height: 40px;
-            line-height: 40px;
             font-weight: var(--tiklab-font-weight-bold);
             display: flex;
             justify-content: space-between;

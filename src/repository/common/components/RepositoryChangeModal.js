@@ -58,7 +58,7 @@ const RepositoryChangeModal = (props) => {
         // 切换选中项目，获取项目详情
         searchrepository(id).then(data => {
             if (data.code === 0) {
-                props.history.push(`/index/repositorydetail/${id}/survey`)
+                props.history.push(`/repositorydetail/${id}/survey`)
                 // 重置事项id
                 // 关闭切换弹窗
                 setShowMenu(false)
@@ -146,7 +146,7 @@ const RepositoryChangeModal = (props) => {
                     })
                 }
                 {
-                    allRepositorylist.length > 6 && <div className="change-repository-more" onClick={() => props.history.push("/index/repository")}>查看更多</div>
+                    allRepositorylist.length > 6 && <div className="change-repository-more" onClick={() => props.history.push("/repository")}>查看更多</div>
                 }
             </div>
         </div>

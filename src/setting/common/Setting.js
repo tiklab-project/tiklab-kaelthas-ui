@@ -31,7 +31,7 @@ const Setting = (props) => {
             <SystemNav
                 {...props}
                 applicationRouters={router} // 菜单
-                outerPath={"/index/setting"} // 系统设置Layout路径
+                outerPath={"/setting"} // 系统设置Layout路径
                 notFoundPath={""}  //找不到页面路径
             >
                 <Layout className="orga">

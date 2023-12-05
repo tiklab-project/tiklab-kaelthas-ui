@@ -65,7 +65,7 @@ const CategoryAdd = (props) => {
                     if (category?.id) {
                         setOpenOrClose(category.id)
                     }
-                    props.history.push(`/index/repositorydetail/${repositoryId}/folder/${data.data}`)
+                    props.history.push(`/repositorydetail/${repositoryId}/folder/${data.data}`)
                     form.resetFields()
                 }
 

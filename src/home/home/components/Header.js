@@ -18,7 +18,7 @@ import { getUser } from 'tiklab-core-ui';
 const Header = props => {
     const {systemRoleStore, HelpLink, AppLink, AvatarLink} = props;
 
-    const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/index/home") ? sessionStorage.getItem("menuKey") : "home";
+    const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
     useEffect(() => {
         if (user && user.userId) {
@@ -29,17 +29,17 @@ const Header = props => {
 
     const routers = [
         {
-            to:'/index/home',
+            to:'/home',
             title: '首页',
             key: 'home'
         },
         {
-            to:'/index/repository',
+            to:'/repository',
             title:'知识库',
             key: 'repository'
         },
         {
-            to:'/index/sysmgr/systemFeature',
+            to:'/sysmgr/systemFeature',
             title:'系统',
             key: 'sysmgr'
         }
@@ -85,7 +85,7 @@ const Header = props => {
                     </div>
                     <div className={'frame-header-right-text'}>
                         <div className="frame-header-icon">
-                            <div className="frame-header-set" data-title="系统设置" onClick={() => goSet("/index/setting/organ")}>
+                            <div className="frame-header-set" data-title="系统设置" onClick={() => goSet("/setting/organ")}>
                                 <Space>
                                     <svg aria-hidden="true" className="header-icon">
                                         <use xlinkHref="#icon-iconsetsys"></use>

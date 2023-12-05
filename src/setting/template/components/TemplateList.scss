@@ -1,7 +1,7 @@
 .repository-template {
     background-color: #fff;
     height: 100%;
-    padding: 10px;
+    padding: var(--tiklab-padding);
 
     .template-title {
         display: flex;
@@ -17,6 +17,7 @@
         display: flex;
         gap: 15px;
         flex-wrap: wrap;
+        margin-top: 10px;
         .template-box {
             padding: 10px;
             // border: 1px solid rgba(126, 134, 142, 0.16);

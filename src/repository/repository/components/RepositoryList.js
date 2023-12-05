@@ -137,7 +137,7 @@ const RepositoryList = (props) => {
         }
         createRecent(params)
 
-        props.history.push({ pathname: `/index/repositorydetail/${repository.id}/survey` })
+        props.history.push({ pathname: `/repositorydetail/${repository.id}/survey` })
     }
 
     const handleTableChange = (pagination) => {
@@ -210,16 +210,16 @@ const RepositoryList = (props) => {
     }
 
     const goRepositoryAdd = () => {
-        history.push("/index/repositoryAdd")
+        history.push("/repositoryAdd")
     }
     // const goRepositoryDetail = repository => {
-    //     props.history.push(`/index/repositorydetail/${repository.id}/survey`)
+    //     props.history.push(`/repositorydetail/${repository.id}/survey`)
     // }
 
     return (
-        <div className="repository">
-            <Row>
+            <Row className="repository-row">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
+                <div className="repository">
                     <Breadcumb
                         firstText="知识库"
                     >
@@ -293,9 +293,10 @@ const RepositoryList = (props) => {
                             pagination={false}
                         />
                     </div>
+                    </div>
                 </Col>
             </Row>
-        </div>
+        
     )
 }
 export default withRouter(observer(RepositoryList));

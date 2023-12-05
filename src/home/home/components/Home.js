@@ -45,14 +45,14 @@ const Home = (props) => {
     }, [])
 
     const goRepositoryDetail = repository => {
-        props.history.push(`/index/repositorydetail/${repository.id}/survey`)
+        props.history.push(`/repositorydetail/${repository.id}/survey`)
     }
     const goDocumentDetail = item => {
         if (item.model === "document") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
+            props.history.push(`/repositorydetail/${item.wikiRepository.id}/doc/${item.modelId}`)
         }
         if (item.model === "repository") {
-            props.history.push(`/index/repositorydetail/${item.wikiRepository.id}/survey`)
+            props.history.push(`/repositorydetail/${item.wikiRepository.id}/survey`)
         }
         sessionStorage.setItem("menuKey", "repository")
 
@@ -61,7 +61,7 @@ const Home = (props) => {
         <div className="home">
             <Row className="home-row">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
-                    <div>
+                    <div className="home-content">
                         <div className="home-repository">
                             <div className="repository-title">我最近访问知识库</div>
                             <div className="repository-box">

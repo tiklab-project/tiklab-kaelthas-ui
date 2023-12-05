@@ -1,14 +1,16 @@
-.repository-survey {
-    background-color: var(--tiklab-gray-600);
+.repository-survey-row {
     height: calc(100vh - 48px);
     overflow: auto;
-
+    background-color: var(--tiklab-gray-600);
+}
+.repository-survey {
+    padding: var(--tiklab-padding);
     .repository-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 15px;
-        margin: 15px 0;
+        padding: var(--tiklab-padding);
+        margin-bottom: 15px;
         background: #fff;
         border-radius: 4px;
 
@@ -30,7 +32,7 @@
             .top-name {
                 .name {
                     font-size: 20px;
-                    line-height: 50px;
+                    margin-bottom: 10px;
                 }
 
                 .user {

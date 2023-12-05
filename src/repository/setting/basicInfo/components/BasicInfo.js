@@ -153,7 +153,7 @@ const BasicInfo = props => {
                 if (response.code === 0) {
                     message.success('删除成功');
                     setIsModalVisible(false);
-                    props.history.push("/index/repository")
+                    props.history.push("/repository")
                 }
             })
 
@@ -163,7 +163,7 @@ const BasicInfo = props => {
     // const handleOk = () => {
     //     deleteRepository(repositoryId).then(response => {
     //         if (response.code === 0) {
-    //             props.history.push("/index/repository")
+    //             props.history.push("/repository")
     //         }
     //     })
     //     setIsModalVisible(false);

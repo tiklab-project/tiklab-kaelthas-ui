@@ -39,7 +39,7 @@ const SelectTemplateList = (props) => {
         updateDocument(data).then(res => {
             if(res.code === 0){
                 setTemplateVisible(false)
-                props.history.push(`/index/repositorydetail/${repositoryId}/docEdit/${documentId}`)
+                props.history.push(`/repositorydetail/${repositoryId}/docEdit/${documentId}`)
             }
         })
     }

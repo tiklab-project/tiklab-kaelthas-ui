@@ -104,7 +104,7 @@ const ShareModal = (props) => {
         for (var i in param) {
             s.push(i + '=' + encodeURIComponent(param[i] || ''));
         }
-        var targetUrl = "https://connect.qq.com/widget/shareqq/index.html?" + s.join('&');
+        var targetUrl = "https://connect.qq.com/widget/shareqq.html?" + s.join('&');
         window.open(targetUrl, '_blank', 'height=520, width=720');
     }
 

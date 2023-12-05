@@ -11,7 +11,7 @@ import { Row, Col, Empty } from 'antd';
 import "./ShareCategoryDetail.scss"
 import { observer, inject } from "mobx-react";
 const ShareCategoryDetail = (props) => {
-    const {shareStore} = props;
+    const { shareStore } = props;
     const { findCategory, findCategoryDocument } = shareStore;
     const categoryId = props.match.params.id;
     const [logList, setLogList] = useState();
@@ -21,7 +21,7 @@ const ShareCategoryDetail = (props) => {
 
     useEffect(() => {
         findCategory({ id: categoryId }).then(data => {
-            if(data.code === 0){
+            if (data.code === 0) {
                 setLogDetail(data)
             }
         })
@@ -30,7 +30,7 @@ const ShareCategoryDetail = (props) => {
         })
         return;
     }, [categoryId])
-    
+
     // 当前选中目录id
     const [selectKey, setSelectKey] = useState();
 
@@ -46,66 +46,64 @@ const ShareCategoryDetail = (props) => {
     }
 
     return (
-        <div className="log-detail">
-            <Row>
-                <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
-                    <div>
-                        {
-                            logDetail && <Fragment>
-                                <div className="log-title">
+        <Row className="log-detail">
+            <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="log-detail-content">
+                    {
+                        logDetail && <Fragment>
+                            <div className="log-title">
 
-                                    <div className="title-left">
-                                        <svg className="title-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-folder"></use>
-                                        </svg>
-                                        <div className="title-name">
-                                            <div className="name">{logDetail.name}</div>
-                                            <div className="master">{logDetail.master.name}</div>
-                                        </div>
+                                <div className="title-left">
+                                    <svg className="title-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-folder"></use>
+                                    </svg>
+                                    <div className="title-name">
+                                        <div className="name">{logDetail.name}</div>
+                                        <div className="master">{logDetail.master.name}</div>
                                     </div>
                                 </div>
-                            </Fragment>
-                        }
+                            </div>
+                        </Fragment>
+                    }
 
-                        <div className="log-child">
-                            {
-                                logList && logList.length > 0 ? logList.map(item => {
-                                    return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
-                                        <div className="log-child-title" style={{ flex: 1 }}>
-                                            {
-                                                item.formatType && item.formatType === "category" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-folder"></use>
-                                                </svg>
-                                            }
-                                            {
-                                                item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-minmap"></use>
-                                                </svg>
-                                            }
-                                            {
-                                                item.formatType && item.formatType === "document" && item.typeId === "document" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-file"></use>
-                                                </svg>
-                                            }
+                    <div className="log-child">
+                        {
+                            logList && logList.length > 0 ? logList.map(item => {
+                                return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
+                                    <div className="log-child-title" style={{ flex: 1 }}>
+                                        {
+                                            item.formatType && item.formatType === "category" &&
+                                            <svg className="log-icon" aria-hidden="true">
+                                                <use xlinkHref="#icon-folder"></use>
+                                            </svg>
+                                        }
+                                        {
+                                            item.formatType && item.formatType === "document" && item.typeId === "mindMap" &&
+                                            <svg className="log-icon" aria-hidden="true">
+                                                <use xlinkHref="#icon-minmap"></use>
+                                            </svg>
+                                        }
+                                        {
+                                            item.formatType && item.formatType === "document" && item.typeId === "document" &&
+                                            <svg className="log-icon" aria-hidden="true">
+                                                <use xlinkHref="#icon-file"></use>
+                                            </svg>
+                                        }
 
-                                            <span className="log-child-name" title = {item.name}>{item.name}</span>
-                                        </div>
-                                        <div style={{ flex: 1 }}>{item.master.nickname}</div>
-                                        <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                        <span className="log-child-name" title={item.name}>{item.name}</span>
                                     </div>
-                                })
-                                    :
-                                    <Empty image="/images/nodata.png" description="暂时没有内容~" />
-                            }
-                        </div>
-
+                                    <div style={{ flex: 1 }}>{item.master.nickname}</div>
+                                    <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                </div>
+                            })
+                                :
+                                <Empty image="/images/nodata.png" description="暂时没有内容~" />
+                        }
                     </div>
-                </Col>
-            </Row>
-        </div>
+
+                </div>
+            </Col>
+        </Row>
     )
 }
 export default inject("shareStore")(observer(ShareCategoryDetail));

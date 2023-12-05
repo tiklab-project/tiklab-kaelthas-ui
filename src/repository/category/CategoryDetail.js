@@ -74,22 +74,21 @@ const CategoryDetail = (props) => {
         setSelectKey(item.id)
         if (item.formatType === "category") {
             localStorage.setItem("categoryId", item.id);
-            props.history.push(`/index/repositorydetail/${repositoryId}/folder/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/folder/${item.id}`)
         }
         if (item.typeId === "document") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/doc/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
         if (item.typeId === "markdown") {
-            props.history.push(`/index/repositorydetail/${repositoryId}/markdown/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/markdown/${item.id}`)
 
         }
     }
 
     return (<Provider {...store}>
-        <div className="log-detail">
-            <Row>
+            <Row className="log-detail">
                 <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
-                    <div>
+                    <div className="log-detail-content">
                         {
                             logDetail && <Fragment>
                                 <div className="log-title">
@@ -135,8 +134,8 @@ const CategoryDetail = (props) => {
 
                                             <span className="log-child-name" title={item.name}>{item.name}</span>
                                         </div>
-                                        <div style={{ flex: 1 }}>{item.master.nickname}</div>
-                                        <div style={{ flex: 1 }}>{item.updateTime}</div>
+                                        <div style={{width: "100px"}}>{item.master.nickname}</div>
+                                        <div >{item.updateTime}</div>
                                     </div>
                                 })
                                     :
@@ -159,7 +158,6 @@ const CategoryDetail = (props) => {
                 modalTitle={"添加目录"}
                 {...props}
             />
-        </div>
     </Provider>
 
     )

@@ -54,7 +54,7 @@ const SearchResult = (props) => {
     const toRepository = async(repository) => {
         setRepositoryId(repository.id)
         localStorage.setItem("repository",repository.id)
-        await props.history.push("/index/repositorydetail/survey")
+        await props.history.push("/repositorydetail/survey")
         setShow("hidden")
         // location.reload();
 
@@ -62,7 +62,7 @@ const SearchResult = (props) => {
 
     const toWorkItem = async(id) => {
         // setWorkId(id)
-        await props.history.push("/index/repositorydetail/work")
+        await props.history.push("/repositorydetail/work")
         setShow("hidden")
         // location.reload();
 

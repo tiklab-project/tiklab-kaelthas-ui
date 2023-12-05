@@ -111,10 +111,10 @@ const AddDropDown = (props) => {
                     //     setExpandedTree(expandedTree.concat(id));
                     // }
                     if (value.key === "document") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/doc/${data.data}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/doc/${data.data}`)
                     }
                     if (value.key === "markdown") {
-                        props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
+                        props.history.push(`/repositorydetail/${repositoryId}/markdownEdit/${data.data}`)
                     }
 
                     // 左侧导航

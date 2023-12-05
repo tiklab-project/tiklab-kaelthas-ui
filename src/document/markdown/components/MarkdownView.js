@@ -116,7 +116,7 @@ const DocumentExamine = (props) => {
                 <div className="examine-title" id="examine-title">{docInfo.name}</div>
                 <div className="document-edit">
                     {
-                        value && <svg className="right-icon" aria-hidden="true" onClick={() => props.history.push(`/index/repositorydetail/${repositoryId}/markdownEdit/${documentId}`)}>
+                        value && <svg className="right-icon" aria-hidden="true" onClick={() => props.history.push(`/repositorydetail/${repositoryId}/markdownEdit/${documentId}`)}>
                             <use xlinkHref="#icon-edit"></use>
                         </svg>
                     }

@@ -1,8 +1,10 @@
 .log-detail {
-    padding: 15px;
     background-color: #fff;
     height: calc(100vh - 48px);
     overflow: auto;
+    .log-detail-content {
+        padding: 20px;
+    }
     &-header {
         display: flex;
         justify-content: space-between;
@@ -15,36 +17,6 @@
             color: #0053ca;
         }
 
-    }
-
-    .log-edit {
-        .edit-toolbar {
-            padding: 0;
-            flex-wrap: nowrap;
-        }
-
-        .edit-title {
-            padding: 10px 0;
-            font-size: 16px;
-            font-weight: 600;
-        }
-    }
-
-    .log-examine {
-        .examine-title {
-            font-size: 18px;
-            font-weight: 600;
-            line-height: 30px;
-            height: 30px;
-            margin-bottom: 20px;
-
-        }
-
-        .examine-type {
-            font-size: 12px;
-            color: #aaa;
-            margin-left: 20px;
-        }
     }
 
     .log-title {
@@ -103,6 +75,7 @@
             justify-content: space-between;
             padding: 0 10px;
             border-radius: 4px;
+            gap: 15px;
             .log-child-title {
                 display: flex;
                 align-items: center;
@@ -126,14 +99,5 @@
             height: 16px;
             margin-right: 5px;
         }
-    }
-}
-.content-add-menu {
-    display: flex;
-    align-items: center;
-    .content-add-icon {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
     }
 }

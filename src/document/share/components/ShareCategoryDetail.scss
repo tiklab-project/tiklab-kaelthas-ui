@@ -1,8 +1,10 @@
 .log-detail {
-    padding: 15px;
     background-color: #fff;
     height: calc(100vh - 48px);
     overflow: auto;
+    .log-detail-content {
+        padding: 20px;
+    }
     &-header {
         display: flex;
         justify-content: space-between;

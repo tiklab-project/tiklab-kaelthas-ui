@@ -51,7 +51,7 @@ const RepositoryAddInfo = (props) => {
                 if (res.code === 0) {
                     message.success('添加成功');;
                     // findRepositoryList({masterId: userId})
-                    props.history.push(`/index/repositorydetail/${res.data}/survey`)
+                    props.history.push(`/repositorydetail/${res.data}/survey`)
                 }
             })
         })
