@@ -139,7 +139,12 @@ const Routes = [
         component: PassWord,
     },
     {
-        path: "",
+        path: "/",
+        component: () => <Redirect to="/home" />,
+        exact: true,
+    },
+    {
+        path: "/",
         component: Index,
         routes: [
             {

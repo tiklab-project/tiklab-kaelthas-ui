@@ -56,7 +56,7 @@ const RepositoryList = (props) => {
         }
         findRecentRepositoryList(recentRepositoryParams).then(res => {
             if (res.code === 0) {
-                setRecentRepositoryDocumentList(res.data.slice(0, 5))
+                setRecentRepositoryDocumentList(res.data)
             }
 
         })

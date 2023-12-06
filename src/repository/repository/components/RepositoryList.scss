@@ -21,7 +21,8 @@
             gap: 15px;
             padding: 10px 0;
             overflow: hidden;
-
+            flex-wrap: wrap;
+            height: 114px;
             .ant-empty {
                 width: 100%;
             }
@@ -29,7 +30,7 @@
 
         .repository-item {
             flex: 1;
-            padding: 15px;
+            padding: var(--tiklab-padding);
             box-sizing: content-box;
             flex-shrink: 0;
             border-radius: 4px;
@@ -37,7 +38,8 @@
             background-color: var(--tiklab-gray-600);
             box-sizing: border-box;
             border-bottom: 2px solid var(--tiklab-gray-600);
-
+            min-width: 180px;
+            max-width: 240px;
             .item-title {
                 margin-bottom: 10px;
                 font-weight: var(--tiklab-font-weight-bold);
