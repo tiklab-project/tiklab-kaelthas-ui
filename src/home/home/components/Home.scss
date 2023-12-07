@@ -5,6 +5,9 @@
     .home-row {
         height: 100%;
     }
+    .home-col {
+        padding: var(--tiklab-padding);
+    }
     .home-content {
         padding: var(--tiklab-padding);
     }
@@ -20,9 +23,11 @@
         .repository-box {
             display: flex;
             justify-content: flex-start;
+            flex-wrap: wrap;
             gap: 15px;
             padding: 10px 0;
             overflow: hidden;
+            height: 124px;
             .ant-empty {
                 width: 100%;
             }
@@ -37,6 +42,8 @@
             background-color: var(--tiklab-gray-600);
             box-sizing: border-box;
             border-bottom: 2px solid var(--tiklab-gray-600);
+            min-width: 200px;
+            max-width: 240px;
             .item-title {
                 margin-bottom: 10px;
                 font-weight: var(--tiklab-font-weight-bold);
@@ -111,19 +118,51 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 40px;
-            line-height: 40px;
+            line-height: 30px;
+            gap: 10px;
+            margin-top: 10px;
+            flex-shrink: 1;
+            min-width: 0;
+            .document-item-left {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                flex-shrink: 1;
+                min-width: 0;
+                .document-icon {
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                }
+                .document-item-text {
+                    flex-shrink: 1;
+                    min-width: 0;
+                    .document-title {
+                        cursor: pointer;
+                        color: var(--tiklab-blue);
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    .document-master {
+                        font-size: 12px;
+                        color: var(--tiklab-gray-500);
+                    }
+                }
+            }
+            .document-repository {
+                width: 150px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                flex-shrink: 0;
+            }
+            .document-time {
+                width: 150px;
+                flex-shrink: 0;
+            }
         }
-        .document-name {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: var(--tiklab-blue);
-        }
-        .document-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
+       
     }
 }

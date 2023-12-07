@@ -10,7 +10,7 @@ const Home = (props) => {
     const [recentRepositoryDocumentList, setRecentRepositoryDocumentList] = useState([]);
     const userId = getUser().userId
     const tenant = getUser().tenant;
-    
+
     useEffect(() => {
         const recentDocumentParams = {
             masterId: userId,
@@ -61,80 +61,89 @@ const Home = (props) => {
         <div className="home">
             <Row className="home-row">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
-                    <div className="home-content">
-                        <div className="home-repository">
-                            <div className="repository-title">我最近访问知识库</div>
-                            <div className="repository-box">
-                                {
-                                    recentRepositoryDocumentList.length > 0 ? recentRepositoryDocumentList.map(item => {
-                                        return <Fragment>
-                                            <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)} >
-                                                <div className="item-title">
-                                                    {
-                                                        item.iconUrl ?
-                                                            <img
-                                                                src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
-                                                                   
-                                                                alt=""
-                                                                className="list-img"
-                                                            />
-                                                            :
-                                                            <img
-                                                                src={('images/repository1.png')}
-                                                                alt=""
-                                                                className="list-img"
-                                                            />
-                                                    }
-                                                    <span>{item.name}</span>
+                    <div className="home-repository">
+                        <div className="repository-title">我最近访问知识库</div>
+                        {
+
+                            recentRepositoryDocumentList.length > 0 ?
+                                <div className="repository-box">
+                                    {
+                                        recentRepositoryDocumentList.map(item => {
+                                            return <Fragment>
+                                                <div className="repository-item" key={item.id} onClick={() => goRepositoryDetail(item)} >
+                                                    <div className="item-title">
+                                                        {
+                                                            item.iconUrl ?
+                                                                <img
+                                                                    src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
+
+                                                                    alt=""
+                                                                    className="list-img"
+                                                                />
+                                                                :
+                                                                <img
+                                                                    src={('images/repository1.png')}
+                                                                    alt=""
+                                                                    className="list-img"
+                                                                />
+                                                        }
+                                                        <span>{item.name}</span>
+                                                    </div>
+                                                    <div className="item-work">
+                                                        <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
+                                                        <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
+                                                    </div>
                                                 </div>
-                                                <div className="item-work">
-                                                    <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
-                                                    <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
-                                                </div>
-                                            </div>
 
-                                        </Fragment>
-                                    })
-                                    :
+                                            </Fragment>
+                                        })
+                                    }
+                                </div>
+                                :
 
-                                    <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
-                                }
+                                <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
 
-                            </div>
+                        }
+                    </div>
+
+                    <div className="home-document">
+                        <div className="document-box-title">
+                            <span className="name">我最近查看的文档</span>
                         </div>
-
-                        <div className="home-document">
-                            <div className="document-box-title">
-                                <span className="name">我最近查看的文档</span>
-                            </div>
-                            <div>
-                                {
-                                    recentViewDocumentList && recentViewDocumentList.length > 0 ?  recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
+                        <div>
+                            {
+                                recentViewDocumentList && recentViewDocumentList.length > 0 ? recentViewDocumentList.map((item) => {
+                                    return <div className="document-list-item" key={item.id} >
+                                        <div className='document-item-left' style={{ flex: 1 }}>
+                                            <div>
                                                 <svg className="document-icon" aria-hidden="true">
                                                     <use xlinkHref="#icon-file"></use>
                                                 </svg>
-                                                <span>{item.name}</span>
                                             </div>
 
-                                            <div style={{ flex: 1 }}>{item.wikiRepository?.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.recentTime}</div>
+                                            <div className="document-item-text">
+                                                <div className="document-title" onClick={() => goDocumentDetail(item)}>{item.name}</div>
+                                                <div className="document-master" style={{ flex: 1 }}>{item.master.nickname}</div>
+                                            </div>
+
                                         </div>
-                                    })
+
+                                        <div className="document-repository">{item.wikiRepository?.name}</div>
+
+                                        <div className="document-time">{item.recentTime}</div>
+                                    </div>
+                                })
                                     :
                                     <Empty image="/images/nodata.png" description="暂时没有数据~" />
-                                }
-                            </div>
-
+                            }
                         </div>
+
                     </div>
 
                 </Col>
             </Row>
 
-        </div>
+        </div >
     );
 }
 

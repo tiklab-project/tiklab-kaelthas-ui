@@ -217,8 +217,8 @@ const RepositoryList = (props) => {
     // }
 
     return (
-            <Row className="repository-row">
-                <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
+        <Row className="repository-row">
+            <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }}>
                 <div className="repository">
                     <Breadcumb
                         firstText="知识库"
@@ -228,43 +228,47 @@ const RepositoryList = (props) => {
                     </Breadcumb>
                     <div className="recent-repository">
                         <div className="repository-title">最近知识库</div>
-                        <div className="repository-box">
-                            {
-                                recentRepositoryDocumentList.length > 0 ? recentRepositoryDocumentList.map(item => {
-                                    return <Fragment>
-                                        <div className="repository-item" key={item.id} onClick={() => goRepositorydetail(item)} >
-                                            <div className="item-title">
-                                                {
-                                                    item.iconUrl ?
-                                                        <img
-                                                            src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
 
-                                                            alt=""
-                                                            className="list-img"
-                                                        />
-                                                        :
-                                                        <img
-                                                            src={('images/repository1.png')}
-                                                            alt=""
-                                                            className="list-img"
-                                                        />
-                                                }
-                                                <span>{item.name}</span>
+                        {
+                            recentRepositoryDocumentList.length > 0 ?
+                                <div className="repository-box">{
+                                    recentRepositoryDocumentList.map(item => {
+                                        return <Fragment>
+                                            <div className="repository-item" key={item.id} onClick={() => goRepositorydetail(item)} >
+                                                <div className="item-title">
+                                                    {
+                                                        item.iconUrl ?
+                                                            <img
+                                                                src={version === "cloud" ? (upload_url + item.iconUrl + "?tenant=" + tenant) : (upload_url + item.iconUrl)}
+
+                                                                alt=""
+                                                                className="list-img"
+                                                            />
+                                                            :
+                                                            <img
+                                                                src={('images/repository1.png')}
+                                                                alt=""
+                                                                className="list-img"
+                                                            />
+                                                    }
+                                                    <span>{item.name}</span>
+                                                </div>
+                                                <div className="item-work">
+                                                    <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
+                                                    <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
+                                                </div>
                                             </div>
-                                            <div className="item-work">
-                                                <div className="process-work"><span style={{ color: "#999" }}>文档</span><span>{item.documentNum}篇</span></div>
-                                                <div className="end-work"><span style={{ color: "#999" }}>目录</span><span>{item.categoryNum}个</span></div>
-                                            </div>
-                                        </div>
 
-                                    </Fragment>
-                                })
-                                    :
+                                        </Fragment>
+                                    })
+                                }
+                                </div>
 
-                                    <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
-                            }
+                                :
 
-                        </div>
+                                <Empty image="/images/nodata.png" description="暂时没有查看过知识库~" />
+                        }
+
                     </div>
                     <div className="repository-tabs-search">
                         <div className="repository-filter">
@@ -293,10 +297,10 @@ const RepositoryList = (props) => {
                             pagination={false}
                         />
                     </div>
-                    </div>
-                </Col>
-            </Row>
-        
+                </div>
+            </Col>
+        </Row >
+
     )
 }
 export default withRouter(observer(RepositoryList));

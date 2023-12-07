@@ -146,6 +146,37 @@
         .dynamic-list {
             margin-top: 10px;
             padding-bottom: 20px;
+            .dynamic-item {
+                margin-bottom: 10px;
+    
+                .dynamic-repository-title:hover {
+                    color: var(--tiklab-blue);
+                }
+            }
+    
+            .dynamic-item:nth-child(4n+1) {
+                .dynamic-user-icon {
+                    background-color: #cadbf3;
+                }
+            }
+    
+            .dynamic-item:nth-child(4n+2) {
+                .dynamic-user-icon {
+                    background-color: #deedd7;
+                }
+            }
+    
+            .dynamic-item:nth-child(4n+3) {
+                .dynamic-user-icon {
+                    background-color: #ffebee;
+                }
+            }
+    
+            .dynamic-item:nth-child(4n+4) {
+                .dynamic-user-icon {
+                    background-color: #e8eaf6;
+                }
+            }
         }
 
     }
@@ -181,21 +212,43 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 40px;
-            line-height: 40px;
-        }
-
-        .document-name {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            color: var(--tiklab-blue);
-        }
-
-        .document-icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
+            line-height: 30px;
+            gap: 10px;
+            margin-top: 10px;
+            flex-shrink: 1;
+            min-width: 0;
+            .document-item-left {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                flex-shrink: 1;
+                min-width: 0;
+                .document-icon {
+                    width: 32px;
+                    height: 32px;
+                    margin-right: 10px;
+                }
+                .document-item-text {
+                    flex-shrink: 1;
+                    min-width: 0;
+                    .document-title {
+                        cursor: pointer;
+                        color: var(--tiklab-blue);
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        overflow: hidden;
+                    }
+                    .document-master {
+                        font-size: 12px;
+                        color: var(--tiklab-gray-500);
+                    }
+                }
+            }
+            .document-time {
+                width: 150px;
+                flex-shrink: 0;
+            }
         }
     }
 }

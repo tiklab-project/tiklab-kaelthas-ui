@@ -11,8 +11,8 @@ import CategoryStore from "../../common/store/CategoryStore";
 import { replaceTree } from '../../../common/utils/treeDataAction';
 import AddDropDown from "../../common/components/AddDropDown";
 const Survey = (props) => {
-    const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList, 
-        findCategoryListTreeById,  } = SurveyStore;
+    const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList,
+        findCategoryListTreeById, } = SurveyStore;
 
     const { expandedTree, setExpandedTree, repositoryCatalogueList } = CategoryStore;
 
@@ -69,11 +69,11 @@ const Survey = (props) => {
             treePath: document.treePath
         }
         findCategoryListTreeById(params).then(res => {
-            if(res.code === 0){
+            if (res.code === 0) {
                 console.log(res.data[0])
                 replaceTree(repositoryCatalogueList, res.data[0])
-                if(document.treePath){
-                    const list =  document.treePath.split(";")
+                if (document.treePath) {
+                    const list = document.treePath.split(";")
                     list.pop();
                     let newExpandedTree = [...expandedTree, ...list]
                     // 去重
@@ -101,20 +101,23 @@ const Survey = (props) => {
                             <div className="repository-top">
 
                                 <div className="top-left">
-                                    {
-                                        repositoryInfo.iconUrl ?
-                                            <img
-                                                src={version === "cloud" ? (upload_url + repositoryInfo.iconUrl + "?tenant=" + tenant) : (upload_url + repositoryInfo.iconUrl)}
-                                                alt=""
-                                                className="repository-icon"
-                                            />
-                                            :
-                                            <img
-                                                src={('images/repository1.png')}
-                                                alt=""
-                                                className="repository-icon"
-                                            />
-                                    }
+                                    <div>
+                                        {
+                                            repositoryInfo.iconUrl ?
+                                                <img
+                                                    src={version === "cloud" ? (upload_url + repositoryInfo.iconUrl + "?tenant=" + tenant) : (upload_url + repositoryInfo.iconUrl)}
+                                                    alt=""
+                                                    className="repository-icon"
+                                                />
+                                                :
+                                                <img
+                                                    src={('images/repository1.png')}
+                                                    alt=""
+                                                    className="repository-icon"
+                                                />
+                                        }
+                                    </div>
+
 
                                     <div className="top-name">
                                         <div className="name">{repositoryInfo?.name}</div>
@@ -147,7 +150,7 @@ const Survey = (props) => {
                                 </div>
 
                                 <div className="top-right">
-                                    <AddDropDown category={null} isButton = {true} />
+                                    <AddDropDown category={null} isButton={true} />
                                     <Button>分享</Button>
                                 </div>
                             </div>
@@ -162,37 +165,39 @@ const Survey = (props) => {
                             recentViewDocumentList.length > 0 ? <div>
                                 {
                                     recentViewDocumentList && recentViewDocumentList.map((item) => {
-                                        return <div className="document-list-item" key={item.id} onClick={() => goDocumentDetail(item)}>
-                                            <div className='document-name' style={{ flex: 1 }}>
-                                                {
-                                                    item.typeId === "markdown" &&
-                                                    <svg className="document-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-minmap"></use>
-                                                    </svg>
-                                                }
-                                                {
-                                                    item.typeId === "document" &&
-                                                    <svg className="document-icon" aria-hidden="true">
-                                                        <use xlinkHref="#icon-file"></use>
-                                                    </svg>
-                                                }
-                                                <span>{item.name}</span>
+                                        return <div className="document-list-item" key={item.id} >
+                                            <div className='document-item-left'>
+                                                <div>
+                                                    {
+                                                        item.typeId === "markdown" &&
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-minmap"></use>
+                                                        </svg>
+                                                    }
+                                                    {
+                                                        item.typeId === "document" &&
+                                                        <svg className="document-icon" aria-hidden="true">
+                                                            <use xlinkHref="#icon-file"></use>
+                                                        </svg>
+                                                    }
+                                                </div>
+
+                                                <div className='document-item-text'>
+                                                    <div className='document-title' onClick={() => goDocumentDetail(item)}>{item.name}</div>
+                                                    <div className='document-master'>{item.master.nickname}</div>
+                                                </div>
+
                                             </div>
 
-                                            <div style={{ flex: 1 }}>{item.wikiRepository.name}</div>
-                                            <div style={{ flex: 1 }}>{item.master.name}</div>
-                                            <div style={{ flex: 1 }}>{item.updateTime}</div>
-                                            <div>
-                                                <svg className="icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-point"></use>
-                                                </svg>
-                                            </div>
+                                            {/* <div style={{ flex: 1 }}>{item.wikiRepository.name}</div> */}
+
+                                            <div >{item.updateTime}</div>
                                         </div>
                                     })
                                 }
                             </div>
-                            :
-                            <Empty image="/images/nodata.png" description="暂时没有查看过文档~" />
+                                :
+                                <Empty image="/images/nodata.png" description="暂时没有查看过文档~" />
                         }
                     </div>
                     <div className="home-dynamic">

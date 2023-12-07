@@ -216,6 +216,8 @@ const RepositorydeAside = (props) => {
     const setOpenClickCategory = key => {
         if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
+        }else {
+            setExpandedTree(expandedTree.filter(item => item !== key))
         }
     }
 
