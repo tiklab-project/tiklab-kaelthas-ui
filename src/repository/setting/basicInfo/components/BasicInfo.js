@@ -13,9 +13,9 @@ import 'moment/locale/zh-cn';
 import "../components/basicInfo.scss";
 import Breadcumb from "../../../../common/breadcrumb/breadcrumb";
 import RepositoryIcon from "./RepositoryChangeIcon";
-import { PrivilegeProjectButton } from "tiklab-privilege-ui";
+import { PrivilegeProjectButton } from "thoughtware-privilege-ui";
 import { Collapse } from 'antd';
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 const { Panel } = Collapse;
 const BasicInfo = props => {
     const layout = {

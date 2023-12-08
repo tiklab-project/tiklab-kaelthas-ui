@@ -4,7 +4,7 @@ import "../components/Search.scss"
 import SearchStore from "../store/Search";
 import { observer } from "mobx-react";
 import { useDebounce, useThrottle } from "../../../common/utils/debounce";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import { Empty } from "antd";
 import { withRouter } from "react-router";
 const Search = (props) => {

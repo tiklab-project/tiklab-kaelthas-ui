@@ -12,7 +12,7 @@ import RepositorydeAside from "./RepositoryDetailAside";
 import "../components/RepositoryLayout.scss";
 import { renderRoutes } from "react-router-config";
 import {observer, inject, Provider} from "mobx-react";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 import RepositoryStore from "../../repository/store/RepositoryStore";
 import CategoryStore from "../store/CategoryStore"
 const RepositoryDetail = (props)=>{

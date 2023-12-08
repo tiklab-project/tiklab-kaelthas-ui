@@ -17,8 +17,8 @@
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Row, Col } from 'antd';
-import { MarkdownView } from "tiklab-markdown-ui";
-import "tiklab-markdown-ui/es/tiklab-markdown.css";
+import { MarkdownView } from "thoughtware-markdown-ui";
+import "thoughtware-markdown-ui/es/thoughtware-markdown.css";
 import "./shareMarkdown.scss"
 import Comment from "./CommentShare";
 import { withRouter } from "react-router";

@@ -11,12 +11,12 @@ import { Row, Col, Input } from 'antd';
 import { observer, inject } from "mobx-react";
 import { withRouter } from "react-router-dom";
 import "./documentEdit.scss";
-import { EditorBigContent, EditorBig } from "tiklab-slate-ui";
+import { EditorBigContent, EditorBig } from "thoughtware-slate-ui";
 import Button from "../../../common/button/button";
 import DocumentStore from "../store/DocumentStore";
 import CategoryStore from "../../../repository/common/store/CategoryStore";
-import "tiklab-slate-ui/es/tiklab-slate.css";
-import { getUser } from "tiklab-core-ui";
+import "thoughtware-slate-ui/es/thoughtware-slate.css";
+import { getUser } from "thoughtware-core-ui";
 import { useDebounce } from "../../../common/utils/debounce";
 import { updateNodeName } from "../../../common/utils/treeDataAction";
 const DocumentEdit = (props) => {

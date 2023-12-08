@@ -12,7 +12,7 @@ import { Modal, Button, Form, Input, Select, DatePicker, Upload } from 'antd';
 import { observer, inject } from "mobx-react";
 import 'moment/locale/zh-cn';
 import TemplateStore from "../store/TemplateStore";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import UploadIcon1 from "../../../assets/images/uploadIcon.png";
 import setImageUrl from "../../../common/utils/setImageUrl";
 import "./TemplateAddModal.scss"

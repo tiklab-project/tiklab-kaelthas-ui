@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import setImageUrl from "../../../common/utils/setImageUrl";
 import RepositoryStore from "../../repository/store/RepositoryStore";
 import { observer } from "mobx-react";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 
 const RepositoryChangeModal = (props) => {
     const { searchrepository, repository } = props;

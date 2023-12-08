@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Modal, Form, Upload, message } from 'antd';
 import { withRouter } from "react-router";
 import UploadIcon1 from "../../../../assets/images/uploadIcon.png";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import RepositoryIconStore from "../store/RepositoryStore";
 const RepositoryIcon = (props) => {
 

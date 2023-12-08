@@ -10,10 +10,10 @@ import React, { useState, useEffect } from "react";
 import { observer, inject } from "mobx-react";
 import { Form, Row, Col } from 'antd';
 import "./TemplatePreview.scss"
-import { PreviewEditor } from "tiklab-slate-ui";
-import "tiklab-slate-ui/es/tiklab-slate.css";
+import { PreviewEditor } from "thoughtware-slate-ui";
+import "thoughtware-slate-ui/es/thoughtware-slate.css";
 import TemplateStore from "../store/TemplateStore";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 const TemplatePreview = (props) => {
     const [form] = Form.useForm();
     const { relationWorkStore } = props;

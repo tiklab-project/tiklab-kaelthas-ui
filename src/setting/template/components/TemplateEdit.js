@@ -9,12 +9,12 @@
 import React, { useState, useEffect } from "react";
 import { observer, inject } from "mobx-react";
 import { Input, Row, Col, Modal } from 'antd';
-import { EditorBig, EditorBigContent } from "tiklab-slate-ui";
-import "tiklab-slate-ui/es/tiklab-slate.css";
+import { EditorBig, EditorBigContent } from "thoughtware-slate-ui";
+import "thoughtware-slate-ui/es/thoughtware-slate.css";
 import Button from "../../../common/button/button";
 import TemplateStore from "../store/TemplateStore";
 import "./templateEdit.scss"
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import html2canvas from "html2canvas";
 const TemplateEdit = (props) => {
     const templateId = props.match.params.templateId;

@@ -9,10 +9,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import "./MarkdownEdit.scss";
-import { Markdown } from "tiklab-markdown-ui";
+import { Markdown } from "thoughtware-markdown-ui";
 import Button from "../../../common/button/button";
 import MarkdownStore from "../store/MarkdownStore";
-import "tiklab-markdown-ui/es/tiklab-markdown.css";
+import "thoughtware-markdown-ui/es/thoughtware-markdown.css";
 import { Node } from "slate";
 const MarkdownEdit = (props) => {
     const { findDocument, updateDocument } = MarkdownStore;

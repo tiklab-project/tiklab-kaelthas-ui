@@ -12,7 +12,7 @@ import { UploadOutlined } from '@ant-design/icons';
 import "./JiraLoadData.scss";
 import Breadcumb from "../../../common/breadcrumb/Breadcrumb";
 import Button from "../../../common/button/button";
-import { getUser } from 'tiklab-core-ui';
+import { getUser } from 'thoughtware-core-ui';
 const LoadData = props => {
     const ticket = getUser().ticket;
     const uploadProps = {

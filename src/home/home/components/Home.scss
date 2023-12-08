@@ -1,24 +1,24 @@
 .home {
     height: calc(100vh - 48px);
-    background-color: var(--tiklab-gray-600);
+    background-color: var(--thoughtware-gray-600);
     overflow: auto;
     .home-row {
         height: 100%;
     }
     .home-col {
-        padding: var(--tiklab-padding);
+        padding: var(--thoughtware-padding);
     }
     .home-content {
-        padding: var(--tiklab-padding);
+        padding: var(--thoughtware-padding);
     }
     .home-repository {
-        padding: var(--tiklab-padding);
+        padding: var(--thoughtware-padding);
         margin-bottom: 15px;
         border-radius: 4px;
         background: #fff;
         .repository-title {
             font-size: 14px;
-            font-weight: var(--tiklab-font-weight-bold);
+            font-weight: var(--thoughtware-font-weight-bold);
         }
         .repository-box {
             display: flex;
@@ -39,14 +39,14 @@
             flex-shrink: 0;
             border-radius: 4px;
             cursor: pointer;
-            background-color: var(--tiklab-gray-600);
+            background-color: var(--thoughtware-gray-600);
             box-sizing: border-box;
-            border-bottom: 2px solid var(--tiklab-gray-600);
+            border-bottom: 2px solid var(--thoughtware-gray-600);
             min-width: 200px;
             max-width: 240px;
             .item-title {
                 margin-bottom: 10px;
-                font-weight: var(--tiklab-font-weight-bold);
+                font-weight: var(--thoughtware-font-weight-bold);
                 display: inline-flex;
                 align-items: center;
                 font-size: 16px;
@@ -89,24 +89,24 @@
         }
         .repository-item:hover {
             border-radius: 4px 4px 0 0;
-            border-bottom: 2px solid var(--tiklab-blue);
+            border-bottom: 2px solid var(--thoughtware-blue);
         }
     }
 
     .home-document {
-        padding: var(--tiklab-padding);
+        padding: var(--thoughtware-padding);
         background: #fff;
         border-radius: 4px;
         .document-box-title {
             width: 100%;
-            font-weight: var(--tiklab-font-weight-bold);
+            font-weight: var(--thoughtware-font-weight-bold);
             display: flex;
             justify-content: space-between;
             .more:hover{
                 text-decoration:underline;
             }
             .more {
-                color: var(--tiklab-blue);
+                color: var(--thoughtware-blue);
                 margin-left: 10px;
                 cursor: pointer;
                 display: flex;
@@ -140,14 +140,14 @@
                     min-width: 0;
                     .document-title {
                         cursor: pointer;
-                        color: var(--tiklab-blue);
+                        color: var(--thoughtware-blue);
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
                     }
                     .document-master {
                         font-size: 12px;
-                        color: var(--tiklab-gray-500);
+                        color: var(--thoughtware-gray-500);
                     }
                 }
             }

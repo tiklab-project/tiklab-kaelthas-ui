@@ -3,7 +3,7 @@
     height: 100%;
     .orga-background {
         background-color: #fff;
-        height: calc(100vh - var(--tiklab-head-height));
+        height: calc(100vh - var(--thoughtware-head-height));
     }
     .orga-col {
         background-color: #fff;
@@ -11,7 +11,7 @@
     }
     .orga-aside {
         height: 100%;
-        background-color: var(--tiklab-gray);
+        background-color: var(--thoughtware-gray);
         .orga-aside-top {
         height: calc(100vh - 90px);
            overflow: auto;
@@ -45,23 +45,23 @@
             padding: 0;
         }
         .orga-aside-second:hover {
-            background-color: var(--tiklab-gray-300);
+            background-color: var(--thoughtware-gray-300);
         }
         .orga-aside-first:hover{
-            background-color: var(--tiklab-gray-300);
+            background-color: var(--thoughtware-gray-300);
         }
         .orga-aside-select {
-            background-color: var(--tiklab-gray-400);
-            border-left: 3px solid var(--tiklab-gray-400);
+            background-color: var(--thoughtware-gray-400);
+            border-left: 3px solid var(--thoughtware-gray-400);
         }
     }
     .orga-change {
         width: 100%;
         height: 50px;
         line-height: 50px;
-        background-color: var(--tiklab-gray);
+        background-color: var(--thoughtware-gray);
         text-align: center;
-        color: var(--tiklab-blue);
+        color: var(--thoughtware-blue);
         cursor: pointer;
     }
 }

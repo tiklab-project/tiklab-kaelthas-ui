@@ -1,5 +1,5 @@
 import React from "react";
-import {MessageType} from 'tiklab-message-ui';
+import {MessageType} from 'thoughtware-message-ui';
 
 const ProjectMessageType = (props) => {
     return (

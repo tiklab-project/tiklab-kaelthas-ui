@@ -9,7 +9,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Modal, Radio , Button, Input } from 'antd';
 import "./shareModal.scss";
-import {getUser} from "tiklab-core-ui"
+import {getUser} from "thoughtware-core-ui"
 const ShareModal = (props) => {
     const origin = location.origin;
     const { shareVisible, setShareVisible, docInfo,createShare,updateShare, documentIds, categoryIds, type } = props;

@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import "./home.scss";
 import { Row, Col, Empty } from 'antd';
 import { observer } from 'mobx-react';
-import { getUser } from 'tiklab-core-ui';
+import { getUser } from 'thoughtware-core-ui';
 import HomeStore from "../store/HomeStore";
 const Home = (props) => {
     const { findDocumentRecentList, findRecentRepositoryList } = HomeStore;

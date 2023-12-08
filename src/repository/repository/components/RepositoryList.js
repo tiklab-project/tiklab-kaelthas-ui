@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from "react";
 import { Table, Space, Row, Col, Empty } from 'antd';
 import { observer, inject } from "mobx-react";
 import { withRouter } from "react-router-dom";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import InputSearch from "../../../common/input/inputSearch";
 import Button from "../../../common/button/button";

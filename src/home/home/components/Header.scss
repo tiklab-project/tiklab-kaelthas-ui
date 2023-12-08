@@ -18,7 +18,7 @@
         position: relative;
         z-index: 3;
         &-logo {
-            height: var(--tiklab-head-height);
+            height: var(--thoughtware-head-height);
             width: 100px;
             margin-right: 20px;
             margin-left: 10px;
@@ -36,8 +36,8 @@
             margin-left: 15px;
             gap: 20px;
             &-active {
-                color: var(--tiklab-blue);
-                border-bottom: var(--tiklab-blue) 2px solid;
+                color: var(--thoughtware-blue);
+                border-bottom: var(--thoughtware-blue) 2px solid;
             }
 
             &-item {
@@ -54,7 +54,7 @@
                     
                     background: #E1EDFF;
                     border-radius: 3px;
-                    color: var(--tiklab-blue);
+                    color: var(--thoughtware-blue);
                 }
     
             }
@@ -108,7 +108,7 @@
 
                 .messageNum {
                     font-size: 25px;
-                    color: var(--tiklab-blue);
+                    color: var(--thoughtware-blue);
                 }
 
             }
@@ -256,7 +256,7 @@
 
     .user-head {
         font-size: 15px;
-        font-weight: var(--tiklab-font-weight-bold);
+        font-weight: var(--thoughtware-font-weight-bold);
         padding: 15px 20px 10px;
     }
 
@@ -264,7 +264,7 @@
         display: flex;
         align-items: center;
         padding: 0px 20px 10px;
-        .tiklab-profile .ant-avatar {
+        .thoughtware-profile .ant-avatar {
             width: 32px!important;
             height: 32px!important;
         }
@@ -339,7 +339,7 @@
 
     .help-head {
         font-size: 15px;
-        font-weight: var(--tiklab-font-weight-bold);
+        font-weight: var(--thoughtware-font-weight-bold);
         padding: 10px 20px 10px;
     }
     .help-item {

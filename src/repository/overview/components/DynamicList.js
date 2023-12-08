@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import { inject, observer } from "mobx-react";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import { Row, Col } from "antd";
 import "./dynamicList.scss";
 import SurveyStore from "../store/SurveyStore";

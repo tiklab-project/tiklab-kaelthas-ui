@@ -14,7 +14,7 @@ import logo from "../../../assets/images/logo_k4.png";
 import Message from "./MessageList"
 import { observer, inject } from "mobx-react";
 import Search from "../../search/components/Search";
-import { getUser } from 'tiklab-core-ui';
+import { getUser } from 'thoughtware-core-ui';
 const Header = props => {
     const {systemRoleStore, HelpLink, AppLink, AvatarLink} = props;
 

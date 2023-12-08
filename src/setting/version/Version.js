@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Version } from 'tiklab-licence-ui';
+import { Version } from 'thoughtware-licence-ui';
 import { Table,Icon } from "antd";
 import {CheckOutlined, CloseOutlined} from '@ant-design/icons';
 const ProjectAuthConfig = (props) => {

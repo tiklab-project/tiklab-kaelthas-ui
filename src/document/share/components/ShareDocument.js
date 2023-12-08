@@ -17,12 +17,12 @@
 import React, { useEffect, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Row, Col } from 'antd';
-import { PreviewEditor } from "tiklab-slate-ui";
-import "tiklab-slate-ui/es/tiklab-slate.css";
+import { PreviewEditor } from "thoughtware-slate-ui";
+import "thoughtware-slate-ui/es/thoughtware-slate.css";
 import "./shareDocument.scss"
 import CommentShare from "./CommentShare";
 import { withRouter } from "react-router";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 const ShareDocument = (props) => {
     const { shareStore, relationWorkStore } = props;
     const { documentView, commentView, judgeAuthCode } = shareStore;

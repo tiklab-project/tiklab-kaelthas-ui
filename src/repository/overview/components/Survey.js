@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import Button from "../../../common/button/button";
 import UserIcon from "../../../common/UserIcon/UserIcon";
 import "./survey.scss";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import SurveyStore from "../store/SurveyStore";
 import CategoryStore from "../../common/store/CategoryStore";
 import { replaceTree } from '../../../common/utils/treeDataAction';

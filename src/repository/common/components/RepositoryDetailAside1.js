@@ -16,7 +16,7 @@ import CategoryAdd from "./CategoryAdd"
 import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
-import { getUser } from 'tiklab-core-ui';
+import { getUser } from 'thoughtware-core-ui';
 import "./RepositoryDetailAside.scss"
 import { appendNodeInTree } from '../../../common/utils/treeDataAction';
 import AddDropDown from './AddDropDown';

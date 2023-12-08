@@ -1,7 +1,7 @@
 .repository-template {
     background-color: #fff;
     height: 100%;
-    padding: var(--tiklab-padding);
+    padding: var(--thoughtware-padding);
 
     .template-title {
         display: flex;
@@ -9,7 +9,7 @@
 
         .template-name {
             cursor: pointer;
-            color: var(--tiklab-blue);
+            color: var(--thoughtware-blue);
         }
     }
 
@@ -46,7 +46,7 @@
                 cursor: pointer;
             }
             .template-name:hover {
-                color: var(--tiklab-blue);
+                color: var(--thoughtware-blue);
             }
             .template-action {
                 display: flex;

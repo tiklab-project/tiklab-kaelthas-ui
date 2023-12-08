@@ -11,7 +11,7 @@ import { Layout } from 'antd';
 import RepositorySetAside from "../components/RepositorySetAside";
 import "../components/repositorySet.scss";
 import { renderRoutes } from "react-router-config";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import RepositorySetStore from "../store/RepositorySetStore";
 import { Provider } from "mobx-react";
 

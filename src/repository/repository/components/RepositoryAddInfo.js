@@ -6,7 +6,7 @@ import UploadIcon1 from "../../../assets/images/uploadIcon.png";
 import { useState } from "react";
 import { withRouter } from "react-router";
 import { inject, observer } from "mobx-react";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import setImageUrl from "../../../common/utils/setImageUrl";
 const { TextArea } = Input;
 

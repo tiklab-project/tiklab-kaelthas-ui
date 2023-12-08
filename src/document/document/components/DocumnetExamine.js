@@ -9,11 +9,11 @@
 import React, { useEffect, useState } from "react";
 import { Provider, inject, observer } from "mobx-react";
 import { Button, Row, Col } from 'antd';
-import { PreviewEditor } from "tiklab-slate-ui";
-import "tiklab-slate-ui/es/tiklab-slate.css";
+import { PreviewEditor } from "thoughtware-slate-ui";
+import "thoughtware-slate-ui/es/thoughtware-slate.css";
 import "./documentExamine.scss"
 import ShareModal from "../../share/components/ShareModal";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import Comment from "./Comment";
 import DocumentAddEdit from "./DocumentAddEdit";
 import CommentShare from "../store/CommentStore";

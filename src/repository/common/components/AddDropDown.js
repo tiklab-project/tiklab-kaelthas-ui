@@ -4,7 +4,7 @@ import CategoryAdd from "./CategoryAdd";
 import { appendNodeInTree } from "../../../common/utils/treeDataAction";
 import { inject, observer } from "mobx-react";
 import { withRouter } from "react-router";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 
 const AddDropDown = (props) => {
     const [form] = Form.useForm();

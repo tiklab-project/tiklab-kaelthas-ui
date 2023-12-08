@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
-import { getUser } from 'tiklab-core-ui';
+import { getUser } from 'thoughtware-core-ui';
 import "./RepositoryDetailAside.scss"
 import { appendNodeInTree, removeNodeAndSort, 
     updataTreeSort, findNodeById, updateNodeName } from '../../../common/utils/treeDataAction';

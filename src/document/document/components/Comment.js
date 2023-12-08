@@ -4,7 +4,7 @@ import { inject, observer } from "mobx-react";
 import { Input, Empty, message } from "antd";
 import Button from "../../../common/button/button";
 import "./comment.scss"
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import moment from "moment";
 import CommentStore from "../store/CommentStore"
 import UserIcon from "../../../common/UserIcon/UserIcon";

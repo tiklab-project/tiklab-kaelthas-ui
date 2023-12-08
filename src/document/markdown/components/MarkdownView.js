@@ -9,11 +9,11 @@
 import React, { useEffect, useState } from "react";
 import { Provider, inject, observer } from "mobx-react";
 import { Button, Row, Col, Dropdown } from 'antd';
-import { MarkdownView } from "tiklab-markdown-ui";
-import "tiklab-markdown-ui/es/tiklab-markdown.css";
+import { MarkdownView } from "thoughtware-markdown-ui";
+import "thoughtware-markdown-ui/es/thoughtware-markdown.css";
 import "./markdownView.scss"
 import ShareModal from "../../share/components/ShareModal";
-import { getUser } from "tiklab-core-ui";
+import { getUser } from "thoughtware-core-ui";
 import Comment from "../../document/components/Comment";
 import CommentStore from "../../document/store/CommentStore";
 import MarkdownStore from "../store/MarkdownStore";

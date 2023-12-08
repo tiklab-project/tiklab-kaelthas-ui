@@ -13,17 +13,17 @@ import Routes from './Routers';
 import { renderRoutes } from "react-router-config";
 import { Provider } from 'mobx-react';
 import { store } from "./stores"
-import { orgStores } from "tiklab-user-ui/es/store";
-import { getUser, enableAxiosCE } from 'tiklab-core-ui'
-import { messageModuleStores } from 'tiklab-message-ui/es/store'
-import { pluginLoader, PluginProvider } from "tiklab-plugin-core-ui";
+import { orgStores } from "thoughtware-user-ui/es/store";
+import { getUser, enableAxiosCE } from 'thoughtware-core-ui'
+import { messageModuleStores } from 'thoughtware-message-ui/es/store'
+import { pluginLoader, PluginProvider } from "thoughtware-plugin-core-ui";
 import './common/language/i18n';
 import "./index.scss";
 import { observer } from "mobx-react"
 import { useTranslation } from 'react-i18next';
 import resources from './common/language/resources';
 import "./assets/index";
-import { privilegeStores } from "tiklab-privilege-ui/es/store";
+import { privilegeStores } from "thoughtware-privilege-ui/es/store";
 import zhCN from 'antd/es/locale/zh_CN';
 import { ConfigProvider } from 'antd';
 enableAxiosCE()

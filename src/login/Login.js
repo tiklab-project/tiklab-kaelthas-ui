@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-06-22 09:02:16
  */
 import React from "react";
-import {Login} from 'tiklab-eam-ui'
+import {Login} from 'thoughtware-eam-ui'
 import logo from "../assets/images/logo.png";
 const ProjectLogin = (props) => {
 

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect,useState } from "react";
-import { ProjectRole } from 'tiklab-privilege-ui';
+import { ProjectRole } from 'thoughtware-privilege-ui';
 import { inject, observer } from "mobx-react";
 
 const ProjectRoleList = props => {
