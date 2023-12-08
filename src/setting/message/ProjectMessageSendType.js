@@ -3,7 +3,7 @@ import { MessageSendType } from 'tiklab-message-ui';
 
 const ProjectMessageSendType = (props) => {
     return (
-        <MessageSendType bgroup = "kanass" isBase = {true}/>
+        <MessageSendType bgroup = "sward" isBase = {true}/>
     )
 }
 export default ProjectMessageSendType;

@@ -23,7 +23,7 @@ export class SurveyStore {
                 pageSize: 10,
                 currentPage: 1
             },
-            bgroup: "kanass",
+            bgroup: "sward",
             userId: value.userId,
             content: {
                 repositoryId: value.repositoryId

@@ -94,7 +94,7 @@ const ProjectAuthConfig = (props) => {
         }
     ]
     return (
-        <Version bgroup="kanass">
+        <Version bgroup="sward">
             <Table
                 bordered
                 columns={columns}

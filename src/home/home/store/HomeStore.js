@@ -32,7 +32,7 @@ class HomeStore {
             sendType: 'site',
             receiver: getUser().userId,
             status: value.status,
-            bgroup: "kanass"
+            bgroup: "sward"
         }
         const data = await Service("/message/messageItem/findMessageItemPage",params);
         if(data.code === 0){

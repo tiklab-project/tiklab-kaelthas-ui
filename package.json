@@ -1,5 +1,5 @@
 {
-    "name": "tiklab-kanass-ui",
+    "name": "tiklab-sward-ui",
     "version": "1.0.1",
     "description": "tiklab repository",
     "main": "es/src/ui.js",

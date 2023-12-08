@@ -11,7 +11,7 @@ import { User } from 'tiklab-user-ui';
 const OrgaUser = props => {
     return (
         <User
-            bgroup = "kanass"
+            bgroup = "sward"
             {...props}
         />
     )

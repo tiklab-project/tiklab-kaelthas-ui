@@ -22,7 +22,7 @@ const Header = props => {
 
     useEffect(() => {
         if (user && user.userId) {
-            systemRoleStore.getSystemPermissions(user.userId, "kanass")
+            systemRoleStore.getSystemPermissions(user.userId, "sward")
         }
         return;
     }, [])
