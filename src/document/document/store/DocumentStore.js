@@ -99,6 +99,18 @@ class DocumentStore {
         }
         return data;
     }
+
+    @action
+    createDocumentFocus = async(value) =>{
+        const data = await Service("/documentFocus/createDocumentFocus",value);
+        return data;
+    }
+
+    @action
+    deleteDocumentFocusByCondition = async(value) =>{
+        const data = await Service("/documentFocus/deleteDocumentFocusByCondition",value);
+        return data;
+    }
 }
 
 export default new DocumentStore()

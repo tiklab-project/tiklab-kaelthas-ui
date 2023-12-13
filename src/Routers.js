@@ -90,6 +90,7 @@ const LogTemplateList = AsyncComponent(() => import('./setting/log/MyLogTemplate
 const ProjectLogTypeList = AsyncComponent(() => import('./setting/log/LogTypeList'))
 
 const LicenceVersion = AsyncComponent(() => import('./setting/version/Version'))
+const LicenceProductAuth = AsyncComponent(() => import('./setting/version/Product.js'))
 const VailProductUserPage =  AsyncComponent(() => import('./login/VaildProductUserPage'))
 const BackupRecoveryContent = AsyncComponent(() => import('./setting/backups/Backups'))
 const Dnd = AsyncComponent(() => import("./repository/common/components/dnd"))
@@ -432,6 +433,11 @@ const Routes = [
                         exact: true
                     },
                     {
+                        path: "/setting/productAuth",
+                        component: LicenceProductAuth,
+                        exact: true
+                    },
+                    {
                         path: "/setting/backup",
                         component: BackupRecoveryContent,
                         exact: true
@@ -439,11 +445,6 @@ const Routes = [
                 ]
             },
         ]
-    },
-    {
-        path: "/",
-        component: () => <Redirect to="/home" />,
-        exact: true
-    },
+    }
 ]
 export default Routes;

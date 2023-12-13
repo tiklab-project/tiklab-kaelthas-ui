@@ -8,7 +8,7 @@
  */
 import React, { useEffect, useState } from "react";
 import { Provider, inject, observer } from "mobx-react";
-import { Button, Row, Col } from 'antd';
+import { Button, Row, Col, message } from 'antd';
 import { PreviewEditor } from "thoughtware-slate-ui";
 import "thoughtware-slate-ui/es/thoughtware-slate.css";
 import "./documentExamine.scss"
@@ -24,7 +24,7 @@ const DocumentExamine = (props) => {
         documentStore: DocumentStore
     }
     const documentId = props.match.params.id;
-    const { findDocument } = DocumentStore;
+    const { findDocument, createDocumentFocus, deleteDocumentFocusByCondition } = DocumentStore;
 
     const { createLike, createShare, updateShare, deleteLike } = CommentShare;
     const [shareVisible, setShareVisible] = useState(false)
@@ -35,6 +35,7 @@ const DocumentExamine = (props) => {
     const [showComment, setShowComment] = useState(false);
     const repositoryId = props.match.params.repositoryId;
     const [like, setLike] = useState(false)
+    const [focus, setFocus] = useState(false)
     let [likeNum, setLikeNum] = useState()
     let [commentNum, setCommentNum] = useState()
     const [title, seTitle] = useState()
@@ -53,6 +54,7 @@ const DocumentExamine = (props) => {
                 setDocInfo(data.data)
                 seTitle(data.data.name)
                 setLike(data.data.like)
+                setFocus(data.data.focus)
                 setLikeNum(data.data.likenumInt)
                 setCommentNum(data.data.commentNumber)
             }
@@ -88,7 +90,31 @@ const DocumentExamine = (props) => {
 
     }
 
+    const createFocus = () => {
+        const params = {
+            documentId: documentId,
+            masterId: userId
+        }
+        createDocumentFocus(params).then(res => {
+            if (res.code === 0) {
+                setFocus(true)
+                message.info("收藏文档成功")
+            }
+        })
+    }
 
+    const deleteFocus = () => {
+        const params = {
+            documentId: documentId,
+            masterId: userId
+        }
+        deleteDocumentFocusByCondition(params).then(res => {
+            if (res.code === 0) {
+                setFocus(false)
+                message.info("取消收藏文档")
+            }
+        })
+    }
     return (<Provider {...store}>
         <div className="document-examine">
             {
@@ -102,10 +128,15 @@ const DocumentExamine = (props) => {
                             <use xlinkHref="#icon-edit"></use>
                         </svg>
                     }
-
-                    <svg className="right-icon" aria-hidden="true">
-                        <use xlinkHref="#icon-collection"></use>
-                    </svg>
+                    {
+                        focus ? <svg className="right-icon" aria-hidden="true" onClick={() => deleteFocus()}>
+                            <use xlinkHref="#icon-collectioned"></use>
+                        </svg>
+                            :
+                            <svg className="right-icon" aria-hidden="true" onClick={() => createFocus()}>
+                                <use xlinkHref="#icon-collection"></use>
+                            </svg>
+                    }
                     <svg className="right-icon" aria-hidden="true" onClick={() => setShareVisible(true)}>
                         <use xlinkHref="#icon-share"></use>
                     </svg>
@@ -124,8 +155,8 @@ const DocumentExamine = (props) => {
                         </Col>
                     </Row>
                 </div>
-                :
-                <DocumentAddEdit title={title} />
+                    :
+                    <DocumentAddEdit title={title} />
             }
             <div className="comment-box">
                 <div className="comment-box-item top-item">

@@ -23,7 +23,7 @@ const BasicInfo = props => {
             span: 4,
         },
         wrapperCol: {
-            span: 12,
+            span: 20,
         },
     };
     const formTailLayout = {
@@ -170,7 +170,7 @@ const BasicInfo = props => {
     // };
     return (
         <Row>
-            <Col lg={{ span: 24 }} xxl={{ span: "18", offset: "3" }}>
+            <Col lg={{ span: 24 }} xxl={{ span: "18", offset: "3" }} xl={{ span: "18", offset: "3" }}>
                 <div className="repository-set-basicinfo">
                     <Breadcumb
                         firstText="知识库信息"
@@ -203,17 +203,15 @@ const BasicInfo = props => {
 
                                         <span>知识库图标，可点击更改按钮修改icon</span>
                                     </div>
+                                    <div className="change-button" onClick={() => setVisible(true)}>
+                                        更改图标
+                                    </div>
                                 </Form.Item>
-                                <Form.Item
+                                {/* <Form.Item
                                     {...formTailLayout}
                                     labelAlign="left"
                                 >
-                                    {/* <PrivilegeProjectButton code={'RepositoryEdit'} domainId={repositoryId}  {...props}> */}
-                                    <div className="change-botton" onClick={() => setVisible(true)}>
-                                        更改图标
-                                    </div>
-                                    {/* </PrivilegeProjectButton> */}
-                                </Form.Item>
+                                </Form.Item> */}
 
 
                                 {/* </div> */}
@@ -288,15 +286,12 @@ const BasicInfo = props => {
                         <Panel header={repositoryDelete()} key="2">
                             <div className="repository-set-delete">
                                 <div className="repository-set-icon-block">
-                                    <div>
-
-                                        <span> 此知识库及其目录将在回收站中保留 60 天，之后将被永久删除</span>
-                                    </div>
+                                此知识库及其目录将在回收站中保留 60 天，之后将被永久删除
 
                                 </div>
 
                                 <PrivilegeProjectButton code={'RepositoryDelete'} domainId={repositoryId}  {...props}>
-                                    <div className="change-botton" onClick={() => showModal()}>
+                                    <div className="change-button delete-button" onClick={() => showModal()}>
                                         删除知识库
                                     </div>
                                 </PrivilegeProjectButton>
@@ -305,7 +300,18 @@ const BasicInfo = props => {
                     </Collapse>
                 </div>
                 <div className="project-delete-confirm">
-                    <Modal title="确定删除" getContainer={false} visible={isModalVisible} closable={false} onOk={handleOk} onCancel={handleCancel} okText={"确定"} cancelText={"取消"}>
+                    <Modal 
+                        title="确定删除" 
+                        getContainer={false} 
+                        visible={isModalVisible} 
+                        closable={false} 
+                        onOk={handleOk} 
+                        onCancel={handleCancel} 
+                        okText={"确定"} 
+                        cancelText={"取消"}
+                        okType= "danger"
+                        okButtonProps={{type: "primary"}}
+                    >
                         <Alert message=" 此知识库及其目录、文档、附件和评论将被永久删除" type="error" showIcon />
 
                         <Form

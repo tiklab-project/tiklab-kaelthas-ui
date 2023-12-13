@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { inject, observer } from "mobx-react";
 import { Input, Empty, message } from "antd";
 import Button from "../../../common/button/button";
@@ -20,6 +20,7 @@ const Comment = (props) => {
     const nickname = getUser().nickname;
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0)
+    const commonBox = useRef();
     useEffect(() => {
         const value = {
             documentId: documentId,
@@ -37,7 +38,21 @@ const Comment = (props) => {
         return;
     }, [documentId])
 
+    useEffect(() => {
+        window.addEventListener("mousedown", closeModal, false);
+        return () => {
+            window.removeEventListener("mousedown", closeModal, false);
+        }
+    }, [commonBox])
 
+    const closeModal = (e) => {
+        if (!commonBox.current) {
+            return;
+        }
+        if (!commonBox.current.contains(e.target) && commonBox.current !== e.target) {
+            setShowComment(false)
+        }
+    }
 
     const announce = () => {
         if (commentFirstContent) {
@@ -169,7 +184,7 @@ const Comment = (props) => {
         })
     }
     return (
-        <div className="comment">
+        <div className="comment" ref = {commonBox}>
             <div className="comment-top">
                 <span className="comment-title">评论</span>
                 <svg className="svg-icon" aria-hidden="true" onClick={() => setShowComment(false)}>

@@ -10,6 +10,7 @@ import SurveyStore from "../store/SurveyStore";
 import CategoryStore from "../../common/store/CategoryStore";
 import { replaceTree } from '../../../common/utils/treeDataAction';
 import AddDropDown from "../../common/components/AddDropDown";
+import DynamicListItem from "./DynamicItem";
 const Survey = (props) => {
     const { findRepository, findLogpage, opLogList, findUserList, findDocumentRecentList,
         findCategoryListTreeById, } = SurveyStore;
@@ -159,7 +160,7 @@ const Survey = (props) => {
 
                     <div className="home-document">
                         <div className="document-box-title">
-                            <span className="name">最近查看</span>
+                            <span className="name">常用文档</span>
                         </div>
                         {
                             recentViewDocumentList.length > 0 ? <div>
@@ -202,7 +203,7 @@ const Survey = (props) => {
                     </div>
                     <div className="home-dynamic">
                         <div className="dynamic-box-title">
-                            <span className="name">相关动态</span>
+                            <span className="name">最新动态</span>
                             <div className="more" onClick={() => { props.history.push(`/repositorydetail/${repositoryId}/dynamicList`) }}>
                                 <svg aria-hidden="true" className="svg-icon">
                                     <use xlinkHref="#icon-rightjump"></use>
@@ -212,12 +213,7 @@ const Survey = (props) => {
                         <div className="dynamic-list">
                             {
                                 opLogList.length > 0 ? opLogList.map(item => {
-                                    return <div
-                                        dangerouslySetInnerHTML={{ __html: item.data }}
-                                        className="dynamic-item"
-                                        key={item.id}
-                                        onClick={() => goOpLogDetail(item.link)}
-                                    />
+                                    return <DynamicListItem content = {item.data} type = {item.actionType.id}/>
                                 })
                                     :
                                     <Empty image="/images/nodata.png" description="暂时没有动态~" />

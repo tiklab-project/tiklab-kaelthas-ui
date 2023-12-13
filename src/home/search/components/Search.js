@@ -175,7 +175,7 @@ const Search = (props) => {
                             :
                             <Fragment>
                                 <div className="sort-box">
-                                    <div className="sort-title">最近查看知识库</div>
+                                    <div className="sort-title">常用知识库</div>
                                     {
                                         searchWikiList.length > 0 ?
                                             <>

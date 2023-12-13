@@ -13,6 +13,7 @@
 
         .repository-title {
             font-size: 14px;
+           
         }
 
         .repository-box {
@@ -46,7 +47,14 @@
                 display: inline-flex;
                 align-items: center;
                 font-size: 16px;
-
+                span {
+                  
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    max-width: 140px;
+  
+                }
                 .project-icon {
                     width: 30px;
                     height: 30px;
@@ -150,9 +158,20 @@
         display: flex;
         align-items: center;
 
-        .repository-name {
-            cursor: pointer;
-            color: var(--thoughtware-blue);
+        .repository-info {
+                
+            .repository-name {
+                cursor: pointer;
+                line-height: 30px;
+            }
+            .repository-name:hover {
+                color: var(--thoughtware-blue);
+            }
+            .repository-master {
+                font-size: 12px;
+                line-height: 30px;
+                color: var(--thoughtware-gray-500);
+            }
         }
     }
 

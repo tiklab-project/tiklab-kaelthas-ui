@@ -85,18 +85,16 @@ const RepositoryList = (props) => {
                 <img
                     src={setImageUrl(record.iconUrl)}
                     alt=""
-                    className="img-icon"
+                    className="list-img"
                 />
-                <span className="repository-name">{text}</span>
+                <div className="repository-info">
+                    <div className="repository-name">{text}</div>
+                    <div className="repository-master">{record.master.nickname}</div>
+                </div>
+
             </div>,
         },
-        {
-            title: "负责人",
-            dataIndex: ["master", "name"],
-            key: "master",
-            align: "left",
-            width: "20%",
-        },
+       
         {
             title: "创建时间",
             dataIndex: "createTime",
@@ -227,7 +225,7 @@ const RepositoryList = (props) => {
                         </Button>
                     </Breadcumb>
                     <div className="recent-repository">
-                        <div className="repository-title">最近知识库</div>
+                        <div className="repository-title">常用知识库</div>
 
                         {
                             recentRepositoryDocumentList.length > 0 ?

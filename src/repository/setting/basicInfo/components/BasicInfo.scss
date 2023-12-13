@@ -21,10 +21,17 @@
                 align-items: center;
                 gap: 10px;
             }
+            .ant-form-item-control-input-content {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
         }
     }
-
-    .change-botton {
+    .repository-set-icon-block {
+        color: #ff0000;
+    }
+    .change-button {
         text-align: center;
         height: 30px;
         line-height: 30px;
@@ -35,25 +42,24 @@
         font-size: 12px;
         cursor: pointer;
     }
-
-    .repository-set-delete {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+    .delete-button {
+        background-color: #ff0000;
+        margin-top: 10px;
     }
+
 }
 
-// .repository-icon-modal {
-//     .repository-icon-box {
-//         display: flex;
-//         align-items: center;
-//         flex-wrap: wrap;
-//         gap: 10px;
-//         .repository-icon {
-//             box-sizing: content-box;
-//         }
-//         .icon-select {
-//             border: 2px solid var(--thoughtware-blue);
-//         }
-//     }
-// }
+.repository-icon-modal {
+    .repository-icon-box {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        .repository-icon {
+            box-sizing: content-box;
+        }
+        .icon-select {
+            border: 2px solid var(--thoughtware-blue);
+        }
+    }
+}

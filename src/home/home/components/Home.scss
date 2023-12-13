@@ -55,6 +55,13 @@
                     height: 30px;
                     margin-right: 10px;
                 }
+                span {
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    max-width: 140px;
+  
+                }
                 .item-icon {
                     width: 20px;
                     height: 20px;
@@ -139,11 +146,14 @@
                     flex-shrink: 1;
                     min-width: 0;
                     .document-title {
-                        cursor: pointer;
-                        color: var(--thoughtware-blue);
+                        
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
+                    }
+                    .document-title:hover {
+                        cursor: pointer;
+                        color: var(--thoughtware-blue);
                     }
                     .document-master {
                         font-size: 12px;

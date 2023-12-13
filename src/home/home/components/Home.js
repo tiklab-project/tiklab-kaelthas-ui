@@ -62,7 +62,7 @@ const Home = (props) => {
             <Row className="home-row">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
                     <div className="home-repository">
-                        <div className="repository-title">我最近访问知识库</div>
+                        <div className="repository-title">常用知识库</div>
                         {
 
                             recentRepositoryDocumentList.length > 0 ?
@@ -108,7 +108,7 @@ const Home = (props) => {
 
                     <div className="home-document">
                         <div className="document-box-title">
-                            <span className="name">我最近查看的文档</span>
+                            <span className="name">常用文档</span>
                         </div>
                         <div>
                             {

@@ -31,10 +31,10 @@ const CategoryDetail = (props) => {
 
     useEffect(() => {
         findCategory({ id: categoryId }).then(data => {
-            if(data.code === 0){
+            if (data.code === 0) {
                 setLogDetail(data.data)
             }
-            
+
         })
         findCategoryDocument(categoryId).then(data => {
             setLogList(data.data)
@@ -44,7 +44,7 @@ const CategoryDetail = (props) => {
 
     const [addModalVisible, setAddModalVisible] = useState()
     // 添加按钮下拉菜单
-   
+
 
     /**
      * 添加目录
@@ -86,78 +86,81 @@ const CategoryDetail = (props) => {
     }
 
     return (<Provider {...store}>
-            <Row className="log-detail">
-                <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
-                    <div className="log-detail-content">
-                        {
-                            logDetail && <Fragment>
-                                <div className="log-title">
+        <Row className="log-detail">
+            <Col lg={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="log-detail-content">
+                    {
+                        logDetail && <Fragment>
+                            <div className="log-title">
 
-                                    <div className="title-left">
-                                        <svg className="title-icon" aria-hidden="true">
-                                            <use xlinkHref="#icon-folder"></use>
-                                        </svg>
-                                        <div className="title-name">
-                                            <div className="name">{logDetail.name}</div>
-                                            <div className="master">{logDetail.master.name}</div>
-                                        </div>
-
+                                <div className="title-left">
+                                    <svg className="title-icon" aria-hidden="true">
+                                        <use xlinkHref="#icon-folder"></use>
+                                    </svg>
+                                    <div className="title-name">
+                                        <div className="name">{logDetail.name}</div>
+                                        <div className="master">{logDetail.master.name}</div>
                                     </div>
-                                    <AddDropDown category={logDetail} isButton = {true}/>
+
                                 </div>
-                            </Fragment>
-                        }
+                                <AddDropDown category={logDetail} isButton={true} />
+                            </div>
+                        </Fragment>
+                    }
 
-                        <div className="log-child">
-                            {
-                                logList && logList.length > 0 ? logList.map(item => {
-                                    return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
-                                        <div className="log-child-title" style={{ flex: 1 }}>
-                                            {
-                                                item.formatType && item.formatType === "category" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-folder"></use>
-                                                </svg>
-                                            }
-                                            {
-                                                item.formatType && item.formatType === "document" && item.typeId === "markdown" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-minmap"></use>
-                                                </svg>
-                                            }
-                                            {
-                                                item.formatType && item.formatType === "document" && item.typeId === "document" &&
-                                                <svg className="log-icon" aria-hidden="true">
-                                                    <use xlinkHref="#icon-file"></use>
-                                                </svg>
-                                            }
-
-                                            <span className="log-child-name" title={item.name}>{item.name}</span>
+                    <div className="log-child">
+                        {
+                            logList && logList.length > 0 ? logList.map(item => {
+                                return <div className="log-child-list" key={item.id} onClick={() => goToDocument(item)}>
+                                    <div className="log-child-title" style={{ flex: 1 }}>
+                                        {
+                                            item.formatType && item.formatType === "category" &&
+                                            <svg className="list-img" aria-hidden="true">
+                                                <use xlinkHref="#icon-folder"></use>
+                                            </svg>
+                                        }
+                                        {
+                                            item.formatType && item.formatType === "document" && item.typeId === "markdown" &&
+                                            <svg className="list-img" aria-hidden="true">
+                                                <use xlinkHref="#icon-minmap"></use>
+                                            </svg>
+                                        }
+                                        {
+                                            item.formatType && item.formatType === "document" && item.typeId === "document" &&
+                                            <svg className="list-img" aria-hidden="true">
+                                                <use xlinkHref="#icon-file"></use>
+                                            </svg>
+                                        }
+                                        <div className="log-child-info">
+                                            <div className="log-child-name" title={item.name}>{item.name}</div>
+                                            <div className="log-child-master" style={{ width: "100px" }}>{item.master.nickname}</div>
                                         </div>
-                                        <div style={{width: "100px"}}>{item.master.nickname}</div>
-                                        <div >{item.updateTime}</div>
-                                    </div>
-                                })
-                                    :
-                                    <Empty image="/images/nodata.png" description="暂时没有内容~" />
-                            }
-                        </div>
 
+                                    </div>
+
+                                    <div >{item.updateTime}</div>
+                                </div>
+                            })
+                                :
+                                <Empty image="/images/nodata.png" description="暂时没有内容~" />
+                        }
                     </div>
-                </Col>
-            </Row>
-            <CategoryAdd
-                setAddModalVisible={setAddModalVisible}
-                addModalVisible={addModalVisible}
-                setRepositoryCatalogueList={setRepositoryCatalogueList}
-                form={form}
-                catalogue={catalogue}
-                contentValue={contentValue}
-                setSelectKey={setSelectKey}
-                userList={userList}
-                modalTitle={"添加目录"}
-                {...props}
-            />
+
+                </div>
+            </Col>
+        </Row>
+        <CategoryAdd
+            setAddModalVisible={setAddModalVisible}
+            addModalVisible={addModalVisible}
+            setRepositoryCatalogueList={setRepositoryCatalogueList}
+            form={form}
+            catalogue={catalogue}
+            contentValue={contentValue}
+            setSelectKey={setSelectKey}
+            userList={userList}
+            modalTitle={"添加目录"}
+            {...props}
+        />
     </Provider>
 
     )

@@ -64,27 +64,44 @@
             line-height: 32px;
         }
     }
-
+    .log-child:not(:last-child) {
+        margin-bottom: 10px;
+    }
     .log-child {
         border-bottom: 1px solid #f0f0f0;
+        
         &-list {
             display: flex;
             align-items: center;
-            height: 50px;
-            line-height: 50px;
+            // height: 50px;
+            // line-height: 50px;
             justify-content: space-between;
             padding: 0 10px;
             border-radius: 4px;
             gap: 15px;
+            
             .log-child-title {
                 display: flex;
                 align-items: center;
+                min-width: 0;
+                flex-shrink: 1;
+            }
+            .log-child-info {
+                line-height: 30px;
                 .log-child-name {
-                    cursor: pointer;
-                    width: 120px;
+                    min-width: 0;
+                    flex-shrink: 1;
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
+                }
+                .log-child-name:hover {
+                    cursor: pointer;
+                    color: var(--thoughtware-blue);
+                }
+                .log-child-master {
+                    font-size: 12px;
+                    color: var(--thoughtware-gray-500);
                 }
             }
             

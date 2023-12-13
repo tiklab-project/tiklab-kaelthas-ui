@@ -3,8 +3,9 @@ import Breadcumb from "../../../common/breadcrumb/breadcrumb";
 import { inject, observer } from "mobx-react";
 import { getUser } from "thoughtware-core-ui";
 import { Row, Col } from "antd";
-import "./dynamicList.scss";
+import "./DynamicList.scss";
 import SurveyStore from "../store/SurveyStore";
+import DynamicListItem from "./DynamicItem";
 const DynamicList = (props) => {
     const { findLogpage, opLogList } = SurveyStore;
     const userId = getUser().userId;
@@ -41,10 +42,7 @@ const DynamicList = (props) => {
                     <div className="dynamic-list">
                         {
                             opLogList && opLogList.map((item) => {
-                                return <div
-                                    dangerouslySetInnerHTML={{ __html: item.data }}
-                                    className="dynamic-list-item"
-                                />
+                                return <DynamicListItem content = {item.data} type = {item.actionType.id}/>
                             })
                         }
                     </div>

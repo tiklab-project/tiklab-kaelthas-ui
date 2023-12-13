@@ -233,11 +233,14 @@
                     flex-shrink: 1;
                     min-width: 0;
                     .document-title {
-                        cursor: pointer;
-                        color: var(--thoughtware-blue);
+                      
                         text-overflow: ellipsis;
                         white-space: nowrap;
                         overflow: hidden;
+                    }
+                    .document-title:hover {
+                        cursor: pointer;
+                        color: var(--thoughtware-blue);
                     }
                     .document-master {
                         font-size: 12px;
