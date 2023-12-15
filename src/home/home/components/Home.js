@@ -123,12 +123,12 @@ const Home = (props) => {
 
                                             <div className="document-item-text">
                                                 <div className="document-title" onClick={() => goDocumentDetail(item)}>{item.name}</div>
-                                                <div className="document-master" style={{ flex: 1 }}>{item.master.nickname}</div>
+                                                <div className="document-master" style={{ flex: 1 }}>{item.wikiRepository?.name}</div>
                                             </div>
 
                                         </div>
 
-                                        <div className="document-repository">{item.wikiRepository?.name}</div>
+                                        <div className="document-repository">{item.master.nickname}</div>
 
                                         <div className="document-time">{item.recentTime}</div>
                                     </div>

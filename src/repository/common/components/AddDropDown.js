@@ -126,7 +126,7 @@ const AddDropDown = (props) => {
 
     }
     return (
-        <>
+        <div onClick={(event)=> event.stopPropagation()}> 
             {
                 isButton ? <Dropdown overlay={() => addMenu()} placement="bottomLeft">
                     <div className="top-add-botton">添加</div>
@@ -151,7 +151,7 @@ const AddDropDown = (props) => {
                 userList={userList}
                 {...props}
             />
-        </>
+        </div>
 
     )
 }

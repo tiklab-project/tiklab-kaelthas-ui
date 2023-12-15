@@ -43,6 +43,65 @@ const removeNodeInTree = (tree, id, sort) => { // 通过id从数组（树结构�
 
 const removeNodeAndSort = (tree, id, sort) => {
     if (!tree || !tree.length) {
+        return null;
+    }
+    let node = null;
+    if (id === "nullString") {
+        tree.splice(sort, 1)
+        // 为了删除之后方便重新进入新文档
+        // 如果当前顺序大于1
+        if(tree.length > 0) {
+            if(sort <= tree.length -1){
+                node = tree[sort]
+            }else {
+                node = tree[sort - 1]
+            }
+        }else {
+            node = null
+        }
+        tree.map((item) => {
+            if (item.sort > sort) {
+                item.sort = item.sort - 1
+            }
+            return item;
+        })
+    } else {
+        tree.forEach(ele => {
+            
+            if (ele.id === id) {
+                
+                ele.children.splice(sort, 1)
+                if(ele.children.length > 0) {
+                    if(sort <= ele.children.length -1){
+                        node = ele.children[sort]
+                    }else {
+                        node = ele.children[sort - 1]
+                    }
+                }else {
+                    node = ele;
+                }
+                ele.children.map((item) => {
+                    if (item.sort > sort) {
+                        item.sort = item.sort - 1
+                    }
+                })
+            } else {
+                if (ele.children) {
+                    const foundNode = removeNodeAndSort(ele.children, id, sort);
+                    if (foundNode) {
+                        node = foundNode; // 设置找到的节点为当前节点
+                    }
+                }
+            }
+        })
+    }
+    return node;
+}
+
+
+const removeNodeForUpdate = (tree, id, sort) => {
+
+    if (!tree || !tree.length) {
         return
     }
     if (id === "nullString") {
@@ -57,6 +116,7 @@ const removeNodeAndSort = (tree, id, sort) => {
         tree.forEach(ele => {
             if (ele.id === id) {
                 ele.children.splice(sort, 1)
+              
                 ele.children.map((item) => {
                     if (item.sort > sort) {
                         item.sort = item.sort - 1
@@ -64,7 +124,7 @@ const removeNodeAndSort = (tree, id, sort) => {
                 })
             } else {
                 if (ele.children) {
-                    removeNodeAndSort(ele.children, id, sort)
+                    removeNodeForUpdate(ele.children, id, sort)
                 }
             }
         })
@@ -106,7 +166,7 @@ const insertNodeAndSort = (tree, id, sort, node) => { // 通过id从数组（树
 }
 const updataTreeSort = (tree, params, node) => { // 通过id从数组（树结构）中移除元素
     const { oldParentId, oldSort, parentId, sort } = params;
-    const tree1 = removeNodeAndSort(tree, oldParentId, oldSort)
+    const tree1 = removeNodeForUpdate(tree, oldParentId, oldSort)
     // debugger
     // console.log(node)
     const tree2 = insertNodeAndSort(tree1, parentId, sort, node)

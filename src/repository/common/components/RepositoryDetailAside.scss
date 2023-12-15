@@ -19,12 +19,11 @@
             }
 
             .repository-title {
-                height: 40px;
                 display: flex;
                 line-height: 40px;
                 width: 100%;
                 align-items: center;
-                padding: 0 10px 0 24px;
+                padding: 10px 10px 0 24px;
                 
                 justify-content: space-between;
 
@@ -93,7 +92,7 @@
 
             .repository-menu {
                 list-style-type: none;
-                height: calc(100% - 120px);
+                height: calc(100% - 130px);
                 cursor: pointer;
                 overflow: auto;
                 background-color: #fff;
@@ -190,10 +189,12 @@
             .icon-action {
                 width: 42px;
                 flex-shrink: 0;
+                display: flex;
+                align-items: center;
             }
 
             .icon-show {
-                display: block;
+                display: flex;
             }
 
             .icon-hidden {

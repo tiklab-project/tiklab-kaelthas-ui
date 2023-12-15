@@ -273,6 +273,7 @@ const Routes = [
                     {
                         path: "/setting/organ",
                         component: OrgaContent,
+                        row: true,
                         exact: true
                     },
                     {

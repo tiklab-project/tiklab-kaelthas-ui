@@ -2,12 +2,12 @@ import React from "react";
 import "./DynamicItem.scss"
 import { withRouter } from "react-router";
 const DynamicListItem = (props) => {
-    const { content, type } = props;
+    const { content, type,id } = props;
     const data = JSON.parse(content)
-    
+    const repositoryId = props.match.params.repositoryId;
     
     const goDynamicDetail = () => {
-        props.history.push(`/repositorydetail/${repositoryId}/doc/${documentId}`);
+        props.history.push(`/repositorydetail/${repositoryId}/doc/${data.documentId}`);
     }
     const setDom = () => {
         let dom = null;

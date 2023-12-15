@@ -10,15 +10,17 @@
 import React, { Fragment, useState, useEffect, useId, useRef } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Menu, Dropdown, Layout, Form, Tree } from 'antd';
+import { Menu, Dropdown, Layout, Form, Tree, message } from 'antd';
 import { useTranslation } from 'react-i18next';
 import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
 import MoveLogList from "./MoveLogList"
 import { getUser } from 'thoughtware-core-ui';
 import "./RepositoryDetailAside.scss"
-import { appendNodeInTree, removeNodeAndSort, 
-    updataTreeSort, findNodeById, updateNodeName } from '../../../common/utils/treeDataAction';
+import {
+    appendNodeInTree, removeNodeAndSort,
+    updataTreeSort, findNodeById, updateNodeName
+} from '../../../common/utils/treeDataAction';
 import AddDropDown from './AddDropDown';
 import { DownOutlined } from '@ant-design/icons';
 const { Sider } = Layout;
@@ -34,7 +36,7 @@ const RepositorydeAside = (props) => {
         expandedTree, setExpandedTree } = categoryStore;
 
     // 当前选中目录id
-    const id = props.location.pathname.split("/")[5];
+    const id = props.location.pathname.split("/")[4];
     const [selectKey, setSelectKey] = useState(id);
     const [changeRepositoryVisible, setChangeRepositoryVisible] = useState(null)
     const repositoryId = props.match.params.repositoryId;
@@ -52,7 +54,7 @@ const RepositorydeAside = (props) => {
         findRepositoryCatalogue({ repositoryId: repositoryId, dimensions: [1, 2] }).then((data) => {
             setRepositoryCatalogueList(data.data)
         })
-        return ()=> {
+        return () => {
             setExpandedTree([])
         };
     }, [repositoryId])
@@ -69,6 +71,9 @@ const RepositorydeAside = (props) => {
 
     //点击左侧菜单
     const selectKeyFun = (event, item) => {
+        event.preventDefault()
+        event.stopPropagation();
+        event.nativeEvent.stopImmediatePropagation()
         const params = {
             name: item.name,
             model: item.formatType,
@@ -136,14 +141,29 @@ const RepositorydeAside = (props) => {
             if (formatType === "category") {
                 deleteRepositoryLog(item).then(res => {
                     if (res.code === 0) {
-                        removeNodeAndSort(repositoryCatalogueList, item.parentWikiCategory ? item.parentWikiCategory.id : "nullString", sort)
+                        const node = removeNodeAndSort(repositoryCatalogueList, item.parentWikiCategory ? item.parentWikiCategory.id : "nullString", sort)
+                        console.log(node)
+                        
+                        if (node.formatType === "category") {
+                            props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
+                        }
+                        if(node.formatType === "document"){
+                            props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
+                        }
                     }
                 })
             }
             if (formatType === "document") {
                 deleteDocument(item).then(res => {
                     if (res.code === 0) {
-                        removeNodeAndSort(repositoryCatalogueList, item.wikiCategory ? item.wikiCategory.id : "nullString", sort)
+                        const node = removeNodeAndSort(repositoryCatalogueList, item.wikiCategory ? item.wikiCategory.id : "nullString", sort)
+                        console.log(node)
+                        if (node.formatType === "category") {
+                            props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
+                        }
+                        if(node.formatType === "document"){
+                            props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
+                        }
                     }
                 })
             }
@@ -178,6 +198,8 @@ const RepositorydeAside = (props) => {
                 if (data.code === 0) {
                     setIsRename(null)
                     updateNodeName(repositoryCatalogueList, id, name)
+                }else {
+                    message.info("重命名失败")
                 }
             })
         }
@@ -186,9 +208,12 @@ const RepositorydeAside = (props) => {
                 if (data.code === 0) {
                     setIsRename(null)
                     updateNodeName(repositoryCatalogueList, id, name)
+                }else {
+                    message.info("重命名失败")
                 }
             })
         }
+        setIsRename(null)
     }
 
     const enterKeyRename = (value, id, formatType) => {
@@ -214,9 +239,10 @@ const RepositorydeAside = (props) => {
     }
 
     const setOpenClickCategory = key => {
+
         if (!isExpandedTree(key)) {
             setExpandedTree(expandedTree.concat(key));
-        }else {
+        } else {
             setExpandedTree(expandedTree.filter(item => item !== key))
         }
     }
@@ -432,7 +458,7 @@ const RepositorydeAside = (props) => {
                 onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
             > {item.name} </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
-
+            {/* <div className="icon-action"> */}
                 <AddDropDown category={item} />
                 <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
                     <svg className="img-icon" aria-hidden="true">
@@ -450,11 +476,12 @@ const RepositorydeAside = (props) => {
                     key={item.id}
                     dimension={item.dimension}
                     sort={item.sort}
-                    treePath = {item.treePath}
+                    treePath={item.treePath}
                     type={item.formatType}
                     parentWikiCategory={item.dimension !== 1 ? item.parentWikiCategory?.id : "nullString"}
                     disableCheckbox
-                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""}`}>
+                    className={`repository-menu-node ${item.id === selectKey ? "repository-menu-select" : ""}`}
+                >
                     {categoryTree(item.children)}
                 </Tree.TreeNode>
             }
@@ -464,7 +491,7 @@ const RepositorydeAside = (props) => {
                     disableCheckbox
                     type={item.formatType}
                     dimension={item.dimension}
-                    treePath = {item.treePath}
+                    treePath={item.treePath}
                     parentWikiCategory={item.dimension !== 1 ? item.wikiCategory?.id : "nullString"}
                     key={item.id}
                     sort={item.sort}
@@ -485,13 +512,13 @@ const RepositorydeAside = (props) => {
                                     <img
                                         src={version === "cloud" ? (upload_url + repository.iconUrl + "?tenant=" + tenant) : (upload_url + repository.iconUrl)}
                                         alt=""
-                                        className="img-icon"
+                                        className="list-img"
                                     />
                                     :
                                     <img
                                         src={('images/repository1.png')}
                                         alt=""
-                                        className="img-icon"
+                                        className="list-img"
                                     />
                             }
                             <span>{repository?.name}</span>
@@ -502,7 +529,7 @@ const RepositorydeAside = (props) => {
                                 repositorylist={repositorylist}
                                 changeRepositoryVisible={changeRepositoryVisible}
                                 setChangeRepositoryVisible={setChangeRepositoryVisible}
-                                repository = {repository}
+                                repository={repository}
                             />
                         </div>
                     </div>

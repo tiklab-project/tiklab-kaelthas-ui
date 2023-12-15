@@ -81,8 +81,8 @@ const RepositoryChangeModal = (props) => {
             <div ref={setButton}>
                 <div className='repository-title-icon' onClick={showMoreMenu} >
                     <div className={`repository-toggleCollapsed`}>
-                        <svg className="svg-icon" aria-hidden="true">
-                            <use xlinkHref="#icon-down"></use>
+                        <svg className="midden-icon-25" aria-hidden="true">
+                            <use xlinkHref="#icon-moreTree"></use>
                         </svg>
                     </div>
                 </div>
