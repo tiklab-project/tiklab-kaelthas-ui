@@ -80,7 +80,7 @@ const CategoryDetail = (props) => {
             props.history.push(`/repositorydetail/${repositoryId}/doc/${item.id}`)
         }
         if (item.typeId === "markdown") {
-            props.history.push(`/repositorydetail/${repositoryId}/markdown/${item.id}`)
+            props.history.push(`/repositorydetail/${repositoryId}/markdownView/${item.id}`)
 
         }
     }

@@ -85,7 +85,7 @@ const ShareAside = (props) => {
                 props.history.push(`/share/${shareLink}/doc/${item.id}`)
             }
             if (item.typeId === "markdown") {
-                props.history.push(`/share/${shareLink}/markdown/${item.id}`)
+                props.history.push(`/share/${shareLink}/markdownView/${item.id}`)
             }
         }
         if (version === "cloud") {
@@ -96,7 +96,7 @@ const ShareAside = (props) => {
                 props.history.push(`/share/${shareLink}/doc/${item.id}?tenant=${tenant}`)
             }
             if (item.typeId === "markdown") {
-                props.history.push(`/share/${shareLink}/markdown/${item.id}?tenant=${tenant}`)
+                props.history.push(`/share/${shareLink}/markdownView//${item.id}?tenant=${tenant}`)
             }
         }
 
