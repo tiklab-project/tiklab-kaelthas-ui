@@ -15,7 +15,7 @@ const DynamicList = (props) => {
     useEffect(() => {
         if (props.route.path === "/dynamic") {
             setFirstText("首页")
-            findLogpage({ userId: userId })
+            findLogpage({ userId: userId,repositoryId: repositoryId })
         }
 
         if (props.route.path === "/repositorydetail/:repositoryId/dynamicList") {
@@ -34,7 +34,6 @@ const DynamicList = (props) => {
                             {...props}
                             firstText={firstText}
                             secondText="日志列表"
-                        // firstUrl="/home"
                         />
                         
                     </div>

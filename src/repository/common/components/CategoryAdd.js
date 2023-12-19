@@ -57,8 +57,8 @@ const CategoryAdd = (props) => {
                 if (data.code === 0) {
                     findCategory({ id: data.data }).then(res => {
                         if (res.code === 0) {
-                           const list =  appendNodeInTree(category?.id, repositoryCatalogueList, [res.data]);
-                           setRepositoryCatalogueList([...list])
+                            const list = appendNodeInTree(category?.id, repositoryCatalogueList, [res.data]);
+                            setRepositoryCatalogueList([...list])
                         }
                     })
                     setAddModalVisible(!addModalVisible)
@@ -89,7 +89,9 @@ const CategoryAdd = (props) => {
                 form={form}
                 name="basic"
                 labelCol={{ span: 8 }}
-                wrapperCol={{ span: 16 }}
+                wrapperCol={{ span: 24 }}
+                layout="vertical"
+                labelAlign="right"
                 initialValues={{ remember: true }}
             >
                 <Form.Item

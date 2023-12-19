@@ -25,7 +25,7 @@ export class SurveyStore {
             },
             bgroup: "sward",
             userId: value.userId,
-            content: {
+            data: {
                 repositoryId: value.repositoryId
             }
         }

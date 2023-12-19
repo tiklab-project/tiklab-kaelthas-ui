@@ -10,7 +10,7 @@
 import React, { Fragment, useState, useEffect, useId, useRef } from 'react';
 import { withRouter } from "react-router-dom";
 import { observer, inject } from "mobx-react";
-import { Menu, Dropdown, Layout, Form, Tree, message } from 'antd';
+import { Menu, Dropdown, Layout, Form, Tree, message, Modal } from 'antd';
 import { useTranslation } from 'react-i18next';
 import RepositoryChangeModal from "./RepositoryChangeModal";
 import ShareListModal from "../../../document/share/components/ShareListModal"
@@ -49,7 +49,7 @@ const RepositorydeAside = (props) => {
     const [shareListVisible, setShareListVisible] = useState(false)
     const inputRef = React.useRef(null);
     const [isRename, setIsRename] = useState()
-
+    const [deleteVisible, setDeleteVisible] = useState(false)
     useEffect(() => {
         findRepositoryCatalogue({ repositoryId: repositoryId, dimensions: [1, 2] }).then((data) => {
             setRepositoryCatalogueList(data.data)
@@ -138,35 +138,13 @@ const RepositorydeAside = (props) => {
             setIsRename(id)
         }
         if (value.key === "delete") {
-            if (formatType === "category") {
-                deleteRepositoryLog(item).then(res => {
-                    if (res.code === 0) {
-                        const node = removeNodeAndSort(repositoryCatalogueList, item.parentWikiCategory ? item.parentWikiCategory.id : "nullString", sort)
-                        console.log(node)
-                        
-                        if (node.formatType === "category") {
-                            props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
-                        }
-                        if(node.formatType === "document"){
-                            props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
-                        }
-                    }
-                })
-            }
-            if (formatType === "document") {
-                deleteDocument(item).then(res => {
-                    if (res.code === 0) {
-                        const node = removeNodeAndSort(repositoryCatalogueList, item.wikiCategory ? item.wikiCategory.id : "nullString", sort)
-                        console.log(node)
-                        if (node.formatType === "category") {
-                            props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
-                        }
-                        if(node.formatType === "document"){
-                            props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
-                        }
-                    }
-                })
-            }
+            Modal.confirm({
+                title: '确定删除?',
+                className: "delete-modal",
+                centered: true,
+                onOk() { deleteDocumentOrCategory(item,formatType, sort) },
+                onCancel() { },
+            });
         }
         if (value.key === "move") {
             setMoveLogListVisible(true)
@@ -177,6 +155,37 @@ const RepositorydeAside = (props) => {
         }
     }
 
+    const deleteDocumentOrCategory = (item,formatType, sort) => {
+        if (formatType === "category") {
+            deleteRepositoryLog(item).then(res => {
+                if (res.code === 0) {
+                    const node = removeNodeAndSort(repositoryCatalogueList, item.parentWikiCategory ? item.parentWikiCategory.id : "nullString", sort)
+                    console.log(node)
+
+                    if (node.formatType === "category") {
+                        props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
+                    }
+                    if (node.formatType === "document") {
+                        props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
+                    }
+                }
+            })
+        }
+        if (formatType === "document") {
+            deleteDocument(item).then(res => {
+                if (res.code === 0) {
+                    const node = removeNodeAndSort(repositoryCatalogueList, item.wikiCategory ? item.wikiCategory.id : "nullString", sort)
+                    console.log(node)
+                    if (node.formatType === "category") {
+                        props.history.push(`/repositorydetail/${repositoryId}/folder/${node.id}`)
+                    }
+                    if (node.formatType === "document") {
+                        props.history.push(`/repositorydetail/${repositoryId}/doc/${node.id}`)
+                    }
+                }
+            })
+        }
+    }
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.autofocus = true;
@@ -198,7 +207,7 @@ const RepositorydeAside = (props) => {
                 if (data.code === 0) {
                     setIsRename(null)
                     updateNodeName(repositoryCatalogueList, id, name)
-                }else {
+                } else {
                     message.info("重命名失败")
                 }
             })
@@ -208,7 +217,7 @@ const RepositorydeAside = (props) => {
                 if (data.code === 0) {
                     setIsRename(null)
                     updateNodeName(repositoryCatalogueList, id, name)
-                }else {
+                } else {
                     message.info("重命名失败")
                 }
             })
@@ -458,7 +467,7 @@ const RepositorydeAside = (props) => {
                 onKeyDownCapture={(value) => enterKeyRename(value, item.id, item.formatType)}
             > {item.name} </div>
             <div className={`${isHover === item.id ? "icon-show" : "icon-hidden"} icon-action`}>
-            {/* <div className="icon-action"> */}
+                {/* <div className="icon-action"> */}
                 <AddDropDown category={item} />
                 <Dropdown overlay={() => editMenu(item, index)} placement="bottomLeft">
                     <svg className="img-icon" aria-hidden="true">
@@ -501,6 +510,8 @@ const RepositorydeAside = (props) => {
             }
         })
     }
+
+
     return (
         <Fragment>
             <Sider trigger={null} collapsible collapsedWidth="50" width="270" className="repositorydetail-aside">
@@ -590,6 +601,14 @@ const RepositorydeAside = (props) => {
                 shareListVisible={shareListVisible}
                 setShareListVisible={setShareListVisible}
             />
+            <Modal
+                title="确定删除"
+                centered = {true}
+                visible={deleteVisible}
+                width={400}
+            >
+                确定删除文档？
+            </Modal>
         </Fragment>
     )
 }

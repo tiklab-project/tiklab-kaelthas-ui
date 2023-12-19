@@ -161,7 +161,7 @@ const ShareModal = (props) => {
         <Modal
             title="分享"
             visible={shareVisible}
-            onOk={() => onFinish()}
+            onOk={() => setShareVisible(false)}
             onCancel={() => setShareVisible(false)}
             destroyOnClose={true}
             cancelText = "取消"
