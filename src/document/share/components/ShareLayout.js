@@ -15,6 +15,7 @@ import { renderRoutes } from "react-router-config";
 import CommentStore from "../../document/store/CommentStore";
 import ShareStore from '../store/ShareStore';
 import { Provider } from 'mobx-react';
+import logo from "../../../assets/images/logo.png";
 const ShareLayout = (props) => {
     const { route } = props;
     const store = {
@@ -80,9 +81,13 @@ const ShareLayout = (props) => {
          <div className="share-page">
             <div className="share-page-head">
                 <div className='share-page-logo'>
-                    <img
+                    {/* <img
                         src={('images/logo_k3.png')}
-                    />
+                    /> */}
+                    {logo && <div className={'share-header-logo'}>
+                        <img src={logo} alt={'logo'} className="logo-img"/>
+                        <div className="logo-text">sward</div>
+                    </div>}
                 </div>
                 <div className="share-header-icon">
                     <div className="share-header-help" data-title="帮助与支持">

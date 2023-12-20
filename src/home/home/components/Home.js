@@ -61,6 +61,7 @@ const Home = (props) => {
         <div className="home">
             <Row className="home-row">
                 <Col xl={{ span: 18, offset: 3 }} lg={{ span: 18, offset: 3 }} md={{ span: 20, offset: 2 }} className="home-col">
+                <a href="dingtalk://dingtalkclient/page/myProfile">钉钉</a>
                     <div className="home-repository">
                         <div className="repository-title">常用知识库</div>
                         {

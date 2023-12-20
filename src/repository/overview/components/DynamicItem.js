@@ -22,7 +22,7 @@ const DynamicListItem = (props) => {
                             <div className="dynamic-content">
                                 <div className="dynamic-work-action">{createUser.nickname}添加了文档</div>
                                 <div className="dynamic-work-item">
-                                    <div class="dynamic-work-title" onClick={() => goDynamicDetail()}>{documentName}</div>
+                                    <div className="dynamic-work-title" onClick={() => goDynamicDetail()}>{documentName}</div>
                                 </div>
                             </div>
                         </div>
