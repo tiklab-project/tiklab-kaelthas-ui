@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>this的使用</title>
+</head>
+<body>
+
+<div id="test"></div>
+    <script>
+        /*const vehicleOne = {
+            brand: 'Ford',
+            model: 'Mustang',
+            type: 'car',
+            year: 2021,
+            color: 'red'
+        }
+
+        const result =  ({type, color,brand,model}) => {
+            return 'My  ' + type + '  is a  ' + color + '  ' + brand + '  ' + model + '.';
+        }
+
+        console.log(result(vehicleOne))*/
+
+
+        const vehicleOne = {
+            brand: 'Ford',
+            model: 'Mustang',
+            type: 'car',
+            year: 2021,
+            color: 'red',
+            registration: {
+                city: 'Houston',
+                state: 'Texas',
+                country: 'USA'
+            }
+        }
+
+        myVehicle(vehicleOne)
+
+        function myVehicle({ model, registration: { state } }) {
+            const message = 'My ' + model + ' is registered in ' + state + '.';
+            console.log(message)
+        }
+
+    </script>
+</body>
+</html>

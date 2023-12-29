@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mock模拟数据</title>
+</head>
+<body>
+    <div id="test"></div>
+    <button onclick="showData()">显示mock模拟的数据</button>
+    <script>
+
+        const showData = () => {
+            return Mock.mock({
+                "number|1-100": 100
+            })
+        }
+
+        console.log(showData.value)
+    </script>
+</body>
+</html>

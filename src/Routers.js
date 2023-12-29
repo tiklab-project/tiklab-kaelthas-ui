@@ -7,19 +7,32 @@
  * @LastEditTime: 2021-09-26 08:59:04
  */
 
-import HelloWord from "./index/HelloWord";
+import HomePage from "./index/HomePage";
 import Configuration from "./index/Configuration";
+import App from "./App";
+import PopUp from "./index/PopUp";
 
 const Routes = [
     {
-        path: "/HelloWord",
+        path: "/",
         exact: true,
-        component: HelloWord,
+        component: HomePage,
     },{
         path: "/Configuration",
         exact: true,
         component: Configuration,
+    },{
+        path: "/App",
+        exact: true,
+        component: App,
     },
+
+    {
+        path: "/Configuration/PopUp",
+        exact: false,
+        component: PopUp,
+    },
+
 
 ]
 export default Routes;
