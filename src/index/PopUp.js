@@ -1,5 +1,6 @@
-import { Button, Modal } from 'antd';
-import React, { useState } from 'react';
+import {Button, Modal} from 'antd';
+import React, {useState} from 'react';
+
 const PopUp = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
@@ -15,9 +16,9 @@ const PopUp = () => {
     return (
         <>
             <Button type="primary" onClick={showModal}>
-                Open Modal
+                新建主机
             </Button>
-            <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen} >
+            <Modal title="新建主机" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}>
                 <p>Some contents...</p>
                 <p>Some contents...</p>
                 <p>Some contents...</p>

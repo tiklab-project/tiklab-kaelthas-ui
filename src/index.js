@@ -8,7 +8,7 @@
  */
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import Routes from './Routers';
 import {renderRoutes} from "react-router-config";
 import {Provider} from 'mobx-react';
@@ -27,7 +27,11 @@ const Index = observer(() => {
     )
 });
 
-ReactDOM.render(<Index/>, document.getElementById('root'));
+ReactDOM.render(
+    <BrowserRouter>
+        <Index/>
+    </BrowserRouter>,
+    document.getElementById('root'));
 
 if (module.hot) {
     module.hot.accept()

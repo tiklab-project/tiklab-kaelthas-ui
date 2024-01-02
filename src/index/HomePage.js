@@ -3,7 +3,7 @@ import logo from "../../public/image/logo.png"
 import computerPng from "../../public/image/computer.png"
 
 import "../css/HomePage.css";
-import "./Configuration";
+import "./configuration/Configuration";
 import {Link} from "react-router-dom";
 
 const HomePage = () => {
