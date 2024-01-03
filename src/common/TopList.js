@@ -1,30 +1,40 @@
-import logo from "../../public/image/logo.png";
-import {Link} from "react-router-dom";
+import logo from "../assets/image/logo.png";
 import React from "react";
+import {withRouter} from "react-router-dom";
 
 
-const TopList = ()=>{
+const TopList = (props)=>{
+    const homePage=()=>{
+        props.history.push("/")
+    }
+
+    const configuration=()=>{
+        props.history.push("/Configuration")
+    }
+
     return(
         <>
             <div className='HeadInformation'>
                 <div className='Head-left' style={{display: 'inline-block'}}>
-                    <div className="icon">
+                    <div className="icon" style={{height:"50px"}}>
                         <img src={logo} className={"logo-img"} alt={"logo"}
                              style={{display: 'inline-block', marginLeft: '50px'}}/>
                         <div className="logo-text" align={'center'}
                              style={{display: 'inline-block', marginRight: '100px'}}>monitorSystem
                         </div>
                         <div className='iconType'>
-                            <Link className="home-group-item" to="/">首页</Link>
+                            <span className="configration-group-item" onClick={homePage} style={{cursor:"pointer"}}>首页</span>
+                            {/*<Link className="home-group-item" to="/">首页</Link>*/}
                         </div>
                         <div className='iconType'>
-                            <Link className="configration-group-item" to="/Configuration"><span>配置</span></Link>
+                            <span className="configration-group-item" onClick={configuration} style={{cursor:"pointer"}}>配置</span>
+                            {/*<Link className="configration-group-item" to="/Configuration"><span>配置</span></Link>*/}
                         </div>
                         <div className='iconType'>
-                            <a>监测</a>
+                            <span>监测</span>
                         </div>
                         <div className='iconType'>
-                            <a>告警</a>
+                            <span>告警</span>
                         </div>
                     </div>
                 </div>
@@ -36,4 +46,4 @@ const TopList = ()=>{
 }
 
 
-export default TopList;
+export default withRouter(TopList);

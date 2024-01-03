@@ -1,0 +1,59 @@
+.box {
+    display: flex;
+}
+
+.box-right {
+    flex: 1;
+    flex-direction: column;
+    margin-left: 12.5%;
+    margin-right: 12.5%;
+}
+
+.box-host-List {
+    display: flex;
+    margin: 60px 10px;
+    justify-content: center;
+}
+
+.box-host-body {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+/*配置中左侧导航栏样式*/
+.home-group-item {
+    justify-content: center;
+
+}
+
+.box-host-details {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 260px;
+    margin-top: 50px;
+    border: 1px solid #0a0606;
+    border-radius: 4px;
+}
+
+.box-host-margin-details {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    margin: 20px 20px;
+}
+
+.box-host-details-text {
+    margin: 10px 10px;
+}
+
+.host-news {
+    margin: 30px 0;
+}
+
+.host-news-List {
+    margin: 30px 0;
+}
+
+

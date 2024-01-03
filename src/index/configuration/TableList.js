@@ -1,5 +1,6 @@
 import { Space, Table, Tag } from 'antd';
 import React from 'react';
+import {Link, withRouter} from "react-router-dom";
 
 
 
@@ -72,13 +73,16 @@ const data = [
         createTime:'1小时前'
     },
 ];
-const App = (props) => {
+const TableList = (props) => {
+    const host = () =>{
+        props.history.push("/Configuration/Host")
+    }
     const columns = [
         {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <a onClick={aaa}>{text}</a>,
+            render: (text) => <span style={{cursor:"pointer"}} onClick={host}>{text}</span>,
         },
         {
             title: '主机状态',
@@ -112,9 +116,7 @@ const App = (props) => {
         },
 
     ];
-    const aaa = () =>{
-        props.history.push("/Configuration/Host")
-    }
+
     return <Table columns={columns} dataSource={data} />
 } ;
-export default  App;
+export default withRouter(TableList);

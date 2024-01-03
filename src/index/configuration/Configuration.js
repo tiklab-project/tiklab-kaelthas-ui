@@ -1,7 +1,4 @@
 import React from "react";
-import logo from "../../../public/image/logo.png";
-import {Link, NavLink} from "react-router-dom";
-import Mock from "mockjs";
 import PopUp from "../PopUp";
 import TableList from "./TableList";
 import TapList from "../../common/TopList"
@@ -10,7 +7,6 @@ const Configuration = () => {
     return (
         <div className='configration'>
             <TapList/>
-
             <div className="body">
                 <div className='alarmInfomation'>
                     <div className='alarmDiv' style={{
@@ -44,12 +40,6 @@ const Configuration = () => {
             </div>
         </div>
     )
-}
-
-function showData2() {
-    console.log(Mock.mock({
-        "number|1-100": 100
-    }))
 }
 
 export default Configuration;

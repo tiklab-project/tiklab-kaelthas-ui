@@ -13,7 +13,8 @@ import Routes from './Routers';
 import {renderRoutes} from "react-router-config";
 import {Provider} from 'mobx-react';
 import {observer} from "mobx-react"
-
+import "./index.scss"
+import "./assets/index";
 const Index = observer(() => {
 
     return (
@@ -28,9 +29,7 @@ const Index = observer(() => {
 });
 
 ReactDOM.render(
-    <BrowserRouter>
-        <Index/>
-    </BrowserRouter>,
+    <Index/>,
     document.getElementById('root'));
 
 if (module.hot) {

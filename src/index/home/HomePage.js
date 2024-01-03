@@ -1,38 +1,20 @@
 import React from "react";
-import logo from "../../public/image/logo.png"
-import computerPng from "../../public/image/computer.png"
+import logo from "../../assets/image/logo.png"
+import computerPng from "../../assets/image/computer.png"
 
-import "../css/HomePage.css";
-import "./configuration/Configuration";
+import "../../css/HomePage.css";
+import "../configuration/Configuration";
 import {Link} from "react-router-dom";
+import TopList from "../../common/TopList";
 
-const HomePage = () => {
+const HomePage = (props) => {
+
+    const host= ()=>{
+        props.history.push('/Configuration/Host')
+    }
     return (
         <div className='HomePageCss'>
-            <div className='HeadInformation'>
-                <div className='Head-left' style={{display: 'inline-block'}}>
-                    <div className="icon">
-                        <img src={logo} className={"logo-img"} alt={"logo"}
-                             style={{display: 'inline-block', marginLeft: '50px'}}/>
-                        <div className="logo-text" align={'center'}
-                             style={{display: 'inline-block', marginRight: '100px'}}>monitorSystem
-                        </div>
-                        <div className='iconType'>
-                            <Link className="home-group-item" to="/">首页</Link>
-                        </div>
-                        <div className='iconType'>
-                            <Link className="configration-group-item" to="/Configuration"><span>配置</span></Link>
-                        </div>
-                        <div className='iconType'>
-                            <a>监测</a>
-                        </div>
-                        <div className='iconType'>
-                            <a>告警</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
+            <TopList/>
             <div className="body">
                 <div className='hostTop'>
                     <div style={{marginLeft: '100px', marginTop: '30px'}}>常用主机</div>
@@ -45,7 +27,7 @@ const HomePage = () => {
                         <img src={computerPng} className={"computer-png"} alt={"computer"}
                              style={{display: 'inline-block'}}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a>host01</a>
+                        <span onClick={host} style={{cursor:"pointer"}}>host01</span>
 
                         <p>
                             最新数据:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -55,7 +37,7 @@ const HomePage = () => {
                         <img src={computerPng} className={"computer-png"} alt={"computer"}
                              style={{display: 'inline-block'}}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a>host02</a>
+                        <span onClick={host} style={{cursor:"pointer"}}>host02</span>
 
                         <p>
                             最新数据:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -65,7 +47,7 @@ const HomePage = () => {
                         <img src={computerPng} className={"computer-png"} alt={"computer"}
                              style={{display: 'inline-block'}}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a>host03</a>
+                        <span onClick={host} style={{cursor:"pointer"}}>host03</span>
 
                         <p>
                             最新数据:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,7 +57,7 @@ const HomePage = () => {
                         <img src={computerPng} className={"computer-png"} alt={"computer"}
                              style={{display: 'inline-block'}}/>
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a>host04</a>
+                        <span onClick={host} style={{cursor:"pointer"}}>host04</span>
 
                         <p>
                             最新数据:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
