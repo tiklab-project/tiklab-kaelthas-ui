@@ -1,0 +1,75 @@
+.box-template {
+    display: flex;
+
+    .box-template-right {
+        flex: 1;
+        flex-direction: column;
+        margin: 0 12.5%;
+
+        .box-template-title {
+            display: flex;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: space-between;
+
+            .box-template-title-text {
+                font-size: 16px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+            }
+
+            .template-top-right {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+
+                .template-top-right-button {
+                    position: relative;
+                }
+            }
+        }
+
+        .template-kind-options {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+
+            .template-kind-options-tabs {
+                display: flex;
+                gap: 10px;
+                height: 42px;
+                line-height: 42px;
+                justify-content: space-between;
+
+                .template-kind-options-tabs-text {
+                    padding: 0 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        .template-kind-search {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .box-template-table {
+            padding-top: 20px;
+        }
+    }
+    .addTemplateForm {
+        display: flex;
+        flex-direction: column;
+        //height: 100%;
+        //overflow: auto;
+        padding: 0 15px;
+    }
+}
+

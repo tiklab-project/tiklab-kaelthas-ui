@@ -1,63 +1,66 @@
-.box-monitor {
+.box-trigger {
   display: flex;
 
-  .box-monitor-right {
+  .box-trigger-right {
     flex: 1;
     flex-direction: column;
     margin: 0 12.5%;
 
-    .box-monitor-title {
+    .box-trigger-title {
       display: flex;
       box-sizing: border-box;
       align-items: center;
       justify-content: space-between;
 
-      .box-monitor-title-text {
+      .box-trigger-title-text {
         font-size: 16px;
         font-weight: bold;
         display: flex;
         align-items: center;
       }
-      .monitor-top-right{
+
+      .trigger-top-right {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 10px;
 
-        .monitor-top-right-button{
+        .trigger-top-right-button {
           position: relative;
         }
       }
     }
-    .monitor-kind-options{
+
+    .trigger-kind-options {
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: space-between;
       margin-top: 15px;
 
-      .monitor-kind-options-tabs{
+      .trigger-kind-options-tabs {
         display: flex;
         gap: 10px;
         height: 42px;
         line-height: 42px;
         justify-content: space-between;
 
-        .monitor-kind-options-tabs-text{
+        .trigger-kind-options-tabs-text {
           padding: 0 5px;
           cursor: pointer;
         }
       }
     }
 
-    .monitor-kind-search{
+    .trigger-kind-search {
       display: flex;
       width: 100%;
       align-items: center;
       justify-content: flex-end;
       margin-top: 15px;
     }
-    .box-monitor-table{
+
+    .box-trigger-table {
       padding-top: 20px;
     }
   }

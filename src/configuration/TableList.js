@@ -20,6 +20,7 @@ const data = [
     {
         key: '2',
         name: 'host02',
+        ip:'127.0.0.1',
         status: '已启用',
         availability: '可用',
         templateCount:1,
@@ -31,6 +32,7 @@ const data = [
     {
         key: '3',
         name: 'host03',
+        ip:'127.0.0.1',
         status: '已启用',
         availability: '可用',
         templateCount:1,
@@ -42,6 +44,7 @@ const data = [
     {
         key: '4',
         name: 'host04',
+        ip:'127.0.0.1',
         status: '已启用',
         availability: '可用',
         templateCount:1,
@@ -53,6 +56,7 @@ const data = [
     {
         key: '5',
         name: 'host05',
+        ip:'127.0.0.1',
         status: '已启用',
         availability: '可用',
         templateCount:1,
@@ -64,6 +68,7 @@ const data = [
     {
         key: '6',
         name: 'host06',
+        ip:'127.0.0.1',
         status: '已启用',
         availability: '可用',
         templateCount:1,
@@ -83,6 +88,11 @@ const TableList = (props) => {
             dataIndex: 'name',
             key: 'name',
             render: (text) => <span style={{cursor:"pointer"}} onClick={host}>{text}</span>,
+        },
+        {
+            title: '主机ip',
+            dataIndex: 'ip',
+            key: 'ip',
         },
         {
             title: '主机状态',
@@ -117,6 +127,6 @@ const TableList = (props) => {
 
     ];
 
-    return <Table columns={columns} dataSource={data} />
+    return <Table columns={columns} dataSource={data} align="center"/>
 } ;
 export default withRouter(TableList);

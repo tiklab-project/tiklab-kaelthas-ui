@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "../../assets/image/logo.png"
-import computerPng from "../../assets/image/computer.png"
+import logo from "../assets/image/logo.png"
+import computerPng from "../assets/image/computer.png"
 
-import "../../css/HomePage.css";
+import "./HomePage.css";
 import "../configuration/Configuration";
 import {Link} from "react-router-dom";
-import TopList from "../../common/TopList";
+import TopList from "../common/TopList";
 
 const HomePage = (props) => {
 

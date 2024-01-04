@@ -1,7 +1,8 @@
 import React from "react";
-import PopUp from "../PopUp";
+import PopUp from "./AddHost";
 import TableList from "./TableList";
-import TapList from "../../common/TopList"
+import TapList from "../common/TopList"
+import AddHost from "./AddHost";
 
 const Configuration = () => {
     return (
@@ -25,7 +26,7 @@ const Configuration = () => {
                         marginBottom: '10px'
                     }}>
                         <div className='PopUp'>
-                            <PopUp/>
+                            <AddHost/>
                         </div>
 
                     </div>

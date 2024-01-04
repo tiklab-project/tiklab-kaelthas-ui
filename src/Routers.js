@@ -1,16 +1,16 @@
-import HomePage from "./index/home/HomePage";
-import Configuration from "./index/configuration/Configuration";
+import HomePage from "./home/HomePage";
+import Configuration from "./configuration/Configuration";
 import App from "./App";
-import PopUp from "./index/PopUp";
-import Host from "./index/configuration/host/Host";
-import LeftMenu from "./common/LeftMenu";
-import Monitor from "./index/configuration/monitor/Monitor";
-import Trigger from "./index/configuration/trigger/Trigger";
-import Template from "./index/configuration/template/Template";
-import Setting from "./index/configuration/setting/Setting";
-import Graphics from "./index/configuration/graphics/Graphics";
-import MonitorTemplateList from "./index/configuration/monitor/MonitorTemplateList";
-import MonitorHostList from "./index/configuration/monitor/MonitorHostList";
+import PopUp from "./configuration/AddHost";
+import Host from "./configuration/host/Host";
+import LeftMenu from "./configuration/common/LeftMenu";
+import Monitor from "./configuration/monitor/Monitor";
+import Trigger from "./configuration/trigger/Trigger";
+import Template from "./configuration/template/Template";
+import Setting from "./configuration/setting/Setting";
+import Graphics from "./configuration/graphics/Graphics";
+import MonitorTemplateList from "./configuration/monitor/MonitorTemplate";
+import MonitorHostList from "./configuration/monitor/MonitorHost";
 
 const Routes = [
     {
@@ -24,11 +24,6 @@ const Routes = [
     },{
         path: "/App",
         component: App,
-    },
-    {
-        path: "/Configuration/PopUp",
-        exact: true,
-        component: PopUp,
     },
     {
         path: "/Configuration/Host",

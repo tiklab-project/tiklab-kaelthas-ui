@@ -50,16 +50,13 @@ const data = [
         failureInformation:'监控成功'
     },
 ];
-const MonitorList = (props) => {
-    const host = () =>{
-        props.history.push("/Configuration/Host")
-    }
+const TemplateList = (props) => {
     const columns = [
         {
             title: '监控项名称',
             dataIndex: 'monitorName',
             key: 'monitorName',
-            render: (text) => <span style={{cursor:"pointer"}} onClick={host}>{text}</span>,
+            render: (text) => <span style={{cursor:"pointer"}}>{text}</span>,
         },
         {
             title: '是否模板创建',
@@ -91,9 +88,18 @@ const MonitorList = (props) => {
             dataIndex: 'failureInformation',
             key: 'failureInformation',
         },
+        {
+            title: '操作',
+            key: 'action',
+            render: (_, record) => (
+                <Space size="middle">
+                    <a>删除</a>
+                </Space>
+            ),
+        },
 
     ];
 
     return <Table columns={columns} dataSource={data} />
 } ;
-export default withRouter(MonitorList);
+export default withRouter(TemplateList);

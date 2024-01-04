@@ -4,32 +4,10 @@ import "./LeftMenu.scss"
 
 const LeftMenu = (props) => {
 
-    const hostDetails = () => {
-        props.history.push("/Configuration/Host")
-    }
-    const hostMonitor = () => {
-        props.history.push("/Configuration/Host/Monitor")
-    }
-
-    const hostTrigger = () => {
-        props.history.push("/Configuration/Host/Trigger")
-    }
-
-    const hostTemplate = () => {
-        props.history.push("/Configuration/Host/Template")
-    }
-
-    const hostGraphics = () => {
-        props.history.push("/Configuration/Host/Graphics")
-    }
-
-    const hostSetting = () => {
-        props.history.push("/Configuration/Host/Setting")
-    }
 
     const router = [
         {
-            name: '主机',
+            name: '主机详情',
             icon: 'host',
             url: `/Configuration/Host`,
             key: "host",

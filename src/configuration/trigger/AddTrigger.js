@@ -1,7 +1,8 @@
 import {Button, Modal} from 'antd';
 import React, {useState} from 'react';
+import AddTriggerForm from "./AddTriggerForm";
 
-const PopUp = () => {
+const AddTrigger = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
         setIsModalOpen(true);
@@ -16,15 +17,17 @@ const PopUp = () => {
     return (
         <>
             <Button type="primary" onClick={showModal}>
-                新建主机
+                新建/编辑 触发器
             </Button>
-            <Modal title="新建主机" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+            <Modal title="新建/编辑 触发器" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen} cancelText="取消" okText="确定">
+                <div className="addMonitorForm">
+                    <div>
+                        <AddTriggerForm/>
+                    </div>
+                </div>
             </Modal>
         </>
     );
 };
 
-export default PopUp;
+export default AddTrigger;

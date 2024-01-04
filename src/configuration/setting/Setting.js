@@ -1,8 +1,8 @@
 import React from 'react';
-import TopList from "../../../common/TopList";
-import LeftMenu from "../../../common/LeftMenu";
+import TopList from "../../common/TopList";
+import LeftMenu from "../common/LeftMenu";
 
-const Template = () => {
+const Setting = () => {
     return (
         <div>
             <TopList/>
@@ -11,7 +11,7 @@ const Template = () => {
                     <LeftMenu/>
                     <div className="box-right">
                         <div className="box-host-body">
-                            this Template body
+                            this body
                         </div>
                     </div>
                 </div>
@@ -20,4 +20,4 @@ const Template = () => {
     );
 };
 
-export default Template;
+export default Setting;
