@@ -15,7 +15,6 @@ const Trigger = (props) => {
     return (
         <div>
             <TopList/>
-            <div className="trigger-body">
                 <div className="box-trigger">
                     <LeftMenu/>
                     <div className="box-trigger-right">
@@ -51,7 +50,6 @@ const Trigger = (props) => {
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     );
 };

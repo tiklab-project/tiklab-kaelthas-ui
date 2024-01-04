@@ -61,14 +61,14 @@ const Routes = [
         component: Template,
     },
     {
-        path: "/Configuration/Host/Setting",
-        exact: true,
-        component: Setting,
-    },
-    {
         path: "/Configuration/Host/Graphics",
         exact: true,
         component: Graphics,
+    },
+    {
+        path: "/Configuration/Host/Setting",
+        exact: true,
+        component: Setting,
     },
 
 

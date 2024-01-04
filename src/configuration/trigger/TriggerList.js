@@ -8,47 +8,21 @@ import AddTrigger from "./AddTrigger";
 const data = [
     {
         key: '1',
-        monitorName: '内核占用CPU时间百分比',
+        triggerName: '内核占用CPU百分比超过数值',
         isTemplate: '否',
-        monitorType: 'CPU信息监控',
-        monitorExpression:'system.cpu(internal,time)',
-        interval:'10s',
-        dataRetentionPeriod:'36d',
-        status:'启动',
-        failureInformation:'监控项无法识别'
+        triggerExpression:'system.cpu(internal,time)>80%',
+        messageType:'短信发送',
+        alarmType: '一般严重',
+        description:'对内核占用CPU百分比超过80%进行告警',
     },
     {
         key: '2',
-        monitorName: '用户态进程占用CPU时间百分比',
+        triggerName: '空闲CPU时间百分比低于正常值',
         isTemplate: '否',
-        monitorType: 'CPU信息监控',
-        monitorExpression:'system.cpu(process,time)',
-        interval:'20s',
-        dataRetentionPeriod:'40d',
-        status:'启动',
-        failureInformation:'不存在这个监控项'
-    },
-    {
-        key: '3',
-        monitorName: '改变过优先级的进程占用CPU的百分比',
-        isTemplate: '否',
-        monitorType: 'CPU信息监控',
-        monitorExpression:'system.cpu(process,c)',
-        interval:'20s',
-        dataRetentionPeriod:'50d',
-        status:'启动',
-        failureInformation:'监控项无法识别'
-    },
-    {
-        key: '4',
-        monitorName: '空闲CPU时间百分比',
-        isTemplate: '否',
-        monitorType: 'CPU信息监控',
-        monitorExpression:'system.cpu(idle,c)',
-        interval:'30s',
-        dataRetentionPeriod:'30d',
-        status:'启动',
-        failureInformation:'监控成功'
+        triggerExpression:'system.cpu(idle,c)<10%',
+        messageType:'使用微信公众号',
+        alarmType: '告警',
+        description:'空闲CPU时间百分比低于10%进行告警',
     },
 ];
 
@@ -64,9 +38,9 @@ const TriggerList = (props) => {
 
     const columns = [
         {
-            title: '监控项名称',
-            dataIndex: 'monitorName',
-            key: 'monitorName',
+            title: '触发器名称',
+            dataIndex: 'triggerName',
+            key: 'triggerName',
             render: (text) => <span style={{cursor:"pointer"}} onClick={showModal}>{text}</span>,
         },
         {
@@ -75,29 +49,21 @@ const TriggerList = (props) => {
             key: 'isTemplate',
         },
         {
-            title: '监控项类别',
-            dataIndex: 'monitorType',
-            key: 'monitorType',
+            title: '触发表达式',
+            dataIndex: 'triggerExpression',
+            key: 'triggerExpression',
         },{
-            title: '监控表达式',
-            dataIndex: 'monitorExpression',
-            key: 'monitorExpression',
+            title: '消息通知方案',
+            dataIndex: 'messageType',
+            key: 'messageType',
         },{
-            title: '间隔时间',
-            dataIndex: 'interval',
-            key: 'interval',
+            title: '告警类型',
+            dataIndex: 'alarmType',
+            key: 'alarmType',
         },{
-            title: '数据保留时间',
-            dataIndex: 'dataRetentionPeriod',
-            key: 'dataRetentionPeriod',
-        },{
-            title: '监控项状态',
-            dataIndex: 'status',
-            key: 'status',
-        },{
-            title: '监控失败提示信息',
-            dataIndex: 'failureInformation',
-            key: 'failureInformation',
+            title: '描述',
+            dataIndex: 'description',
+            key: 'description',
         },
         {
             title: '操作',
