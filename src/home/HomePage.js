@@ -3,9 +3,9 @@ import logo from "../assets/image/logo.png"
 import computerPng from "../assets/image/computer.png"
 
 import "./HomePage.css";
-import "../configuration/Configuration";
+import "../configuration/configurationPage/Configuration";
 import {Link} from "react-router-dom";
-import TopList from "../common/TopList";
+import TopList from "../configuration/common/TopList";
 
 const HomePage = (props) => {
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import TopList from "../../common/TopList";
+import TopList from "../common/TopList";
 import LeftMenu from "../common/LeftMenu";
 import  "./Host.css"
-import HostDetailsList from "../../common/HostDetailsList";
+import HostDetailsList from "./HostDetailsList";
 const Host = () => {
 
     return (

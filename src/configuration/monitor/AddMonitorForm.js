@@ -1,10 +1,13 @@
 import {Button, Checkbox, Form, Input, Select} from 'antd';
 import React from 'react';
 
-const AddMonitorForm = () => {
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
+const AddMonitorForm = (props) => {
+
+    const {setListData, listData, form} = props;
+
+    // const onFinish = (values) => {
+    //
+    // };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -22,9 +25,10 @@ const AddMonitorForm = () => {
             initialValues={{
                 remember: true,
             }}
-            onFinish={onFinish}
+            // onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            form={form}
         >
             <Form.Item
                 label="监控项名称"
@@ -41,12 +45,12 @@ const AddMonitorForm = () => {
             </Form.Item>
 
             <Form.Item
-                label="监控指标"
+                label="监控类型"
                 name="monitorType"
                 rules={[
                     {
                         required: true,
-                        message: '请选择监控项指标!',
+                        message: '请选择监控项类型!',
                     },
                 ]}
             >
@@ -56,11 +60,34 @@ const AddMonitorForm = () => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="male">system.cpu(internal,time)</Option>
-                    <Option value="female">system.cpu(process,time)</Option>
-                    <Option value="other">system.cpu(process,c)</Option>
-                    <Option value="four">system.cpu(idle,c)</Option>
-                    <Option value="five">system.cpu(IO,c)</Option>
+                    <Option value="CPU信息监控">CPU信息监控</Option>
+                    <Option value="内存信息监控">内存信息监控</Option>
+                    <Option value="磁盘信息监控">磁盘信息监控</Option>
+                </Select>
+
+            </Form.Item>
+
+            <Form.Item
+                label="监控指标"
+                name="monitorExpression"
+                rules={[
+                    {
+                        required: true,
+                        message: '请选择监控项指标!',
+                    },
+                ]}
+            >
+
+                <Select
+                    placeholder="请选择监控项指标"
+                    /*onChange={onGenderChange}*/
+                    allowClear
+                >
+                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
+                    <Option value="system.cpu(process,time)">system.cpu(process,time)</Option>
+                    <Option value="system.cpu(process,c)">system.cpu(process,c)</Option>
+                    <Option value="system.cpu(idle,c)">system.cpu(idle,c)</Option>
+                    <Option value="system.cpu(IO,c)">system.cpu(IO,c)</Option>
                 </Select>
 
             </Form.Item>
@@ -80,7 +107,7 @@ const AddMonitorForm = () => {
 
             <Form.Item
                 label="更新间隔"
-                name="updateInterval"
+                name="interval"
                 rules={[
                     {
                         required: true,

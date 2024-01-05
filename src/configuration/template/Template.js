@@ -1,5 +1,5 @@
 import React from 'react';
-import TopList from "../../common/TopList";
+import TopList from "../common/TopList";
 import LeftMenu from "../common/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";

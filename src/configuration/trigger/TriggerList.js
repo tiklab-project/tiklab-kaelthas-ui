@@ -1,39 +1,18 @@
 import { Space, Table, Tag } from 'antd';
 import React from 'react';
-import {Link, withRouter} from "react-router-dom";
-import AddTrigger from "./AddTrigger";
-
-
-
-const data = [
-    {
-        key: '1',
-        triggerName: '内核占用CPU百分比超过数值',
-        isTemplate: '否',
-        triggerExpression:'system.cpu(internal,time)>80%',
-        messageType:'短信发送',
-        alarmType: '一般严重',
-        description:'对内核占用CPU百分比超过80%进行告警',
-    },
-    {
-        key: '2',
-        triggerName: '空闲CPU时间百分比低于正常值',
-        isTemplate: '否',
-        triggerExpression:'system.cpu(idle,c)<10%',
-        messageType:'使用微信公众号',
-        alarmType: '告警',
-        description:'空闲CPU时间百分比低于10%进行告警',
-    },
-];
-
 
 const TriggerList = (props) => {
 
-    const showModal = (itemData) => {
-        this.setState({
-            visible: true,
-            itemData
-        });
+    const {dataList,setDataList} = props;
+
+    const deleteTrigger = (key)=>{
+
+        dataList.forEach((item,index)=>{
+            if (key === item.key){
+                dataList.splice(index,1)
+            }
+        })
+        setDataList([...dataList])
     }
 
     const columns = [
@@ -41,7 +20,7 @@ const TriggerList = (props) => {
             title: '触发器名称',
             dataIndex: 'triggerName',
             key: 'triggerName',
-            render: (text) => <span style={{cursor:"pointer"}} onClick={showModal}>{text}</span>,
+            render: (text) => <span style={{cursor:"pointer"}}>{text}</span>,
         },
         {
             title: '是否模板创建',
@@ -70,13 +49,18 @@ const TriggerList = (props) => {
             key: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <a>删除</a>
+                    <span style={{cursor:"pointer"}} onClick={() => deleteTrigger(record.key)}>删除</span>
                 </Space>
             ),
         },
 
     ];
 
-    return <Table columns={columns} dataSource={data} />
+    return(
+        <Table
+            columns={columns}
+            dataSource={dataList}
+        />
+    )
 } ;
-export default withRouter(TriggerList);
+export default TriggerList;

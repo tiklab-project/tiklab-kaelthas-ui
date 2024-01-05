@@ -50,15 +50,14 @@
           cursor: pointer;
         }
       }
+
+      .monitor-kind-search {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
     }
 
-    .monitor-kind-search {
-      display: flex;
-      width: 100%;
-      align-items: center;
-      justify-content: flex-end;
-      margin-top: 15px;
-    }
 
     .box-monitor-table {
       padding-top: 20px;

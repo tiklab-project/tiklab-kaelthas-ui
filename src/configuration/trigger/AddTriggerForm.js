@@ -1,14 +1,15 @@
 import {Button, Checkbox, Form, Input, Select} from 'antd';
 import React from 'react';
 
-const AddTriggerForm = () => {
-    const onFinish = (values) => {
+const AddTriggerForm = (props) => {
+    /*const onFinish = (values) => {
         console.log('Success:', values);
-    };
+    };*/
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
+    const {dateList,setDataList,form} = props;
 
     return (
         <Form
@@ -22,9 +23,10 @@ const AddTriggerForm = () => {
             initialValues={{
                 remember: true,
             }}
-            onFinish={onFinish}
+            // onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            form={form}
         >
             <Form.Item
                 label="触发器名称"
@@ -42,7 +44,7 @@ const AddTriggerForm = () => {
 
             <Form.Item
                 label="监控指标"
-                name="monitorType"
+                name="triggerExpression"
                 rules={[
                     {
                         required: true,
@@ -56,11 +58,11 @@ const AddTriggerForm = () => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="male">system.cpu(internal,time)</Option>
-                    <Option value="female">system.cpu(process,time)</Option>
-                    <Option value="other">system.cpu(process,c)</Option>
-                    <Option value="four">system.cpu(idle,c)</Option>
-                    <Option value="five">system.cpu(IO,c)</Option>
+                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
+                    <Option value="system.cpu(process,time)">system.cpu(process,time)</Option>
+                    <Option value="system.cpu(process,c)">system.cpu(process,c)</Option>
+                    <Option value="system.cpu(idle,c)">system.cpu(idle,c)</Option>
+                    <Option value="system.cpu(IO,c)">system.cpu(IO,c)</Option>
                 </Select>
 
             </Form.Item>
@@ -81,17 +83,17 @@ const AddTriggerForm = () => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="email">方案1:电子邮件</Option>
-                    <Option value="weChatPublicAccount">方案2:微信公众号</Option>
-                    <Option value="dingding">方案3:钉钉</Option>
-                    <Option value="sms">方案4:短信</Option>
+                    <Option value="方案1:电子邮件">方案1:电子邮件</Option>
+                    <Option value="方案2:微信公众号">方案2:微信公众号</Option>
+                    <Option value="方案3:钉钉">方案3:钉钉</Option>
+                    <Option value="方案4:短信">方案4:短信</Option>
                 </Select>
 
             </Form.Item>
 
             <Form.Item
                 label="严重性"
-                name="messageType"
+                name="alarmType"
                 rules={[
                     {
                         required: false,
@@ -105,19 +107,19 @@ const AddTriggerForm = () => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="disaster">灾难</Option>
-                    <Option value="severe">严重</Option>
-                    <Option value="generallySevere">一般严重</Option>
-                    <Option value="Alarm">告警</Option>
-                    <Option value="Information">信息</Option>
-                    <Option value="Uncategorized">未分类</Option>
+                    <Option value="灾难">灾难</Option>
+                    <Option value="严重">严重</Option>
+                    <Option value="一般严重">一般严重</Option>
+                    <Option value="告警">告警</Option>
+                    <Option value="信息">信息</Option>
+                    <Option value="未分类">未分类</Option>
                 </Select>
 
             </Form.Item>
 
             <Form.Item
                 label="问题描述"
-                name="dataRetentionPeriod"
+                name="description"
                 rules={[
                     {
                         required: false,

@@ -3,7 +3,7 @@ import TopList from "../common/TopList";
 import LeftMenu from "../common/LeftMenu";
 import "./Setting.scss"
 
-const Setting = (props) => {
+const Permissions = (props) => {
 
 
     const router = [
@@ -64,4 +64,4 @@ const Setting = (props) => {
     );
 };
 
-export default Setting;
+export default Permissions;
