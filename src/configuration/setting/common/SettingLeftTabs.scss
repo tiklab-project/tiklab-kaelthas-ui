@@ -1,0 +1,40 @@
+.setting-box-right-left {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    list-style-type: none;
+    height: 100%;
+    cursor: pointer;
+    background: #fafbfc;
+
+    .setting-box-right-text {
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+        width: 100%;
+        align-items: center;
+        padding: 0 20px;
+        font-weight: 600;
+    }
+
+    .setting-box-right-tabs {
+
+        list-style-type: none;
+        display: flex;
+        width: 100%;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 10px;
+        padding: 5px 0;
+        cursor: pointer;
+
+        .setting-text {
+            display: flex;
+            height: 40px;
+            line-height: 40px;
+            width: 100%;
+            align-items: center;
+            padding: 0 20px;
+        }
+    }
+}

@@ -1,10 +1,12 @@
-import {Space, Table, Tag} from 'antd';
+import {Button, Drawer, Space, Table, Tag} from 'antd';
 import React, {useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
-import AddMonitorForm from "./AddMonitorForm";
-
+import  "./MonitorListDetails";
+import MonitorListDetails from "./MonitorListDetails";
 
 const MonitorList = (props) => {
+
+    const [open, setOpen] = useState(true);
 
     const {listData, setListData} = props;
 
@@ -22,14 +24,18 @@ const MonitorList = (props) => {
     }
 
 
-
-
+    const drawerList = () => {
+        console.log('drawerList')
+        return(
+            <MonitorListDetails open={open} setOPen={setOpen}/>
+        )
+    };
     const columns = [
         {
             title: '监控项名称',
             dataIndex: 'monitorName',
             key: 'monitorName',
-            render: (text) => <span style={{cursor: "pointer"}} onClick={AddMonitorForm}>{text}</span>,
+            render: (text) => <span style={{cursor: "pointer"}} onClick={()=>drawerList()}>{text}</span>,
         },
         {
             title: '是否模板创建',
@@ -73,15 +79,7 @@ const MonitorList = (props) => {
 
     ];
 
-    /*console.log("columns:", columns)
-    columns.forEach((item, index) => {
-        if (1 === index) {
-            columns.splice(index, 1);
-        }
-    })
-
-    console.log(columns)*/
-
     return <Table columns={columns} dataSource={listData}/>
 };
+
 export default withRouter(MonitorList);

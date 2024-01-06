@@ -6,12 +6,12 @@ import LeftMenu from "./configuration/common/LeftMenu";
 import Monitor from "./configuration/monitor/Monitor";
 import Trigger from "./configuration/trigger/Trigger";
 import Template from "./configuration/template/Template";
-import Setting from "./configuration/setting/Setting";
+import Setting from "./configuration/setting/projectInformation/ProjectInformation";
 import Graphics from "./configuration/graphics/Graphics";
 import MonitorTemplateList from "./configuration/monitor/MonitorTemplate";
 import MonitorHostList from "./configuration/monitor/MonitorHost";
-import Member from "./configuration/setting/Member";
-import Permissions from "./configuration/setting/Permissions"
+import Member from "./configuration/setting/member/Member";
+import Permissions from "./configuration/setting/permissions/Permissions"
 const Routes = [
 
     /*{

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TopList from "../common/TopList";
 import LeftMenu from "../common/LeftMenu";
 import "./Graphics.scss"
@@ -7,6 +7,36 @@ import {Input} from "antd";
 import GraphicsList from "./GraphicsList";
 
 const Graphics = () => {
+
+    const data = [
+        {
+            key: '1',
+            graphicsName: '内存监控图表',
+            width: '900',
+            height: '400',
+        },
+        {
+            key: '2',
+            graphicsName: '网络监控图表',
+            width: '900',
+            height: '400',
+        },
+        {
+            key: '3',
+            graphicsName: '改变过优先级的进程图表',
+            width: '900',
+            height: '400',
+        },
+        {
+            key: '4',
+            graphicsName: '空闲CPU图表',
+            width: '900',
+            height: '400',
+        },
+    ];
+
+    const [dataList,setDataList] = useState(data);
+
 
     const Search = () => <Input placeholder="请输入图形名称"/>;
 
@@ -25,7 +55,7 @@ const Graphics = () => {
                         </div>
                         <div className="graphics-top-right">
                             <div className="graphics-top-right-button">
-                                <AddGraphics/>
+                                <AddGraphics dataList={dataList} setDataList={setDataList}/>
                             </div>
                         </div>
                     </div>
@@ -46,7 +76,7 @@ const Graphics = () => {
                         </div>
                     </div>
                     <div className="box-graphics-table">
-                        <GraphicsList/>
+                        <GraphicsList dataList={dataList} setDataList={setDataList}/>
                     </div>
                 </div>
             </div>

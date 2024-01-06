@@ -1,0 +1,36 @@
+.setting-box {
+  display: flex;
+  height: calc(100vh - 48px);
+  flex-direction: row;
+
+  .setting-box-right {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    height: calc(100vh - 48px);
+
+    .setting-box-body-right {
+      display: flex;
+      flex: auto;
+      flex-direction: column;
+      min-height: 0;
+      margin-right: 12.5%;
+      margin-left: 12.5%;
+      padding: 20px;
+
+      .setting-box-right-head{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        flex-direction: column;
+
+        .setting-box-right-head-text{
+          display: flex;
+          font-size: 16px;
+          font-weight: bold;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
+}

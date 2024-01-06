@@ -1,0 +1,19 @@
+.permissions-box {
+    display: flex;
+    height: calc(100vh - 48px);
+    flex-direction: row;
+
+    .permissions-box-right {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        height: calc(100vh - 48px);
+
+        .permissions-box-body-right {
+            display: flex;
+            flex: auto;
+            flex-direction: column;
+            min-height: 0;
+        }
+    }
+}

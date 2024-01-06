@@ -1,0 +1,23 @@
+.dropDownMenu-box {
+  padding: 16px;
+
+  .dropDownMenu-box-prompt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ff0000;
+  }
+
+  .dropDownMenu-box-delete{
+    background-color: #ff0000;
+    margin-top: 10px;
+    cursor: pointer;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    color: #fff;
+    border-radius: 4px;
+    width: 100px;
+    font-size: 12px;
+  }
+}

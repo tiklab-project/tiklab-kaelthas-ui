@@ -1,13 +1,15 @@
 import {Button, Checkbox, Form, Input, Select} from 'antd';
 import React from 'react';
 
-const AddMonitorForm = () => {
+const AddMonitorForm = (props) => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
+
+    const {form} = props;
 
 
     return (
@@ -25,10 +27,11 @@ const AddMonitorForm = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            form={form}
         >
             <Form.Item
-                label="模板"
-                name="monitorType"
+                label="模板名称"
+                name="templateName"
                 rules={[
                     {
                         required: true,
@@ -42,11 +45,11 @@ const AddMonitorForm = () => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="one">网络监控模板</Option>
-                    <Option value="two">磁盘监控模板</Option>
-                    <Option value="three">by http</Option>
-                    <Option value="four">CPU监控模板</Option>
-                    <Option value="five">内存监控模板</Option>
+                    <Option value="网络监控模板">网络监控模板</Option>
+                    <Option value="磁盘监控模板">磁盘监控模板</Option>
+                    <Option value="by http">by http</Option>
+                    <Option value="CPU监控模板">CPU监控模板</Option>
+                    <Option value="内存监控模板">内存监控模板</Option>
                 </Select>
 
             </Form.Item>
