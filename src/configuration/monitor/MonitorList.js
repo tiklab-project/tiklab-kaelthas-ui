@@ -6,7 +6,7 @@ import MonitorListDetails from "./MonitorListDetails";
 
 const MonitorList = (props) => {
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     const {listData, setListData} = props;
 
@@ -26,6 +26,7 @@ const MonitorList = (props) => {
 
     const drawerList = () => {
         console.log('drawerList')
+        setOpen(true);
         return(
             <MonitorListDetails open={open} setOPen={setOpen}/>
         )
