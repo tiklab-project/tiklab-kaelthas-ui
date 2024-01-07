@@ -38,7 +38,7 @@ const AddTrigger = (props) => {
     return (
         <>
             <Button type="primary" onClick={showModal}>
-                新建/编辑 触发器
+                新建触发器
             </Button>
             <Modal
                 title="新建/编辑 触发器"

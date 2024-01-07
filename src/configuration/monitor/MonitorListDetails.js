@@ -30,7 +30,7 @@ const MonitorListDetails = (props) => {
                 placement={placement}
                 width={500}
                 onClose={onClose}
-                open={open}
+                visible={open}
                 extra={
                     <Space>
                         <Button onClick={onClose}>Cancel</Button>

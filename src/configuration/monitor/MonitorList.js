@@ -1,8 +1,8 @@
 import {Button, Drawer, Space, Table, Tag} from 'antd';
 import React, {useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
-import  "./MonitorListDetails";
-import MonitorListDetails from "./MonitorListDetails";
+import "./MonitorListDetails";
+import UpdateMonitor from "./UpdateMonitor";
 
 const MonitorList = (props) => {
 
@@ -10,33 +10,49 @@ const MonitorList = (props) => {
 
     const {listData, setListData} = props;
 
+    const [columnData,setColumnData] = useState({});
+
+    const {form} = props;
+
     const removeToList = (key) => {
         // console.log(listData)
 
-        listData.forEach((item,index) => {
+        listData.forEach((item, index) => {
             if (item.key === key) {
-                listData.splice(index,1)
+                listData.splice(index, 1)
             }
         })
-        console.log('删除成功',listData)
+
         setListData([...listData])
-        return listData;
+
     }
 
 
-    const drawerList = () => {
-        console.log('drawerList')
-        setOpen(true);
-        return(
-            <MonitorListDetails open={open} setOPen={setOpen}/>
-        )
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const drawerList = (record) => {
+        /*setOpen(false);
+        console.log('open',open)*/
+
+        setIsModalOpen(true);
+
+        setColumnData({
+            key:record.key,
+            dataRetentionPeriod:record.dataRetentionPeriod,
+            monitorName:record.monitorName,
+            monitorType:record.monitorType,
+            isTemplate:record.isTemplate,
+            interval:record.interval,
+            monitorExpression:record.monitorExpression,
+            status:record.status,
+        })
     };
     const columns = [
         {
             title: '监控项名称',
             dataIndex: 'monitorName',
             key: 'monitorName',
-            render: (text) => <span style={{cursor: "pointer"}} onClick={()=>drawerList()}>{text}</span>,
+            render: (text,record) => <span style={{cursor: "pointer"}} onClick={() => drawerList(record)}>{text}</span>,
         },
         {
             title: '是否模板创建',
@@ -80,7 +96,17 @@ const MonitorList = (props) => {
 
     ];
 
-    return <Table columns={columns} dataSource={listData}/>
+    return (
+        <>
+            {/*<MonitorListDetails open={open} setOpen={setOpen}/>*/}
+            <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                           columnData={columnData} setColumnData={setColumnData} form={form}
+                           listData={listData} setListData={setListData}
+            />
+            <Table columns={columns} dataSource={listData}/>
+        </>
+
+    )
 };
 
 export default withRouter(MonitorList);

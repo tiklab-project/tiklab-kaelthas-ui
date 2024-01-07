@@ -6,7 +6,7 @@ import AddGraphics from "./AddGraphics";
 import {Input} from "antd";
 import GraphicsList from "./GraphicsList";
 
-const Graphics = () => {
+const Graphics = (props) => {
 
     const data = [
         {
