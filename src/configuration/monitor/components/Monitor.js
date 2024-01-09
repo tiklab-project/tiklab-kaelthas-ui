@@ -1,81 +1,34 @@
-import React, {useState} from 'react';
-import TopList from "../common/TopList";
-import LeftMenu from "../common/LeftMenu";
+import React, {useEffect, useState} from 'react';
+import TopList from "../../common/TopList";
+import LeftMenu from "../../common/LeftMenu";
 import "./Monitor.scss"
 import AddMonitor from "./AddMonitor";
 import {Input} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
-import {observable, autorun} from "mobx"
+import monitorStore from "../store/MonitorStore";
 
 const Monitor = (props) => {
 
-    const data = [
-        {
-            key: '1',
-            monitorName: '内核占用CPU时间百分比',
-            isTemplate: '否',
-            monitorType: 'CPU信息监控',
-            monitorExpression: 'system.cpu(internal,time)',
-            interval: '10s',
-            dataRetentionPeriod: '36d',
-            status: '启动',
-            failureInformation: '监控项无法识别'
-        },
-        {
-            key: '2',
-            monitorName: '用户态进程占用CPU时间百分比',
-            isTemplate: '否',
-            monitorType: 'CPU信息监控',
-            monitorExpression: 'system.cpu(process,time)',
-            interval: '20s',
-            dataRetentionPeriod: '40d',
-            status: '启动',
-            failureInformation: '不存在这个监控项'
-        },
-        {
-            key: '3',
-            monitorName: '改变过优先级的进程占用CPU的百分比',
-            isTemplate: '否',
-            monitorType: 'CPU信息监控',
-            monitorExpression: 'system.cpu(process,c)',
-            interval: '20s',
-            dataRetentionPeriod: '50d',
-            status: '启动',
-            failureInformation: '监控项无法识别'
-        },
-        {
-            key: '4',
-            monitorName: '空闲CPU时间百分比',
-            isTemplate: '否',
-            monitorType: 'CPU信息监控',
-            monitorExpression: 'system.cpu(idle,c)',
-            interval: '30s',
-            dataRetentionPeriod: '30d',
-            status: '启动',
-            failureInformation: '监控成功'
-        },
-    ];
 
-    const [listData, setListData] = useState(data)
+    const {findMonitorByName} = monitorStore;
 
-    const searchName = (name) => {
-        console.log('listData:',listData)
-        /*listData.forEach((item, index) => {
-            if (item.monitorName !== name){
-                listData.splice(index,1);
-            }
-        })*/
-        /*listData.filter(function (item) {
-            return item.monitorName !== name;
-        })*/
+    const [listData, setListData] = useState()
 
-        setListData([...listData]);
+    const searchName = async (name) => {
+        debugger
 
-        console.log('listData:',listData)
+        const resData = await findMonitorByName({name});
+
+        console.log('使用输入框模拟的数据', resData)
     };
 
-    const Search = (value) => <Input placeholder="请输入监控项名称" onPressEnter={() => searchName(value)}/>;
+
+    const Search = () => {
+        return (
+            <Input placeholder="请输入监控项名称" onPressEnter={() => searchName(value)}/>
+        )
+    }
 
     const monitorTemplateList = () => {
         props.history.push("/Configuration/Host/MonitorTemplateList")
@@ -94,7 +47,7 @@ const Monitor = (props) => {
             <TopList/>
             <div>
                 <div className="box-monitor">
-                    <LeftMenu/>
+                    <LeftMenu setListData={setListData} listData={listData}/>
                     <div className="box-monitor-right">
                         <div className="box-monitor-title">
                             <div className="box-monitor-title-text">监控项</div>
