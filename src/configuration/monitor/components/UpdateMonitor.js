@@ -1,16 +1,17 @@
 import {Button, Modal, Form, Input, Select} from 'antd';
 import React, {useState} from 'react';
+import Mock from "mockjs";
 
 const UpdateMonitor = (props) => {
     const {setListData, listData} = props;
-    const [form] = Form.useForm();
+
+    const {form} = props;
 
     const {isModalOpen, setIsModalOpen} = props;
 
     const {columnData,setColumnData} = props;
 
 
-    // console.log('updateColumnData:',columnData)
     /*const showModal = () => {
         setIsModalOpen(true);
     };*/
@@ -25,19 +26,18 @@ const UpdateMonitor = (props) => {
 
         //先删除
         listData.forEach((item, index) => {
+
             if (item.key === columnData.key) {
                 listData.splice(index, 1)
             }
         })
-
-        setListData([...listData])
 
         //后新增
         form.validateFields().then(res => {
 
             listData.push(
                 {
-                    key: Math.random(),
+                    key: Mock.mock('@id'),
                     dataRetentionPeriod: res.dataRetentionPeriod,
                     monitorName: res.monitorName,
                     monitorType: res.monitorType,
@@ -47,9 +47,7 @@ const UpdateMonitor = (props) => {
                     status:'启动',
                 }
             )
-
             setListData([...listData])
-
         })
 
     };

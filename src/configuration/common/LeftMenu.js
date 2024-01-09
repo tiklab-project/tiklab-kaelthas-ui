@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
+import monitorStore from "../monitor/store/MonitorStore";
 
 const LeftMenu = (props) => {
-
 
     const router = [
         {
@@ -50,7 +50,23 @@ const LeftMenu = (props) => {
         },
     ]
 
-    const selectMenu = (url) => {
+    const {findMonitorList} = monitorStore;
+
+    const {setListData, listData} = props;
+
+
+    useEffect(async () => {
+
+        const storeData = await findMonitorList();
+
+        setListData([...storeData])
+
+        console.log('这个有没有问题storeData:', storeData)
+
+        return;
+    }, []);
+
+    const selectMenu = async (url) => {
         props.history.push(url)
     }
 

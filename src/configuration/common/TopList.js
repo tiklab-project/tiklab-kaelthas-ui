@@ -24,11 +24,9 @@ const TopList = (props)=>{
                         </div>
                         <div className='iconType'>
                             <span className="configration-group-item" onClick={homePage} style={{cursor:"pointer"}}>首页</span>
-                            {/*<Link className="home-group-item" to="/">首页</Link>*/}
                         </div>
                         <div className='iconType'>
                             <span className="configration-group-item" onClick={configuration} style={{cursor:"pointer"}}>配置</span>
-                            {/*<Link className="configration-group-item" to="/Configuration"><span>配置</span></Link>*/}
                         </div>
                         <div className='iconType'>
                             <span>监测</span>

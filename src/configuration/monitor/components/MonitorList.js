@@ -1,4 +1,4 @@
-import {Button, Drawer, Space, Table, Tag} from 'antd';
+import {Button, Drawer, Form, Space, Table, Tag} from 'antd';
 import React, {useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./MonitorListDetails";
@@ -12,7 +12,9 @@ const MonitorList = (props) => {
 
     const [columnData,setColumnData] = useState({});
 
-    const {form} = props;
+    const [form] = Form.useForm();
+
+
 
     const removeToList = (key) => {
         // console.log(listData)
@@ -36,6 +38,18 @@ const MonitorList = (props) => {
 
         setIsModalOpen(true);
 
+
+        form.setFieldsValue({
+            key:record.key,
+            dataRetentionPeriod:record.dataRetentionPeriod,
+            monitorName:record.monitorName,
+            monitorType:record.monitorType,
+            isTemplate:record.isTemplate,
+            interval:record.interval,
+            monitorExpression:record.monitorExpression,
+            status:record.status,
+        })
+
         setColumnData({
             key:record.key,
             dataRetentionPeriod:record.dataRetentionPeriod,
@@ -46,6 +60,7 @@ const MonitorList = (props) => {
             monitorExpression:record.monitorExpression,
             status:record.status,
         })
+
     };
     const columns = [
         {

@@ -1,6 +1,6 @@
 import React from 'react';
-import TopList from "../common/TopList";
-import LeftMenu from "../common/LeftMenu";
+import TopList from "../../common/TopList";
+import LeftMenu from "../../common/LeftMenu";
 import "./Monitor.scss"
 import AddMonitor from "./AddMonitor";
 import {Input} from "antd";

@@ -83,13 +83,9 @@ const Configuration = (props) => {
         },
     ];
 
-
-
     const [dataList,setDataList] = useState(data);
 
     const Search = () => <Input placeholder="请输入监控项名称"/>;
-
-
 
     return (
         <div>

@@ -6,6 +6,8 @@ import "./Trigger.scss"
 import AddTrigger from "./AddTrigger";
 import {Input} from "antd";
 import TriggerList from "./TriggerList";
+import Mock from "mockjs";
+import {id} from "mockjs/src/mock/random/misc";
 
 const Trigger = (props) => {
 
