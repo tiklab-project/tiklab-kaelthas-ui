@@ -28,7 +28,9 @@
         .graphics-top-right-button {
           position: relative;
         }
+
       }
+
     }
 
     .graphics-kind-options {
@@ -49,6 +51,7 @@
           padding: 0 5px;
           cursor: pointer;
         }
+
       }
 
       .graphics-kind-search {
@@ -56,11 +59,12 @@
         align-items: center;
         gap: 15px;
       }
-    }
 
+    }
 
     .box-graphics-table {
       padding-top: 20px;
     }
+
   }
 }

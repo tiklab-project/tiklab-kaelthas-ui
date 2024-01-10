@@ -4,7 +4,7 @@ const data = {
     code: 0,
     data: [
         {
-            key: '1',
+            id: '1',
             monitorName: '内核占用CPU时间百分比',
             isTemplate: '否',
             monitorType: 'CPU信息监控',
@@ -15,7 +15,7 @@ const data = {
             failureInformation: '监控项无法识别'
         },
         {
-            key: '2',
+            id: '2',
             monitorName: '用户态进程占用CPU时间百分比',
             isTemplate: '否',
             monitorType: 'CPU信息监控',
@@ -26,7 +26,7 @@ const data = {
             failureInformation: '不存在这个监控项'
         },
         {
-            key: '3',
+            id: '3',
             monitorName: '改变过优先级的进程占用CPU的百分比',
             isTemplate: '否',
             monitorType: 'CPU信息监控',
@@ -37,7 +37,7 @@ const data = {
             failureInformation: '监控项无法识别'
         },
         {
-            key: '4',
+            id: '4',
             monitorName: '空闲CPU时间百分比',
             isTemplate: '否',
             monitorType: 'CPU信息监控',
@@ -50,25 +50,65 @@ const data = {
     ]
 }
 
+//全部查询
 Mock.mock("/Configuration/Host/Monitor", 'post', {
     data() {
         return data.data;
     }
 });
 
+//根据名称查询
+Mock.mock("/Configuration/Host/Monitor/monitorFindByName", 'post', (option) => {
 
-Mock.mock("/Configuration/Host/Monitor/monitorFindByName", 'post', {
-    data({name}) {
+    const name = JSON.parse(option.body).name;
 
-        data.data.forEach(item=>{
-            if (item.monitorName === name){
-                return item;
-            }
-        })
-
-        return [];
+    if ('' == name){
+        return data.data;
     }
+
+    return data.data.filter(item => {
+        return item.monitorName === name;
+    });
+
 })
+
+//根据id进行修改
+Mock.mock("/Configuration/Host/Monitor/updateMonitorById", 'post', (option) => {
+
+    const partyData = JSON.parse(option.body);
+
+     data.data.map((item,index) =>{
+        if (item.id === partyData.id) {
+            
+            data.data.splice(index, 1);
+
+            data.data.push(partyData);
+        }
+    })
+
+    return data.data;
+
+})
+
+//删除
+Mock.mock("/Configuration/Host/Monitor/deleteMonitorById", 'post', (option) => {
+
+    const id = JSON.parse(option.body);
+    console.log('id:',id)
+
+    data.data.map((item,index) =>{
+        if (item.id == id){
+            data.data.splice(index,1);
+        }
+    })
+
+    console.log(data.data)
+
+    return data.data;
+
+
+})
+
 
 /*
 Mock.mock('/api/goodslist','get',{
@@ -84,7 +124,7 @@ Mock.mock('/api/goodslist','get',{
 })*/
 // {[
 //     Mock.mock({
-//         key: Mock.mock('@id'),
+//         id: Mock.mock('@id'),
 //         'monitorName|1': [
 //             '内核占用CPU时间百分比',
 //             '用户态进程占用CPU时间百分比',

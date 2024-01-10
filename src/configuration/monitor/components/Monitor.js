@@ -3,22 +3,24 @@ import TopList from "../../common/TopList";
 import LeftMenu from "../../common/LeftMenu";
 import "./Monitor.scss"
 import AddMonitor from "./AddMonitor";
-import {Input} from "antd";
+import {Form, Input} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
 
 const Monitor = (props) => {
 
-
     const {findMonitorByName} = monitorStore;
 
     const [listData, setListData] = useState()
 
-    const searchName = async (name) => {
-        debugger
+    const searchName = async (e) => {
 
-        const resData = await findMonitorByName({name});
+        const value = e.target.value;
+
+        const resData = await findMonitorByName(value);
+
+        setListData([...resData])
 
         console.log('使用输入框模拟的数据', resData)
     };
@@ -26,7 +28,7 @@ const Monitor = (props) => {
 
     const Search = () => {
         return (
-            <Input placeholder="请输入监控项名称" onPressEnter={() => searchName(value)}/>
+            <Input placeholder="请输入监控项名称"  onPressEnter={(event) => searchName(event)}/>
         )
     }
 

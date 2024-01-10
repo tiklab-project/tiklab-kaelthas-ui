@@ -1,14 +1,17 @@
 import {Button, Form, Input, Modal, Select} from 'antd';
 import React, {useState} from 'react';
+import triggerStore from "../store/TriggerStore";
 
 const UpdateTrigger = (props) => {
     const {dataList, setDataList} = props;
 
     const {isModalOpen, setIsModalOpen} = props;
 
-    const {columnData,setColumnData} = props;
+    const {rowData,setRowData} = props;
 
     const {form} = props;
+
+    const {updateTriggerById} = triggerStore;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -20,29 +23,24 @@ const UpdateTrigger = (props) => {
 
     const handleOk = () => {
 
-        dataList.forEach((item, index) => {
-            if (columnData.key === item.key) {
-                dataList.splice(index, 1)
-            }
-        })
-        setDataList([...dataList])
-
-        form.validateFields().then(res => {
-            dataList.push(
-                {
-                    key: Math.random(),
-                    triggerName: res.triggerName,
-                    isTemplate: '否',
-                    triggerExpression: res.triggerExpression,
-                    messageType: res.messageType,
-                    alarmType: res.alarmType,
-                    description: res.description,
-                }
-            )
-            setDataList([...dataList])
-        })
-
         setIsModalOpen(false);
+
+        form.validateFields().then(async res => {
+
+            const resData = await updateTriggerById({
+                id: rowData.id,
+                triggerName: res.triggerName,
+                isTemplate: '否',
+                triggerExpression: res.triggerExpression,
+                messageType: res.messageType,
+                alarmType: res.alarmType,
+                description: res.description,
+            });
+
+            setDataList([...resData])
+        })
+
+
     };
 
     const handleCancel = () => {
@@ -51,9 +49,6 @@ const UpdateTrigger = (props) => {
 
     return (
         <>
-            {/*<Button type="primary" onClick={showModal}>
-                新建/编辑 触发器
-            </Button>*/}
             <Modal
                 title="编辑触发器"
                 open={isModalOpen}

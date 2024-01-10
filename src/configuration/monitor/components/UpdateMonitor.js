@@ -1,6 +1,7 @@
 import {Button, Modal, Form, Input, Select} from 'antd';
 import React, {useState} from 'react';
 import Mock from "mockjs";
+import monitorStore from "../store/MonitorStore";
 
 const UpdateMonitor = (props) => {
     const {setListData, listData} = props;
@@ -9,8 +10,9 @@ const UpdateMonitor = (props) => {
 
     const {isModalOpen, setIsModalOpen} = props;
 
-    const {columnData,setColumnData} = props;
+    const {columnData, setColumnData} = props;
 
+    const {updateMonitorById} = monitorStore;
 
     /*const showModal = () => {
         setIsModalOpen(true);
@@ -24,30 +26,21 @@ const UpdateMonitor = (props) => {
     const handleOk = () => {
         setIsModalOpen(false);
 
-        //先删除
-        listData.forEach((item, index) => {
 
-            if (item.key === columnData.key) {
-                listData.splice(index, 1)
-            }
-        })
+        form.validateFields().then(async res => {
 
-        //后新增
-        form.validateFields().then(res => {
+            const resData = await updateMonitorById({
+                id: columnData.id,
+                dataRetentionPeriod: res.dataRetentionPeriod,
+                monitorName: res.monitorName,
+                monitorType: res.monitorType,
+                isTemplate: '否',
+                interval: res.interval,
+                monitorExpression: res.monitorExpression,
+                status: '启动',
+            });
 
-            listData.push(
-                {
-                    key: Mock.mock('@id'),
-                    dataRetentionPeriod: res.dataRetentionPeriod,
-                    monitorName: res.monitorName,
-                    monitorType: res.monitorType,
-                    isTemplate: '否',
-                    interval: res.interval,
-                    monitorExpression:res.monitorExpression,
-                    status:'启动',
-                }
-            )
-            setListData([...listData])
+            setListData([...resData])
         })
 
     };

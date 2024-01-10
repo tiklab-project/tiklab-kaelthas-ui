@@ -55,18 +55,7 @@ const LeftMenu = (props) => {
     const {setListData, listData} = props;
 
 
-    useEffect(async () => {
-
-        const storeData = await findMonitorList();
-
-        setListData([...storeData])
-
-        console.log('这个有没有问题storeData:', storeData)
-
-        return;
-    }, []);
-
-    const selectMenu = async (url) => {
+    const selectMenu = (url) => {
         props.history.push(url)
     }
 

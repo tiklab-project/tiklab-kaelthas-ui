@@ -1,36 +1,39 @@
 import {Button, Drawer, Form, Space, Table, Tag} from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./MonitorListDetails";
 import UpdateMonitor from "./UpdateMonitor";
+import monitorStore from "../store/MonitorStore";
 
 const MonitorList = (props) => {
 
-    const [open, setOpen] = useState(false);
+    const {findMonitorList,deleteMonitorById} = monitorStore;
 
     const {listData, setListData} = props;
 
-    const [columnData,setColumnData] = useState({});
+    const [columnData, setColumnData] = useState({});
 
     const [form] = Form.useForm();
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
 
-    const removeToList = (key) => {
-        // console.log(listData)
+        findMonitorList().then((res) => {
+            setListData([...res])
+        });
 
-        listData.forEach((item, index) => {
-            if (item.key === key) {
-                listData.splice(index, 1)
-            }
-        })
+        return null;
+    }, []);
 
-        setListData([...listData])
+    const removeToList = async (id) => {
+
+        const resData = await deleteMonitorById(id);
+
+        setListData([...resData])
 
     }
 
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const drawerList = (record) => {
         /*setOpen(false);
@@ -40,71 +43,73 @@ const MonitorList = (props) => {
 
 
         form.setFieldsValue({
-            key:record.key,
-            dataRetentionPeriod:record.dataRetentionPeriod,
-            monitorName:record.monitorName,
-            monitorType:record.monitorType,
-            isTemplate:record.isTemplate,
-            interval:record.interval,
-            monitorExpression:record.monitorExpression,
-            status:record.status,
+            id: record.id,
+            dataRetentionPeriod: record.dataRetentionPeriod,
+            monitorName: record.monitorName,
+            monitorType: record.monitorType,
+            isTemplate: record.isTemplate,
+            interval: record.interval,
+            monitorExpression: record.monitorExpression,
+            status: record.status,
         })
 
         setColumnData({
-            key:record.key,
-            dataRetentionPeriod:record.dataRetentionPeriod,
-            monitorName:record.monitorName,
-            monitorType:record.monitorType,
-            isTemplate:record.isTemplate,
-            interval:record.interval,
-            monitorExpression:record.monitorExpression,
-            status:record.status,
+            id: record.id,
+            dataRetentionPeriod: record.dataRetentionPeriod,
+            monitorName: record.monitorName,
+            monitorType: record.monitorType,
+            isTemplate: record.isTemplate,
+            interval: record.interval,
+            monitorExpression: record.monitorExpression,
+            status: record.status,
         })
 
     };
+
     const columns = [
         {
             title: '监控项名称',
             dataIndex: 'monitorName',
-            key: 'monitorName',
-            render: (text,record) => <span style={{cursor: "pointer"}} onClick={() => drawerList(record)}>{text}</span>,
+            id: 'monitorName',
+            render: (text, record) => <span style={{cursor: "pointer"}}
+                                            onClick={() => drawerList(record)}>{text}</span>,
         },
         {
             title: '是否模板创建',
             dataIndex: 'isTemplate',
-            key: 'isTemplate',
+            id: 'isTemplate',
         },
         {
             title: '监控项类别',
             dataIndex: 'monitorType',
-            key: 'monitorType',
+            id: 'monitorType',
         }, {
             title: '监控表达式',
             dataIndex: 'monitorExpression',
-            key: 'monitorExpression',
+            id: 'monitorExpression',
         }, {
             title: '间隔时间',
             dataIndex: 'interval',
-            key: 'interval',
+            id: 'interval',
         }, {
             title: '数据保留时间',
             dataIndex: 'dataRetentionPeriod',
-            key: 'dataRetentionPeriod',
+            id: 'dataRetentionPeriod',
         }, {
             title: '监控项状态',
             dataIndex: 'status',
-            key: 'status',
+            id: 'status',
         }, {
             title: '监控失败提示信息',
             dataIndex: 'failureInformation',
-            key: 'failureInformation',
+            id: 'failureInformation',
         },
         {
             title: '操作',
-            key: 'action',
+            id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => removeToList(record.key)}>删除</span>
+                    <span style={{cursor: "pointer"}} onClick={() => removeToList(record.id)}>删除</span>
                 </Space>
             ),
         },
@@ -118,7 +123,7 @@ const MonitorList = (props) => {
                            columnData={columnData} setColumnData={setColumnData} form={form}
                            listData={listData} setListData={setListData}
             />
-            <Table columns={columns} dataSource={listData}/>
+            <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
         </>
 
     )

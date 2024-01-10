@@ -1,44 +1,27 @@
 import React, {useState} from 'react';
-import TopList from "../common/TopList";
-import LeftMenu from "../common/LeftMenu";
+import TopList from "../../common/TopList";
+import LeftMenu from "../../common/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
 import {Input} from "antd";
 import TemplateList from "./TemplateList";
+import templateStore from "../store/TemplateStore";
 
 const Template = (props) => {
 
+    const {getTemplateByName} = templateStore;
 
-    const data = [
-        {
-            key: '1',
-            templateName: 'CPU监控模板',
-            monitorNum: '6',
-            triggerNum: '1',
-        },
-        {
-            key: '2',
-            templateName: '内存监控模板',
-            monitorNum: '4',
-            triggerNum: '2',
-        },
-        {
-            key: '3',
-            templateName: '网络监控模板',
-            monitorNum: '8',
-            triggerNum: '3',
-        },
-        {
-            key: '4',
-            templateName: 'template001',
-            monitorNum: '4',
-            triggerNum: '2',
-        },
-    ];
+    const [dataList,setDataList] = useState();
 
-    const [dataList,setDataList] = useState(data);
+    const searchName = async (event) => {
 
-    const Search = () => <Input placeholder="请输入监控项名称"/>;
+        const resData = await getTemplateByName(event.target.value);
+        setDataList([...resData])
+
+    };
+
+
+    const Search = () => <Input placeholder="请输入监控项名称" onPressEnter={(event) => searchName(event)}/>;
 
     return (
         <div>

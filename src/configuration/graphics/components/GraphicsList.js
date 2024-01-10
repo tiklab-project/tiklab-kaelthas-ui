@@ -1,7 +1,8 @@
 import {Form, Space, Table, Tag} from 'antd';
-import React, {useState} from 'react';
-import {Link, withRouter} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {withRouter} from "react-router-dom";
 import UpdateGraphics from "./UpdateGraphics";
+import graphicsStore from "../store/GraphicsStore";
 
 const GraphicsList = (props) => {
 
@@ -13,25 +14,43 @@ const GraphicsList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const deleteGraphics = (key) => {
-        dataList.forEach((item, index) => {
-            if (key === item.key) {
-                dataList.splice(index, 1);
-            }
+    const {getGraphicsStoreList,deleteGraphicsStoreById} = graphicsStore;
+
+    useEffect(() => {
+
+        getGraphicsStoreList().then((res) =>{
+            setDataList([...res])
         })
 
-        setDataList([...dataList]);
+    }, []);
+
+    const deleteGraphics = async (id) => {
+
+        const resData = await deleteGraphicsStoreById(id);
+
+        setDataList([...resData]);
     };
 
     const updateGraphicsColumn = (record) => {
 
         setIsModalOpen(true);
-        console.log('record:',record)
-        setColumnData({
-            key:record.key,
+
+        form.setFieldsValue({
+            id:record.id,
             graphicsName:record.graphicsName,
             width:record.width,
             height:record.height,
+            monitoringMetrics:record.monitoringMetrics,
+            description:record.description
+        });
+
+        setColumnData({
+            id:record.id,
+            graphicsName:record.graphicsName,
+            width:record.width,
+            height:record.height,
+            monitoringMetrics:record.monitoringMetrics,
+            description:record.description
         })
 
 
@@ -41,7 +60,7 @@ const GraphicsList = (props) => {
         {
             title: '图形名称',
             dataIndex: 'graphicsName',
-            key: 'graphicsName',
+            id: 'graphicsName',
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => updateGraphicsColumn(record)}>{text}</span>,
@@ -49,19 +68,29 @@ const GraphicsList = (props) => {
         {
             title: '宽度',
             dataIndex: 'width',
-            key: 'width',
+            id: 'width',
         },
         {
             title: '高度',
             dataIndex: 'height',
-            key: 'height',
+            id: 'height',
+        },
+        {
+            title: '监控指标',
+            dataIndex: 'monitoringMetrics',
+            id: 'monitoringMetrics',
+        },
+        {
+            title: '问题描述',
+            dataIndex: 'description',
+            id: 'description',
         },
         {
             title: '操作',
-            key: 'action',
+            id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => deleteGraphics(record.key)}>删除</span>
+                    <span style={{cursor: "pointer"}} onClick={() => deleteGraphics(record.id)}>删除</span>
                 </Space>
             ),
         },

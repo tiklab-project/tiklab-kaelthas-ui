@@ -1,31 +1,32 @@
 import {Button, Form, Modal} from 'antd';
 import React, {useState} from 'react';
 import AddTriggerForm from "./AddTriggerForm";
+import triggerStore from "../store/TriggerStore";
 
 const AddTrigger = (props) => {
     const {dataList, setDataList} = props;
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const {addTrigger} = triggerStore;
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-
     const handleOk = () => {
-        form.validateFields().then(res => {
-            dataList.push(
-                {
-                    key: Math.random(),
-                    triggerName: res.triggerName,
-                    isTemplate: '否',
-                    triggerExpression: res.triggerExpression,
-                    messageType: res.messageType,
-                    alarmType: res.alarmType,
-                    description: res.description,
-                }
-            )
-            setDataList([...dataList])
+        form.validateFields().then(async res => {
+
+            const resData = await addTrigger({
+                id: Math.random(),
+                triggerName: res.triggerName,
+                isTemplate: '否',
+                triggerExpression: res.triggerExpression,
+                messageType: res.messageType,
+                alarmType: res.alarmType,
+                description: res.description,
+            });
+
+            setDataList([...resData])
         })
 
         setIsModalOpen(false);

@@ -1,28 +1,32 @@
 import {Button, Form, Modal} from 'antd';
 import React, {useState} from 'react';
 import AddGraphicsForm from "./AddGraphicsForm";
+import graphicsStore from "../store/GraphicsStore";
 
 const AddGraphics = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const {addGraphicsStore} = graphicsStore;
+
     const showModal = () => {
         setIsModalOpen(true);
     };
     const handleOk = () => {
 
-        form.validateFields().then(res =>{
+        setIsModalOpen(false);
 
-            console.log("res:",res)
-            dataList.push({
+        form.validateFields().then(async res => {
+
+            const resData = await addGraphicsStore({
                 key: Math.random(),
                 graphicsName: res.graphicsName,
                 width: res.width,
                 height: res.height,
-            })
+            });
 
-            setDataList([...dataList]);
+            setDataList([...resData]);
         })
 
-        setIsModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);

@@ -1,44 +1,24 @@
 import React, {useState} from 'react';
-import TopList from "../common/TopList";
-import LeftMenu from "../common/LeftMenu";
+import TopList from "../../common/TopList";
+import LeftMenu from "../../common/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
 import {Input} from "antd";
 import GraphicsList from "./GraphicsList";
+import graphicsStore from "../store/GraphicsStore";
 
 const Graphics = (props) => {
 
-    const data = [
-        {
-            key: '1',
-            graphicsName: '内存监控图表',
-            width: '900',
-            height: '400',
-        },
-        {
-            key: '2',
-            graphicsName: '网络监控图表',
-            width: '900',
-            height: '400',
-        },
-        {
-            key: '3',
-            graphicsName: '改变过优先级的进程图表',
-            width: '900',
-            height: '400',
-        },
-        {
-            key: '4',
-            graphicsName: '空闲CPU图表',
-            width: '900',
-            height: '400',
-        },
-    ];
+    const {getGraphicsStoreByName} = graphicsStore;
 
-    const [dataList,setDataList] = useState(data);
+    const [dataList,setDataList] = useState([]);
 
 
-    const Search = () => <Input placeholder="请输入图形名称"/>;
+    const searchName = async (e) => {
+        const resData = await getGraphicsStoreByName(e.target.value);
+        setDataList([...resData])
+    };
+    const Search = () => <Input placeholder="请输入图形名称" onPressEnter={(event) => searchName(event)}/>;
 
     return (
         <div>

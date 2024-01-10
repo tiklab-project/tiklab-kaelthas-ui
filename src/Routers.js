@@ -4,15 +4,15 @@ import App from "./App";
 import Host from "./configuration/host/Host";
 import LeftMenu from "./configuration/common/LeftMenu";
 import Monitor from "./configuration/monitor/components/Monitor";
-import Trigger from "./configuration/trigger/Trigger";
-import Template from "./configuration/template/Template";
+import Trigger from "./configuration/trigger/components/Trigger";
+import Template from "./configuration/template/components/Template";
 import Setting from "./configuration/setting/projectInformation/ProjectInformation";
-import Graphics from "./configuration/graphics/Graphics";
+import Graphics from "./configuration/graphics/components/Graphics";
 import MonitorTemplateList from "./configuration/monitor/components/MonitorTemplate";
 import MonitorHostList from "./configuration/monitor/components/MonitorHost";
 import Member from "./configuration/setting/member/Member";
 import Permissions from "./configuration/setting/permissions/Permissions"
-import MonitorMock from "./configuration/monitor/mock/MonitorMock"
+import MonitorMock from "./configuration/monitor/api/mock/MonitorMock"
 
 const Routes = [
 

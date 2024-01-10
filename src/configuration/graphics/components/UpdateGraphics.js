@@ -1,5 +1,6 @@
 import {Button, Form, Input, Modal, Select} from 'antd';
 import React, {useState} from 'react';
+import graphicsStore from "../store/GraphicsStore";
 
 const UpdateGraphics = (props) => {
 
@@ -10,6 +11,8 @@ const UpdateGraphics = (props) => {
     const {columnData, setColumnData} = props;
 
     const {form} = props;
+
+    const {updateGraphicsStoreById} = graphicsStore;
 
     console.log('columnData:', columnData)
 
@@ -24,26 +27,19 @@ const UpdateGraphics = (props) => {
     const handleOk = () => {
         setIsModalOpen(false);
 
-        dataList.forEach((item, index) => {
-            if (item.key === columnData.key) {
-                dataList.splice(index, 1)
-            }
-        })
-        setDataList([...dataList])
+        form.validateFields().then(async res => {
 
-        form.validateFields().then(res => {
-
-            console.log('图表表单数据:', res)
-            console.log("res:", res)
-
-            dataList.push({
-                key: Math.random(),
+            const resData = await updateGraphicsStoreById({
+                id: columnData.id,
                 graphicsName: res.graphicsName,
                 width: res.width,
                 height: res.height,
+                monitoringMetrics: res.monitoringMetrics,
+                description: res.description
             })
 
-            setDataList([...dataList]);
+            debugger
+            setDataList([...resData]);
         })
 
 
@@ -116,7 +112,7 @@ const UpdateGraphics = (props) => {
 
                             <Form.Item
                                 label="监控指标"
-                                name="monitorExpression"
+                                name="monitoringMetrics"
                                 rules={[
                                     {
                                         required: true,
