@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import TopList from "../../common/TopList";
+import TopList from "../../../home/common/components/TopList";
 import LeftMenu from "../../common/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
 import {Input} from "antd";
 import GraphicsList from "./GraphicsList";
 import graphicsStore from "../store/GraphicsStore";
+import {withRouter} from "react-router-dom";
 
 const Graphics = (props) => {
 
@@ -64,4 +65,4 @@ const Graphics = (props) => {
     );
 };
 
-export default Graphics;
+export default withRouter(Graphics);

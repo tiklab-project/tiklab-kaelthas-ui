@@ -1,9 +1,10 @@
 import React from 'react';
-import TopList from "../common/TopList";
+import TopList from "../../home/common/components/TopList";
 import LeftMenu from "../common/LeftMenu";
 import  "./Host.css"
 import HostDetailsList from "./HostDetailsList";
-const Host = () => {
+import {withRouter} from "react-router-dom";
+const Host = (props) => {
 
     return (
         <div>
@@ -46,4 +47,4 @@ const Host = () => {
     );
 };
 
-export default Host;
+export default withRouter(Host);

@@ -1,16 +1,17 @@
 import React from "react";
-import logo from "../assets/image/logo.png"
 import computerPng from "../assets/image/computer.png"
 
 import "./HomePage.css";
-import "../configuration/configurationPage/Configuration";
-import {Link} from "react-router-dom";
-import TopList from "../configuration/common/TopList";
+import "../configuration/configurationPage/components/Configuration";
+import TopList from "./common/components/TopList";
+import {connect} from "thoughtware-plugin-core-ui";
+import {UserVerify} from "thoughtware-eam-ui";
+import {Layout} from "antd";
 
 const HomePage = (props) => {
 
     const host= ()=>{
-        props.history.push('/Configuration/Host')
+        props.history.push('/configuration/host')
     }
     return (
         <div className='HomePageCss'>
@@ -211,4 +212,11 @@ const HomePage = (props) => {
         </div>
     )
 }
-export default HomePage;
+
+const HomeLayout = UserVerify(Layout, '/')
+function mapStateToProps(state) {
+    return {
+        pluginStore: state.pluginStore
+    }
+}
+export default connect(mapStateToProps)(HomePage);

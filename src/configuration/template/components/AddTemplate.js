@@ -83,11 +83,11 @@ const AddMonitor = (props) => {
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="网络监控模板">网络监控模板</Option>
-                                    <Option value="磁盘监控模板">磁盘监控模板</Option>
-                                    <Option value="by http">by http</Option>
-                                    <Option value="CPU监控模板">CPU监控模板</Option>
-                                    <Option value="内存监控模板">内存监控模板</Option>
+                                    <Select.Option value="网络监控模板">网络监控模板</Select.Option>
+                                    <Select.Option value="磁盘监控模板">磁盘监控模板</Select.Option>
+                                    <Select.Option value="by http">by http</Select.Option>
+                                    <Select.Option value="CPU监控模板">CPU监控模板</Select.Option>
+                                    <Select.Option value="内存监控模板">内存监控模板</Select.Option>
                                 </Select>
 
                             </Form.Item>

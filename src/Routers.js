@@ -1,20 +1,84 @@
-import HomePage from "./home/HomePage";
-import Configuration from "./configuration/configurationPage/Configuration";
-import App from "./App";
-import Host from "./configuration/host/Host";
-import LeftMenu from "./configuration/common/LeftMenu";
-import Monitor from "./configuration/monitor/components/Monitor";
-import Trigger from "./configuration/trigger/components/Trigger";
-import Template from "./configuration/template/components/Template";
-import Setting from "./configuration/setting/projectInformation/ProjectInformation";
-import Graphics from "./configuration/graphics/components/Graphics";
-import MonitorTemplateList from "./configuration/monitor/components/MonitorTemplate";
-import MonitorHostList from "./configuration/monitor/components/MonitorHost";
-import Member from "./configuration/setting/member/Member";
-import Permissions from "./configuration/setting/permissions/Permissions"
-import MonitorMock from "./configuration/monitor/api/mock/MonitorMock"
+import AsyncComponent from "./common/lazy/AsyncComponent";
+
+const Configuration = AsyncComponent(() => import( "./configuration/configurationPage/components/Configuration"))
+const Host = AsyncComponent(() => import( "./configuration/host/Host"))
+const LeftMenu = AsyncComponent(() => import( "./configuration/common/LeftMenu"))
+const Monitor = AsyncComponent(() => import( "./configuration/monitor/components/Monitor"))
+const Trigger = AsyncComponent(() => import( "./configuration/trigger/components/Trigger"))
+const Template = AsyncComponent(() => import( "./configuration/template/components/Template"))
+const Setting = AsyncComponent(() => import( "./configuration/setting/projectInformation/ProjectInformation"))
+const Graphics = AsyncComponent(() => import( "./configuration/graphics/components/Graphics"))
+const Login = AsyncComponent(() => import( "./login/Login"))
+const HomePage = AsyncComponent(() => import('./home/HomePage'))
+const HostLayout = AsyncComponent(() => import('../src/home/common/components/HomeLayout'))
+
 
 const Routes = [
+
+
+    {
+        path: "/login",
+        exact: true,
+        component: Login,
+    },
+    {
+        path: "/",
+        component: HostLayout,
+        routes: [
+
+            {
+                path: "/home",
+                exact: true,
+                component: HomePage,
+            },
+            {
+                path: "/configuration",
+                component: Configuration,
+                exact: true,
+                routes: [
+                    {
+                        path: "/configuration/host",
+                        component: Host,
+                        exact: false,
+                        routes: [
+                            {
+                                path: "/configuration/host/leftMenu",
+                                exact: true,
+                                component: LeftMenu,
+                            },
+                            {
+                                path: "/configuration/host/monitor",
+                                exact: true,
+                                component: Monitor,
+                            },
+                            {
+                                path: "/configuration/host/trigger",
+                                exact: true,
+                                component: Trigger,
+                            },
+                            {
+                                path: "/configuration/host/template",
+                                exact: true,
+                                component: Template,
+                            },
+                            {
+                                path: "/configuration/host/graphics",
+                                exact: true,
+                                component: Graphics,
+                            },
+                            {
+                                path: "/configuration/host/setting",
+                                exact: true,
+                                component: Setting,
+                            },
+                        ]
+                    },
+                ]
+            },
+
+        ]
+    }
+
 
     /*{
         path: "/",
@@ -23,123 +87,52 @@ const Routes = [
 
     },
     {
-        path: "/Configuration",
-        component: Configuration,
-        routes:[
-            {
-                path: "/Configuration/Host",
-                component: Host,
-                routes:[
-                    {
-                        path: "/Configuration/Host/LeftMenu",
-                        exact: true,
-                        component: LeftMenu,
-                    },
-                    {
-                        path: "/Configuration/Host/Monitor",
-                        exact: true,
-                        component: Monitor,
-                    },
-                    {
-                        path: "/Configuration/Host/MonitorTemplateList",
-                        exact: true,
-                        component: MonitorTemplateList,
-                    },
-                    {
-                        path: "/Configuration/Host/MonitorHostList",
-                        exact: true,
-                        component: MonitorHostList,
-                    },
-                    {
-                        path: "/Configuration/Host/Trigger",
-                        exact: true,
-                        component: Trigger,
-                    },
-                    {
-                        path: "/Configuration/Host/Template",
-                        exact: true,
-                        component: Template,
-                    },
-                    {
-                        path: "/Configuration/Host/Graphics",
-                        exact: true,
-                        component: Graphics,
-                    },
-                    {
-                        path: "/Configuration/Host/Setting",
-                        exact: true,
-                        component: Setting,
-                    },
-                ]
-            },
-        ]
-    },*/
-
+        path: "/login",
+        exact: true,
+        component: Login,
+    },
 
     {
-        path: "/",
-        exact: true,
-        component: HomePage,
-    },{
-        path: "/Configuration",
-        exact: true,
+        path: "/configuration",
         component: Configuration,
+        exact: true
     },
     {
-        path: "/Configuration/Host",
-        exact: true,
+        path: "/configuration/host",
         component: Host,
-    },
+        exact: true
+    }
+    ,
     {
-        path: "/Configuration/Host/LeftMenu",
+        path: "/configuration/host/leftMenu",
         exact: true,
         component: LeftMenu,
     },
     {
-        path: "/Configuration/Host/Monitor",
+        path: "/configuration/host/monitor",
         exact: true,
         component: Monitor,
     },
     {
-        path: "/Configuration/Host/MonitorTemplateList",
-        exact: true,
-        component: MonitorTemplateList,
-    },
-    {
-        path: "/Configuration/Host/MonitorHostList",
-        exact: true,
-        component: MonitorHostList,
-    },
-    {
-        path: "/Configuration/Host/Trigger",
+        path: "/configuration/host/trigger",
         exact: true,
         component: Trigger,
     },
     {
-        path: "/Configuration/Host/Template",
+        path: "/configuration/host/template",
         exact: true,
         component: Template,
     },
     {
-        path: "/Configuration/Host/Graphics",
+        path: "/configuration/host/graphics",
         exact: true,
         component: Graphics,
     },
     {
-        path: "/Configuration/Host/Setting",
+        path: "/configuration/host/setting",
         exact: true,
         component: Setting,
-    },
-    {
-        path: "/Configuration/Host/Setting/member",
-        exact: true,
-        component: Member,
-    },
-    {
-        path: "/Configuration/Host/Setting/permissions",
-        exact: true,
-        component: Permissions,
-    },
+    }*/
 
 
 ]

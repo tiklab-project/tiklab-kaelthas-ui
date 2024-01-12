@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
-import monitorStore from "../monitor/store/MonitorStore";
 
 const LeftMenu = (props) => {
 
@@ -9,50 +8,46 @@ const LeftMenu = (props) => {
         {
             name: '主机详情',
             icon: 'host',
-            url: `/Configuration/Host`,
+            url: `/configuration/host`,
             key: "host",
             encoded: "host",
         },
         {
             name: '监控项',
             icon: 'monitor',
-            url: `/Configuration/Host/Monitor`,
+            url: `/configuration/host/monitor`,
             key: "monitor",
             encoded: "monitor",
         },
         {
             name: '触发器',
             icon: 'trigger',
-            url: `/Configuration/Host/Trigger`,
+            url: `/configuration/host/trigger`,
             key: "trigger",
             encoded: "trigger",
         },
         {
             name: '模板',
             icon: 'template',
-            url: `/Configuration/Host/Template`,
+            url: `/configuration/host/template`,
             key: "template",
             encoded: "template",
         },
         {
             name: '图形',
             icon: 'graphics',
-            url: `/Configuration/Host/Graphics`,
+            url: `/configuration/host/graphics`,
             key: "graphics",
             encoded: "graphics",
         },
         {
             name: '设置',
             icon: 'setting',
-            url: `/Configuration/Host/Setting`,
+            url: `/configuration/host/setting`,
             key: "setting",
             encoded: "setting",
         },
     ]
-
-    const {findMonitorList} = monitorStore;
-
-    const {setListData, listData} = props;
 
 
     const selectMenu = (url) => {

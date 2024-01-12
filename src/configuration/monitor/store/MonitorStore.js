@@ -18,10 +18,6 @@ export class MonitorStore {
     @action
     findMonitorByName = async (name) => {
 
-        if (''.localeCompare(name) === 0) {
-            return;
-        }
-
         let params = {
             name: name
         }

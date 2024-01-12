@@ -1,16 +1,23 @@
-import logo from "../../assets/image/logo.png";
+import logo from "../../../assets/image/logo.png";
 import React from "react";
 import {withRouter} from "react-router-dom";
+import {renderRoutes} from "react-router-config";
+import {Col, Row} from "antd";
 
 
 const TopList = (props)=>{
+
+    const route = props.route;
     const homePage=()=>{
-        props.history.push("/")
+        props.history.push("/home")
     }
 
     const configuration=()=>{
-        props.history.push("/Configuration")
+        props.history.push("/configuration")
     }
+
+
+
 
     return(
         <>
@@ -28,6 +35,7 @@ const TopList = (props)=>{
                         <div className='iconType'>
                             <span className="configration-group-item" onClick={configuration} style={{cursor:"pointer"}}>配置</span>
                         </div>
+
                         <div className='iconType'>
                             <span>监测</span>
                         </div>

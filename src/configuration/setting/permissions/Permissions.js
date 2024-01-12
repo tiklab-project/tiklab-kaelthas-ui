@@ -1,5 +1,5 @@
 import React from 'react';
-import TopList from "../../common/TopList";
+import TopList from "../../../home/common/components/TopList";
 import LeftMenu from "../../common/LeftMenu";
 import "./Permissions.scss"
 import SettingLeftTabs from "../common/SettingLeftTabs";

@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import TopList from "../../common/TopList";
-import LeftMenu from "../../common/LeftMenu";
 import "./Monitor.scss"
 import AddMonitor from "./AddMonitor";
 import {Form, Input} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
+import TopList from "../../../home/common/components/TopList";
+import LeftMenu from "../../common/LeftMenu";
 
 const Monitor = (props) => {
 
     const {findMonitorByName} = monitorStore;
 
-    const [listData, setListData] = useState()
+    const [listData, setListData] = useState([])
 
     const searchName = async (e) => {
 
@@ -21,8 +21,6 @@ const Monitor = (props) => {
         const resData = await findMonitorByName(value);
 
         setListData([...resData])
-
-        console.log('使用输入框模拟的数据', resData)
     };
 
 

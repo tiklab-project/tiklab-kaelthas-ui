@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import TopList from "../../common/TopList";
+import TopList from "../../../home/common/components/TopList";
 import LeftMenu from "../../common/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
 import {Input} from "antd";
 import TemplateList from "./TemplateList";
 import templateStore from "../store/TemplateStore";
+import {withRouter} from "react-router-dom";
 
 const Template = (props) => {
 
@@ -59,4 +60,4 @@ const Template = (props) => {
     );
 };
 
-export default Template;
+export default withRouter(Template);

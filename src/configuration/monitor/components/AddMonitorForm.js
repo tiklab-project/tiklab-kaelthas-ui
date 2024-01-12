@@ -60,9 +60,9 @@ const AddMonitorForm = (props) => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="CPU信息监控">CPU信息监控</Option>
-                    <Option value="内存信息监控">内存信息监控</Option>
-                    <Option value="磁盘信息监控">磁盘信息监控</Option>
+                    <Select.Option value="CPU信息监控">CPU信息监控</Select.Option>
+                    <Select.Option value="内存信息监控">内存信息监控</Select.Option>
+                    <Select.Option value="磁盘信息监控">磁盘信息监控</Select.Option>
                 </Select>
 
             </Form.Item>
@@ -83,11 +83,11 @@ const AddMonitorForm = (props) => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
-                    <Option value="system.cpu(process,time)">system.cpu(process,time)</Option>
-                    <Option value="system.cpu(process,c)">system.cpu(process,c)</Option>
-                    <Option value="system.cpu(idle,c)">system.cpu(idle,c)</Option>
-                    <Option value="system.cpu(IO,c)">system.cpu(IO,c)</Option>
+                    <Select.Option value="system.cpu(internal,time)">system.cpu(internal,time)</Select.Option>
+                    <Select.Option value="system.cpu(process,time)">system.cpu(process,time)</Select.Option>
+                    <Select.Option value="system.cpu(process,c)">system.cpu(process,c)</Select.Option>
+                    <Select.Option value="system.cpu(idle,c)">system.cpu(idle,c)</Select.Option>
+                    <Select.Option value="system.cpu(IO,c)">system.cpu(IO,c)</Select.Option>
                 </Select>
 
             </Form.Item>
