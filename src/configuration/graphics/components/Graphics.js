@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/LeftMenu";
+import LeftMenu from "../../common/compnoents/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
 import {Input} from "antd";
@@ -23,10 +23,8 @@ const Graphics = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div className="box-graphics">
                 <LeftMenu/>
-
                 <div className="box-graphics-right">
                     <div className="box-graphics-title">
                         <div className="box-graphics-title-text">

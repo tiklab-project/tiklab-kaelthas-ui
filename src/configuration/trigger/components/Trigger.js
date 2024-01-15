@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/LeftMenu";
+import LeftMenu from "../../common/compnoents/LeftMenu";
 import {withRouter} from "react-router-dom";
 import "./Trigger.scss"
 import AddTrigger from "./AddTrigger";
@@ -24,7 +24,6 @@ const Trigger = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div className="box-trigger">
                 <LeftMenu/>
                 <div className="box-trigger-right">

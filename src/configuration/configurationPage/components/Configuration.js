@@ -5,10 +5,12 @@ import "./Configuration.scss"
 import {Input, Table} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
+import {renderRoutes} from "react-router-config";
 
 
 const Configuration = (props) => {
 
+    const route = props.route.routes;
 
     const [dataList, setDataList] = useState([]);
 
@@ -37,8 +39,7 @@ const Configuration = (props) => {
 
     const host = () => {
         console.log("路由跳转到host")
-        props.history.push("/configuration/host");
-        console.log("路由跳转之后")
+        props.history.push("/hostList/:id/hostDetails");
     }
 
 
@@ -94,7 +95,6 @@ const Configuration = (props) => {
     };
     return (
         <div>
-            <TapList/>
             <div className='box-configuration-body'>
                 <div className="box-configuration-body-item">
                     <div className="box-configuration-body--title">
@@ -130,7 +130,6 @@ const Configuration = (props) => {
                             onChange={changePage}
                             pagination={{
                             position: ["bottomCenter"],
-                            onChange: changePage
                         }}
                             defaultCurrent={1}
                             defaultPageSize={20}

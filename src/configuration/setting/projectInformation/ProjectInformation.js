@@ -1,6 +1,6 @@
 import React from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/LeftMenu";
+import LeftMenu from "../../common/compnoents/LeftMenu";
 import "./ProjectInformation.scss"
 import SettingLeftTabs from "../common/SettingLeftTabs";
 import {withRouter} from "react-router-dom";
@@ -10,7 +10,6 @@ const ProjectInformation = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div className="setting-box">
                 <LeftMenu/>
                 <div className="setting-box-right">

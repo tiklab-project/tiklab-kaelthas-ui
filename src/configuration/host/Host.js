@@ -1,6 +1,6 @@
 import React from 'react';
 import TopList from "../../home/common/components/TopList";
-import LeftMenu from "../common/LeftMenu";
+import LeftMenu from "../common/compnoents/LeftMenu";
 import  "./Host.css"
 import HostDetailsList from "./HostDetailsList";
 import {withRouter} from "react-router-dom";
@@ -8,7 +8,6 @@ const Host = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div className="host-body" >
                 <div className="box">
                     <LeftMenu/>

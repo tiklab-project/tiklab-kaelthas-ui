@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/LeftMenu";
+import LeftMenu from "../../common/compnoents/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
 import {Input} from "antd";
@@ -26,7 +26,6 @@ const Template = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div className="host-body">
                 <div className="box-template">
                     <LeftMenu/>

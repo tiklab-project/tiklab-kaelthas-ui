@@ -6,7 +6,7 @@ import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/LeftMenu";
+import LeftMenu from "../../common/compnoents/LeftMenu";
 
 const Monitor = (props) => {
 
@@ -44,7 +44,6 @@ const Monitor = (props) => {
 
     return (
         <div>
-            <TopList/>
             <div>
                 <div className="box-monitor">
                     <LeftMenu setListData={setListData} listData={listData}/>

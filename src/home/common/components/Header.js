@@ -3,10 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Col, Row,  Space } from "antd";
 import { withRouter } from 'react-router';
 import { getUser } from 'thoughtware-core-ui';
-import logo from "../../assets/svg/monitorSystem.svg"
+import logo from "../../../assets/png/monitorPng.png"
 
 import "./Header.scss";
-import {Search} from "../../ui";
 import {AppLink} from "thoughtware-licence-ui";
 const Header = props => {
     // 语言包
@@ -14,23 +13,23 @@ const Header = props => {
     // 登录者的信息
     const user = getUser();
 
-
+    const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
     /**
      * 点击菜单跳转
      * @param {菜单信息} item 
      */
-   /* const changeCurrentLink = item => {
+    const changeCurrentLink = item => {
         localStorage.removeItem("sprintId")
         props.history.push(item.to)
         sessionStorage.setItem("menuKey", item.key)
-    }*/
+    }
 
     /**
      * 渲染左侧菜单
      * @returns 
      */
-    /*const renderRouter = () => {
+    const renderRouter = () => {
         if (routers) {
             return (
                 <div className={'frame-header-link'}>
@@ -50,7 +49,7 @@ const Header = props => {
                 </div>
             )
         }
-    }*/
+    }
 
 
 
@@ -95,12 +94,13 @@ const Header = props => {
                         <img src={logo} alt={'logo'} className="logo-img"/>
                         <div className="logo-text">xmonitr</div>
                     </div>}
+                    {renderRouter()}
                 </div>
             </Col>
             <Col span={12}>
                 <div className={'frame-header-right'}>
                     <div className='frame-header-right-search-wrap'>
-                        <Search />
+                        {/*<Search />*/}
                     </div>
                     <div className={'frame-header-right-text'}>
                         <div className="frame-header-icon">

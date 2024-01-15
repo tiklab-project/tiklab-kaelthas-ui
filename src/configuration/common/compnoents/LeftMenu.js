@@ -8,42 +8,42 @@ const LeftMenu = (props) => {
         {
             name: '主机详情',
             icon: 'host',
-            url: `/configuration/host`,
+            url: `/hostList/:id/hostDetails`,
             key: "host",
             encoded: "host",
         },
         {
             name: '监控项',
             icon: 'monitor',
-            url: `/configuration/host/monitor`,
+            url: `/hostList/:id/monitor`,
             key: "monitor",
             encoded: "monitor",
         },
         {
             name: '触发器',
             icon: 'trigger',
-            url: `/configuration/host/trigger`,
+            url: `/hostList/:id/trigger`,
             key: "trigger",
             encoded: "trigger",
         },
         {
             name: '模板',
             icon: 'template',
-            url: `/configuration/host/template`,
+            url: `/hostList/:id/template`,
             key: "template",
             encoded: "template",
         },
         {
             name: '图形',
             icon: 'graphics',
-            url: `/configuration/host/graphics`,
+            url: `/hostList/:id/graphics`,
             key: "graphics",
             encoded: "graphics",
         },
         {
             name: '设置',
             icon: 'setting',
-            url: `/configuration/host/setting`,
+            url: `/hostList/:id/setting`,
             key: "setting",
             encoded: "setting",
         },
@@ -61,7 +61,8 @@ const LeftMenu = (props) => {
                     return (
                         <div
                             key={index}
-                            onClick={() => selectMenu(item.url)} className="leftMenu-box"
+                            onClick={() => selectMenu(item.url)}
+                            className="leftMenu-box"
                         >
                             <svg className="leftMenu-svg-icon" aria-hidden="true">
                                 <use xlinkHref={`#icon-${item.icon}`}></use>

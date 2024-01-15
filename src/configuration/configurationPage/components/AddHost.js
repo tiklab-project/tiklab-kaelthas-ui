@@ -12,7 +12,7 @@ const AddHost = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {templateList, findTemplateByName,findHostGroup,hostGroupList} = configurationStore;
+    const {templateList, findTemplateByName,findHostGroup,hostGroupList,addHost} = configurationStore;
 
     useEffect(() => {
         findTemplateByName().then(() => {
@@ -38,8 +38,14 @@ const AddHost = (props) => {
         setIsModalOpen(false);
 
         form.validateFields().then(res => {
-            console.log("res",res)
-
+          const resMessage = addHost({
+              name:res.name,
+              ip:res.ip,
+              hostGroupId:res.hostGroupName,
+              templateId:res.templateName,
+              state:res.isOpen,
+          });
+            console.log(form.getFieldsValue())
         })
     };
 

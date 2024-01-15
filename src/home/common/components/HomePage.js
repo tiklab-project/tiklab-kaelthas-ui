@@ -1,12 +1,12 @@
 import React from "react";
-import computerPng from "../assets/image/computer.png"
+import computerPng from "../../../assets/image/computer.png"
 
 import "./HomePage.css";
-import "../configuration/configurationPage/components/Configuration";
-import TopList from "./common/components/TopList";
+import "../../../configuration/configurationPage/components/Configuration";
 import {connect} from "thoughtware-plugin-core-ui";
 import {UserVerify} from "thoughtware-eam-ui";
 import {Layout} from "antd";
+import {Header} from "../../../ui";
 
 const HomePage = (props) => {
 
@@ -14,8 +14,7 @@ const HomePage = (props) => {
         props.history.push('/configuration/host')
     }
     return (
-        <div className='HomePageCss'>
-            <TopList/>
+        <div>
             <div className="body">
                 <div className='hostTop'>
                     <div style={{marginLeft: '100px', marginTop: '30px'}}>常用主机</div>
