@@ -1,5 +1,5 @@
 import {Button, Form, Modal, Select} from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AddTemplateForm from "./AddTemplateForm";
 import templateStore from "../store/TemplateStore";
 
@@ -10,7 +10,16 @@ const AddMonitor = (props) => {
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {addTemplate} = templateStore
+    const {addTemplate,getTemplateByName,templateList} = templateStore
+
+    useEffect(() => {
+        getTemplateByName().then(() => {
+            form.setFieldsValue({
+                templateName: templateList[0]?.name
+            })
+        })
+
+    }, []);
 
     const onFinish = (values) => {
         console.log('Success:', values);
@@ -41,6 +50,19 @@ const AddMonitor = (props) => {
         setIsModalOpen(false);
     };
 
+
+    async function onTemplate(val) {
+        //查询模板
+        const resData = await getTemplateByName(val);
+        if (resData.length > 0){
+            resData.then(res => {
+                form.setFieldsValue({
+                    id:res.id,
+                    getTemplateByName:res.name
+                })
+            })
+        }
+    }
 
     return (
         <>
@@ -80,14 +102,19 @@ const AddMonitor = (props) => {
 
                                 <Select
                                     placeholder="请选择您的模板"
-                                    /*onChange={onGenderChange}*/
+                                    className="template-select"
+                                    key="selectTemplate"
                                     allowClear
+                                    showSearch
+                                    onSearch={onTemplate}
+                                    optionFilterProp="children"
                                 >
-                                    <Select.Option value="网络监控模板">网络监控模板</Select.Option>
-                                    <Select.Option value="磁盘监控模板">磁盘监控模板</Select.Option>
-                                    <Select.Option value="by http">by http</Select.Option>
-                                    <Select.Option value="CPU监控模板">CPU监控模板</Select.Option>
-                                    <Select.Option value="内存监控模板">内存监控模板</Select.Option>
+
+                                    {
+                                        templateList && templateList.map((item) => {
+                                            return <Option value={item.id}>{item.name}</Option>
+                                        })
+                                    }
                                 </Select>
 
                             </Form.Item>

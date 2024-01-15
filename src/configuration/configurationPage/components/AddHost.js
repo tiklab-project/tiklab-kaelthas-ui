@@ -47,6 +47,8 @@ const AddHost = (props) => {
           });
             console.log(form.getFieldsValue())
         })
+        props.history.push("/configuration")
+
     };
 
     const handleCancel = () => {

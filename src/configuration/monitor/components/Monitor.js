@@ -5,22 +5,33 @@ import {Form, Input} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
-import TopList from "../../../home/common/components/TopList";
 import LeftMenu from "../../common/compnoents/LeftMenu";
 
 const Monitor = (props) => {
 
-    const {findMonitorByName} = monitorStore;
+    const {findMonitorCondition,setSearchCondition} = monitorStore;
 
     const [listData, setListData] = useState([])
+
+    useEffect(async () => {
+
+        let hostId = localStorage.getItem(`hostId`);
+
+        await setSearchCondition({hostId: hostId});
+
+        const resData = await findMonitorCondition();
+        console.log(resData);
+
+
+    }, []);
 
     const searchName = async (e) => {
 
         const value = e.target.value;
 
-        const resData = await findMonitorByName(value);
+        const resData = await findMonitorCondition(value);
 
-        setListData([...resData])
+        // setListData([...resData])
     };
 
 
@@ -30,16 +41,8 @@ const Monitor = (props) => {
         )
     }
 
-    const monitorTemplateList = () => {
-        props.history.push("/Configuration/Host/MonitorTemplateList")
-    }
-
     const monitorList = () => {
-        props.history.push("/Configuration/Host/Monitor")
-    }
-
-    const monitorHostList = () => {
-        props.history.push("/Configuration/Host/MonitorHostList")
+        //条件筛选
     }
 
     return (
@@ -59,15 +62,15 @@ const Monitor = (props) => {
                         <div className="monitor-kind-options">
                             <div className="monitor-kind-options-tabs">
                                 <div className="monitor-kind-options-tabs-text"
-                                     onClick={monitorList}>
+                                     onClick={() => monitorList(null)}>
                                     全部
                                 </div>
                                 <div className="monitor-kind-options-tabs-text"
-                                     onClick={monitorTemplateList}>
+                                     onClick={() => monitorList(1)}>
                                     模板监控项
                                 </div>
                                 <div className="monitor-kind-options-tabs-text"
-                                     onClick={monitorHostList}>
+                                     onClick={() => monitorList(2)}>
                                     主机监控项
                                 </div>
                             </div>

@@ -7,7 +7,7 @@ import monitorStore from "../store/MonitorStore";
 
 const MonitorList = (props) => {
 
-    const {findMonitorList,deleteMonitorById} = monitorStore;
+    const {deleteMonitorById} = monitorStore;
 
     const {listData, setListData} = props;
 
@@ -19,9 +19,6 @@ const MonitorList = (props) => {
 
     useEffect(() => {
 
-        findMonitorList().then((res) => {
-            setListData([...res])
-        });
 
         return null;
     }, []);
@@ -118,7 +115,6 @@ const MonitorList = (props) => {
 
     return (
         <>
-            {/*<MonitorListDetails open={open} setOpen={setOpen}/>*/}
             <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                            columnData={columnData} setColumnData={setColumnData} form={form}
                            listData={listData} setListData={setListData}

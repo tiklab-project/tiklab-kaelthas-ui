@@ -1,45 +1,38 @@
 import React, {useEffect, useState} from "react";
-import TapList from "../../../home/common/components/TopList"
 import AddHost from "./AddHost";
 import "./Configuration.scss"
 import {Input, Table} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
-import {renderRoutes} from "react-router-config";
 
 
 const Configuration = (props) => {
 
-    const route = props.route.routes;
-
     const [dataList, setDataList] = useState([]);
 
-    const {findPageHost,findHostGroup} = configurationStore;
-
-    const [value, setValue] = useState();
+    const {findPageHost, findHostGroup, setSearchCondition} = configurationStore;
 
     useEffect(async () => {
 
-        const resData = await findPageHost({
-            name: value,
-            pageParam: {
-                currentPage: 1,
-                pageSize: 10
-            }
-        })
+        const resData = await findPageHost()
 
         setDataList([...resData])
 
     }, []);
 
-    const searchName = (e) => {
+    const searchName = async (e) => {
         const name = e.target.value;
-        setValue(name);
+        setSearchCondition({name: name})
+        const resData = await findPageHost()
+
+        setDataList([...resData])
     };
 
-    const host = () => {
+    const host = (record) => {
         console.log("路由跳转到host")
-        props.history.push("/hostList/:id/hostDetails");
+        props.history.push(`/hostList/${record.id}/hostDetails`);
+        localStorage.setItem('hostId', record.id);
+        console.log(record.id)
     }
 
 
@@ -48,7 +41,7 @@ const Configuration = (props) => {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
-            render: (text) => <span style={{cursor: "pointer"}} onClick={host}>{text}</span>,
+            render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
         },
         {
             title: '主机ip',
@@ -90,8 +83,30 @@ const Configuration = (props) => {
 
     const Search = () => <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>;
 
-    const changePage = (pagination) => {
+    const changePage = async (pagination, filters, sorter) => {
+        console.log("pagination当中的数据:", pagination)
+        console.log("filters当中的数据:", filters)
+        console.log("sorter当中的数据:", sorter)
+        const resData = await findPageHost(
+            {
+                pageParam: {
+                    currentPage: pagination.current,
+                    pageSize: pagination.pageSize,
+                }
+            }
+        )
 
+        setDataList([...resData])
+
+    };
+    const checkTab = async (value) => {
+        setSearchCondition({
+            usability: value,
+            name: ""
+        });
+        const resData = await findPageHost()
+
+        setDataList([...resData])
     };
     return (
         <div>
@@ -107,13 +122,13 @@ const Configuration = (props) => {
                     </div>
                     <div className="box-configuration-body-type">
                         <div className="box-configuration-body-tabs">
-                            <div className="box-configuration-body-tabs-item">
+                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(null)}>
                                 所有
                             </div>
-                            <div className="box-configuration-body-tabs-item">
+                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(1)}>
                                 可用
                             </div>
-                            <div className="box-configuration-body-tabs-item">
+                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(2)}>
                                 不可用
                             </div>
 
@@ -129,12 +144,9 @@ const Configuration = (props) => {
                             dataSource={dataList}
                             onChange={changePage}
                             pagination={{
-                            position: ["bottomCenter"],
-                        }}
-                            defaultCurrent={1}
-                            defaultPageSize={20}
-                            total={50}
-                            pageSizeOptions={[10, 20, 50, 100]}
+                                position: ["bottomCenter"],
+                            }
+                            }
                         />
                     </div>
                 </div>

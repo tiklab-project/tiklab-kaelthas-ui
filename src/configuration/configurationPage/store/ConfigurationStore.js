@@ -11,11 +11,28 @@ export class ConfigurationStore {
     //添加主机表单中的主机组名称
     @observable hostGroupList = [];
 
+    @observable searchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
+
+    @action
+    setSearchCondition = (value) => {
+        this.searchCondition = Object.assign(this.searchCondition,  { ...value })
+    }
+
 
     //根据条件查询主机
     @action
-    findPageHost = async (hostQuery) => {
-        const resData = await Service("/hostList/findAllHost",hostQuery);
+    findPageHost = async () => {
+
+        const resData = await Service("/hostList/findAllHost",this.searchCondition);
         this.resultData = resData.data.dataList;
 
         return this.resultData;

@@ -4,46 +4,48 @@ import "./LeftMenu.scss"
 
 const LeftMenu = (props) => {
 
+    let hostId = localStorage.getItem('hostId');
+
     const router = [
         {
             name: '主机详情',
             icon: 'host',
-            url: `/hostList/:id/hostDetails`,
+            url: `/hostList/${hostId}/hostDetails`,
             key: "host",
             encoded: "host",
         },
         {
             name: '监控项',
             icon: 'monitor',
-            url: `/hostList/:id/monitor`,
+            url: `/hostList/${hostId}/monitor`,
             key: "monitor",
             encoded: "monitor",
         },
         {
             name: '触发器',
             icon: 'trigger',
-            url: `/hostList/:id/trigger`,
+            url: `/hostList/${hostId}/trigger`,
             key: "trigger",
             encoded: "trigger",
         },
         {
             name: '模板',
             icon: 'template',
-            url: `/hostList/:id/template`,
+            url: `/hostList/${hostId}/template`,
             key: "template",
             encoded: "template",
         },
         {
             name: '图形',
             icon: 'graphics',
-            url: `/hostList/:id/graphics`,
+            url: `/hostList/${hostId}/graphics`,
             key: "graphics",
             encoded: "graphics",
         },
         {
             name: '设置',
             icon: 'setting',
-            url: `/hostList/:id/setting`,
+            url: `/hostList/${hostId}/setting`,
             key: "setting",
             encoded: "setting",
         },

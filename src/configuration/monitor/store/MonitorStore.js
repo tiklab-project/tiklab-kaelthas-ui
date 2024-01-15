@@ -6,26 +6,31 @@ export class MonitorStore {
 
     @observable data = [];
 
+    @observable searchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
 
-    //查询全部
+    //根据条件查询
     @action
-    findMonitorList = async () => {
-        const data = await Service('/Configuration/Host/Monitor')
+    findMonitorCondition = async () => {
+
+        const data = await Service('/monitor/findMonitorCondition', this.searchCondition);
+
+        console.log("根据名称查询的数据:", data)
         return data.data;
     }
 
-    //根据名称查询
     @action
-    findMonitorByName = async (name) => {
+    setSearchCondition = async (value) => {
+        this.searchCondition = Object.assign(this.searchCondition,  { ...value })
 
-        let params = {
-            name: name
-        }
-
-        const data = await Service('/Configuration/Host/Monitor/monitorFindByName', params);
-
-        console.log("根据名称查询的数据:", data)
-        return data;
     }
 
     //根据id修改
