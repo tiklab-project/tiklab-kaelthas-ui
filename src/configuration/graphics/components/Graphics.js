@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/compnoents/LeftMenu";
+import LeftMenu from "../../common/components/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
 import {Input} from "antd";

@@ -45,9 +45,9 @@ const LeftMenu = (props) => {
         {
             name: '设置',
             icon: 'setting',
-            url: `/hostList/${hostId}/setting`,
-            key: "setting",
-            encoded: "setting",
+            url: `/hostList/${hostId}/setting/projectInformation`,
+            key: "projectInformation",
+            encoded: "projectInformation",
         },
     ]
 

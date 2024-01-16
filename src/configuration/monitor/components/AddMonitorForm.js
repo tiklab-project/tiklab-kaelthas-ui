@@ -1,6 +1,6 @@
 import {Button, Checkbox, Form, Input, Select} from 'antd';
 import React from 'react';
-
+const {Option} = Select
 const AddMonitorForm = (props) => {
 
     const {setListData, listData, form} = props;
@@ -60,9 +60,7 @@ const AddMonitorForm = (props) => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Select.Option value="CPU信息监控">CPU信息监控</Select.Option>
-                    <Select.Option value="内存信息监控">内存信息监控</Select.Option>
-                    <Select.Option value="磁盘信息监控">磁盘信息监控</Select.Option>
+                    <Option value="CPU信息监控">CPU信息监控</Option>
                 </Select>
 
             </Form.Item>
@@ -83,11 +81,7 @@ const AddMonitorForm = (props) => {
                     /*onChange={onGenderChange}*/
                     allowClear
                 >
-                    <Select.Option value="system.cpu(internal,time)">system.cpu(internal,time)</Select.Option>
-                    <Select.Option value="system.cpu(process,time)">system.cpu(process,time)</Select.Option>
-                    <Select.Option value="system.cpu(process,c)">system.cpu(process,c)</Select.Option>
-                    <Select.Option value="system.cpu(idle,c)">system.cpu(idle,c)</Select.Option>
-                    <Select.Option value="system.cpu(IO,c)">system.cpu(IO,c)</Select.Option>
+                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
                 </Select>
 
             </Form.Item>

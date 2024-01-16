@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import TopList from "../../../home/common/components/TopList";
-import LeftMenu from "../../common/compnoents/LeftMenu";
+import LeftMenu from "../../common/components/LeftMenu";
 import {withRouter} from "react-router-dom";
 import "./Trigger.scss"
 import AddTrigger from "./AddTrigger";

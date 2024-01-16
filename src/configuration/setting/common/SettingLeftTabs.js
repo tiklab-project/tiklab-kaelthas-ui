@@ -1,25 +1,27 @@
 import React from 'react';
 import "./SettingLeftTabs.scss"
 import {withRouter} from "react-router-dom";
+
 const SettingLeftTabs = (props) => {
 
+    const hostId = localStorage.getItem("hostId")
 
     const router = [
         {
             name: '项目信息',
-            url: `/Configuration/Host/Setting`,
+            url: `/hostList/${hostId}/setting/projectInformation`,
             key: "setting",
             encoded: "setting",
         },
         {
             name: '成员',
-            url: `/Configuration/Host/Setting/member`,
+            url: `/hostList/${hostId}/setting/member`,
             key: "member",
             encoded: "member",
         },
         {
             name: '权限',
-            url: `/Configuration/Host/Setting/permissions`,
+            url: `/hostList/${hostId}/setting/permissions`,
             key: "permissions",
             encoded: "permissions",
         },

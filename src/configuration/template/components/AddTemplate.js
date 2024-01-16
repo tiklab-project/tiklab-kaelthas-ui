@@ -1,7 +1,8 @@
 import {Button, Form, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import AddTemplateForm from "./AddTemplateForm";
 import templateStore from "../store/TemplateStore";
+
+const {Option} = Select
 
 const AddMonitor = (props) => {
 
@@ -103,7 +104,7 @@ const AddMonitor = (props) => {
                                 <Select
                                     placeholder="请选择您的模板"
                                     className="template-select"
-                                    key="selectTemplate"
+                                    // key="selectTemplate"
                                     allowClear
                                     showSearch
                                     onSearch={onTemplate}
