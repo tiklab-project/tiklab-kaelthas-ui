@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import TopList from "../../../home/common/components/TopList";
 import LeftMenu from "../../common/components/LeftMenu";
 import {withRouter} from "react-router-dom";
 import "./Trigger.scss"
@@ -12,15 +11,15 @@ const Trigger = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findTriggerByName} = triggerStore;
+    const {getTriggerList,setSearchCondition} = triggerStore;
 
     const searchName = async (e) => {
+        setSearchCondition({name:e.target.value})
 
-        const resData = await findTriggerByName(e.target.value);
+        const resData = await getTriggerList();
 
-        setDataList([...resData])
+        setDataList([...resData.dataList])
     };
-    const Search = () => <Input onPressEnter={(event) => searchName(event)} placeholder="请输入监控项名称"/>;
 
     return (
         <div>
@@ -50,7 +49,7 @@ const Trigger = (props) => {
                             </div>
                         </div>
                         <div>
-                            <Search/>
+                            <Input onPressEnter={(event) => searchName(event)} placeholder="请输入触发器名称"/>
                         </div>
                     </div>
 

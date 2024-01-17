@@ -7,7 +7,7 @@ import monitorStore from "../store/MonitorStore";
 
 const MonitorList = (props) => {
 
-    const {deleteMonitorById} = monitorStore;
+    const {deleteMonitorById, findMonitorCondition} = monitorStore;
 
     const {listData, setListData} = props;
 
@@ -17,17 +17,17 @@ const MonitorList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
-
-
-        return null;
-    }, []);
 
     const removeToList = async (id) => {
 
-        const resData = await deleteMonitorById(id);
+        await deleteMonitorById(id);
 
-        setListData([...resData])
+        const resData = await findMonitorCondition();
+
+        console.log(resData)
+
+        setListData([...resData.dataList])
+
 
     }
 
@@ -66,40 +66,40 @@ const MonitorList = (props) => {
     const columns = [
         {
             title: '监控项名称',
-            dataIndex: 'monitorName',
-            id: 'monitorName',
+            dataIndex: 'name',
+            id: 'name',
             render: (text, record) => <span style={{cursor: "pointer"}}
                                             onClick={() => drawerList(record)}>{text}</span>,
-        },
-        {
-            title: '是否模板创建',
-            dataIndex: 'isTemplate',
-            id: 'isTemplate',
         },
         {
             title: '监控项类别',
             dataIndex: 'monitorType',
             id: 'monitorType',
-        }, {
+        },
+        {
             title: '监控表达式',
-            dataIndex: 'monitorExpression',
-            id: 'monitorExpression',
-        }, {
+            dataIndex: 'expression',
+            id: 'expression',
+        },
+        {
             title: '间隔时间',
-            dataIndex: 'interval',
-            id: 'interval',
-        }, {
+            dataIndex: 'intervalTime',
+            id: 'intervalTime',
+        },
+        {
             title: '数据保留时间',
-            dataIndex: 'dataRetentionPeriod',
-            id: 'dataRetentionPeriod',
-        }, {
+            dataIndex: 'dataRetentionTime',
+            id: 'dataRetentionTime',
+        },
+        {
             title: '监控项状态',
-            dataIndex: 'status',
-            id: 'status',
-        }, {
+            dataIndex: 'monitorStatus',
+            id: 'monitorStatus',
+        },
+        {
             title: '监控失败提示信息',
-            dataIndex: 'failureInformation',
-            id: 'failureInformation',
+            dataIndex: 'information',
+            id: 'information',
         },
         {
             title: '操作',

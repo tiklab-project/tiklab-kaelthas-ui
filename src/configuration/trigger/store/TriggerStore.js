@@ -6,14 +6,30 @@ export class TriggerStore {
 
     @observable data = [];
 
-    //查询全部
+    @observable searchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
+
+    //根据条件查询
     @action
     getTriggerList = async () => {
 
-        const data = await Service('/trigger/getTriggerList')
+        const data = await Service('/trigger/getTrigger',this.searchCondition)
 
         return data.data;
 
+    }
+
+    @action
+    setSearchCondition = async (value) => {
+        this.searchCondition = Object.assign(this.searchCondition,  { ...value })
     }
 
     //根据名称查询

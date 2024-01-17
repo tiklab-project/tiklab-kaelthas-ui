@@ -18,7 +18,7 @@ const TriggerList = (props) => {
     useEffect(() => {
 
         getTriggerList().then(res => {
-            setDataList([...res])
+            setDataList([...res.dataList])
         });
 
         return null;
@@ -68,33 +68,28 @@ const TriggerList = (props) => {
     const columns = [
         {
             title: '触发器名称',
-            dataIndex: 'triggerName',
-            id: 'triggerName',
+            dataIndex: 'name',
+            id: 'name',
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => rowEcho(record)}>{text}</span>,
         },
         {
-            title: '是否模板创建',
-            dataIndex: 'isTemplate',
-            id: 'isTemplate',
-        },
-        {
             title: '触发表达式',
-            dataIndex: 'triggerExpression',
-            id: 'triggerExpression',
+            dataIndex: 'expression',
+            id: 'expression',
         }, {
             title: '消息通知方案',
             dataIndex: 'messageType',
             id: 'messageType',
         }, {
-            title: '告警类型',
-            dataIndex: 'alarmType',
-            id: 'alarmType',
+            title: '告警等级',
+            dataIndex: 'severityLevel',
+            id: 'severityLevel',
         }, {
             title: '描述',
-            dataIndex: 'description',
-            id: 'description',
+            dataIndex: 'describe',
+            id: 'describe',
         },
         {
             title: '操作',

@@ -1,5 +1,6 @@
 .box-monitor {
   display: flex;
+  height: calc(100vh - 48px);
 
   .box-monitor-right {
     flex: 1;

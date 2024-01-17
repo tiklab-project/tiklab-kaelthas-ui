@@ -43,10 +43,24 @@ export class MonitorStore {
     //删除
     @action
     deleteMonitorById = async (id) =>{
+        const params = new FormData();
+        params.append("id",id)
+        await Service('/monitor/deleteMonitorById',params)
 
-        const resData = await Service('/Configuration/Host/Monitor/deleteMonitorById',id)
-        console.log(resData)
-        return resData;
+    }
+
+    //根据监控类型查询监控item
+    @action
+    findMonitorItemByName = async (name) => {
+        const params = new FormData();
+        params.append("name",name)
+        const resData = await Service("/monitor/findMonitorItemByName",params)
+        return resData.data;
+    }
+
+    @action
+    addMonitor = async (params) => {
+        await Service("/monitor/addMonitor", params)
     }
 
 }

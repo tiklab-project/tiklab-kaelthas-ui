@@ -80,7 +80,7 @@ const ProjectInformation = (props) => {
     }, []);
 
 
-    //删除项目
+    //删除主机
     function deleteByHost() {
 
         deleteHostById(localStorage.getItem("hostId"));
@@ -100,10 +100,10 @@ const ProjectInformation = (props) => {
                     <div className="setting-box-body-right">
                         <div className="setting-box-right-head">
                             <div className="setting-box-right-head-text">
-                                项目信息
+                                主机信息
                             </div>
                             <Collapse onChange={onChange} expandIconPosition="right">
-                                <Panel header="项目信息" key="1">
+                                <Panel header="主机信息" key="1">
                                     <Form {...layout}
                                           form={form}
                                           name="control-hooks"
@@ -203,10 +203,10 @@ const ProjectInformation = (props) => {
                                         </Form.Item>
                                     </Form>
                                 </Panel>
-                                <Panel header="删除项目" key="2">
+                                <Panel header="删除主机" key="2">
                                     <div className="dropDownMenu-box">
                                         <div style={{color: "#ff0000"}}>
-                                            此项目及其事务、组件、附件和版本将在回收站中保留 60 天，之后将被永久删除。
+                                            此主机及其事务、组件、附件和版本将在回收站中保留 60 天，之后将被永久删除。
                                         </div>
                                         <div style={{
                                             background: "#ff0000",
@@ -222,7 +222,7 @@ const ProjectInformation = (props) => {
                                         }}
                                              onClick={() => deleteByHost()}
                                         >
-                                            是否删除项目
+                                            是否删除主机
                                         </div>
                                     </div>
                                 </Panel>

@@ -9,7 +9,7 @@ import LeftMenu from "../../common/components/LeftMenu";
 
 const Monitor = (props) => {
 
-    const {findMonitorCondition,setSearchCondition} = monitorStore;
+    const {findMonitorCondition, setSearchCondition} = monitorStore;
 
     const [listData, setListData] = useState([])
 
@@ -17,11 +17,15 @@ const Monitor = (props) => {
 
         let hostId = localStorage.getItem(`hostId`);
 
-        await setSearchCondition({hostId: hostId});
+        await setSearchCondition({
+            hostId: hostId,
+            name: null
+        });
 
         const resData = await findMonitorCondition();
-        console.log(resData);
+        console.log(resData)
 
+        setListData([...resData.dataList])
 
     }, []);
 
@@ -29,27 +33,30 @@ const Monitor = (props) => {
 
         const value = e.target.value;
 
-        const resData = await findMonitorCondition(value);
+        setSearchCondition({name: value})
 
-        // setListData([...resData])
+        const resData = await findMonitorCondition();
+
+        setListData([...resData.dataList])
     };
 
 
-    const Search = () => {
-        return (
-            <Input placeholder="请输入监控项名称"  onPressEnter={(event) => searchName(event)}/>
-        )
-    }
-
-    const monitorList = () => {
+    const monitorList = async (monitorSource) => {
         //条件筛选
+        setSearchCondition({
+            monitorSource: monitorSource,
+            name: null
+        })
+
+        const resData = await findMonitorCondition(monitorSource);
+        setListData([...resData.dataList])
     }
 
     return (
         <div>
             <div>
                 <div className="box-monitor">
-                    <LeftMenu setListData={setListData} listData={listData}/>
+                    <LeftMenu/>
                     <div className="box-monitor-right">
                         <div className="box-monitor-title">
                             <div className="box-monitor-title-text">监控项</div>
@@ -66,16 +73,16 @@ const Monitor = (props) => {
                                     全部
                                 </div>
                                 <div className="monitor-kind-options-tabs-text"
-                                     onClick={() => monitorList(1)}>
+                                     onClick={() => monitorList(2)}>
                                     模板监控项
                                 </div>
                                 <div className="monitor-kind-options-tabs-text"
-                                     onClick={() => monitorList(2)}>
+                                     onClick={() => monitorList(1)}>
                                     主机监控项
                                 </div>
                             </div>
                             <div className="monitor-kind-search">
-                                <Search/>
+                                <Input placeholder="请输入监控项名称" onPressEnter={(event) => searchName(event)}/>
                             </div>
                         </div>
                         <div className="box-monitor-table">
