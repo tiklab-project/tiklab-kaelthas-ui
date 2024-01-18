@@ -11,10 +11,10 @@ const AddMonitor = (props) => {
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {addTemplate,getTemplateByName,templateList} = templateStore
+    const {addTemplate, getTemplateAll, findTemplateByMonitor, templateList} = templateStore
 
     useEffect(() => {
-        getTemplateByName().then(() => {
+        getTemplateAll().then(() => {
             form.setFieldsValue({
                 templateName: templateList[0]?.name
             })
@@ -35,15 +35,19 @@ const AddMonitor = (props) => {
     const handleOk = async () => {
 
         form.validateFields().then(async res => {
-            const resData = await addTemplate({
-                id: Math.random(),
-                templateName: res.templateName,
-                monitorNum: Math.floor(Math.random() * 10 + 5),
-                triggerNum: Math.floor(Math.random() * 5),
+
+            await addTemplate({
+                hostId: localStorage.getItem("hostId"),
+                templateId: res.templateId,
+                monitorSource: 2,
+                monitorStatus: 1
             })
 
-            setDataList([...resData]);
         })
+
+        const resData = await findTemplateByMonitor();
+
+        setDataList([...resData]);
 
         setIsModalOpen(false);
     };
@@ -51,19 +55,6 @@ const AddMonitor = (props) => {
         setIsModalOpen(false);
     };
 
-
-    async function onTemplate(val) {
-        //查询模板
-        const resData = await getTemplateByName(val);
-        if (resData.length > 0){
-            resData.then(res => {
-                form.setFieldsValue({
-                    id:res.id,
-                    getTemplateByName:res.name
-                })
-            })
-        }
-    }
 
     return (
         <>
@@ -73,55 +64,50 @@ const AddMonitor = (props) => {
             <Modal title="添加模板" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定">
                 <div className="addMonitorForm">
-                    <div>
-                        <Form
-                            name="basic"
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 16,
-                            }}
-                            initialValues={{
-                                remember: true,
-                            }}
-                            onFinish={onFinish}
-                            onFinishFailed={onFinishFailed}
-                            autoComplete="off"
-                            form={form}
+                    <Form
+                        name="basic"
+                        labelCol={{
+                            span: 8,
+                        }}
+                        wrapperCol={{
+                            span: 16,
+                        }}
+                        initialValues={{
+                            remember: true,
+                        }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed}
+                        autoComplete="off"
+                        form={form}
+                    >
+                        <Form.Item
+                            label="模板名称"
+                            name="templateId"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请选择模板!',
+                                },
+                            ]}
                         >
-                            <Form.Item
-                                label="模板名称"
-                                name="templateName"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请选择模板!',
-                                    },
-                                ]}
+
+                            <Select
+                                placeholder="请选择您的模板"
+                                className="template-select"
+                                allowClear
+                                showSearch
                             >
 
-                                <Select
-                                    placeholder="请选择您的模板"
-                                    className="template-select"
-                                    // key="selectTemplate"
-                                    allowClear
-                                    showSearch
-                                    onSearch={onTemplate}
-                                    optionFilterProp="children"
-                                >
+                                {
+                                    templateList && templateList.map((item) => {
+                                        return <Option value={item.id} key={item.id}>{item.name}</Option>
+                                    })
+                                }
+                            </Select>
 
-                                    {
-                                        templateList && templateList.map((item) => {
-                                            return <Option value={item.id}>{item.name}</Option>
-                                        })
-                                    }
-                                </Select>
+                        </Form.Item>
 
-                            </Form.Item>
-
-                        </Form>
-                    </div>
+                    </Form>
                 </div>
             </Modal>
         </>

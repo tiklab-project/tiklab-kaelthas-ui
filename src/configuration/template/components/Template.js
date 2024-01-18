@@ -10,24 +10,29 @@ const Template = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {getAllTemplate, deleteTemplateById, setSearchCondition} = templateStore;
+    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition} = templateStore;
 
     useEffect(async () => {
         setSearchCondition({
-            name:null,
-            hostId:localStorage.getItem(`hostId`)
+            name: null,
+            hostId: localStorage.getItem(`hostId`),
+            monitorSource: 2
         })
 
-        const resData = await getAllTemplate();
+        const resData = await findTemplateByMonitor();
 
         setDataList([...resData])
     }, []);
     const deleteTemplate = async (id) => {
 
-        const resData = await deleteTemplateById(id);
+        await deleteTemplateById({
+            hostId: localStorage.getItem("hostId"),
+            templateId: id
+        });
+
+        const resData = await findTemplateByMonitor();
 
         setDataList([...resData]);
-        console.log(dataList)
     };
 
     const searchName = async (event) => {
@@ -36,15 +41,11 @@ const Template = (props) => {
 
         setSearchCondition({name: name});
 
-        const resData = await getAllTemplate();
+        const resData = await findTemplateByMonitor();
 
         setDataList([...resData])
-        console.log(event.target.value)
 
     };
-
-
-    const Search = () => <Input placeholder="请输入模板名称" onPressEnter={(event) => searchName(event)}/>;
 
 
     const columns = [
@@ -97,7 +98,7 @@ const Template = (props) => {
                         <div className="template-kind-options">
                             <div className="template-kind-search">
                                 <div>
-                                    <Search/>
+                                    <Input placeholder="请输入模板名称" onPressEnter={(event) => searchName(event)}/>
                                 </div>
                             </div>
                         </div>

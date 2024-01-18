@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import LeftMenu from "../../../common/components/LeftMenu";
 import "./ProjectInformation.scss"
 import SettingLeftTabs from "../../common/SettingLeftTabs";
@@ -8,7 +8,7 @@ import projectInformationStore from "../store/ProjectInformationStore";
 
 const {Panel} = Collapse;
 
-const {deleteHostById,findHostById} =projectInformationStore;
+
 
 const {Option} = Select;
 const layout = {
@@ -31,7 +31,9 @@ const ProjectInformation = (props) => {
     const onChange = (key) => {
         console.log('key', key);
     };
+    const {deleteHostById, findHostById, findAllHostGroupList} = projectInformationStore;
 
+    const [allHostGroupList,setAllHostGroupList] = useState([]);
 
     const [form] = Form.useForm();
     const onGenderChange = (value) => {
@@ -59,23 +61,27 @@ const ProjectInformation = (props) => {
         form.resetFields();
     };
 
-    useEffect(() => {
+    useEffect(async () => {
         //调用根据id查询,将查询的数据放到表单当中
         const resData = findHostById(localStorage.getItem("hostId"));
         resData.then(res => {
-            if (res.state === 1){
-                res.state = '开启'
-            }else {
-                res.state = '关闭'
+            if (res.state === 1) {
+                res.state = '启用'
+            } else {
+                res.state = '未启用'
             }
 
             form.setFieldsValue({
-                name:res.name,
-                ip:res.ip,
-                hostGroupId:res.hostGroup.name,
-                state:res.state
+                name: res.name,
+                ip: res.ip,
+                hostGroupId: res.hostGroup.name,
+                state: res.state
             })
         })
+
+        const resHostGroup = await findAllHostGroupList();
+
+        setAllHostGroupList([...resHostGroup])
 
     }, []);
 
@@ -85,7 +91,7 @@ const ProjectInformation = (props) => {
 
         deleteHostById(localStorage.getItem("hostId"));
 
-        console.log('localStorage.getItem("hostId")',localStorage.getItem("hostId"))
+        console.log('localStorage.getItem("hostId")', localStorage.getItem("hostId"))
 
         props.history.push("/configuration")
 
@@ -147,9 +153,11 @@ const ProjectInformation = (props) => {
                                                 onChange={onGenderChange}
                                                 allowClear
                                             >
-                                                <Option value="LinuxServer">LinuxServer</Option>
-                                                <Option value="群组1">群组1</Option>
-                                                <Option value="监控群组2">监控群组2</Option>
+                                                {
+                                                    allHostGroupList && allHostGroupList.map(item => (
+                                                        <Option key={item.id} value={item.id}>{item.name}</Option>
+                                                    ))
+                                                }
                                             </Select>
                                         </Form.Item>
 
@@ -167,13 +175,13 @@ const ProjectInformation = (props) => {
                                                 onChange={onGenderChange}
                                                 allowClear
                                             >
-                                                <Option value="启用">启用</Option>
-                                                <Option value="关闭">关闭</Option>
+                                                <Option value={1}>启用</Option>
+                                                <Option value={2}>未启用</Option>
                                             </Select>
                                         </Form.Item>
 
 
-                                        <Form.Item
+                                        {/*<Form.Item
                                             noStyle
                                             shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
                                         >
@@ -192,7 +200,7 @@ const ProjectInformation = (props) => {
                                                     </Form.Item>
                                                 ) : null
                                             }
-                                        </Form.Item>
+                                        </Form.Item>*/}
                                         <Form.Item {...tailLayout}>
                                             <Button type="primary" htmlType="submit">
                                                 确定

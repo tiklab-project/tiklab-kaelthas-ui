@@ -17,6 +17,8 @@ export class TriggerStore {
         }
     };
 
+    @observable monitorList = []
+
     //根据条件查询
     @action
     getTriggerList = async () => {
@@ -30,6 +32,16 @@ export class TriggerStore {
     @action
     setSearchCondition = async (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
+    }
+
+    //根据主机id查询监控项列表
+    @action
+    findMonitorListById = async (id) => {
+        const formData = new FormData();
+        formData.append("id", id)
+        const monitorList = await Service("/monitor/findMonitorListById", formData)
+        this.monitorList = monitorList.data;
+        return monitorList.data;
     }
 
     //根据名称查询
@@ -61,7 +73,9 @@ export class TriggerStore {
     //根据id进行删除
     @action
     deleteTriggerById = async (id) =>{
-        const resData = await Service('/trigger/deleteTriggerById', {id:id});
+        const params = new FormData();
+        params.append("id",id)
+        const resData = await Service('/trigger/deleteById', params);
         this.data = resData;
         return resData;
     }

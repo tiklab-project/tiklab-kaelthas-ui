@@ -5,7 +5,7 @@ import triggerStore from "../store/TriggerStore";
 
 const TriggerList = (props) => {
 
-    const {getTriggerList,deleteTriggerById} = triggerStore;
+    const {getTriggerList,deleteTriggerById,setSearchCondition,monitorList,findMonitorListById} = triggerStore;
 
     const {dataList, setDataList} = props;
 
@@ -17,6 +17,8 @@ const TriggerList = (props) => {
 
     useEffect(() => {
 
+        setSearchCondition({hostId:localStorage.getItem("hostId")})
+
         getTriggerList().then(res => {
             setDataList([...res.dataList])
         });
@@ -27,15 +29,10 @@ const TriggerList = (props) => {
 
     const deleteTrigger = async (id) => {
 
-        /*dataList.forEach((item, index) => {
-            if (id === item.id) {
-                dataList.splice(index, 1)
-            }
-        })*/
+        await deleteTriggerById(id);
+        const resData = await getTriggerList();
+        setDataList([...resData.dataList])
 
-        const resData = await deleteTriggerById(id);
-
-        setDataList([...resData])
     }
 
     const rowEcho = (record) => {

@@ -38,15 +38,15 @@ const Trigger = (props) => {
                     </div>
                     <div className="trigger-kind-options">
                         <div className="trigger-kind-options-tabs">
-                            <div className="trigger-kind-options-tabs-text">
-                                全部
-                            </div>
-                            <div className="trigger-kind-options-tabs-text">
-                                模板触发器
-                            </div>
-                            <div className="trigger-kind-options-tabs-text">
-                                主机触发器
-                            </div>
+                            {/*<div className="trigger-kind-options-tabs-text">*/}
+                            {/*    全部*/}
+                            {/*</div>*/}
+                            {/*<div className="trigger-kind-options-tabs-text">*/}
+                            {/*    模板触发器*/}
+                            {/*</div>*/}
+                            {/*<div className="trigger-kind-options-tabs-text">*/}
+                            {/*    主机触发器*/}
+                            {/*</div>*/}
                         </div>
                         <div>
                             <Input onPressEnter={(event) => searchName(event)} placeholder="请输入触发器名称"/>
