@@ -48,7 +48,9 @@ export class ConfigurationStore {
     // 根据名称查询主机组
     @action
     findHostGroup = async (name) =>{
-        const resHostGroup = await Service("/hostGroup/findHostGroupByName",{name:name});
+        const params = new FormData();
+        params.append("name",name);
+        const resHostGroup = await Service("/hostGroup/findHostGroupByName",params);
         this.hostGroupList = resHostGroup.data;
 
         return resHostGroup.data;
@@ -57,7 +59,7 @@ export class ConfigurationStore {
     //根据名称查询模板
     @action
     findTemplateByName = async (name) =>{
-        const data = await Service("/template/findTemplateByName",name)
+        const data = await Service("/template/getTemplateAllByName",name)
         this.templateList = data.data;
 
         return data.data;

@@ -52,11 +52,26 @@ const Configuration = (props) => {
             title: '主机状态',
             dataIndex: 'state',
             key: 'state',
+            render: (state) => {
+                let config = {
+                    1: "启用",
+                    2: "未启用",
+                }
+                return config[state];
+            }
         },
         {
             title: '可用性',
             dataIndex: 'usability',
             key: 'usability',
+            render: (usability) => {
+                let config = {
+                    1: "可用",
+                    2: "不可用",
+                    3: "未知"
+                }
+                return config[usability];
+            }
         }, {
             title: '模板数量',
             dataIndex: 'templateCount',

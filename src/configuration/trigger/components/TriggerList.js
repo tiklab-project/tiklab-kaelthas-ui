@@ -5,11 +5,11 @@ import triggerStore from "../store/TriggerStore";
 
 const TriggerList = (props) => {
 
-    const {getTriggerList,deleteTriggerById,setSearchCondition,monitorList,findMonitorListById} = triggerStore;
+    const {getTriggerList, deleteTriggerById, setSearchCondition, monitorList, findMonitorListById} = triggerStore;
 
     const {dataList, setDataList} = props;
 
-    const [rowData,setRowData] = useState({});
+    const [rowData, setRowData] = useState({});
 
     const [form] = Form.useForm();
 
@@ -17,7 +17,7 @@ const TriggerList = (props) => {
 
     useEffect(() => {
 
-        setSearchCondition({hostId:localStorage.getItem("hostId")})
+        setSearchCondition({hostId: localStorage.getItem("hostId")})
 
         getTriggerList().then(res => {
             setDataList([...res.dataList])
@@ -41,25 +41,22 @@ const TriggerList = (props) => {
 
         form.setFieldsValue(
             {
-                id:record.id,
-                triggerName:record.triggerName,
-                isTemplate:record.isTemplate,
-                triggerExpression:record.triggerExpression,
-                messageType:record.messageType,
-                alarmType:record.alarmType,
-                description:record.description,
+                name: record.name,
+                severityLevel: record.severityLevel,
+                mediumType: record.mediumType,
+                describe: record.describe
             }
         )
 
         setRowData({
-            id:record.id,
-            triggerName:record.triggerName,
-            isTemplate:record.isTemplate,
-            triggerExpression:record.triggerExpression,
-            messageType:record.messageType,
-            alarmType:record.alarmType,
-            description:record.description,
+            id: record.id,
+            name: record.name,
+            severityLevel: record.severityLevel,
+            mediumType: record.mediumType,
+            describe: record.describe
         })
+
+        console.log(record)
     };
 
     const columns = [
@@ -77,12 +74,23 @@ const TriggerList = (props) => {
             id: 'expression',
         }, {
             title: '消息通知方案',
-            dataIndex: 'messageType',
-            id: 'messageType',
+            dataIndex: 'mediumType',
+            id: 'mediumType',
         }, {
             title: '告警等级',
             dataIndex: 'severityLevel',
             id: 'severityLevel',
+            render: (severityLevel) => {
+                let config = {
+                    1: "灾难",
+                    2: "严重",
+                    3: "一般严重",
+                    4: "告警",
+                    5: "信息",
+                    6: "未分类",
+                }
+                return config[severityLevel];
+            }
         }, {
             title: '描述',
             dataIndex: 'describe',

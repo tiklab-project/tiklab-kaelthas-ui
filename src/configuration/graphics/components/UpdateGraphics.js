@@ -1,6 +1,8 @@
 import {Button, Form, Input, Modal, Select} from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import graphicsStore from "../store/GraphicsStore";
+
+const {Option} = Select
 
 const UpdateGraphics = (props) => {
 
@@ -12,13 +14,20 @@ const UpdateGraphics = (props) => {
 
     const {form} = props;
 
-    const {updateGraphicsStoreById} = graphicsStore;
+    const [monitorList, setMonitorList] = useState([]);
+
+    const {updateGraphicsStoreById, getGraphicsStoreList, findMonitorListById} = graphicsStore;
 
     console.log('columnData:', columnData)
 
     /*const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };*/
+
+    useEffect(async () => {
+        const resMonitorList = await findMonitorListById(localStorage.getItem("hostId"))
+        setMonitorList([...resMonitorList])
+    }, []);
 
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -29,17 +38,18 @@ const UpdateGraphics = (props) => {
 
         form.validateFields().then(async res => {
 
-            const resData = await updateGraphicsStoreById({
+            await updateGraphicsStoreById({
                 id: columnData.id,
-                graphicsName: res.graphicsName,
                 width: res.width,
                 height: res.height,
-                monitoringMetrics: res.monitoringMetrics,
-                description: res.description
+                describe: res.describe,
+                name: res.name,
+                monitorId: res.monitorId
             })
 
-            debugger
-            setDataList([...resData]);
+            getGraphicsStoreList().then((res) => {
+                setDataList([...res.dataList])
+            })
         })
 
 
@@ -70,7 +80,7 @@ const UpdateGraphics = (props) => {
                         >
                             <Form.Item
                                 label="图表名称"
-                                name="graphicsName"
+                                name="name"
                                 rules={[
                                     {
                                         required: true,
@@ -112,7 +122,7 @@ const UpdateGraphics = (props) => {
 
                             <Form.Item
                                 label="监控指标"
-                                name="monitoringMetrics"
+                                name="monitorId"
                                 rules={[
                                     {
                                         required: true,
@@ -126,11 +136,12 @@ const UpdateGraphics = (props) => {
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
-                                    <Option value="system.cpu(process,time)">system.cpu(process,time)</Option>
-                                    <Option value="system.cpu(process,c)">system.cpu(process,c)</Option>
-                                    <Option value="system.cpu(idle,c)">system.cpu(idle,c)</Option>
-                                    <Option value="system.cpu(IO,c)">system.cpu(IO,c)</Option>
+                                    {
+                                        monitorList && monitorList.map(item => (
+                                            <Option value={item.id} key={item.id}>{item.name}</Option>
+                                        ))
+                                    }
+
                                 </Select>
 
                             </Form.Item>
@@ -138,7 +149,7 @@ const UpdateGraphics = (props) => {
 
                             <Form.Item
                                 label="问题描述"
-                                name="description"
+                                name="describe"
                                 rules={[
                                     {
                                         required: false,

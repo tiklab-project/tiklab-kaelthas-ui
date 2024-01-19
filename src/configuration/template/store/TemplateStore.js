@@ -35,7 +35,9 @@ export class TemplateStore {
     //查询所有模板
     @action
     getTemplateAll = async (name) =>{
-        const resData = await Service("/template/getTemplateAll",{name:name});
+        const params = new FormData();
+        params.append("name",name);
+        const resData = await Service("/template/getTemplateAllByName",params);
         this.templateList = resData.data;
 
         return resData.data;

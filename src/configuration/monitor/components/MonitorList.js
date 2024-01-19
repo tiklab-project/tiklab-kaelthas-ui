@@ -40,25 +40,24 @@ const MonitorList = (props) => {
 
 
         form.setFieldsValue({
-            id: record.id,
-            dataRetentionPeriod: record.dataRetentionPeriod,
-            monitorName: record.monitorName,
-            monitorType: record.monitorType,
-            isTemplate: record.isTemplate,
-            interval: record.interval,
-            monitorExpression: record.monitorExpression,
-            status: record.status,
+            name: record.name,
+            type: record.monitorType,
+            monitorItemId: record.expression,
+            intervalTime: record.intervalTime,
+            dataRetentionTime: record.dataRetentionTime,
+            monitorSource: 1,
+            monitorStatus: record.monitorStatus
         })
 
         setColumnData({
             id: record.id,
-            dataRetentionPeriod: record.dataRetentionPeriod,
-            monitorName: record.monitorName,
-            monitorType: record.monitorType,
-            isTemplate: record.isTemplate,
-            interval: record.interval,
-            monitorExpression: record.monitorExpression,
-            status: record.status,
+            name: record.name,
+            type: record.monitorType,
+            monitorItemId: record.expression,
+            intervalTime: record.intervalTime,
+            dataRetentionTime: record.dataRetentionTime,
+            monitorSource: 1,
+            monitorStatus: record.monitorStatus
         })
 
     };
@@ -95,9 +94,16 @@ const MonitorList = (props) => {
             title: '监控项状态',
             dataIndex: 'monitorStatus',
             id: 'monitorStatus',
+            render:(monitorStatus) => {
+                let config = {
+                    1: "启用",
+                    2: "未启用",
+                }
+                return config[monitorStatus];
+            }
         },
         {
-            title: '监控失败提示信息',
+            title: '监控信息',
             dataIndex: 'information',
             id: 'information',
         },

@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import TopList from "../../../home/common/components/TopList";
+import React, {useEffect, useState} from 'react';
 import LeftMenu from "../../common/components/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
@@ -10,14 +9,22 @@ import {withRouter} from "react-router-dom";
 
 const Graphics = (props) => {
 
-    const {getGraphicsStoreByName} = graphicsStore;
+    const {getGraphicsStoreList,setSearchCondition} = graphicsStore;
 
     const [dataList,setDataList] = useState([]);
 
+    useEffect(() => {
+
+        getGraphicsStoreList({hostId:localStorage.getItem("hostId")}).then((res) =>{
+            setDataList([...res.dataList])
+        })
+
+    }, []);
 
     const searchName = async (e) => {
-        const resData = await getGraphicsStoreByName(e.target.value);
-        setDataList([...resData])
+        setSearchCondition({name:e.target.value})
+        const resData = await getGraphicsStoreList();
+        setDataList([...resData.dataList])
     };
     const Search = () => <Input placeholder="请输入图形名称" onPressEnter={(event) => searchName(event)}/>;
 
@@ -40,7 +47,7 @@ const Graphics = (props) => {
                     </div>
                     <div className="graphics-kind-options">
                         <div className="graphics-kind-options-tabs">
-                            <div className="graphics-kind-options-tabs-text">
+                            {/*<div className="graphics-kind-options-tabs-text">
                                 全部
                             </div>
                             <div className="graphics-kind-options-tabs-text">
@@ -48,7 +55,7 @@ const Graphics = (props) => {
                             </div>
                             <div className="graphics-kind-options-tabs-text">
                                 主机图形
-                            </div>
+                            </div>*/}
                         </div>
                         <div className="graphics-kind-search">
                             <Search/>

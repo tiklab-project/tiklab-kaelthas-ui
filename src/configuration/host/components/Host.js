@@ -34,10 +34,27 @@ const Host = (props) => {
 
     const {findHostById,} = hostStore;
 
-    const [dataList,setDataList] = useState({});
+    const [dataList, setDataList] = useState({});
 
     useEffect(async () => {
         const resData = await findHostById(localStorage.getItem("hostId"))
+
+        switch (resData.state) {
+            case 1:
+                resData.state = "已启用"
+            case 2:
+                resData.state = "未启用"
+        }
+
+        switch (resData.usability) {
+            case 1:
+                resData.usability = "可用"
+            case 2:
+                resData.usability = "不可用"
+            case 3:
+                resData.usability = "未知"
+        }
+
         setDataList({...resData})
     }, []);
     const columns = [

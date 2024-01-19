@@ -33,11 +33,11 @@ export class MonitorStore {
 
     }
 
-    //根据id修改
+    //监控项修改
     @action
     updateMonitorById = async (option) => {
 
-        return Service('/Configuration/Host/Monitor/updateMonitorById', option);
+        return Service('/monitor/updateMonitor', option);
     }
 
     //删除

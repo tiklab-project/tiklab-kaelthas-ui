@@ -3,11 +3,10 @@ import LeftMenu from "../../../common/components/LeftMenu";
 import "./ProjectInformation.scss"
 import SettingLeftTabs from "../../common/SettingLeftTabs";
 import {withRouter} from "react-router-dom";
-import {Button, Collapse, Form, Input, Select} from "antd";
+import {Alert, Button, Collapse, Form, Input, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
 
 const {Panel} = Collapse;
-
 
 
 const {Option} = Select;
@@ -31,13 +30,13 @@ const ProjectInformation = (props) => {
     const onChange = (key) => {
         console.log('key', key);
     };
-    const {deleteHostById, findHostById, findAllHostGroupList} = projectInformationStore;
+    const {deleteHostById, findHostById, findAllHostGroupList, updateHost} = projectInformationStore;
 
-    const [allHostGroupList,setAllHostGroupList] = useState([]);
+    const [allHostGroupList, setAllHostGroupList] = useState([]);
 
     const [form] = Form.useForm();
     const onGenderChange = (value) => {
-        switch (value) {
+        /*switch (value) {
             case 'male':
                 form.setFieldsValue({
                     note: 'Hi, man!',
@@ -52,10 +51,20 @@ const ProjectInformation = (props) => {
                 form.setFieldsValue({
                     note: 'Hi there!',
                 });
-        }
+        }*/
+
+        console.log("onGenderChange", value)
     };
-    const onFinish = (values) => {
+    const onFinish = async (values) => {
+        values.id = localStorage.getItem("hostId")
+
+        await updateHost(values)
+
         console.log(values);
+
+        return(
+            <Alert message="修改成功" type="success" />
+        )
     };
     const onReset = () => {
         form.resetFields();
@@ -65,17 +74,14 @@ const ProjectInformation = (props) => {
         //调用根据id查询,将查询的数据放到表单当中
         const resData = findHostById(localStorage.getItem("hostId"));
         resData.then(res => {
-            if (res.state === 1) {
-                res.state = '启用'
-            } else {
-                res.state = '未启用'
-            }
 
             form.setFieldsValue({
+                id: localStorage.getItem("hostId"),
                 name: res.name,
                 ip: res.ip,
-                hostGroupId: res.hostGroup.name,
-                state: res.state
+                hostGroupId: res.hostGroup.id,
+                state: res.state,
+                describe:res.describe
             })
         })
 
@@ -178,6 +184,18 @@ const ProjectInformation = (props) => {
                                                 <Option value={1}>启用</Option>
                                                 <Option value={2}>未启用</Option>
                                             </Select>
+                                        </Form.Item>
+
+                                        <Form.Item
+                                            name="describe"
+                                            label="描述"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                },
+                                            ]}
+                                        >
+                                            <Input/>
                                         </Form.Item>
 
 

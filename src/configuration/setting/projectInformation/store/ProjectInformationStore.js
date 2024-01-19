@@ -11,7 +11,7 @@ export class ProjectInformationStore {
     deleteHostById = async (id) => {
 
         const params = new FormData();
-        params.append("id",id)
+        params.append("id", id)
         await Service("/hostList/deleteHostById", params)
     }
 
@@ -19,9 +19,16 @@ export class ProjectInformationStore {
     @action
     findHostById = async (id) => {
         const params = new FormData();
-        params.append("id",id)
-        const resData = await Service("/hostList/findHostById",params)
+        params.append("id", id)
+        const resData = await Service("/hostList/findHostById", params)
         return resData.data;
+    }
+
+    //修改主机信息
+    @action
+    updateHost = async (host) => {
+        await Service("/hostList/updateHost", host)
+
     }
 
     //查询主机组所有信息

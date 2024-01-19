@@ -16,19 +16,15 @@ const GraphicsList = (props) => {
 
     const {getGraphicsStoreList,deleteGraphicsStoreById} = graphicsStore;
 
-    useEffect(() => {
 
-        getGraphicsStoreList().then((res) =>{
-            setDataList([...res])
-        })
-
-    }, []);
 
     const deleteGraphics = async (id) => {
 
-        const resData = await deleteGraphicsStoreById(id);
+        await deleteGraphicsStoreById(id);
 
-        setDataList([...resData]);
+        getGraphicsStoreList().then((res) =>{
+            setDataList([...res.dataList])
+        })
     };
 
     const updateGraphicsColumn = (record) => {
@@ -37,30 +33,31 @@ const GraphicsList = (props) => {
 
         form.setFieldsValue({
             id:record.id,
-            graphicsName:record.graphicsName,
-            width:record.width,
-            height:record.height,
-            monitoringMetrics:record.monitoringMetrics,
-            description:record.description
+            name: record.name,
+            width: record.width,
+            height: record.height,
+            describe:record.describe,
+            monitorId:record.monitorId
         });
 
         setColumnData({
             id:record.id,
-            graphicsName:record.graphicsName,
-            width:record.width,
-            height:record.height,
-            monitoringMetrics:record.monitoringMetrics,
-            description:record.description
+            name: record.name,
+            width: record.width,
+            height: record.height,
+            describe:record.describe,
+            monitorId:record.monitorId
         })
 
+        console.log(record)
 
     };
 
     const columns = [
         {
             title: '图形名称',
-            dataIndex: 'graphicsName',
-            id: 'graphicsName',
+            dataIndex: 'name',
+            id: 'name',
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => updateGraphicsColumn(record)}>{text}</span>,
@@ -76,14 +73,14 @@ const GraphicsList = (props) => {
             id: 'height',
         },
         {
-            title: '监控指标',
-            dataIndex: 'monitoringMetrics',
-            id: 'monitoringMetrics',
+            title: '监控名称',
+            dataIndex: ['monitor','name'],
+            id: 'monitorName',
         },
         {
             title: '问题描述',
-            dataIndex: 'description',
-            id: 'description',
+            dataIndex: 'describe',
+            id: 'describe',
         },
         {
             title: '操作',
@@ -104,7 +101,7 @@ const GraphicsList = (props) => {
                             isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
             />
 
-            <Table columns={columns} dataSource={dataList}/>
+            <Table rowKey={record => record.id} columns={columns} dataSource={dataList}/>
         </>
     )
 

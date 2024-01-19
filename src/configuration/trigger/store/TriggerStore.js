@@ -62,12 +62,11 @@ export class TriggerStore {
         return resData;
     }
 
-    //根据id进行修改
+    //修改触发器
     @action
-    updateTriggerById = async(option) =>{
-        const resData = await Service('/trigger/updateTriggerById',option);
-        this.data = resData;
-        return resData;
+    updateTrigger = async(option) =>{
+        await Service('/trigger/updateTrigger',option);
+
     }
 
     //根据id进行删除

@@ -1,7 +1,8 @@
-import {Button, Form, Input, Modal, Select} from 'antd';
-import React, {useState} from 'react';
+import {Button, Form, Input, InputNumber, Modal, Select} from 'antd';
+import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
 
+const {Option} = Select
 const UpdateTrigger = (props) => {
     const {dataList, setDataList} = props;
 
@@ -11,8 +12,14 @@ const UpdateTrigger = (props) => {
 
     const {form} = props;
 
-    const {updateTriggerById} = triggerStore;
+    const {updateTrigger,findMonitorListById,getTriggerList} = triggerStore;
 
+    const [monitorData, setMonitorData] = useState([]);
+
+    useEffect(async () => {
+        const resData = await findMonitorListById(localStorage.getItem("hostId"));
+        setMonitorData([...resData])
+    }, []);
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -27,17 +34,24 @@ const UpdateTrigger = (props) => {
 
         form.validateFields().then(async res => {
 
-            const resData = await updateTriggerById({
+            console.log("修改当中的res:",res)
+
+            await updateTrigger({
                 id: rowData.id,
-                triggerName: res.triggerName,
-                isTemplate: '否',
-                triggerExpression: res.triggerExpression,
-                messageType: res.messageType,
-                alarmType: res.alarmType,
-                description: res.description,
+                name: res.name,
+                monitorId: res.monitorId,
+                triggerStatus: 1,
+                operator: res.operator,
+                numericalValue: res.numericalValue,
+                mediumType: res.mediumType,
+                severityLevel: res.severityLevel,
+                describe: res.describe,
             });
 
-            setDataList([...resData])
+            getTriggerList().then(res =>{
+                setDataList([...res.dataList])
+            })
+
         })
 
 
@@ -62,7 +76,7 @@ const UpdateTrigger = (props) => {
                     <div>
 
                         <Form
-                            name="basic"
+                            name="updateMonitorForm"
                             labelCol={{
                                 span: 8,
                             }}
@@ -79,7 +93,7 @@ const UpdateTrigger = (props) => {
                         >
                             <Form.Item
                                 label="触发器名称"
-                                name="triggerName"
+                                name="name"
                                 rules={[
                                     {
                                         required: true,
@@ -92,8 +106,8 @@ const UpdateTrigger = (props) => {
                             </Form.Item>
 
                             <Form.Item
-                                label="监控指标"
-                                name="triggerExpression"
+                                label="监控项"
+                                name="monitorId"
                                 rules={[
                                     {
                                         required: true,
@@ -107,18 +121,53 @@ const UpdateTrigger = (props) => {
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="system.cpu(internal,time)">system.cpu(internal,time)</Option>
-                                    <Option value="system.cpu(process,time)">system.cpu(process,time)</Option>
-                                    <Option value="system.cpu(process,c)">system.cpu(process,c)</Option>
-                                    <Option value="system.cpu(idle,c)">system.cpu(idle,c)</Option>
-                                    <Option value="system.cpu(IO,c)">system.cpu(IO,c)</Option>
+                                    {
+                                        monitorData && monitorData.map(item => (
+                                            <Option key={item.id} value={item.id}>{item.name}</Option>
+                                        ))
+                                    }
                                 </Select>
 
                             </Form.Item>
 
                             <Form.Item
+                                label="范围关系"
+                                name="operator"
+                                rules={[
+                                    {
+                                        required: false,
+                                        message: '请选择范围关系!',
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="范围关系关系"
+                                    allowClear
+                                >
+                                    <Option value={1}>{">"}</Option>
+                                    <Option value={2}>{"<"}</Option>
+                                    <Option value={3}>{"="}</Option>
+                                    <Option value={4}>{">="}</Option>
+                                    <Option value={5}>{"<="}</Option>
+                                    <Option value={6}>{"<>"}</Option>
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                label="值"
+                                name="numericalValue"
+                                rules={[
+                                    {
+                                        required: false,
+                                        message: '请输入数字!',
+                                    },
+                                ]}
+                            >
+                                <InputNumber/>
+                            </Form.Item>
+
+                            <Form.Item
                                 label="消息通知方案"
-                                name="messageType"
+                                name="mediumType"
                                 rules={[
                                     {
                                         required: false,
@@ -142,7 +191,7 @@ const UpdateTrigger = (props) => {
 
                             <Form.Item
                                 label="严重性"
-                                name="alarmType"
+                                name="severityLevel"
                                 rules={[
                                     {
                                         required: false,
@@ -153,22 +202,21 @@ const UpdateTrigger = (props) => {
 
                                 <Select
                                     placeholder="严重性选择"
-                                    /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="灾难">灾难</Option>
-                                    <Option value="严重">严重</Option>
-                                    <Option value="一般严重">一般严重</Option>
-                                    <Option value="告警">告警</Option>
-                                    <Option value="信息">信息</Option>
-                                    <Option value="未分类">未分类</Option>
+                                    <Option value={1}>灾难</Option>
+                                    <Option value={2}>严重</Option>
+                                    <Option value={3}>一般严重</Option>
+                                    <Option value={4}>告警</Option>
+                                    <Option value={5}>信息</Option>
+                                    <Option value={6}>未分类</Option>
                                 </Select>
 
                             </Form.Item>
 
                             <Form.Item
                                 label="问题描述"
-                                name="description"
+                                name="describe"
                                 rules={[
                                     {
                                         required: false,

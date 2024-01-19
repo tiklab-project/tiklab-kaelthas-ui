@@ -60,11 +60,11 @@ const Template = (props) => {
             dataIndex: 'monitorNum',
             id: 'monitorNum',
         },
-        {
+        /*{
             title: '触发器数量',
             dataIndex: 'triggerNum',
             id: 'triggerNum',
-        },
+        },*/
         {
             title: '操作',
             id: 'action',
