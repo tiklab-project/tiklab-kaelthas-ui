@@ -98,7 +98,7 @@ const UpdateTrigger = (props) => {
                                     {
                                         required: true,
                                         message: '' +
-                                            '请输入监控项名称!',
+                                            '请输入触发器名称!',
                                     },
                                 ]}
                             >
@@ -120,6 +120,7 @@ const UpdateTrigger = (props) => {
                                     placeholder="请选择您的监控类型"
                                     /*onChange={onGenderChange}*/
                                     allowClear
+                                    showSearch
                                 >
                                     {
                                         monitorData && monitorData.map(item => (
@@ -171,13 +172,13 @@ const UpdateTrigger = (props) => {
                                 rules={[
                                     {
                                         required: false,
-                                        message: '请选择监控项指标!',
+                                        message: '请选择消息通知方案!',
                                     },
                                 ]}
                             >
 
                                 <Select
-                                    placeholder="请选择您的监控类型"
+                                    placeholder="请选择您的消息通知方案"
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >

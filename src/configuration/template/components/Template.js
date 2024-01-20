@@ -5,12 +5,17 @@ import AddTemplate from "./AddTemplate";
 import {Input, Space, Table} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
+import ShowTemplateMonitor from "./ShowTemplateMonitor";
 
 const Template = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition} = templateStore;
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition,findMonitorByTemplateId} = templateStore;
+
+    const [rowData, setRowData] = useState([]);
 
     useEffect(async () => {
         setSearchCondition({
@@ -48,17 +53,23 @@ const Template = (props) => {
     };
 
 
+    async function showTemplateDetails(record) {
+
+        setIsModalOpen(true);
+    }
+
     const columns = [
         {
             title: '模板名称',
             dataIndex: 'name',
             id: 'name',
-            render: (text) => <span style={{cursor: "pointer"}}>{text}</span>,
+            render: (text, record) => <span style={{cursor: "pointer"}}
+                                            onClick={() => showTemplateDetails(record)}>{text}</span>,
         },
         {
             title: '监控项数量',
-            dataIndex: 'monitorNum',
-            id: 'monitorNum',
+            dataIndex: 'superiorId',
+            id: 'superiorId',
         },
         /*{
             title: '触发器数量',
@@ -112,6 +123,9 @@ const Template = (props) => {
                                     position: ["bottomCenter"],
                                 }
                                 }
+                            />
+                            <ShowTemplateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                                                 monitorList={rowData} setMonitorList={setRowData}
                             />
                         </div>
                     </div>

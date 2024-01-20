@@ -115,6 +115,7 @@ const AddTrigger = (props) => {
                                     placeholder="请选择您的监控项"
                                     /*onChange={onGenderChange}*/
                                     allowClear
+                                    showSearch
                                 >
                                     {
                                         monitorData && monitorData.map(item => (

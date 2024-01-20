@@ -23,7 +23,7 @@ export class TriggerStore {
     @action
     getTriggerList = async () => {
 
-        const data = await Service('/trigger/getTrigger',this.searchCondition)
+        const data = await Service('/trigger/findTrigger',this.searchCondition)
 
         return data.data;
 
@@ -37,9 +37,7 @@ export class TriggerStore {
     //根据主机id查询监控项列表
     @action
     findMonitorListById = async (id) => {
-        const formData = new FormData();
-        formData.append("id", id)
-        const monitorList = await Service("/monitor/findMonitorListById", formData)
+        const monitorList = await Service("/monitor/findAllMonitor", {hostId:id})
         this.monitorList = monitorList.data;
         return monitorList.data;
     }

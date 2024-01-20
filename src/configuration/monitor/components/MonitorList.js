@@ -72,12 +72,12 @@ const MonitorList = (props) => {
         },
         {
             title: '监控项类别',
-            dataIndex: 'monitorType',
+            dataIndex: ['monitorItem','type'],
             id: 'monitorType',
         },
         {
             title: '监控表达式',
-            dataIndex: 'expression',
+            dataIndex: ['monitorItem','name'],
             id: 'expression',
         },
         {

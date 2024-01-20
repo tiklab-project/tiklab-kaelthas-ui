@@ -27,17 +27,16 @@ export class TemplateStore {
     //根据条件查询主机当中的模板
     @action
     findTemplateByMonitor = async () =>{
-        const resData = await Service("/monitor/findTemplateByMonitor",this.searchCondition);
+        const resData = await Service("/template/findTemplate",this.searchCondition);
 
         return resData.data.dataList;
     }
 
     //查询所有模板
     @action
-    getTemplateAll = async (name) =>{
-        const params = new FormData();
-        params.append("name",name);
-        const resData = await Service("/template/getTemplateAllByName",params);
+    getTemplateAll = async () =>{
+
+        const resData = await Service("/template/findTemplateAll");
         this.templateList = resData.data;
 
         return resData.data;
@@ -46,7 +45,7 @@ export class TemplateStore {
     //新增
     @action
     addTemplate = async (option) =>{
-        const resData = await Service("/monitor/addTemplate",option);
+        const resData = await Service("/template/addTemplate",option);
         return resData;
     }
 
@@ -55,7 +54,16 @@ export class TemplateStore {
     @action
     deleteTemplateById = async (params) =>{
 
-        await Service("/monitor/deleteTemplateById", params);
+        await Service("/template/deleteTemplateById", params);
+    }
+
+    //根据模板id查询模板下的监控项
+    @action
+    findMonitorByTemplateId = async (id) =>{
+        const params = new FormData();
+        params.append("templateId",id);
+        const resData = Service("/monitor/findMonitorByTemplateId",params)
+        return resData.data;
     }
 }
 

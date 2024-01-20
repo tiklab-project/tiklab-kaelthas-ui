@@ -141,6 +141,7 @@ const AddGraphics = (props) => {
                                 placeholder="请选择监控项"
                                 /*onChange={onGenderChange}*/
                                 allowClear
+                                showSearch
                             >
                                 {
                                     monitorData && monitorData.map(item => (

@@ -1,6 +1,6 @@
 .box {
   display: flex;
-
+  height: calc(100vh - 48px);
 
   .box-right {
     flex: 1;

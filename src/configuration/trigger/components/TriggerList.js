@@ -69,9 +69,9 @@ const TriggerList = (props) => {
                       onClick={() => rowEcho(record)}>{text}</span>,
         },
         {
-            title: '触发表达式',
-            dataIndex: 'expression',
-            id: 'expression',
+            title: '监控项名称',
+            dataIndex: ['monitor','name'],
+            id: 'monitorName',
         }, {
             title: '消息通知方案',
             dataIndex: 'mediumType',

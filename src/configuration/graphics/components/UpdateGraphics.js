@@ -135,6 +135,7 @@ const UpdateGraphics = (props) => {
                                     placeholder="请选择监控项指标"
                                     /*onChange={onGenderChange}*/
                                     allowClear
+                                    showSearch
                                 >
                                     {
                                         monitorList && monitorList.map(item => (

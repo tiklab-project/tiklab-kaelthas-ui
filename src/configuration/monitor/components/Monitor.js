@@ -54,40 +54,38 @@ const Monitor = (props) => {
 
     return (
         <div>
-            <div>
-                <div className="box-monitor">
-                    <LeftMenu/>
-                    <div className="box-monitor-right">
-                        <div className="box-monitor-title">
-                            <div className="box-monitor-title-text">监控项</div>
-                            <div className="monitor-top-right">
-                                <div>
-                                    <AddMonitor setListData={setListData} listData={listData}/>
-                                </div>
+            <div className="box-monitor">
+                <LeftMenu/>
+                <div className="box-monitor-right">
+                    <div className="box-monitor-title">
+                        <div className="box-monitor-title-text">监控项</div>
+                        <div className="monitor-top-right">
+                            <div>
+                                <AddMonitor setListData={setListData} listData={listData}/>
                             </div>
                         </div>
-                        <div className="monitor-kind-options">
-                            <div className="monitor-kind-options-tabs">
-                                <div className="monitor-kind-options-tabs-text"
-                                     onClick={() => monitorList(null)}>
-                                    全部
-                                </div>
-                                <div className="monitor-kind-options-tabs-text"
-                                     onClick={() => monitorList(2)}>
-                                    模板监控项
-                                </div>
-                                <div className="monitor-kind-options-tabs-text"
-                                     onClick={() => monitorList(1)}>
-                                    主机监控项
-                                </div>
+                    </div>
+                    <div className="monitor-kind-options">
+                        <div className="monitor-kind-options-tabs">
+                            <div className="monitor-kind-options-tabs-text"
+                                 onClick={() => monitorList(null)}>
+                                全部
                             </div>
-                            <div className="monitor-kind-search">
-                                <Input placeholder="请输入监控项名称" onPressEnter={(event) => searchName(event)}/>
+                            <div className="monitor-kind-options-tabs-text"
+                                 onClick={() => monitorList(2)}>
+                                模板监控项
+                            </div>
+                            <div className="monitor-kind-options-tabs-text"
+                                 onClick={() => monitorList(1)}>
+                                主机监控项
                             </div>
                         </div>
-                        <div className="box-monitor-table">
-                            <MonitorList listData={listData} setListData={setListData}/>
+                        <div className="monitor-kind-search">
+                            <Input placeholder="请输入监控项名称" onPressEnter={(event) => searchName(event)}/>
                         </div>
+                    </div>
+                    <div className="box-monitor-table">
+                        <MonitorList listData={listData} setListData={setListData}/>
                     </div>
                 </div>
             </div>
