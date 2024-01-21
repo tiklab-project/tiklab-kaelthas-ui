@@ -41,7 +41,8 @@ const MonitorList = (props) => {
 
         form.setFieldsValue({
             name: record.name,
-            type: record.monitorType,
+            monitorType: record.monitorItem.type,
+            expression:record.monitorItem.name,
             monitorItemId: record.expression,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -54,6 +55,7 @@ const MonitorList = (props) => {
             name: record.name,
             type: record.monitorType,
             monitorItemId: record.expression,
+            monitorItem:record.monitorItem,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
             monitorSource: 1,

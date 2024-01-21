@@ -2,10 +2,11 @@ import React, {useEffect, useState} from 'react';
 import LeftMenu from "../../common/components/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
-import {Input, Modal, Space, Table} from "antd";
+import {Button, Input, Modal, Space, Table, Tabs} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
 import ShowTemplateMonitor from "./ShowTemplateMonitor";
+import TemplateDetails from "./TemplateDetails";
 
 const monitorColumns = [
     {
@@ -16,12 +17,12 @@ const monitorColumns = [
     },
     {
         title: '监控项类别',
-        dataIndex: ['monitorItem','type'],
+        dataIndex: ['monitorItem', 'type'],
         id: 'monitorType',
     },
     {
         title: '监控表达式',
-        dataIndex: ['monitorItem','name'],
+        dataIndex: ['monitorItem', 'name'],
         id: 'expression',
     },
     {
@@ -38,7 +39,7 @@ const monitorColumns = [
         title: '监控项状态',
         dataIndex: 'monitorStatus',
         id: 'monitorStatus',
-        render:(monitorStatus) => {
+        render: (monitorStatus) => {
             let config = {
                 1: "启用",
                 2: "未启用",
@@ -60,9 +61,9 @@ const Template = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition,findMonitorByTemplateId} = templateStore;
+    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition, findMonitorByTemplateId} = templateStore;
 
-    const [monitorList,setMonitorList] = useState([]);
+    const [monitorList, setMonitorList] = useState([]);
 
     const [rowData, setRowData] = useState({});
 
@@ -102,15 +103,8 @@ const Template = (props) => {
     };
 
     const handleOk = async () => {
-        //根据模板id查询模板下的监控项
+        setIsModalOpen(false);
 
-        console.log(rowData)
-
-        const resData = await findMonitorByTemplateId(rowData.id);
-
-        console.log("resData:",resData)
-
-        setMonitorList([...resData.data])
     };
 
     const handleCancel = () => {
@@ -120,7 +114,11 @@ const Template = (props) => {
 
     async function showTemplateDetails(record) {
         setIsModalOpen(true);
-        setRowData({id:record.id})
+        setRowData({
+            id: record.id,
+            name:record.name,
+            superiorId: record.superiorId
+        })
     }
 
     const columns = [
@@ -153,6 +151,14 @@ const Template = (props) => {
 
     ];
 
+
+    async function searchMonitorForTemplate() {
+        //根据模板id查询模板下的监控项
+
+        const resData = await findMonitorByTemplateId(rowData.id);
+
+        setMonitorList([...resData.data])
+    }
 
     return (
         <div>
@@ -190,16 +196,27 @@ const Template = (props) => {
                                 }
                             />
                             <Modal
-                                okText="查询"
-                                cancelText="关闭"
                                 open={isModalOpen}
-                                title="模板下监控项"
+                                title="模板详情"
                                 onOk={handleOk}
                                 onCancel={handleCancel}
                                 visible={isModalOpen}
                                 width={1000}
                             >
-                                <Table columns={monitorColumns} dataSource={monitorList}/>
+
+                                <Tabs defaultActiveKey="1">
+                                    <Tabs.TabPane tab="详细信息" key="1">
+                                        <TemplateDetails rowData={rowData}/>
+                                    </Tabs.TabPane>
+                                    <Tabs.TabPane tab="监控项信息" key="2">
+                                        <Table columns={monitorColumns} dataSource={monitorList}/>
+                                        <Button onClick={() => searchMonitorForTemplate()}>点击查询</Button>
+                                    </Tabs.TabPane>
+                                    <Tabs.TabPane tab="其他" key="3">
+                                        其他信息
+                                    </Tabs.TabPane>
+                                </Tabs>
+
                             </Modal>
                         </div>
                     </div>

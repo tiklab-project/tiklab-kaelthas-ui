@@ -1,0 +1,35 @@
+.box-template-details{
+  display: flex;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 4px;
+  flex-direction: column;
+  width: 400px;
+  height: 300px;
+  margin-top: 50px;
+
+  .box-template-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .box-template-margin-details {
+    display: flex;
+    flex-direction: row;
+    height: 20px;
+    margin: 20px 20px;
+
+    .box-template-details-text {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: 150px;
+      margin: 10px 20px;
+    }
+
+  }
+}

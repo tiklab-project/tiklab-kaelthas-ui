@@ -42,9 +42,13 @@ const TriggerList = (props) => {
         form.setFieldsValue(
             {
                 name: record.name,
+                monitorId:record.monitorId,
                 severityLevel: record.severityLevel,
                 mediumType: record.mediumType,
-                describe: record.describe
+                describe: record.describe,
+                numericalValue:record.numericalValue,
+                operator:record.operator,
+                expression:record.expression
             }
         )
 
@@ -70,13 +74,41 @@ const TriggerList = (props) => {
         },
         {
             title: '监控项名称',
-            dataIndex: ['monitor','name'],
+            dataIndex: 'monitorName',
             id: 'monitorName',
-        }, {
+        },
+        {
+            title: '关系表达式',
+            dataIndex: 'expression',
+            id: 'expression',
+        },
+        {
+            title: '运算符',
+            dataIndex: 'operator',
+            id: 'operator',
+            render: (severityLevel) => {
+                let config = {
+                    1: ">",
+                    2: "<",
+                    3: "=",
+                    4: ">=",
+                    5: "<=",
+                    6: "<>",
+                }
+                return config[severityLevel];
+            }
+        },
+        {
+            title: '表达式数值',
+            dataIndex: 'numericalValue',
+            id: 'numericalValue',
+        },
+        {
             title: '消息通知方案',
             dataIndex: 'mediumType',
             id: 'mediumType',
-        }, {
+        },
+        {
             title: '告警等级',
             dataIndex: 'severityLevel',
             id: 'severityLevel',
