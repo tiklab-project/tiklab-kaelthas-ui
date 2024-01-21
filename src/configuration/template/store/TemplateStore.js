@@ -63,7 +63,7 @@ export class TemplateStore {
         const params = new FormData();
         params.append("templateId",id);
         const resData = Service("/monitor/findMonitorByTemplateId",params)
-        return resData.data;
+        return resData;
     }
 }
 

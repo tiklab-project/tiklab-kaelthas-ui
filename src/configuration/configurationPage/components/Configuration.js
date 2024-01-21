@@ -74,20 +74,20 @@ const Configuration = (props) => {
             }
         }, {
             title: '模板数量',
-            dataIndex: 'templateCount',
-            key: 'templateCount',
+            dataIndex: 'templateNum',
+            key: 'templateNum',
         }, {
             title: '监控项数量',
-            dataIndex: 'monitorCount',
-            key: 'monitorCount',
+            dataIndex: 'monitorNum',
+            key: 'monitorNum',
         }, {
             title: '触发器数量',
-            dataIndex: 'triggerCount',
-            key: 'triggerCount',
+            dataIndex: 'triggerNum',
+            key: 'triggerNum',
         }, {
             title: '图形数量',
-            dataIndex: 'graphics',
-            key: 'graphics',
+            dataIndex: 'graphicNum',
+            key: 'graphicNum',
         }, {
             title: '创建时间',
             dataIndex: 'createTime',

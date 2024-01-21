@@ -32,7 +32,7 @@ export class ConfigurationStore {
     @action
     findPageHost = async () => {
 
-        const resData = await Service("/hostList/findAllHost",this.searchCondition);
+        const resData = await Service("/hostList/findPageHost",this.searchCondition);
         this.resultData = resData.data.dataList;
 
         return this.resultData;
@@ -41,7 +41,7 @@ export class ConfigurationStore {
     //添加主机
     @action
     addHost = async (host) =>{
-        const resMessage = await Service("/hostList/addHost",host)
+        const resMessage = await Service("/hostList/createHost",host)
         return resMessage.data;
     }
 
@@ -59,7 +59,7 @@ export class ConfigurationStore {
     //根据名称查询模板
     @action
     findTemplateByName = async (name) =>{
-        const data = await Service("/template/getTemplateAllByName",name)
+        const data = await Service("/template/findTemplateAll",name)
         this.templateList = data.data;
 
         return data.data;

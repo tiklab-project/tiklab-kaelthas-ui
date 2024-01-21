@@ -6,29 +6,7 @@ import {Table} from "antd";
 import hostStore from "../store/HostStore";
 
 
-const data = [
-    /*{
-        key: '1',
-        name: 'host1创建监控项 主机已用内存',
-        time: '2023/12/15  18：43',
-    },
-    {
-        key: '2',
-        name: 'host1创建触发器 CPU空闲利用率超过80%的处理',
-        time: '2023/12/15  15：43',
-    },
-    {
-        key: '3',
-        name: 'host1创建监控项 主机已用内存',
-        time: '2023/12/14    9：27',
-    },
-    {
-        key: '4',
-        name: 'host1创建监控项 监控CPU空间利用率',
-        time: '2023/12/13  13：22',
-    },*/
-
-];
+const data = [];
 
 const Host = (props) => {
 

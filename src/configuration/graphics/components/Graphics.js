@@ -15,7 +15,9 @@ const Graphics = (props) => {
 
     useEffect(() => {
 
-        getGraphicsStoreList({hostId:localStorage.getItem("hostId")}).then((res) =>{
+        setSearchCondition({hostId:localStorage.getItem("hostId")})
+
+        getGraphicsStoreList().then((res) =>{
             setDataList([...res.dataList])
         })
 
