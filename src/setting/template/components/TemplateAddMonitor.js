@@ -1,11 +1,13 @@
 import {Button, Modal, Form, Input, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../store/MonitorStore";
+import monitorStore from "../../../configuration/monitor/store/MonitorStore";
+import templateStore from "../../../configuration/template/store/TemplateStore";
+import {withRouter} from "react-router";
 
 const {Option} = Select
 
 
-const AddMonitor = (props) => {
+const TemplateAddMonitor = (props) => {
     const {setListData, listData} = props;
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,7 +16,11 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
+    const {findMonitorItemByName} = monitorStore;
+
+    const {addTemplateMonitor} = templateStore;
+
+    const {rowData} = props;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -23,25 +29,18 @@ const AddMonitor = (props) => {
 
     const handleOk = async () => {
         form.validateFields().then(res => {
-            addMonitor({
-                hostId: localStorage.getItem("hostId"),
+            addTemplateMonitor({
                 name: res.monitorName,
                 type: res.monitorType,
                 monitorItemId: res.monitorExpression,
                 intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
-                monitorSource: 1,
+                monitorSource: 2,
                 monitorStatus: 1,
-
+                templateId:rowData.id
             })
 
         })
-
-        const resData = await findMonitorCondition();
-
-        console.log(resData)
-
-        setListData([...resData.dataList])
 
         setIsModalOpen(false);
     };
@@ -145,11 +144,6 @@ const AddMonitor = (props) => {
                                     allowClear
                                     value={expression.id}
                                     onChange={onSecondCityChange}
-
-                                    /*options={expression && expression.map((item) => ({
-                                        label: item.name,
-                                        value: item.name,
-                                    }))}*/
                                 >
                                     {
                                         expression && expression.map((item) => (
@@ -194,4 +188,4 @@ const AddMonitor = (props) => {
     );
 };
 
-export default AddMonitor;
+export default withRouter(TemplateAddMonitor);

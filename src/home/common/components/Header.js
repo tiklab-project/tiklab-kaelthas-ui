@@ -57,7 +57,7 @@ const Header = props => {
      * 跳转到系统设置
      */
     const goSet = () => {
-        props.history.push("/setting/organ")
+        props.history.push("/globalSettings/template")
         sessionStorage.setItem("menuKey", "set")
     };
 
@@ -97,10 +97,21 @@ const Header = props => {
                     {renderRouter()}
                 </div>
             </Col>
-            <Col span={12}>
+            <Col>
+                <div className={'frame-header-right'}>
+                    <div className={'frame-header-right-text'}>
+                        <div className="frame-header-icon">
+                            <div className="frame-header-set" data-title-bottom="系统设置" onClick={() => goSet()}>
+                                系统设置
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </Col>
+            {/*<Col span={12}>
                 <div className={'frame-header-right'}>
                     <div className='frame-header-right-search-wrap'>
-                        {/*<Search />*/}
+                        <Search />
                     </div>
                     <div className={'frame-header-right-text'}>
                         <div className="frame-header-icon">
@@ -114,7 +125,7 @@ const Header = props => {
                         </div>
                     </div>
                 </div>
-            </Col>
+            </Col>*/}
 
         </Row>
     )

@@ -12,13 +12,18 @@ const UpdateTrigger = (props) => {
 
     const {form} = props;
 
-    const {updateTrigger,findMonitorListById,getTriggerList} = triggerStore;
+    const {updateTrigger,findMonitorListById,getTriggerList,findTriggerExpressionAll} = triggerStore;
 
     const [monitorData, setMonitorData] = useState([]);
+
+    const [triggerExData, setTriggerExData] = useState([]);
 
     useEffect(async () => {
         const resData = await findMonitorListById(localStorage.getItem("hostId"));
         setMonitorData([...resData])
+
+        const triggerExAll = await findTriggerExpressionAll();
+        setTriggerExData([...triggerExAll])
     }, []);
     const showModal = () => {
         setIsModalOpen(true);

@@ -77,6 +77,12 @@ export class TriggerStore {
         return resData;
     }
 
+    @action
+    findTriggerExpressionAll = async () => {
+        const triggerExAll = await Service("/triggerExpression/findTriggerExpressionAll")
+        return triggerExAll.data;
+    }
+
 }
 
 const triggerStore = new TriggerStore();

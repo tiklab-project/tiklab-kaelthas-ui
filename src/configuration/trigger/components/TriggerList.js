@@ -42,13 +42,13 @@ const TriggerList = (props) => {
         form.setFieldsValue(
             {
                 name: record.name,
-                monitorId:record.monitorId,
+                monitorId: record.monitorId,
                 severityLevel: record.severityLevel,
                 mediumType: record.mediumType,
                 describe: record.describe,
-                numericalValue:record.numericalValue,
-                operator:record.operator,
-                expression:record.expression
+                numericalValue: record.numericalValue,
+                operator: record.operator,
+                expression: record.expression
             }
         )
 

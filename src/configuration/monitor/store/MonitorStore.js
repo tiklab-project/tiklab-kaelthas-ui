@@ -63,6 +63,12 @@ export class MonitorStore {
         await Service("/monitor/addMonitor", params)
     }
 
+    @action
+    findMonitorItemAll = async () => {
+        const resData = await Service("/monitor/findMonitorItemAll")
+        return resData.data;
+    }
+
 }
 
 const monitorStore = new MonitorStore();

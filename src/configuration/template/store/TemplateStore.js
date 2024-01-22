@@ -65,6 +65,12 @@ export class TemplateStore {
         const resData = Service("/monitor/findMonitorByTemplateId",params)
         return resData;
     }
+
+    @action
+    addTemplateMonitor = (option) =>{
+        const templateMonitorId = Service("/template/createTemplateMonitor",option)
+        return templateMonitorId;
+    }
 }
 
 const templateStore = new TemplateStore();

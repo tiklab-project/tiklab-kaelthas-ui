@@ -16,6 +16,10 @@ const HostDetails = AsyncComponent(() => import('./configuration/host/components
 const ProjectInformation = AsyncComponent(() => import('./configuration/setting/projectInformation/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./configuration/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./configuration/setting/permissions/Permissions'))
+const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
+const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
+const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
+const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MoinitorItem/components/MonitorItem'))
 
 
 const Routes = [
@@ -79,7 +83,7 @@ const Routes = [
                         path: "/hostList/:id/setting",
                         exact: false,
                         component: Setting,
-                        routes:[
+                        routes: [
                             {
                                 path: "/hostList/:id/setting/projectInformation",
                                 exact: false,
@@ -99,64 +103,31 @@ const Routes = [
                     },
                 ]
             },
+            {
+                path: "/globalSettings",
+                exact: false,
+                component: GlobalSettings,
+                routes: [
+                    {
+                        path: "/globalSettings/template",
+                        exact: false,
+                        component: GlobalSettingsTemplate
+                    },
+                    {
+                        path: "/globalSettings/hostGroup",
+                        exact: false,
+                        component: GlobalSettingsHostGroup
+                    },
+                    {
+                        path: "/globalSettings/monitorItem",
+                        exact: false,
+                        component: GlobalSettingsMonitorItem
+                    },
+                ]
+            }
 
         ]
     }
-
-
-    /*{
-        path: "/",
-        exact: true,
-        component: HomePage,
-
-    },
-    {
-        path: "/login",
-        exact: true,
-        component: Login,
-    },
-
-    {
-        path: "/configuration",
-        component: Configuration,
-        exact: true
-    },
-    {
-        path: "/configuration/host",
-        component: Host,
-        exact: true
-    }
-    ,
-    {
-        path: "/configuration/host/leftMenu",
-        exact: true,
-        component: LeftMenu,
-    },
-    {
-        path: "/configuration/host/monitor",
-        exact: true,
-        component: Monitor,
-    },
-    {
-        path: "/configuration/host/trigger",
-        exact: true,
-        component: Trigger,
-    },
-    {
-        path: "/configuration/host/template",
-        exact: true,
-        component: Template,
-    },
-    {
-        path: "/configuration/host/graphics",
-        exact: true,
-        component: Graphics,
-    },
-    {
-        path: "/configuration/host/setting",
-        exact: true,
-        component: Setting,
-    }*/
 
 
 ]

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import LeftMenu from "../../common/components/LeftMenu";
-import "./Template.scss"
-import AddTemplate from "./AddTemplate";
-import {Button, Input, Modal, Space, Table, Tabs} from "antd";
-import templateStore from "../store/TemplateStore";
-import {withRouter} from "react-router-dom";
-import TemplateAddMonitor from "../../../setting/template/components/TemplateAddMonitor";
+import {withRouter} from "react-router";
+import {Col, Input, Modal, Row, Space, Table, Tabs} from "antd";
+import "./TemplateSetting.scss"
+import TemplateSettingAdd from "./TemplateSettingAdd";
+import templateSettingStore from "../store/TemplateSettingStore";
+import TemplateAddMonitor from "./TemplateAddMonitor";
+import templateStore from "../../../configuration/template/store/TemplateStore";
+
 
 const monitorColumns = [
     {
@@ -54,52 +55,52 @@ const monitorColumns = [
 
 ];
 
-const Template = (props) => {
+const TemplateSetting = (props) => {
 
-    const [dataList, setDataList] = useState([]);
+    const {findTemplatePage,setSearchCondition,createTemplate,deleteTemplate} = templateSettingStore;
+
+    const {findTemplateByMonitor, deleteTemplateById, findMonitorByTemplateId} = templateStore;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition, findMonitorByTemplateId} = templateStore;
+    const [rowData, setRowData] = useState({});
+
+    const [dataList,setDataList] = useState([]);
 
     const [monitorList, setMonitorList] = useState([]);
 
-    const [rowData, setRowData] = useState({});
-
     useEffect(async () => {
-        setSearchCondition({
-            name: null,
-            hostId: localStorage.getItem(`hostId`),
-            monitorSource: 2
-        })
 
-        const resData = await findTemplateByMonitor();
+        const templatePage = await findTemplatePage();
 
-        setDataList([...resData])
+        setDataList([...templatePage.dataList])
+
     }, []);
-    const deleteTemplate = async (id) => {
-
-        await deleteTemplateById({
-            hostId: localStorage.getItem("hostId"),
-            templateId: id
-        });
-
-        const resData = await findTemplateByMonitor();
-
-        setDataList([...resData]);
-    };
 
     const searchName = async (event) => {
-
         const name = event.target.value;
 
         setSearchCondition({name: name});
 
-        const resData = await findTemplateByMonitor();
+        const resData = await findTemplatePage();
 
-        setDataList([...resData])
-
+        setDataList([...resData.dataList])
     };
+
+    async function showTemplateDetails(record) {
+        setIsModalOpen(true);
+
+        setRowData({
+            id: record.id,
+            name:record.name,
+            superiorId: record.superiorId
+        })
+
+        const resData = await findMonitorByTemplateId(record.id);
+
+        setMonitorList([...resData.data])
+
+    }
 
     const handleOk = async () => {
         setIsModalOpen(false);
@@ -111,20 +112,14 @@ const Template = (props) => {
     };
 
 
-    async function showTemplateDetails(record) {
-        setIsModalOpen(true);
+    const deleteForTemplate= async (id) => {
 
-        setRowData({
-            id: record.id,
-            name:record.name,
-            monitorNum: record.monitorNum
-        })
+        await deleteTemplate(id);
 
-        const resData = await findMonitorByTemplateId(record.id);
+        const resData = await findTemplatePage();
 
-        setMonitorList([...resData.data])
-
-    }
+        setDataList([...resData.dataList]);
+    };
 
     const columns = [
         {
@@ -135,54 +130,53 @@ const Template = (props) => {
                                             onClick={() => showTemplateDetails(record)}>{text}</span>,
         },
         {
+            title: '模板状态',
+            dataIndex: 'isOpen',
+            id: 'isOpen',
+            render:(isOpen) =>{
+                let config = {
+                    1:"开启",
+                    2:"关闭"
+                }
+                return config[isOpen];
+            }
+        },
+        {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             id: 'monitorNum',
         },
-        /*{
-            title: '触发器数量',
-            dataIndex: 'triggerNum',
-            id: 'triggerNum',
-        },*/
+        {
+            title: '模板描述',
+            dataIndex: 'describe',
+            id: 'describe',
+        },
         {
             title: '操作',
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <div style={{cursor: "pointer"}} onClick={() => deleteTemplate(record.id)}>移除</div>
+                    <div style={{cursor: "pointer"}} onClick={() => deleteForTemplate(record.id)}>删除</div>
                 </Space>
             ),
         },
 
     ];
 
-
-    async function searchMonitorForTemplate() {
-        //根据模板id查询模板下的监控项
-
-        const resData = await findMonitorByTemplateId(rowData.id);
-
-        setMonitorList([...resData.data])
-    }
-
     return (
-        <div>
-            <div className="host-body">
-                <div className="box-template">
-                    <LeftMenu/>
-                    <div className="box-template-right">
-                        <div className="box-template-title">
-                            <div className="box-template-title-text">
-                                主机下模板
-                            </div>
-                            <div className="template-top-right">
-                                <div>
-                                    <AddTemplate dataList={dataList} setDataList={setDataList}/>
-                                </div>
-
-                            </div>
+        <Row className="box-templateSetting">
+            <div className="box-templateSetting-body">
+                <Col>
+                    <div className="box-templateSetting-div">
+                        <div className="box-privilege-breadcrumb">
+                            <Space className="box-templateSetting-space">
+                                <span>模板</span>
+                            </Space>
+                            <Space>
+                                <TemplateSettingAdd/>
+                            </Space>
                         </div>
-                        <div className="template-kind-options">
+                        <div className="template-kind-option">
                             <div className="template-kind-search">
                                 <div>
                                     <Input placeholder="请输入模板名称" onPressEnter={(event) => searchName(event)}/>
@@ -190,7 +184,7 @@ const Template = (props) => {
                             </div>
                         </div>
 
-                        <div className="box-template-table">
+                        <div className="box-templateSetting-table">
                             <Table
                                 rowKey={record => record.id}
                                 columns={columns}
@@ -200,6 +194,7 @@ const Template = (props) => {
                                 }
                                 }
                             />
+
                             <Modal
                                 open={isModalOpen}
                                 title="模板详情"
@@ -224,10 +219,11 @@ const Template = (props) => {
                             </Modal>
                         </div>
                     </div>
-                </div>
+                </Col>
             </div>
-        </div>
+
+        </Row>
     );
 };
 
-export default withRouter(Template);
+export default withRouter(TemplateSetting);

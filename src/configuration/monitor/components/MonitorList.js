@@ -42,8 +42,8 @@ const MonitorList = (props) => {
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
-            expression:record.monitorItem.name,
-            monitorItemId: record.expression,
+            expression:record.monitorItem.id,
+            monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
             monitorSource: 1,
@@ -54,7 +54,7 @@ const MonitorList = (props) => {
             id: record.id,
             name: record.name,
             type: record.monitorType,
-            monitorItemId: record.expression,
+            monitorItemId: record.monitorItem.id,
             monitorItem:record.monitorItem,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -83,6 +83,18 @@ const MonitorList = (props) => {
             id: 'expression',
         },
         {
+            title: '监控项来源',
+            dataIndex: 'monitorSource',
+            id: 'monitorSource',
+            render:(monitorSource) => {
+                let config = {
+                    1: "主机",
+                    2: "模板",
+                }
+                return config[monitorSource];
+            }
+        },
+        {
             title: '间隔时间',
             dataIndex: 'intervalTime',
             id: 'intervalTime',
@@ -99,7 +111,7 @@ const MonitorList = (props) => {
             render:(monitorStatus) => {
                 let config = {
                     1: "启用",
-                    2: "未启用",
+                    2: "关闭",
                 }
                 return config[monitorStatus];
             }

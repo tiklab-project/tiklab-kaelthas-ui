@@ -13,7 +13,7 @@ const UpdateMonitor = (props) => {
 
     const {columnData, setColumnData} = props;
 
-    const {updateMonitorById, findMonitorItemByName, findMonitorCondition} = monitorStore;
+    const {updateMonitorById, findMonitorItemByName, findMonitorCondition,findMonitorItemAll} = monitorStore;
 
     const monitorType = ['CPU监控', 'IO监控', '内存监控'];
 
@@ -46,7 +46,7 @@ const UpdateMonitor = (props) => {
                 intervalTime: res.intervalTime,
                 dataRetentionTime: res.dataRetentionTime,
                 monitorSource: 1,
-                monitorStatus: 1
+                monitorStatus: res.monitorStatus
             });
 
             const resData = await findMonitorCondition();
@@ -69,6 +69,12 @@ const UpdateMonitor = (props) => {
 
         setMonitorItemList([...resData])
     };
+
+    useEffect(async () => {
+        const resData = await findMonitorItemAll()
+
+        setMonitorItemList([...resData])
+    }, []);
 
 
     return (
@@ -181,6 +187,29 @@ const UpdateMonitor = (props) => {
                         >
                             <Input/>
                         </Form.Item>
+
+                        <Form.Item
+                            label="监控项状态"
+                            name="monitorStatus"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请选择监控项状态!',
+                                },
+                            ]}
+                        >
+
+                            <Select
+                                placeholder="请选择您的监控项状态"
+                                onChange={onMonitorChange}
+                                allowClear
+                            >
+                                <Option value={1}>{"开启"}</Option>
+                                <Option value={2}>{"关闭"}</Option>
+                            </Select>
+
+                        </Form.Item>
+
                     </Form>
                 </div>
             </Modal>
