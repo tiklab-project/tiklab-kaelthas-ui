@@ -209,11 +209,10 @@ const Template = (props) => {
                                 width={1000}
                             >
                                 <div className="box-template-details-text">模板名称:{rowData.name}</div>
-                                <div className="box-template-details-text">模板下监控项数量：{rowData.superiorId}</div>
+                                <div className="box-template-details-text">模板下监控项数量：{rowData.monitorNum}</div>
 
                                 <Tabs defaultActiveKey="1">
                                     <Tabs.TabPane tab="监控项信息" key="2">
-                                        <TemplateAddMonitor rowData={rowData}/>
                                         <Table columns={monitorColumns} dataSource={monitorList}/>
                                     </Tabs.TabPane>
                                     <Tabs.TabPane tab="其他" key="3">

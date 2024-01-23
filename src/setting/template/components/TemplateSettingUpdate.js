@@ -1,28 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
 import {Button, Form, Input, Modal, Select} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
+
 const {Option} = Select
 const TemplateSettingAdd = (props) => {
 
 
-    const [form] = Form.useForm();
+    const {isOpen, setIsOpen, form, rowData, setDataList, dataList} = props;
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const {updateTemplate, findTemplatePage} = templateSettingStore;
 
-    const {createTemplate,findTemplatePage} = templateSettingStore;
 
-    const {setDataList,dataList} = props;
-
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-
+    useEffect(() => {
+        console.log(form.getFieldsValue())
+        console.log(rowData)
+    }, []);
 
     const handleOk = async () => {
 
         form.validateFields().then(async res => {
-            await createTemplate({
+            await updateTemplate({
+                id: rowData.id,
                 name: res.name,
                 isOpen: res.isOpen,
                 describe: res.describe
@@ -31,13 +30,13 @@ const TemplateSettingAdd = (props) => {
             const resData = await findTemplatePage();
 
             setDataList([...resData.dataList]);
-        })
 
-        setIsModalOpen(false);
+        })
+        setIsOpen(false);
     };
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setIsOpen(false);
     };
 
     const addDataForMonitor = () => {
@@ -51,10 +50,7 @@ const TemplateSettingAdd = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
-                新建模板
-            </Button>
-            <Modal title="新建模板" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
+            <Modal title="编辑模板" open={isOpen} onOk={handleOk} onCancel={handleCancel} visible={isOpen}
                    cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
                 <div className="TemplateSettingAddForm">
                     <div>

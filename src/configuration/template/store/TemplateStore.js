@@ -42,7 +42,7 @@ export class TemplateStore {
         return resData.data;
     }
 
-    //新增
+    //向主机当中添加模板
     @action
     addTemplate = async (option) =>{
         const resData = await Service("/template/addTemplate",option);
@@ -50,11 +50,11 @@ export class TemplateStore {
     }
 
 
-    //删除单个
+    //从主机当中移除模板
     @action
     deleteTemplateById = async (params) =>{
 
-        await Service("/template/deleteTemplateById", params);
+        await Service("/template/removeTemplateForHost", params);
     }
 
     //根据模板id查询模板下的监控项
@@ -62,7 +62,7 @@ export class TemplateStore {
     findMonitorByTemplateId = async (id) =>{
         const params = new FormData();
         params.append("templateId",id);
-        const resData = Service("/monitor/findMonitorByTemplateId",params)
+        const resData = Service("/templateMonitor/findTemplateMonitorByTemplateId",params)
         return resData;
     }
 

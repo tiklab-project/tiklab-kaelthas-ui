@@ -1,0 +1,19 @@
+.box-templateSetting-details-between {
+  display: flex;
+  justify-content: space-between;
+
+  .box-templateSetting-details-left {
+    width: 30%;
+
+    .box-templateSetting-details-text {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      width: 150px;
+      margin: 20px 20px;
+    }
+  }
+
+
+}

@@ -1,4 +1,4 @@
-.box-template-details{
+.box-template-details {
   display: flex;
   padding: 20px;
   background-color: #fff;
@@ -23,13 +23,19 @@
     height: 20px;
     margin: 20px 20px;
 
-    .box-template-details-text {
+    .box-template-details-between {
       display: flex;
-      align-items: center;
-      gap: 5px;
-      width: 150px;
-      margin: 10px 20px;
+      justify-content: space-between;
+
+      .box-template-details-text {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        width: 150px;
+        margin: 10px 20px;
+      }
     }
+
 
   }
 }
