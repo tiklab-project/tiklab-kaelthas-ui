@@ -55,6 +55,7 @@ const TriggerList = (props) => {
         setRowData({
             id: record.id,
             name: record.name,
+            expressionId:record.expressionId,
             severityLevel: record.severityLevel,
             mediumType: record.mediumType,
             describe: record.describe

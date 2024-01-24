@@ -18,14 +18,11 @@ const UpdateGraphics = (props) => {
 
     const {updateGraphicsStoreById, getGraphicsStoreList, findMonitorListById} = graphicsStore;
 
-    console.log('columnData:', columnData)
-
-    /*const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };*/
-
     useEffect(async () => {
-        const resMonitorList = await findMonitorListById(localStorage.getItem("hostId"))
+        const resMonitorList = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: 1
+        })
         setMonitorList([...resMonitorList])
     }, []);
 
@@ -55,6 +52,10 @@ const UpdateGraphics = (props) => {
 
     };
 
+
+    function onGenderChange(value) {
+        console.log(`selected ${value}`);
+    }
 
     return (
         <>
@@ -121,19 +122,19 @@ const UpdateGraphics = (props) => {
                             </Form.Item>
 
                             <Form.Item
-                                label="监控指标"
+                                label="监控项"
                                 name="monitorId"
                                 rules={[
                                     {
                                         required: true,
-                                        message: '请选择监控项指标!',
+                                        message: '请选择监控项!',
                                     },
                                 ]}
                             >
 
                                 <Select
-                                    placeholder="请选择监控项指标"
-                                    /*onChange={onGenderChange}*/
+                                    placeholder="请选择监控项"
+                                    onChange={onGenderChange}
                                     allowClear
                                     showSearch
                                 >

@@ -19,7 +19,8 @@ const Monitor = (props) => {
 
         await setSearchCondition({
             hostId: hostId,
-            name: null
+            name: null,
+            monitorSource:null
         });
 
         const resData = await findMonitorCondition();

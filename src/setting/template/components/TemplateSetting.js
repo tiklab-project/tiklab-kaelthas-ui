@@ -165,6 +165,7 @@ const TemplateSetting = (props) => {
                                     isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                     setRowData={setRowData} rowData={rowData}
                                     monitorList={monitorList} setMonitorList={setMonitorList}
+                                    dataList={dataList} setDataList={setDataList}
                                 />
 
                             </div>

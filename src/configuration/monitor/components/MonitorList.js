@@ -1,4 +1,4 @@
-import {Button, Drawer, Form, Space, Table, Tag} from 'antd';
+import {Alert, Button, Drawer, Form, Space, Table, Tag} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./MonitorListDetails";
@@ -18,16 +18,18 @@ const MonitorList = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
-    const removeToList = async (id) => {
+    const removeToList = async (record) => {
 
-        await deleteMonitorById(id);
+        if (record.monitorSource === 1){
 
-        const resData = await findMonitorCondition();
+            await deleteMonitorById(record.id);
 
-        console.log(resData)
+            const resData = await findMonitorCondition();
 
-        setListData([...resData.dataList])
+            console.log(resData)
 
+            setListData([...resData.dataList])
+        }
 
     }
 
@@ -46,7 +48,7 @@ const MonitorList = (props) => {
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
-            monitorSource: 1,
+            monitorSource: record.monitorSource,
             monitorStatus: record.monitorStatus
         })
 
@@ -58,7 +60,7 @@ const MonitorList = (props) => {
             monitorItem:record.monitorItem,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
-            monitorSource: 1,
+            monitorSource: record.monitorSource,
             monitorStatus: record.monitorStatus
         })
 
@@ -126,7 +128,7 @@ const MonitorList = (props) => {
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => removeToList(record.id)}>删除</span>
+                    <span style={{cursor: "pointer"}} onClick={() => removeToList(record)}>删除</span>
                 </Space>
             ),
         },

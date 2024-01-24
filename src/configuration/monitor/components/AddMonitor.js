@@ -22,8 +22,8 @@ const AddMonitor = (props) => {
 
 
     const handleOk = async () => {
-        form.validateFields().then(res => {
-            addMonitor({
+        form.validateFields().then(async res => {
+            await addMonitor({
                 hostId: localStorage.getItem("hostId"),
                 name: res.monitorName,
                 type: res.monitorType,
@@ -35,13 +35,10 @@ const AddMonitor = (props) => {
 
             })
 
+            const resData = await findMonitorCondition();
+
+            setListData([...resData.dataList])
         })
-
-        const resData = await findMonitorCondition();
-
-        console.log(resData)
-
-        setListData([...resData.dataList])
 
         setIsModalOpen(false);
     };

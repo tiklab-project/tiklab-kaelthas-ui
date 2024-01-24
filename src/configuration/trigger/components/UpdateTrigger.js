@@ -43,6 +43,7 @@ const UpdateTrigger = (props) => {
 
             await updateTrigger({
                 id: rowData.id,
+                expressionId:rowData.expressionId,
                 name: res.name,
                 monitorId: res.monitorId,
                 triggerStatus: 1,
@@ -52,6 +53,8 @@ const UpdateTrigger = (props) => {
                 severityLevel: res.severityLevel,
                 describe: res.describe,
             });
+
+
 
             getTriggerList().then(res =>{
                 setDataList([...res.dataList])

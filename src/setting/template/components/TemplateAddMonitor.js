@@ -31,8 +31,9 @@ const TemplateAddMonitor = (props) => {
 
 
     const handleOk = async () => {
+
         form.validateFields().then(async res => {
-            addTemplateMonitor({
+            await addTemplateMonitor({
                 name: res.monitorName,
                 type: res.monitorType,
                 monitorItemId: res.monitorExpression,
@@ -191,20 +192,20 @@ const TemplateAddMonitor = (props) => {
                             rules={[
                                 {
                                     required: true,
-                                    message: '请选择监控项指标!',
+                                    message: '请选择是否启用!',
                                 },
                             ]}
                         >
 
                             <Select
-                                placeholder="请选择监控项指标"
+                                placeholder="请选择是否启用"
                                 allowClear
                                 value={expression.id}
                                 onChange={onSecondCityChange}
                             >
 
                                 <Option value={1}>{"启用"}</Option>))
-                                <Option value={2}>{"未启用"}</Option>))
+                                <Option value={2}>{"关闭"}</Option>))
 
                             </Select>
 

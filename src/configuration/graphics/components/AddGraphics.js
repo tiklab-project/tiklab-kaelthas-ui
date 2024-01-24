@@ -41,7 +41,10 @@ const AddGraphics = (props) => {
     };
 
     useEffect(async () => {
-        const resMonitorList = await findMonitorListById(localStorage.getItem("hostId"));
+        const resMonitorList = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: 1
+        });
         setMonitorData([...resMonitorList])
     }, []);
 

@@ -10,22 +10,32 @@ const TemplateSettingMonitorList = (props) => {
 
 
 
-    const {deleteMonitorById} = templateSettingStore;
+    const {deleteMonitorById,findTemplateMonitorByTemplateId,findTemplatePage} = templateSettingStore;
 
     const [form] = Form.useForm();
 
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-    const {setIsModalOpen,isModalOpen,rowData,setRowData,monitorList,setMonitorList} = props;
+    const {setIsModalOpen,isModalOpen,rowData,setRowData,monitorList,setMonitorList,dataList,setDataList} = props;
 
     const [monitorId,setMonitorId] = useState({});
 
     const handleOk = async () => {
+
+        const templatePage = await findTemplatePage();
+
+        setDataList([...templatePage.dataList])
+
         setIsModalOpen(false);
 
     };
 
-    const handleCancel = () => {
+    const handleCancel = async () => {
+
+        const templatePage = await findTemplatePage();
+
+        setDataList([...templatePage.dataList])
+
         setIsModalOpen(false);
     };
 
@@ -50,7 +60,12 @@ const TemplateSettingMonitorList = (props) => {
     }
 
     async function deleteMonitorForTemplate(id) {
+
         await deleteMonitorById(id)
+
+        const resData = await findTemplateMonitorByTemplateId(rowData.id);
+
+        setMonitorList([...resData.data])
     }
 
 

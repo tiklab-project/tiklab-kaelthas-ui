@@ -96,12 +96,8 @@ const Configuration = (props) => {
 
     ];
 
-    const Search = () => <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>;
-
     const changePage = async (pagination, filters, sorter) => {
-        console.log("pagination当中的数据:", pagination)
-        console.log("filters当中的数据:", filters)
-        console.log("sorter当中的数据:", sorter)
+
         const resData = await findPageHost(
             {
                 pageParam: {
@@ -149,7 +145,7 @@ const Configuration = (props) => {
 
                         </div>
                         <div className="box-configuration-body-search">
-                            <Search/>
+                            <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>
                         </div>
                     </div>
                     <div className="box-configuration-body-list">

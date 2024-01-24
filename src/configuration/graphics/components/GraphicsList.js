@@ -49,8 +49,6 @@ const GraphicsList = (props) => {
             monitorId:record.monitorId
         })
 
-        console.log(record)
-
     };
 
     const columns = [
