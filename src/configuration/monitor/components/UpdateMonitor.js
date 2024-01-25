@@ -15,22 +15,13 @@ const UpdateMonitor = (props) => {
 
     const {updateMonitorById, findMonitorItemByName, findMonitorCondition,findMonitorItemAll} = monitorStore;
 
-    const monitorType = ['CPU', 'IO', 'memory'];
-
     const [monitorItemList, setMonitorItemList] = useState([]);
-
-    /*const showModal = () => {
-        setIsModalOpen(true);
-    };*/
 
     // form.setFieldsValue(columnData)
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-    /*useEffect(() => {
-        form.setFieldsValue(columnData)
-    }, []);*/
 
     const handleOk = () => {
         setIsModalOpen(false);
@@ -38,7 +29,7 @@ const UpdateMonitor = (props) => {
         form.validateFields().then(async res => {
 
             await updateMonitorById({
-
+                hostId:localStorage.getItem("hostId"),
                 id: columnData.id,
                 name: res.name,
                 type: res.monitorType,
@@ -49,10 +40,7 @@ const UpdateMonitor = (props) => {
                 monitorStatus: res.monitorStatus
             });
 
-            console.log(columnData)
-
             const resData = await findMonitorCondition();
-
             setListData([...resData.dataList])
         })
 
@@ -129,11 +117,10 @@ const UpdateMonitor = (props) => {
                                 placeholder="请选择您的监控类型"
                                 onChange={onMonitorChange}
                                 allowClear
-                                options={monitorType && monitorType.map((province) => ({
-                                    label: province,
-                                    value: province,
-                                }))}
                             >
+                                <Option value={"CPU"} key={1}>{"CPU"}</Option>
+                                <Option value={"IO"} key={2}>{"IO"}</Option>
+                                <Option value={"memory"} key={3}>{"memory"}</Option>
                             </Select>
 
                         </Form.Item>
@@ -156,7 +143,7 @@ const UpdateMonitor = (props) => {
                             >
                                 {
                                     monitorItemList && monitorItemList.map(item => (
-                                        <Option value={item.id}>{item.name}</Option>
+                                        <Option value={item.id} key={item.id}>{item.name}</Option>
                                     ))
                                 }
 
@@ -206,8 +193,8 @@ const UpdateMonitor = (props) => {
                                 onChange={onMonitorChange}
                                 allowClear
                             >
-                                <Option value={1}>{"开启"}</Option>
-                                <Option value={2}>{"关闭"}</Option>
+                                <Option value={1} key={1}>{"开启"}</Option>
+                                <Option value={2} key={2}>{"关闭"}</Option>
                             </Select>
 
                         </Form.Item>

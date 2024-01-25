@@ -29,7 +29,8 @@ const AddGraphics = (props) => {
                 width: res.width,
                 height: res.height,
                 describe: res.describe,
-                monitorId: res.monitorId
+                monitorId: res.monitorId,
+                source:res.source
             });
 
             getGraphicsStoreList().then((res) => {
@@ -42,8 +43,7 @@ const AddGraphics = (props) => {
 
     useEffect(async () => {
         const resMonitorList = await findMonitorListById({
-            hostId: localStorage.getItem("hostId"),
-            monitorSource: 1
+            hostId: localStorage.getItem("hostId")
         });
         setMonitorData([...resMonitorList])
     }, []);
@@ -60,6 +60,14 @@ const AddGraphics = (props) => {
         console.log('Failed:', errorInfo);
     };
 
+
+    async function onGenderChange(value) {
+        const resMonitorList = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: value
+        })
+        setMonitorData([...resMonitorList])
+    }
 
     return (
         <>
@@ -127,6 +135,30 @@ const AddGraphics = (props) => {
                             ]}
                         >
                             <Input/>
+                        </Form.Item>
+
+                        <Form.Item
+                            label="监控项来源"
+                            name="source"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: '请选择监控项来源!',
+                                },
+                            ]}
+                        >
+
+                            <Select
+                                placeholder="请选择监控项来源"
+                                onChange={onGenderChange}
+                                allowClear
+                                showSearch
+                            >
+                                <Option value={1} key={1}>{"主机下监控项"}</Option>
+                                <Option value={2} key={2}>{"模板下监控项"}</Option>
+
+                            </Select>
+
                         </Form.Item>
 
                         <Form.Item

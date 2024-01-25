@@ -37,7 +37,9 @@ const GraphicsList = (props) => {
             width: record.width,
             height: record.height,
             describe:record.describe,
-            monitorId:record.monitorId
+            monitorId:record.monitorId,
+            source:record.source,
+            monitorName:record.monitorName
         });
 
         setColumnData({
@@ -72,7 +74,7 @@ const GraphicsList = (props) => {
         },
         {
             title: '监控名称',
-            dataIndex: ['monitor','name'],
+            dataIndex: 'monitorName',
             id: 'monitorName',
         },
         {

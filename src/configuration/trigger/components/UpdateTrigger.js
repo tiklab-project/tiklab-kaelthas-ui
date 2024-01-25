@@ -8,18 +8,20 @@ const UpdateTrigger = (props) => {
 
     const {isModalOpen, setIsModalOpen} = props;
 
-    const {rowData,setRowData} = props;
+    const {rowData, setRowData} = props;
 
     const {form} = props;
 
-    const {updateTrigger,findMonitorListById,getTriggerList,findTriggerExpressionAll} = triggerStore;
+    const {updateTrigger, findMonitorListById, getTriggerList, findTriggerExpressionAll} = triggerStore;
 
     const [monitorData, setMonitorData] = useState([]);
 
     const [triggerExData, setTriggerExData] = useState([]);
 
     useEffect(async () => {
-        const resData = await findMonitorListById(localStorage.getItem("hostId"));
+        const resData = await findMonitorListById({
+            hostId: localStorage.getItem("hostId")
+        });
         setMonitorData([...resData])
 
         const triggerExAll = await findTriggerExpressionAll();
@@ -39,11 +41,13 @@ const UpdateTrigger = (props) => {
 
         form.validateFields().then(async res => {
 
-            console.log("修改当中的res:",res)
+            console.log("修改当中的res:", res)
+
+            console.log(rowData.source)
 
             await updateTrigger({
                 id: rowData.id,
-                expressionId:rowData.expressionId,
+                expressionId: rowData.expressionId,
                 name: res.name,
                 monitorId: res.monitorId,
                 triggerStatus: 1,
@@ -52,11 +56,11 @@ const UpdateTrigger = (props) => {
                 mediumType: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
+                source: rowData.source
             });
 
 
-
-            getTriggerList().then(res =>{
+            getTriggerList().then(res => {
                 setDataList([...res.dataList])
             })
 
@@ -68,6 +72,50 @@ const UpdateTrigger = (props) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
+    async function checkSource(value) {
+        const resData = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: value
+        });
+
+        setMonitorData([...resData])
+
+        if (resData !== null) {
+            form.setFieldsValue({
+                monitorId: resData[0].id
+            })
+        }
+
+    }
+
+    const onCheckMonitor = (value, options) => {
+
+        const type = options.children[2];
+
+        switch (type) {
+            case "主机":
+                rowData.source = 1
+                setRowData(rowData)
+                break;
+            case "模板":
+                rowData.source = 2
+                setRowData(rowData)
+                break;
+        }
+
+    }
+
+    const conversionMonitorType = (type) => {
+
+        switch (type) {
+            case 1:
+                return "主机";
+            case 2:
+                return "模板";
+        }
+
+    }
 
     return (
         <>
@@ -119,20 +167,21 @@ const UpdateTrigger = (props) => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: '请选择监控项指标!',
+                                        message: '请选择监控项!',
                                     },
                                 ]}
                             >
 
                                 <Select
-                                    placeholder="请选择您的监控类型"
-                                    /*onChange={onGenderChange}*/
+                                    placeholder="请选择您的监控项"
+                                    onChange={(value, options) => onCheckMonitor(value, options)}
                                     allowClear
                                     showSearch
                                 >
                                     {
                                         monitorData && monitorData.map(item => (
-                                            <Option key={item.id} value={item.id}>{item.name}</Option>
+                                            <Option key={item.id}
+                                                    value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
                                         ))
                                     }
                                 </Select>
@@ -153,12 +202,12 @@ const UpdateTrigger = (props) => {
                                     placeholder="范围关系关系"
                                     allowClear
                                 >
-                                    <Option value={1}>{">"}</Option>
-                                    <Option value={2}>{"<"}</Option>
-                                    <Option value={3}>{"="}</Option>
-                                    <Option value={4}>{">="}</Option>
-                                    <Option value={5}>{"<="}</Option>
-                                    <Option value={6}>{"<>"}</Option>
+                                    <Option value={1} key={1}>{">"}</Option>
+                                    <Option value={2} key={2}>{"<"}</Option>
+                                    <Option value={3} key={3}>{"="}</Option>
+                                    <Option value={4} key={4}>{">="}</Option>
+                                    <Option value={5} key={5}>{"<="}</Option>
+                                    <Option value={6} key={6}>{"<>"}</Option>
                                 </Select>
                             </Form.Item>
                             <Form.Item
@@ -190,10 +239,10 @@ const UpdateTrigger = (props) => {
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="方案1:电子邮件">方案1:电子邮件</Option>
-                                    <Option value="方案2:微信公众号">方案2:微信公众号</Option>
-                                    <Option value="方案3:钉钉">方案3:钉钉</Option>
-                                    <Option value="方案4:短信">方案4:短信</Option>
+                                    <Option value={1} key={1}>方案1:电子邮件</Option>
+                                    <Option value={2} key={2}>方案2:微信公众号</Option>
+                                    <Option value={3} key={3}>方案3:钉钉</Option>
+                                    <Option value={4} key={4}>方案4:短信</Option>
                                 </Select>
 
                             </Form.Item>
@@ -213,12 +262,12 @@ const UpdateTrigger = (props) => {
                                     placeholder="严重性选择"
                                     allowClear
                                 >
-                                    <Option value={1}>灾难</Option>
-                                    <Option value={2}>严重</Option>
-                                    <Option value={3}>一般严重</Option>
-                                    <Option value={4}>告警</Option>
-                                    <Option value={5}>信息</Option>
-                                    <Option value={6}>未分类</Option>
+                                    <Option value={1} key={1}>灾难</Option>
+                                    <Option value={2} key={2}>严重</Option>
+                                    <Option value={3} key={3}>一般严重</Option>
+                                    <Option value={4} key={4}>告警</Option>
+                                    <Option value={5} key={5}>信息</Option>
+                                    <Option value={6} key={6}>未分类</Option>
                                 </Select>
 
                             </Form.Item>

@@ -15,9 +15,9 @@ const TriggerList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(() => {
+    useEffect(async () => {
 
-        setSearchCondition({hostId: localStorage.getItem("hostId")})
+        await setSearchCondition({hostId: localStorage.getItem("hostId")})
 
         getTriggerList().then(res => {
             setDataList([...res.dataList])
@@ -48,7 +48,8 @@ const TriggerList = (props) => {
                 describe: record.describe,
                 numericalValue: record.numericalValue,
                 operator: record.operator,
-                expression: record.expression
+                expression: record.expression,
+                source:record.source
             }
         )
 
@@ -58,7 +59,8 @@ const TriggerList = (props) => {
             expressionId:record.expressionId,
             severityLevel: record.severityLevel,
             mediumType: record.mediumType,
-            describe: record.describe
+            describe: record.describe,
+            source:record.source
         })
 
         console.log(record)
@@ -108,6 +110,15 @@ const TriggerList = (props) => {
             title: '消息通知方案',
             dataIndex: 'mediumType',
             id: 'mediumType',
+            render:(mediumType) =>{
+                let config = {
+                    1:"方案1:电子邮件",
+                    2:"方案2:微信公众号",
+                    3:"方案3:钉钉",
+                    4:"方案4:短信",
+                }
+                return config[mediumType];
+            }
         },
         {
             title: '告警等级',

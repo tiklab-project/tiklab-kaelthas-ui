@@ -19,18 +19,27 @@ const Host = (props) => {
 
         switch (resData.state) {
             case 1:
-                resData.state = "已启用"
+                resData.state = "启用";
+                break;
             case 2:
-                resData.state = "未启用"
+                resData.state = "未启用";
+                break;
+            default:
+                resData.state = "未知";
         }
 
         switch (resData.usability) {
             case 1:
-                resData.usability = "可用"
+                resData.usability = "可用";
+                break;
             case 2:
-                resData.usability = "不可用"
+                resData.usability = "不可用";
+                break;
             case 3:
-                resData.usability = "未知"
+                resData.usability = "未知";
+                break;
+            default:
+                resData.usability = "未知";
         }
 
         setDataList({...resData})

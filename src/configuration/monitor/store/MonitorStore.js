@@ -60,7 +60,7 @@ export class MonitorStore {
 
     @action
     addMonitor = async (params) => {
-        await Service("/monitor/addMonitor", params)
+        await Service("/monitor/createMonitor", params)
     }
 
     @action

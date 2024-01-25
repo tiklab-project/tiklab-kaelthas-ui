@@ -36,8 +36,8 @@ export class TriggerStore {
 
     //根据主机id查询监控项列表
     @action
-    findMonitorListById = async (id) => {
-        const monitorList = await Service("/monitor/findAllMonitor", {hostId:id})
+    findMonitorListById = async (option) => {
+        const monitorList = await Service("/monitor/findAllMonitor", option)
         this.monitorList = monitorList.data;
         return monitorList.data;
     }

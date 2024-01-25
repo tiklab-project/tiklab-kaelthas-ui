@@ -20,8 +20,7 @@ const UpdateGraphics = (props) => {
 
     useEffect(async () => {
         const resMonitorList = await findMonitorListById({
-            hostId: localStorage.getItem("hostId"),
-            monitorSource: 1
+            hostId: localStorage.getItem("hostId")
         })
         setMonitorList([...resMonitorList])
     }, []);
@@ -41,7 +40,8 @@ const UpdateGraphics = (props) => {
                 height: res.height,
                 describe: res.describe,
                 name: res.name,
-                monitorId: res.monitorId
+                monitorId: res.monitorId,
+                source:res.source
             })
 
             getGraphicsStoreList().then((res) => {
@@ -53,8 +53,12 @@ const UpdateGraphics = (props) => {
     };
 
 
-    function onGenderChange(value) {
-        console.log(`selected ${value}`);
+    async function onGenderChange(value) {
+        const resMonitorList = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: value
+        })
+        setMonitorList([...resMonitorList])
     }
 
     return (
@@ -122,6 +126,30 @@ const UpdateGraphics = (props) => {
                             </Form.Item>
 
                             <Form.Item
+                                label="监控项来源"
+                                name="source"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请选择监控项来源!',
+                                    },
+                                ]}
+                            >
+
+                                <Select
+                                    placeholder="请选择监控项来源"
+                                    onChange={onGenderChange}
+                                    allowClear
+                                    showSearch
+                                >
+                                    <Option value={1} key={1}>{"主机下监控项"}</Option>
+                                    <Option value={2} key={2}>{"模板下监控项"}</Option>
+
+                                </Select>
+
+                            </Form.Item>
+
+                            <Form.Item
                                 label="监控项"
                                 name="monitorId"
                                 rules={[
@@ -134,7 +162,7 @@ const UpdateGraphics = (props) => {
 
                                 <Select
                                     placeholder="请选择监控项"
-                                    onChange={onGenderChange}
+                                    // onChange={onGenderChange}
                                     allowClear
                                     showSearch
                                 >

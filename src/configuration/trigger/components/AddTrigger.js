@@ -9,9 +9,11 @@ const AddTrigger = (props) => {
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {addTrigger, findMonitorListById,getTriggerList, monitorList} = triggerStore;
+    const {addTrigger, findMonitorListById, getTriggerList, monitorList} = triggerStore;
 
     const [monitorData, setMonitorData] = useState([]);
+
+    const [rowData, setRowData] = useState({});
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -21,7 +23,9 @@ const AddTrigger = (props) => {
     };
 
     useEffect(async () => {
-        const resData = await findMonitorListById(localStorage.getItem("hostId"));
+        const resData = await findMonitorListById({
+            hostId: localStorage.getItem("hostId")
+        });
         setMonitorData([...resData])
     }, []);
 
@@ -38,6 +42,7 @@ const AddTrigger = (props) => {
                 mediumType: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
+                source: rowData.source
             });
 
             const resData = await getTriggerList();
@@ -46,13 +51,53 @@ const AddTrigger = (props) => {
         })
 
 
-
         setIsModalOpen(false);
     };
 
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
+    async function checkSource(value) {
+        const resData = await findMonitorListById({
+            hostId: localStorage.getItem("hostId"),
+            monitorSource: value
+        });
+        setMonitorData([...resData])
+
+        if (resData !== null){
+            form.setFieldsValue({
+                monitorId:resData[0].id
+            })
+        }
+
+    }
+
+    const onCheckMonitor = (value, options) => {
+        const type = options.children[2];
+
+        switch (type) {
+            case "主机":
+                rowData.source = 1
+                setRowData(rowData)
+                break;
+            case "模板":
+                rowData.source = 2
+                setRowData(rowData)
+                break;
+        }
+    };
+
+    function conversionMonitorType(monitorSource) {
+
+        switch (monitorSource) {
+            case 1:
+                return "主机";
+            case 2:
+                return "模板";
+        }
+
+    }
 
     return (
         <>
@@ -113,13 +158,13 @@ const AddTrigger = (props) => {
 
                                 <Select
                                     placeholder="请选择您的监控项"
-                                    /*onChange={onGenderChange}*/
+                                    onChange={(value, options) => onCheckMonitor(value, options)}
                                     allowClear
                                     showSearch
                                 >
                                     {
                                         monitorData && monitorData.map(item => (
-                                            <Option key={item.id} value={item.id}>{item.name}</Option>
+                                            <Option key={item.id} value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
                                         ))
                                     }
                                 </Select>
@@ -177,10 +222,10 @@ const AddTrigger = (props) => {
                                     /*onChange={onGenderChange}*/
                                     allowClear
                                 >
-                                    <Option value="方案1:电子邮件">方案1:电子邮件</Option>
-                                    <Option value="方案2:微信公众号">方案2:微信公众号</Option>
-                                    <Option value="方案3:钉钉">方案3:钉钉</Option>
-                                    <Option value="方案4:短信">方案4:短信</Option>
+                                    <Option value={1} key={1}>方案1:电子邮件</Option>
+                                    <Option value={2} key={2}>方案2:微信公众号</Option>
+                                    <Option value={3} key={3}>方案3:钉钉</Option>
+                                    <Option value={4} key={4}>方案4:短信</Option>
                                 </Select>
 
                             </Form.Item>
