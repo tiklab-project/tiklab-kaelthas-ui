@@ -42,12 +42,9 @@ const AddMonitor = (props) => {
                 monitorSource: 2,
                 monitorStatus: 1
             })
-
+            const resData = await findTemplateByMonitor();
+            setDataList([...resData]);
         })
-
-        const resData = await findTemplateByMonitor();
-
-        setDataList([...resData]);
 
         setIsModalOpen(false);
     };

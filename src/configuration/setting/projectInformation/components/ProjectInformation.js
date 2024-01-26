@@ -36,22 +36,6 @@ const ProjectInformation = (props) => {
 
     const [form] = Form.useForm();
     const onGenderChange = (value) => {
-        /*switch (value) {
-            case 'male':
-                form.setFieldsValue({
-                    note: 'Hi, man!',
-                });
-                return;
-            case 'female':
-                form.setFieldsValue({
-                    note: 'Hi, lady!',
-                });
-                return;
-            case 'other':
-                form.setFieldsValue({
-                    note: 'Hi there!',
-                });
-        }*/
 
         console.log("onGenderChange", value)
     };
@@ -60,11 +44,9 @@ const ProjectInformation = (props) => {
 
         await updateHost(values)
 
-        console.log(values);
-
-        return(
+        /*return(
             <Alert message="修改成功" type="success" />
-        )
+        )*/
     };
     const onReset = () => {
         form.resetFields();
@@ -72,22 +54,21 @@ const ProjectInformation = (props) => {
 
     useEffect(async () => {
         //调用根据id查询,将查询的数据放到表单当中
-        const resData = findHostById(localStorage.getItem("hostId"));
-        resData.then(res => {
+        const resData = await findHostById(localStorage.getItem("hostId"));
 
-            form.setFieldsValue({
-                id: localStorage.getItem("hostId"),
-                name: res.name,
-                ip: res.ip,
-                hostGroupId: res.hostGroup.id,
-                state: res.state,
-                describe:res.describe
-            })
-        })
 
         const resHostGroup = await findAllHostGroupList();
 
         setAllHostGroupList([...resHostGroup])
+
+        form.setFieldsValue({
+            id: localStorage.getItem("hostId"),
+            name: resData.name,
+            ip: resData.ip,
+            hostGroupId: resData.hostGroup === null ? null : resData.hostGroup.id,
+            state: resData.state,
+            describe: resData.describe
+        })
 
     }, []);
 
@@ -115,7 +96,7 @@ const ProjectInformation = (props) => {
                                 主机信息
                             </div>
                             <Collapse onChange={onChange} expandIconPosition="right">
-                                <Panel header="主机信息" key="1">
+                                <Panel header="主机信息" style={{fontSize:"15px",fontWeight:"bold"}} key="1">
                                     <Form {...layout}
                                           form={form}
                                           name="control-hooks"
@@ -191,34 +172,13 @@ const ProjectInformation = (props) => {
                                             label="描述"
                                             rules={[
                                                 {
-                                                    required: true,
+                                                    required: false,
                                                 },
                                             ]}
                                         >
                                             <Input/>
                                         </Form.Item>
 
-
-                                        {/*<Form.Item
-                                            noStyle
-                                            shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-                                        >
-                                            {({getFieldValue}) =>
-                                                getFieldValue('gender') === 'other' ? (
-                                                    <Form.Item
-                                                        name="customizeGender"
-                                                        label="Customize Gender"
-                                                        rules={[
-                                                            {
-                                                                required: true,
-                                                            },
-                                                        ]}
-                                                    >
-                                                        <Input/>
-                                                    </Form.Item>
-                                                ) : null
-                                            }
-                                        </Form.Item>*/}
                                         <Form.Item {...tailLayout}>
                                             <Button type="primary" htmlType="submit">
                                                 确定
@@ -229,7 +189,7 @@ const ProjectInformation = (props) => {
                                         </Form.Item>
                                     </Form>
                                 </Panel>
-                                <Panel header="删除主机" key="2">
+                                <Panel header="删除主机" style={{fontSize:"15px",fontWeight:"bold"}} key="2">
                                     <div className="dropDownMenu-box">
                                         <div style={{color: "#ff0000"}}>
                                             此主机及其事务、组件、附件和版本将在回收站中保留 60 天，之后将被永久删除。

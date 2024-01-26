@@ -7,7 +7,7 @@
     display: flex;
     flex: 1;
     flex-direction: row;
-    height: calc(100vh - 48px);
+    height: 100%;
 
     .setting-box-body-right {
       display: flex;
@@ -18,13 +18,13 @@
       margin-left: 12.5%;
       padding: 20px;
 
-      .setting-box-right-head{
+      .setting-box-right-head {
         display: flex;
         justify-content: space-between;
         margin-bottom: 10px;
         flex-direction: column;
 
-        .setting-box-right-head-text{
+        .setting-box-right-head-text {
           display: flex;
           font-size: 16px;
           font-weight: bold;

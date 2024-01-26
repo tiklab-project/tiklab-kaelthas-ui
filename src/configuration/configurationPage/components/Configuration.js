@@ -32,7 +32,6 @@ const Configuration = (props) => {
         console.log("路由跳转到host")
         props.history.push(`/hostList/${record.id}/hostDetails`);
         localStorage.setItem('hostId', record.id);
-        console.log(record.id)
     }
 
 

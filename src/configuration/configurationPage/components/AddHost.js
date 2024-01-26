@@ -12,7 +12,7 @@ const AddHost = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {templateList, findTemplateByName,findHostGroup,hostGroupList,addHost} = configurationStore;
+    const {templateList, findTemplateByName,findHostGroup,hostGroupList,addHost,findPageHost} = configurationStore;
 
     useEffect(() => {
         findTemplateByName().then(() => {
@@ -33,21 +33,25 @@ const AddHost = (props) => {
     const showModal = () => {
         setIsModalOpen(true);
     };
-    const handleOk = () => {
+
+    const handleOk = async () => {
 
         setIsModalOpen(false);
 
-        form.validateFields().then(res => {
-          const resMessage = addHost({
-              name:res.name,
-              ip:res.ip,
-              hostGroupId:res.hostGroupName,
-              templateId:res.templateName,
-              state:res.isOpen,
-          });
-            console.log(form.getFieldsValue())
+        form.validateFields().then(async res => {
+
+            const resMessage = await addHost({
+                name: res.name,
+                ip: res.ip,
+                hostGroupId: res.hostGroupName,
+                templateId: res.templateName,
+                state: res.isOpen,
+            });
+
+            const resData = await findPageHost()
+
+            setDataList([...resData])
         })
-        props.history.push("/configuration")
 
     };
 
@@ -159,7 +163,7 @@ const AddHost = (props) => {
                             name="hostGroupName"
                             rules={[
                                 {
-                                    required: false,
+                                    required: true,
                                     message: '请选择主机群组!',
                                 },
                             ]}

@@ -68,7 +68,7 @@ export class TemplateStore {
 
     @action
     addTemplateMonitor = (option) =>{
-        const templateMonitorId = Service("/template/createTemplateMonitor",option)
+        const templateMonitorId = Service("/templateMonitor/createTemplateMonitor",option)
         return templateMonitorId;
     }
 }
