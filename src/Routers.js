@@ -1,5 +1,6 @@
 import AsyncComponent from "./common/lazy/AsyncComponent";
 import {Redirect} from "react-router-dom";
+import React from ".";
 
 const Configuration = AsyncComponent(() => import( "./configuration/configurationPage/components/Configuration"))
 const Host = AsyncComponent(() => import( "./configuration/host/common/HostLayout"))
@@ -10,8 +11,8 @@ const Template = AsyncComponent(() => import( "./configuration/template/componen
 const Setting = AsyncComponent(() => import( "./configuration/setting/common/SettingLayout"))
 const Graphics = AsyncComponent(() => import( "./configuration/graphics/components/Graphics"))
 const Login = AsyncComponent(() => import( "./login/Login"))
-const HomePage = AsyncComponent(() => import('./home/common/components/HomePage'))
-const Index = AsyncComponent(() => import('../src/home/common/components/HomeLayout'))
+const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
+const Index = AsyncComponent(() => import('./home/common/HomeLayout'))
 const HostDetails = AsyncComponent(() => import('./configuration/host/components/Host'))
 const ProjectInformation = AsyncComponent(() => import('./configuration/setting/projectInformation/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./configuration/setting/member/Member'))
@@ -30,11 +31,11 @@ const Routes = [
         exact: true,
         component: Login,
     },
-    /*{
+    {
         path: "/",
         exact: true,
-        component: () => <Redirect to="/home"/>,
-    },*/
+        component: () => <Redirect to={"/home"}/>,
+    },
     {
         path: "/",
         component: Index,

@@ -1,0 +1,110 @@
+.home {
+  height: calc(100% - 48px);
+  overflow: auto;
+  background: #F8F8F8;
+
+
+  .home-body {
+    margin: 0 auto;
+    width: 1080px;
+    padding: 20px;
+
+    .home-content {
+      margin-bottom: 10px;
+      border-radius: 4px;
+      background: #fff;
+      overflow: hidden;
+
+      .home-content-title {
+        padding: 10px;
+        margin: 0 0 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .home-content-title-text {
+          display: flex;
+          align-items: center;
+          font-weight: bold;
+          font-size: 16px;
+        }
+      }
+
+      .home-content-detail {
+        padding: 10px;
+        min-height: 130px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+        overflow: hidden;
+        gap: 10px;
+        height: 104px;
+
+
+        .home-content-detail-item {
+          max-width: 240px;
+          min-width: 204px;
+          flex: 1;
+          padding: 12px;
+          flex-shrink: 0;
+          border-radius: 4px;
+          cursor: pointer;
+          background-color: #fafbfc;
+          box-sizing: border-box;
+          border-bottom: 2px solid #fafbfc;
+
+          .item-title {
+            margin-bottom: 10px;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            font-size: 16px;
+          }
+
+          .item-work {
+            display: flex;
+            gap: 10px;
+
+            .item-work-item {
+              font-size: 12px;
+              display: inline-flex;
+              width: 100%;
+              justify-content: space-between;
+              height: 30px;
+              line-height: 30px;
+              gap: 5px;
+            }
+          }
+        }
+
+      }
+
+    }
+
+    .home-alarm-table {
+      margin: 15px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 4px;
+
+      .home-table-title {
+        width: 100%;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .home-alarm-table-list{
+        margin-top: 10px;
+      }
+    }
+
+    .home-dynamic-table {
+      border-radius: 4px;
+      background: #fff;
+      margin: 0 0 10px;
+    }
+  }
+
+}

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {withRouter} from "react-router";
 import TemplateAddMonitor from "./TemplateAddMonitor";
-import {Form, Modal, Space, Table, Tabs} from "antd";
+import {Alert, Form, Modal, Space, Table, Tabs} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
 import "./TemplateSettingMonitorList.scss"
 import TemplateUpdateMonitor from "./TemplateUpdateMonitor";
@@ -19,6 +19,8 @@ const TemplateSettingMonitorList = (props) => {
     const {setIsModalOpen,isModalOpen,rowData,setRowData,monitorList,setMonitorList,dataList,setDataList} = props;
 
     const [monitorId,setMonitorId] = useState({});
+
+    const [visible, setVisible] = useState(false);
 
     const handleOk = async () => {
 
@@ -61,12 +63,20 @@ const TemplateSettingMonitorList = (props) => {
 
     async function deleteMonitorForTemplate(id) {
 
-        await deleteMonitorById(id)
+        const resMessage = await deleteMonitorById(id);
+
+        if (resMessage.code === 110){
+            setVisible(true);
+        }
 
         const resData = await findTemplateMonitorByTemplateId(rowData.id);
 
         setMonitorList([...resData.data])
     }
+
+    const handleClose = () => {
+        setVisible(false);
+    };
 
 
     const monitorColumns = [
@@ -146,7 +156,11 @@ const TemplateSettingMonitorList = (props) => {
                     </div>
 
                 </div>
-
+                <div>
+                    {visible ? (
+                        <Alert message="监控项下有关联触发器或者图表,无法删除" type="warning" banner={true} closable afterClose={handleClose} />
+                    ) : null}
+                </div>
 
                 <Tabs defaultActiveKey="1">
                     <Tabs.TabPane tab="监控项信息" key="2">
@@ -174,6 +188,7 @@ const TemplateSettingMonitorList = (props) => {
                                        monitorList={monitorList} setMonitorList={setMonitorList}
                 />
             </div>
+
         </div>
     );
 };

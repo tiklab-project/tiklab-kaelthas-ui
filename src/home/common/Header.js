@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Col, Row,  Space } from "antd";
 import { withRouter } from 'react-router';
 import { getUser } from 'thoughtware-core-ui';
-import logo from "../../../assets/png/monitorPng.png"
+import logo from "../../assets/png/monitorPng.png"
 
 import "./Header.scss";
 import {AppLink} from "thoughtware-licence-ui";

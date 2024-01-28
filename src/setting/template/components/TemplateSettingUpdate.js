@@ -6,16 +6,9 @@ import templateSettingStore from "../store/TemplateSettingStore";
 const {Option} = Select
 const TemplateSettingAdd = (props) => {
 
-
     const {isOpen, setIsOpen, form, rowData, setDataList, dataList} = props;
 
     const {updateTemplate, findTemplatePage} = templateSettingStore;
-
-
-    useEffect(() => {
-        console.log(form.getFieldsValue())
-        console.log(rowData)
-    }, []);
 
     const handleOk = async () => {
 
@@ -100,8 +93,8 @@ const TemplateSettingAdd = (props) => {
                                     onChange={onSecondCityChange}
                                 >
 
-                                    <Option value={1}>{"开启"}</Option>
-                                    <Option value={0}>{"关闭"}</Option>
+                                    <Option value={1} key={1}>{"开启"}</Option>
+                                    <Option value={0} key={0}>{"关闭"}</Option>
 
                                 </Select>
 

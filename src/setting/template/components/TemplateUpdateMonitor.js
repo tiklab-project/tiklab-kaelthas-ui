@@ -9,13 +9,7 @@ const {Option} = Select
 
 const TemplateAddMonitor = (props) => {
 
-    const {setMonitorList, monitorList,form,rowData,isUpdateModalOpen, setIsUpdateModalOpen,monitorId} = props;
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const provinceData = ['CPU', 'IO', 'memory'];
-
-    const [expression, setExpression] = useState([]);
+    const {setMonitorList,form,rowData,isUpdateModalOpen, setIsUpdateModalOpen,monitorId} = props;
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
@@ -28,7 +22,6 @@ const TemplateAddMonitor = (props) => {
         const resData = await findMonitorItemAll()
 
         setMonitorItemList([...resData])
-
 
     }, []);
 
@@ -90,8 +83,6 @@ const TemplateAddMonitor = (props) => {
                         initialValues={{
                             remember: true,
                         }}
-                        // onFinish={onFinish}
-                        // onFinishFailed={onFinishFailed}
                         autoComplete="off"
                         form={form}
                     >
@@ -124,11 +115,10 @@ const TemplateAddMonitor = (props) => {
                                 placeholder="请选择您的监控类型"
                                 allowClear
                                 onChange={handleProvinceChange}
-                                options={provinceData && provinceData.map((province) => ({
-                                    label: province,
-                                    value: province,
-                                }))}
                             >
+                                <Option value="CPU" key={1}>CPU</Option>
+                                <Option value="IO" key={2}>IO</Option>
+                                <Option value="memory" key={3}>memory</Option>
                             </Select>
 
                         </Form.Item>
@@ -150,7 +140,7 @@ const TemplateAddMonitor = (props) => {
                             >
                                 {
                                     monitorItemList && monitorItemList.map((item) => (
-                                        <Option value={item.id}>{item.name}</Option>))
+                                        <Option value={item.id} key={item.id}>{item.name}</Option>))
                                 }
                             </Select>
 
@@ -196,12 +186,11 @@ const TemplateAddMonitor = (props) => {
                             <Select
                                 placeholder="请选择监控项状态"
                                 allowClear
-                                value={expression.id}
                                 onChange={onSecondCityChange}
                             >
 
-                                <Option value={1}>{"启用"}</Option>))
-                                <Option value={2}>{"未启用"}</Option>))
+                                <Option value={1} key={1}>{"启用"}</Option>))
+                                <Option value={2} key={2}>{"未启用"}</Option>))
 
                             </Select>
 

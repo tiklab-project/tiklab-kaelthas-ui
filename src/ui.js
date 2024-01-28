@@ -1,7 +1,7 @@
 
 import wikiRoutes from "./Routers";
 import {store} from "./stores"
-import Header from "./home/common/components/Header";
+import Header from "./home/common/Header";
 export {
     wikiRoutes,
     store,

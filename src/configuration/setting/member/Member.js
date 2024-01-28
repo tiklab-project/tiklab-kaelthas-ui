@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import TopList from "../../../home/common/components/TopList";
+import TopList from "../../../home/common/TopList";
 import LeftMenu from "../../common/components/LeftMenu";
 import "./Member.scss"
 import SettingLeftTabs from "../common/SettingLeftTabs";

@@ -55,7 +55,8 @@ export class TemplateSettingStore {
     deleteMonitorById = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        await Service('/templateMonitor/deleteTemplateMonitor', params)
+        const resMessage = await Service('/templateMonitor/deleteTemplateMonitor', params)
+        return resMessage;
 
     }
 
