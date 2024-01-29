@@ -20,7 +20,7 @@ const Permissions = AsyncComponent(() => import('./configuration/setting/permiss
 const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
 const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
-const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MoinitorItem/components/MonitorItem'))
+const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
 
 
 const Routes = [
