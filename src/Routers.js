@@ -21,6 +21,7 @@ const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSetti
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
 const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
+const MonitorIng = AsyncComponent(() => import('./monitorIng/components/MonitorIng'))
 
 
 const Routes = [
@@ -103,6 +104,11 @@ const Routes = [
                         ]
                     },
                 ]
+            },
+            {
+                path: "/monitoring",
+                exact: false,
+                component: MonitorIng
             },
             {
                 path: "/globalSettings",
