@@ -21,7 +21,9 @@ const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSetti
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
 const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
-const MonitorIng = AsyncComponent(() => import('./monitorIng/components/MonitorIng'))
+const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
+const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
+const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
 
 
 const Routes = [
@@ -108,7 +110,27 @@ const Routes = [
             {
                 path: "/monitoring",
                 exact: false,
-                component: MonitorIng
+                component: Monitoring
+            },
+            {
+                path: "/monitoringList/:id",
+                component: MonitoringLayout,
+                routes: [
+                    {
+                        path: "/monitoringList/:id/monitoringDetails",
+                        component: MonitoringDetails,
+                    },
+                    /*{
+                        path: "/monitoring/:id/monitor",
+                        exact: false,
+                        component: Monitor,
+                    },
+                    {
+                        path: "/monitoring/:id/trigger",
+                        exact: false,
+                        component: Trigger,
+                    },*/
+                ]
             },
             {
                 path: "/globalSettings",

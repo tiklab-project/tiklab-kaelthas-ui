@@ -1,28 +1,28 @@
-.home {
+.monitoring {
   height: calc(100% - 48px);
   overflow: auto;
   background: #F8F8F8;
 
 
-  .home-body {
+  .monitoring-body {
     margin: 0 auto;
     width: 1080px;
     padding: 20px;
 
-    .home-content {
+    .monitoring-content {
       margin-bottom: 10px;
       border-radius: 4px;
       background: #fff;
       overflow: hidden;
 
-      .home-content-title {
+      .monitoring-content-title {
         padding: 10px;
         margin: 0 0 5px;
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        .home-content-title-text {
+        .monitoring-content-title-text {
           display: flex;
           align-items: center;
           font-weight: bold;
@@ -30,7 +30,7 @@
         }
       }
 
-      .home-content-detail {
+      .monitoring-content-detail {
         padding: 10px;
         min-height: 130px;
         display: flex;
@@ -42,7 +42,7 @@
         height: 104px;
 
 
-        .home-content-detail-item {
+        .monitoring-content-detail-item {
           max-width: 240px;
           min-width: 204px;
           flex: 1;
@@ -82,25 +82,25 @@
 
     }
 
-    .home-alarm-table {
+    .monitoring-alarm-table {
       margin: 15px auto;
       padding: 20px;
       background-color: #fff;
       border-radius: 4px;
 
-      .home-table-title {
+      .monitoring-table-title {
         width: 100%;
         font-weight: bold;
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      .home-alarm-table-list{
+      .monitoring-alarm-table-list{
         margin-top: 10px;
       }
     }
 
-    .home-dynamic-table {
+    .monitoring-dynamic-table {
       border-radius: 4px;
       background: #fff;
       margin: 0 0 10px;
