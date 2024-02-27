@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Table} from "antd";
+import {Form, Input, Pagination, Table, Tabs} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
+import MonitoringDetails from "../../monitoringDetails/components/MonitoringDetails";
+
 const Monitoring = (props) => {
 
     const [listData, setListData] = useState([]);
 
-    const {findHostPage} = monitoringStore;
+    const [monitorData, setMonitorData] = useState([]);
+
+    const {
+        findHostPage, findInformationByMonitorId, setSearchCondition,
+        searchCondition, total,
+        findPageHost
+    } = monitoringStore;
 
     const host = (record) => {
         console.log("路由跳转到监控项详情中")
@@ -88,21 +96,143 @@ const Monitoring = (props) => {
 
     ];
 
+    const hisColumns = [
+        {
+            title: '监控项名称',
+            dataIndex: 'monitorName',
+            key: 'monitorName',
+        },
+        {
+            title: '监控大类',
+            dataIndex: 'dataCategories',
+            key: 'dataCategories',
+        },
+        {
+            title: '监控小类',
+            dataIndex: 'dataSubclass',
+            key: 'dataSubclass',
+            render: (dataSubclass) => {
+                let config = {
+                    1: "CPU详情信息",
+                    5: "磁盘使用率",
+                    6: "CPU利用率",
+                    10: "内存使用百分比"
+                }
+                return config[dataSubclass];
+            }
+        },
+        {
+            title: '数据',
+            dataIndex: 'reportData',
+            key: 'reportData',
+        },
+        {
+            title: '上报时间',
+            dataIndex: 'gatherTime',
+            key: 'gatherTime',
+        },
+    ]
+
+    async function checkTabHost(value) {
+
+        switch (value) {
+            case "1":
+                value = 1
+                break
+            case "2":
+                value = 2
+                break
+            case "3":
+                value = null
+                break
+        }
+        setSearchCondition({
+            usability: value,
+            name: ""
+        });
+        const resData = await findHostPage()
+
+        setListData([...resData])
+    }
+
+    async function checkPage(page, pageSize) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: page,
+            },
+            monitorName: ""
+        })
+
+        const newVar = await findInformationByMonitorId();
+
+        setMonitorData([...newVar])
+    }
+
+    async function searchByName(event) {
+        setSearchCondition({
+            hostName: event.target.value
+        })
+        const newVar = await findHostPage();
+
+        setListData([...newVar])
+    }
+
     return (
 
         <div className="monitoring">
             <div className="monitoring-body">
                 <div className="monitoring-alarm-table">
-                    <div className="monitoring-table-title">主机列表</div>
-                    <div className="monitoring-alarm-table-list">
-                        <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
-                    </div>
-                </div>
-                <div className="monitoring-alarm-table">
-                    <div className="monitoring-table-title">监控信息</div>
-                    <div className="monitoring-alarm-table-list">
-                        <Table/>
-                    </div>
+                    <Tabs defaultActiveKey="3" onTabClick={(activeKey) => checkTabHost(activeKey)}>
+                        <Tabs.TabPane tab="全部" key="3">
+                            <div className="monitoring-table-title">主机列表</div>
+                            <div className="monitoring-search">
+                                <div>
+                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                </div>
+                            </div>
+                            <div className="monitoring-alarm-table-list">
+                                <Table
+                                    rowKey={record => record.id}
+                                    columns={columns}
+                                    dataSource={listData}
+                                    pagination={false}
+                                />
+                                <div className="details-pagination">
+                                    <Pagination
+                                        current={searchCondition.pageParam.currentPage}
+                                        pageSize={searchCondition.pageParam.pageSize}
+                                        showSizeChanger={true}
+                                        total={total}
+                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                    />
+                                </div>
+                            </div>
+                        </Tabs.TabPane>
+                        <Tabs.TabPane tab="可用" key="1">
+                            <div className="monitoring-table-title">主机列表</div>
+                            <div className="monitoring-search">
+                                <div>
+                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                </div>
+                            </div>
+                            <div className="monitoring-alarm-table-list">
+                                <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
+                            </div>
+                        </Tabs.TabPane>
+                        <Tabs.TabPane tab="不可用" key="2">
+                            <div className="monitoring-table-title">主机列表</div>
+                            <div className="monitoring-search">
+                                <div>
+                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                </div>
+                            </div>
+                            <div className="monitoring-alarm-table-list">
+                                <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
+                            </div>
+                        </Tabs.TabPane>
+                    </Tabs>
+
                 </div>
             </div>
         </div>

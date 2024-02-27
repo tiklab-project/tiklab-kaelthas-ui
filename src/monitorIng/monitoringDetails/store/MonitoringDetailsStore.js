@@ -1,10 +1,7 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
 
-export class MonitoringStore {
-
-    @observable total = 1
-
+export class MonitoringDetailsStore {
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -16,26 +13,24 @@ export class MonitoringStore {
         }
     };
 
+    @observable total = 1
+
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
     }
 
     @action
-    findHostPage = async () => {
-        const resData = await Service("/historyInformation/findHostPage", this.searchCondition);
+    findMonitorForHost = async () =>{
+        const resData = await Service("/historyInformation/findInformationByMonitorId",this.searchCondition);
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
     }
 
-    @action
-    findInformationByMonitorId = async () => {
-        const resData = await Service("/historyInformation/findInformationByMonitorId", this.searchCondition);
-        this.total = resData.data.totalRecord;
-        return resData.data.dataList;
-    }
+
+
 }
 
-const monitoringStore = new MonitoringStore();
+const monitoringDetailsStore = new MonitoringDetailsStore();
 
-export default monitoringStore;
+export default monitoringDetailsStore;

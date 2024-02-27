@@ -87,6 +87,7 @@
       padding: 20px;
       background-color: #fff;
       border-radius: 4px;
+      flex-direction: column;
 
       .monitoring-table-title {
         width: 100%;
@@ -95,8 +96,21 @@
         align-items: center;
         justify-content: space-between;
       }
+
+      .monitoring-search{
+        display: flex;
+        justify-content: flex-end;
+
+      }
       .monitoring-alarm-table-list{
-        margin-top: 10px;
+        margin: 10px 0;
+
+        .details-pagination{
+          margin: 10px 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
 
