@@ -21,6 +21,8 @@ const Monitoring = (props) => {
         console.log("路由跳转到监控项详情中")
         props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
         localStorage.setItem('hostIdForMonitoring', record.id);
+        localStorage.setItem("hostName",record.name)
+        localStorage.setItem("ip",record.ip)
     }
 
     useEffect(async () => {
@@ -96,42 +98,6 @@ const Monitoring = (props) => {
 
     ];
 
-    const hisColumns = [
-        {
-            title: '监控项名称',
-            dataIndex: 'monitorName',
-            key: 'monitorName',
-        },
-        {
-            title: '监控大类',
-            dataIndex: 'dataCategories',
-            key: 'dataCategories',
-        },
-        {
-            title: '监控小类',
-            dataIndex: 'dataSubclass',
-            key: 'dataSubclass',
-            render: (dataSubclass) => {
-                let config = {
-                    1: "CPU详情信息",
-                    5: "磁盘使用率",
-                    6: "CPU利用率",
-                    10: "内存使用百分比"
-                }
-                return config[dataSubclass];
-            }
-        },
-        {
-            title: '数据',
-            dataIndex: 'reportData',
-            key: 'reportData',
-        },
-        {
-            title: '上报时间',
-            dataIndex: 'gatherTime',
-            key: 'gatherTime',
-        },
-    ]
 
     async function checkTabHost(value) {
 
@@ -182,6 +148,11 @@ const Monitoring = (props) => {
 
         <div className="monitoring">
             <div className="monitoring-body">
+                {/*<div className="monitoring-content">
+                    <div className="monitoring-content-title">
+
+                    </div>
+                </div>*/}
                 <div className="monitoring-alarm-table">
                     <Tabs defaultActiveKey="3" onTabClick={(activeKey) => checkTabHost(activeKey)}>
                         <Tabs.TabPane tab="全部" key="3">
@@ -232,7 +203,6 @@ const Monitoring = (props) => {
                             </div>
                         </Tabs.TabPane>
                     </Tabs>
-
                 </div>
             </div>
         </div>

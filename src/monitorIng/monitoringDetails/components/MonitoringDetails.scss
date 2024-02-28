@@ -89,6 +89,7 @@
       border-radius: 4px;
 
       .details-table-title {
+        margin: 20px 0;
         width: 100%;
         font-weight: bold;
         display: flex;
@@ -98,7 +99,7 @@
 
       .details-search {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
 
         .details-div {
           padding: 10px;

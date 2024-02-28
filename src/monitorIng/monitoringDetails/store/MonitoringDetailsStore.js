@@ -27,6 +27,12 @@ export class MonitoringDetailsStore {
         return resData.data.dataList;
     }
 
+    @action
+    findMonitorByCategories = async ()=>{
+        const resData = await Service("/monitorItem/findMonitorByCategories",this.searchCondition);
+
+        return resData.data;
+    }
 
 
 }

@@ -75,7 +75,7 @@ const Header = props => {
         },
         {
             to: '/monitoring',
-            title: '监测',
+            title: '监控',
             key: 'monitoring'
         },
         {
