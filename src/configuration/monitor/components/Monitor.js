@@ -17,7 +17,7 @@ const Monitor = (props) => {
 
         let hostId = localStorage.getItem(`hostId`);
 
-        await setSearchCondition({
+        setSearchCondition({
             hostId: hostId,
             name: null,
             monitorSource:null
@@ -26,7 +26,7 @@ const Monitor = (props) => {
         const resData = await findMonitorCondition();
         console.log(resData)
 
-        setListData([...resData.dataList])
+        setListData([...resData])
 
     }, []);
 
@@ -38,7 +38,7 @@ const Monitor = (props) => {
 
         const resData = await findMonitorCondition();
 
-        setListData([...resData.dataList])
+        setListData([...resData])
     };
 
 
@@ -50,7 +50,7 @@ const Monitor = (props) => {
         })
 
         const resData = await findMonitorCondition(monitorSource);
-        setListData([...resData.dataList])
+        setListData([...resData])
     }
 
     return (

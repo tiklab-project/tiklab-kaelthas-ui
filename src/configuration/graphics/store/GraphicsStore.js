@@ -6,6 +6,8 @@ export class GraphicsStore {
 
     @observable monitorList = [];
 
+    @observable total = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -18,7 +20,7 @@ export class GraphicsStore {
     };
 
     @action
-    setSearchCondition = async (value) => {
+    setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
     }
 

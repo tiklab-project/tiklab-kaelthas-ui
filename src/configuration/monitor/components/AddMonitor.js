@@ -1,4 +1,4 @@
-import {Button, Modal, Form, Input, Select} from 'antd';
+import {Button, Modal, Form, Input, Select, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../store/MonitorStore";
 
@@ -37,7 +37,7 @@ const AddMonitor = (props) => {
 
             const resData = await findMonitorCondition();
 
-            setListData([...resData.dataList])
+            setListData([...resData])
         })
 
         setIsModalOpen(false);
@@ -150,7 +150,7 @@ const AddMonitor = (props) => {
                                 >
                                     {
                                         expression && expression.map((item) => (
-                                            <Option value={item.id}>{item.name}</Option>))
+                                            <Option value={item.id}>{item.dataSubclass}</Option>))
                                     }
                                 </Select>
 
@@ -166,7 +166,7 @@ const AddMonitor = (props) => {
                                     },
                                 ]}
                             >
-                                <Input/>
+                                <InputNumber min={1}/>
                             </Form.Item>
 
                             <Form.Item
@@ -179,7 +179,7 @@ const AddMonitor = (props) => {
                                     },
                                 ]}
                             >
-                                <Input/>
+                                <InputNumber min={1}/>
                             </Form.Item>
 
                         </Form>

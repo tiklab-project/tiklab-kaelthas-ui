@@ -92,7 +92,7 @@ const Header = props => {
                     <AppLink isSSO={false} />
                     {logo && <div className={'frame-header-logo'}>
                         <img src={logo} alt={'logo'} className="logo-img"/>
-                        <div className="logo-text">xmonitr</div>
+                        <div className="logo-text">xmonitor</div>
                     </div>}
                     {renderRouter()}
                 </div>

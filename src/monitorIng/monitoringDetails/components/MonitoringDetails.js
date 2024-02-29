@@ -9,7 +9,13 @@ const MonitoringDetails = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findMonitorForHost, setSearchCondition, searchCondition, total,findMonitorByCategories} = monitoringDetailsStore;
+    const {
+        findMonitorForHost,
+        setSearchCondition,
+        searchCondition,
+        total,
+        findMonitorByCategories
+    } = monitoringDetailsStore;
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
 
@@ -157,15 +163,19 @@ const MonitoringDetails = (props) => {
                     </div>
                 </div>*/}
                 <div className="details-alarm-table">
-                    <Breadcrumb>
-                        {/*<svg className="icon-left" aria-hidden="true">
+                    {/*<div>
+                        <svg className="icon-left" aria-hidden="true">
                             <use xlinkHref={`#icon-${left}`}></use>
-                        </svg>*/}
+                        </svg>
+                    </div>*/}
+                    <Breadcrumb>
                         <Breadcrumb.Item onClick={goBackHome}>Home</Breadcrumb.Item>
                         <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
                         <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                     </Breadcrumb>
-                    <div className="details-table-title">主机下监控信息</div>
+                    <div className="details-table-title">
+                        {/*主机下监控信息*/}
+                    </div>
                     <div className="details-search">
                         <div className="details-div">
                             <Select
@@ -189,12 +199,18 @@ const MonitoringDetails = (props) => {
                                 style={{
                                     width: 300,
                                 }}
+                                options={
+                                    monitorDataSubclass && monitorDataSubclass.map(item => ({
+                                        label: item.dataSubclass,
+                                        value: item.dataSubclass
+                                    }))
+                                }
                             >
-                                {
+                                {/*{
                                     monitorDataSubclass && monitorDataSubclass.map(item => (
                                         <Option value={item.dataSubclass} key={item.id}>{item.dataSubclass}</Option>
                                     ))
-                                }
+                                }*/}
                             </Select>
                         </div>
                         <div className="details-div">
@@ -208,7 +224,7 @@ const MonitoringDetails = (props) => {
                             />
                         </div>
                         <div className="details-div">
-                            <Input placeholder="根据监控项名称进行查询"
+                            <Input placeholder="请输入监控项名称"
                                    allowClear={true}
                                    onChange={onchangeByName}
                                    onPressEnter={(event) => searchByName(event)}/>

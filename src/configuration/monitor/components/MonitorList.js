@@ -1,13 +1,13 @@
 import {Alert, Button, Drawer, Form, Space, Table, Tag} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
-import "./MonitorListDetails";
+import "./Monitor.scss";
 import UpdateMonitor from "./UpdateMonitor";
 import monitorStore from "../store/MonitorStore";
 
 const MonitorList = (props) => {
 
-    const {deleteMonitorById, findMonitorCondition} = monitorStore;
+    const {deleteMonitorById, findMonitorCondition,total,setSearchCondition} = monitorStore;
 
     const {listData, setListData} = props;
 
@@ -20,7 +20,7 @@ const MonitorList = (props) => {
 
     const removeToList = async (record) => {
 
-        if (record.monitorSource === 1){
+        if (record.monitorSource === 1) {
 
             await deleteMonitorById(record.id);
 
@@ -28,7 +28,7 @@ const MonitorList = (props) => {
 
             console.log(resData)
 
-            setListData([...resData.dataList])
+            setListData([...resData])
         }
 
     }
@@ -44,7 +44,7 @@ const MonitorList = (props) => {
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
-            expression:record.monitorItem.id,
+            expression: record.monitorItem.id,
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -57,7 +57,7 @@ const MonitorList = (props) => {
             name: record.name,
             type: record.monitorType,
             monitorItemId: record.monitorItem.id,
-            monitorItem:record.monitorItem,
+            monitorItem: record.monitorItem,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
             monitorSource: record.monitorSource,
@@ -75,20 +75,25 @@ const MonitorList = (props) => {
                                             onClick={() => drawerList(record)}>{text}</span>,
         },
         {
-            title: '监控项类别',
-            dataIndex: ['monitorItem','type'],
+            title: '监控项大类',
+            dataIndex: ['monitorItem', 'type'],
             id: 'monitorType',
         },
         {
+            title: '监控项小类',
+            dataIndex: ['monitorItem', 'dataSubclass'],
+            id: 'dataSubclass',
+        },
+        {
             title: '监控表达式',
-            dataIndex: ['monitorItem','name'],
+            dataIndex: ['monitorItem', 'name'],
             id: 'expression',
         },
         {
             title: '监控项来源',
             dataIndex: 'monitorSource',
             id: 'monitorSource',
-            render:(monitorSource) => {
+            render: (monitorSource) => {
                 let config = {
                     1: "主机",
                     2: "模板",
@@ -110,7 +115,7 @@ const MonitorList = (props) => {
             title: '监控项状态',
             dataIndex: 'monitorStatus',
             id: 'monitorStatus',
-            render:(monitorStatus) => {
+            render: (monitorStatus) => {
                 let config = {
                     1: "启用",
                     2: "关闭",
@@ -135,13 +140,36 @@ const MonitorList = (props) => {
 
     ];
 
+    async function changePage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        });
+
+        const resData = await findMonitorCondition();
+        console.log(resData)
+
+        setListData([...resData])
+    }
+
     return (
         <>
             <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                            columnData={columnData} setColumnData={setColumnData} form={form}
                            listData={listData} setListData={setListData}
             />
-            <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
+            <Table rowKey={record => record.id}
+                   columns={columns}
+                   dataSource={listData}
+                   onChange={changePage}
+                   pagination={{
+                       position: ["bottomCenter"],
+                       total: total,
+                       showSizeChanger: true
+                   }}
+            />
         </>
 
     )

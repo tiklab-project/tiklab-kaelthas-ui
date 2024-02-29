@@ -10,7 +10,15 @@ import TemplateSettingMonitorList from "./TemplateSettingMonitorList";
 
 const TemplateSetting = (props) => {
 
-    const {findTemplatePage, setSearchCondition, createTemplate, deleteTemplate,deleteMonitorById,findTemplateMonitorByTemplateId} = templateSettingStore;
+    const {
+        findTemplatePage,
+        setSearchCondition,
+        createTemplate,
+        deleteTemplate,
+        deleteMonitorById,
+        findTemplateMonitorByTemplateId,
+        total
+    } = templateSettingStore;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -71,9 +79,9 @@ const TemplateSetting = (props) => {
 
         setRowData({
             id: record.id,
-            name:record.name,
-            isOpen:record.isOpen,
-            describe:record.describe
+            name: record.name,
+            isOpen: record.isOpen,
+            describe: record.describe
         })
 
         form.setFieldsValue({
@@ -157,8 +165,9 @@ const TemplateSetting = (props) => {
                                     dataSource={dataList}
                                     pagination={{
                                         position: ["bottomCenter"],
-                                    }
-                                    }
+                                        total: total,
+                                        showSizeChanger: true
+                                    }}
                                 />
 
                                 <TemplateSettingMonitorList

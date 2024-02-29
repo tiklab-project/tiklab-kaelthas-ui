@@ -3,6 +3,10 @@ import {Service} from "../../../common/utils/requset";
 
 export class TemplateSettingStore {
 
+    @observable total = 1;
+
+    @observable monitorTotal = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",

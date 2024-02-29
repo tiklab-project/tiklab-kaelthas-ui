@@ -60,7 +60,13 @@ const Template = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {findTemplateByMonitor, deleteTemplateById, setSearchCondition, findMonitorByTemplateId} = templateStore;
+    const {
+        findTemplateByMonitor,
+        deleteTemplateById,
+        setSearchCondition,
+        findMonitorByTemplateId,
+        total
+    } = templateStore;
 
     const [monitorList, setMonitorList] = useState([]);
 
@@ -116,7 +122,7 @@ const Template = (props) => {
 
         setRowData({
             id: record.id,
-            name:record.name,
+            name: record.name,
             monitorNum: record.monitorNum
         })
 
@@ -156,13 +162,17 @@ const Template = (props) => {
 
     ];
 
+    async function changePage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
 
-    async function searchMonitorForTemplate() {
-        //根据模板id查询模板下的监控项
+        const resData = await findTemplateByMonitor();
 
-        const resData = await findMonitorByTemplateId(rowData.id);
-
-        setMonitorList([...resData.data])
+        setDataList([...resData])
     }
 
     return (
@@ -195,8 +205,11 @@ const Template = (props) => {
                                 rowKey={record => record.id}
                                 columns={columns}
                                 dataSource={dataList}
+                                onChange={changePage}
                                 pagination={{
                                     position: ["bottomCenter"],
+                                    total: total,
+                                    showSizeChanger: true
                                 }
                                 }
                             />
@@ -213,7 +226,15 @@ const Template = (props) => {
 
                                 <Tabs defaultActiveKey="1">
                                     <Tabs.TabPane tab="监控项信息" key="2">
-                                        <Table columns={monitorColumns} dataSource={monitorList}/>
+                                        <Table
+                                            columns={monitorColumns}
+                                            dataSource={monitorList}
+                                            pagination={{
+                                                position: ["bottomCenter"],
+                                                total: total,
+                                                showSizeChanger: true
+                                            }}
+                                        />
                                     </Tabs.TabPane>
                                     <Tabs.TabPane tab="其他" key="3">
                                         其他信息

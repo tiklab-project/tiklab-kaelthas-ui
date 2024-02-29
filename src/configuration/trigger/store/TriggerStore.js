@@ -6,6 +6,8 @@ export class TriggerStore {
 
     @observable data = [];
 
+    @observable total = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -23,14 +25,15 @@ export class TriggerStore {
     @action
     getTriggerList = async () => {
 
-        const data = await Service('/trigger/findTrigger',this.searchCondition)
+        const resData = await Service('/trigger/findTrigger',this.searchCondition)
 
-        return data.data;
+        this.total = resData.data.totalRecord
+        return resData.data;
 
     }
 
     @action
-    setSearchCondition = async (value) => {
+    setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
     }
 

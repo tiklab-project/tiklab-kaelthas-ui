@@ -9,16 +9,24 @@ import TemplateUpdateMonitor from "./TemplateUpdateMonitor";
 const TemplateSettingMonitorList = (props) => {
 
 
-
-    const {deleteMonitorById,findTemplateMonitorByTemplateId,findTemplatePage} = templateSettingStore;
+    const {deleteMonitorById, findTemplateMonitorByTemplateId, findTemplatePage, monitorTotal} = templateSettingStore;
 
     const [form] = Form.useForm();
 
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-    const {setIsModalOpen,isModalOpen,rowData,setRowData,monitorList,setMonitorList,dataList,setDataList} = props;
+    const {
+        setIsModalOpen,
+        isModalOpen,
+        rowData,
+        setRowData,
+        monitorList,
+        setMonitorList,
+        dataList,
+        setDataList
+    } = props;
 
-    const [monitorId,setMonitorId] = useState({});
+    const [monitorId, setMonitorId] = useState({});
 
     const [visible, setVisible] = useState(false);
 
@@ -49,7 +57,7 @@ const TemplateSettingMonitorList = (props) => {
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
-            expression:record.monitorItem.id,
+            expression: record.monitorItem.id,
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -65,7 +73,7 @@ const TemplateSettingMonitorList = (props) => {
 
         const resMessage = await deleteMonitorById(id);
 
-        if (resMessage.code === 110){
+        if (resMessage.code === 110) {
             setVisible(true);
         }
 
@@ -84,7 +92,8 @@ const TemplateSettingMonitorList = (props) => {
             title: '监控项名称',
             dataIndex: 'name',
             id: 'name',
-            render: (text,record) => <span style={{cursor: "pointer"}} onClick={() => updateMonitorForTemplate(record)}>{text}</span>,
+            render: (text, record) => <span style={{cursor: "pointer"}}
+                                            onClick={() => updateMonitorForTemplate(record)}>{text}</span>,
         },
         {
             title: '监控项类别',
@@ -158,7 +167,8 @@ const TemplateSettingMonitorList = (props) => {
                 </div>
                 <div>
                     {visible ? (
-                        <Alert message="监控项下有关联触发器或者图表,无法删除" type="warning" banner={true} closable afterClose={handleClose} />
+                        <Alert message="监控项下有关联触发器或者图表,无法删除" type="warning" banner={true} closable
+                               afterClose={handleClose}/>
                     ) : null}
                 </div>
 
@@ -169,12 +179,20 @@ const TemplateSettingMonitorList = (props) => {
 
                             </div>
                             <div className="box-templateSetting-details-text">
-                                <TemplateAddMonitor rowData={rowData} monitorList={monitorList} setMonitorList={setMonitorList}/>
+                                <TemplateAddMonitor rowData={rowData} monitorList={monitorList}
+                                                    setMonitorList={setMonitorList}/>
                             </div>
                         </div>
                         <Table
                             rowKey={record => record.id}
-                            columns={monitorColumns} dataSource={monitorList}/>
+                            columns={monitorColumns}
+                            dataSource={monitorList}
+                            pagination={{
+                                position: ["bottomCenter"],
+                                total: monitorTotal,
+                                showSizeChanger: true
+                            }}
+                        />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="其他" key="3">
                         其他信息

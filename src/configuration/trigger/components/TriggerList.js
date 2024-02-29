@@ -5,7 +5,14 @@ import triggerStore from "../store/TriggerStore";
 
 const TriggerList = (props) => {
 
-    const {getTriggerList, deleteTriggerById, setSearchCondition, monitorList, findMonitorListById} = triggerStore;
+    const {
+        getTriggerList,
+        deleteTriggerById,
+        setSearchCondition,
+        monitorList,
+        findMonitorListById,
+        total
+    } = triggerStore;
 
     const {dataList, setDataList} = props;
 
@@ -49,18 +56,18 @@ const TriggerList = (props) => {
                 numericalValue: record.numericalValue,
                 operator: record.operator,
                 expression: record.expression,
-                source:record.source
+                source: record.source
             }
         )
 
         setRowData({
             id: record.id,
             name: record.name,
-            expressionId:record.expressionId,
+            expressionId: record.expressionId,
             severityLevel: record.severityLevel,
             mediumType: record.mediumType,
             describe: record.describe,
-            source:record.source
+            source: record.source
         })
 
         console.log(record)
@@ -110,12 +117,12 @@ const TriggerList = (props) => {
             title: '消息通知方案',
             dataIndex: 'mediumType',
             id: 'mediumType',
-            render:(mediumType) =>{
+            render: (mediumType) => {
                 let config = {
-                    1:"方案1:电子邮件",
-                    2:"方案2:微信公众号",
-                    3:"方案3:钉钉",
-                    4:"方案4:短信",
+                    1: "方案1:电子邮件",
+                    2: "方案2:微信公众号",
+                    3: "方案3:钉钉",
+                    4: "方案4:短信",
                 }
                 return config[mediumType];
             }
@@ -152,6 +159,19 @@ const TriggerList = (props) => {
 
     ];
 
+    function changePage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+
+        getTriggerList().then(res => {
+            setDataList([...res.dataList])
+        });
+    }
+
     return (
         <>
             <UpdateTrigger dataList={dataList} setDataList={setDataList} form={form}
@@ -162,6 +182,12 @@ const TriggerList = (props) => {
                 rowKey={record => record.id}
                 columns={columns}
                 dataSource={dataList}
+                onChange={changePage}
+                pagination={{
+                    position: ["bottomCenter"],
+                    total: total,
+                    showSizeChanger: true
+                }}
             />
         </>
 

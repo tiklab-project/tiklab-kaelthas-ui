@@ -6,6 +6,8 @@ export class MonitorStore {
 
     @observable data = [];
 
+    @observable total = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -21,14 +23,13 @@ export class MonitorStore {
     @action
     findMonitorCondition = async () => {
 
-        const data = await Service('/monitor/findMonitorCondition', this.searchCondition);
-
-        console.log("根据名称查询的数据:", data)
-        return data.data;
+        const resData = await Service('/monitor/findMonitorCondition', this.searchCondition);
+        this.total = resData.data.totalRecord
+        return resData.data.dataList;
     }
 
     @action
-    setSearchCondition = async (value) => {
+    setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
 
     }

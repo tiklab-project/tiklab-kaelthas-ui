@@ -30,7 +30,7 @@ export class MonitoringStore {
 
     @action
     findInformationByMonitorId = async () => {
-        const resData = await Service("/historyInformation/findInformationByMonitorId", this.searchCondition);
+        const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
     }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import AddHost from "./AddHost";
 import "./Configuration.scss"
-import {Input, Table} from "antd";
+import {Input, Pagination, Table} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
 
@@ -10,7 +10,7 @@ const Configuration = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findPageHost, findHostGroup, setSearchCondition} = configurationStore;
+    const {findPageHost, findHostGroup, setSearchCondition, total} = configurationStore;
 
     useEffect(async () => {
 
@@ -97,14 +97,14 @@ const Configuration = (props) => {
 
     const changePage = async (pagination, filters, sorter) => {
 
-        const resData = await findPageHost(
-            {
-                pageParam: {
-                    currentPage: pagination.current,
-                    pageSize: pagination.pageSize,
-                }
+        setSearchCondition({
+            pageParam: {
+                currentPage: pagination.current,
+                pageSize: pagination.pageSize,
             }
-        )
+        })
+
+        const resData = await findPageHost()
 
         setDataList([...resData])
 
@@ -155,8 +155,10 @@ const Configuration = (props) => {
                             onChange={changePage}
                             pagination={{
                                 position: ["bottomCenter"],
-                            }
-                            }
+                                total: total,
+                                showSizeChanger: true,
+                                defaultPageSize: 20
+                            }}
                         />
                     </div>
                 </div>

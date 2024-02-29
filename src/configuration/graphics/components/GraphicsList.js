@@ -14,7 +14,7 @@ const GraphicsList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {getGraphicsStoreList,deleteGraphicsStoreById} = graphicsStore;
+    const {getGraphicsStoreList,deleteGraphicsStoreById,total,setSearchCondition} = graphicsStore;
 
 
 
@@ -94,6 +94,19 @@ const GraphicsList = (props) => {
 
     ];
 
+    async function changePage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+
+        const resData = await getGraphicsStoreList();
+
+        setDataList([...resData])
+    }
+
     return (
         <>
             <UpdateGraphics dataList={dataList} setDataList={setDataList} form={form}
@@ -101,7 +114,16 @@ const GraphicsList = (props) => {
                             isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
             />
 
-            <Table rowKey={record => record.id} columns={columns} dataSource={dataList}/>
+            <Table rowKey={record => record.id}
+                   columns={columns}
+                   dataSource={dataList}
+                   onChange={changePage}
+                   pagination={{
+                       position: ["bottomCenter"],
+                       total: total,
+                       showSizeChanger: true
+                   }}
+            />
         </>
     )
 

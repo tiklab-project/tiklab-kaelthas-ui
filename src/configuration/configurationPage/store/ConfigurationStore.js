@@ -11,6 +11,8 @@ export class ConfigurationStore {
     //添加主机表单中的主机组名称
     @observable hostGroupList = [];
 
+    @observable total = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -34,7 +36,7 @@ export class ConfigurationStore {
 
         const resData = await Service("/hostList/findPageHost",this.searchCondition);
         this.resultData = resData.data.dataList;
-
+        this.total = resData.data.totalRecord
         return this.resultData;
     }
 

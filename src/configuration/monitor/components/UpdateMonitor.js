@@ -1,4 +1,4 @@
-import {Button, Modal, Form, Input, Select} from 'antd';
+import {Button, Modal, Form, Input, Select, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../store/MonitorStore";
 
@@ -143,7 +143,7 @@ const UpdateMonitor = (props) => {
                             >
                                 {
                                     monitorItemList && monitorItemList.map(item => (
-                                        <Option value={item.id} key={item.id}>{item.name}</Option>
+                                        <Option value={item.id} key={item.id}>{item.dataSubclass}</Option>
                                     ))
                                 }
 
@@ -161,7 +161,7 @@ const UpdateMonitor = (props) => {
                                 },
                             ]}
                         >
-                            <Input/>
+                            <InputNumber min={1} defaultValue={1}/>
                         </Form.Item>
 
                         <Form.Item
@@ -174,7 +174,7 @@ const UpdateMonitor = (props) => {
                                 },
                             ]}
                         >
-                            <Input/>
+                            <InputNumber min={1} defaultValue={1}/>
                         </Form.Item>
 
                         <Form.Item

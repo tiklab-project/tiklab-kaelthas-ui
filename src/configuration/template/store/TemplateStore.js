@@ -4,6 +4,8 @@ import '../api/mock/TemplateMock'
 
 export class TemplateStore {
 
+    @observable total = 1;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -19,7 +21,7 @@ export class TemplateStore {
     @observable templateList = []
 
     @action
-    setSearchCondition = async (value) => {
+    setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
@@ -29,6 +31,7 @@ export class TemplateStore {
     findTemplateByMonitor = async () =>{
         const resData = await Service("/template/findTemplate",this.searchCondition);
 
+        this.total = resData.data.totalRecord
         return resData.data.dataList;
     }
 
@@ -67,9 +70,8 @@ export class TemplateStore {
     }
 
     @action
-    addTemplateMonitor = (option) =>{
-        const templateMonitorId = Service("/templateMonitor/createTemplateMonitor",option)
-        return templateMonitorId;
+    addTemplateMonitor = (value) =>{
+        return Service("/templateMonitor/createTemplateMonitor", value);
     }
 }
 

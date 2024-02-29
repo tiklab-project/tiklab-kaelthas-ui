@@ -21,8 +21,8 @@ const Monitoring = (props) => {
         console.log("路由跳转到监控项详情中")
         props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
         localStorage.setItem('hostIdForMonitoring', record.id);
-        localStorage.setItem("hostName",record.name)
-        localStorage.setItem("ip",record.ip)
+        localStorage.setItem("hostName", record.name)
+        localStorage.setItem("ip", record.ip)
     }
 
     useEffect(async () => {
@@ -159,7 +159,8 @@ const Monitoring = (props) => {
                             <div className="monitoring-table-title">主机列表</div>
                             <div className="monitoring-search">
                                 <div>
-                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                    <Input placeholder="根据主机名称进行查询"
+                                           onPressEnter={(event) => searchByName(event)}/>
                                 </div>
                             </div>
                             <div className="monitoring-alarm-table-list">
@@ -184,22 +185,52 @@ const Monitoring = (props) => {
                             <div className="monitoring-table-title">主机列表</div>
                             <div className="monitoring-search">
                                 <div>
-                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                    <Input placeholder="根据主机名称进行查询"
+                                           onPressEnter={(event) => searchByName(event)}/>
                                 </div>
                             </div>
                             <div className="monitoring-alarm-table-list">
-                                <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
+                                <Table
+                                    rowKey={record => record.id}
+                                    columns={columns}
+                                    dataSource={listData}
+                                    pagination={false}
+                                />
+                                <div className="details-pagination">
+                                    <Pagination
+                                        current={searchCondition.pageParam.currentPage}
+                                        pageSize={searchCondition.pageParam.pageSize}
+                                        showSizeChanger={true}
+                                        total={total}
+                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                    />
+                                </div>
                             </div>
                         </Tabs.TabPane>
                         <Tabs.TabPane tab="不可用" key="2">
                             <div className="monitoring-table-title">主机列表</div>
                             <div className="monitoring-search">
                                 <div>
-                                    <Input placeholder="根据主机名称进行查询" onPressEnter={(event) => searchByName(event)}/>
+                                    <Input placeholder="根据主机名称进行查询"
+                                           onPressEnter={(event) => searchByName(event)}/>
                                 </div>
                             </div>
                             <div className="monitoring-alarm-table-list">
-                                <Table rowKey={record => record.id} columns={columns} dataSource={listData}/>
+                                <Table
+                                    rowKey={record => record.id}
+                                    columns={columns}
+                                    dataSource={listData}
+                                    pagination={false}
+                                />
+                                <div className="details-pagination">
+                                    <Pagination
+                                        current={searchCondition.pageParam.currentPage}
+                                        pageSize={searchCondition.pageParam.pageSize}
+                                        showSizeChanger={true}
+                                        total={total}
+                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                    />
+                                </div>
                             </div>
                         </Tabs.TabPane>
                     </Tabs>
