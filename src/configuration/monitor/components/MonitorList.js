@@ -123,11 +123,11 @@ const MonitorList = (props) => {
                 return config[monitorStatus];
             }
         },
-        {
+        /*{
             title: '监控信息',
             dataIndex: 'information',
             id: 'information',
-        },
+        },*/
         {
             title: '操作',
             id: 'action',

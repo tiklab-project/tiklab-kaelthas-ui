@@ -10,7 +10,7 @@ const AddMonitor = (props) => {
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const provinceData = ['CPU', 'IO', 'memory'];
+    const provinceData = ['CPU', 'IO', 'memory','host','internet'];
 
     const [expression, setExpression] = useState([]);
 

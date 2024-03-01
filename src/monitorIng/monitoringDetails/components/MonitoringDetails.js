@@ -7,6 +7,8 @@ import left from "../../../assets/svg/left.svg"
 
 const MonitoringDetails = (props) => {
 
+    const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
+
     const [dataList, setDataList] = useState([]);
 
     const {
@@ -14,7 +16,8 @@ const MonitoringDetails = (props) => {
         setSearchCondition,
         searchCondition,
         total,
-        findMonitorByCategories
+        findMonitorByCategories,
+        setSearchNull
     } = monitoringDetailsStore;
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
@@ -26,7 +29,12 @@ const MonitoringDetails = (props) => {
     useEffect(async () => {
 
         const hostId = localStorage.getItem("hostIdForMonitoring");
-        setSearchCondition({
+        /*setSearchCondition({
+            hostId: hostId,
+            dataSubclass:null,
+            dataCategories:null
+        })*/
+        setSearchNull({
             hostId: hostId,
         })
 
@@ -59,7 +67,12 @@ const MonitoringDetails = (props) => {
             dataIndex: 'reportData',
             key: 'reportData',
             render: (text, record) => (
-                <span>{record.reportType === 1 ? `${record.reportData}%` : record.reportData}</span>)
+                <span>
+                        {
+                            reportAddition(record.reportType, record.reportData)
+                        }
+                </span>
+            )
         },
         {
             title: '上报时间',
@@ -67,6 +80,21 @@ const MonitoringDetails = (props) => {
             key: 'gatherTime',
         },
     ];
+
+    function reportAddition(type, reportData) {
+        switch (type) {
+            case 1:
+                return reportData + "%"
+            case 2:
+                return reportData
+            case 3:
+                return reportData + "B"
+            case 4:
+                return reportData
+            default:
+                return reportData
+        }
+    }
 
     async function checkPage(page, pageSize) {
         setSearchCondition({
@@ -185,10 +213,11 @@ const MonitoringDetails = (props) => {
                                 style={{
                                     width: 120,
                                 }}
+                                options={dataCategories && dataCategories.map((province) => ({
+                                    label: province,
+                                    value: province,
+                                }))}
                             >
-                                <Option value={"CPU"} key={1}>{"CPU"}</Option>
-                                <Option value={"IO"} key={2}>{"IO"}</Option>
-                                <Option value={"memory"} key={3}>{"memory"}</Option>
                             </Select>
                         </div>
                         <div className="details-div">
