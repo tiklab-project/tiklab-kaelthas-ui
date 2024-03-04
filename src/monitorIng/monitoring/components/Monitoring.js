@@ -85,11 +85,11 @@ const Monitoring = (props) => {
             dataIndex: 'countMonitor',
             key: 'countMonitor',
         },
-        /*{
+        {
             title: '图形数量',
             dataIndex: 'graphicNum',
             key: 'graphicNum',
-        },*/
+        },
         {
             title: '创建时间',
             dataIndex: 'createTime',

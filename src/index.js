@@ -46,13 +46,13 @@ const Index = observer((props) => {
     });
 
     useEffect(() => {
-        pluginLoader(Routers, resources,i18n, fetchMethod).then(res => {
+        /*pluginLoader(Routers, resources,i18n, fetchMethod).then(res => {
             setPluginData(res)
             console.log("res",res)
             setVisable(false)
         })
 
-        return;
+        return;*/
     }, []);
 
     return (

@@ -23,7 +23,7 @@ export class MonitoringStore {
 
     @action
     findHostPage = async () => {
-        const resData = await Service("/historyInformation/findHostPage", this.searchCondition);
+        const resData = await Service("/hostList/findHostPage", this.searchCondition);
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
     }

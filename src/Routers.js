@@ -1,6 +1,5 @@
 import AsyncComponent from "./common/lazy/AsyncComponent";
 import {Redirect} from "react-router-dom";
-import React from ".";
 
 const Configuration = AsyncComponent(() => import( "./configuration/configurationPage/components/Configuration"))
 const Host = AsyncComponent(() => import( "./configuration/host/common/HostLayout"))
@@ -24,6 +23,7 @@ const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/Monitor
 const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
+const MonitoringGraphics = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringGraphics'))
 
 
 const Routes = [
@@ -120,16 +120,11 @@ const Routes = [
                         path: "/monitoringList/:id/monitoringDetails",
                         component: MonitoringDetails,
                     },
-                    /*{
-                        path: "/monitoring/:id/monitor",
-                        exact: false,
-                        component: Monitor,
-                    },
                     {
-                        path: "/monitoring/:id/trigger",
+                        path: "/monitoring/:id/monitoringGraphics",
                         exact: false,
-                        component: Trigger,
-                    },*/
+                        component: MonitoringGraphics,
+                    },
                 ]
             },
             {

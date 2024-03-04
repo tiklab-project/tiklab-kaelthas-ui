@@ -49,6 +49,14 @@ export class MonitoringDetailsStore {
         return resData.data;
     }
 
+    @action
+    findInformationByGraphics = async (value) => {
+        const params = new FormData();
+        params.append("hostId", value);
+        const resData = await Service("/graphics/findInformationByGraphics",params);
+        return resData.data;
+    }
+
 
 }
 
