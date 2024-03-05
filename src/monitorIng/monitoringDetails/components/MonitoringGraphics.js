@@ -5,35 +5,41 @@ import monitoringDetailsStore from "../store/MonitoringDetailsStore";
 
 const MonitoringGraphics = (props) => {
 
-    const {findInformationByGraphics} = monitoringDetailsStore;
+    const {findInformationByGraphics, findDescGatherTime, setSearchCondition} = monitoringDetailsStore;
 
     const dom = useRef(null);
 
-    const [dataList,setDataList] = useState([]);
+    const [dataList, setDataList] = useState([]);
 
     useEffect(async () => {
 
         //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
         const hostId = localStorage.getItem("hostIdForMonitoring");
         const resData = await findInformationByGraphics(hostId);
-        // setDataList([...resData])
+
+        setSearchCondition({
+            hostId: hostId
+        })
+
+        const descTime = await findDescGatherTime();
+
 
         if (dom) {
 
             const chartDom = dom.current
 
-            const myChart = echarts.init(document.getElementById("scatter"));
+            const myChart = echarts.init(chartDom);
 
             const option = {
                 title: {
-                    text: 'Stacked Line'
+                    text: '主机下数据折线图'
                 },
                 tooltip: {
                     trigger: 'axis'
                 },
-                legend: {
+                /*legend: {
                     data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                },
+                },*/
                 grid: {
                     left: '3%',
                     right: '4%',
@@ -48,7 +54,8 @@ const MonitoringGraphics = (props) => {
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                    data: descTime
+                    // ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','1','2','3']
                 },
                 yAxis: {
                     type: 'value'

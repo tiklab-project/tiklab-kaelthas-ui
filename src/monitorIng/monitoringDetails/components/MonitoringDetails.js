@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./MonitoringDetails.scss"
 import {withRouter} from "react-router-dom";
-import {Breadcrumb, DatePicker, Form, Input, Pagination, Select, Table, Tabs} from "antd";
+import {Breadcrumb, DatePicker, Form, Input, Modal, Pagination, Select, Table, Tabs} from "antd";
 import monitoringDetailsStore from "../store/MonitoringDetailsStore";
 import * as echarts from 'echarts/core';
 import {
@@ -37,13 +37,18 @@ const MonitoringDetails = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+
     const {
         findMonitorForHost,
         setSearchCondition,
         searchCondition,
         total,
         findMonitorByCategories,
-        setSearchNull
+        setSearchNull,
+        findInformationByLine,
+        findDescGatherTime
     } = monitoringDetailsStore;
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
@@ -51,6 +56,16 @@ const MonitoringDetails = (props) => {
     const {RangePicker} = DatePicker;
 
     const {Option} = Select;
+
+    const dom = useRef(null);
+
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
 
     useEffect(async () => {
 
@@ -60,12 +75,67 @@ const MonitoringDetails = (props) => {
             hostId: hostId,
         })
 
-        const resData = await findMonitorForHost()
+        const resultData = await findMonitorForHost()
 
-        setDataList([...resData])
+        setDataList([...resultData])
+
 
     }, []);
 
+
+    async function showGraphics(record) {
+
+        setIsModalOpen(true);
+
+        //查询出这条数据对应的数据
+        setSearchCondition({
+            monitorId: record.monitorId,
+            source: record.source
+        })
+        const resData = await findInformationByLine()
+
+        const descTime = await findDescGatherTime();
+
+        if (dom) {
+
+            const chartDom = dom.current
+
+            const myChart = echarts.init(document.getElementById("scatterOne"));
+
+            const option = {
+                title: {
+                    text: 'Stacked Line'
+                },
+                tooltip: {
+                    trigger: 'axis'
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                toolbox: {
+                    feature: {
+                        saveAsImage: {}
+                    }
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false,
+                    data: descTime
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: resData
+            };
+
+            option && myChart.setOption(option);
+        }
+
+
+    }
 
     const columns = [
         {
@@ -100,6 +170,16 @@ const MonitoringDetails = (props) => {
             title: '上报时间',
             dataIndex: 'gatherTime',
             key: 'gatherTime',
+        },
+        {
+            title: '图形',
+            dataIndex: 'graphics',
+            key: 'graphics',
+            render: (text, record) => (
+                <a onClick={() => showGraphics(record)}>{
+                    record.graphicsId ? "图形" : ""
+                }</a>
+            )
         },
     ];
 
@@ -274,6 +354,17 @@ const MonitoringDetails = (props) => {
                     />
                 </div>
             </div>
+            {/*<div id="scatterOne" className='chart' style={{width: 1000, height: 800}}>
+
+            </div>*/}
+            <Modal
+                title="查看图形" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
+                cancelText="取消" okText="确定" width={"1200px"}
+            >
+                <div id="scatterOne" className='chart' style={{width: 1000, height: 800}}>
+
+                </div>
+            </Modal>
         </>
 
     );

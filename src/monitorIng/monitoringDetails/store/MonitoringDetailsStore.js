@@ -57,6 +57,26 @@ export class MonitoringDetailsStore {
         return resData.data;
     }
 
+    @action
+    findDescGatherTime = async ()=>{
+        const resData = await Service("/historyInformation/findDescGatherTime",this.searchCondition);
+        return resData.data;
+    }
+
+    //查询图表当中是否存在上报数据的配置
+    @action
+    findGraphicsByHisInformation = async (value) =>{
+        const params = new FormData();
+        params.append("hostId", value);
+        const resData = await Service("/graphics/findGraphicsByHisInformation",params)
+        return resData.data
+    }
+
+    @action
+    findInformationByLine = async () => {
+        const resData = await Service("/historyInformation/findInformationByLine", this.searchCondition);
+        return resData.data;
+    }
 
 }
 

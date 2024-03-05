@@ -1,10 +1,11 @@
 import {Provider} from "mobx-react";
 import {renderRoutes} from "react-router-config";
 import {withRouter} from "react-router-dom";
-import React from "react";
+import React, {useState} from "react";
 import {Breadcrumb, Input, Pagination, Select, Table, Tabs} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 import MonitoringGraphics from "../components/MonitoringGraphics";
+import monitoringDetailsStore from "../store/MonitoringDetailsStore";
 
 const MonitorLayout = (props) => {
 
@@ -14,7 +15,8 @@ const MonitorLayout = (props) => {
         props.history.push(`/monitoring`);
     }
 
-    function checkTabGraphics(activeKey) {
+    async function checkTabGraphics(activeKey) {
+
 
     }
 
@@ -48,9 +50,9 @@ const MonitorLayout = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    {/*<div>
                         {renderRoutes(route.routes)}
-                    </div>
+                    </div>*/}
                 </div>
             </Provider>
         </div>
