@@ -5,23 +5,13 @@ import monitoringDetailsStore from "../store/MonitoringDetailsStore";
 
 const MonitoringGraphics = (props) => {
 
-    const {findInformationByGraphics, findDescGatherTime, setSearchCondition} = monitoringDetailsStore;
+    const {resData,descTime} = props;
 
     const dom = useRef(null);
 
     const [dataList, setDataList] = useState([]);
 
-    useEffect(async () => {
-
-        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-        const resData = await findInformationByGraphics(hostId);
-
-        setSearchCondition({
-            hostId: hostId
-        })
-
-        const descTime = await findDescGatherTime();
+    /*useEffect(async () => {
 
 
         if (dom) {
@@ -32,14 +22,14 @@ const MonitoringGraphics = (props) => {
 
             const option = {
                 title: {
-                    text: '主机下数据折线图'
+                    text: "主机名称:"+localStorage.getItem("hostName")
                 },
                 tooltip: {
                     trigger: 'axis'
                 },
-                /*legend: {
+                /!*legend: {
                     data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                },*/
+                },*!/
                 grid: {
                     left: '3%',
                     right: '4%',
@@ -65,7 +55,7 @@ const MonitoringGraphics = (props) => {
 
             option && myChart.setOption(option);
         }
-    }, [dom]);
+    }, [dom]);*/
 
     return (
         <div className='echarts'>

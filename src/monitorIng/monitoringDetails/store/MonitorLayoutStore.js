@@ -1,7 +1,7 @@
-import {action, observable, values} from "mobx";
+import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
 
-export class MonitoringDetailsStore {
+export class MonitorLayoutStore {
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -79,10 +79,8 @@ export class MonitoringDetailsStore {
     }
 
     @action
-    findAllInformationByHostId = async (value) => {
-        const params = new FormData();
-        params.append("hostId", value);
-        const resData = await Service("/historyInformation/findAllInformationByHostId", params);
+    findAllInformationByHostId = async () => {
+        const resData = await Service("/historyInformation/findAllInformationByHostId", this.searchCondition);
         return resData.data;
     }
 
@@ -97,6 +95,6 @@ export class MonitoringDetailsStore {
 
 }
 
-const monitoringDetailsStore = new MonitoringDetailsStore();
+const monitorLayoutStore = new MonitorLayoutStore();
 
-export default monitoringDetailsStore;
+export default monitorLayoutStore;

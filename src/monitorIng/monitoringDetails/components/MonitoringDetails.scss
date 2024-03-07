@@ -95,6 +95,13 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .details-tabs-wrap{
+          display: flex;
+          flex-wrap: wrap;
+
+
+        }
       }
 
       .details-search {

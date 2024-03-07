@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./MonitoringDetails.scss"
 import {withRouter} from "react-router-dom";
-import {Breadcrumb, DatePicker, Form, Input, Modal, Pagination, Select, Table, Tabs} from "antd";
+import {DatePicker, Input, Modal, Pagination, Select, Table, Tooltip} from "antd";
 import monitoringDetailsStore from "../store/MonitoringDetailsStore";
 import * as echarts from 'echarts/core';
 import {
@@ -54,9 +54,6 @@ const MonitoringDetails = (props) => {
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
 
     const {RangePicker} = DatePicker;
-
-    const {Option} = Select;
-
     const dom = useRef(null);
 
     const handleOk = () => {
@@ -100,11 +97,11 @@ const MonitoringDetails = (props) => {
 
             const chartDom = dom.current
 
-            const myChart = echarts.init(document.getElementById("scatterOne"));
+            const myChart = echarts.init(chartDom);
 
             const option = {
                 title: {
-                    text: 'Stacked Line'
+                    text: resData[0].name
                 },
                 tooltip: {
                     trigger: 'axis'
@@ -158,13 +155,8 @@ const MonitoringDetails = (props) => {
             title: '数据',
             dataIndex: 'reportData',
             key: 'reportData',
-            render: (text, record) => (
-                <span>
-                        {
-                            reportAddition(record.reportType, record.reportData)
-                        }
-                </span>
-            )
+            ellipsis:true,
+            render: (name,record) => <Tooltip title={name}><div>{reportAddition(record.reportType, record.reportData)}</div></Tooltip>
         },
         {
             title: '上报时间',
@@ -177,7 +169,7 @@ const MonitoringDetails = (props) => {
             key: 'graphics',
             render: (text, record) => (
                 <a onClick={() => showGraphics(record)}>{
-                    record.graphicsId ? "图形" : ""
+                    record.reportType !== 2 ? "图形" : ""
                 }</a>
             )
         },
@@ -219,9 +211,6 @@ const MonitoringDetails = (props) => {
     }
 
     const onChange = async (value, dateString) => {
-        // console.log('Selected Time: ', value);
-        // console.log('Formatted dateString Time: ', dateString);
-
         setSearchCondition({
             beginTime: dateString[0],
             endTime: dateString[1]
@@ -229,7 +218,6 @@ const MonitoringDetails = (props) => {
         const newVar = await findMonitorForHost();
 
         setDataList([...newVar])
-
     };
     const onOk = (value) => {
         console.log('onOk: ', value);
@@ -359,9 +347,9 @@ const MonitoringDetails = (props) => {
             </div>*/}
             <Modal
                 title="查看图形" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                cancelText="取消" okText="确定" width={"1200px"}
+                cancelText="取消" okText="确定" width={"900px"}
             >
-                <div id="scatterOne" className='chart' style={{width: 1000, height: 800}}>
+                <div id="scatterOne" ref={dom} className='chart' style={{width: 800, height: 600}}>
 
                 </div>
             </Modal>
