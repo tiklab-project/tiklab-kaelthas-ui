@@ -9,22 +9,27 @@ import {withRouter} from "react-router-dom";
 
 const Graphics = (props) => {
 
-    const {getGraphicsStoreList,setSearchCondition} = graphicsStore;
+    const {getGraphicsStoreList, setSearchCondition, findMonitorListById} = graphicsStore;
 
-    const [dataList,setDataList] = useState([]);
+    const [dataList, setDataList] = useState([]);
 
-    useEffect(() => {
+    const [monitorData, setMonitorData] = useState([]);
 
-        setSearchCondition({hostId:localStorage.getItem("hostId")})
+    useEffect(async () => {
 
-        getGraphicsStoreList().then((res) =>{
+        setSearchCondition({
+            hostId: localStorage.getItem("hostId"),
+            reportType: 2
+        })
+
+        getGraphicsStoreList().then((res) => {
             setDataList([...res.dataList])
         })
 
     }, []);
 
     const searchName = async (e) => {
-        setSearchCondition({name:e.target.value})
+        setSearchCondition({name: e.target.value})
         const resData = await getGraphicsStoreList();
         setDataList([...resData.dataList])
     };
@@ -43,21 +48,13 @@ const Graphics = (props) => {
                         </div>
                         <div className="graphics-top-right">
                             <div className="graphics-top-right-button">
-                                <AddGraphics dataList={dataList} setDataList={setDataList}/>
+                                <AddGraphics dataList={dataList} setDataList={setDataList} monitorData={monitorData}/>
                             </div>
                         </div>
                     </div>
                     <div className="graphics-kind-options">
                         <div className="graphics-kind-options-tabs">
-                            {/*<div className="graphics-kind-options-tabs-text">
-                                全部
-                            </div>
-                            <div className="graphics-kind-options-tabs-text">
-                                模板图形
-                            </div>
-                            <div className="graphics-kind-options-tabs-text">
-                                主机图形
-                            </div>*/}
+
                         </div>
                         <div className="graphics-kind-search">
                             <Search/>

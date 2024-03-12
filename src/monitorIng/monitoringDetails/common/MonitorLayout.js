@@ -1,10 +1,9 @@
 import {Provider} from "mobx-react";
 import {withRouter} from "react-router-dom";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Breadcrumb, DatePicker, Select, Tabs} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 import * as echarts from "echarts/core";
-import moment from 'moment'
 import {
     GridComponent,
     LegendComponent,
@@ -18,6 +17,7 @@ import {LineChart, PieChart, ScatterChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import monitorLayoutStore from "../store/MonitorLayoutStore";
+import MonitoringItem from "./MonitoringItem";
 
 echarts.use([
     TimelineComponent,
@@ -33,8 +33,6 @@ echarts.use([
     ToolboxComponent,
     PieChart
 ]);
-
-const {Option} = Select
 const {RangePicker} = DatePicker;
 
 const MonitorLayout = (props) => {
@@ -59,11 +57,9 @@ const MonitorLayout = (props) => {
         findInformationByLine
     } = monitorLayoutStore;
 
+    const [reportData, setReportData] = useState([]);
+
     const dom = useRef(null);
-
-    const domOne = useRef(null);
-
-    // const [allRef,setAllRef] = useRef([]);
 
 
     async function checkTabGraphics(activeKey) {
@@ -81,15 +77,15 @@ const MonitorLayout = (props) => {
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
             setSearchCondition({
                 hostId: localStorage.getItem("hostIdForMonitoring"),
-                monitorId: monitors[1].id,
-                source: monitors[1].monitorSource
+                monitorId: monitors[0].id,
+                source: monitors[0].monitorSource
             })
 
             const resData = await findInformationByLine();
-            setGraphics([...resData])
+            // setGraphics([...resData])
 
             const times = await findDescGatherTime();
-            setDescTime([...times])
+            // setDescTime([...times])
 
             if (dom) {
 
@@ -121,12 +117,12 @@ const MonitorLayout = (props) => {
                     xAxis: {
                         type: 'category',
                         boundaryGap: false,
-                        data: descTime
+                        data: times
                     },
                     yAxis: {
                         type: 'value'
                     },
-                    series: graphics
+                    series: resData
                 };
 
                 option && myChart.setOption(option);
@@ -138,52 +134,13 @@ const MonitorLayout = (props) => {
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
             const hostId = localStorage.getItem("hostIdForMonitoring");
             setSearchCondition({
-                hostId: hostId
+                hostId: hostId,
+                reportType: 1
             })
             const resData = await findAllInformationByHostId()
-
+            setReportData([...resData])
             const descTime = await findDescGatherTime();
-
-            if (domOne) {
-
-                const chartDom = domOne.current
-
-                const myChart = echarts.init(chartDom);
-
-                const option = {
-                    title: {
-                        text: "主机名称:" + localStorage.getItem("hostName")
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    /*legend: {
-                        data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                    },*/
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: descTime
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: resData
-                };
-
-                option && myChart.setOption(option);
-            }
+            setDescTime([...descTime])
 
         }
 
@@ -241,59 +198,19 @@ const MonitorLayout = (props) => {
             option && myChart.setOption(option);
         }
     };
-
-
-    const onChangeAll = async (value, dateString) => {
-
+    useEffect(async () => {
+        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
+        const hostId = localStorage.getItem("hostIdForMonitoring");
         setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1]
+            hostId: hostId,
+            reportType: 1
         })
-        const resData = await findAllInformationByHostId();
+        const resData = await findAllInformationByHostId()
+        setReportData([...resData])
+        const descTime = await findDescGatherTime();
+        setDescTime([...descTime])
+    }, []);
 
-        const times = await findDescGatherTime();
-
-        if (domOne) {
-
-            const chartDom = domOne.current
-
-            const myChart = echarts.init(chartDom);
-
-            const option = {
-                title: {
-                    text: "主机名称:" + localStorage.getItem("hostName")
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                /*legend: {
-                    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                },*/
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: times
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: resData
-            };
-
-            option && myChart.setOption(option);
-        }
-    };
 
     async function onCheckMonitor(value, options) {
         if (value !== undefined) {
@@ -310,8 +227,6 @@ const MonitorLayout = (props) => {
 
         const times = await findDescGatherTime();
         setDescTime([...times])
-
-        const chartsone = document.getElementById("chartsone");
 
         if (dom) {
 
@@ -376,15 +291,12 @@ const MonitorLayout = (props) => {
                                     <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                                 </Breadcrumb>
                                 <div className="details-table-title">
-                                    <Tabs defaultActiveKey="1" onTabClick={(activeKey) => checkTabGraphics(activeKey)}>
+                                    <Tabs defaultActiveKey="3"  onTabClick={(activeKey) => checkTabGraphics(activeKey)}>
                                         <Tabs.TabPane tab="列表展示" key="1">
                                             <MonitoringDetails/>
                                         </Tabs.TabPane>
                                         <Tabs.TabPane tab="单个监控展示" key="2">
                                             <div className="details-tabs-wrap">
-                                                <div>
-
-                                                </div>
                                                 <Select
                                                     placeholder="请选择您的监控项"
                                                     allowClear
@@ -396,19 +308,10 @@ const MonitorLayout = (props) => {
                                                         value: [item.monitorItem.dataSubclass, item.id, item.monitorSource],
                                                     }))}
                                                 >
-                                                    {/*{
-                                                    monitorList && monitorList.map(item => (
-                                                        <Option key={item.id} value={[item.monitorItem.dataSubclass,item.id,item.monitorSource]}>{item.monitorItem.dataSubclass}</Option>
-                                                    ))
-                                                }*/}
                                                 </Select>
                                                 <RangePicker
-                                                    /*showTime={{
-                                                        format: 'HH:mm:ss',
-                                                    }}*/
                                                     format="YYYY-MM-DD"
                                                     onChange={onChange}
-                                                    // defaultValue={[moment().add(-6, 'day'), moment()]}
                                                 />
                                                 <div id="scatter" className='chart' ref={dom}
                                                      style={{width: 1000, height: 800, margin: 30}}>
@@ -418,18 +321,14 @@ const MonitorLayout = (props) => {
 
                                         <Tabs.TabPane tab="整体展示" key="3">
                                             <div className="details-tabs-wrap">
-                                                <RangePicker
-                                                    /*showTime={{
-                                                        format: 'HH:mm:ss',
-                                                    }}*/
-                                                    format="YYYY-MM-DD"
-                                                    onChange={onChangeAll}
-                                                />
-                                                <div key="chartsone" ref={domOne}
-                                                     style={{width: 1000, height: 800 , margin:30}}
-                                                >
-
-                                                </div>
+                                                {
+                                                    reportData && reportData.map((item, index) => {
+                                                        return (
+                                                            <MonitoringItem reportType={index} index={index}
+                                                                            key={index} condition={item} /*descTime={descTime}*//>
+                                                        )
+                                                    })
+                                                }
                                             </div>
                                         </Tabs.TabPane>
                                     </Tabs>

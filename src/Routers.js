@@ -24,7 +24,6 @@ const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/componen
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
 const MonitoringGraphics = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringGraphics'))
-// const MonitoringGraphicsOne = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringGraphicsOne'))
 
 
 const Routes = [

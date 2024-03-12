@@ -1,6 +1,5 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
-import '../api/mock/GraphicsMock'
 
 export class GraphicsStore {
 
@@ -44,9 +43,8 @@ export class GraphicsStore {
 
     //根据主机id查询监控项列表
     @action
-    findMonitorListById = async (option) => {
-        const monitorList = await Service("/monitor/findAllMonitor", option)
-        this.monitorList = monitorList.data;
+    findMonitorListById = async () => {
+        const monitorList = await Service("/monitor/findAllMonitor", this.searchCondition)
         return monitorList.data;
     }
 

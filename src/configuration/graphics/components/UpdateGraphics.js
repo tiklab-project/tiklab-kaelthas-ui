@@ -1,4 +1,4 @@
-import {Button, Form, Input, Modal, Select} from 'antd';
+import {Button, Form, Input, InputNumber, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import graphicsStore from "../store/GraphicsStore";
 
@@ -16,12 +16,14 @@ const UpdateGraphics = (props) => {
 
     const [monitorList, setMonitorList] = useState([]);
 
-    const {updateGraphicsStoreById, getGraphicsStoreList, findMonitorListById} = graphicsStore;
+    const {updateGraphicsStoreById, getGraphicsStoreList, findMonitorListById,setSearchCondition} = graphicsStore;
 
     useEffect(async () => {
-        const resMonitorList = await findMonitorListById({
-            hostId: localStorage.getItem("hostId")
+        setSearchCondition({
+            hostId: localStorage.getItem("hostId"),
+            reportType: 2
         })
+        const resMonitorList = await findMonitorListById()
         setMonitorList([...resMonitorList])
     }, []);
 
@@ -52,6 +54,16 @@ const UpdateGraphics = (props) => {
 
     };
 
+    const conversionMonitorType = (type) => {
+
+        switch (type) {
+            case 1:
+                return "主机";
+            case 2:
+                return "模板";
+        }
+
+    }
 
     async function onGenderChange(value) {
         const resMonitorList = await findMonitorListById({
@@ -108,7 +120,7 @@ const UpdateGraphics = (props) => {
                                     },
                                 ]}
                             >
-                                <Input/>
+                                <InputNumber/>
                             </Form.Item>
 
                             <Form.Item
@@ -122,31 +134,7 @@ const UpdateGraphics = (props) => {
                                     },
                                 ]}
                             >
-                                <Input/>
-                            </Form.Item>
-
-                            <Form.Item
-                                label="监控项来源"
-                                name="source"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请选择监控项来源!',
-                                    },
-                                ]}
-                            >
-
-                                <Select
-                                    placeholder="请选择监控项来源"
-                                    onChange={onGenderChange}
-                                    allowClear
-                                    showSearch
-                                >
-                                    <Option value={1} key={1}>{"主机下监控项"}</Option>
-                                    <Option value={2} key={2}>{"模板下监控项"}</Option>
-
-                                </Select>
-
+                                <InputNumber/>
                             </Form.Item>
 
                             <Form.Item
@@ -161,14 +149,16 @@ const UpdateGraphics = (props) => {
                             >
 
                                 <Select
+                                    mode="multiple"
                                     placeholder="请选择监控项"
                                     // onChange={onGenderChange}
                                     allowClear
                                     showSearch
                                 >
+
                                     {
                                         monitorList && monitorList.map(item => (
-                                            <Option value={item.id} key={item.id}>{item.name}</Option>
+                                            <Option key={item.id} value={[item.id,item.monitorSource]}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
                                         ))
                                     }
 

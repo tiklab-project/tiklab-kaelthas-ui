@@ -1,6 +1,5 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
-import '../api/mock/TriggerMock'
 
 export class TriggerStore {
 
