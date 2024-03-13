@@ -1,6 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
 import monitorLayoutStore from "../store/MonitorLayoutStore";
+import {observable} from "mobx";
+import {observer} from "mobx-react";
 
 
 const DiscountedList = (props) => {
@@ -9,25 +11,18 @@ const DiscountedList = (props) => {
 
     const {
         findDescGatherTime,
-        setSearchCondition,
-        findAllInformationByHostId
+        descTime
     } = monitorLayoutStore;
 
-    const {index, condition,descTime} = props;
+    const {index, condition,} = props;
 
     const nameList = [];
 
     const rendingView = async () => {
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-        setSearchCondition({
-            hostId: hostId,
-            reportType: 4
-        })
-        const resData = await findAllInformationByHostId()
 
         const descTime = await findDescGatherTime();
 
-        condition.map(item =>{
+        condition.map(item => {
             nameList.push(item.name)
         })
 
@@ -37,9 +32,9 @@ const DiscountedList = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                title: {
+                /*title: {
                     text: "主机名称:" + localStorage.getItem("hostName")
-                },
+                },*/
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -67,13 +62,15 @@ const DiscountedList = (props) => {
                 },
                 series: condition
             };
-
-            option && myChart.setOption(option);
+            if (myChart) {
+                myChart.clear()
+            }
+            myChart.setOption({...option}, true);
         }
     };
 
-    useEffect(() => {
-        rendingView()
+    useEffect(async () => {
+        await rendingView()
     }, [dom]);
 
 
@@ -81,8 +78,10 @@ const DiscountedList = (props) => {
         <div>
             <div className="item-tabs-item">
                 <div key="chartsone" ref={dom}
-                     style={{width: "100%",
-                         height: 300, margin: 30}}
+                     style={{
+                         width: "100%",
+                         height: 300, margin: 30
+                     }}
                 >
 
                 </div>
@@ -91,4 +90,4 @@ const DiscountedList = (props) => {
     );
 };
 
-export default DiscountedList;
+export default observer(DiscountedList);

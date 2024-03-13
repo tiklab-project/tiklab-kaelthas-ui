@@ -14,6 +14,7 @@ import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import monitorLayoutStore from "../store/MonitorLayoutStore";
 import {DatePicker, Select} from "antd";
+import {inject, observer} from "mobx-react";
 
 echarts.use([
     TimelineComponent,
@@ -44,10 +45,7 @@ const HistogramList = (props) => {
 
     const {
         findDescGatherTime,
-        setSearchCondition,
-        findAllInformationByHostId,
-        findAllMonitor,
-        findInformationByLine
+        setSearchCondition
     } = monitorLayoutStore;
 
     const {reportData} = props;
@@ -55,11 +53,6 @@ const HistogramList = (props) => {
     const {index, condition, descTime} = props;
 
     async function showHistogram() {
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-        setSearchCondition({
-            hostId: hostId,
-            reportType: 3
-        })
         const descTime = await findDescGatherTime();
 
         condition.map(item => {
@@ -75,6 +68,7 @@ const HistogramList = (props) => {
             const chartDom = dom.current
 
             const myChart = echarts.init(chartDom);
+            // const myChart = echarts.init(document.getElementById("chartsone"));
 
             const option = {
                 tooltip: {
@@ -92,129 +86,25 @@ const HistogramList = (props) => {
                 },
                 series: series
             };
-
-
-            option && myChart.setOption(option);
+            if (myChart) {
+                myChart.clear()
+            }
+            myChart.setOption({...option}, true);
         }
     }
 
     useEffect(async () => {
-        const monitors = await findAllMonitor()
-        setMonitorList([...monitors])
         await showHistogram();
     }, [dom]);
-
-
-    async function onCheckMonitor(value, options) {
-
-        if (value !== undefined) {
-            setSearchCondition({
-                hostId: localStorage.getItem("hostIdForMonitoring"),
-                monitorId: value[1],
-                source: value[2]
-            })
-        }
-
-
-        const resData = await findInformationByLine();
-
-        const times = await findDescGatherTime();
-
-        if (dom) {
-
-            const current = dom.current;
-
-            const myChart = echarts.init(current);
-
-            const option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
-                xAxis: {
-                    type: 'category',
-                    data: times
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [
-                    {
-                        name: resData[0].name,
-                        type: "bar",
-                        data: resData[0].data
-                    }
-                ]
-            };
-            myChart.clear()
-            option && myChart.setOption(option);
-        }
-
-    }
-
-    const onChange = async (value, dateString) => {
-
-        setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1],
-            monitorId: monitorList[0].id,
-            source: monitorList[0].monitorSource
-        })
-        const resData = await findInformationByLine();
-
-        const times = await findDescGatherTime();
-
-        if (dom) {
-
-            const current = dom.current;
-
-            const myChart = echarts.init(current);
-
-            const option = {
-                tooltip: {
-                    trigger: 'axis'
-                },
-                xAxis: {
-                    type: 'category',
-                    data: times
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: [
-                    {
-                        name: resData[0].name,
-                        type: "bar",
-                        data: resData[0].data
-                    }
-                ]
-            };
-            myChart.clear()
-            option && myChart.setOption(option);
-        }
-    };
 
     return (
         <div>
             <div className="item-tabs-item">
-                <Select
-                    placeholder="请选择您的监控项"
-                    allowClear
-                    autoClearSearchValue
-                    onChange={(value, options) => onCheckMonitor(value, options)}
-                    options={monitorList && monitorList.map(item => ({
-                        label: item.monitorItem.dataSubclass,
-                        key: item.id,
-                        value: [item.monitorItem.dataSubclass, item.id, item.monitorSource],
-                    }))}
-                >
-                </Select>
-                <RangePicker
-                    format="YYYY-MM-DD"
-                    onChange={onChange}
-                />
                 <div key="chartsone" ref={dom}
-                     style={{width: "100%",
-                         height: 300, margin: 30}}
+                     style={{
+                         width: "100%",
+                         height: 300, margin: 30
+                     }}
                 >
 
                 </div>
@@ -223,4 +113,4 @@ const HistogramList = (props) => {
     );
 };
 
-export default HistogramList;
+export default observer(HistogramList);

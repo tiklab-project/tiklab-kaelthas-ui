@@ -15,6 +15,17 @@ export class MonitorLayoutStore {
 
     @observable total = 1
 
+    @observable condition = [];
+
+    @observable
+    descTime = [];
+
+
+    @action
+    setDescTime = (value) =>{
+        this.descTime = value;
+    }
+
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
@@ -36,24 +47,8 @@ export class MonitorLayoutStore {
     }
 
     @action
-    findMonitorForHost = async () => {
-        const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
-        this.total = resData.data.totalRecord;
-        return resData.data.dataList;
-    }
-
-    @action
-    findMonitorByCategories = async () => {
-        const resData = await Service("/monitorItem/findMonitorByCategories", this.searchCondition);
-
-        return resData.data;
-    }
-
-    @action
-    findInformationByGraphics = async (value) => {
-        const params = new FormData();
-        params.append("hostId", value);
-        const resData = await Service("/graphics/findInformationByGraphics", params);
+    findInformationByGraphics = async () => {
+        const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
         return resData.data;
     }
 
@@ -61,15 +56,6 @@ export class MonitorLayoutStore {
     findDescGatherTime = async () => {
         const resData = await Service("/historyInformation/findDescGatherTime", this.searchCondition);
         return resData.data;
-    }
-
-    //查询图表当中是否存在上报数据的配置
-    @action
-    findGraphicsByHisInformation = async (value) => {
-        const params = new FormData();
-        params.append("hostId", value);
-        const resData = await Service("/graphics/findGraphicsByHisInformation", params)
-        return resData.data
     }
 
     @action

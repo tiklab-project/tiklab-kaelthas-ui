@@ -12,6 +12,8 @@ import {LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import {DatePicker} from "antd";
+import {observable} from "mobx";
+import {observer} from "mobx-react";
 
 echarts.use([
     TitleComponent,
@@ -33,21 +35,11 @@ const AreaCharts = (props) => {
 
     const nameList = [];
 
-    const {
-        findDescGatherTime,
-        setSearchCondition,
-        findAllInformationByHostId
-    } = monitorLayoutStore;
+    const {findDescGatherTime,descTime} = monitorLayoutStore;
 
     const {index, condition} = props;
 
     async function showPei() {
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-        setSearchCondition({
-            hostId: hostId,
-            reportType: 1
-        })
-        const resData = await findAllInformationByHostId()
         const descTime = await findDescGatherTime();
 
         condition.map(item => {
@@ -74,9 +66,9 @@ const AreaCharts = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                title: {
+                /*title: {
                     text: '主机名称:' + localStorage.getItem("hostName")
-                },
+                },*/
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -113,47 +105,20 @@ const AreaCharts = (props) => {
                     }
                 ],
                 series: series
-                /*[
-                    {
-                        name: 'Email',
-                        type: 'line',
-                        stack: 'Total',
-                        areaStyle: {},
-                        emphasis: {
-                            focus: 'series'
-                        },
-                        data: [120, 132, 101, 134, 90, 230, 210]
-                    },
-                ]*/
             };
-
-            option && myChart.setOption(option);
+            if (myChart){
+                myChart.clear()
+            }
+            myChart.setOption({...option},true);
         }
     }
 
-    const onChangeAll = async (value, dateString) => {
-
-        setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1]
-        })
-        const resData = await findAllInformationByHostId();
-
-        const times = await findDescGatherTime();
-
-
-    };
-
-    useEffect(() => {
-        showPei();
+    useEffect(async () => {
+        await showPei();
     }, [dom]);
     return (
         <div>
             <div className="item-tabs-item">
-                {/*<RangePicker
-                    format="YYYY-MM-DD"
-                    onChange={onChangeAll}
-                />*/}
                 <div key="chartsone" ref={dom}
                      style={{
                          width: "100%",
@@ -167,4 +132,4 @@ const AreaCharts = (props) => {
     );
 };
 
-export default AreaCharts;
+export default observer(AreaCharts);
