@@ -6,7 +6,7 @@ import AreaCharts from "../components/AreaCharts";
 
 const MonitoringItem = (props) => {
 
-    const {reportType,index} = props;
+    const {reportType} = props;
 
     return (
         <Fragment>
@@ -16,9 +16,9 @@ const MonitoringItem = (props) => {
                         case 1:
                             return <HistogramList {...props} />
                         case 3:
-                            return <AreaCharts {...props} />
-                        case 4:
                             return <DiscountedList {...props} />
+                        case 4:
+                            return <AreaCharts {...props} />
                         default:
                             return <HistogramList {...props}/>
                     }

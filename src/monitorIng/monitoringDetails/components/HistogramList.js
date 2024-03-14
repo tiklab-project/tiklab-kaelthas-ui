@@ -13,8 +13,7 @@ import {LineChart, PieChart, ScatterChart, BarChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import monitorLayoutStore from "../store/MonitorLayoutStore";
-import {DatePicker, Select} from "antd";
-import {inject, observer} from "mobx-react";
+import {observer} from "mobx-react";
 
 echarts.use([
     TimelineComponent,
@@ -31,13 +30,9 @@ echarts.use([
     PieChart,
     BarChart
 ]);
-
-const {RangePicker} = DatePicker;
 const HistogramList = (props) => {
 
     const dom = useRef(null);
-
-    const [monitorList, setMonitorList] = useState([]);
 
     const series = [];
 
@@ -45,15 +40,13 @@ const HistogramList = (props) => {
 
     const {
         findDescGatherTime,
-        setSearchCondition
     } = monitorLayoutStore;
 
-    const {reportData} = props;
-
-    const {index, condition, descTime} = props;
+    const {descTime,condition} = props;
 
     async function showHistogram() {
         const descTime = await findDescGatherTime();
+        console.log("HistogramList中:",condition)
 
         condition.map(item => {
             series.push({
@@ -67,9 +60,8 @@ const HistogramList = (props) => {
         if (dom) {
             const chartDom = dom.current
 
+            chartDom.removeAttribute('_echarts_instance_')
             const myChart = echarts.init(chartDom);
-            // const myChart = echarts.init(document.getElementById("chartsone"));
-
             const option = {
                 tooltip: {
                     trigger: 'axis'
@@ -89,13 +81,13 @@ const HistogramList = (props) => {
             if (myChart) {
                 myChart.clear()
             }
-            myChart.setOption({...option}, true);
+            myChart.setOption(option);
         }
     }
 
     useEffect(async () => {
         await showHistogram();
-    }, [dom]);
+    }, [dom,condition]);
 
     return (
         <div>

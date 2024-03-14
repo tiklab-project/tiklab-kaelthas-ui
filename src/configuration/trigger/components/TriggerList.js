@@ -1,4 +1,4 @@
-import {Form, Input, Modal, Select, Space, Table, Tag} from 'antd';
+import {Form, Input, Modal, Select, Space, Table, Tag, Tooltip} from 'antd';
 import React, {useEffect, useState} from 'react';
 import UpdateTrigger from "./UpdateTrigger";
 import triggerStore from "../store/TriggerStore";
@@ -91,6 +91,9 @@ const TriggerList = (props) => {
             title: '关系表达式',
             dataIndex: 'expression',
             id: 'expression',
+            render: (name) => <Tooltip title={name}>
+                <div>{name}</div>
+            </Tooltip>
         },
         {
             title: '运算符',
@@ -183,6 +186,10 @@ const TriggerList = (props) => {
                 columns={columns}
                 dataSource={dataList}
                 onChange={changePage}
+                scroll={{
+                    x: 300,
+                    y: 'max-content'
+                }}
                 pagination={{
                     position: ["bottomCenter"],
                     total: total,

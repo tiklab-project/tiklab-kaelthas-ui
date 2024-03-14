@@ -22,7 +22,7 @@ export class MonitorLayoutStore {
 
 
     @action
-    setDescTime = (value) =>{
+    setDescTime = (value) => {
         this.descTime = value;
     }
 
@@ -49,6 +49,7 @@ export class MonitorLayoutStore {
     @action
     findInformationByGraphics = async () => {
         const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
+        this.condition = resData.data
         return resData.data;
     }
 

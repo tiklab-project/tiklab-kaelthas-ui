@@ -11,8 +11,6 @@ import {
 import {LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
-import {DatePicker} from "antd";
-import {observable} from "mobx";
 import {observer} from "mobx-react";
 
 echarts.use([
@@ -25,8 +23,6 @@ echarts.use([
     CanvasRenderer,
     UniversalTransition
 ]);
-
-const {RangePicker} = DatePicker;
 const AreaCharts = (props) => {
 
     const dom = useRef(null);
@@ -35,13 +31,13 @@ const AreaCharts = (props) => {
 
     const nameList = [];
 
-    const {findDescGatherTime,descTime} = monitorLayoutStore;
+    const {findDescGatherTime} = monitorLayoutStore;
 
-    const {index, condition} = props;
+    const {condition} = props;
 
     async function showPei() {
         const descTime = await findDescGatherTime();
-
+        console.log("AreaCharts中:", condition)
         condition.map(item => {
             series.push(
                 {
@@ -63,12 +59,11 @@ const AreaCharts = (props) => {
         if (dom) {
             const chartDom = dom.current
 
+            chartDom.removeAttribute('_echarts_instance_')
+
             const myChart = echarts.init(chartDom);
 
             const option = {
-                /*title: {
-                    text: '主机名称:' + localStorage.getItem("hostName")
-                },*/
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -106,16 +101,17 @@ const AreaCharts = (props) => {
                 ],
                 series: series
             };
-            if (myChart){
+
+            if (myChart) {
                 myChart.clear()
             }
-            myChart.setOption({...option},true);
+            myChart.setOption(option);
         }
     }
 
     useEffect(async () => {
         await showPei();
-    }, [dom]);
+    }, [dom,condition]);
     return (
         <div>
             <div className="item-tabs-item">

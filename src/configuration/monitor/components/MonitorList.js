@@ -1,4 +1,4 @@
-import {Alert, Button, Drawer, Form, Space, Table, Tag} from 'antd';
+import {Alert, Button, Drawer, Form, Space, Table, Tag, Tooltip} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./Monitor.scss";
@@ -83,6 +83,9 @@ const MonitorList = (props) => {
             title: '监控项小类',
             dataIndex: ['monitorItem', 'dataSubclass'],
             id: 'dataSubclass',
+            render: (name) => <Tooltip title={name}>
+                <div>{name}</div>
+            </Tooltip>
         },
         {
             title: '监控表达式',
@@ -163,6 +166,10 @@ const MonitorList = (props) => {
             <Table rowKey={record => record.id}
                    columns={columns}
                    dataSource={listData}
+                   scroll={{
+                       x: 300,
+                       y: 'max-content'
+                   }}
                    onChange={changePage}
                    pagination={{
                        position: ["bottomCenter"],

@@ -1,6 +1,6 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useRef, useState} from "react";
-import {Breadcrumb, DatePicker, Empty, Select, Tabs} from "antd";
+import {Breadcrumb, DatePicker,  Empty, Select, Tabs} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 import * as echarts from "echarts/core";
 import {
@@ -36,13 +36,11 @@ const {RangePicker} = DatePicker;
 
 const MonitorLayout = (props) => {
 
-    const {route} = props;
-
     function goBackHome() {
         props.history.push(`/monitoring`);
     }
 
-    // const [descTime, setDescTime] = useState([]);
+    const [descTime, setDescTime] = useState([]);
 
     const [monitorList, setMonitorList] = useState([]);
 
@@ -54,13 +52,8 @@ const MonitorLayout = (props) => {
         findInformationByLine,
         findInformationByGraphics,
         condition,
-        descTime,
-        setDescTime
+        setSearchNull
     } = monitorLayoutStore;
-
-    const [reportData, setReportData] = useState([]);
-
-    const dom = useRef(null);
 
 
     async function checkTabGraphics(activeKey) {
@@ -76,101 +69,33 @@ const MonitorLayout = (props) => {
             setMonitorList([...monitors])
 
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-            setSearchCondition({
+            setSearchNull({
                 hostId: localStorage.getItem("hostIdForMonitoring"),
                 monitorId: monitors[0].id,
                 source: monitors[0].monitorSource
             })
-
-            const resData = await findInformationByLine();
-            // setGraphics([...resData])
-
-            const times = await findDescGatherTime();
-            // setDescTime([...times])
-
-            if (dom) {
-
-                const chartDom = dom.current
-
-                const myChart = echarts.init(chartDom);
-
-                const option = {
-                    title: {
-                        text: "主机名称:" + localStorage.getItem("hostName")
-                    },
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    /*legend: {
-                        data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                    },*/
-                    grid: {
-                        left: '3%',
-                        right: '4%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    toolbox: {
-                        feature: {
-                            saveAsImage: {}
-                        }
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: times
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: resData
-                };
-
-                myChart.clear()
-
-                option && myChart.setOption(option);
-            }
-
         }
 
         if (activeKey === "2") {
+
+            const monitors = await findAllMonitor()
+            setMonitorList([...monitors])
+
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
             const hostId = localStorage.getItem("hostIdForMonitoring");
             setSearchCondition({
                 hostId: hostId,
-                reportType: 1
+                reportType: 1,
+                data: []
             })
-            const resData = await findAllInformationByHostId()
-            setReportData([...resData])
+            await findInformationByGraphics()
+
             const descTime = await findDescGatherTime();
             setDescTime([...descTime])
 
         }
 
-
     }
-
-    useEffect(async () => {
-
-        const monitors = await findAllMonitor()
-        setMonitorList([...monitors])
-
-        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-
-        setSearchCondition({
-            hostId: hostId,
-            reportType: 1
-        })
-
-        const resData = await findAllInformationByHostId();
-        setReportData([...resData])
-
-        const descTime = await findDescGatherTime();
-        setDescTime([...descTime])
-
-    }, []);
-
 
     const onChange = async (value, dateString) => {
 
@@ -179,54 +104,10 @@ const MonitorLayout = (props) => {
             endTime: dateString[1],
         })
 
-        const resData = await findAllInformationByHostId()
-        setReportData([...resData])
+        await findInformationByGraphics()
 
         const descTime = await findDescGatherTime();
         setDescTime([...descTime])
-
-        /*if (dom) {
-
-            const chartDom = dom.current
-
-            const myChart = echarts.init(chartDom);
-
-            const option = {
-                title: {
-                    text: "主机名称:" + localStorage.getItem("hostName")
-                },
-                tooltip: {
-                    trigger: 'axis'
-                },
-                /!*legend: {
-                    data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine']
-                },*!/
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
-                },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: false,
-                    data: descTime
-                },
-                yAxis: {
-                    type: 'value'
-                },
-                series: resData
-            };
-
-            myChart.clear()
-
-            option && myChart.setOption(option);
-        }*/
 
     };
 
@@ -242,14 +123,10 @@ const MonitorLayout = (props) => {
             data: data
         })
 
-        const resData = await findInformationByGraphics();
-
-        setReportData([...resData])
+        await findInformationByGraphics();
 
         const times = await findDescGatherTime();
         setDescTime([...times])
-
-        console.log(reportData)
 
     }
 
@@ -260,12 +137,7 @@ const MonitorLayout = (props) => {
                 <div>
                     <div className="details">
                         <div className="details-body">
-                            {/*<div className="details-content">
-                                <div className="details-content-title" id="details-content-title">
-
-                                </div>
-                            </div>*/}
-                            <div className="details-alarm-table">
+                            <div className="details-breadcrumb-table">
                                 <Breadcrumb>
                                     <Breadcrumb.Item onClick={goBackHome}>
                                         <span style={{cursor: "pointer"}}>Home</span>
@@ -274,7 +146,7 @@ const MonitorLayout = (props) => {
                                     <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                                 </Breadcrumb>
                                 <div className="details-table-title">
-                                    <Tabs defaultActiveKey="3"  onTabClick={(activeKey) => checkTabGraphics(activeKey)}>
+                                    <Tabs defaultActiveKey="1" onTabClick={(activeKey) => checkTabGraphics(activeKey)}>
                                         <Tabs.TabPane tab="列表展示" key="1">
                                             <MonitoringDetails/>
                                         </Tabs.TabPane>
@@ -306,14 +178,13 @@ const MonitorLayout = (props) => {
                                             </div>
 
                                             {
-                                                reportData[0] && reportData[0].length > 0 ?
+                                                condition && condition.length > 0 ?
                                                     <div className="details-tabs-wrap">
                                                         {
-                                                            reportData && reportData.map((item, index) => {
+                                                            condition.map((item) => {
                                                                 return (
                                                                     <MonitoringItem reportType={item[0].reportType}
-                                                                                    index={index}
-                                                                                    key={index} condition={item}
+                                                                                    condition={item}
                                                                                     descTime={descTime}/>
                                                                 )
                                                             })

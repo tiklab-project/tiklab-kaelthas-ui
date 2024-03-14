@@ -229,6 +229,10 @@ const Template = (props) => {
                                         <Table
                                             columns={monitorColumns}
                                             dataSource={monitorList}
+                                            scroll={{
+                                                x: 300,
+                                                y: 'max-content'
+                                            }}
                                             pagination={{
                                                 position: ["bottomCenter"],
                                                 total: total,

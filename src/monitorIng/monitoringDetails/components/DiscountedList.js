@@ -1,7 +1,6 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
 import monitorLayoutStore from "../store/MonitorLayoutStore";
-import {observable} from "mobx";
 import {observer} from "mobx-react";
 
 
@@ -10,11 +9,12 @@ const DiscountedList = (props) => {
     const dom = useRef(null);
 
     const {
-        findDescGatherTime,
-        descTime
+        findDescGatherTime
     } = monitorLayoutStore;
 
-    const {index, condition,} = props;
+    const {condition} = props;
+
+    const series = [];
 
     const nameList = [];
 
@@ -23,18 +23,23 @@ const DiscountedList = (props) => {
         const descTime = await findDescGatherTime();
 
         condition.map(item => {
+            series.push({
+                data: item.data,
+                name: item.name,
+                type: "line"
+            })
             nameList.push(item.name)
         })
+
 
         if (dom) {
             const chartDom = dom.current
 
+            chartDom.removeAttribute('_echarts_instance_')
+
             const myChart = echarts.init(chartDom);
 
             const option = {
-                /*title: {
-                    text: "主机名称:" + localStorage.getItem("hostName")
-                },*/
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -60,18 +65,19 @@ const DiscountedList = (props) => {
                 yAxis: {
                     type: 'value'
                 },
-                series: condition
+                series: series
             };
             if (myChart) {
                 myChart.clear()
             }
-            myChart.setOption({...option}, true);
+            myChart.setOption(option);
         }
     };
 
     useEffect(async () => {
+        console.log("DiscountedList中:",condition)
         await rendingView()
-    }, [dom]);
+    }, [dom,condition]);
 
 
     return (

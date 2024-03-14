@@ -71,23 +71,28 @@ const Configuration = (props) => {
                 }
                 return config[usability];
             }
-        }, {
+        },
+        {
             title: '模板数量',
             dataIndex: 'templateNum',
             key: 'templateNum',
-        }, {
+        },
+        {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             key: 'monitorNum',
-        }, {
+        },
+        {
             title: '触发器数量',
             dataIndex: 'triggerNum',
             key: 'triggerNum',
-        }, {
+        },
+        {
             title: '图形数量',
             dataIndex: 'graphicNum',
             key: 'graphicNum',
-        }, {
+        },
+        {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
@@ -153,6 +158,10 @@ const Configuration = (props) => {
                             columns={columns}
                             dataSource={dataList}
                             onChange={changePage}
+                            scroll={{
+                                x: 300,
+                                y: 'max-content'
+                            }}
                             pagination={{
                                 position: ["bottomCenter"],
                                 total: total,

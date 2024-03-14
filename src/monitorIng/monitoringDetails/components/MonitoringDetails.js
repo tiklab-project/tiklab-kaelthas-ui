@@ -48,7 +48,7 @@ const MonitoringDetails = (props) => {
         findMonitorByCategories,
         setSearchNull,
         findInformationByLine,
-        findDescGatherTime
+        findAllMonitor
     } = monitoringDetailsStore;
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
@@ -84,14 +84,16 @@ const MonitoringDetails = (props) => {
 
         setIsModalOpen(true);
 
-        //查询出这条数据对应的数据
-        setSearchCondition({
-            monitorId: record.monitorId,
-            source: record.source
-        })
-        const resData = await findInformationByLine()
+        const monitors = await findAllMonitor()
 
-        const descTime = await findDescGatherTime();
+        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
+        setSearchNull({
+            hostId: localStorage.getItem("hostIdForMonitoring"),
+            monitorId: monitors[0].id,
+            source: monitors[0].monitorSource
+        })
+
+        const resData = await findInformationByLine();
 
         if (dom) {
 
@@ -101,10 +103,13 @@ const MonitoringDetails = (props) => {
 
             const option = {
                 title: {
-                    text: resData[0].name
+                    text: "主机名称:" + localStorage.getItem("hostName")
                 },
                 tooltip: {
                     trigger: 'axis'
+                },
+                legend: {
+                    data: resData.name
                 },
                 grid: {
                     left: '3%',
@@ -120,17 +125,23 @@ const MonitoringDetails = (props) => {
                 xAxis: {
                     type: 'category',
                     boundaryGap: false,
-                    data: descTime
+                    data: resData.dataTimes
                 },
                 yAxis: {
                     type: 'value'
                 },
-                series: resData
+                series: {
+                    name: resData.name,
+                    type: 'line',
+                    stack: 'Total',
+                    data: resData.data
+                }
             };
+
+            myChart.clear()
 
             option && myChart.setOption(option);
         }
-
 
     }
 
@@ -155,8 +166,10 @@ const MonitoringDetails = (props) => {
             title: '数据',
             dataIndex: 'reportData',
             key: 'reportData',
-            ellipsis:true,
-            render: (name,record) => <Tooltip title={name}><div>{reportAddition(record.reportType, record.reportData)}</div></Tooltip>
+            ellipsis: true,
+            render: (name, record) => <Tooltip title={name}>
+                <div>{reportAddition(record.reportType, record.reportData)}</div>
+            </Tooltip>
         },
         {
             title: '上报时间',
@@ -342,9 +355,6 @@ const MonitoringDetails = (props) => {
                     />
                 </div>
             </div>
-            {/*<div id="scatterOne" className='chart' style={{width: 1000, height: 800}}>
-
-            </div>*/}
             <Modal
                 title="查看图形" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                 cancelText="取消" okText="确定" width={"900px"}
