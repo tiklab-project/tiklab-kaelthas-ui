@@ -47,9 +47,7 @@ const MonitorLayout = (props) => {
     const {
         findDescGatherTime,
         setSearchCondition,
-        findAllInformationByHostId,
         findAllMonitor,
-        findInformationByLine,
         findInformationByGraphics,
         condition,
         setSearchNull
@@ -58,10 +56,7 @@ const MonitorLayout = (props) => {
 
     async function checkTabGraphics(activeKey) {
 
-        setSearchCondition({
-            beginTime: null,
-            endTime: null
-        })
+
 
         if (activeKey === "1") {
 
@@ -82,12 +77,12 @@ const MonitorLayout = (props) => {
             setMonitorList([...monitors])
 
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-            const hostId = localStorage.getItem("hostIdForMonitoring");
-            setSearchCondition({
-                hostId: hostId,
+            setSearchNull({
+                hostId:localStorage.getItem("hostIdForMonitoring"),
                 reportType: 1,
                 data: []
             })
+
             await findInformationByGraphics()
 
             const descTime = await findDescGatherTime();
