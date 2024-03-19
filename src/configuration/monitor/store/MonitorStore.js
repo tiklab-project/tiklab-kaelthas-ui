@@ -25,6 +25,7 @@ export class MonitorStore {
 
         const resData = await Service('/monitor/findMonitorCondition', this.searchCondition);
         this.total = resData.data.totalRecord
+        this.data = resData.data.dataList
         return resData.data.dataList;
     }
 

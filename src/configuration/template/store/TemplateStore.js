@@ -1,6 +1,5 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
-import '../api/mock/TemplateMock'
 
 export class TemplateStore {
 
@@ -38,10 +37,8 @@ export class TemplateStore {
     //查询所有模板
     @action
     getTemplateAll = async () =>{
-
         const resData = await Service("/template/findTemplateAll");
         this.templateList = resData.data;
-
         return resData.data;
     }
 

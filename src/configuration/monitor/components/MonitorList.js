@@ -7,7 +7,7 @@ import monitorStore from "../store/MonitorStore";
 
 const MonitorList = (props) => {
 
-    const {deleteMonitorById, findMonitorCondition,total,setSearchCondition} = monitorStore;
+    const {deleteMonitorById, findMonitorCondition,total,setSearchCondition,data} = monitorStore;
 
     const {listData, setListData} = props;
 
@@ -17,6 +17,18 @@ const MonitorList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    useEffect(() => {
+        let hostId = localStorage.getItem(`hostId`);
+        setSearchCondition({
+            hostId: hostId,
+            name: null,
+            monitorSource:null
+        });
+
+        findMonitorCondition().then(res =>{
+            setListData([...res])
+        })
+    }, []);
 
     const removeToList = async (record) => {
 
@@ -35,12 +47,7 @@ const MonitorList = (props) => {
 
 
     const drawerList = (record) => {
-        /*setOpen(false);
-        console.log('open',open)*/
-
         setIsModalOpen(true);
-
-
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
@@ -165,7 +172,7 @@ const MonitorList = (props) => {
             />
             <Table rowKey={record => record.id}
                    columns={columns}
-                   dataSource={listData}
+                   dataSource={data}
                    scroll={{
                        x: 300,
                        y: 'max-content'

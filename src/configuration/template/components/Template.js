@@ -5,7 +5,6 @@ import AddTemplate from "./AddTemplate";
 import {Button, Input, Modal, Space, Table, Tabs} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
-import TemplateAddMonitor from "../../../setting/template/components/TemplateAddMonitor";
 
 const monitorColumns = [
     {
@@ -227,6 +226,7 @@ const Template = (props) => {
                                 <Tabs defaultActiveKey="1">
                                     <Tabs.TabPane tab="监控项信息" key="2">
                                         <Table
+                                            rowKey={record => record.id}
                                             columns={monitorColumns}
                                             dataSource={monitorList}
                                             scroll={{

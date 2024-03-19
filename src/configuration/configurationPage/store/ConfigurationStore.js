@@ -60,7 +60,7 @@ export class ConfigurationStore {
 
     //根据名称查询模板
     @action
-    findTemplateByName = async (name) =>{
+    findTemplateAll = async (name) =>{
         const data = await Service("/template/findTemplateAll",name)
         this.templateList = data.data;
 

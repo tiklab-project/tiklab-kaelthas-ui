@@ -81,6 +81,7 @@ const MonitoringDetails = (props) => {
 
 
     async function showGraphics(record) {
+        console.log(record)
 
         setIsModalOpen(true);
 
@@ -89,7 +90,7 @@ const MonitoringDetails = (props) => {
         //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
         setSearchNull({
             hostId: localStorage.getItem("hostIdForMonitoring"),
-            monitorId: monitors[0].id,
+            monitorId: record.monitorId,
             source: monitors[0].monitorSource
         })
 
@@ -102,9 +103,9 @@ const MonitoringDetails = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                title: {
+                /*title: {
                     text: "主机名称:" + localStorage.getItem("hostName")
-                },
+                },*/
                 tooltip: {
                     trigger: 'axis'
                 },

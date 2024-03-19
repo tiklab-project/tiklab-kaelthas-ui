@@ -33,10 +33,10 @@ const AreaCharts = (props) => {
 
     const {findDescGatherTime} = monitorLayoutStore;
 
-    const {condition} = props;
+    const {condition,descTime} = props;
 
     async function showPei() {
-        const descTime = await findDescGatherTime();
+        // const descTime = await findDescGatherTime();
         console.log("AreaCharts中:", condition)
         condition.map(item => {
             series.push(
@@ -111,7 +111,7 @@ const AreaCharts = (props) => {
 
     useEffect(async () => {
         await showPei();
-    }, [dom,condition]);
+    }, [dom,condition,descTime]);
     return (
         <div>
             <div className="item-tabs-item">

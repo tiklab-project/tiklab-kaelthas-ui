@@ -14,12 +14,11 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
+    const {findMonitorItemByName, addMonitor, findMonitorCondition,data} = monitorStore;
 
     const showModal = () => {
         setIsModalOpen(true);
     };
-
 
     const handleOk = async () => {
         form.validateFields().then(async res => {
@@ -32,14 +31,10 @@ const AddMonitor = (props) => {
                 dataRetentionTime: res.dataRetentionPeriod,
                 monitorSource: 1,
                 monitorStatus: 1,
-
             })
-
             const resData = await findMonitorCondition();
-
             setListData([...resData])
         })
-
         setIsModalOpen(false);
     };
     const handleCancel = () => {
@@ -82,8 +77,6 @@ const AddMonitor = (props) => {
                             initialValues={{
                                 remember: true,
                             }}
-                            // onFinish={onFinish}
-                            // onFinishFailed={onFinishFailed}
                             autoComplete="off"
                             form={form}
                         >
@@ -111,7 +104,6 @@ const AddMonitor = (props) => {
                                     },
                                 ]}
                             >
-
                                 <Select
                                     placeholder="请选择您的监控类型"
                                     allowClear
@@ -121,7 +113,6 @@ const AddMonitor = (props) => {
                                         value: province,
                                     }))}
                                 >
-                                    {/*<Option value="CPU信息监控">CPU信息监控</Option>*/}
                                 </Select>
 
                             </Form.Item>
@@ -142,11 +133,6 @@ const AddMonitor = (props) => {
                                     allowClear
                                     value={expression.id}
                                     onChange={onSecondCityChange}
-
-                                    /*options={expression && expression.map((item) => ({
-                                        label: item.name,
-                                        value: item.name,
-                                    }))}*/
                                 >
                                     {
                                         expression && expression.map((item) => (

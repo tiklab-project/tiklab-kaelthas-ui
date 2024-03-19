@@ -45,7 +45,7 @@ const HistogramList = (props) => {
     const {descTime,condition} = props;
 
     async function showHistogram() {
-        const descTime = await findDescGatherTime();
+        // const descTime = await findDescGatherTime();
         console.log("HistogramList中:",condition)
 
         condition.map(item => {
@@ -87,7 +87,7 @@ const HistogramList = (props) => {
 
     useEffect(async () => {
         await showHistogram();
-    }, [dom,condition]);
+    }, [dom,condition,descTime]);
 
     return (
         <div>

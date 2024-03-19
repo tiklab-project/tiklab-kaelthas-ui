@@ -124,7 +124,7 @@ const Configuration = (props) => {
         setDataList([...resData])
     };
     return (
-        <div>
+        <div style={{overflow:"auto"}}>
             <div className='box-configuration-body'>
                 <div className="box-configuration-body-item">
                     <div className="box-configuration-body--title">

@@ -12,7 +12,7 @@ const DiscountedList = (props) => {
         findDescGatherTime
     } = monitorLayoutStore;
 
-    const {condition} = props;
+    const {condition,descTime} = props;
 
     const series = [];
 
@@ -20,7 +20,7 @@ const DiscountedList = (props) => {
 
     const rendingView = async () => {
 
-        const descTime = await findDescGatherTime();
+        // const descTime = await findDescGatherTime();
 
         condition.map(item => {
             series.push({
@@ -35,7 +35,7 @@ const DiscountedList = (props) => {
         if (dom) {
             const chartDom = dom.current
 
-            chartDom.removeAttribute('_echarts_instance_')
+            // chartDom.removeAttribute('_echarts_instance_')
 
             const myChart = echarts.init(chartDom);
 
@@ -77,7 +77,7 @@ const DiscountedList = (props) => {
     useEffect(async () => {
         console.log("DiscountedList中:",condition)
         await rendingView()
-    }, [dom,condition]);
+    }, [dom,condition,descTime]);
 
 
     return (

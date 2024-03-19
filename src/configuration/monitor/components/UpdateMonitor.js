@@ -13,23 +13,18 @@ const UpdateMonitor = (props) => {
 
     const {columnData, setColumnData} = props;
 
-    const {updateMonitorById, findMonitorItemByName, findMonitorCondition,findMonitorItemAll} = monitorStore;
+    const {updateMonitorById, findMonitorItemByName, findMonitorCondition, findMonitorItemAll} = monitorStore;
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
-    // form.setFieldsValue(columnData)
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
 
-
     const handleOk = () => {
-        setIsModalOpen(false);
-
         form.validateFields().then(async res => {
-
             await updateMonitorById({
-                hostId:localStorage.getItem("hostId"),
+                hostId: localStorage.getItem("hostId"),
                 id: columnData.id,
                 name: res.name,
                 type: res.monitorType,
@@ -39,30 +34,23 @@ const UpdateMonitor = (props) => {
                 monitorSource: columnData.monitorSource,
                 monitorStatus: res.monitorStatus
             });
-
             const resData = await findMonitorCondition();
-            setListData([...resData.dataList])
+            setListData([...resData])
         })
-
+        setIsModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
-    const addDataForMonitor = () => {
-        console.log('监控项修改成功')
-    }
-
     const onMonitorChange = async (value) => {
         //根据名称查询item中的表达式
         const resData = await findMonitorItemByName(value)
-
         setMonitorItemList([...resData])
     };
 
     useEffect(async () => {
         const resData = await findMonitorItemAll()
-
         setMonitorItemList([...resData])
     }, []);
 
@@ -70,7 +58,7 @@ const UpdateMonitor = (props) => {
     return (
         <>
             <Modal title="编辑" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                   cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
+                   cancelText="取消" okText="确定">
                 <div className="UpdateMonitorForm">
                     <Form
                         name="basic"
@@ -161,7 +149,7 @@ const UpdateMonitor = (props) => {
                                 },
                             ]}
                         >
-                            <InputNumber min={1} defaultValue={1}/>
+                            <InputNumber min={1}/>
                         </Form.Item>
 
                         <Form.Item
@@ -174,7 +162,7 @@ const UpdateMonitor = (props) => {
                                 },
                             ]}
                         >
-                            <InputNumber min={1} defaultValue={1}/>
+                            <InputNumber min={1}/>
                         </Form.Item>
 
                         <Form.Item

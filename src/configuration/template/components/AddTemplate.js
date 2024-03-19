@@ -5,21 +5,13 @@ import templateStore from "../store/TemplateStore";
 const {Option} = Select
 
 const AddMonitor = (props) => {
-
     const {dataList, setDataList} = props;
-
     const [form] = Form.useForm();
-
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {addTemplate, getTemplateAll, findTemplateByMonitor, templateList} = templateStore
 
-    useEffect(() => {
-        getTemplateAll().then(() => {
-            form.setFieldsValue({
-                templateName: templateList[0]?.name
-            })
-        })
-
+    useEffect(async () => {
+        await getTemplateAll();
     }, []);
 
     const onFinish = (values) => {
@@ -33,9 +25,7 @@ const AddMonitor = (props) => {
         setIsModalOpen(true);
     };
     const handleOk = async () => {
-
         form.validateFields().then(async res => {
-
             await addTemplate({
                 hostId: localStorage.getItem("hostId"),
                 templateId: res.templateId,
@@ -45,13 +35,11 @@ const AddMonitor = (props) => {
             const resData = await findTemplateByMonitor();
             setDataList([...resData]);
         })
-
         setIsModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
 
     return (
         <>
@@ -60,52 +48,46 @@ const AddMonitor = (props) => {
             </Button>
             <Modal title="添加模板" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定">
-                <div className="addMonitorForm">
-                    <Form
-                        name="basic"
-                        labelCol={{
-                            span: 8,
-                        }}
-                        wrapperCol={{
-                            span: 16,
-                        }}
-                        initialValues={{
-                            remember: true,
-                        }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        autoComplete="off"
-                        form={form}
+                <Form
+                    name="basic"
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    autoComplete="off"
+                    form={form}
+                >
+                    <Form.Item
+                        label="模板名称"
+                        name="templateName"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请选择模板!',
+                            },
+                        ]}
                     >
-                        <Form.Item
-                            label="模板名称"
-                            name="templateId"
-                            rules={[
-                                {
-                                    required: true,
-                                    message: '请选择模板!',
-                                },
-                            ]}
+                        <Select
+                            placeholder="请选择您的模板"
+                            className="template-select"
+                            allowClear
+                            showSearch
                         >
-
-                            <Select
-                                placeholder="请选择您的模板"
-                                className="template-select"
-                                allowClear
-                                showSearch
-                            >
-
-                                {
-                                    templateList && templateList.map((item) => {
-                                        return <Option value={item.id} key={item.id}>{item.name}</Option>
-                                    })
-                                }
-                            </Select>
-
-                        </Form.Item>
-
-                    </Form>
-                </div>
+                            {
+                                templateList && templateList.map((item) => {
+                                    return <Option value={item.id} key={item.id}>{item.name}</Option>
+                                })
+                            }
+                        </Select>
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     );

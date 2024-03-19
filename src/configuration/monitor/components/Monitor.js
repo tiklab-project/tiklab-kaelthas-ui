@@ -9,36 +9,14 @@ import LeftMenu from "../../common/components/LeftMenu";
 
 const Monitor = (props) => {
 
-    const {findMonitorCondition, setSearchCondition} = monitorStore;
+    const {findMonitorCondition, setSearchCondition,data} = monitorStore;
 
     const [listData, setListData] = useState([])
 
-    useEffect(async () => {
-
-        let hostId = localStorage.getItem(`hostId`);
-
-        setSearchCondition({
-            hostId: hostId,
-            name: null,
-            monitorSource:null
-        });
-
-        const resData = await findMonitorCondition();
-        console.log(resData)
-
-        setListData([...resData])
-
-    }, []);
-
     const searchName = async (e) => {
-
         const value = e.target.value;
-
         setSearchCondition({name: value})
-
         const resData = await findMonitorCondition();
-
-        setListData([...resData])
     };
 
 
@@ -48,9 +26,7 @@ const Monitor = (props) => {
             monitorSource: monitorSource,
             name: null
         })
-
-        const resData = await findMonitorCondition(monitorSource);
-        setListData([...resData])
+        const resData = await findMonitorCondition();
     }
 
     return (
@@ -86,7 +62,7 @@ const Monitor = (props) => {
                         </div>
                     </div>
                     <div className="box-monitor-table">
-                        <MonitorList listData={listData} setListData={setListData}/>
+                        <MonitorList listData={data} setListData={setListData}/>
                     </div>
                 </div>
             </div>
