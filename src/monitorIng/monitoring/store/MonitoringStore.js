@@ -5,6 +5,8 @@ export class MonitoringStore {
 
     @observable total = 1
 
+    @observable hostState = 0
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -15,6 +17,11 @@ export class MonitoringStore {
             currentPage: 1,
         }
     };
+
+    @action
+    setHostState = value =>{
+        this.hostState = value
+    }
 
     @action
     setSearchCondition = (value) => {

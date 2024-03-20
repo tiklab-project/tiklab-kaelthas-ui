@@ -16,6 +16,7 @@ import {
 import {ScatterChart, LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
+import monitorLayoutStore from "../store/MonitorLayoutStore";
 
 echarts.use([
     TimelineComponent,
@@ -44,12 +45,13 @@ const MonitoringDetails = (props) => {
         findMonitorForHost,
         setSearchCondition,
         searchCondition,
-        total,
         findMonitorByCategories,
         setSearchNull,
         findInformationByLine,
-        findAllMonitor
-    } = monitoringDetailsStore;
+        findAllMonitor,
+    } = monitorLayoutStore;
+
+    const {findInformationPage,total} = props;
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
 
@@ -63,21 +65,6 @@ const MonitoringDetails = (props) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    useEffect(async () => {
-
-        const hostId = localStorage.getItem("hostIdForMonitoring");
-
-        setSearchNull({
-            hostId: hostId,
-        })
-
-        const resultData = await findMonitorForHost()
-
-        setDataList([...resultData])
-
-
-    }, []);
 
 
     async function showGraphics(record) {
@@ -95,6 +82,11 @@ const MonitoringDetails = (props) => {
         })
 
         const resData = await findInformationByLine();
+        setSearchNull({
+            hostId: localStorage.getItem("hostIdForMonitoring"),
+            monitorId: null,
+            source: null
+        })
 
         if (dom) {
 
@@ -103,9 +95,6 @@ const MonitoringDetails = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                /*title: {
-                    text: "主机名称:" + localStorage.getItem("hostName")
-                },*/
                 tooltip: {
                     trigger: 'axis'
                 },
@@ -284,7 +273,7 @@ const MonitoringDetails = (props) => {
 
     return (
         <>
-            <div className="details-search">
+            {/*<div className="details-search">
                 <div className="details-div">
                     <Select
                         placeholder="请选择您的监控类型"
@@ -319,9 +308,6 @@ const MonitoringDetails = (props) => {
                 </div>
                 <div className="details-div">
                     <RangePicker
-                        /*showTime={{
-                            format: 'HH:mm:ss',
-                        }}*/
                         format="YYYY-MM-DD"
                         onChange={onChange}
                         onOk={onOk}
@@ -333,12 +319,12 @@ const MonitoringDetails = (props) => {
                            onChange={onchangeByName}
                            onPressEnter={(event) => searchByName(event)}/>
                 </div>
-            </div>
+            </div>*/}
             <div className="details-alarm-table-list">
                 <Table
                     rowKey={record => record.id}
                     columns={columns}
-                    dataSource={dataList}
+                    dataSource={findInformationPage}
                     pagination={false}
                     scroll={{
                         x: 300,

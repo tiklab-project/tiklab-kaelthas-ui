@@ -14,7 +14,7 @@ const Monitoring = (props) => {
     const {
         findHostPage, findInformationByMonitorId, setSearchCondition,
         searchCondition, total,
-        findPageHost
+        hostState,setHostState
     } = monitoringStore;
 
     const host = (record) => {
@@ -70,16 +70,6 @@ const Monitoring = (props) => {
                 return config[usability];
             }
         },
-        /*{
-            title: '模板数量',
-            dataIndex: 'templateNum',
-            key: 'templateNum',
-        },
-        {
-            title: '监控项数量',
-            dataIndex: 'monitorNum',
-            key: 'monitorNum',
-        },*/
         {
             title: '监控数据数量',
             dataIndex: 'countMonitor',
@@ -98,18 +88,35 @@ const Monitoring = (props) => {
 
     ];
 
+    const availabilityTab = [
+        {
+            title: '全部',
+            key: 0,
+            icon: "allHost"
+        },
+        {
+            title: '可用',
+            key: 1,
+            icon: "availableHost"
+        },
+        {
+            title: '不可用',
+            key: 2,
+            icon: "noAvailableHost"
+        }
+    ]
 
     async function checkTabHost(value) {
-
+        setHostState(value)
         switch (value) {
-            case "1":
+            case 0:
+                value = null
+                break
+            case 1:
                 value = 1
                 break
-            case "2":
+            case 2:
                 value = 2
-                break
-            case "3":
-                value = null
                 break
         }
         setSearchCondition({
@@ -154,86 +161,104 @@ const Monitoring = (props) => {
                     </div>
                 </div>*/}
                 <div className="monitoring-alarm-table">
-                    <Tabs defaultActiveKey="3" onTabClick={(activeKey) => checkTabHost(activeKey)}>
-                        <Tabs.TabPane tab="全部" key="3">
-                            <div className="monitoring-table-title">主机列表</div>
-                            <div className="monitoring-search">
-                                <div>
-                                    <Input placeholder="根据主机名称进行查询"
-                                           onPressEnter={(event) => searchByName(event)}/>
-                                </div>
-                            </div>
-                            <div className="monitoring-alarm-table-list">
-                                <Table
-                                    rowKey={record => record.id}
-                                    columns={columns}
-                                    dataSource={listData}
-                                    pagination={false}
-                                />
-                                <div className="details-pagination">
-                                    <Pagination
-                                        current={searchCondition.pageParam.currentPage}
-                                        pageSize={searchCondition.pageParam.pageSize}
-                                        showSizeChanger={true}
-                                        total={total}
-                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
-                                    />
-                                </div>
-                            </div>
-                        </Tabs.TabPane>
-                        <Tabs.TabPane tab="可用" key="1">
-                            <div className="monitoring-table-title">主机列表</div>
-                            <div className="monitoring-search">
-                                <div>
-                                    <Input placeholder="根据主机名称进行查询"
-                                           onPressEnter={(event) => searchByName(event)}/>
-                                </div>
-                            </div>
-                            <div className="monitoring-alarm-table-list">
-                                <Table
-                                    rowKey={record => record.id}
-                                    columns={columns}
-                                    dataSource={listData}
-                                    pagination={false}
-                                />
-                                <div className="details-pagination">
-                                    <Pagination
-                                        current={searchCondition.pageParam.currentPage}
-                                        pageSize={searchCondition.pageParam.pageSize}
-                                        showSizeChanger={true}
-                                        total={total}
-                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
-                                    />
-                                </div>
-                            </div>
-                        </Tabs.TabPane>
-                        <Tabs.TabPane tab="不可用" key="2">
-                            <div className="monitoring-table-title">主机列表</div>
-                            <div className="monitoring-search">
-                                <div>
-                                    <Input placeholder="根据主机名称进行查询"
-                                           onPressEnter={(event) => searchByName(event)}/>
-                                </div>
-                            </div>
-                            <div className="monitoring-alarm-table-list">
-                                <Table
-                                    rowKey={record => record.id}
-                                    columns={columns}
-                                    dataSource={listData}
-                                    pagination={false}
-                                />
-                                <div className="details-pagination">
-                                    <Pagination
-                                        current={searchCondition.pageParam.currentPage}
-                                        pageSize={searchCondition.pageParam.pageSize}
-                                        showSizeChanger={true}
-                                        total={total}
-                                        onChange={(page, pageSize) => checkPage(page, pageSize)}
-                                    />
-                                </div>
-                            </div>
-                        </Tabs.TabPane>
-                    </Tabs>
+                    <div className="monitoring-table-title">主机列表</div>
+                    <div className="monitoring-search">
+                        {/*<div>
+                            <Tabs defaultActiveKey="3" onTabClick={(activeKey) => checkTabHost(activeKey)}>
+                                <Tabs.TabPane tab="全部" key="3">
+                                    <div className="monitoring-alarm-table-list">
+                                        <Table
+                                            rowKey={record => record.id}
+                                            columns={columns}
+                                            dataSource={listData}
+                                            pagination={false}
+                                        />
+                                        <div className="details-pagination">
+                                            <Pagination
+                                                current={searchCondition.pageParam.currentPage}
+                                                pageSize={searchCondition.pageParam.pageSize}
+                                                showSizeChanger={true}
+                                                total={total}
+                                                onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                            />
+                                        </div>
+                                    </div>
+                                </Tabs.TabPane>
+                                <Tabs.TabPane tab="可用" key="1">
+                                    <div className="monitoring-alarm-table-list">
+                                        <Table
+                                            rowKey={record => record.id}
+                                            columns={columns}
+                                            dataSource={listData}
+                                            pagination={false}
+                                        />
+                                        <div className="details-pagination">
+                                            <Pagination
+                                                current={searchCondition.pageParam.currentPage}
+                                                pageSize={searchCondition.pageParam.pageSize}
+                                                showSizeChanger={true}
+                                                total={total}
+                                                onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                            />
+                                        </div>
+                                    </div>
+                                </Tabs.TabPane>
+                                <Tabs.TabPane tab="不可用" key="2">
+                                    <div className="monitoring-alarm-table-list">
+                                        <Table
+                                            rowKey={record => record.id}
+                                            columns={columns}
+                                            dataSource={listData}
+                                            pagination={false}
+                                        />
+                                        <div className="details-pagination">
+                                            <Pagination
+                                                current={searchCondition.pageParam.currentPage}
+                                                pageSize={searchCondition.pageParam.pageSize}
+                                                showSizeChanger={true}
+                                                total={total}
+                                                onChange={(page, pageSize) => checkPage(page, pageSize)}
+                                            />
+                                        </div>
+                                    </div>
+                                </Tabs.TabPane>
+                            </Tabs>
+                        </div>*/}
+                        <div className="monitoring-tabs">
+                            {
+                                availabilityTab.map(item =>{
+                                    return <div
+                                        className={`monitoring-tab ${hostState === item.key ? "active-tabs" : ""}`}
+                                        key={item.key}
+                                        onClick={() => checkTabHost(item.key)}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <div>
+                            <Input placeholder="根据主机名称进行查询"
+                                   onPressEnter={(event) => searchByName(event)}/>
+                        </div>
+                    </div>
+                    <div className="monitoring-alarm-table-list">
+                        <Table
+                            rowKey={record => record.id}
+                            columns={columns}
+                            dataSource={listData}
+                            pagination={false}
+                        />
+                        <div className="details-pagination">
+                            <Pagination
+                                current={searchCondition.pageParam.currentPage}
+                                pageSize={searchCondition.pageParam.pageSize}
+                                showSizeChanger={true}
+                                total={total}
+                                onChange={(page, pageSize) => checkPage(page, pageSize)}
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

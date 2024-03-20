@@ -2,6 +2,7 @@
   height: calc(100vh - 48px);;
   margin-left: 12.5%;
   margin-right: 12.5%;
+  width: 1080px;
 
   .box-configuration-body-item {
     padding: 15px;
@@ -42,6 +43,11 @@
         justify-content: flex-start;
         height: 50px;
         line-height: 50px;
+
+        .box-configuration-tabs {
+          color: #000;
+          border-bottom: 2px solid #5d70ea;
+        }
 
         .box-configuration-body-tabs-item {
           font-size: 13px;

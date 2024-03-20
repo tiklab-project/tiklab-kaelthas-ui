@@ -1,6 +1,6 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useRef, useState} from "react";
-import {Breadcrumb, DatePicker,  Empty, Select, Tabs} from "antd";
+import {Breadcrumb, DatePicker, Empty, Input, Modal, Pagination, Select, Table, Tabs} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 import * as echarts from "echarts/core";
 import {
@@ -17,6 +17,7 @@ import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import monitorLayoutStore from "../store/MonitorLayoutStore";
 import MonitoringItem from "./MonitoringItem";
+import moment from "moment";
 
 echarts.use([
     TimelineComponent,
@@ -33,6 +34,9 @@ echarts.use([
     PieChart
 ]);
 const {RangePicker} = DatePicker;
+const dateFormat = 'YYYY-MM-DD';
+
+const now = moment().locale('zh-cn').format('YYYY-MM-DD');
 
 const MonitorLayout = (props) => {
 
@@ -44,43 +48,63 @@ const MonitorLayout = (props) => {
 
     const [monitorList, setMonitorList] = useState([]);
 
+    const [monitorName,setMonitorName] = useState([]);
+
     const {
         findDescGatherTime,
         setSearchCondition,
         findAllMonitor,
         findInformationByGraphics,
         condition,
-        setSearchNull
+        setSearchNull,
+        findMonitorForHost,
+        findMonitorByCategories,
+        hostState,
+        setHostState,
+        getDateTime,
+        findInformationPage,
+        total,
+        monitorIds,
     } = monitorLayoutStore;
 
+    const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
+
+    const [dataList, setDataList] = useState([]);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
+
+    useEffect(async () => {
+
+        const hostId = localStorage.getItem("hostIdForMonitoring");
+        const testStr = getDateTime().substring(1, getDateTime().length - 1)
+        setSearchNull({
+            hostId: hostId,
+            beginTime:testStr,
+            endTime:testStr
+        })
+        const resultData = await findMonitorForHost()
+
+    }, []);
 
     async function checkTabGraphics(activeKey) {
+        setHostState(activeKey)
 
+        const monitors = await findAllMonitor()
+        setMonitorList([...monitors])
 
+        if (activeKey === "2") {
 
-        if (activeKey === "1") {
-
-            const monitors = await findAllMonitor()
-            setMonitorList([...monitors])
+            const testStr = getDateTime().substring(1, getDateTime().length - 1)
 
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
             setSearchNull({
                 hostId: localStorage.getItem("hostIdForMonitoring"),
-                monitorId: monitors[0].id,
-                source: monitors[0].monitorSource
-            })
-        }
-
-        if (activeKey === "2") {
-
-            const monitors = await findAllMonitor()
-            setMonitorList([...monitors])
-
-            //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-            setSearchNull({
-                hostId:localStorage.getItem("hostIdForMonitoring"),
                 reportType: 1,
-                data: []
+                data: [],
+                beginTime:testStr,
+                endTime:testStr
             })
 
             await findInformationByGraphics()
@@ -104,6 +128,14 @@ const MonitorLayout = (props) => {
         const descTime = await findDescGatherTime();
         setDescTime([...descTime])
 
+        setSearchCondition({
+            beginTime: dateString[0],
+            endTime: dateString[1]
+        })
+        const newVar = await findMonitorForHost();
+
+        setDataList([...newVar])
+
     };
 
     async function onCheckMonitor(value, options) {
@@ -125,6 +157,75 @@ const MonitorLayout = (props) => {
 
     }
 
+    /*const onChange = async (value, dateString) => {
+        setSearchCondition({
+            beginTime: dateString[0],
+            endTime: dateString[1]
+        })
+        const newVar = await findMonitorForHost();
+
+        setDataList([...newVar])
+    };*/
+    const onOk = (value) => {
+        console.log('onOk: ', value);
+    };
+
+    async function searchByDataCategories(event) {
+
+        setSearchCondition({
+            dataCategories: event
+        })
+        const newVar = await findMonitorForHost();
+
+        setDataList([...newVar])
+
+        //根据监控大类查询监控小类
+        const resData = await findMonitorByCategories();
+        setMonitorDataSubclass([...resData])
+    }
+
+    async function searchByDataSubclass(event) {
+
+        const newVar = await findMonitorForHost();
+
+        setDataList([...newVar])
+    }
+
+    function onchangeByDataCategories(e) {
+        setSearchCondition({
+            dataCategories: e.target.value
+        })
+    }
+
+    async function onchangeByDataSubclass(e) {
+
+        setSearchCondition({
+            dataSubclass: e
+        })
+        const newVar = await findMonitorForHost();
+    }
+
+    async function onchangeByName(e) {
+        setSearchCondition({
+            monitorName: e.target.value
+        })
+
+        const newVar = await findMonitorForHost();
+
+    }
+
+    const showTabs = [
+        {
+            title: '列表展示',
+            key: '1',
+            icon: "showList"
+        },
+        {
+            title: '图表展示',
+            key: '2',
+            icon: "graphicsList"
+        }
+    ]
 
     return (
         <div>
@@ -140,13 +241,89 @@ const MonitorLayout = (props) => {
                                     <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
                                     <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                                 </Breadcrumb>
+
+
                                 <div className="details-table-title">
-                                    <Tabs defaultActiveKey="1" onTabClick={(activeKey) => checkTabGraphics(activeKey)}>
-                                        <Tabs.TabPane tab="列表展示" key="1">
-                                            <MonitoringDetails/>
-                                        </Tabs.TabPane>
-                                        <Tabs.TabPane tab="图表展示" key="2">
-                                            <div className="details-search">
+                                    <div className="details-tables">
+                                        {
+                                            showTabs.map(item => {
+                                                return <div
+                                                    className={`details-tabs-item ${hostState === item.key ? "details-tabs" : ""}`}
+                                                    key={item.key}
+                                                    onClick={() => checkTabGraphics(item.key)}
+                                                >
+                                                    {item.title}
+                                                </div>
+                                            })
+                                        }
+                                    </div>
+
+                                    <div className="details-search">
+                                        {
+                                            hostState === '1' ?
+                                                <div className="details-div">
+                                                    <Select
+                                                        placeholder="请选择您的监控类型"
+                                                        onChange={searchByDataCategories}
+                                                        allowClear={true}
+                                                        style={{
+                                                            width: 120,
+                                                        }}
+                                                        options={dataCategories && dataCategories.map((province) => ({
+                                                            label: province,
+                                                            value: province,
+                                                        }))}
+                                                    >
+                                                    </Select>
+                                                </div>
+                                                :
+                                                <div>
+
+                                                </div>
+                                        }
+                                        {
+                                            hostState === '1' ?
+                                                <div className="details-div">
+                                                    <Select
+                                                        placeholder="请选择您的监控类型"
+                                                        onChange={onchangeByDataSubclass}
+                                                        allowClear={true}
+                                                        style={{
+                                                            width: 300,
+                                                        }}
+                                                        options={
+                                                            monitorDataSubclass && monitorDataSubclass.map(item => ({
+                                                                label: item.dataSubclass,
+                                                                value: item.dataSubclass
+                                                            }))
+                                                        }
+                                                    >
+                                                    </Select>
+                                                </div>
+                                                :
+                                                <div>
+
+                                                </div>
+                                        }
+
+
+                                        <div className="details-div">
+                                            <RangePicker
+                                                format={dateFormat}
+                                                onChange={onChange}
+                                                onOk={onOk}
+                                                defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
+                                            />
+                                        </div>
+                                        {
+                                            hostState === '1' ?
+                                                <div className="details-div">
+                                                    <Input placeholder="请输入监控项名称"
+                                                           allowClear={true}
+                                                           onChange={onchangeByName}
+                                                    />
+                                                </div>
+                                                :
                                                 <div className="details-div">
                                                     <Select
                                                         mode="multiple"
@@ -155,6 +332,7 @@ const MonitorLayout = (props) => {
                                                         }}
                                                         placeholder="请选择您的监控项"
                                                         allowClear
+                                                        defaultValue={monitorIds}
                                                         onChange={(value, options) => onCheckMonitor(value, options)}
                                                         options={monitorList && monitorList.map(item => ({
                                                             label: item.name,
@@ -164,17 +342,17 @@ const MonitorLayout = (props) => {
                                                     >
                                                     </Select>
                                                 </div>
-                                                <div className="details-div">
-                                                    <RangePicker
-                                                        format="YYYY-MM-DD"
-                                                        onChange={onChange}
-                                                    />
-                                                </div>
-                                            </div>
-
-                                            {
+                                        }
+                                    </div>
+                                </div>
+                                <div className="layout-body-list">
+                                    {
+                                        hostState === '1' ?
+                                            <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
+                                            :
+                                            <div>{
                                                 condition && condition.length > 0 ?
-                                                    <div className="details-tabs-wrap">
+                                                    <div className="details-tabs-wrap" key="details-tabs-wrap">
                                                         {
                                                             condition.map((item) => {
                                                                 return (
@@ -190,8 +368,8 @@ const MonitorLayout = (props) => {
                                                         <span>没有数据</span>
                                                     </Empty>
                                             }
-                                        </Tabs.TabPane>
-                                    </Tabs>
+                                            </div>
+                                    }
                                 </div>
                             </div>
                         </div>

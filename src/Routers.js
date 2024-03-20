@@ -23,7 +23,6 @@ const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/Monitor
 const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
-const MonitoringGraphics = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringGraphics'))
 
 
 const Routes = [
@@ -119,11 +118,6 @@ const Routes = [
                     {
                         path: "/monitoringList/:id/monitoringDetails",
                         component: MonitoringDetails,
-                    },
-                    {
-                        path: "/monitoring/:id/monitoringGraphics",
-                        exact: false,
-                        component: MonitoringGraphics,
                     },
                 ]
             },

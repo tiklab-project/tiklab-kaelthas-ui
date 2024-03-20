@@ -10,7 +10,7 @@ const Configuration = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findPageHost, findHostGroup, setSearchCondition, total} = configurationStore;
+    const {findPageHost, findHostGroup, setSearchCondition, total,setHostState,hostState} = configurationStore;
 
     useEffect(async () => {
 
@@ -33,7 +33,6 @@ const Configuration = (props) => {
         props.history.push(`/hostList/${record.id}/hostDetails`);
         localStorage.setItem('hostId', record.id);
     }
-
 
     const columns = [
         {
@@ -115,6 +114,12 @@ const Configuration = (props) => {
 
     };
     const checkTab = async (value) => {
+        setHostState(value)
+
+        if (value === 0){
+            value = null
+        }
+
         setSearchCondition({
             usability: value,
             name: ""
@@ -123,6 +128,25 @@ const Configuration = (props) => {
 
         setDataList([...resData])
     };
+
+    const availabilityTab = [
+        {
+            title: '全部',
+            key: 0,
+            icon: "allHost"
+        },
+        {
+            title: '可用',
+            key: 1,
+            icon: "availableHost"
+        },
+        {
+            title: '不可用',
+            key: 2,
+            icon: "noAvailableHost"
+        }
+    ]
+
     return (
         <div style={{overflow:"auto"}}>
             <div className='box-configuration-body'>
@@ -137,7 +161,7 @@ const Configuration = (props) => {
                     </div>
                     <div className="box-configuration-body-type">
                         <div className="box-configuration-body-tabs">
-                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(null)}>
+                            {/*<div className="box-configuration-body-tabs-item" onClick={() => checkTab(null)}>
                                 所有
                             </div>
                             <div className="box-configuration-body-tabs-item" onClick={() => checkTab(1)}>
@@ -145,8 +169,18 @@ const Configuration = (props) => {
                             </div>
                             <div className="box-configuration-body-tabs-item" onClick={() => checkTab(2)}>
                                 不可用
-                            </div>
-
+                            </div>*/}
+                            {
+                                availabilityTab.map(item =>{
+                                    return <div
+                                        className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
+                                        key={item.key}
+                                        onClick={() => checkTab(item.key)}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
                         </div>
                         <div className="box-configuration-body-search">
                             <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>

@@ -92,6 +92,7 @@
       .monitoring-table-title {
         width: 100%;
         font-weight: bold;
+        font-size: 16px;
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -99,7 +100,32 @@
 
       .monitoring-search{
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
+        align-items: center;
+        height: 50px;
+        line-height: 50px;
+        gap: 20px;
+
+        .monitoring-tabs{
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          height: 50px;
+          line-height: 50px;
+
+          .monitoring-tab{
+            font-size: 13px;
+            cursor: pointer;
+            height: 50px;
+            line-height: 50px;
+            margin-right: 20px;
+          }
+
+          .active-tabs {
+            color: #000;
+            border-bottom: 2px solid #5d70ea;
+          }
+        }
 
       }
       .monitoring-alarm-table-list{
