@@ -48,7 +48,7 @@ const MonitorLayout = (props) => {
 
     const [monitorList, setMonitorList] = useState([]);
 
-    const [monitorName,setMonitorName] = useState([]);
+    const [monitorName, setMonitorName] = useState([]);
 
     const {
         findDescGatherTime,
@@ -65,13 +65,13 @@ const MonitorLayout = (props) => {
         findInformationPage,
         total,
         monitorIds,
+        monitorDataSubclassNames
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
     const [dataList, setDataList] = useState([]);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
 
@@ -81,10 +81,15 @@ const MonitorLayout = (props) => {
         const testStr = getDateTime().substring(1, getDateTime().length - 1)
         setSearchNull({
             hostId: hostId,
-            beginTime:testStr,
-            endTime:testStr
+            beginTime: testStr,
+            endTime: testStr
         })
-        const resultData = await findMonitorForHost()
+        await findMonitorForHost()
+
+        await findInformationByGraphics();
+
+        const times = await findDescGatherTime();
+        setDescTime([...times])
 
     }, []);
 
@@ -96,16 +101,7 @@ const MonitorLayout = (props) => {
 
         if (activeKey === "2") {
 
-            const testStr = getDateTime().substring(1, getDateTime().length - 1)
-
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-            setSearchNull({
-                hostId: localStorage.getItem("hostIdForMonitoring"),
-                reportType: 1,
-                data: [],
-                beginTime:testStr,
-                endTime:testStr
-            })
 
             await findInformationByGraphics()
 
@@ -132,23 +128,19 @@ const MonitorLayout = (props) => {
             beginTime: dateString[0],
             endTime: dateString[1]
         })
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
+        await findMonitorForHost();
 
     };
 
     async function onCheckMonitor(value, options) {
 
-        const data = [];
-        value.map(item => {
-            data.push(item[0] + ":" + item[1])
-        })
 
         setSearchCondition({
             hostId: localStorage.getItem("hostIdForMonitoring"),
-            data: data
+            monitorIdList: value
         })
+
+        await findMonitorForHost();
 
         await findInformationByGraphics();
 
@@ -173,45 +165,19 @@ const MonitorLayout = (props) => {
     async function searchByDataCategories(event) {
 
         setSearchCondition({
-            dataCategories: event
+            dataCategories: event,
+            id:localStorage.getItem("hostIdForMonitoring")
         })
-        const newVar = await findMonitorForHost();
+        await findMonitorForHost();
 
-        setDataList([...newVar])
 
         //根据监控大类查询监控小类
         const resData = await findMonitorByCategories();
         setMonitorDataSubclass([...resData])
-    }
 
-    async function searchByDataSubclass(event) {
-
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    }
-
-    function onchangeByDataCategories(e) {
-        setSearchCondition({
-            dataCategories: e.target.value
+        resData.map(item =>{
+            monitorDataSubclassNames.push(item.name)
         })
-    }
-
-    async function onchangeByDataSubclass(e) {
-
-        setSearchCondition({
-            dataSubclass: e
-        })
-        const newVar = await findMonitorForHost();
-    }
-
-    async function onchangeByName(e) {
-        setSearchCondition({
-            monitorName: e.target.value
-        })
-
-        const newVar = await findMonitorForHost();
-
     }
 
     const showTabs = [
@@ -244,6 +210,52 @@ const MonitorLayout = (props) => {
 
 
                                 <div className="details-table-title">
+                                    <div className="details-search">
+                                        <div className="details-div">
+                                            <Select
+                                                placeholder="请选择监控大类"
+                                                onChange={searchByDataCategories}
+                                                allowClear={true}
+                                                defaultValue="全部监控大类"
+                                                style={{
+                                                    width: 150,
+                                                }}
+                                                options={dataCategories && dataCategories.map((province) => ({
+                                                    label: province,
+                                                    value: province,
+                                                }))}
+                                            >
+                                            </Select>
+                                        </div>
+                                        <div className="details-div">
+                                            <Select
+                                                mode="multiple"
+                                                maxTagCount='responsive'
+                                                placeholder="请选择您的监控小类"
+                                                onChange={(value, options) => onCheckMonitor(value, options)}
+                                                allowClear
+                                                style={{
+                                                    width: 300,
+                                                }}
+                                                defaultValue="全部监控小类"
+                                                options={monitorDataSubclass && monitorDataSubclass.map(item => ({
+                                                    label: item.name,
+                                                    key: item.id,
+                                                    value: item.id,
+                                                }))}
+                                            >
+                                            </Select>
+                                        </div>
+                                        <div className="details-div">
+                                            <RangePicker
+                                                format={dateFormat}
+                                                onChange={onChange}
+                                                onOk={onOk}
+                                                defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
+                                            />
+                                        </div>
+                                    </div>
+
                                     <div className="details-tables">
                                         {
                                             showTabs.map(item => {
@@ -255,93 +267,6 @@ const MonitorLayout = (props) => {
                                                     {item.title}
                                                 </div>
                                             })
-                                        }
-                                    </div>
-
-                                    <div className="details-search">
-                                        {
-                                            hostState === '1' ?
-                                                <div className="details-div">
-                                                    <Select
-                                                        placeholder="请选择您的监控类型"
-                                                        onChange={searchByDataCategories}
-                                                        allowClear={true}
-                                                        style={{
-                                                            width: 120,
-                                                        }}
-                                                        options={dataCategories && dataCategories.map((province) => ({
-                                                            label: province,
-                                                            value: province,
-                                                        }))}
-                                                    >
-                                                    </Select>
-                                                </div>
-                                                :
-                                                <div>
-
-                                                </div>
-                                        }
-                                        {
-                                            hostState === '1' ?
-                                                <div className="details-div">
-                                                    <Select
-                                                        placeholder="请选择您的监控类型"
-                                                        onChange={onchangeByDataSubclass}
-                                                        allowClear={true}
-                                                        style={{
-                                                            width: 300,
-                                                        }}
-                                                        options={
-                                                            monitorDataSubclass && monitorDataSubclass.map(item => ({
-                                                                label: item.dataSubclass,
-                                                                value: item.dataSubclass
-                                                            }))
-                                                        }
-                                                    >
-                                                    </Select>
-                                                </div>
-                                                :
-                                                <div>
-
-                                                </div>
-                                        }
-
-
-                                        <div className="details-div">
-                                            <RangePicker
-                                                format={dateFormat}
-                                                onChange={onChange}
-                                                onOk={onOk}
-                                                defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
-                                            />
-                                        </div>
-                                        {
-                                            hostState === '1' ?
-                                                <div className="details-div">
-                                                    <Input placeholder="请输入监控项名称"
-                                                           allowClear={true}
-                                                           onChange={onchangeByName}
-                                                    />
-                                                </div>
-                                                :
-                                                <div className="details-div">
-                                                    <Select
-                                                        mode="multiple"
-                                                        style={{
-                                                            width: '200px',
-                                                        }}
-                                                        placeholder="请选择您的监控项"
-                                                        allowClear
-                                                        defaultValue={monitorIds}
-                                                        onChange={(value, options) => onCheckMonitor(value, options)}
-                                                        options={monitorList && monitorList.map(item => ({
-                                                            label: item.name,
-                                                            key: item.id,
-                                                            value: [item.id, item.monitorSource],
-                                                        }))}
-                                                    >
-                                                    </Select>
-                                                </div>
                                         }
                                     </div>
                                 </div>

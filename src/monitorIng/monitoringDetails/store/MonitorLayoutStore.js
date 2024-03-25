@@ -24,11 +24,14 @@ export class MonitorLayoutStore {
     descTime = [];
 
     @observable
-    hostState = '1';
+    hostState = '2';
 
     //监控项的id
     @observable
     monitorIds = [];
+
+    @observable
+    monitorDataSubclassNames = [];
 
     @action
     setHostState = value => {
@@ -86,7 +89,7 @@ export class MonitorLayoutStore {
 
     @action
     findMonitorByCategories = async () => {
-        const resData = await Service("/monitorItem/findMonitorByCategories", this.searchCondition);
+        const resData = await Service("/hostList/findMonitorByCategories", this.searchCondition);
 
         return resData.data;
     }

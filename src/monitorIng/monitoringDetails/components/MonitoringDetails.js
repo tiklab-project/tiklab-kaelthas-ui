@@ -34,10 +34,6 @@ echarts.use([
 
 const MonitoringDetails = (props) => {
 
-    const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
-
-    const [dataList, setDataList] = useState([]);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -45,7 +41,6 @@ const MonitoringDetails = (props) => {
         findMonitorForHost,
         setSearchCondition,
         searchCondition,
-        findMonitorByCategories,
         setSearchNull,
         findInformationByLine,
         findAllMonitor,
@@ -53,9 +48,6 @@ const MonitoringDetails = (props) => {
 
     const {findInformationPage,total} = props;
 
-    const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
-
-    const {RangePicker} = DatePicker;
     const dom = useRef(null);
 
     const handleOk = () => {
@@ -201,125 +193,11 @@ const MonitoringDetails = (props) => {
             }
         })
 
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    }
-
-    async function searchByName(event) {
-
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    }
-
-    const onChange = async (value, dateString) => {
-        setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1]
-        })
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    };
-    const onOk = (value) => {
-        console.log('onOk: ', value);
-    };
-
-    async function searchByDataCategories(event) {
-
-        setSearchCondition({
-            dataCategories: event
-        })
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-
-        //根据监控大类查询监控小类
-        const resData = await findMonitorByCategories();
-        setMonitorDataSubclass([...resData])
-    }
-
-    async function searchByDataSubclass(event) {
-
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    }
-
-    function onchangeByDataCategories(e) {
-        setSearchCondition({
-            dataCategories: e.target.value
-        })
-    }
-
-    async function onchangeByDataSubclass(e) {
-
-        setSearchCondition({
-            dataSubclass: e
-        })
-
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-
-    }
-
-    function onchangeByName(e) {
-        setSearchCondition({
-            monitorName: e.target.value
-        })
+        await findMonitorForHost();
     }
 
     return (
         <>
-            {/*<div className="details-search">
-                <div className="details-div">
-                    <Select
-                        placeholder="请选择您的监控类型"
-                        onChange={searchByDataCategories}
-                        allowClear={true}
-                        style={{
-                            width: 120,
-                        }}
-                        options={dataCategories && dataCategories.map((province) => ({
-                            label: province,
-                            value: province,
-                        }))}
-                    >
-                    </Select>
-                </div>
-                <div className="details-div">
-                    <Select
-                        placeholder="请选择您的监控类型"
-                        onChange={onchangeByDataSubclass}
-                        allowClear={true}
-                        style={{
-                            width: 300,
-                        }}
-                        options={
-                            monitorDataSubclass && monitorDataSubclass.map(item => ({
-                                label: item.dataSubclass,
-                                value: item.dataSubclass
-                            }))
-                        }
-                    >
-                    </Select>
-                </div>
-                <div className="details-div">
-                    <RangePicker
-                        format="YYYY-MM-DD"
-                        onChange={onChange}
-                        onOk={onOk}
-                    />
-                </div>
-                <div className="details-div">
-                    <Input placeholder="请输入监控项名称"
-                           allowClear={true}
-                           onChange={onchangeByName}
-                           onPressEnter={(event) => searchByName(event)}/>
-                </div>
-            </div>*/}
             <div className="details-alarm-table-list">
                 <Table
                     rowKey={record => record.id}
