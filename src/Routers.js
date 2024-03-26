@@ -23,6 +23,9 @@ const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/Monitor
 const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
+const AlarmLayout = AsyncComponent(() => import('./alarm/common/components/AlarmLayout'))
+const alarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
+const AlarmDetails = AsyncComponent(() => import('./alarm/alarmDetails/components/AlarmDetails'))
 
 
 const Routes = [
@@ -118,6 +121,21 @@ const Routes = [
                     {
                         path: "/monitoringList/:id/monitoringDetails",
                         component: MonitoringDetails,
+                    },
+                ]
+            },
+            {
+                path: "/alarm",
+                exact: false,
+                component: alarmPage,
+            },
+            {
+                path: "/alarmLayout",
+                component: AlarmLayout,
+                routes: [
+                    {
+                        path: "/alarmLayout/:id/alarmDetails",
+                        component: AlarmDetails,
                     },
                 ]
             },
