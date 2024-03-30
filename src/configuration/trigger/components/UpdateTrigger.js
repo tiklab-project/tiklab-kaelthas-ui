@@ -1,6 +1,7 @@
 import {Button, Form, Input, InputNumber, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
+import TextArea from "antd/es/input/TextArea";
 
 const {Option} = Select
 const UpdateTrigger = (props) => {
@@ -43,8 +44,6 @@ const UpdateTrigger = (props) => {
 
             console.log("修改当中的res:", res)
 
-            console.log(rowData.source)
-
             await updateTrigger({
                 id: rowData.id,
                 expressionId: rowData.expressionId,
@@ -56,7 +55,8 @@ const UpdateTrigger = (props) => {
                 mediumType: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
-                source: rowData.source
+                source: rowData.source,
+                expression:res.expression
             });
 
 
@@ -127,6 +127,7 @@ const UpdateTrigger = (props) => {
                 visible={isModalOpen}
                 cancelText="取消"
                 okText="确定"
+                width={500}
             >
                 <div className="addMonitorForm">
                     <div>
@@ -146,6 +147,7 @@ const UpdateTrigger = (props) => {
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                             form={form}
+                            labelAlign={"left"}
                         >
                             <Form.Item
                                 label="触发器名称"
@@ -161,7 +163,7 @@ const UpdateTrigger = (props) => {
                                 <Input/>
                             </Form.Item>
 
-                            <Form.Item
+                            {/*<Form.Item
                                 label="监控项"
                                 name="monitorId"
                                 rules={[
@@ -193,7 +195,7 @@ const UpdateTrigger = (props) => {
                                 name="operator"
                                 rules={[
                                     {
-                                        required: false,
+                                        required: true,
                                         message: '请选择范围关系!',
                                     },
                                 ]}
@@ -215,12 +217,25 @@ const UpdateTrigger = (props) => {
                                 name="numericalValue"
                                 rules={[
                                     {
-                                        required: false,
+                                        required: true,
                                         message: '请输入数字!',
                                     },
                                 ]}
                             >
                                 <InputNumber/>
+                            </Form.Item>*/}
+
+                            <Form.Item
+                                label="触发器表达式"
+                                name="expression"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请输入触发器表达式!',
+                                    },
+                                ]}
+                            >
+                                <TextArea placeholder="手动输入触发器表达式" allowClear />
                             </Form.Item>
 
                             <Form.Item

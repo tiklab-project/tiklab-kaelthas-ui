@@ -162,10 +162,10 @@ const MonitorLayout = (props) => {
         console.log('onOk: ', value);
     };
 
-    async function searchByDataCategories(event) {
+    async function searchByDataCategories(value) {
 
         setSearchCondition({
-            dataCategories: event,
+            dataCate: value,
             id:localStorage.getItem("hostIdForMonitoring")
         })
         await findMonitorForHost();
@@ -213,8 +213,10 @@ const MonitorLayout = (props) => {
                                     <div className="details-search">
                                         <div className="details-div">
                                             <Select
+                                                mode="multiple"
+                                                maxTagCount='responsive'
                                                 placeholder="请选择监控大类"
-                                                onChange={searchByDataCategories}
+                                                onChange={(value)=>searchByDataCategories(value)}
                                                 allowClear={true}
                                                 defaultValue="全部监控大类"
                                                 style={{
@@ -277,13 +279,15 @@ const MonitorLayout = (props) => {
                                             :
                                             <div>{
                                                 condition && condition.length > 0 ?
-                                                    <div className="details-tabs-wrap" key="details-tabs-wrap">
+                                                    <div className="details-tabs-wrap">
                                                         {
-                                                            condition.map((item) => {
+                                                            condition.map((item,index) => {
                                                                 return (
                                                                     <MonitoringItem reportType={item[0].reportType}
                                                                                     condition={item}
-                                                                                    descTime={descTime}/>
+                                                                                    descTime={descTime}
+                                                                                    index={index}
+                                                                    />
                                                                 )
                                                             })
                                                         }

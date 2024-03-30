@@ -12,7 +12,6 @@ import {
 import {LineChart, PieChart, ScatterChart, BarChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
-import monitorLayoutStore from "../store/MonitorLayoutStore";
 import {observer} from "mobx-react";
 
 echarts.use([
@@ -38,15 +37,9 @@ const HistogramList = (props) => {
 
     const nameList = [];
 
-    const {
-        findDescGatherTime,
-    } = monitorLayoutStore;
-
-    const {descTime,condition} = props;
+    const {descTime, condition, index} = props;
 
     async function showHistogram() {
-        // const descTime = await findDescGatherTime();
-        console.log("HistogramList中:",condition)
 
         condition.map(item => {
             series.push({
@@ -60,7 +53,6 @@ const HistogramList = (props) => {
         if (dom) {
             const chartDom = dom.current
 
-            chartDom.removeAttribute('_echarts_instance_')
             const myChart = echarts.init(chartDom);
             const option = {
                 tooltip: {
@@ -87,19 +79,17 @@ const HistogramList = (props) => {
 
     useEffect(async () => {
         await showHistogram();
-    }, [dom,condition,descTime]);
+    }, [dom, condition, descTime]);
 
     return (
-        <div>
-            <div className="item-tabs-item">
-                <div key="chartsone" ref={dom}
-                     style={{
-                         width: "100%",
-                         height: 300, margin: 30
-                     }}
-                >
+        <div className="item-tabs-item" key={`histogram-${index}`} id={`histogram-${index}`}>
+            <div key="chartsone" ref={dom}
+                 style={{
+                     width: "100%",
+                     height: 300, margin: 30
+                 }}
+            >
 
-                </div>
             </div>
         </div>
     );

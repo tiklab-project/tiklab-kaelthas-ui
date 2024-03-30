@@ -6,47 +6,62 @@ import alarmPageStore from "../store/AlarmPageStore";
 
 const AlarmPage = () => {
 
-    const host = (record) => {
-        console.log("路由跳转到监控项详情中")
-        props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
-        localStorage.setItem('hostId', record.id);
-        localStorage.setItem("hostName", record.name)
-        localStorage.setItem("ip", record.ip)
-    }
 
-    const {alarmPage,findAlarmPage} = alarmPageStore;
+    const {alarmPage, findAlarmPage} = alarmPageStore;
 
     useEffect(async () => {
         await findAlarmPage();
     }, []);
 
 
+
+    function isConfirm(status) {
+        {
+            let config = {
+                1: "已确认",
+                2: "未确认",
+            }
+            return config[status];
+        }
+    }
+
+    function updateAlarm(record) {
+        console.log(record)
+        console.log(record.hostName)
+        console.log(record.id)
+    }
+
     const columns = [
         {
             title: '名称',
             dataIndex: 'hostName',
             key: 'hostName',
-            render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
         },
         {
             title: '告警时间',
-            dataIndex: 'alarmTime',
-            key: 'alarmTime',
+            dataIndex: 'gatherTime',
+            key: 'gatherTime',
         },
         {
             title: '告警类型',
-            dataIndex: 'alarmType',
-            key: 'alarmType',
-        },
-        {
-            title: '触发器名称',
-            dataIndex: 'triggerName',
-            key: 'triggerName',
+            dataIndex: 'severityLevel',
+            key: 'severityLevel',
+            render: (severityLevel) => {
+                let config = {
+                    1: "灾难",
+                    2: "严重",
+                    3: "一般严重",
+                    4: "告警",
+                    5: "信息",
+                    6: "未分类",
+                }
+                return config[severityLevel];
+            }
         },
         {
             title: '问题',
-            dataIndex: 'problem',
-            key: 'problem',
+            dataIndex: 'triggerName',
+            key: 'triggerName',
         },
         {
             title: '持续时间',
@@ -57,13 +72,8 @@ const AlarmPage = () => {
             title: '是否确认',
             dataIndex: 'status',
             key: 'status',
-            render: (status) => {
-                let config = {
-                    1: "已确认",
-                    2: "未确认",
-                }
-                return config[status];
-            },
+            render: (status, record) => <div onClick={() => updateAlarm(record)}
+                                             style={{cursor: "pointer"}}>{isConfirm(status)}</div>
         },
     ];
 

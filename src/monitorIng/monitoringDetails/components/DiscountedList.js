@@ -1,6 +1,5 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
-import monitorLayoutStore from "../store/MonitorLayoutStore";
 import {observer} from "mobx-react";
 
 
@@ -8,19 +7,13 @@ const DiscountedList = (props) => {
 
     const dom = useRef(null);
 
-    const {
-        findDescGatherTime
-    } = monitorLayoutStore;
-
-    const {condition,descTime} = props;
+    const {condition, descTime, index} = props;
 
     const series = [];
 
     const nameList = [];
 
     const rendingView = async () => {
-
-        // const descTime = await findDescGatherTime();
 
         condition.map(item => {
             series.push({
@@ -34,8 +27,6 @@ const DiscountedList = (props) => {
 
         if (dom) {
             const chartDom = dom.current
-
-            // chartDom.removeAttribute('_echarts_instance_')
 
             const myChart = echarts.init(chartDom);
 
@@ -75,22 +66,20 @@ const DiscountedList = (props) => {
     };
 
     useEffect(async () => {
-        console.log("DiscountedList中:",condition)
+        console.log("DiscountedList中:", condition)
         await rendingView()
-    }, [dom,condition,descTime]);
+    }, [dom, condition, descTime]);
 
 
     return (
-        <div>
-            <div className="item-tabs-item">
-                <div key="chartsone" ref={dom}
-                     style={{
-                         width: "100%",
-                         height: 300, margin: 30
-                     }}
-                >
+        <div className="item-tabs-item" key={`discounted-${index}`} id={`discounted-${index}`}>
+            <div key="chartsone" ref={dom}
+                 style={{
+                     width: "100%",
+                     height: 300, margin: 30
+                 }}
+            >
 
-                </div>
             </div>
         </div>
     );

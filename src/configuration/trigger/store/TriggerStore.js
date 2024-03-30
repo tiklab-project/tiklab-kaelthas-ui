@@ -57,7 +57,7 @@ export class TriggerStore {
     //新增
     @action
     addTrigger = async (option) =>{
-        const resData = await Service('/trigger/addTrigger',option);
+        const resData = await Service('/trigger/createTrigger',option);
         this.data = resData;
         return resData;
     }

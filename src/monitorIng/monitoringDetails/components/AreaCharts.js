@@ -1,5 +1,4 @@
 import React, {useEffect, useRef} from 'react';
-import monitorLayoutStore from "../store/MonitorLayoutStore";
 import * as echarts from "echarts/core";
 import {
     TitleComponent,
@@ -31,13 +30,9 @@ const AreaCharts = (props) => {
 
     const nameList = [];
 
-    const {findDescGatherTime} = monitorLayoutStore;
-
-    const {condition,descTime} = props;
+    const {condition, descTime, index} = props;
 
     async function showPei() {
-        // const descTime = await findDescGatherTime();
-        console.log("AreaCharts中:", condition)
         condition.map(item => {
             series.push(
                 {
@@ -58,8 +53,6 @@ const AreaCharts = (props) => {
 
         if (dom) {
             const chartDom = dom.current
-
-            chartDom.removeAttribute('_echarts_instance_')
 
             const myChart = echarts.init(chartDom);
 
@@ -111,18 +104,16 @@ const AreaCharts = (props) => {
 
     useEffect(async () => {
         await showPei();
-    }, [dom,condition,descTime]);
+    }, [dom, condition, descTime]);
     return (
-        <div>
-            <div className="item-tabs-item">
-                <div key="chartsone" ref={dom}
-                     style={{
-                         width: "100%",
-                         height: 300, margin: 30
-                     }}
-                >
+        <div className="item-tabs-item" key={`area-${index}`} id={`area-${index}`}>
+            <div key="chartsone" ref={dom}
+                 style={{
+                     width: "100%",
+                     height: 300, margin: 30
+                 }}
+            >
 
-                </div>
             </div>
         </div>
     );
