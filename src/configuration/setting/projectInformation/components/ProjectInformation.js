@@ -1,7 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import LeftMenu from "../../../common/components/LeftMenu";
 import "./ProjectInformation.scss"
-import SettingLeftTabs from "../../common/SettingLeftTabs";
 import {withRouter} from "react-router-dom";
 import {Alert, Button, Collapse, Form, Input, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";

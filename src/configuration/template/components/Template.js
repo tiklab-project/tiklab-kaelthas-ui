@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LeftMenu from "../../common/components/LeftMenu";
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
 import {Button, Input, Modal, Space, Table, Tabs} from "antd";

@@ -5,7 +5,6 @@ import {Form, Input} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
-import LeftMenu from "../../common/components/LeftMenu";
 
 const Monitor = (props) => {
 

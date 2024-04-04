@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LeftMenu from "../../common/components/LeftMenu";
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
 import {Input} from "antd";

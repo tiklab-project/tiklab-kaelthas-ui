@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import LeftMenu from "../../common/components/LeftMenu";
 import "./Host.scss"
 import {withRouter} from "react-router-dom";
 import {Table} from "antd";

@@ -14,9 +14,7 @@ const Trigger = (props) => {
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
-
         const resData = await getTriggerList();
-
         setDataList([...resData.dataList])
     };
 
