@@ -4,7 +4,7 @@ import "./Host.scss"
 import {withRouter} from "react-router-dom";
 import {Table} from "antd";
 import hostStore from "../store/HostStore";
-
+import "../../../common/styles/_tabStyle.scss"
 
 const data = [];
 
@@ -60,50 +60,46 @@ const Host = (props) => {
     ];
 
     return (
-        <div>
-            <div className="box">
-                <LeftMenu/>
-                <div className="box-right">
-                    <div className="box-host-survey">
-                        <div className="box-host-body-head">
-                            <div className="box-host-details">
-                                <div className="box-host-title">主机详情</div>
-                                <div className="box-host-margin-details">
-                                    <div className="box-host-details-text">主机名称 {dataList.name}</div>
-                                    <div className="box-host-details-text">主机描述：{dataList.describe}</div>
-                                </div>
-                                <div className="box-host-margin-details">
-                                    <div className="box-host-details-text">主机ip：{dataList.ip}</div>
-                                    <div className="box-host-details-text">监控项数量：{dataList.monitorNum}</div>
-                                </div>
-                                <div className="box-host-margin-details">
-                                    <div className="box-host-details-text">主机状态：{dataList.state}</div>
-                                    <div className="box-host-details-text">触发器数量：{dataList.triggerNum}</div>
-                                </div>
-                                <div className="box-host-margin-details">
-                                    <div className="box-host-details-text">主机是否可用：{dataList.usability}</div>
-                                </div>
-                            </div>
-                            <div className="box-host-body-head-graphics">
+        <div className="box-right">
+            <div className="box-host-survey">
+                <div className="box-host-body-head">
+                    <div className="box-host-details">
+                        <div className="box-host-title">主机详情</div>
+                        <div className="box-host-margin-details">
+                            <div className="box-host-details-text">主机名称 {dataList.name}</div>
+                            <div className="box-host-details-text">主机描述：{dataList.describe}</div>
+                        </div>
+                        <div className="box-host-margin-details">
+                            <div className="box-host-details-text">主机ip：{dataList.ip}</div>
+                            <div className="box-host-details-text">监控项数量：{dataList.monitorNum}</div>
+                        </div>
+                        <div className="box-host-margin-details">
+                            <div className="box-host-details-text">主机状态：{dataList.state}</div>
+                            <div className="box-host-details-text">触发器数量：{dataList.triggerNum}</div>
+                        </div>
+                        <div className="box-host-margin-details">
+                            <div className="box-host-details-text">主机是否可用：{dataList.usability}</div>
+                        </div>
+                    </div>
+                    <div className="box-host-body-head-graphics">
 
-                            </div>
-                        </div>
-                        <div className="box-host-body">
-                            <div className="host-news">
-                                主机最新动态
-                            </div>
-                            <div className="host-news-List">
-                                <Table
-                                    rowKey={record => record.id}
-                                    columns={columns}
-                                    dataSource={data}
-                                    pagination={{
-                                        position: ["bottomCenter"],
-                                    }
-                                    }
-                                />
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div className="box-host-body">
+                    <div className="host-news">
+                        主机最新动态
+                    </div>
+                    <div className="host-news-List">
+                        <Table
+                            rowKey={record => record.id}
+                            columns={columns}
+                            dataSource={data}
+                            className="custom-table"
+                            pagination={{
+                                position: ["bottomCenter"],
+                            }
+                            }
+                        />
                     </div>
                 </div>
             </div>

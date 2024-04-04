@@ -1,9 +1,14 @@
 .box-left {
-  width: 80px;
+  /*width: 80px;
   height: 100%;
   background: #fafbfc;
   flex-direction: column;
-  border-right: 1px solid #f0f0f0;
+  border-right: 1px solid #f0f0f0;*/
+
+  flex: 0 0 80px;
+  max-width: 80px;
+  min-width: 80px;
+  width: 80px;
 
   .leftMenu-box {
     list-style-type: none;

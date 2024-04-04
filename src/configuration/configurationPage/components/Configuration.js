@@ -10,7 +10,7 @@ const Configuration = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {findPageHost, findHostGroup, setSearchCondition, total,setHostState,hostState} = configurationStore;
+    const {findPageHost, findHostGroup, setSearchCondition, total, setHostState, hostState} = configurationStore;
 
     useEffect(async () => {
 
@@ -116,7 +116,7 @@ const Configuration = (props) => {
     const checkTab = async (value) => {
         setHostState(value)
 
-        if (value === 0){
+        if (value === 0) {
             value = null
         }
 
@@ -148,62 +148,51 @@ const Configuration = (props) => {
     ]
 
     return (
-        <div style={{overflow:"auto"}}>
-            <div className='box-configuration-body'>
-                <div className="box-configuration-body-item">
-                    <div className="box-configuration-body--title">
-                        <div className="box-configuration-title-left">
-                            <span>主机配置</span>
-                        </div>
-                        <div className="box-configuration-title-right">
-                            <AddHost setDataList={setDataList} dataList={dataList}/>
-                        </div>
+        <div className='box-configuration-body'>
+            <div className="box-configuration-body-item">
+                <div className="box-configuration-body--title">
+                    <div className="box-configuration-title-left">
+                        主机配置
                     </div>
-                    <div className="box-configuration-body-type">
-                        <div className="box-configuration-body-tabs">
-                            {/*<div className="box-configuration-body-tabs-item" onClick={() => checkTab(null)}>
-                                所有
-                            </div>
-                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(1)}>
-                                可用
-                            </div>
-                            <div className="box-configuration-body-tabs-item" onClick={() => checkTab(2)}>
-                                不可用
-                            </div>*/}
-                            {
-                                availabilityTab.map(item =>{
-                                    return <div
-                                        className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
-                                        key={item.key}
-                                        onClick={() => checkTab(item.key)}
-                                    >
-                                        {item.title}
-                                    </div>
-                                })
-                            }
-                        </div>
-                        <div className="box-configuration-body-search">
-                            <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>
-                        </div>
+                    <div className="box-configuration-title-right">
+                        <AddHost setDataList={setDataList} dataList={dataList}/>
                     </div>
-                    <div className="box-configuration-body-list">
-                        <Table
-                            rowKey={record => record.id}
-                            columns={columns}
-                            dataSource={dataList}
-                            onChange={changePage}
-                            scroll={{
-                                x: 300,
-                                y: 'max-content'
-                            }}
-                            pagination={{
-                                position: ["bottomCenter"],
-                                total: total,
-                                showSizeChanger: true,
-                                defaultPageSize: 20
-                            }}
-                        />
+                </div>
+                <div className="box-configuration-body-type">
+                    <div className="box-configuration-body-tabs">
+                        {
+                            availabilityTab.map(item => {
+                                return <div
+                                    className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
+                                    key={item.key}
+                                    onClick={() => checkTab(item.key)}
+                                >
+                                    {item.title}
+                                </div>
+                            })
+                        }
                     </div>
+                    <div className="box-configuration-body-search">
+                        <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>
+                    </div>
+                </div>
+                <div className="box-configuration-body-list">
+                    <Table
+                        rowKey={record => record.id}
+                        columns={columns}
+                        className="custom-table"
+                        dataSource={dataList}
+                        onChange={changePage}
+                        scroll={{
+                            x: 300,
+                        }}
+                        pagination={{
+                            position: ["bottomCenter"],
+                            total: total,
+                            showSizeChanger: true,
+                            defaultPageSize: 20
+                        }}
+                    />
                 </div>
             </div>
         </div>

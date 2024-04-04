@@ -5,6 +5,7 @@ import AddTemplate from "./AddTemplate";
 import {Button, Input, Modal, Space, Table, Tabs} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
+import "../../../common/styles/_tabStyle.scss"
 
 const monitorColumns = [
     {
@@ -175,80 +176,73 @@ const Template = (props) => {
     }
 
     return (
-        <div>
-            <div className="host-body">
-                <div className="box-template">
-                    <LeftMenu/>
-                    <div className="box-template-right">
-                        <div className="box-template-title">
-                            <div className="box-template-title-text">
-                                主机下模板
-                            </div>
-                            <div className="template-top-right">
-                                <div>
-                                    <AddTemplate dataList={dataList} setDataList={setDataList}/>
-                                </div>
+        <div className="box-template-right">
+            <div className="box-template-title">
+                <div className="box-template-title-text">
+                    主机下模板
+                </div>
+                <div className="template-top-right">
+                    <AddTemplate dataList={dataList} setDataList={setDataList}/>
+                </div>
+            </div>
+            <div className="template-kind-options">
+                <div className="template-kind-options-tabs">
 
-                            </div>
-                        </div>
-                        <div className="template-kind-options">
-                            <div className="template-kind-search">
-                                <div>
-                                    <Input placeholder="请输入模板名称" onPressEnter={(event) => searchName(event)}/>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div className="template-kind-search">
+                    <Input placeholder="请输入模板名称" onPressEnter={(event) => searchName(event)}/>
+                </div>
+            </div>
 
-                        <div className="box-template-table">
+            <div className="box-template-table">
+                <Table
+                    rowKey={record => record.id}
+                    columns={columns}
+                    dataSource={dataList}
+                    className="custom-table"
+                    onChange={changePage}
+                    pagination={{
+                        position: ["bottomCenter"],
+                        total: total,
+                        showSizeChanger: true
+                    }
+                    }
+                />
+                <Modal
+                    open={isModalOpen}
+                    title="模板详情"
+                    onOk={handleOk}
+                    onCancel={handleCancel}
+                    visible={isModalOpen}
+                    width={1000}
+                >
+                    <div className="box-template-details-text">模板名称:{rowData.name}</div>
+                    <div className="box-template-details-text">模板下监控项数量：{rowData.monitorNum}</div>
+
+                    <Tabs defaultActiveKey="1">
+                        <Tabs.TabPane tab="监控项信息" key="2">
                             <Table
                                 rowKey={record => record.id}
-                                columns={columns}
-                                dataSource={dataList}
-                                onChange={changePage}
+                                columns={monitorColumns}
+                                className="custom-table"
+                                dataSource={monitorList}
+                                scroll={{
+                                    x: 300,
+                                    y: 'max-content'
+                                }}
                                 pagination={{
                                     position: ["bottomCenter"],
                                     total: total,
                                     showSizeChanger: true
-                                }
-                                }
+                                }}
                             />
-                            <Modal
-                                open={isModalOpen}
-                                title="模板详情"
-                                onOk={handleOk}
-                                onCancel={handleCancel}
-                                visible={isModalOpen}
-                                width={1000}
-                            >
-                                <div className="box-template-details-text">模板名称:{rowData.name}</div>
-                                <div className="box-template-details-text">模板下监控项数量：{rowData.monitorNum}</div>
+                        </Tabs.TabPane>
+                        <Tabs.TabPane tab="其他" key="3">
+                            其他信息
+                        </Tabs.TabPane>
+                    </Tabs>
 
-                                <Tabs defaultActiveKey="1">
-                                    <Tabs.TabPane tab="监控项信息" key="2">
-                                        <Table
-                                            rowKey={record => record.id}
-                                            columns={monitorColumns}
-                                            dataSource={monitorList}
-                                            scroll={{
-                                                x: 300,
-                                                y: 'max-content'
-                                            }}
-                                            pagination={{
-                                                position: ["bottomCenter"],
-                                                total: total,
-                                                showSizeChanger: true
-                                            }}
-                                        />
-                                    </Tabs.TabPane>
-                                    <Tabs.TabPane tab="其他" key="3">
-                                        其他信息
-                                    </Tabs.TabPane>
-                                </Tabs>
-
-                            </Modal>
-                        </div>
-                    </div>
-                </div>
+                </Modal>
             </div>
         </div>
     );

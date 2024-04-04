@@ -5,7 +5,24 @@ import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 
 const {Option} = Select
-
+const schemeList = [
+    {
+        name: "avg(平均值)",
+        value: 1
+    },
+    {
+        name: "max(最大值)",
+        value: 2
+    },
+    {
+        name: "min(最小值)",
+        value: 3
+    },
+    {
+        name: "last(最近一个值)",
+        value: 4
+    },
+]
 const AddTrigger = (props) => {
     const {dataList, setDataList} = props;
     const [form] = Form.useForm();
@@ -32,14 +49,14 @@ const AddTrigger = (props) => {
                 hostId: localStorage.getItem("hostId"),
                 name: res.name,
                 monitorId: res.monitorId,
-                triggerStatus: 1,
+                state: 1,
                 operator: res.operator,
                 numericalValue: res.numericalValue,
                 mediumType: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
                 source: rowData.source,
-                expression:res.expression
+                expression: res.expression
             });
             const resData = await getTriggerList();
             setDataList([...resData.dataList])
@@ -77,9 +94,9 @@ const AddTrigger = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div onClick={showModal}>
                 新建触发器
-            </Button>
+            </div>
             <Modal
                 title="新建触发器"
                 open={isModalOpen}
@@ -111,12 +128,11 @@ const AddTrigger = (props) => {
                         rules={[
                             {
                                 required: true,
-                                message: '' +
-                                    '请输入监控项名称!',
+                                message: '触发器名称!',
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input allowClear={true} placeholder="触发器名称"/>
                     </Form.Item>
 
                     {/*<Form.Item
@@ -187,9 +203,42 @@ const AddTrigger = (props) => {
                             },
                         ]}
                     >
-                        <Input.TextArea/>
+                        <Input.TextArea placeholder="请输入触发器表达式"/>
                     </Form.Item>
 
+                    <Form.Item
+                        label="请选择触发方案"
+                        name="scheme"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请选择触发方案!',
+                            },
+                        ]}
+                    >
+                        <Select
+                            placeholder="请选择触发方案"
+                            allowClear
+                        >
+                            {
+                                schemeList.map(item => {
+                                    return <Option value={item.value} key={item.value}>{item.name}</Option>
+                                })
+                            }
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        label="选择时间范畴"
+                        name="rangeTime"
+                        rules={[
+                            {
+                                required: true,
+                                message: '选择时间范畴(单位为分钟)!',
+                            },
+                        ]}
+                    >
+                        <InputNumber placeholder="分钟" min={0}/>
+                    </Form.Item>
                     <Form.Item
                         label="消息通知方案"
                         name="mediumType"
@@ -202,7 +251,6 @@ const AddTrigger = (props) => {
                     >
                         <Select
                             placeholder="请选择您的消息通知方案"
-                            /*onChange={onGenderChange}*/
                             allowClear
                         >
                             <Option value={1} key={1}>方案1:电子邮件</Option>
@@ -216,7 +264,7 @@ const AddTrigger = (props) => {
                         name="severityLevel"
                         rules={[
                             {
-                                required: false,
+                                required: true,
                                 message: '严重性!',
                             },
                         ]}
@@ -243,7 +291,7 @@ const AddTrigger = (props) => {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input placeholder="问题描述"/>
                     </Form.Item>
 
                     {/*<Form.List name="function">

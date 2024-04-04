@@ -3,17 +3,16 @@ import {observer} from "mobx-react";
 import "./AlarmPage.scss"
 import {Input, Table, Tooltip} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
+import {withRouter} from "react-router-dom";
 
-const AlarmPage = () => {
+const AlarmPage = (props) => {
 
 
-    const {alarmPage, findAlarmPage} = alarmPageStore;
+    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition} = alarmPageStore;
 
     useEffect(async () => {
         await findAlarmPage();
     }, []);
-
-
 
     function isConfirm(status) {
         {
@@ -25,22 +24,59 @@ const AlarmPage = () => {
         }
     }
 
-    function updateAlarm(record) {
+    async function updateAlarm(record) {
         console.log(record)
         console.log(record.hostName)
         console.log(record.id)
+        await updateAlarmPage({
+            id: record.id,
+            state: 1
+        });
+    }
+
+    function jumpToMonitor(record) {
+        localStorage.setItem("hostIdForMonitoring", record.hostId);
+        localStorage.setItem("hostName", record.hostName)
+        localStorage.setItem("ip", record.ip)
+        props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
     }
 
     const columns = [
         {
-            title: '名称',
+            title: '主机名称',
             dataIndex: 'hostName',
             key: 'hostName',
+            render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
+                                               style={{cursor: "pointer"}}>{hostName}</div>
+        },
+        {
+            title: '主机ip',
+            dataIndex: 'ip',
+            key: 'ip',
+        },
+        {
+            title: '触发器名称',
+            dataIndex: 'triggerName',
+            key: 'triggerName',
+        },
+        {
+            title: '消息方式',
+            dataIndex: 'mediumType',
+            key: 'mediumType',
+            render: (severityLevel) => {
+                let config = {
+                    1: "电子邮件",
+                    2: "微信公众号",
+                    3: "钉钉",
+                    4: "短信",
+                }
+                return config[severityLevel];
+            }
         },
         {
             title: '告警时间',
-            dataIndex: 'gatherTime',
-            key: 'gatherTime',
+            dataIndex: 'alertTime',
+            key: 'alertTime',
         },
         {
             title: '告警类型',
@@ -59,11 +95,6 @@ const AlarmPage = () => {
             }
         },
         {
-            title: '问题',
-            dataIndex: 'triggerName',
-            key: 'triggerName',
-        },
-        {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
@@ -77,16 +108,22 @@ const AlarmPage = () => {
         },
     ];
 
+    async function checkHostName(e) {
+        setSearchCondition({
+            hostName: e.target.value
+        })
+        await findAlarmPage();
+    }
+
     return (
         <div className="alarm-box">
-            <div className="alarm-box-page">
-                <div className="alarm-box-body">
-                    <div className="alarm-box-title">
-                        <div className="alarm-box-title-text">
-                            告警模块
-                        </div>
+            <div className="alarm-box-body">
+                <div className="alarm-box-title">
+                    <div className="alarm-box-title-text">
+                        主机告警
                     </div>
-                    <div className="alarm-box-line">
+                </div>
+                {/*<div className="alarm-box-line">
                         <div className="alarm-box-div">
                             <span>告警详情</span>
                             <div className="alarm-box-div-details">
@@ -99,25 +136,25 @@ const AlarmPage = () => {
 
                             </div>
                         </div>
-                    </div>
-                    <div className="alarm-box-search">
-                        <div>
+                    </div>*/}
+                <div className="alarm-box-search">
+                    <div>
 
-                        </div>
-                        <div>
-                            <Input placeholder="请输入主机名称"/>
-                        </div>
                     </div>
-                    <div className="alarm-box-table">
-                        <Table rowKey={record => record.id}
-                               columns={columns}
-                               dataSource={alarmPage}
-                               pagination={false}
-                               scroll={{
-                                   x: 300,
-                                   y: 'max-content'
-                               }}/>
+                    <div>
+                        <Input placeholder="请输入主机名称" onPressEnter={(e) => checkHostName(e)}/>
                     </div>
+                </div>
+                <div className="alarm-box-table">
+                    <Table rowKey={record => record.id}
+                           columns={columns}
+                           className="custom-table"
+                           dataSource={alarmPage}
+                           pagination={false}
+                           scroll={{
+                               x: 400,
+                           }}
+                    />
                 </div>
             </div>
         </div>

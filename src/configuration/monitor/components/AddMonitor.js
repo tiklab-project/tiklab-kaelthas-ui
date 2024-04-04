@@ -59,9 +59,9 @@ const AddMonitor = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div onClick={showModal}>
                 新建监控项
-            </Button>
+            </div>
             <Modal title="新建监控项" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
                 <div className="addMonitorForm">

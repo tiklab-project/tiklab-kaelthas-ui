@@ -37,8 +37,6 @@ export class ProjectInformationStore {
         const resData = await Service("/hostGroup/findAllHostGroupList")
 
         this.allHostGroupList = resData.data;
-
-        console.log(resData.data)
         return resData.data;
     }
 

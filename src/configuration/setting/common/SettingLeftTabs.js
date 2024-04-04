@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import "./SettingLeftTabs.scss"
 import {withRouter} from "react-router-dom";
 
@@ -27,28 +27,38 @@ const SettingLeftTabs = (props) => {
         },
     ]
 
+    const [selectKey,setSelectKey] = useState(`/hostList/${hostId}/setting/projectInformation`);
+
     const selectSetting = (url) => {
+        setSelectKey(url)
         props.history.push(url)
     }
 
+    useEffect(() => {
+        // 初次进入激活导航菜单
+        setSelectKey(props.location.pathname)
+    }, [hostId])
+
     return (
         <div className="setting-box-right-left">
-            <div className="setting-box-right-text">
+            <div className="setting-box-right-text title">
                 设置
             </div>
-            {
-                router.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            onClick={() => selectSetting(item.url)}
-                            className="setting-box-right-tabs"
-                        >
-                            <span className="setting-text">{item.name}</span>
-                        </div>
-                    )
-                })
-            }
+            <div className="setting-box-menu">
+                {
+                    router.map((item, index) => {
+                        return (
+                            <div
+                                key={index}
+                                onClick={() => selectSetting(item.url)}
+                                className={`setting-box-right-tabs ${item.url === selectKey ? "setting-setting-select" : ""}`}
+                            >
+                                <span>{item.name}</span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
         </div>
     );
 };

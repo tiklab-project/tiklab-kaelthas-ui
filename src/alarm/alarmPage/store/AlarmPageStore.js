@@ -42,6 +42,11 @@ class AlarmPageStore {
         return resData.data.dataList;
     }
 
+    @action
+    updateAlarmPage = async (value)=>{
+        await Service("/alarm/updateAlarmPage",value);
+    }
+
 }
 
 const alarmPageStore = new AlarmPageStore();

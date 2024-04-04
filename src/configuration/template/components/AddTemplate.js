@@ -43,9 +43,9 @@ const AddMonitor = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div onClick={showModal}>
                 添加模板
-            </Button>
+            </div>
             <Modal title="添加模板" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定">
                 <Form
@@ -66,7 +66,7 @@ const AddMonitor = (props) => {
                 >
                     <Form.Item
                         label="模板名称"
-                        name="templateName"
+                        name="templateId"
                         rules={[
                             {
                                 required: true,

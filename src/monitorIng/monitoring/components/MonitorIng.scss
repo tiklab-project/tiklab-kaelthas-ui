@@ -1,93 +1,15 @@
 .monitoring {
   height: calc(100% - 48px);
+  margin: 0 12.5%;
   overflow: auto;
-  background: #F8F8F8;
+  background: #fff;
+  width: 1080px;
 
-
-  .monitoring-body {
-    margin: 0 auto;
-    width: 1080px;
-    padding: 20px;
-
-    .monitoring-content {
-      margin-bottom: 10px;
-      border-radius: 4px;
-      background: #fff;
-      overflow: hidden;
-
-      .monitoring-content-title {
-        padding: 10px;
-        margin: 0 0 5px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .monitoring-content-title-text {
-          display: flex;
-          align-items: center;
-          font-weight: bold;
-          font-size: 16px;
-        }
-      }
-
-      .monitoring-content-detail {
-        padding: 10px;
-        min-height: 130px;
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        margin-top: 10px;
-        overflow: hidden;
-        gap: 10px;
-        height: 104px;
-
-
-        .monitoring-content-detail-item {
-          max-width: 240px;
-          min-width: 204px;
-          flex: 1;
-          padding: 12px;
-          flex-shrink: 0;
-          border-radius: 4px;
-          cursor: pointer;
-          background-color: #fafbfc;
-          box-sizing: border-box;
-          border-bottom: 2px solid #fafbfc;
-
-          .item-title {
-            margin-bottom: 10px;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            font-size: 16px;
-          }
-
-          .item-work {
-            display: flex;
-            gap: 10px;
-
-            .item-work-item {
-              font-size: 12px;
-              display: inline-flex;
-              width: 100%;
-              justify-content: space-between;
-              height: 30px;
-              line-height: 30px;
-              gap: 5px;
-            }
-          }
-        }
-
-      }
-
-    }
 
     .monitoring-alarm-table {
-      margin: 15px auto;
-      padding: 20px;
-      background-color: #fff;
+      padding: 15px;
       border-radius: 4px;
-      flex-direction: column;
+      height: 100%;
 
       .monitoring-table-title {
         width: 100%;
@@ -96,6 +18,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: 10px;
       }
 
       .monitoring-search{
@@ -127,9 +50,14 @@
           }
         }
 
+        .monitoring-input{
+          width: 200px;
+          height: 32px;
+        }
+
       }
       .monitoring-alarm-table-list{
-        margin: 10px 0;
+        margin: 15px 0;
 
         .details-pagination{
           margin: 10px 0;
@@ -145,6 +73,36 @@
       background: #fff;
       margin: 0 0 10px;
     }
-  }
 
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  border-bottom: none; /* 去除单元格底部边框线 */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 8px;
+  color: rgba(0, 0, 0, .85);
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  //cursor: pointer;
+  border-collapse: separate;
+  background: #fff;
+  transition: all .3s;
+}
+
+.custom-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid #f0f0f0; /* 保留最后一行的底部边框线 */
 }

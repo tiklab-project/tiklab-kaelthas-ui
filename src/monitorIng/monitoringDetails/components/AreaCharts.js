@@ -84,7 +84,8 @@ const AreaCharts = (props) => {
                     {
                         type: 'category',
                         boundaryGap: false,
-                        data: descTime
+                        data: descTime,
+                        //inverse:true
                     }
                 ],
                 yAxis: [

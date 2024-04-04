@@ -1,0 +1,30 @@
+.custom-table .ant-table-tbody > tr > td {
+  border-bottom: none; /* 去除单元格底部边框线 */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 8px;
+  color: rgba(0, 0, 0, .85);
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  //cursor: pointer;
+  border-collapse: separate;
+  background: #fff;
+  transition: all .3s;
+}
+
+.custom-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid #f0f0f0; /* 保留最后一行的底部边框线 */
+}

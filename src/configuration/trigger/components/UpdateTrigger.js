@@ -2,8 +2,27 @@ import {Button, Form, Input, InputNumber, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
 import TextArea from "antd/es/input/TextArea";
+import {observer} from "mobx-react";
 
 const {Option} = Select
+const schemeList = [
+    {
+        name: "avg(平均值)",
+        value: 1
+    },
+    {
+        name: "max(最大值)",
+        value: 2
+    },
+    {
+        name: "min(最小值)",
+        value: 3
+    },
+    {
+        name: "last(最后一个值)",
+        value: 4
+    },
+]
 const UpdateTrigger = (props) => {
     const {dataList, setDataList} = props;
 
@@ -56,7 +75,9 @@ const UpdateTrigger = (props) => {
                 severityLevel: res.severityLevel,
                 describe: res.describe,
                 source: rowData.source,
-                expression:res.expression
+                expression: res.expression,
+                rangeTime:res.rangeTime,
+                scheme:res.scheme
             });
 
 
@@ -143,7 +164,6 @@ const UpdateTrigger = (props) => {
                             initialValues={{
                                 remember: true,
                             }}
-                            // onFinish={onFinish}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
                             form={form}
@@ -155,8 +175,7 @@ const UpdateTrigger = (props) => {
                                 rules={[
                                     {
                                         required: true,
-                                        message: '' +
-                                            '请输入触发器名称!',
+                                        message: '请输入触发器名称!',
                                     },
                                 ]}
                             >
@@ -235,9 +254,45 @@ const UpdateTrigger = (props) => {
                                     },
                                 ]}
                             >
-                                <TextArea placeholder="手动输入触发器表达式" allowClear />
+                                <TextArea placeholder="手动输入触发器表达式" allowClear/>
                             </Form.Item>
-
+                            <Form.Item
+                                label="请选择触发方案"
+                                name="scheme"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '请选择触发方案!',
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="请选择触发方案"
+                                    allowClear
+                                >
+                                    {
+                                        schemeList.map(item => {
+                                            return <Option value={item.value} key={item.value}>{item.name}</Option>
+                                        })
+                                    }
+                                    {/*<Option value={1} key={1}>avg(平均值)</Option>
+                                    <Option value={2} key={2}>max(最大值)</Option>
+                                    <Option value={3} key={3}>min(最小值)</Option>
+                                    <Option value={4} key={4}>last(最近一个值)</Option>*/}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                label="选择时间范畴"
+                                name="rangeTime"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '选择时间范畴(单位为分钟)!',
+                                    },
+                                ]}
+                            >
+                                <InputNumber placeholder="分钟" min={0}/>
+                            </Form.Item>
                             <Form.Item
                                 label="消息通知方案"
                                 name="mediumType"
@@ -251,7 +306,6 @@ const UpdateTrigger = (props) => {
 
                                 <Select
                                     placeholder="请选择您的消息通知方案"
-                                    /*onChange={onGenderChange}*/
                                     allowClear
                                 >
                                     <Option value={1} key={1}>方案1:电子邮件</Option>
@@ -267,7 +321,7 @@ const UpdateTrigger = (props) => {
                                 name="severityLevel"
                                 rules={[
                                     {
-                                        required: false,
+                                        required: true,
                                         message: '严重性!',
                                     },
                                 ]}
@@ -308,4 +362,4 @@ const UpdateTrigger = (props) => {
     );
 };
 
-export default UpdateTrigger;
+export default observer(UpdateTrigger);

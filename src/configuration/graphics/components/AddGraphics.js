@@ -30,7 +30,7 @@ const AddGraphics = (props) => {
                 height: res.height,
                 describe: res.describe,
                 monitorIds: res.monitorIds,
-                source:res.source
+                source: res.source
             });
 
             getGraphicsStoreList().then((res) => {
@@ -82,9 +82,9 @@ const AddGraphics = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div onClick={showModal}>
                 新建图形
-            </Button>
+            </div>
             <Modal title="新建图形" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定"
                    destroyOnClose={true}

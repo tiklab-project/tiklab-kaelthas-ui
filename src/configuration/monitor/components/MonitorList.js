@@ -4,7 +4,7 @@ import {Link, withRouter} from "react-router-dom";
 import "./Monitor.scss";
 import UpdateMonitor from "./UpdateMonitor";
 import monitorStore from "../store/MonitorStore";
-
+import "../../../common/styles/_tabStyle.scss"
 const MonitorList = (props) => {
 
     const {deleteMonitorById, findMonitorCondition,total,setSearchCondition,data} = monitorStore;
@@ -173,9 +173,9 @@ const MonitorList = (props) => {
             <Table rowKey={record => record.id}
                    columns={columns}
                    dataSource={data}
+                   className="custom-table"
                    scroll={{
                        x: 300,
-                       y: 'max-content'
                    }}
                    onChange={changePage}
                    pagination={{

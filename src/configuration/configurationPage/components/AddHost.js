@@ -16,8 +16,6 @@ const AddHost = (props) => {
 
     useEffect(() => {
 
-        if (isModalOpen){
-
             findTemplateAll().then((res) => {
                 form.setFieldsValue({
                     templateName: res[0].name
@@ -28,9 +26,8 @@ const AddHost = (props) => {
                     hostGroupName: res[0].name
                 })
             })
-        }
 
-    }, [isModalOpen]);
+    }, []);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -39,11 +36,12 @@ const AddHost = (props) => {
     const handleOk = async () => {
         setIsModalOpen(false);
         form.validateFields().then(async res => {
+            console.log(res)
             await addHost({
                 name: res.name,
                 ip: res.ip,
-                hostGroupId: res.hostGroupName,
-                templateId: res.templateName,
+                hostGroupId: res.hostGroupId,
+                templateId: res.templateId,
                 state: res.isOpen,
             });
             const resData = await findPageHost()
@@ -55,44 +53,11 @@ const AddHost = (props) => {
         setIsModalOpen(false);
     };
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
-    //模板列表
-    async function onSearch(val) {
-        console.log('search:', val);
-
-        const resData = await findTemplateByName(val);
-
-        if (resData.length > 0) {
-            resData.then((res) => {
-                form.setFieldsValue({
-                    id: res.id,
-                    templateName: res.name
-                })
-            })
-        }
-    }
-
-    //主机组列表
-    function onHostSearch(val) {
-        const resData = findHostGroup(val)
-        if (resData.length > 0) {
-            resData.then((res) => {
-                form.setFieldsValue({
-                    id: res.id,
-                    hostGroupName: res.name
-                })
-            })
-        }
-    }
-
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div onClick={showModal}>
                 新建主机
-            </Button>
+            </div>
             <Modal title="新建主机" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定">
                 <Form
@@ -106,8 +71,6 @@ const AddHost = (props) => {
                     initialValues={{
                         remember: true,
                     }}
-                    // onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     form={form}
                 >
@@ -138,7 +101,7 @@ const AddHost = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="主机群组"
-                        name="hostGroupName"
+                        name="hostGroupId"
                         rules={[
                             {
                                 required: true,
@@ -152,7 +115,7 @@ const AddHost = (props) => {
                             key="selectGroup"
                             allowClear
                             showSearch
-                            onSearch={onHostSearch}
+                            // onSearch={onHostSearch}
                             style={{width: 200}}
                             optionFilterProp="children"
                         >
@@ -166,7 +129,7 @@ const AddHost = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="添加模板"
-                        name="templateName"
+                        name="templateId"
                         rules={[
                             {
                                 required: false,
@@ -183,7 +146,6 @@ const AddHost = (props) => {
                             showSearch
                             style={{width: 200}}
                             optionFilterProp="children"
-                            onSearch={onSearch}
                         >
                             {
                                 templateList && templateList.map((item) => {

@@ -2,7 +2,7 @@ import {Form, Input, Modal, Select, Space, Table, Tag, Tooltip} from 'antd';
 import React, {useEffect, useState} from 'react';
 import UpdateTrigger from "./UpdateTrigger";
 import triggerStore from "../store/TriggerStore";
-
+import "../../../common/styles/_tabStyle.scss"
 const TriggerList = (props) => {
 
     const {
@@ -56,7 +56,9 @@ const TriggerList = (props) => {
                 numericalValue: record.numericalValue,
                 operator: record.operator,
                 expression: record.expression,
-                source: record.source
+                source: record.source,
+                scheme:record.scheme,
+                rangeTime:record.rangeTime
             }
         )
 
@@ -82,11 +84,11 @@ const TriggerList = (props) => {
                 <span style={{cursor: "pointer"}}
                       onClick={() => rowEcho(record)}>{text}</span>,
         },
-        {
+        /*{
             title: '监控项名称',
             dataIndex: 'monitorName',
             id: 'monitorName',
-        },
+        },*/
         {
             title: '关系表达式',
             dataIndex: 'expression',
@@ -95,7 +97,7 @@ const TriggerList = (props) => {
                 <div>{name}</div>
             </Tooltip>
         },
-        {
+        /*{
             title: '运算符',
             dataIndex: 'operator',
             id: 'operator',
@@ -115,6 +117,25 @@ const TriggerList = (props) => {
             title: '表达式数值',
             dataIndex: 'numericalValue',
             id: 'numericalValue',
+        },*/
+        {
+            title: '触发方案',
+            dataIndex: 'scheme',
+            id: 'scheme',
+            render: (mediumType) => {
+                let config = {
+                    1: "avg(平均值)",
+                    2: "max(最大值)",
+                    3: "min(最小值)",
+                    4: "last(之后一个值)",
+                }
+                return config[mediumType];
+            }
+        },
+        {
+            title: '时间范畴',
+            dataIndex: 'rangeTime',
+            id: 'rangeTime',
         },
         {
             title: '消息通知方案',
@@ -185,10 +206,10 @@ const TriggerList = (props) => {
                 rowKey={record => record.id}
                 columns={columns}
                 dataSource={dataList}
+                className="custom-table"
                 onChange={changePage}
                 scroll={{
                     x: 300,
-                    y: 'max-content'
                 }}
                 pagination={{
                     position: ["bottomCenter"],

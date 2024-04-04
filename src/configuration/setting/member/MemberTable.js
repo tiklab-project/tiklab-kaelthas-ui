@@ -1,9 +1,7 @@
 import {Space, Table, Tag} from 'antd';
 import React from 'react';
 import {withRouter} from "react-router-dom";
-
-
-
+import "../../../common/styles/_tabStyle.scss"
 
 const MemberTable = (props) => {
 
@@ -35,7 +33,7 @@ const MemberTable = (props) => {
         },
 
         {
-            title: '删除',
+            title: '操作',
             key: 'delete',
             render: (_, record) => (
                 <Space size="middle">
@@ -58,7 +56,16 @@ const MemberTable = (props) => {
 
 
     return (
-        <Table columns={columns} dataSource={dataList}/>
+        <Table
+            columns={columns}
+            dataSource={dataList}
+            className="custom-table"
+            pagination={{
+                position: ["bottomCenter"],
+                total: 10,
+                showSizeChanger: true
+            }}
+        />
     )
 
 }

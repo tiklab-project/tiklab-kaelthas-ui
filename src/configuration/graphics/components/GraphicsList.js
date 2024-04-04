@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
 import UpdateGraphics from "./UpdateGraphics";
 import graphicsStore from "../store/GraphicsStore";
+import "../../../common/styles/_tabStyle.scss";
 
 const GraphicsList = (props) => {
 
@@ -117,6 +118,7 @@ const GraphicsList = (props) => {
             <Table rowKey={record => record.id}
                    columns={columns}
                    dataSource={dataList}
+                   className="custom-table"
                    onChange={changePage}
                    pagination={{
                        position: ["bottomCenter"],

@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import "./MonitoringDetails.scss"
 import {withRouter} from "react-router-dom";
 import {DatePicker, Input, Modal, Pagination, Select, Table, Tooltip} from "antd";
-import monitoringDetailsStore from "../store/MonitoringDetailsStore";
+import "../../../common/styles/_tabStyle.scss"
 import * as echarts from 'echarts/core';
 import {
     TimelineComponent,
@@ -203,6 +203,7 @@ const MonitoringDetails = (props) => {
                     rowKey={record => record.id}
                     columns={columns}
                     dataSource={findInformationPage}
+                    className="custom-table"
                     pagination={false}
                     scroll={{
                         x: 300,

@@ -2,19 +2,17 @@ import React from 'react';
 import {renderRoutes} from "react-router-config";
 import {Provider} from "mobx-react";
 import {withRouter} from "react-router-dom";
-
+import SettingLeftTabs from "./SettingLeftTabs";
+import "./SettingLayout.scss"
 const SettingLayout = (props) => {
 
     const {route} = props;
 
     return (
-        <div>
+        <div className="setting-layout">
+            <SettingLeftTabs/>
             <Provider>
-                <div>
-                    <div>
-                        {renderRoutes(route.routes)}
-                    </div>
-                </div>
+                {renderRoutes(route.routes)}
             </Provider>
         </div>
     );

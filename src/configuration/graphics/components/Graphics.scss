@@ -1,6 +1,4 @@
-.box-graphics {
-  display: flex;
-  height: calc(100vh - 48px);
+
   .box-graphics-right {
     flex: 1;
     flex-direction: column;
@@ -21,14 +19,17 @@
       }
 
       .graphics-top-right {
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-
-        .graphics-top-right-button {
-          position: relative;
-        }
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        width: fit-content;
 
       }
 
@@ -65,7 +66,7 @@
 
     .box-graphics-table {
       padding-top: 20px;
+      background: #fff;
     }
 
   }
-}

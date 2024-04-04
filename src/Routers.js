@@ -2,7 +2,7 @@ import AsyncComponent from "./common/lazy/AsyncComponent";
 import {Redirect} from "react-router-dom";
 
 const Configuration = AsyncComponent(() => import( "./configuration/configurationPage/components/Configuration"))
-const Host = AsyncComponent(() => import( "./configuration/host/common/HostLayout"))
+const Host = AsyncComponent(() => import( "./configuration/common/components/HostLayout"))
 const LeftMenu = AsyncComponent(() => import( "./configuration/common/components/LeftMenu"))
 const Monitor = AsyncComponent(() => import( "./configuration/monitor/components/Monitor"))
 const Trigger = AsyncComponent(() => import( "./configuration/trigger/components/Trigger"))

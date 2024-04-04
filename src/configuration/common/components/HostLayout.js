@@ -2,19 +2,18 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import {Provider} from "mobx-react";
+import LeftMenu from "./LeftMenu";
+import "./HostLayout.scss"
 
 const HostLayout = (props) => {
 
     const {route} = props;
 
     return (
-        <div>
+        <div className="host-layout">
+            <LeftMenu/>
             <Provider>
-                <div>
-                    <div>
-                        {renderRoutes(route.routes)}
-                    </div>
-                </div>
+                {renderRoutes(route.routes)}
             </Provider>
         </div>
     );
