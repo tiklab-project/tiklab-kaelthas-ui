@@ -10,13 +10,17 @@ const Trigger = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {getTriggerList, setSearchCondition} = triggerStore;
+    const {getTriggerList, setSearchCondition,getMediumAllList} = triggerStore;
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
         const resData = await getTriggerList();
         setDataList([...resData.dataList])
     };
+
+    useEffect(async () => {
+        await getMediumAllList();
+    }, []);
 
     return (
         <div className="box-trigger-right">

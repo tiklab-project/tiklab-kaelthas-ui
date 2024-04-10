@@ -16,6 +16,9 @@ class AlarmPageStore {
     @observable
     alarmPage = [];
 
+    @observable
+    total = 10;
+
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
@@ -39,6 +42,7 @@ class AlarmPageStore {
     findAlarmPage = async () => {
         const resData = await Service("/alarm/findAlarmPage", this.searchCondition)
         this.alarmPage = resData.data.dataList;
+        this.total = resData.data.totalRecord
         return resData.data.dataList;
     }
 

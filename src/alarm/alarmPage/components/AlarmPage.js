@@ -8,7 +8,7 @@ import {withRouter} from "react-router-dom";
 const AlarmPage = (props) => {
 
 
-    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition} = alarmPageStore;
+    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition,total} = alarmPageStore;
 
     useEffect(async () => {
         await findAlarmPage();
@@ -38,6 +38,7 @@ const AlarmPage = (props) => {
         localStorage.setItem("hostIdForMonitoring", record.hostId);
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
+        sessionStorage.setItem("menuKey", "monitoring")
         props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
     }
 
@@ -55,11 +56,11 @@ const AlarmPage = (props) => {
             key: 'ip',
         },
         {
-            title: '触发器名称',
+            title: '问题',
             dataIndex: 'triggerName',
             key: 'triggerName',
         },
-        {
+        /*{
             title: '消息方式',
             dataIndex: 'mediumType',
             key: 'mediumType',
@@ -72,7 +73,7 @@ const AlarmPage = (props) => {
                 }
                 return config[severityLevel];
             }
-        },
+        },*/
         {
             title: '告警时间',
             dataIndex: 'alertTime',
@@ -115,6 +116,16 @@ const AlarmPage = (props) => {
         await findAlarmPage();
     }
 
+    async function checkPage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+        await findAlarmPage();
+    }
+
     return (
         <div className="alarm-box">
             <div className="alarm-box-body">
@@ -150,9 +161,14 @@ const AlarmPage = (props) => {
                            columns={columns}
                            className="custom-table"
                            dataSource={alarmPage}
-                           pagination={false}
+                           onChange={checkPage}
                            scroll={{
                                x: 400,
+                           }}
+                           pagination={{
+                               position: ["bottomCenter"],
+                               total: total,
+                               showSizeChanger: true
                            }}
                     />
                 </div>
@@ -161,4 +177,4 @@ const AlarmPage = (props) => {
     );
 };
 
-export default observer(AlarmPage);
+export default withRouter(observer(AlarmPage));

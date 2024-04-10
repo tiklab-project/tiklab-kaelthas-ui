@@ -1,8 +1,6 @@
 import {Button, Form, Input, InputNumber, Modal, Select, Space} from 'antd';
 import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
-import {MinusCircleOutlined, PlusOutlined} from "@ant-design/icons";
-import TextArea from "antd/es/input/TextArea";
 
 const {Option} = Select
 const schemeList = [
@@ -11,24 +9,54 @@ const schemeList = [
         value: 1
     },
     {
-        name: "max(最大值)",
+        name: "percentage(百分比)",
         value: 2
     },
     {
-        name: "min(最小值)",
+        name: "last(最近一个值)",
+        value: 3
+    },
+]
+
+const alarmGrade = [
+    {
+        name: "灾难",
+        value: 1
+    },
+    {
+        name: "严重",
+        value: 2
+    },
+    {
+        name: "一般严重",
         value: 3
     },
     {
-        name: "last(最近一个值)",
+        name: "告警",
         value: 4
     },
-]
+    {
+        name: "信息",
+        value: 5
+    },
+    {
+        name: "未分类",
+        value: 6
+    },
+
+];
+
+
 const AddTrigger = (props) => {
-    const {dataList, setDataList} = props;
+
     const [form] = Form.useForm();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {addTrigger, findMonitorListById, getTriggerList, monitorList} = triggerStore;
+
+    const {addTrigger, findMonitorListById, getTriggerList, monitorList, mediumList} = triggerStore;
+
     const [monitorData, setMonitorData] = useState([]);
+
     const [rowData, setRowData] = useState({});
 
     const showModal = () => {
@@ -52,14 +80,16 @@ const AddTrigger = (props) => {
                 state: 1,
                 operator: res.operator,
                 numericalValue: res.numericalValue,
-                mediumType: res.mediumType,
+                mediumIds: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
                 source: rowData.source,
-                expression: res.expression
+                expression: res.expression,
+                rangeTime: res.rangeTime,
+                percentage: res.percentage,
+                scheme: res.scheme
             });
-            const resData = await getTriggerList();
-            setDataList([...resData.dataList])
+            await getTriggerList();
         })
         setIsModalOpen(false);
     };
@@ -105,7 +135,7 @@ const AddTrigger = (props) => {
                 visible={isModalOpen}
                 cancelText="取消"
                 okText="确定"
-                width={500}
+                width={800}
             >
                 <Form
                     name="basic"
@@ -118,6 +148,7 @@ const AddTrigger = (props) => {
                     initialValues={{
                         remember: true,
                     }}
+                    layout="vertical"
                     autoComplete="off"
                     form={form}
                     labelAlign={"left"}
@@ -240,6 +271,18 @@ const AddTrigger = (props) => {
                         <InputNumber placeholder="分钟" min={0}/>
                     </Form.Item>
                     <Form.Item
+                        label="百分比达到多少进行触发"
+                        name="percentage"
+                        rules={[
+                            {
+                                required: true,
+                                message: '百分比达到多少进行触发',
+                            },
+                        ]}
+                    >
+                        <InputNumber placeholder="数据百分比" min={1} max={100}/>
+                    </Form.Item>
+                    <Form.Item
                         label="消息通知方案"
                         name="mediumType"
                         rules={[
@@ -250,13 +293,16 @@ const AddTrigger = (props) => {
                         ]}
                     >
                         <Select
+                            mode="multiple"
+                            maxTagCount="responsive"
                             placeholder="请选择您的消息通知方案"
                             allowClear
                         >
-                            <Option value={1} key={1}>方案1:电子邮件</Option>
-                            <Option value={2} key={2}>方案2:微信公众号</Option>
-                            <Option value={3} key={3}>方案3:钉钉</Option>
-                            <Option value={4} key={4}>方案4:短信</Option>
+                            {
+                                mediumList && mediumList.map(item => {
+                                    return <Option value={item.id} key={item.id}>{item.name}</Option>
+                                })
+                            }
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -273,12 +319,11 @@ const AddTrigger = (props) => {
                             placeholder="严重性选择"
                             allowClear
                         >
-                            <Option value={1}>灾难</Option>
-                            <Option value={2}>严重</Option>
-                            <Option value={3}>一般严重</Option>
-                            <Option value={4}>告警</Option>
-                            <Option value={5}>信息</Option>
-                            <Option value={6}>未分类</Option>
+                            {
+                                alarmGrade.map(item => {
+                                    return <Option value={item.value} key={item.value}>{item.name}</Option>
+                                })
+                            }
                         </Select>
                     </Form.Item>
                     <Form.Item

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
 
@@ -42,40 +42,52 @@ const LeftMenu = (props) => {
             key: "graphics",
             encoded: "graphics",
         },
-        {
+        /*{
             name: '设置',
             icon: 'setting',
             url: `/hostList/${hostId}/setting/projectInformation`,
             key: "projectInformation",
             encoded: "projectInformation",
-        },
+        },*/
     ]
 
 
     const selectMenu = (url) => {
         props.history.push(url)
+        localStorage.setItem("url", url)
     }
 
     return (
-        <div className="box-left">
-            {
-                router.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            onClick={() => selectMenu(item.url)}
-                            className="leftMenu-box"
-                        >
-                            <svg className="leftMenu-svg-icon" aria-hidden="true">
-                                <use xlinkHref={`#icon-${item.icon}`}></use>
-                            </svg>
-                            <span className="leftMenu-text">
-                               {item.name}
-                             </span>
-                        </div>
-                    )
-                })
-            }
+        <div className="leftMenu-body">
+            <div className="box-left">
+                {
+                    router.map((item, index) => {
+
+                        return (
+                            <div
+                                key={index}
+                                onClick={() => selectMenu(item.url)}
+                                className={`leftMenu-box ${localStorage.getItem("url") === item.url ? "border-left" : ""}`}
+                            >
+                                <svg className="leftMenu-svg-icon" aria-hidden="true">
+                                    <use xlinkHref={`#icon-${item.icon}`}></use>
+                                </svg>
+                                <span className="leftMenu-text">
+                                    {item.name}
+                                </span>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className="box-left-button"
+                 onClick={() => selectMenu(`/hostList/${hostId}/setting/projectInformation`)}
+            >
+                <svg className="leftMenu-svg-icon" aria-hidden="true">
+                    <use xlinkHref={"#icon-setting"}></use>
+                </svg>
+                <span className="leftMenu-text">设置</span>
+            </div>
         </div>
     );
 };

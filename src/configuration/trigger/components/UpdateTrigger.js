@@ -11,20 +11,15 @@ const schemeList = [
         value: 1
     },
     {
-        name: "max(最大值)",
+        name: "percentage(百分比)",
         value: 2
     },
     {
-        name: "min(最小值)",
+        name: "last(最近一个值)",
         value: 3
-    },
-    {
-        name: "last(最后一个值)",
-        value: 4
     },
 ]
 const UpdateTrigger = (props) => {
-    const {dataList, setDataList} = props;
 
     const {isModalOpen, setIsModalOpen} = props;
 
@@ -32,7 +27,13 @@ const UpdateTrigger = (props) => {
 
     const {form} = props;
 
-    const {updateTrigger, findMonitorListById, getTriggerList, findTriggerExpressionAll} = triggerStore;
+    const {
+        updateTrigger,
+        findMonitorListById,
+        getTriggerList,
+        findTriggerExpressionAll,
+        mediumList
+    } = triggerStore;
 
     const [monitorData, setMonitorData] = useState([]);
 
@@ -56,12 +57,8 @@ const UpdateTrigger = (props) => {
     };
 
     const handleOk = () => {
-
         setIsModalOpen(false);
-
         form.validateFields().then(async res => {
-
-            console.log("修改当中的res:", res)
 
             await updateTrigger({
                 id: rowData.id,
@@ -71,23 +68,18 @@ const UpdateTrigger = (props) => {
                 triggerStatus: 1,
                 operator: res.operator,
                 numericalValue: res.numericalValue,
-                mediumType: res.mediumType,
+                mediumIds: res.mediumType,
                 severityLevel: res.severityLevel,
                 describe: res.describe,
                 source: rowData.source,
                 expression: res.expression,
-                rangeTime:res.rangeTime,
-                scheme:res.scheme
+                rangeTime: res.rangeTime,
+                scheme: res.scheme,
+                percentage: res.percentage
             });
 
-
-            getTriggerList().then(res => {
-                setDataList([...res.dataList])
-            })
-
+            await getTriggerList();
         })
-
-
     };
 
     const handleCancel = () => {
@@ -148,7 +140,7 @@ const UpdateTrigger = (props) => {
                 visible={isModalOpen}
                 cancelText="取消"
                 okText="确定"
-                width={500}
+                width={800}
             >
                 <div className="addMonitorForm">
                     <div>
@@ -166,6 +158,7 @@ const UpdateTrigger = (props) => {
                             }}
                             onFinishFailed={onFinishFailed}
                             autoComplete="off"
+                            layout="vertical"
                             form={form}
                             labelAlign={"left"}
                         >
@@ -294,6 +287,18 @@ const UpdateTrigger = (props) => {
                                 <InputNumber placeholder="分钟" min={0}/>
                             </Form.Item>
                             <Form.Item
+                                label="百分比达到多少进行触发"
+                                name="percentage"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '百分比达到多少进行触发',
+                                    },
+                                ]}
+                            >
+                                <InputNumber placeholder="数据百分比" min={1} max={100}/>
+                            </Form.Item>
+                            <Form.Item
                                 label="消息通知方案"
                                 name="mediumType"
                                 rules={[
@@ -305,13 +310,16 @@ const UpdateTrigger = (props) => {
                             >
 
                                 <Select
+                                    mode="multiple"
+                                    maxTagCount="responsive"
                                     placeholder="请选择您的消息通知方案"
                                     allowClear
                                 >
-                                    <Option value={1} key={1}>方案1:电子邮件</Option>
-                                    <Option value={2} key={2}>方案2:微信公众号</Option>
-                                    <Option value={3} key={3}>方案3:钉钉</Option>
-                                    <Option value={4} key={4}>方案4:短信</Option>
+                                    {
+                                        mediumList && mediumList.map(item => {
+                                            return <Option value={item.id} key={item.id}>{item.name}</Option>
+                                        })
+                                    }
                                 </Select>
 
                             </Form.Item>

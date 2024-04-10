@@ -126,7 +126,6 @@ const UpdateMonitor = (props) => {
 
                             <Select
                                 placeholder="请选择监控项指标"
-                                /*onChange={onGenderChange}*/
                                 allowClear
                             >
                                 {

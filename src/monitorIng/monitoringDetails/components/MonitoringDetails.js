@@ -46,7 +46,7 @@ const MonitoringDetails = (props) => {
         findAllMonitor,
     } = monitorLayoutStore;
 
-    const {findInformationPage,total} = props;
+    const {findInformationPage, total} = props;
 
     const dom = useRef(null);
 
@@ -179,7 +179,7 @@ const MonitoringDetails = (props) => {
             case 3:
                 return reportData + "G"
             case 4:
-                return reportData
+                return reportData + "s"
             default:
                 return reportData
         }
