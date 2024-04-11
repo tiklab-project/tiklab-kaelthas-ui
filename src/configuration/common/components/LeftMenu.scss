@@ -2,15 +2,22 @@
   height: calc(100vh - 48px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   background: #fafbfc;
-  flex: 1;
   max-width: 80px;
   min-width: 80px;
   width: 80px;
   border-right: 1px solid #f0f0f0;
 
+  .leftMenu-top{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 10px 22px;
+    cursor: pointer;
+  }
+
   .box-left {
+    flex: 1;
     /*width: 80px;
     height: 100%;
     background: #fafbfc;
@@ -47,6 +54,11 @@
     cursor: pointer;
     border-left: 3px solid #F8F8F8;
   }
+
+  .box-left-button:hover{
+    background-color: #EDF0F5;
+  }
+
 }
 
 .leftMenu-svg-icon {
@@ -57,4 +69,11 @@
 .border-left {
   background-color: #e3e8f0;
   border-left: 3px solid #5d70ea;
+}
+
+.modal-show {
+  display: block;
+}
+.modal-hidden {
+  display: none;
 }

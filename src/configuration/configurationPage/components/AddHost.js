@@ -6,27 +6,15 @@ const {Option} = Select
 
 const AddHost = (props) => {
 
-    const {dataList, setDataList} = props;
-
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {templateList, findTemplateAll, findHostGroup, hostGroupList, addHost, findPageHost} = configurationStore;
 
-    useEffect(() => {
-
-            findTemplateAll().then((res) => {
-                form.setFieldsValue({
-                    templateName: res[0].name
-                })
-            })
-            findHostGroup().then((res) => {
-                form.setFieldsValue({
-                    hostGroupName: res[0].name
-                })
-            })
-
+    useEffect(async () => {
+        await findTemplateAll();
+        await findHostGroup();
     }, []);
 
     const showModal = () => {
@@ -44,8 +32,7 @@ const AddHost = (props) => {
                 templateId: res.templateId,
                 state: res.isOpen,
             });
-            const resData = await findPageHost()
-            setDataList([...resData])
+            await findPageHost()
         })
     };
 
@@ -111,11 +98,9 @@ const AddHost = (props) => {
                     >
                         <Select
                             placeholder="请选择主机群组"
-                            className="hostGroup-select"
                             key="selectGroup"
                             allowClear
                             showSearch
-                            // onSearch={onHostSearch}
                             style={{width: 200}}
                             optionFilterProp="children"
                         >

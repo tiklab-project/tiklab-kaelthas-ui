@@ -92,7 +92,6 @@ const GraphicsList = (props) => {
                 </Space>
             ),
         },
-
     ];
 
     async function changePage(pagination) {
@@ -110,8 +109,7 @@ const GraphicsList = (props) => {
 
     return (
         <>
-            <UpdateGraphics dataList={dataList} setDataList={setDataList} form={form}
-                            columnData={columnData} setColumnData={setColumnData}
+            <UpdateGraphics form={form} columnData={columnData} setColumnData={setColumnData}
                             isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
             />
 

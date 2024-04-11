@@ -4,19 +4,26 @@ import "./Configuration.scss"
 import {Input, Pagination, Table} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
+import {observer} from "mobx-react";
+import {SearchOutlined} from "@ant-design/icons";
 
 
 const Configuration = (props) => {
 
-    const [dataList, setDataList] = useState([]);
-
-    const {findPageHost, findHostGroup, setSearchCondition, total, setHostState, hostState} = configurationStore;
+    const {
+        findPageHost,
+        setSearchCondition,
+        total,
+        setHostState,
+        hostState,
+        resultData,
+        setNullCondition,
+        searchCondition
+    } = configurationStore;
 
     useEffect(async () => {
-
-        const resData = await findPageHost()
-
-        setDataList([...resData])
+        setNullCondition()
+        await findPageHost()
 
     }, []);
 
@@ -24,14 +31,13 @@ const Configuration = (props) => {
         const name = e.target.value;
         setSearchCondition({name: name})
         const resData = await findPageHost()
-
-        setDataList([...resData])
     };
 
     const host = (record) => {
         console.log("路由跳转到host")
         props.history.push(`/hostList/${record.id}/hostDetails`);
         localStorage.setItem('hostId', record.id);
+        localStorage.setItem("url", `/hostList/${record.id}/hostDetails`)
     }
 
     const columns = [
@@ -110,8 +116,6 @@ const Configuration = (props) => {
 
         const resData = await findPageHost()
 
-        setDataList([...resData])
-
     };
     const checkTab = async (value) => {
         setHostState(value)
@@ -125,8 +129,6 @@ const Configuration = (props) => {
             name: ""
         });
         const resData = await findPageHost()
-
-        setDataList([...resData])
     };
 
     const availabilityTab = [
@@ -155,7 +157,7 @@ const Configuration = (props) => {
                         主机配置
                     </div>
                     <div className="box-configuration-title-right">
-                        <AddHost setDataList={setDataList} dataList={dataList}/>
+                        <AddHost/>
                     </div>
                 </div>
                 <div className="box-configuration-body-type">
@@ -173,7 +175,11 @@ const Configuration = (props) => {
                         }
                     </div>
                     <div className="box-configuration-body-search">
-                        <Input placeholder="请输入主机名称" onPressEnter={(event) => searchName(event)}/>
+                        <Input
+                            placeholder="请输入主机名称"
+                            onPressEnter={(event) => searchName(event)}
+                            prefix={<SearchOutlined />}
+                        />
                     </div>
                 </div>
                 <div className="box-configuration-body-list">
@@ -181,7 +187,7 @@ const Configuration = (props) => {
                         rowKey={record => record.id}
                         columns={columns}
                         className="custom-table"
-                        dataSource={dataList}
+                        dataSource={resultData}
                         onChange={changePage}
                         scroll={{
                             x: 300,
@@ -190,7 +196,8 @@ const Configuration = (props) => {
                             position: ["bottomCenter"],
                             total: total,
                             showSizeChanger: true,
-                            defaultPageSize: 20
+                            pageSize: searchCondition.pageParam.pageSize,
+                            current: searchCondition.pageParam.currentPage,
                         }}
                     />
                 </div>
@@ -199,4 +206,4 @@ const Configuration = (props) => {
     )
 }
 
-export default withRouter(Configuration);
+export default withRouter(observer(Configuration));

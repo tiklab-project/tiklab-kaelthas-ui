@@ -3,7 +3,8 @@ import {Form, Input, Pagination, Table, Tabs} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
-import MonitoringDetails from "../../monitoringDetails/components/MonitoringDetails";
+import {observer} from "mobx-react";
+import {SearchOutlined} from "@ant-design/icons";
 
 const Monitoring = (props) => {
 
@@ -12,9 +13,15 @@ const Monitoring = (props) => {
     const [monitorData, setMonitorData] = useState([]);
 
     const {
-        findHostPage, findInformationByMonitorId, setSearchCondition,
-        searchCondition, total,
-        hostState, setHostState
+        findHostPage,
+        findInformationByMonitorId,
+        setSearchCondition,
+        searchCondition,
+        total,
+        hostState,
+        setHostState,
+        setNullCondition,
+        monitoringList
     } = monitoringStore;
 
     const host = (record) => {
@@ -26,10 +33,8 @@ const Monitoring = (props) => {
     }
 
     useEffect(async () => {
-
-        const resData = await findHostPage();
-        setListData([...resData])
-
+        setNullCondition();
+        await findHostPage();
     }, []);
 
 
@@ -123,9 +128,7 @@ const Monitoring = (props) => {
             usability: value,
             name: ""
         });
-        const resData = await findHostPage()
-
-        setListData([...resData])
+        await findHostPage()
     }
 
     async function checkPage(page, pageSize) {
@@ -137,18 +140,14 @@ const Monitoring = (props) => {
             monitorName: ""
         })
 
-        const newVar = await findInformationByMonitorId();
-
-        setMonitorData([...newVar])
+        await findInformationByMonitorId();
     }
 
     async function searchByName(event) {
         setSearchCondition({
-            hostName: event.target.value
+            name: event.target.value
         })
-        const newVar = await findHostPage();
-
-        setListData([...newVar])
+        await findHostPage();
     }
 
     return (
@@ -172,7 +171,9 @@ const Monitoring = (props) => {
                     </div>
                     <div>
                         <Input placeholder="根据主机名称进行查询"
-                               onPressEnter={(event) => searchByName(event)}/>
+                               onPressEnter={(event) => searchByName(event)}
+                               prefix={<SearchOutlined />}
+                        />
                     </div>
                 </div>
                 <div className="monitoring-alarm-table-list">
@@ -180,7 +181,7 @@ const Monitoring = (props) => {
                         rowKey={record => record.id}
                         columns={columns}
                         className="custom-table"
-                        dataSource={listData}
+                        dataSource={monitoringList}
                         pagination={false}
                     />
                     <div className="details-pagination">
@@ -198,4 +199,4 @@ const Monitoring = (props) => {
     )
 };
 
-export default withRouter(Monitoring);
+export default withRouter(observer(Monitoring));

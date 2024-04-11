@@ -6,7 +6,6 @@ const {Option} = Select
 
 
 const AddMonitor = (props) => {
-    const {setListData, listData} = props;
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,7 +13,7 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const {findMonitorItemByName, addMonitor, findMonitorCondition,data} = monitorStore;
+    const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -32,18 +31,13 @@ const AddMonitor = (props) => {
                 monitorSource: 1,
                 monitorStatus: 1,
             })
-            const resData = await findMonitorCondition();
-            setListData([...resData])
+            await findMonitorCondition();
         })
         setIsModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    const addDataForMonitor = () => {
-        console.log('监控项添加成功')
-    }
 
 
     const handleProvinceChange = async (value) => {
@@ -63,7 +57,7 @@ const AddMonitor = (props) => {
                 新建监控项
             </div>
             <Modal title="新建监控项" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                   cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
+                   cancelText="取消" okText="确定" width={800}>
                 <div className="addMonitorForm">
                     <div>
                         <Form
@@ -127,7 +121,6 @@ const AddMonitor = (props) => {
                                     },
                                 ]}
                             >
-
                                 <Select
                                     placeholder="请选择监控项指标"
                                     allowClear
@@ -139,7 +132,6 @@ const AddMonitor = (props) => {
                                             <Option value={item.id}>{item.dataSubclass}</Option>))
                                     }
                                 </Select>
-
                             </Form.Item>
 
                             <Form.Item

@@ -3,9 +3,12 @@ import {Service} from "../../../common/utils/requset";
 
 export class MonitoringStore {
 
-    @observable total = 1
+    @observable total = 1;
 
-    @observable hostState = 0
+    @observable hostState = 0;
+
+    @observable
+    monitoringList = [];
 
     @observable searchCondition = {
         orderParams: [{
@@ -29,9 +32,24 @@ export class MonitoringStore {
     }
 
     @action
+    setNullCondition = (value) =>{
+        this.searchCondition = Object.assign({
+            orderParams: [{
+                name: "id",
+                orderType: "desc"
+            }],
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
+
+    @action
     findHostPage = async () => {
         const resData = await Service("/hostList/findHostPage", this.searchCondition);
         this.total = resData.data.totalRecord;
+        this.monitoringList = resData.data.dataList;
         return resData.data.dataList;
     }
 
@@ -39,6 +57,7 @@ export class MonitoringStore {
     findInformationByMonitorId = async () => {
         const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
         this.total = resData.data.totalRecord;
+        this.monitoringList = resData.data.dataList;
         return resData.data.dataList;
     }
 }

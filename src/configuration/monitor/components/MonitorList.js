@@ -5,6 +5,7 @@ import "./Monitor.scss";
 import UpdateMonitor from "./UpdateMonitor";
 import monitorStore from "../store/MonitorStore";
 import "../../../common/styles/_tabStyle.scss"
+import {observer} from "mobx-react";
 const MonitorList = (props) => {
 
     const {deleteMonitorById, findMonitorCondition,total,setSearchCondition,data} = monitorStore;
@@ -189,4 +190,4 @@ const MonitorList = (props) => {
     )
 };
 
-export default withRouter(MonitorList);
+export default withRouter(observer(MonitorList));

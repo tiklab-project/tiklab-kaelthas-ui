@@ -3,7 +3,7 @@ import {Service} from "../../../common/utils/requset";
 
 export class GraphicsStore {
 
-    @observable monitorList = [];
+    @observable graphicsList = [];
 
     @observable total = 1;
 
@@ -27,7 +27,7 @@ export class GraphicsStore {
     @action
     getGraphicsStoreList = async () => {
         const resData = await Service("/graphics/findGraphics",this.searchCondition);
-        this.data = resData;
+        this.graphicsList = resData.data.dataList;
         return resData.data;
     }
 
@@ -35,8 +35,7 @@ export class GraphicsStore {
     @action
     getGraphicsStoreByName = async (name) =>{
         const resData = await Service("/graphics/getGraphicsStoreByName",{name:name});
-        this.data = resData;
-
+        this.graphicsList = resData.data.dataList;
         return resData;
     }
 
@@ -52,7 +51,6 @@ export class GraphicsStore {
     @action
     addGraphicsStore = async (option) =>{
         const resData = await Service("/graphics/addGraphics",option);
-        this.data = resData;
         return resData;
     }
 
@@ -60,7 +58,6 @@ export class GraphicsStore {
     @action
     updateGraphicsStoreById = async (option) =>{
         const resData = await Service("/graphics/updateGraphics",option);
-        this.data = resData;
         return resData;
     }
 

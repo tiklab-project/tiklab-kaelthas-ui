@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Link, withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
+import {Dropdown} from "antd";
 
 const LeftMenu = (props) => {
 
@@ -8,7 +9,7 @@ const LeftMenu = (props) => {
 
     const router = [
         {
-            name: '主机详情',
+            name: '概况',
             icon: 'host',
             url: `/hostList/${hostId}/hostDetails`,
             key: "host",
@@ -51,18 +52,27 @@ const LeftMenu = (props) => {
         },*/
     ]
 
+    /*useEffect(() => {
+        localStorage.setItem("url",`/hostList/${hostId}/hostDetails`)
+    }, []);*/
 
     const selectMenu = (url) => {
         props.history.push(url)
         localStorage.setItem("url", url)
     }
 
+    function showHost() {
+
+    }
+
     return (
         <div className="leftMenu-body">
+            <div className="leftMenu-top">
+                <span onClick={() => showHost()}></span>
+            </div>
             <div className="box-left">
                 {
                     router.map((item, index) => {
-
                         return (
                             <div
                                 key={index}

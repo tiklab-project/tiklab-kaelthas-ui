@@ -2,8 +2,10 @@
 .box-monitor-right {
   flex: 1;
   flex-direction: column;
-  margin: 0 12.5%;
+  //margin: 0 12.5%;
   padding: 20px;
+  overflow: auto;
+  height: 100%;
 
   .box-monitor-title {
     display: flex;
@@ -76,12 +78,10 @@
     padding-top: 20px;
     background: #fff;
   }
-}
-
-.addMonitorForm {
-  display: flex;
-  flex-direction: column;
-  //height: 100%;
-  //overflow: auto;
-  padding: 0 15px;
+  .monitorEdit {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
 }

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import "./Monitor.scss"
 import AddMonitor from "./AddMonitor";
-import {Form, Input} from "antd";
+import {Col, Form, Input, Row} from "antd";
 import MonitorList from "./MonitorList";
 import {withRouter} from "react-router-dom";
 import monitorStore from "../store/MonitorStore";
+import {SearchOutlined} from "@ant-design/icons";
 
 const Monitor = (props) => {
 
@@ -50,34 +51,40 @@ const Monitor = (props) => {
     ]
 
     return (
-        <div className="box-monitor-right">
-            <div className="box-monitor-title">
-                <div className="box-monitor-title-text">监控项</div>
-                <div className="monitor-top-right">
-                    <AddMonitor setListData={setListData} listData={listData}/>
+        <Row className="box-monitor-right">
+            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="box-monitor-title">
+                    <div className="box-monitor-title-text">监控项</div>
+                    <div className="monitor-top-right">
+                        <AddMonitor setListData={setListData} listData={listData}/>
+                    </div>
                 </div>
-            </div>
-            <div className="monitor-kind-options">
-                <div className="monitor-kind-options-tabs">
-                    {
-                        availabilityTab.map(item => {
-                            return <div
-                                key={item.title}
-                                className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
-                                onClick={() => monitorList(item.key)}>
-                                {item.title}
-                            </div>
-                        })
-                    }
+                <div className="monitor-kind-options">
+                    <div className="monitor-kind-options-tabs">
+                        {
+                            availabilityTab.map(item => {
+                                return <div
+                                    key={item.title}
+                                    className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
+                                    onClick={() => monitorList(item.key)}>
+                                    {item.title}
+                                </div>
+                            })
+                        }
+                    </div>
+                    <div className="monitor-kind-search">
+                        <Input
+                            placeholder="请输入监控项名称"
+                            onPressEnter={(event) => searchName(event)}
+                            prefix={<SearchOutlined />}
+                        />
+                    </div>
                 </div>
-                <div className="monitor-kind-search">
-                    <Input placeholder="请输入监控项名称" onPressEnter={(event) => searchName(event)}/>
+                <div className="box-monitor-table">
+                    <MonitorList listData={data} setListData={setListData}/>
                 </div>
-            </div>
-            <div className="box-monitor-table">
-                <MonitorList listData={data} setListData={setListData}/>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

@@ -1,24 +1,26 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Input, Table, Tooltip} from "antd";
+import {Button, Input, Table} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
+import {SearchOutlined} from "@ant-design/icons";
 
 const AlarmPage = (props) => {
 
 
-    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition,total} = alarmPageStore;
+    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition, total,setNullCondition,searchCondition} = alarmPageStore;
 
     useEffect(async () => {
+        setNullCondition();
         await findAlarmPage();
     }, []);
 
     function isConfirm(status) {
         {
             let config = {
-                1: "已确认",
-                2: "未确认",
+                1: "已解决",
+                2: "问题",
             }
             return config[status];
         }
@@ -75,11 +77,6 @@ const AlarmPage = (props) => {
             }
         },*/
         {
-            title: '告警时间',
-            dataIndex: 'alertTime',
-            key: 'alertTime',
-        },
-        {
             title: '告警类型',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
@@ -96,12 +93,22 @@ const AlarmPage = (props) => {
             }
         },
         {
+            title: '告警时间',
+            dataIndex: 'alertTime',
+            key: 'alertTime',
+        },
+        {
+            title: '解决时间',
+            dataIndex: 'resolutionTime',
+            key: 'resolutionTime',
+        },
+        {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
         },
         {
-            title: '是否确认',
+            title: '状态',
             dataIndex: 'status',
             key: 'status',
             render: (status, record) => <div onClick={() => updateAlarm(record)}
@@ -153,7 +160,11 @@ const AlarmPage = (props) => {
 
                     </div>
                     <div>
-                        <Input placeholder="请输入主机名称" onPressEnter={(e) => checkHostName(e)}/>
+                        <Input
+                            placeholder="请输入主机名称"
+                            onPressEnter={(e) => checkHostName(e)}
+                            prefix={<SearchOutlined />}
+                        />
                     </div>
                 </div>
                 <div className="alarm-box-table">
@@ -168,7 +179,9 @@ const AlarmPage = (props) => {
                            pagination={{
                                position: ["bottomCenter"],
                                total: total,
-                               showSizeChanger: true
+                               showSizeChanger: true,
+                               pageSize: searchCondition.pageParam.pageSize,
+                               current: searchCondition.pageParam.currentPage,
                            }}
                     />
                 </div>

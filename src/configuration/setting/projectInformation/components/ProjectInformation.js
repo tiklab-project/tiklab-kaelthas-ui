@@ -3,6 +3,7 @@ import "./ProjectInformation.scss"
 import {withRouter} from "react-router-dom";
 import {Alert, Button, Collapse, Form, Input, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
+import configurationStore from "../../../configurationPage/store/ConfigurationStore";
 
 const {Panel} = Collapse;
 
@@ -29,6 +30,8 @@ const ProjectInformation = (props) => {
         console.log('key', key);
     };
     const {deleteHostById, findHostById, findAllHostGroupList, updateHost} = projectInformationStore;
+
+    const {setNullCondition, findPageHost} = configurationStore;
 
     const [allHostGroupList, setAllHostGroupList] = useState([]);
 
@@ -72,14 +75,17 @@ const ProjectInformation = (props) => {
 
 
     //删除主机
-    function deleteByHost() {
+    async function deleteByHost() {
 
-        deleteHostById(localStorage.getItem("hostId"));
+        await deleteHostById(localStorage.getItem("hostId"));
 
-        console.log('localStorage.getItem("hostId")', localStorage.getItem("hostId"))
+        setNullCondition();
 
-        props.history.push("/configuration")
+        await findPageHost();
 
+        console.log('localStorage.getItem("hostId")', localStorage.getItem("hostId"));
+
+        props.history.push("/configuration");
     }
 
     return (
@@ -89,7 +95,7 @@ const ProjectInformation = (props) => {
                     主机信息
                 </div>
                 <Collapse onChange={onChange} expandIconPosition="right">
-                    <Panel header="主机信息" style={{fontSize: "15px", fontWeight: "bold"}} key="1">
+                    <Panel header="主机信息" key="1">
                         <Form {...layout}
                               form={form}
                               name="control-hooks"
@@ -182,26 +188,15 @@ const ProjectInformation = (props) => {
                             </Form.Item>
                         </Form>
                     </Panel>
-                    <Panel header="删除主机" style={{fontSize: "15px", fontWeight: "bold"}} key="2">
+                    <Panel header="删除主机" key="2">
                         <div className="dropDownMenu-box">
                             <div style={{color: "#ff0000"}}>
                                 此主机及其事务、组件、附件和版本将在回收站中保留 60 天，之后将被永久删除。
                             </div>
-                            <div style={{
-                                background: "#ff0000",
-                                marginTop: "10px",
-                                cursor: "pointer",
-                                textAlign: "center",
-                                height: "30px",
-                                lineHeight: "30px",
-                                color: "#fff",
-                                borderRadius: "4px",
-                                width: "100px",
-                                fontSize: "12px",
-                            }}
+                            <div className="setting-box-div-delete"
                                  onClick={() => deleteByHost()}
                             >
-                                是否删除主机
+                                <span>是否删除主机</span>
                             </div>
                         </div>
                     </Panel>

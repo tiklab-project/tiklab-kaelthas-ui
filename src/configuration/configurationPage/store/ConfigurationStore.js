@@ -36,6 +36,19 @@ export class ConfigurationStore {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
     }
 
+    @action
+    setNullCondition = (value) =>{
+        this.searchCondition = Object.assign({
+            orderParams: [{
+                name: "id",
+                orderType: "desc"
+            }],
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
 
     //根据条件查询主机
     @action

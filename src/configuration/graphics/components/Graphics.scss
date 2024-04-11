@@ -2,7 +2,7 @@
   .box-graphics-right {
     flex: 1;
     flex-direction: column;
-    margin: 0 12.5%;
+    //margin: 0 12.5%;
     padding: 20px;
 
     .box-graphics-title {
@@ -39,7 +39,7 @@
       display: flex;
       width: 100%;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-end;
       margin-top: 15px;
 
       .graphics-kind-options-tabs {
