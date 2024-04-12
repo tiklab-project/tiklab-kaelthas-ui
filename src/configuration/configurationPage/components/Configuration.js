@@ -174,9 +174,10 @@ const Configuration = (props) => {
                             })
                         }
                     </div>
-                    <div className="box-configuration-body-search">
+                    <div>
                         <Input
-                            placeholder="请输入主机名称"
+                            placeholder="根据主机名称进行查询"
+                            className="box-configuration-body-search"
                             onPressEnter={(event) => searchName(event)}
                             prefix={<SearchOutlined />}
                         />

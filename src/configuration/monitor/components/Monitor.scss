@@ -67,10 +67,10 @@
     }
 
     .monitor-kind-search {
-      display: flex;
-      align-items: center;
-      gap: 15px;
+      border-radius: 4px;
+      width: 200px;
     }
+
   }
 
 
@@ -78,6 +78,7 @@
     padding-top: 20px;
     background: #fff;
   }
+
   .monitorEdit {
     position: relative;
     height: 100%;

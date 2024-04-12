@@ -36,29 +36,21 @@
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 15px;
-
-    .trigger-kind-options-tabs {
-      display: flex;
-      gap: 10px;
-      height: 42px;
-      line-height: 42px;
-      justify-content: space-between;
-
-      .trigger-kind-options-tabs-text {
-        padding: 0 5px;
-        cursor: pointer;
-      }
-    }
-  }
-
-  .trigger-kind-search {
-    display: flex;
-    width: 100%;
-    align-items: center;
     justify-content: flex-end;
     margin-top: 15px;
+    height: 42px;
+    line-height: 42px;
+
+    .trigger-kind-search {
+      border-radius: 4px;
+      width: 200px;
+    }
+
+    .trigger-kind-options-tabs-text {
+      padding: 0 5px;
+      cursor: pointer;
+    }
+
   }
 
   .box-trigger-table {

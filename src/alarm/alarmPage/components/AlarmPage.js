@@ -9,7 +9,15 @@ import {SearchOutlined} from "@ant-design/icons";
 const AlarmPage = (props) => {
 
 
-    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition, total,setNullCondition,searchCondition} = alarmPageStore;
+    const {
+        alarmPage,
+        findAlarmPage,
+        updateAlarmPage,
+        setSearchCondition,
+        total,
+        setNullCondition,
+        searchCondition
+    } = alarmPageStore;
 
     useEffect(async () => {
         setNullCondition();
@@ -48,6 +56,8 @@ const AlarmPage = (props) => {
         {
             title: '主机名称',
             dataIndex: 'hostName',
+            // ellipsis: true,
+            // width: "20%",
             key: 'hostName',
             render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
                                                style={{cursor: "pointer"}}>{hostName}</div>
@@ -157,13 +167,11 @@ const AlarmPage = (props) => {
                     </div>*/}
                 <div className="alarm-box-search">
                     <div>
-
-                    </div>
-                    <div>
                         <Input
-                            placeholder="请输入主机名称"
+                            className="alarm-box-search-div"
+                            placeholder="根据主机名称进行查询"
                             onPressEnter={(e) => checkHostName(e)}
-                            prefix={<SearchOutlined />}
+                            prefix={<SearchOutlined/>}
                         />
                     </div>
                 </div>

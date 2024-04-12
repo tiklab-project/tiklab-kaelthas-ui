@@ -35,12 +35,10 @@ const Trigger = (props) => {
                     </div>
                 </div>
                 <div className="trigger-kind-options">
-                    <div className="trigger-kind-options-tabs">
-
-                    </div>
                     <div>
                         <Input
                             onPressEnter={(event) => searchName(event)}
+                            className="trigger-kind-search"
                             placeholder="请输入触发器名称"
                             prefix={<SearchOutlined/>}
                         />

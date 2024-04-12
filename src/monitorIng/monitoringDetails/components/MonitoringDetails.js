@@ -207,7 +207,6 @@ const MonitoringDetails = (props) => {
                     pagination={false}
                     scroll={{
                         x: 300,
-                        y: 'max-content'
                     }}
 
                 />

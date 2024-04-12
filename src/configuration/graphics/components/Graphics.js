@@ -46,11 +46,9 @@ const Graphics = (props) => {
                     </div>
                 </div>
                 <div className="graphics-kind-options">
-                    {/*<div className="graphics-kind-options-tabs">
-
-                </div>*/}
-                    <div className="graphics-kind-search">
+                    <div>
                         <Input placeholder="请输入图形名称"
+                               className="graphics-kind-search"
                                onPressEnter={(event) => searchName(event)}
                                prefix={<SearchOutlined/>}
                         />

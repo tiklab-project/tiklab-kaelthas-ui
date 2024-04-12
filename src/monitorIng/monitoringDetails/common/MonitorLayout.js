@@ -64,13 +64,10 @@ const MonitorLayout = (props) => {
         getDateTime,
         findInformationPage,
         total,
-        monitorIds,
         monitorDataSubclassNames
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
-
-    const [dataList, setDataList] = useState([]);
 
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
@@ -134,7 +131,6 @@ const MonitorLayout = (props) => {
 
     async function onCheckMonitor(value, options) {
 
-
         setSearchCondition({
             hostId: localStorage.getItem("hostIdForMonitoring"),
             monitorIdList: value
@@ -146,18 +142,8 @@ const MonitorLayout = (props) => {
 
         const times = await findDescGatherTime();
         setDescTime([...times])
-
     }
 
-    /*const onChange = async (value, dateString) => {
-        setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1]
-        })
-        const newVar = await findMonitorForHost();
-
-        setDataList([...newVar])
-    };*/
     const onOk = (value) => {
         console.log('onOk: ', value);
     };
@@ -166,16 +152,15 @@ const MonitorLayout = (props) => {
 
         setSearchCondition({
             dataCate: value,
-            id:localStorage.getItem("hostIdForMonitoring")
+            id: localStorage.getItem("hostIdForMonitoring")
         })
         await findMonitorForHost();
-
 
         //根据监控大类查询监控小类
         const resData = await findMonitorByCategories();
         setMonitorDataSubclass([...resData])
 
-        resData.map(item =>{
+        resData.map(item => {
             monitorDataSubclassNames.push(item.name)
         })
     }
@@ -208,7 +193,6 @@ const MonitorLayout = (props) => {
                                     <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                                 </Breadcrumb>
 
-
                                 <div className="details-table-title">
                                     <div className="details-search">
                                         <div className="details-div">
@@ -216,7 +200,7 @@ const MonitorLayout = (props) => {
                                                 mode="multiple"
                                                 maxTagCount='responsive'
                                                 placeholder="请选择监控大类"
-                                                onChange={(value)=>searchByDataCategories(value)}
+                                                onChange={(value) => searchByDataCategories(value)}
                                                 allowClear={true}
                                                 defaultValue="全部监控大类"
                                                 style={{
@@ -257,7 +241,6 @@ const MonitorLayout = (props) => {
                                             />
                                         </div>
                                     </div>
-
                                     <div className="details-tables">
                                         {
                                             showTabs.map(item => {
@@ -277,36 +260,33 @@ const MonitorLayout = (props) => {
                                         hostState === '1' ?
                                             <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
                                             :
-                                            <div>{
-                                                condition && condition.length > 0 ?
-                                                    <div className="details-tabs-wrap">
-                                                        {
-                                                            condition.map((item,index) => {
-                                                                return (
-                                                                    <MonitoringItem reportType={item[0].reportType}
-                                                                                    condition={item}
-                                                                                    descTime={descTime}
-                                                                                    index={index}
-                                                                    />
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                    :
-                                                    <Empty>
-                                                        <span>没有数据</span>
-                                                    </Empty>
-                                            }
+                                            <div>
+                                                {
+                                                    condition && condition.length > 0 ?
+                                                        <div className="details-tabs-wrap">
+                                                            {
+                                                                condition.map((item, index) => {
+                                                                    return (
+                                                                        <MonitoringItem reportType={item[0].reportType}
+                                                                                        condition={item}
+                                                                                        descTime={descTime}
+                                                                                        index={index}
+                                                                        />
+                                                                    )
+                                                                })
+                                                            }
+                                                        </div>
+                                                        :
+                                                        <Empty>
+                                                            <span>没有数据</span>
+                                                        </Empty>
+                                                }
                                             </div>
                                     }
                                 </div>
                             </div>
                         </div>
                     </div>
-                    {/*<div>
-                        {renderRoutes(route.routes)}
-                    </div>*/
-                    }
                 </div>
             </Provider>
         </div>

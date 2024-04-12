@@ -14,9 +14,9 @@ const MonitoringItem = (props) => {
                 (()=> {
                     switch(reportType) {
                         case 1:
-                            return <HistogramList {...props} />
-                        case 3:
                             return <DiscountedList {...props} />
+                        case 3:
+                            return <HistogramList {...props} />
                         case 4:
                             return <AreaCharts {...props} />
                         default:

@@ -6,73 +6,76 @@
   width: 1080px;
 
 
-    .monitoring-alarm-table {
-      padding: 15px;
-      border-radius: 4px;
-      height: 100%;
+  .monitoring-alarm-table {
+    padding: 20px;
+    border-radius: 4px;
+    height: 100%;
 
-      .monitoring-table-title {
-        width: 100%;
-        font-weight: bold;
-        font-size: 16px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 10px;
-      }
+    .monitoring-table-title {
+      width: 100%;
+      font-weight: bold;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      line-height: 32px;
+      height: 32px;
+    }
 
-      .monitoring-search{
+    .monitoring-search {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 50px;
+      line-height: 50px;
+      gap: 20px;
+
+      .monitoring-tabs {
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: center;
         height: 50px;
         line-height: 50px;
-        gap: 20px;
 
-        .monitoring-tabs{
-          display: flex;
-          justify-content: flex-start;
-          align-items: center;
+        .monitoring-tab {
+          font-size: 13px;
+          cursor: pointer;
           height: 50px;
           line-height: 50px;
-
-          .monitoring-tab{
-            font-size: 13px;
-            cursor: pointer;
-            height: 50px;
-            line-height: 50px;
-            margin-right: 20px;
-          }
-
-          .active-tabs {
-            color: #000;
-            border-bottom: 2px solid #5d70ea;
-          }
+          margin-right: 20px;
         }
 
-        .monitoring-input{
-          width: 200px;
-          height: 32px;
-        }
-
-      }
-      .monitoring-alarm-table-list{
-        margin: 15px 0;
-
-        .details-pagination{
-          margin: 10px 0;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        .active-tabs {
+          color: #000;
+          border-bottom: 2px solid #5d70ea;
         }
       }
+
+      .monitoring-input {
+        border-radius: 4px;
+        width: 200px;
+      }
+
     }
 
-    .monitoring-dynamic-table {
-      border-radius: 4px;
-      background: #fff;
-      margin: 0 0 10px;
+    .monitoring-alarm-table-list {
+      margin: 15px 0;
+
+      .details-pagination {
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
+  }
+
+  .monitoring-dynamic-table {
+    border-radius: 4px;
+    background: #fff;
+    margin: 0 0 10px;
+  }
 
 }
 

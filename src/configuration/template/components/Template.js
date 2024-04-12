@@ -187,11 +187,9 @@ const Template = (props) => {
                     </div>
                 </div>
                 <div className="template-kind-options">
-                    <div className="template-kind-options-tabs">
-
-                    </div>
-                    <div className="template-kind-search">
+                    <div>
                         <Input placeholder="请输入模板名称"
+                               className="template-kind-search"
                                onPressEnter={(event) => searchName(event)}
                                prefix={<SearchOutlined/>}
                         />

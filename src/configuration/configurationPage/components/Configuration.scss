@@ -7,7 +7,7 @@
   overflow: auto;
 
   .box-configuration-body-item {
-    padding: 15px;
+    padding: 20px;
     border-radius: 4px;
     height: 100%;
 
@@ -16,6 +16,12 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 10px;
+
+      font-weight: 700;
+      font-size: 16px;
+      align-items: center;
+      line-height: 32px;
+      height: 32px;
 
       .box-configuration-title-left {
         font-size: 16px;
@@ -68,13 +74,7 @@
       }
 
       .box-configuration-body-search {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 32px;
-        line-height: 32px;
         border-radius: 4px;
-        padding-left: 10px;
         width: 200px;
       }
     }

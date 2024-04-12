@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Form, Input, Pagination, Table, Tabs} from "antd";
+import React, {useEffect} from 'react';
+import {Input, Pagination, Table} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
@@ -7,10 +7,6 @@ import {observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 
 const Monitoring = (props) => {
-
-    const [listData, setListData] = useState([]);
-
-    const [monitorData, setMonitorData] = useState([]);
 
     const {
         findHostPage,
@@ -42,17 +38,20 @@ const Monitoring = (props) => {
         {
             title: '名称',
             dataIndex: 'name',
+            ellipsis:true,
             key: 'name',
             render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
         },
         {
             title: '主机ip',
             dataIndex: 'ip',
+            ellipsis:true,
             key: 'ip',
         },
         {
             title: '主机状态',
             dataIndex: 'state',
+            ellipsis:true,
             key: 'state',
             render: (state) => {
                 let config = {
@@ -65,6 +64,7 @@ const Monitoring = (props) => {
         {
             title: '可用性',
             dataIndex: 'usability',
+            ellipsis:true,
             key: 'usability',
             render: (usability) => {
                 let config = {
@@ -78,16 +78,19 @@ const Monitoring = (props) => {
         {
             title: '监控数据数量',
             dataIndex: 'countMonitor',
+            ellipsis:true,
             key: 'countMonitor',
         },
         {
             title: '图形数量',
             dataIndex: 'graphicNum',
+            ellipsis:true,
             key: 'graphicNum',
         },
         {
             title: '创建时间',
             dataIndex: 'createTime',
+            ellipsis:true,
             key: 'createTime',
         },
 
@@ -109,7 +112,7 @@ const Monitoring = (props) => {
             key: 2,
             icon: "noAvailableHost"
         }
-    ]
+    ];
 
     async function checkTabHost(value) {
         setHostState(value)
@@ -171,6 +174,7 @@ const Monitoring = (props) => {
                     </div>
                     <div>
                         <Input placeholder="根据主机名称进行查询"
+                               className="monitoring-input"
                                onPressEnter={(event) => searchByName(event)}
                                prefix={<SearchOutlined />}
                         />
