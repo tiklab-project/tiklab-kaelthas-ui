@@ -1,7 +1,9 @@
-import React, {useEffect, useState} from 'react';
-import {Link, withRouter} from "react-router-dom";
+import React from 'react';
+import {withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
-import {Dropdown} from "antd";
+import {Dropdown, Space} from "antd";
+import Listicon from "./Listicon";
+import {CaretDownOutlined} from "@ant-design/icons";
 
 const LeftMenu = (props) => {
 
@@ -61,14 +63,36 @@ const LeftMenu = (props) => {
         localStorage.setItem("url", url)
     }
 
-    function showHost() {
-
-    }
 
     return (
         <div className="leftMenu-body">
             <div className="leftMenu-top">
-                <span onClick={() => showHost()}></span>
+                <Dropdown
+                    getPopupContainer={e => e.parentElement}
+                    overlayStyle={{width: 200, top: 48, left: 80}}
+                    trigger={['click']}
+                    overlayClassName="normal-aside-dropdown"
+                    overlay={
+                        <div className="host-opt">
+                            <div className="host-opt-title">切换主机</div>
+                            <div className="host-opt-group">
+                                <div className="host-opt-item"></div>
+                                <div className='host-opt-more'
+                                     onClick={() => props.history.push('/configuration')}
+                                >更多
+                                </div>
+                            </div>
+                        </div>
+                    }
+                >
+                    <div className="normal-aside-opt-icon">
+                        <Listicon
+                            text="主机"
+                            colors={null}
+                        />
+                        <span><CaretDownOutlined/></span>
+                    </div>
+                </Dropdown>
             </div>
             <div className="box-left">
                 {
