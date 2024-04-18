@@ -6,6 +6,8 @@ import { connect } from 'thoughtware-plugin-core-ui';
 
 import { Provider } from 'mobx-react';
 import Header from "./Header";
+import {UserVerify} from "thoughtware-eam-ui";
+import {Layout} from "antd";
 const HomeLayout = (props) => {
 
     const route = props.route.routes;
@@ -24,10 +26,10 @@ const HomeLayout = (props) => {
 }
 
 
-// const HomeLayout = UserVerify(Layout, '/')
+const homeLayout = UserVerify(HomeLayout, '/no-auth')
 function mapStateToProps(state) {
     return {
         pluginStore: state.pluginStore
     }
 }
-export default connect(mapStateToProps)(HomeLayout);
+export default connect(mapStateToProps)(homeLayout);

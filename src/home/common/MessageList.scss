@@ -1,0 +1,109 @@
+.frame-header-message{
+    .ant-avatar-sm {
+        background: transparent;
+        font-size: 23px;
+        display: flex;
+        align-items: center;
+        width: fit-content;
+    }
+}
+
+.frame-header-drawer {
+    top: var(--thoughtware-head-height);
+    .ant-drawer-header {
+        padding: 9px 20px;
+        border-bottom: 0
+    }
+    .ant-drawer-close {
+        padding: 12px 20px;
+    }
+    .ant-drawer-body {
+        padding: 0;
+        overflow: hidden;
+        .ant-tabs-nav {
+            padding: 0 20px;
+        }
+    }
+    .message-box {
+        height: calc(100vh - 170px);
+        overflow: auto;
+        padding: 0 20px;
+        .message-list {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 10px;
+            cursor: pointer;
+            gap: 10px;
+            .message-status {
+                width: 6px;
+                height: 6px;
+                border-radius: 6px;
+                
+            }
+            .status-unread {
+                background: #ff0000;
+            }
+            .status-read {
+                background-color: #00ff00;
+            }
+        }
+        .message-list:nth-child(4n+1) {
+            .message-user-icon {
+                background-color: #cadbf3;
+            }
+        }
+        
+        .message-list:nth-child(4n+2){
+            .message-user-icon {
+                background-color: #deedd7;
+            }
+        }
+        
+        .message-list:nth-child(4n+3) {
+            .message-user-icon {
+                background-color: #ffebee;
+            }
+        }
+        
+        .message-list:nth-child(4n+4){
+            .message-user-icon {
+                background-color: #e8eaf6;
+            }
+        }
+        .message-item-text {
+            flex: 1;
+            margin-left: 10px;
+            .message-item-title {
+                height: 40px;
+                line-height: 40px;
+                font-weight: var(--thoughtware-font-weight-bold);
+                font-size: 16px;
+                .message-item-time{
+                    padding: 0 10px;
+                    font-size: 12px;
+                    color: #999;
+                }
+            }
+            .message-item-desc {
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+        .message-item-id {
+            font-size: 12px;
+            color: #999;
+        }
+        .message-list-bottom {
+            text-align: center;
+            font-size: 12px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        .message-list-bottom:hover {
+            color: var(--thoughtware-blue);
+        }
+        
+    }
+}

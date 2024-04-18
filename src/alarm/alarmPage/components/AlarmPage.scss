@@ -1,9 +1,8 @@
 .alarm-box {
-  height: calc(100% - 48px);
-  overflow: auto;
+  height: calc(100% - 48px);;
+  flex: 1;
   background: #fff;
-  margin: 0 12.5%;
-  width: 1080px;
+  overflow: auto;
 
   .alarm-box-body {
     padding: 20px;

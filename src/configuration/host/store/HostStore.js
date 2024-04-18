@@ -5,19 +5,25 @@ export class HostStore{
 
     @observable hostData = {};
 
+    @observable
+    hostList = [];
+
     //根据id查询主机信息
     @action
     findHostById = async (id) => {
         const formData = new FormData();
         formData.append("id", id)
-
         const resData = await Service("/hostList/findHostById", formData);
-
         this.hostData = resData.data;
+        return resData.data;
+    }
 
-        console.log("resData.data:",resData.data)
-        console.log("this.hostList:",this.hostData)
-
+    @action
+    findRecentHostList = async (id) =>{
+        const formData = new FormData();
+        formData.append("hostId", id)
+        const resData = await Service("/hostList/findRecentHostList", formData);
+        this.hostList = resData.data;
         return resData.data;
     }
 

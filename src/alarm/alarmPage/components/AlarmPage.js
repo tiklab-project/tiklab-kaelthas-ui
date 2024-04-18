@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Button, Input, Table} from "antd";
+import {Button, Col, Input, Row, Table} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
@@ -144,14 +144,15 @@ const AlarmPage = (props) => {
     }
 
     return (
-        <div className="alarm-box">
-            <div className="alarm-box-body">
-                <div className="alarm-box-title">
-                    <div className="alarm-box-title-text">
-                        主机告警
+        <Row className="alarm-box">
+            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="alarm-box-body">
+                    <div className="alarm-box-title">
+                        <div className="alarm-box-title-text">
+                            主机告警
+                        </div>
                     </div>
-                </div>
-                {/*<div className="alarm-box-line">
+                    {/*<div className="alarm-box-line">
                         <div className="alarm-box-div">
                             <span>告警详情</span>
                             <div className="alarm-box-div-details">
@@ -165,36 +166,37 @@ const AlarmPage = (props) => {
                             </div>
                         </div>
                     </div>*/}
-                <div className="alarm-box-search">
-                    <div>
-                        <Input
-                            className="alarm-box-search-div"
-                            placeholder="根据主机名称进行查询"
-                            onPressEnter={(e) => checkHostName(e)}
-                            prefix={<SearchOutlined/>}
+                    <div className="alarm-box-search">
+                        <div>
+                            <Input
+                                className="alarm-box-search-div"
+                                placeholder="根据主机名称进行查询"
+                                onPressEnter={(e) => checkHostName(e)}
+                                prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                    </div>
+                    <div className="alarm-box-table">
+                        <Table rowKey={record => record.id}
+                               columns={columns}
+                               className="custom-table"
+                               dataSource={alarmPage}
+                               onChange={checkPage}
+                               scroll={{
+                                   x: 400,
+                               }}
+                               pagination={{
+                                   position: ["bottomCenter"],
+                                   total: total,
+                                   showSizeChanger: true,
+                                   pageSize: searchCondition.pageParam.pageSize,
+                                   current: searchCondition.pageParam.currentPage,
+                               }}
                         />
                     </div>
                 </div>
-                <div className="alarm-box-table">
-                    <Table rowKey={record => record.id}
-                           columns={columns}
-                           className="custom-table"
-                           dataSource={alarmPage}
-                           onChange={checkPage}
-                           scroll={{
-                               x: 400,
-                           }}
-                           pagination={{
-                               position: ["bottomCenter"],
-                               total: total,
-                               showSizeChanger: true,
-                               pageSize: searchCondition.pageParam.pageSize,
-                               current: searchCondition.pageParam.currentPage,
-                           }}
-                    />
-                </div>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

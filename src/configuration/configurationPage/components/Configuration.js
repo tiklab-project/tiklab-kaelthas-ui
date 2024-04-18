@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import AddHost from "./AddHost";
 import "./Configuration.scss"
-import {Input, Pagination, Table} from "antd";
+import {Col, Input, Pagination, Row, Table} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
@@ -18,7 +18,8 @@ const Configuration = (props) => {
         hostState,
         resultData,
         setNullCondition,
-        searchCondition
+        searchCondition,
+        createHostRecent
     } = configurationStore;
 
     useEffect(async () => {
@@ -30,14 +31,19 @@ const Configuration = (props) => {
     const searchName = async (e) => {
         const name = e.target.value;
         setSearchCondition({name: name})
-        const resData = await findPageHost()
+        await findPageHost()
     };
 
-    const host = (record) => {
+    const host = async (record) => {
         console.log("路由跳转到host")
         props.history.push(`/hostList/${record.id}/hostDetails`);
         localStorage.setItem('hostId', record.id);
         localStorage.setItem("url", `/hostList/${record.id}/hostDetails`)
+
+        //添加到临时表当中
+        await createHostRecent({
+            hostId: record.id
+        })
     }
 
     const columns = [
@@ -114,9 +120,9 @@ const Configuration = (props) => {
             }
         })
 
-        const resData = await findPageHost()
-
+        await findPageHost()
     };
+
     const checkTab = async (value) => {
         setHostState(value)
 
@@ -128,7 +134,7 @@ const Configuration = (props) => {
             usability: value,
             name: ""
         });
-        const resData = await findPageHost()
+        await findPageHost()
     };
 
     const availabilityTab = [
@@ -149,61 +155,67 @@ const Configuration = (props) => {
         }
     ]
 
+    function hrefAddHost() {
+        props.history.push('/configuration/addHost');
+    }
+
     return (
-        <div className='box-configuration-body'>
-            <div className="box-configuration-body-item">
-                <div className="box-configuration-body--title">
-                    <div className="box-configuration-title-left">
-                        主机配置
+        <Row className='box-configuration-body'>
+            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="box-configuration-body-item">
+                    <div className="box-configuration-body--title">
+                        <div className="box-configuration-title-left">
+                            主机配置
+                        </div>
+                        <div className="box-configuration-title-right" onClick={() => hrefAddHost()}>
+                            新建主机
+                        </div>
                     </div>
-                    <div className="box-configuration-title-right">
-                        <AddHost/>
+                    <div className="box-configuration-body-type">
+                        <div className="box-configuration-body-tabs">
+                            {
+                                availabilityTab.map(item => {
+                                    return <div
+                                        className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
+                                        key={item.key}
+                                        onClick={() => checkTab(item.key)}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <div>
+                            <Input
+                                placeholder="根据主机名称进行查询"
+                                className="box-configuration-body-search"
+                                onPressEnter={(event) => searchName(event)}
+                                prefix={<SearchOutlined/>}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className="box-configuration-body-type">
-                    <div className="box-configuration-body-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
-                                    key={item.key}
-                                    onClick={() => checkTab(item.key)}
-                                >
-                                    {item.title}
-                                </div>
-                            })
-                        }
-                    </div>
-                    <div>
-                        <Input
-                            placeholder="根据主机名称进行查询"
-                            className="box-configuration-body-search"
-                            onPressEnter={(event) => searchName(event)}
-                            prefix={<SearchOutlined />}
+                    <div className="box-configuration-body-list">
+                        <Table
+                            rowKey={record => record.id}
+                            columns={columns}
+                            className="custom-table"
+                            dataSource={resultData}
+                            onChange={changePage}
+                            scroll={{
+                                x: 300,
+                            }}
+                            pagination={{
+                                position: ["bottomCenter"],
+                                total: total,
+                                showSizeChanger: true,
+                                pageSize: searchCondition.pageParam.pageSize,
+                                current: searchCondition.pageParam.currentPage,
+                            }}
                         />
                     </div>
                 </div>
-                <div className="box-configuration-body-list">
-                    <Table
-                        rowKey={record => record.id}
-                        columns={columns}
-                        className="custom-table"
-                        dataSource={resultData}
-                        onChange={changePage}
-                        scroll={{
-                            x: 300,
-                        }}
-                        pagination={{
-                            position: ["bottomCenter"],
-                            total: total,
-                            showSizeChanger: true,
-                            pageSize: searchCondition.pageParam.pageSize,
-                            current: searchCondition.pageParam.currentPage,
-                        }}
-                    />
-                </div>
-            </div>
-        </div>
+            </Col>
+        </Row>
     )
 }
 

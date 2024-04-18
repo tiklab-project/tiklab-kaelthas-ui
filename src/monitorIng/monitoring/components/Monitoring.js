@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Input, Pagination, Table} from "antd";
+import {Col, Input, Pagination, Row, Table} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
@@ -38,20 +38,20 @@ const Monitoring = (props) => {
         {
             title: '名称',
             dataIndex: 'name',
-            ellipsis:true,
+            ellipsis: true,
             key: 'name',
             render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
         },
         {
             title: '主机ip',
             dataIndex: 'ip',
-            ellipsis:true,
+            ellipsis: true,
             key: 'ip',
         },
         {
             title: '主机状态',
             dataIndex: 'state',
-            ellipsis:true,
+            ellipsis: true,
             key: 'state',
             render: (state) => {
                 let config = {
@@ -64,7 +64,7 @@ const Monitoring = (props) => {
         {
             title: '可用性',
             dataIndex: 'usability',
-            ellipsis:true,
+            ellipsis: true,
             key: 'usability',
             render: (usability) => {
                 let config = {
@@ -78,19 +78,19 @@ const Monitoring = (props) => {
         {
             title: '监控数据数量',
             dataIndex: 'countMonitor',
-            ellipsis:true,
+            ellipsis: true,
             key: 'countMonitor',
         },
         {
             title: '图形数量',
             dataIndex: 'graphicNum',
-            ellipsis:true,
+            ellipsis: true,
             key: 'graphicNum',
         },
         {
             title: '创建时间',
             dataIndex: 'createTime',
-            ellipsis:true,
+            ellipsis: true,
             key: 'createTime',
         },
 
@@ -155,51 +155,53 @@ const Monitoring = (props) => {
 
     return (
 
-        <div className="monitoring">
-            <div className="monitoring-alarm-table">
-                <div className="monitoring-table-title">主机监控</div>
-                <div className="monitoring-search">
-                    <div className="monitoring-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    className={`monitoring-tab ${hostState === item.key ? "active-tabs" : ""}`}
-                                    key={item.key}
-                                    onClick={() => checkTabHost(item.key)}
-                                >
-                                    {item.title}
-                                </div>
-                            })
-                        }
+        <Row className="monitoring">
+            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="monitoring-alarm-table">
+                    <div className="monitoring-table-title">主机监控</div>
+                    <div className="monitoring-search">
+                        <div className="monitoring-tabs">
+                            {
+                                availabilityTab.map(item => {
+                                    return <div
+                                        className={`monitoring-tab ${hostState === item.key ? "active-tabs" : ""}`}
+                                        key={item.key}
+                                        onClick={() => checkTabHost(item.key)}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
+                        </div>
+                        <div>
+                            <Input placeholder="根据主机名称进行查询"
+                                   className="monitoring-input"
+                                   onPressEnter={(event) => searchByName(event)}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <Input placeholder="根据主机名称进行查询"
-                               className="monitoring-input"
-                               onPressEnter={(event) => searchByName(event)}
-                               prefix={<SearchOutlined />}
+                    <div className="monitoring-alarm-table-list">
+                        <Table
+                            rowKey={record => record.id}
+                            columns={columns}
+                            className="custom-table"
+                            dataSource={monitoringList}
+                            pagination={false}
                         />
+                        <div className="details-pagination">
+                            <Pagination
+                                current={searchCondition.pageParam.currentPage}
+                                pageSize={searchCondition.pageParam.pageSize}
+                                showSizeChanger={true}
+                                total={total}
+                                onChange={(page, pageSize) => checkPage(page, pageSize)}
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="monitoring-alarm-table-list">
-                    <Table
-                        rowKey={record => record.id}
-                        columns={columns}
-                        className="custom-table"
-                        dataSource={monitoringList}
-                        pagination={false}
-                    />
-                    <div className="details-pagination">
-                        <Pagination
-                            current={searchCondition.pageParam.currentPage}
-                            pageSize={searchCondition.pageParam.pageSize}
-                            showSizeChanger={true}
-                            total={total}
-                            onChange={(page, pageSize) => checkPage(page, pageSize)}
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+            </Col>
+        </Row>
     )
 };
 

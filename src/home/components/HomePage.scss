@@ -1,12 +1,11 @@
 .home {
-  height: calc(100% - 48px);
+  height: calc(100% - 48px);;
+  flex: 1;
+  background: #fff;
   overflow: auto;
-  background: #F8F8F8;
 
 
   .home-body {
-    margin: 0 auto;
-    width: 1080px;
     padding: 20px;
 
     .home-content {
@@ -60,6 +59,12 @@
             display: inline-flex;
             align-items: center;
             font-size: 16px;
+            .item-title-png{
+              margin-left: 10px;
+            }
+            .item-title-text{
+              margin-left: 30px;
+            }
           }
 
           .item-work {

@@ -66,7 +66,6 @@ const DiscountedList = (props) => {
     };
 
     useEffect(async () => {
-        console.log("DiscountedList中:", condition)
         await rendingView()
     }, [dom, condition, descTime]);
 

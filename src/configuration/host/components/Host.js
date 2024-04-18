@@ -42,7 +42,7 @@ const Host = (props) => {
         }
 
         setDataList({...resData})
-    }, []);
+    }, [localStorage.getItem("hostId")]);
     const columns = [
         {
             title: '动态名称',

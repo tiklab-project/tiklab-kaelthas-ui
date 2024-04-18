@@ -69,10 +69,8 @@ export class ConfigurationStore {
 
     // 根据名称查询主机组
     @action
-    findHostGroup = async (name) =>{
-        const params = new FormData();
-        params.append("name",name);
-        const resHostGroup = await Service("/hostGroup/findHostGroupByName",params);
+    findHostGroup = async () =>{
+        const resHostGroup = await Service("/hostGroup/findHostGroupByName");
         this.hostGroupList = resHostGroup.data;
 
         return resHostGroup.data;
@@ -85,6 +83,12 @@ export class ConfigurationStore {
         this.templateList = data.data;
 
         return data.data;
+    }
+
+    @action
+    createHostRecent = async (option) =>{
+        const strId = await Service("/hostRecent/createHostRecent", option)
+        return strId;
     }
 
 }

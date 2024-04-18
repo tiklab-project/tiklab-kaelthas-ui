@@ -1,9 +1,8 @@
 .monitoring {
   height: calc(100% - 48px);
-  margin: 0 12.5%;
+  flex: 1;
   overflow: auto;
   background: #fff;
-  width: 1080px;
 
 
   .monitoring-alarm-table {

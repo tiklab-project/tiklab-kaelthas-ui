@@ -1,13 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {withRouter} from "react-router-dom";
 import "./LeftMenu.scss"
-import {Dropdown, Space} from "antd";
+import {Dropdown, Space, Tooltip} from "antd";
 import Listicon from "./Listicon";
 import {CaretDownOutlined} from "@ant-design/icons";
+import hostStore from "../../host/store/HostStore";
+import {observer} from "mobx-react";
 
 const LeftMenu = (props) => {
 
     let hostId = localStorage.getItem('hostId');
+
+    let url = localStorage.getItem('url');
 
     const router = [
         {
@@ -45,24 +49,28 @@ const LeftMenu = (props) => {
             key: "graphics",
             encoded: "graphics",
         },
-        /*{
-            name: '设置',
-            icon: 'setting',
-            url: `/hostList/${hostId}/setting/projectInformation`,
-            key: "projectInformation",
-            encoded: "projectInformation",
-        },*/
-    ]
+    ];
 
-    /*useEffect(() => {
-        localStorage.setItem("url",`/hostList/${hostId}/hostDetails`)
-    }, []);*/
+    const {hostData, findHostById, findRecentHostList, hostList} = hostStore;
+
+    useEffect(async () => {
+        await findHostById(hostId);
+        await findRecentHostList(hostId);
+    }, [hostId]);
 
     const selectMenu = (url) => {
         props.history.push(url)
         localStorage.setItem("url", url)
     }
 
+
+    async function changeHost(item) {
+        if (hostId !== item.id) {
+            localStorage.setItem("hostId", item.id);
+            localStorage.setItem("url",`/hostList/${item.id}/hostDetails`);
+            props.history.push(`/hostList/${item.id}/hostDetails`);
+        }
+    }
 
     return (
         <div className="leftMenu-body">
@@ -76,7 +84,23 @@ const LeftMenu = (props) => {
                         <div className="host-opt">
                             <div className="host-opt-title">切换主机</div>
                             <div className="host-opt-group">
-                                <div className="host-opt-item"></div>
+                                {
+                                    hostList && hostList.map(item => {
+                                        return (
+                                            <div onClick={() => changeHost(item)}
+                                                 key={item?.id}
+                                                 className={`host-opt-item ${item?.id === hostId ? "host-opt-active" : ""}`}
+                                            >
+                                                <span className={`host-opt-icon mf-icon-${item?.color}`}>
+                                                    {item?.name?.substring(0, 1).toUpperCase()}
+                                                </span>
+                                                <span className="host-opt-name">
+                                                    {item?.name}
+                                                </span>
+                                            </div>
+                                        )
+                                    })
+                                }
                                 <div className='host-opt-more'
                                      onClick={() => props.history.push('/configuration')}
                                 >更多
@@ -86,10 +110,14 @@ const LeftMenu = (props) => {
                     }
                 >
                     <div className="normal-aside-opt-icon">
-                        <Listicon
-                            text="主机"
-                            colors={null}
-                        />
+                        <Tooltip placement="right" title={hostData?.name}>
+                            <div>
+                                <Listicon
+                                    text={hostData?.name}
+                                    colors={hostData?.color}
+                                />
+                            </div>
+                        </Tooltip>
                         <span><CaretDownOutlined/></span>
                     </div>
                 </Dropdown>
@@ -101,7 +129,7 @@ const LeftMenu = (props) => {
                             <div
                                 key={index}
                                 onClick={() => selectMenu(item.url)}
-                                className={`leftMenu-box ${localStorage.getItem("url") === item.url ? "border-left" : ""}`}
+                                className={`leftMenu-box ${url === item.url ? "border-left" : ""}`}
                             >
                                 <svg className="leftMenu-svg-icon" aria-hidden="true">
                                     <use xlinkHref={`#icon-${item.icon}`}></use>
@@ -115,7 +143,7 @@ const LeftMenu = (props) => {
                 }
             </div>
             <div className="box-left-button"
-                 onClick={() => selectMenu(`/hostList/${hostId}/setting/projectInformation`)}
+                 onClick={() => selectMenu(`/hostList/${hostId}/projectInformation`)}
             >
                 <svg className="leftMenu-svg-icon" aria-hidden="true">
                     <use xlinkHref={"#icon-setting"}></use>
@@ -125,4 +153,4 @@ const LeftMenu = (props) => {
         </div>
     );
 };
-export default withRouter(LeftMenu);
+export default withRouter(observer(LeftMenu));

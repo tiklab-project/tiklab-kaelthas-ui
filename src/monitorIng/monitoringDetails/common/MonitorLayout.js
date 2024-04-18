@@ -267,11 +267,14 @@ const MonitorLayout = (props) => {
                                                             {
                                                                 condition.map((item, index) => {
                                                                     return (
-                                                                        <MonitoringItem reportType={item[0].reportType}
-                                                                                        condition={item}
-                                                                                        descTime={descTime}
-                                                                                        index={index}
-                                                                        />
+                                                                        <div key={index}>
+                                                                            <MonitoringItem
+                                                                                reportType={item[0].reportType}
+                                                                                condition={item}
+                                                                                descTime={descTime}
+                                                                                index={index}
+                                                                            />
+                                                                        </div>
                                                                     )
                                                                 })
                                                             }

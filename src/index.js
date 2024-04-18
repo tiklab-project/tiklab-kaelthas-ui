@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 1.0.0
- * @Author: 袁婕轩
- * @Date: 2020-12-18 16:05:16
- * @LastEditors: 袁婕轩
- * @LastEditTime: 2022-04-25 14:23:40
- */
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
@@ -26,6 +18,7 @@ import "./assets/index";
 import resources from "./common/language/resources";
 import {useVersion} from "thoughtware-eam-ui/es/utils";
 import {privilegeStores} from "thoughtware-privilege-ui/es/store";
+import {fetchMethod} from "../enviroment/enviroment_dev";
 enableAxiosCE()
 const Index = observer((props) => {
 
@@ -46,14 +39,14 @@ const Index = observer((props) => {
     });
 
     useEffect(() => {
-        /*pluginLoader(Routers, resources,i18n, fetchMethod).then(res => {
+        pluginLoader(Routers, resources,i18n, fetchMethod).then(res => {
             setPluginData(res)
             console.log("res",res)
             setVisable(false)
         })
-
-        return;*/
     }, []);
+
+    if (visable) return <div>加载中</div>
 
     return (
         <PluginProvider store={pluginData}>

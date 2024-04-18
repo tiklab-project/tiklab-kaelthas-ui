@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');//压缩css
 const path = require('path');
 
 const DIST_PATH = path.resolve(__dirname, 'dist');
-const envData_dev = require(`./enviroment/enviroment_${process.env.API_ENV}`);
+const envData_dev = require(`./enviroment/enviroment_${process.env.CUSTOM_ENV}`);
 const devMode = process.env.API_ENV === 'dev'; 
 
 const sassModuleRegex = /\.module\.(scss|sass)$/;

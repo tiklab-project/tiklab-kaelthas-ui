@@ -6,7 +6,8 @@ import { getUser } from 'thoughtware-core-ui';
 import logo from "../../assets/png/monitorPng.png"
 
 import "./Header.scss";
-import {AppLink} from "thoughtware-licence-ui";
+import {AppLink,HelpLink,AvatarLink} from "thoughtware-licence-ui";
+import MessageList from "./MessageList";
 const Header = props => {
     // 语言包
     const { i18n } = useTranslation();
@@ -57,8 +58,7 @@ const Header = props => {
      * 跳转到系统设置
      */
     const goSet = () => {
-        props.history.push("/globalSettings/template")
-        sessionStorage.setItem("menuKey", "set")
+        props.history.push("/setting/home")
     };
 
     // 系统顶部菜单
@@ -102,20 +102,6 @@ const Header = props => {
                     <div className={'frame-header-right-text'}>
                         <div className="frame-header-icon">
                             <div className="frame-header-set" data-title-bottom="系统设置" onClick={() => goSet()}>
-                                系统设置
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </Col>
-            {/*<Col span={12}>
-                <div className={'frame-header-right'}>
-                    <div className='frame-header-right-search-wrap'>
-                        <Search />
-                    </div>
-                    <div className={'frame-header-right-text'}>
-                        <div className="frame-header-icon">
-                            <div className="frame-header-set" data-title-bottom="系统设置" onClick={() => goSet()}>
                                 <Space>
                                     <svg aria-hidden="true" className="header-icon">
                                         <use xlinkHref="#icon-iconsetsys"></use>
@@ -123,10 +109,12 @@ const Header = props => {
                                 </Space>
                             </div>
                         </div>
+                        <MessageList/>
+                        <HelpLink/>
+                        <AvatarLink {...props}/>
                     </div>
                 </div>
-            </Col>*/}
-
+            </Col>
         </Row>
     )
 }

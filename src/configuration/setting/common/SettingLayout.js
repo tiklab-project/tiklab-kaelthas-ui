@@ -10,10 +10,14 @@ const SettingLayout = (props) => {
 
     return (
         <div className="setting-layout">
-            <SettingLeftTabs/>
-            <Provider>
-                {renderRoutes(route.routes)}
-            </Provider>
+            <div>
+                <SettingLeftTabs/>
+            </div>
+            <div className="setting-layout-right">
+                <Provider>
+                    {renderRoutes(route.routes)}
+                </Provider>
+            </div>
         </div>
     );
 };

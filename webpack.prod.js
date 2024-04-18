@@ -42,111 +42,99 @@ module.exports = merge(baseWebpackConfig, {
         nodeEnv: process.env.NODE_ENV,
         splitChunks: {
             chunks: "all",
-            minSize: 30000,
+            minSize: 30000, // 默认值，超过30K才独立分包
             minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests:1,
-            automaticNameDelimiter: '--', // 分包打包生成文件的名称的连接符
+            maxAsyncRequests: 7,
+            maxInitialRequests: 5,
+            automaticNameDelimiter: "--", // 分包打包生成文件的名称的连接符
             name:false,
             cacheGroups: { //  cacheGroups 缓存组，如：将某个特定的库打包
-        
-                antIcon: {
-                    name: 'chunk-antIcon',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]@ant-design[\\/]/,
-                    priority: 90,
+                lodash: {
+                    name: "chunk-lodash",
+                    chunks:"all",
+                    test: /lodash/,
+                    priority: 0,
                     reuseExistingChunk: true
+                },
+                antIcon: {
+                    name: "chunk-antIcon",
+                    chunks: "all",
+                    test: /@ant-design/,
+                    priority: 0,
+                    reuseExistingChunk: true //遇到重复包直接引用，不重新打包
                 },
                 thoughtwarePluginUI: {
-                    name: 'chunk-thoughtware-plugin-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]thoughtware-plugin-ui[\\/]/,
-                    priority: 50,
-                    reuseExistingChunk: true
-                },
-                thoughtwareUserUI: {
-                    name: 'chunk-thoughtware-user-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]thoughtware-user-ui[\\/]/,
-                    priority: 50,
-                    reuseExistingChunk: true
-                },
-                thoughtwareCoreUI: {
-                    name: 'chunk-thoughtware-core-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]thoughtware-core-ui[\\/]/,
-                    priority: 50,
-                    reuseExistingChunk: true
-                },
-                thoughtwareMessageUI: {
-                    name: 'chunk-thoughtware-message-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]thoughtware-message-ui[\\/]/,
-                    priority: 80,
+                    name: "chunk-thoughtware-plugin-manager-ui",
+                    chunks: "all",
+                    test: /thoughtware-plugin-manager-ui/,
+                    priority: 0,
                     reuseExistingChunk: true
                 },
                 thoughtwareEamUI: {
-                    name: 'chunk-thoughtware-eam-ui',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]thoughtware-eam-ui[\\/]/,
-                    priority: 50,
+                    name: "chunk-thoughtware-eam-ui",
+                    chunks: "all",
+                    test: /thoughtware-eam-ui/,
+                    priority: 0,
                     reuseExistingChunk: true
                 },
-                mobx: {
-                    name: 'chunk-mobx',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]mobx[\\/]/,
-                    priority: 80,
+                thoughtwarePrivilegeUI: {
+                    name: "chunk-thoughtware-privilege-ui",
+                    chunks: "all",
+                    test: /thoughtware-privilege-ui/,
+                    priority: 0,
                     reuseExistingChunk: true
                 },
-                mobxReact: {
-                    name: 'chunk-mobx-react',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]mobx-react[\\/]/,
-                    priority: 80,
+                thoughtwareMessageUI: {
+                    name: "chunk-thoughtware-message-ui",
+                    chunks: "all",
+                    test: /thoughtware-message-ui/,
+                    priority: 0,
                     reuseExistingChunk: true
                 },
-             
-                reactDom: {
-                    name: 'chunk-react-dom',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]react-dom[\\/]/,
-                    priority: 30,
-                    reuseExistingChunk: true
-                },
-                antv: {
-                    name: 'chunk-antv',
-                    chunks: 'all',
-                    test: /[\\/]node_modules[\\/]@antv[\\/]/,
-                    priority: -20,
+                moment: {
+                    name: "chunk-moment",
+                    chunks: "all",
+                    test: /moment/,
+                    priority: 0,
                     reuseExistingChunk: true
                 },
                 antdUI: {
-                    name: 'chunk-antdUI',
-                    chunks: 'async',
-                    test: /[\\/]node_modules[\\/]antd[\\/]/,
-                    priority: 10,
+                    name: "chunk-antdUI",
+                    chunks: "all",
+                    test: /antd/,
+                    priority: 1,
                     reuseExistingChunk: true
                 },
-                icon: {
-                    name: 'chunk-icon',
-                    chunks: 'all',
-                    test: /[\\/]src[\\/]font-icon[\\/]/,
-                    priority: 90,
+                rcomponent: {
+                    name: "chunk-rcomponent",
+                    chunks: "all",
+                    test: /rc-[a-zA-Z]/,
+                    priority: 1,
                     reuseExistingChunk: true
                 },
                 /* 提取共用部分，一下提取的部分会议commons 命名 */
                 commons: {
-                    name: 'commons',
+                    name: "commons",
                     test: function (module, chunks) {
-                        if (/react/.test(module.context)) {
+                        if (
+                            /src\/components\//.test(module.context) ||
+                            /src\/util\//.test(module.context) ||
+                            /react/.test(module.context) ||
+                            /react-dom/.test(module.context) ||
+                            /redux/.test(module.context)
+                        ) {
                             return true
                         }
                     },
-                    chunks: 'all',
+                    chunks: "all",
                     minChunks: 2, //  提取公共部分最少的文件数
                     // minportal: 0 // 提取公共部分最小的大小
                     // enforce: true
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
                 }
             }
         },

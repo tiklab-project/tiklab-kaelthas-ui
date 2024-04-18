@@ -287,7 +287,7 @@ const AddTrigger = (props) => {
                         name="mediumType"
                         rules={[
                             {
-                                required: false,
+                                required: true,
                                 message: '请选择消息通知方案!',
                             },
                         ]}
