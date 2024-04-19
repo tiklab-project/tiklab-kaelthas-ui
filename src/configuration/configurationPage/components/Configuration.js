@@ -46,12 +46,36 @@ const Configuration = (props) => {
         })
     }
 
+    function checkTemplate(record) {
+        localStorage.setItem("url", `/hostList/${record.id}/template`)
+        localStorage.setItem('hostId', record.id);
+        props.history.push(`/hostList/${record.id}/template`)
+    }
+
+    function checkMonitor(record) {
+        localStorage.setItem("url", `/hostList/${record.id}/monitor`)
+        localStorage.setItem('hostId', record.id);
+        props.history.push(`/hostList/${record.id}/monitor`)
+    }
+
+    function checkTrigger(record) {
+        localStorage.setItem("url", `/hostList/${record.id}/trigger`)
+        localStorage.setItem('hostId', record.id);
+        props.history.push(`/hostList/${record.id}/trigger`)
+    }
+
+    function checkGraphic(record) {
+        localStorage.setItem("url", `/hostList/${record.id}/graphics`)
+        localStorage.setItem('hostId', record.id);
+        props.history.push(`/hostList/${record.id}/graphics`)
+    }
+
     const columns = [
         {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
-            render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
+            render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</div>,
         },
         {
             title: '主机ip',
@@ -84,24 +108,32 @@ const Configuration = (props) => {
             }
         },
         {
-            title: '模板数量',
-            dataIndex: 'templateNum',
-            key: 'templateNum',
-        },
-        {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             key: 'monitorNum',
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                            onClick={() =>checkMonitor(record)}>{text}</div>,
         },
         {
             title: '触发器数量',
             dataIndex: 'triggerNum',
             key: 'triggerNum',
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                            onClick={() => checkTrigger(record)}>{text}</div>,
+        },
+        {
+            title: '模板数量',
+            dataIndex: 'templateNum',
+            key: 'templateNum',
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                           onClick={() => checkTemplate(record)}>{text}</div>,
         },
         {
             title: '图形数量',
             dataIndex: 'graphicNum',
             key: 'graphicNum',
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                            onClick={() => checkGraphic(record)}>{text}</div>,
         },
         {
             title: '创建时间',
@@ -161,7 +193,7 @@ const Configuration = (props) => {
 
     return (
         <Row className='box-configuration-body'>
-            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-configuration-body-item">
                     <div className="box-configuration-body--title">
                         <div className="box-configuration-title-left">

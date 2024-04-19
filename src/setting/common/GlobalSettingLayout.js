@@ -98,7 +98,7 @@ const GlobalSettingLayout = (props) => {
             children: [
                 {
                     title: "版本与许可证",
-                    id: "/setting/Version",
+                    id: "/setting/version",
                 },
                 {
                     title: "应用访问权限",

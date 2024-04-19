@@ -47,6 +47,7 @@ const alarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/Alar
 const AlarmDetails = AsyncComponent(() => import('./alarm/alarmDetails/components/AlarmDetails'))
 const AddHost = AsyncComponent(() => import('./configuration/configurationPage/components/AddHost'))
 const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
+const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
 
 
 const Routes = [
@@ -215,7 +216,7 @@ const Routes = [
                     {
                         path: "/setting/messageSendType",
                         key: 'MessageSendType',
-                        render: () => <MessageSendType bgroup={"xmonitor"}/>
+                        render: () => <MessageSendType bgroup={"xmonitor"} isBase={true}/>
                     },
                     {
                         path: "/setting/messageNotice",
@@ -254,9 +255,10 @@ const Routes = [
                     },
 
                     {
-                        path: "/setting/Version",
-                        key: 'Version',
-                        render: () => <Version bgroup={"xmonitor"} bgroup={"xmonitor"}/>
+                        path: "/setting/version",
+                        key:'version',
+                        exact: true,
+                        component:VersionContent
                     },
                     {
                         path: "/setting/plugin",

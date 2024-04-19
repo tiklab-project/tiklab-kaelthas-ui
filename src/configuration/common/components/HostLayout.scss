@@ -1,7 +1,6 @@
 .host-layout{
   display: flex;
   height: calc(100vh - 48px);
-  background: #fff;
   flex-direction: row;
 
   .prodetail-row {
@@ -12,8 +11,5 @@
 .prodetail-content{
   height: 100%;
   background: #fff;
-  .prodetail-content-col {
-    background: #fff;
-    height: 100%;
-  }
+
 }

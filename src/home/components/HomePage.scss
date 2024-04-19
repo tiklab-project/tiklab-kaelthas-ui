@@ -1,7 +1,6 @@
 .home {
   height: calc(100% - 48px);;
   flex: 1;
-  background: #fff;
   overflow: auto;
 
 
@@ -11,8 +10,8 @@
     .home-content {
       margin-bottom: 10px;
       border-radius: 4px;
-      background: #fff;
       overflow: hidden;
+      background-color: #fff;
 
       .home-content-title {
         padding: 10px;
@@ -39,32 +38,48 @@
         overflow: hidden;
         gap: 10px;
         height: 104px;
+        justify-content: start;
 
 
         .home-content-detail-item {
-          max-width: 240px;
-          min-width: 204px;
           flex: 1;
-          padding: 12px;
-          flex-shrink: 0;
+          max-width: 25%;
+          min-width: 120px;
+          padding: 10px;
           border-radius: 4px;
           cursor: pointer;
-          background-color: #fafbfc;
-          box-sizing: border-box;
+          background-color: #f7f7f7;
           border-bottom: 2px solid #fafbfc;
 
           .item-title {
             margin-bottom: 10px;
             font-weight: bold;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             font-size: 16px;
+            justify-content: start;
+
             .item-title-png{
-              margin-left: 10px;
+              padding-right: 10px;
+
+
+              .user-big-icon{
+                width: 32px;
+                height: 32px;
+                border-radius: 4px;
+                font-size: 16px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
             }
+
+
             .item-title-text{
-              margin-left: 30px;
+              margin-right: 15px;
             }
+
+
           }
 
           .item-work {
@@ -79,6 +94,13 @@
               height: 30px;
               line-height: 30px;
               gap: 5px;
+
+              .item-work-label{
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                width: 60px;
+              }
             }
           }
         }

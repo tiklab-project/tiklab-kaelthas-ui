@@ -61,7 +61,7 @@ const Monitoring = (props) => {
                 return config[state];
             }
         },
-        {
+        /*{
             title: '可用性',
             dataIndex: 'usability',
             ellipsis: true,
@@ -74,18 +74,18 @@ const Monitoring = (props) => {
                 }
                 return config[usability];
             }
-        },
+        },*/
         {
             title: '监控数据数量',
-            dataIndex: 'countMonitor',
+            dataIndex: 'monitorNum',
             ellipsis: true,
-            key: 'countMonitor',
+            key: 'monitorNum',
         },
         {
-            title: '图形数量',
-            dataIndex: 'graphicNum',
+            title: '告警数量',
+            dataIndex: 'alarmNum',
             ellipsis: true,
-            key: 'graphicNum',
+            key: 'alarmNum',
         },
         {
             title: '创建时间',

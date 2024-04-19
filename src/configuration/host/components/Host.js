@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./Host.scss"
 import {withRouter} from "react-router-dom";
-import {Table} from "antd";
+import {Col, Row, Table} from "antd";
 import hostStore from "../store/HostStore";
 import "../../../common/styles/_tabStyle.scss"
 
@@ -59,50 +59,73 @@ const Host = (props) => {
     ];
 
     return (
-        <div className="box-right">
-            <div className="box-host-survey">
-                <div className="box-host-body-head">
-                    <div className="box-host-details">
-                        <div className="box-host-title">主机详情</div>
-                        <div className="box-host-margin-details">
-                            <div className="box-host-details-text">主机名称 {dataList.name}</div>
-                            <div className="box-host-details-text">主机描述：{dataList.describe}</div>
+        <Row className="box-right">
+            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "18", offset: "3" }} xxl={{ span: "18", offset: "3" }}>
+                <div className="box-host-survey">
+                    <div className="box-host-body-head">
+                        <div className="box-host-details">
+                            <div className="box-host-title">{dataList?.name}</div>
+                            <div className="box-host-margin-details">
+                                <span className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
+                                <div className="box-host-details-text">
+                                    <div className="item-top">{dataList?.ip}</div>
+                                    <div className="item-bottom">主机ip</div>
+                                </div>
+                            </div>
+                            <div className="box-host-margin-details">
+                                <svg className="status-img" aria-hidden="true">
+                                    <use xlinkHref="#icon-hostState"></use>
+                                </svg>
+                                <div className="box-host-details-text">
+                                    <div className="item-top">{dataList?.state}</div>
+                                    <div className="item-bottom">主机状态</div>
+                                </div>
+                            </div>
+                            <div className="box-host-margin-work">
+                                <div className="host-layout-item">
+                                    <svg className="status-img" aria-hidden="true">
+                                        <use xlinkHref="#icon-monitorNum"></use>
+                                    </svg>
+                                    <div className="box-host-details-text">
+                                        <div className="item-top" style={{textAlign:"center"}}>{dataList?.monitorNum}</div>
+                                        <div className="item-bottom">监控项数量</div>
+                                    </div>
+                                </div>
+                                <div className="host-layout-item">
+                                    <svg className="status-img" aria-hidden="true">
+                                        <use xlinkHref="#icon-triggerNum"></use>
+                                    </svg>
+                                    <div className="box-host-details-text">
+                                        <div className="item-top" style={{textAlign:"center"}}>{dataList?.triggerNum}</div>
+                                        <div className="item-bottom">触发器数量</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div className="box-host-margin-details">
-                            <div className="box-host-details-text">主机ip：{dataList.ip}</div>
-                            <div className="box-host-details-text">监控项数量：{dataList.monitorNum}</div>
-                        </div>
-                        <div className="box-host-margin-details">
-                            <div className="box-host-details-text">主机状态：{dataList.state}</div>
-                            <div className="box-host-details-text">触发器数量：{dataList.triggerNum}</div>
-                        </div>
-                        <div className="box-host-margin-details">
-                            <div className="box-host-details-text">主机是否可用：{dataList.usability}</div>
-                        </div>
-                    </div>
-                    <div className="box-host-body-head-graphics">
+                        <div className="box-host-body-head-graphics">
 
+                        </div>
+                    </div>
+                    <div className="box-host-body">
+                        <div className="host-news">
+                            主机最新动态
+                        </div>
+                        <div className="host-news-List">
+                            <Table
+                                rowKey={record => record.id}
+                                columns={columns}
+                                dataSource={data}
+                                className="custom-table"
+                                pagination={{
+                                    position: ["bottomCenter"],
+                                }
+                                }
+                            />
+                        </div>
                     </div>
                 </div>
-                <div className="box-host-body">
-                    <div className="host-news">
-                        主机最新动态
-                    </div>
-                    <div className="host-news-List">
-                        <Table
-                            rowKey={record => record.id}
-                            columns={columns}
-                            dataSource={data}
-                            className="custom-table"
-                            pagination={{
-                                position: ["bottomCenter"],
-                            }
-                            }
-                        />
-                    </div>
-                </div>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 
