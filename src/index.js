@@ -11,7 +11,7 @@ import { ConfigProvider } from 'antd';
 import { renderRoutes } from "react-router-config";
 import './common/language/i18n'
 import "./index.scss"
-
+import "./common/styles/_tabStyle.scss"
 import { observer } from "mobx-react"
 import { pluginLoader, PluginProvider } from "thoughtware-plugin-core-ui";
 import "./assets/index";

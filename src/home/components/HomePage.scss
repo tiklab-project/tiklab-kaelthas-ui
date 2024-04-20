@@ -5,6 +5,8 @@
 
 
   .home-body {
+    width: 1080px;
+    margin: 0 auto;
     padding: 20px;
 
     .home-content {
@@ -59,11 +61,11 @@
             font-size: 16px;
             justify-content: start;
 
-            .item-title-png{
+            .item-title-png {
               padding-right: 10px;
 
 
-              .user-big-icon{
+              .user-big-icon {
                 width: 32px;
                 height: 32px;
                 border-radius: 4px;
@@ -75,7 +77,7 @@
             }
 
 
-            .item-title-text{
+            .item-title-text {
               margin-right: 15px;
             }
 
@@ -95,7 +97,7 @@
               line-height: 30px;
               gap: 5px;
 
-              .item-work-label{
+              .item-work-label {
                 text-overflow: ellipsis;
                 white-space: nowrap;
                 overflow: hidden;
@@ -122,7 +124,8 @@
         align-items: center;
         justify-content: space-between;
       }
-      .home-alarm-table-list{
+
+      .home-alarm-table-list {
         margin-top: 10px;
       }
     }
