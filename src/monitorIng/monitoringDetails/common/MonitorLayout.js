@@ -1,6 +1,6 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useRef, useState} from "react";
-import {Breadcrumb, DatePicker, Empty, Input, Modal, Pagination, Select, Table, Tabs} from "antd";
+import {Breadcrumb, Col, DatePicker, Empty, Input, Modal, Pagination, Row, Select, Table, Tabs} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 import * as echarts from "echarts/core";
 import {
@@ -48,8 +48,6 @@ const MonitorLayout = (props) => {
 
     const [monitorList, setMonitorList] = useState([]);
 
-    const [monitorName, setMonitorName] = useState([]);
-
     const {
         findDescGatherTime,
         setSearchCondition,
@@ -75,13 +73,13 @@ const MonitorLayout = (props) => {
     useEffect(async () => {
 
         const hostId = localStorage.getItem("hostIdForMonitoring");
-        const testStr = getDateTime().substring(1, getDateTime().length - 1)
+        const testStr = getDateTime().substring(1, getDateTime().length - 1);
         setSearchNull({
             hostId: hostId,
             beginTime: testStr,
             endTime: testStr
         })
-        await findMonitorForHost()
+        await findMonitorForHost();
 
         await findInformationByGraphics();
 
@@ -97,14 +95,11 @@ const MonitorLayout = (props) => {
         setMonitorList([...monitors])
 
         if (activeKey === "2") {
-
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-
             await findInformationByGraphics()
 
             const descTime = await findDescGatherTime();
             setDescTime([...descTime])
-
         }
 
     }
@@ -179,120 +174,116 @@ const MonitorLayout = (props) => {
     ]
 
     return (
-        <div>
-            <Provider>
-                <div>
-                    <div className="details">
-                        <div className="details-body">
-                            <div className="details-breadcrumb-table">
-                                <Breadcrumb>
-                                    <Breadcrumb.Item onClick={goBackHome}>
-                                        <span style={{cursor: "pointer"}}>Home</span>
-                                    </Breadcrumb.Item>
-                                    <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
-                                    <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
-                                </Breadcrumb>
+        <Provider>
+            <Row className="details">
+                <Col className="details-body" sm={24} md={24} lg={24} xl={24} xxl={24}>
+                    <div className="details-breadcrumb-table">
+                        <Breadcrumb>
+                            <Breadcrumb.Item onClick={goBackHome}>
+                                <span style={{cursor: "pointer"}}>Home</span>
+                            </Breadcrumb.Item>
+                            <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
+                            <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
+                        </Breadcrumb>
 
-                                <div className="details-table-title">
-                                    <div className="details-search">
-                                        <div className="details-div">
-                                            <Select
-                                                mode="multiple"
-                                                maxTagCount='responsive'
-                                                placeholder="请选择监控大类"
-                                                onChange={(value) => searchByDataCategories(value)}
-                                                allowClear={true}
-                                                defaultValue="全部监控大类"
-                                                style={{
-                                                    width: 150,
-                                                }}
-                                                options={dataCategories && dataCategories.map((province) => ({
-                                                    label: province,
-                                                    value: province,
-                                                }))}
-                                            >
-                                            </Select>
-                                        </div>
-                                        <div className="details-div">
-                                            <Select
-                                                mode="multiple"
-                                                maxTagCount='responsive'
-                                                placeholder="请选择您的监控小类"
-                                                onChange={(value, options) => onCheckMonitor(value, options)}
-                                                allowClear
-                                                style={{
-                                                    width: 300,
-                                                }}
-                                                defaultValue="全部监控小类"
-                                                options={monitorDataSubclass && monitorDataSubclass.map(item => ({
-                                                    label: item.name,
-                                                    key: item.id,
-                                                    value: item.id,
-                                                }))}
-                                            >
-                                            </Select>
-                                        </div>
-                                        <div className="details-div">
-                                            <RangePicker
-                                                format={dateFormat}
-                                                onChange={onChange}
-                                                onOk={onOk}
-                                                defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="details-tables">
-                                        {
-                                            showTabs.map(item => {
-                                                return <div
-                                                    className={`details-tabs-item ${hostState === item.key ? "details-tabs" : ""}`}
-                                                    key={item.key}
-                                                    onClick={() => checkTabGraphics(item.key)}
-                                                >
-                                                    {item.title}
-                                                </div>
-                                            })
-                                        }
-                                    </div>
+                        <div className="details-table-title">
+                            <div className="details-search">
+                                <div className="details-div">
+                                    <Select
+                                        mode="multiple"
+                                        maxTagCount='responsive'
+                                        placeholder="请选择监控大类"
+                                        onChange={(value) => searchByDataCategories(value)}
+                                        allowClear={true}
+                                        defaultValue="全部监控大类"
+                                        style={{
+                                            width: 150,
+                                        }}
+                                        options={dataCategories && dataCategories.map((province) => ({
+                                            label: province,
+                                            value: province,
+                                        }))}
+                                    >
+                                    </Select>
                                 </div>
-                                <div className="layout-body-list">
-                                    {
-                                        hostState === '1' ?
-                                            <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
-                                            :
-                                            <div>
-                                                {
-                                                    condition && condition.length > 0 ?
-                                                        <div className="details-tabs-wrap">
-                                                            {
-                                                                condition.map((item, index) => {
-                                                                    return (
-                                                                        <div key={index}>
-                                                                            <MonitoringItem
-                                                                                reportType={item[0].reportType}
-                                                                                condition={item}
-                                                                                descTime={descTime}
-                                                                                index={index}
-                                                                            />
-                                                                        </div>
-                                                                    )
-                                                                })
-                                                            }
-                                                        </div>
-                                                        :
-                                                        <Empty>
-                                                            <span>没有数据</span>
-                                                        </Empty>
-                                                }
-                                            </div>
-                                    }
+                                <div className="details-div">
+                                    <Select
+                                        mode="multiple"
+                                        maxTagCount='responsive'
+                                        placeholder="请选择您的监控小类"
+                                        onChange={(value, options) => onCheckMonitor(value, options)}
+                                        allowClear
+                                        style={{
+                                            width: 300,
+                                        }}
+                                        defaultValue="全部监控小类"
+                                        options={monitorDataSubclass && monitorDataSubclass.map(item => ({
+                                            label: item.name,
+                                            key: item.id,
+                                            value: item.id,
+                                        }))}
+                                    >
+                                    </Select>
+                                </div>
+                                <div className="details-div">
+                                    <RangePicker
+                                        format={dateFormat}
+                                        onChange={onChange}
+                                        onOk={onOk}
+                                        defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
+                                    />
                                 </div>
                             </div>
+                            <div className="details-tables">
+                                {
+                                    showTabs.map(item => {
+                                        return <div
+                                            className={`details-tabs-item ${hostState === item.key ? "details-tabs" : ""}`}
+                                            key={item.key}
+                                            onClick={() => checkTabGraphics(item.key)}
+                                        >
+                                            {item.title}
+                                        </div>
+                                    })
+                                }
+                            </div>
+                        </div>
+                        <div className="layout-body-list">
+                            {
+                                hostState === '1' ?
+                                    <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
+                                    :
+                                    <div>
+                                        {
+                                            condition && condition.length > 0 ?
+                                                <div className="details-tabs-wrap">
+                                                    {
+                                                        condition.map((item, index) => {
+                                                            return (
+                                                                <div key={index}>
+                                                                    <MonitoringItem
+                                                                        reportType={item[0].reportType}
+                                                                        condition={item}
+                                                                        descTime={descTime}
+                                                                        index={index}
+                                                                    />
+                                                                </div>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
+                                                :
+                                                <Empty>
+                                                    <span>没有数据</span>
+                                                </Empty>
+                                        }
+                                    </div>
+                            }
                         </div>
                     </div>
-                </div>
-            </Provider>
-        </div>
+                </Col>
+            </Row>
+        </Provider>
     );
 };
 

@@ -127,6 +127,24 @@
 
       .home-alarm-table-list {
         margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+
+        .home-alarm-table-line{
+          display: flex;
+          align-items: center;
+          margin-bottom: 10px;
+          gap: 20px;
+          justify-content: space-between;
+
+          .home-alarm-table-div{
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
+            min-width: 0;
+          }
+        }
       }
     }
 

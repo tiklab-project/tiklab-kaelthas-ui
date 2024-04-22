@@ -12,7 +12,7 @@ import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const HomePage = (props) => {
 
-    const {findHomeRecentList, hostRecentList} = homeStore;
+    const {findHomeRecentList, hostRecentList,findDynamicList,dynamicList} = homeStore;
 
     const {findAlarmPage, setNullCondition, alarmPage, total} = alarmPageStore;
 
@@ -87,10 +87,23 @@ const HomePage = (props) => {
         },
     ];
 
+    const dynamicColumns = [
+        {
+            title: '动态名称',
+            dataIndex: 'name',
+            key: 'name',
+        },
+        {
+            title: '时间',
+            dataIndex: 'updateTime',
+            key: 'updateTime',
+        },
+    ]
     useEffect(async () => {
         await findHomeRecentList();
         setNullCondition();
         await findAlarmPage();
+        await findDynamicList();
     }, []);
 
     async function changePage(pagination) {
@@ -163,7 +176,25 @@ const HomePage = (props) => {
                     <div className="home-alarm-table">
                         <div className="home-table-title">动态信息</div>
                         <div className="home-alarm-table-list">
-                            <Table/>
+                            {
+                                dynamicList&&dynamicList.map(item =>{
+                                    return(
+                                        <div className="home-alarm-table-line">
+                                            <div className="home-alarm-table-div">{item.name}</div>
+                                            <div className="home-alarm-table-line">{item.updateTime} </div>
+                                        </div>
+                                    )
+                                })
+                            }
+                            {/*<Table rowKey={record => record.id}
+                                   columns={dynamicColumns}
+                                   dataSource={dynamicList}
+                                   className="custom-table"
+                                   scroll={{
+                                       x: 300,
+                                   }}
+                                   pagination={false}
+                            />*/}
                         </div>
                     </div>
                 </div>

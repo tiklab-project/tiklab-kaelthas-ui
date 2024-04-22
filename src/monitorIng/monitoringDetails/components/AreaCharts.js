@@ -11,7 +11,8 @@ import {LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import {observer} from "mobx-react";
-
+import "./MonitoringDetails.scss"
+import {Col} from "antd";
 echarts.use([
     TitleComponent,
     ToolboxComponent,
@@ -31,6 +32,8 @@ const AreaCharts = (props) => {
     const nameList = [];
 
     const {condition, descTime, index} = props;
+
+    let myChart = null;
 
     async function showPei() {
         condition.map(item => {
@@ -52,9 +55,13 @@ const AreaCharts = (props) => {
         })
 
         if (dom) {
+            if (myChart){
+                myChart.dispose();
+            }
+
             const chartDom = dom.current
 
-            const myChart = echarts.init(chartDom);
+            myChart = echarts.init(chartDom);
 
             const option = {
                 tooltip: {
@@ -85,7 +92,6 @@ const AreaCharts = (props) => {
                         type: 'category',
                         boundaryGap: false,
                         data: descTime,
-                        //inverse:true
                     }
                 ],
                 yAxis: [
@@ -96,9 +102,7 @@ const AreaCharts = (props) => {
                 series: series
             };
 
-            if (myChart) {
-                myChart.clear()
-            }
+
             myChart.setOption(option);
         }
     }
@@ -108,14 +112,19 @@ const AreaCharts = (props) => {
     }, [dom, condition, descTime]);
     return (
         <div className="item-tabs-item" key={`area-${index}`} id={`area-${index}`}>
-            <div key="chartsone" ref={dom}
+            <Col key="chartstwo" ref={dom}
                  style={{
-                     width: "100%",
-                     height: 300, margin: 30
+                     position: "relative",
+                     width: 1200,
+                     height: 492, margin: "auto",
+                     borderWidth: 0,
+                     cursor: "default",
+                     padding: 20
                  }}
+                 xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
             >
 
-            </div>
+            </Col>
         </div>
     );
 };

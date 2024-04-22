@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
 import {observer} from "mobx-react";
-
+import "./MonitoringDetails.scss"
+import {Col} from "antd";
 
 const DiscountedList = (props) => {
 
@@ -72,14 +73,19 @@ const DiscountedList = (props) => {
 
     return (
         <div className="item-tabs-item" key={`discounted-${index}`} id={`discounted-${index}`}>
-            <div key="chartsone" ref={dom}
+            <Col key="chartsone" ref={dom}
                  style={{
-                     width: "100%",
-                     height: 300, margin: 30
+                     position: "relative",
+                     width: 1200,
+                     height: 492, margin: "auto",
+                     borderWidth: 0,
+                     cursor: "default",
+                     padding: 20
                  }}
+                 xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
             >
 
-            </div>
+            </Col>
         </div>
     );
 };

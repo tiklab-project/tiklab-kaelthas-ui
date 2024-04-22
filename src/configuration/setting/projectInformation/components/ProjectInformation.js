@@ -36,18 +36,11 @@ const ProjectInformation = (props) => {
     const [allHostGroupList, setAllHostGroupList] = useState([]);
 
     const [form] = Form.useForm();
-    const onGenderChange = (value) => {
 
-        console.log("onGenderChange", value)
-    };
     const onFinish = async (values) => {
         values.id = localStorage.getItem("hostId")
 
         await updateHost(values)
-
-        /*return(
-            <Alert message="修改成功" type="success" />
-        )*/
     };
     const onReset = () => {
         form.resetFields();
@@ -136,7 +129,6 @@ const ProjectInformation = (props) => {
                             >
                                 <Select
                                     placeholder="请选择主机群组"
-                                    onChange={onGenderChange}
                                     allowClear
                                 >
                                     {
@@ -158,7 +150,6 @@ const ProjectInformation = (props) => {
                             >
                                 <Select
                                     placeholder="是否开启"
-                                    onChange={onGenderChange}
                                     allowClear
                                 >
                                     <Option value={1}>启用</Option>

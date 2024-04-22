@@ -29,6 +29,9 @@ echarts.use([
     PieChart,
     BarChart
 ]);
+
+import "./MonitoringDetails.scss"
+import {Col} from "antd";
 const HistogramList = (props) => {
 
     const dom = useRef(null);
@@ -83,14 +86,19 @@ const HistogramList = (props) => {
 
     return (
         <div className="item-tabs-item" key={`histogram-${index}`} id={`histogram-${index}`}>
-            <div key="chartsone" ref={dom}
+            <Col key="chartsthree" ref={dom}
                  style={{
-                     width: "100%",
-                     height: 300, margin: 30
+                     position: "relative",
+                     width: 1200,
+                     height: 492, margin: "auto",
+                     borderWidth: 0,
+                     cursor: "default",
+                     padding: 20
                  }}
+                 xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
             >
 
-            </div>
+            </Col>
         </div>
     );
 };
