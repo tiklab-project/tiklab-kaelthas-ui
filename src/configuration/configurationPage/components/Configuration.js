@@ -203,6 +203,8 @@ const Configuration = (props) => {
                             新建主机
                         </div>
                     </div>
+
+
                     <div className="box-configuration-body-type">
                         <div className="box-configuration-body-tabs">
                             {

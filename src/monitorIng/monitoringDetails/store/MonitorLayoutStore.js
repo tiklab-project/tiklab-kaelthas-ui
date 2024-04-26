@@ -48,6 +48,15 @@ export class MonitorLayoutStore {
     }
 
     @action
+    getEndDateTime = () => {
+        let date = new Date()
+        let year = date.getFullYear()
+        let month = (date.getMonth() + 1).toString().padStart(2, '0')
+        let day = date.getDate().toString().padStart(2, '0')
+        return "'" + year + '-' + month + '-' + day + "'";
+    }
+
+    @action
     setDescTime = (value) => {
         this.descTime = value;
     }
@@ -90,7 +99,6 @@ export class MonitorLayoutStore {
     @action
     findMonitorByCategories = async () => {
         const resData = await Service("/hostList/findMonitorByCategories", this.searchCondition);
-
         return resData.data;
     }
 

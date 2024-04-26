@@ -48,7 +48,7 @@ class AlarmPageStore {
 
     @action
     updateAlarmPage = async (value)=>{
-        await Service("/alarm/updateAlarmPage",value);
+        await Service("/alarm/updateAlarm",value);
     }
 
 }

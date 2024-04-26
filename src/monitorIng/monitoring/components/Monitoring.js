@@ -34,6 +34,11 @@ const Monitoring = (props) => {
     }, []);
 
 
+    function hrefAlarmPage() {
+        props.history.push(`/alarm`);
+        sessionStorage.setItem("menuKey", "alarm")
+    }
+
     const columns = [
         {
             title: '名称',
@@ -48,7 +53,7 @@ const Monitoring = (props) => {
             ellipsis: true,
             key: 'ip',
         },
-        {
+        /*{
             title: '主机状态',
             dataIndex: 'state',
             ellipsis: true,
@@ -60,9 +65,9 @@ const Monitoring = (props) => {
                 }
                 return config[state];
             }
-        },
-        /*{
-            title: '可用性',
+        },*/
+        {
+            title: '主机状态',
             dataIndex: 'usability',
             ellipsis: true,
             key: 'usability',
@@ -74,18 +79,14 @@ const Monitoring = (props) => {
                 }
                 return config[usability];
             }
-        },*/
-        {
-            title: '监控数据数量',
-            dataIndex: 'monitorNum',
-            ellipsis: true,
-            key: 'monitorNum',
         },
         {
             title: '告警数量',
             dataIndex: 'alarmNum',
             ellipsis: true,
             key: 'alarmNum',
+            render:(text) =><div style={{cursor:"pointer"}}
+                                 onClick={() =>hrefAlarmPage()}>{text}</div>
         },
         {
             title: '创建时间',

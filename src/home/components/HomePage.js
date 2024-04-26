@@ -16,8 +16,10 @@ const HomePage = (props) => {
 
     const {findAlarmPage, setNullCondition, alarmPage, total} = alarmPageStore;
 
-    const host = () => {
-        props.history.push('/configuration/host')
+    const host = (item) => {
+        sessionStorage.setItem("menuKey", "configuration")
+        localStorage.setItem("hostIdForMonitoring", item.hostId);
+        props.history.push(`/hostList/${item.hostId}/hostDetails`)
     }
 
     function jumpToMonitor(record) {
@@ -139,7 +141,7 @@ const HomePage = (props) => {
                                                     <div className={`user-big-icon mf-icon-${item?.color}`}>{item?.hostName?.substring(0, 1).toUpperCase()}</div>
                                                 </div>
                                                 <div className="item-title-text">
-                                                    <span onClick={host}>{item?.hostName}</span>
+                                                    <span onClick={() =>host(item)}>{item?.hostName}</span>
                                                 </div>
                                             </div>
                                             <div className="item-work">
@@ -179,7 +181,7 @@ const HomePage = (props) => {
                             {
                                 dynamicList&&dynamicList.map(item =>{
                                     return(
-                                        <div className="home-alarm-table-line">
+                                        <div className="home-alarm-table-line" key={item.id}>
                                             <div className="home-alarm-table-div">{item.name}</div>
                                             <div className="home-alarm-table-line">{item.updateTime} </div>
                                         </div>

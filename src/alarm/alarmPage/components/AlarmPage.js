@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Button, Col, Input, Row, Table} from "antd";
+import {Button, Col, Input, Row, Table, Tag} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 
 const AlarmPage = (props) => {
-
 
     const {
         alarmPage,
@@ -25,19 +24,19 @@ const AlarmPage = (props) => {
     }, []);
 
     function isConfirm(status) {
-        {
-            let config = {
-                1: "已解决",
-                2: "问题",
-            }
-            return config[status];
+        switch (status) {
+            case 1:
+                return <Tag key={status} color={"green"}>
+                    已解决
+                </Tag>
+            case 2:
+                return <Tag key={status} color={"red"}>
+                    问题
+                </Tag>
         }
     }
 
     async function updateAlarm(record) {
-        console.log(record)
-        console.log(record.hostName)
-        console.log(record.id)
         await updateAlarmPage({
             id: record.id,
             state: 1
@@ -50,6 +49,46 @@ const AlarmPage = (props) => {
         localStorage.setItem("ip", record.ip)
         sessionStorage.setItem("menuKey", "monitoring")
         props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
+    }
+
+    function checkProblemDetails(problemDetails, record) {
+
+    }
+
+    function conversionType(severityLevel) {
+
+        let tagColor;
+        let tagName;
+
+        switch (severityLevel) {
+            case "1":
+                tagColor = "red";
+                tagName = "灾难";
+                break;
+            case "2":
+                tagColor = "#e97659";
+                tagName = "严重";
+                break;
+            case "3":
+                tagColor = "orange";
+                tagName = "一般严重";
+                break;
+            case "4":
+                tagColor = "yellow";
+                tagName = "告警";
+                break;
+            case "5":
+                tagColor = "blue";
+                tagName = "信息";
+                break;
+            case "6":
+                tagColor = "grey";
+                tagName = "未分类";
+                break;
+        }
+        return <Tag key={severityLevel} color={tagColor}>
+            {tagName}
+        </Tag>
     }
 
     const columns = [
@@ -72,35 +111,11 @@ const AlarmPage = (props) => {
             dataIndex: 'triggerName',
             key: 'triggerName',
         },
-        /*{
-            title: '消息方式',
-            dataIndex: 'mediumType',
-            key: 'mediumType',
-            render: (severityLevel) => {
-                let config = {
-                    1: "电子邮件",
-                    2: "微信公众号",
-                    3: "钉钉",
-                    4: "短信",
-                }
-                return config[severityLevel];
-            }
-        },*/
         {
             title: '告警类型',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            render: (severityLevel) => {
-                let config = {
-                    1: "灾难",
-                    2: "严重",
-                    3: "一般严重",
-                    4: "告警",
-                    5: "信息",
-                    6: "未分类",
-                }
-                return config[severityLevel];
-            }
+            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
         {
             title: '告警时间',
@@ -116,6 +131,13 @@ const AlarmPage = (props) => {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
+        },
+        {
+            title: '问题详情',
+            dataIndex: 'problemDetails',
+            key: 'problemDetails',
+            render: (problemDetails, record) => <div
+                onClick={() => checkProblemDetails(problemDetails, record)}>详情</div>
         },
         {
             title: '状态',
@@ -145,7 +167,7 @@ const AlarmPage = (props) => {
 
     return (
         <Row className="alarm-box">
-            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="alarm-box-body">
                     <div className="alarm-box-title">
                         <div className="alarm-box-title-text">

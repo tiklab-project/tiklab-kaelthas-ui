@@ -81,7 +81,7 @@ const Header = props => {
         {
             to: '/alarm',
             title: '告警',
-            key: 'Alarm'
+            key: 'alarm'
         },
 
     ]

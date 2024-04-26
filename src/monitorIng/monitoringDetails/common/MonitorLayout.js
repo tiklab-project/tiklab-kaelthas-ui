@@ -1,42 +1,16 @@
 import {observer, Provider} from "mobx-react";
-import React, {useEffect, useRef, useState} from "react";
-import {Breadcrumb, Col, DatePicker, Empty, Input, Modal, Pagination, Row, Select, Table, Tabs} from "antd";
+import React, {useEffect, useState} from "react";
+import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
-import * as echarts from "echarts/core";
-import {
-    GridComponent,
-    LegendComponent,
-    TimelineComponent,
-    TitleComponent,
-    ToolboxComponent,
-    TooltipComponent,
-    VisualMapComponent
-} from 'echarts/components';
-import {LineChart, PieChart, ScatterChart} from 'echarts/charts';
-import {UniversalTransition} from 'echarts/features';
-import {CanvasRenderer} from 'echarts/renderers';
+
 import monitorLayoutStore from "../store/MonitorLayoutStore";
 import MonitoringItem from "./MonitoringItem";
 import moment from "moment";
 
-echarts.use([
-    TimelineComponent,
-    TitleComponent,
-    TooltipComponent,
-    GridComponent,
-    VisualMapComponent,
-    ScatterChart,
-    CanvasRenderer,
-    UniversalTransition,
-    LegendComponent,
-    LineChart,
-    ToolboxComponent,
-    PieChart
-]);
 const {RangePicker} = DatePicker;
-const dateFormat = 'YYYY-MM-DD';
 
-const now = moment().locale('zh-cn').format('YYYY-MM-DD');
+const {Option} = Select;
+const dateFormat = 'YYYY-MM-DD HH:mm';
 
 const MonitorLayout = (props) => {
 
@@ -44,14 +18,8 @@ const MonitorLayout = (props) => {
         props.history.push(`/monitoring`);
     }
 
-    const [descTime, setDescTime] = useState([]);
-
-    const [monitorList, setMonitorList] = useState([]);
-
     const {
-        findDescGatherTime,
         setSearchCondition,
-        findAllMonitor,
         findInformationByGraphics,
         condition,
         setSearchNull,
@@ -62,13 +30,16 @@ const MonitorLayout = (props) => {
         getDateTime,
         findInformationPage,
         total,
-        monitorDataSubclassNames
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
-
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
+
+
+    let monitorNameList = [];
+
+    const [monitorNames, setMonitorNames] = useState(monitorNameList);
 
     useEffect(async () => {
 
@@ -76,55 +47,63 @@ const MonitorLayout = (props) => {
         const testStr = getDateTime().substring(1, getDateTime().length - 1);
         setSearchNull({
             hostId: hostId,
-            beginTime: testStr,
-            endTime: testStr
+            beginTime: testStr + " 00:00:00",
+            endTime: testStr + " 24:00:00"
         })
         await findMonitorForHost();
 
         await findInformationByGraphics();
 
-        const times = await findDescGatherTime();
-        setDescTime([...times])
+        /*const times = await findDescGatherTime();
+        setDescTime([...times])*/
+
+        setSearchCondition({
+            dataCate: dataCategories,
+            id: localStorage.getItem("hostIdForMonitoring")
+        })
+        const resData = await findMonitorByCategories();
+        setMonitorDataSubclass([...resData])
+
+
+        resData.map(item => {
+            monitorNameList.push(item.id)
+        })
+
+        setMonitorNames([...monitorNameList])
 
     }, []);
 
     async function checkTabGraphics(activeKey) {
         setHostState(activeKey)
 
-        const monitors = await findAllMonitor()
-        setMonitorList([...monitors])
-
         if (activeKey === "2") {
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
             await findInformationByGraphics()
-
-            const descTime = await findDescGatherTime();
-            setDescTime([...descTime])
         }
 
     }
 
     const onChange = async (value, dateString) => {
 
+        console.log(value)
+        console.log(dateString[0])
         setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1],
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
         })
 
         await findInformationByGraphics()
 
-        const descTime = await findDescGatherTime();
-        setDescTime([...descTime])
-
         setSearchCondition({
-            beginTime: dateString[0],
-            endTime: dateString[1]
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
         })
         await findMonitorForHost();
 
     };
 
-    async function onCheckMonitor(value, options) {
+
+    async function onCheckMonitor(value) {
 
         setSearchCondition({
             hostId: localStorage.getItem("hostIdForMonitoring"),
@@ -134,14 +113,7 @@ const MonitorLayout = (props) => {
         await findMonitorForHost();
 
         await findInformationByGraphics();
-
-        const times = await findDescGatherTime();
-        setDescTime([...times])
     }
-
-    const onOk = (value) => {
-        console.log('onOk: ', value);
-    };
 
     async function searchByDataCategories(value) {
 
@@ -151,13 +123,12 @@ const MonitorLayout = (props) => {
         })
         await findMonitorForHost();
 
+        await findInformationByGraphics();
+
         //根据监控大类查询监控小类
         const resData = await findMonitorByCategories();
         setMonitorDataSubclass([...resData])
 
-        resData.map(item => {
-            monitorDataSubclassNames.push(item.name)
-        })
     }
 
     const showTabs = [
@@ -173,6 +144,57 @@ const MonitorLayout = (props) => {
         }
     ]
 
+    localStorage.setItem("rangePickerSearch",[moment(getDateTime(), dateFormat), moment(getDateTime() + "24:00:00", dateFormat)])
+
+    async function checkTime(value) {
+
+        const checkTimeList = [];
+
+        switch (value) {
+            case 1:
+                checkTimeList.push(moment().subtract(5, 'minutes').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 2:
+                checkTimeList.push(moment().subtract(15, 'minutes').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 3:
+                checkTimeList.push(moment().subtract(30, 'minutes').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 4:
+                checkTimeList.push(moment().subtract(1, 'hours').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 5:
+                checkTimeList.push(moment().subtract(3, 'hours').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 6:
+                checkTimeList.push(moment().subtract(6, 'hours').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 7:
+                checkTimeList.push(moment().subtract(12, 'hours').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+            case 8:
+                checkTimeList.push(moment().subtract(24, 'hours').format(dateFormat), moment().format(dateFormat))
+                await onChange(0, checkTimeList)
+                break
+        }
+    }
+
+    function getSubclassName() {
+        console.log(monitorDataSubclass)
+        return monitorDataSubclass.map(item => ({
+            label: item.name,
+            key: item.id,
+            value: item.id,
+        }));
+    }
+
     return (
         <Provider>
             <Row className="details">
@@ -185,7 +207,6 @@ const MonitorLayout = (props) => {
                             <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
                             <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
                         </Breadcrumb>
-
                         <div className="details-table-title">
                             <div className="details-search">
                                 <div className="details-div">
@@ -195,7 +216,7 @@ const MonitorLayout = (props) => {
                                         placeholder="请选择监控大类"
                                         onChange={(value) => searchByDataCategories(value)}
                                         allowClear={true}
-                                        defaultValue="全部监控大类"
+                                        defaultValue={dataCategories}
                                         style={{
                                             width: 150,
                                         }}
@@ -206,20 +227,20 @@ const MonitorLayout = (props) => {
                                     >
                                     </Select>
                                 </div>
+
                                 <div className="details-div">
                                     <Select
                                         mode="multiple"
                                         maxTagCount='responsive'
                                         placeholder="请选择您的监控小类"
-                                        onChange={(value, options) => onCheckMonitor(value, options)}
-                                        allowClear
+                                        onChange={(value) => onCheckMonitor(value)}
+                                        allowClear={true}
+                                        defaultValue={monitorNames}
                                         style={{
                                             width: 300,
                                         }}
-                                        defaultValue="全部监控小类"
-                                        options={monitorDataSubclass && monitorDataSubclass.map(item => ({
+                                        options={monitorDataSubclass && monitorDataSubclass.map((item) => ({
                                             label: item.name,
-                                            key: item.id,
                                             value: item.id,
                                         }))}
                                     >
@@ -227,11 +248,34 @@ const MonitorLayout = (props) => {
                                 </div>
                                 <div className="details-div">
                                     <RangePicker
+                                        style={{width: 400}}
                                         format={dateFormat}
                                         onChange={onChange}
-                                        onOk={onOk}
-                                        defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime(), dateFormat)]}
+                                        // onOk={onOk}
+                                        showTime
+                                        defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime() + "24:00:00", dateFormat)]}
                                     />
+
+                                </div>
+                                <div className="details-div">
+                                    <Select
+                                        maxTagCount='responsive'
+                                        placeholder="请选择您的具体时间区间"
+                                        onChange={(value) => checkTime(value)}
+                                        allowClear
+                                        style={{
+                                            width: 300,
+                                        }}
+                                    >
+                                        <Option value={1} key={1}>过去5分钟</Option>
+                                        <Option value={2} key={2}>过去15分钟</Option>
+                                        <Option value={3} key={3}>过去30分钟</Option>
+                                        <Option value={4} key={4}>过去1小时</Option>
+                                        <Option value={5} key={5}>过去3小时</Option>
+                                        <Option value={6} key={6}>过去6小时</Option>
+                                        <Option value={7} key={7}>过去12小时</Option>
+                                        <Option value={8} key={8}>过去一天</Option>
+                                    </Select>
                                 </div>
                             </div>
                             <div className="details-tables">
@@ -264,7 +308,7 @@ const MonitorLayout = (props) => {
                                                                     <MonitoringItem
                                                                         reportType={item[0].reportType}
                                                                         condition={item}
-                                                                        descTime={descTime}
+                                                                        descTime={item[0].dataTimes}
                                                                         index={index}
                                                                     />
                                                                 </div>
