@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import moment from "moment";
 
 export class MonitorLayoutStore {
     @observable searchCondition = {
@@ -17,6 +18,8 @@ export class MonitorLayoutStore {
 
     @observable condition = [];
 
+    @observable alarmCondition = [];
+
     @observable
     findInformationPage = [];
 
@@ -33,6 +36,9 @@ export class MonitorLayoutStore {
     @observable
     monitorDataSubclassNames = [];
 
+    @observable
+    nowTimeInterval = [];
+
     @action
     setHostState = value => {
         this.hostState = value;
@@ -40,20 +46,22 @@ export class MonitorLayoutStore {
 
     @action
     getDateTime = () => {
-        let date = new Date()
-        let year = date.getFullYear()
-        let month = (date.getMonth() + 1).toString().padStart(2, '0')
-        let day = date.getDate().toString().padStart(2, '0')
-        return "'" + year + '-' + month + '-' + day + "'";
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = (date.getMonth() + 1).toString().padStart(2, '0');
+        let day = date.getDate().toString().padStart(2, '0');
+        let nowVar = ("'" + year + '-' + month + '-' + day + "'");
+
+        if (this.nowTimeInterval.length > 0){
+            return this.nowTimeInterval;
+        }
+        return [nowVar.substring(1, nowVar.length - 1)+" 00:00:00",nowVar.substring(1, nowVar.length - 1) + " 24:00:00"]
     }
 
     @action
-    getEndDateTime = () => {
-        let date = new Date()
-        let year = date.getFullYear()
-        let month = (date.getMonth() + 1).toString().padStart(2, '0')
-        let day = date.getDate().toString().padStart(2, '0')
-        return "'" + year + '-' + month + '-' + day + "'";
+    setNowTimeInterval = (value) =>{
+        this.nowTimeInterval = [];
+        this.nowTimeInterval = [...value];
     }
 
     @action
@@ -84,7 +92,19 @@ export class MonitorLayoutStore {
     @action
     findInformationByGraphics = async () => {
         const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
-        this.condition = resData.data
+        if (this.alarmCondition.length > 0) {
+            this.condition = this.alarmCondition;
+            this.alarmCondition = [];
+        } else {
+            this.condition = resData.data
+        }
+        return resData.data;
+    }
+
+    @action
+    findInformationByAlarm = async () => {
+        const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
+        this.alarmCondition = resData.data
         return resData.data;
     }
 
@@ -127,7 +147,7 @@ export class MonitorLayoutStore {
             reportType: 2
         });
 
-        if (this.monitorIds.length === 0){
+        if (this.monitorIds.length === 0) {
             resData.data.map(item => {
                 this.monitorIds.push(item.name)
             })

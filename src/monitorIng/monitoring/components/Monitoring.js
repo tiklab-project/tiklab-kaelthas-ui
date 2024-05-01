@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {Col, Input, Pagination, Row, Table} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
+import monitorLayoutStore from "../../monitoringDetails/store/MonitorLayoutStore";
 
 const Monitoring = (props) => {
 
@@ -17,10 +18,14 @@ const Monitoring = (props) => {
         hostState,
         setHostState,
         setNullCondition,
-        monitoringList
+        monitoringList,
     } = monitoringStore;
 
+    const {setNowTimeInterval} = monitorLayoutStore;
+
     const host = (record) => {
+
+        setNowTimeInterval([])
         console.log("路由跳转到监控项详情中")
         props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
         localStorage.setItem('hostIdForMonitoring', record.id);
@@ -53,19 +58,6 @@ const Monitoring = (props) => {
             ellipsis: true,
             key: 'ip',
         },
-        /*{
-            title: '主机状态',
-            dataIndex: 'state',
-            ellipsis: true,
-            key: 'state',
-            render: (state) => {
-                let config = {
-                    1: "启用",
-                    2: "未启用",
-                }
-                return config[state];
-            }
-        },*/
         {
             title: '主机状态',
             dataIndex: 'usability',
@@ -78,6 +70,19 @@ const Monitoring = (props) => {
                     3: "未知"
                 }
                 return config[usability];
+            }
+        },
+        {
+            title: '异常信息',
+            dataIndex: 'isAbnormal',
+            ellipsis: true,
+            key: 'isAbnormal',
+            render:(text,record) =>{
+                if (record.usability === 2){
+                    return "主机出现故障";
+                }else {
+                    return "暂无异常信息";
+                }
             }
         },
         {

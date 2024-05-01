@@ -5,6 +5,8 @@ import {Button, Col, Input, Row, Table, Tag} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
+import monitorLayoutStore from "../../../monitorIng/monitoringDetails/store/MonitorLayoutStore";
+import moment from "moment/moment";
 
 const AlarmPage = (props) => {
 
@@ -17,6 +19,8 @@ const AlarmPage = (props) => {
         setNullCondition,
         searchCondition
     } = alarmPageStore;
+
+    const {setNowTimeInterval} = monitorLayoutStore;
 
     useEffect(async () => {
         setNullCondition();
@@ -39,20 +43,22 @@ const AlarmPage = (props) => {
     async function updateAlarm(record) {
         await updateAlarmPage({
             id: record.id,
-            state: 1
+            alertTime: record.alertTime,
+            status: 1
         });
+
+        await findAlarmPage();
     }
 
-    function jumpToMonitor(record) {
+    async function jumpToMonitor(record) {
         localStorage.setItem("hostIdForMonitoring", record.hostId);
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
         sessionStorage.setItem("menuKey", "monitoring")
+
+        setNowTimeInterval([moment(record.alertTime).subtract(5, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).format("YYYY-MM-DD HH:mm:ss")]);
+
         props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
-    }
-
-    function checkProblemDetails(problemDetails, record) {
-
     }
 
     function conversionType(severityLevel) {
@@ -91,6 +97,12 @@ const AlarmPage = (props) => {
         </Tag>
     }
 
+    function hrefTrigger(record) {
+        props.history.push(`/hostList/${record.hostId}/hostDetails`);
+        localStorage.setItem('hostId', record.hostId);
+        localStorage.setItem("url", `/hostList/${record.hostId}/hostDetails`)
+    }
+
     const columns = [
         {
             title: '主机名称',
@@ -110,6 +122,8 @@ const AlarmPage = (props) => {
             title: '问题',
             dataIndex: 'triggerName',
             key: 'triggerName',
+            render:(triggerName,record) => <div onClick={() => hrefTrigger(record)}
+                                         style={{cursor:"pointer"}}>{triggerName}</div>
         },
         {
             title: '告警类型',
@@ -133,18 +147,17 @@ const AlarmPage = (props) => {
             key: 'duration',
         },
         {
-            title: '问题详情',
-            dataIndex: 'problemDetails',
-            key: 'problemDetails',
-            render: (problemDetails, record) => <div
-                onClick={() => checkProblemDetails(problemDetails, record)}>详情</div>
-        },
-        {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            render: (status, record) => <div onClick={() => updateAlarm(record)}
-                                             style={{cursor: "pointer"}}>{isConfirm(status)}</div>
+            render: (status, record) => {
+                if (status === 2){
+                    return<div onClick={() => updateAlarm(record)}
+                               style={{cursor: "pointer"}}>{isConfirm(status)}</div>
+                }else {
+                    return <div>{isConfirm(status)}</div>
+                }
+            }
         },
     ];
 

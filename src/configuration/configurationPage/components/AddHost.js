@@ -156,7 +156,7 @@ const AddHost = (props) => {
                                 </Select>
                             </Form.Item>
                         </div>
-                        {/*<div className={"ws-edit-form-input"}>
+                        <div className={"ws-edit-form-input"}>
                                 <Form.Item
                                     label="是否开启"
                                     name="isOpen"
@@ -165,12 +165,13 @@ const AddHost = (props) => {
                                     <Select
                                         placeholder="是否开启"
                                         allowClear
+                                        defaultValue={"1"}
                                     >
-                                        <Option value="1">开启</Option>
-                                        <Option value="2">关闭</Option>
+                                        <Option key={1} value="1">开启</Option>
+                                        <Option key={2} value="2">关闭</Option>
                                     </Select>
                                 </Form.Item>
-                            </div>*/}
+                            </div>
                     </Form>
                     <div className={"ws-edit-box-footer"}>
                         <Button onClick={onCancel} style={{margin: "0 10px 0 0"}}

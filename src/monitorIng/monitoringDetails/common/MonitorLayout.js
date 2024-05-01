@@ -30,6 +30,7 @@ const MonitorLayout = (props) => {
         getDateTime,
         findInformationPage,
         total,
+        nowTimeInterval,
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
@@ -44,18 +45,16 @@ const MonitorLayout = (props) => {
     useEffect(async () => {
 
         const hostId = localStorage.getItem("hostIdForMonitoring");
-        const testStr = getDateTime().substring(1, getDateTime().length - 1);
+
         setSearchNull({
             hostId: hostId,
-            beginTime: testStr + " 00:00:00",
-            endTime: testStr + " 24:00:00"
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1]
         })
-        await findMonitorForHost();
 
         await findInformationByGraphics();
 
-        /*const times = await findDescGatherTime();
-        setDescTime([...times])*/
+        await findMonitorForHost();
 
         setSearchCondition({
             dataCate: dataCategories,
@@ -144,7 +143,6 @@ const MonitorLayout = (props) => {
         }
     ]
 
-    localStorage.setItem("rangePickerSearch",[moment(getDateTime(), dateFormat), moment(getDateTime() + "24:00:00", dateFormat)])
 
     async function checkTime(value) {
 
@@ -253,7 +251,7 @@ const MonitorLayout = (props) => {
                                         onChange={onChange}
                                         // onOk={onOk}
                                         showTime
-                                        defaultValue={[moment(getDateTime(), dateFormat), moment(getDateTime() + "24:00:00", dateFormat)]}
+                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
 
                                 </div>
