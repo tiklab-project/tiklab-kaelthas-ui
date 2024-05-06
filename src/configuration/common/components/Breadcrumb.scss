@@ -1,0 +1,27 @@
+.page-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    .page-breadcrumb {
+        font-size: var(--thoughtware-font-16);
+        font-weight: var(--thoughtware-font-weight-bold);
+        display: flex;
+        align-items: center;
+        .page-back:hover {
+            cursor: pointer;
+            color: var(--thoughtware-blue);
+        }
+
+        &-icon {
+            width: 25px;
+            height: 25px;
+        }
+
+        &-second {
+            width: 20px;
+            height: 15px;
+            margin: 0 6px;
+        }
+    }
+}

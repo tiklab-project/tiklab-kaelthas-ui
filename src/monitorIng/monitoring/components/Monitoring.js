@@ -1,11 +1,12 @@
 import React, {useEffect, useRef} from 'react';
-import {Col, Input, Pagination, Row, Table} from "antd";
+import {Col, Input, Pagination, Row, Table, Tag} from "antd";
 import "./MonitorIng.scss"
 import monitoringStore from "../store/MonitoringStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import monitorLayoutStore from "../../monitoringDetails/store/MonitorLayoutStore";
+import alarmPageStore from "../../../alarm/alarmPage/store/AlarmPageStore";
 
 const Monitoring = (props) => {
 
@@ -23,6 +24,8 @@ const Monitoring = (props) => {
 
     const {setNowTimeInterval} = monitorLayoutStore;
 
+    const {findAlarmPage,setNullConditionByMonitoring} = alarmPageStore;
+
     const host = (record) => {
 
         setNowTimeInterval([])
@@ -39,9 +42,65 @@ const Monitoring = (props) => {
     }, []);
 
 
-    function hrefAlarmPage() {
-        props.history.push(`/alarm`);
+    async function hrefAlarmPage(record) {
+        setNullConditionByMonitoring({
+            hostName: record.name
+        })
+
+        await findHostPage();
+
         sessionStorage.setItem("menuKey", "alarm")
+        props.history.push(`/alarm`);
+    }
+
+    function hrefState(record) {
+        setNowTimeInterval([])
+        console.log("路由跳转到监控项详情中")
+        props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
+        localStorage.setItem('hostIdForMonitoring', record.id);
+        localStorage.setItem("hostName", record.name)
+        localStorage.setItem("ip", record.ip)
+    }
+
+    function converType(record) {
+
+        let colorTag;
+
+        let textTag;
+
+        if (record.alarmNum !==null){
+            record.usability = 4
+        }
+
+        switch (record.usability) {
+            case 1:
+                colorTag = "blue"
+                textTag = "主机连通"
+                break
+            case 2:
+                colorTag = "red"
+                textTag = "主机不可用"
+                break
+            case 3:
+                colorTag = "#ebebeb"
+                textTag = "未知"
+                break
+            case 4:
+                colorTag = "red"
+                textTag = "异常"
+                break
+
+        }
+        return <Tag color={colorTag}>{textTag}</Tag>
+
+    }
+
+    function conversionColor(text) {
+        if (text === 0 || text === null) {
+            return <Tag color={"blue"}>{0}</Tag>
+        } else {
+            return <Tag color={"red"}>{text}</Tag>
+        }
     }
 
     const columns = [
@@ -59,39 +118,20 @@ const Monitoring = (props) => {
             key: 'ip',
         },
         {
-            title: '主机状态',
+            title: '状态',
             dataIndex: 'usability',
             ellipsis: true,
             key: 'usability',
-            render: (usability) => {
-                let config = {
-                    1: "可用",
-                    2: "不可用",
-                    3: "未知"
-                }
-                return config[usability];
-            }
-        },
-        {
-            title: '异常信息',
-            dataIndex: 'isAbnormal',
-            ellipsis: true,
-            key: 'isAbnormal',
-            render:(text,record) =>{
-                if (record.usability === 2){
-                    return "主机出现故障";
-                }else {
-                    return "暂无异常信息";
-                }
-            }
+            render: (usability,record) => <span style={{cursor: "pointer"}}
+                                         onClick={() => hrefState(record)}>{converType(record)}</span>,
         },
         {
             title: '告警数量',
             dataIndex: 'alarmNum',
             ellipsis: true,
             key: 'alarmNum',
-            render:(text) =><div style={{cursor:"pointer"}}
-                                 onClick={() =>hrefAlarmPage()}>{text}</div>
+            render: (text,record) => <div style={{cursor: "pointer"}}
+                                   onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
         },
         {
             title: '创建时间',
@@ -162,7 +202,7 @@ const Monitoring = (props) => {
     return (
 
         <Row className="monitoring">
-            <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "22", offset: "1" }} xxl={{ span: "18", offset: "3" }}>
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="monitoring-alarm-table">
                     <div className="monitoring-table-title">主机监控</div>
                     <div className="monitoring-search">

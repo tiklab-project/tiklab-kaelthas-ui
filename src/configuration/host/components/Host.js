@@ -1,20 +1,30 @@
 import React, {useEffect, useState} from 'react';
 import "./Host.scss"
 import {withRouter} from "react-router-dom";
-import {Col, Row, Table} from "antd";
+import {Col, Empty, Row, Table} from "antd";
 import hostStore from "../store/HostStore";
 import "../../../common/styles/_tabStyle.scss"
 
-const data = [];
-
 const Host = (props) => {
 
-    const {findHostById,} = hostStore;
+    const {findHostById, findHostDynamicPage, hostDynamicList, setNullCondition} = hostStore;
 
     const [dataList, setDataList] = useState({});
 
     useEffect(async () => {
-        const resData = await findHostById(localStorage.getItem("hostId"))
+        const hostId = localStorage.getItem("hostId");
+
+        setNullCondition({
+            pageParam: {
+                pageSize: 10,
+                currentPage: 1,
+            },
+            hostId: hostId
+        })
+
+        await findHostDynamicPage();
+
+        const resData = await findHostById(hostId)
 
         switch (resData.state) {
             case 1:
@@ -57,6 +67,10 @@ const Host = (props) => {
         },
 
     ];
+
+    function goDynamicList() {
+        props.history.push(`/hostList/${localStorage.getItem("hostId")}/hostDynamic`)
+    }
 
     return (
         <Row className="box-right">
@@ -114,19 +128,26 @@ const Host = (props) => {
                     </div>
                     <div className="box-host-body">
                         <div className="host-news">
-                            主机最新动态
+                            <div>主机最新动态</div>
+                            <div className="more" onClick={() => goDynamicList()}>
+                                <svg aria-hidden="true" className="svg-icon">
+                                    <use xlinkHref="#icon-rightjump"></use>
+                                </svg>
+                            </div>
                         </div>
                         <div className="host-news-List">
-                            <Table
-                                rowKey={record => record.id}
-                                columns={columns}
-                                dataSource={data}
-                                className="custom-table"
-                                pagination={{
-                                    position: ["bottomCenter"],
-                                }
-                                }
-                            />
+                            {
+                                hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
+                                        return (
+                                            <div className="host-news-Line" key={item.id}>
+                                                <div>{item.name}</div>
+                                                <div>{item.time}</div>
+                                            </div>
+                                        )
+                                    })
+                                    :
+                                    <Empty /*image="src/assets/image/nodata.png"*/ description="暂时没有动态~"/>
+                            }
                         </div>
                     </div>
                 </div>

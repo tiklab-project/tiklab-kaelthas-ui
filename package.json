@@ -1,5 +1,5 @@
 {
-    "name": "thoughtware-sward-ui",
+    "name": "thoughtware-xmonitor-ui",
     "version": "1.0.1",
     "description": "thoughtware repository",
     "main": "es/src/ui.js",

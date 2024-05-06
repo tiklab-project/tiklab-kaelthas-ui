@@ -1,0 +1,40 @@
+.host-Dynamic {
+  height: 100%;
+  overflow: auto;
+  background: var(--thoughtware-gray-600);
+  row-gap: 0;
+
+  .host-Dynamic-col {
+    padding: 20px;
+
+    .host-Dynamic-list-page{
+      background: #fff;
+      min-height: calc(100vh - 88px);
+      padding: var(--thoughtware-padding);
+
+
+      .host-Dynamic-list-top{
+        background: #fff;
+      }
+
+      .host-Dynamic-list{
+
+        .host-Dynamic-list-item{
+          display: flex;
+          align-items: center;
+          font-size: 14px;
+          justify-content: space-between;
+          margin-bottom: 10px;
+          gap: 20px;
+        }
+
+      }
+
+      .host-Dynamic-pagination{
+        text-align: center;
+        margin-top: 10px;
+      }
+
+    }
+  }
+}

@@ -30,7 +30,6 @@ const MonitorLayout = (props) => {
         getDateTime,
         findInformationPage,
         total,
-        nowTimeInterval,
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
@@ -249,7 +248,6 @@ const MonitorLayout = (props) => {
                                         style={{width: 400}}
                                         format={dateFormat}
                                         onChange={onChange}
-                                        // onOk={onOk}
                                         showTime
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />

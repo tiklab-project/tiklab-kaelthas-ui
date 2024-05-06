@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import AddHost from "./AddHost";
 import "./Configuration.scss"
-import {Col, Input, Pagination, Row, Table} from "antd";
+import {Col, Input, Pagination, Row, Table, Tag} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
@@ -70,6 +70,39 @@ const Configuration = (props) => {
         props.history.push(`/hostList/${record.id}/graphics`)
     }
 
+    function converType(usability) {
+
+        let colorTag;
+
+        let textTag;
+
+        switch (usability) {
+            case 1:
+                colorTag = "blue"
+                textTag = "可用"
+                break
+            case 2:
+                colorTag = "red"
+                textTag = "不可用"
+                break
+            case 3:
+                colorTag = "#ebebeb"
+                textTag = "未知"
+                break
+            case 4:
+                colorTag = "red"
+                textTag = "不可用"
+                break
+            case 5:
+                colorTag = "blue"
+                textTag = "可用"
+                break;
+
+        }
+        return <Tag color={colorTag}>{textTag}</Tag>
+
+    }
+
     const columns = [
         {
             title: '名称',
@@ -82,7 +115,7 @@ const Configuration = (props) => {
             dataIndex: 'ip',
             key: 'ip',
         },
-        {
+        /*{
             title: '主机状态',
             dataIndex: 'state',
             key: 'state',
@@ -93,33 +126,27 @@ const Configuration = (props) => {
                 }
                 return config[state];
             }
-        },
+        },*/
         {
-            title: '可用性',
+            title: '主机状态',
             dataIndex: 'usability',
             key: 'usability',
-            render: (usability) => {
-                let config = {
-                    1: "可用",
-                    2: "不可用",
-                    3: "未知"
-                }
-                return config[usability];
-            }
+            render: (usability, record) => <div style={{cursor: "pointer"}}
+                                                onClick={() => host(record)}>{converType(usability)}</div>,
         },
         {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             key: 'monitorNum',
             render: (text, record) => <div style={{cursor: "pointer"}}
-                                            onClick={() =>checkMonitor(record)}>{text}</div>,
+                                           onClick={() => checkMonitor(record)}>{text}</div>,
         },
         {
             title: '触发器数量',
             dataIndex: 'triggerNum',
             key: 'triggerNum',
             render: (text, record) => <div style={{cursor: "pointer"}}
-                                            onClick={() => checkTrigger(record)}>{text}</div>,
+                                           onClick={() => checkTrigger(record)}>{text}</div>,
         },
         {
             title: '模板数量',
@@ -133,7 +160,7 @@ const Configuration = (props) => {
             dataIndex: 'graphicNum',
             key: 'graphicNum',
             render: (text, record) => <div style={{cursor: "pointer"}}
-                                            onClick={() => checkGraphic(record)}>{text}</div>,
+                                           onClick={() => checkGraphic(record)}>{text}</div>,
         },
         {
             title: '创建时间',

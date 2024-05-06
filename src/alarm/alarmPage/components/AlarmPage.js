@@ -16,14 +16,12 @@ const AlarmPage = (props) => {
         updateAlarmPage,
         setSearchCondition,
         total,
-        setNullCondition,
         searchCondition
     } = alarmPageStore;
 
     const {setNowTimeInterval} = monitorLayoutStore;
 
     useEffect(async () => {
-        setNullCondition();
         await findAlarmPage();
     }, []);
 
@@ -98,9 +96,9 @@ const AlarmPage = (props) => {
     }
 
     function hrefTrigger(record) {
-        props.history.push(`/hostList/${record.hostId}/hostDetails`);
+        props.history.push(`/hostList/${record.hostId}/trigger`);
         localStorage.setItem('hostId', record.hostId);
-        localStorage.setItem("url", `/hostList/${record.hostId}/hostDetails`)
+        localStorage.setItem("url", `/hostList/${record.hostId}/trigger`)
     }
 
     const columns = [
@@ -126,7 +124,7 @@ const AlarmPage = (props) => {
                                          style={{cursor:"pointer"}}>{triggerName}</div>
         },
         {
-            title: '告警类型',
+            title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
             render: (severityLevel) => <div>{conversionType(severityLevel)}</div>

@@ -141,7 +141,7 @@ const HomePage = (props) => {
                                                     <div className={`user-big-icon mf-icon-${item?.color}`}>{item?.hostName?.substring(0, 1).toUpperCase()}</div>
                                                 </div>
                                                 <div className="item-title-text">
-                                                    <span onClick={() =>host(item)}>{item?.hostName}</span>
+                                                    <span className="" onClick={() =>host(item)}>{item?.hostName}</span>
                                                 </div>
                                             </div>
                                             <div className="item-work">
@@ -188,15 +188,6 @@ const HomePage = (props) => {
                                     )
                                 })
                             }
-                            {/*<Table rowKey={record => record.id}
-                                   columns={dynamicColumns}
-                                   dataSource={dynamicList}
-                                   className="custom-table"
-                                   scroll={{
-                                       x: 300,
-                                   }}
-                                   pagination={false}
-                            />*/}
                         </div>
                     </div>
                 </div>

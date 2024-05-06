@@ -39,8 +39,23 @@ class AlarmPageStore {
     }
 
     @action
+    setNullConditionByMonitoring = (value) =>{
+        this.searchCondition = Object.assign({
+            orderParams: [{
+                name: "id",
+                orderType: "desc"
+            }],
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
+
+    @action
     findAlarmPage = async () => {
         const resData = await Service("/alarm/findAlarmPage", this.searchCondition)
+        this.setNullCondition()
         this.alarmPage = resData.data.dataList;
         this.total = resData.data.totalRecord
         return resData.data.dataList;

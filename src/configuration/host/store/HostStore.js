@@ -8,6 +8,39 @@ export class HostStore{
     @observable
     hostList = [];
 
+    @observable
+    hostDynamicList = [];
+
+    @observable searchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
+
+    @action
+    setSearchCondition = (value) => {
+        this.searchCondition = Object.assign(this.searchCondition,  { ...value })
+    }
+
+    @action
+    setNullCondition = (value) =>{
+        this.searchCondition = Object.assign({
+            orderParams: [{
+                name: "id",
+                orderType: "desc"
+            }],
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
+
     //根据id查询主机信息
     @action
     findHostById = async (id) => {
@@ -27,6 +60,12 @@ export class HostStore{
         return resData.data;
     }
 
+    @action
+    findHostDynamicPage = async () =>{
+        const resData = await Service("/hostDynamic/findHostDynamicPage", this.searchCondition);
+        this.hostDynamicList = resData.data;
+        return resData.data.dataList;
+    }
 
 }
 

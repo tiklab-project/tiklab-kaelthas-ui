@@ -72,7 +72,8 @@ const UpdateTrigger = (props) => {
                 expression: res.expression,
                 rangeTime: res.rangeTime,
                 scheme: res.scheme,
-                percentage: res.percentage
+                percentage: res.percentage,
+                hostId:localStorage.getItem("hostId")
             });
 
             await getTriggerList();

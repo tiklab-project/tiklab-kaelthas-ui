@@ -32,6 +32,7 @@ const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Index = AsyncComponent(() => import('./home/common/HomeLayout'))
 const HostDetails = AsyncComponent(() => import('./configuration/host/components/Host'))
+const HostDynamic = AsyncComponent(() => import('./configuration/host/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./configuration/setting/projectInformation/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./configuration/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./configuration/setting/permissions/Permissions'))
@@ -116,6 +117,11 @@ const Routes = [
                         path: "/hostList/:id/hostDetails",
                         exact: false,
                         component: HostDetails,
+                    },
+                    {
+                        path: "/hostList/:id/hostDynamic",
+                        exact: false,
+                        component: HostDynamic,
                     },
                     {
                         path: "/hostList/:id/monitor",
