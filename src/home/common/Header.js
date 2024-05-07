@@ -8,6 +8,7 @@ import logo from "../../assets/png/monitorPng.png"
 import "./Header.scss";
 import {AppLink,HelpLink,AvatarLink} from "thoughtware-licence-ui";
 import MessageList from "./MessageList";
+import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 const Header = props => {
     // 语言包
     const { i18n } = useTranslation();
@@ -16,14 +17,21 @@ const Header = props => {
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
+    const {setNullCondition} = alarmPageStore;
+
     /**
      * 点击菜单跳转
      * @param {菜单信息} item 
      */
-    const changeCurrentLink = item => {
+    const changeCurrentLink = async item => {
+
+        if ("alarm" === item.key) {
+            setNullCondition()
+        }
+
         localStorage.removeItem("sprintId")
-        props.history.push(item.to)
         sessionStorage.setItem("menuKey", item.key)
+        props.history.push(item.to)
     }
 
     /**

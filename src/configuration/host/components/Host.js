@@ -84,6 +84,18 @@ const Host = (props) => {
                                 <span
                                     className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
                                     <div className="box-host-details-text">
+                                        <div className="item-top">{dataList?.name}</div>
+                                        <div className="item-bottom">主机名称</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="box-host-margin-details">
+                                <div className="box-host-margin-div">
+                                    <svg className="status-img" aria-hidden="true">
+                                        <use xlinkHref="#icon-hostIp"></use>
+                                    </svg>
+                                {/*<span className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>*/}
+                                    <div className="box-host-details-text">
                                         <div className="item-top">{dataList?.ip}</div>
                                         <div className="item-bottom">主机ip</div>
                                     </div>

@@ -79,11 +79,11 @@ const Configuration = (props) => {
         switch (usability) {
             case 1:
                 colorTag = "blue"
-                textTag = "可用"
+                textTag = "主机连通"
                 break
             case 2:
                 colorTag = "red"
-                textTag = "不可用"
+                textTag = "主机不可用"
                 break
             case 3:
                 colorTag = "#ebebeb"
@@ -91,12 +91,8 @@ const Configuration = (props) => {
                 break
             case 4:
                 colorTag = "red"
-                textTag = "不可用"
+                textTag = "异常"
                 break
-            case 5:
-                colorTag = "blue"
-                textTag = "可用"
-                break;
 
         }
         return <Tag color={colorTag}>{textTag}</Tag>

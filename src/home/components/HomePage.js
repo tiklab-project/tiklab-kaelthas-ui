@@ -18,7 +18,7 @@ const HomePage = (props) => {
 
     const host = (item) => {
         sessionStorage.setItem("menuKey", "configuration")
-        localStorage.setItem("hostIdForMonitoring", item.hostId);
+        localStorage.setItem("hostId", item.hostId);
         props.history.push(`/hostList/${item.hostId}/hostDetails`)
     }
 
@@ -89,18 +89,6 @@ const HomePage = (props) => {
         },
     ];
 
-    const dynamicColumns = [
-        {
-            title: '动态名称',
-            dataIndex: 'name',
-            key: 'name',
-        },
-        {
-            title: '时间',
-            dataIndex: 'updateTime',
-            key: 'updateTime',
-        },
-    ]
     useEffect(async () => {
         await findHomeRecentList();
         setNullCondition();
@@ -135,13 +123,13 @@ const HomePage = (props) => {
                             {
                                 hostRecentList && hostRecentList.map(item => {
                                     return (
-                                        <div className="home-content-detail-item" key={item.id}>
+                                        <div className="home-content-detail-item" onClick={() =>host(item)} key={item.id}>
                                             <div className="item-title">
                                                 <div className="item-title-png">
                                                     <div className={`user-big-icon mf-icon-${item?.color}`}>{item?.hostName?.substring(0, 1).toUpperCase()}</div>
                                                 </div>
                                                 <div className="item-title-text">
-                                                    <span className="" onClick={() =>host(item)}>{item?.hostName}</span>
+                                                    <span>{item?.hostName}</span>
                                                 </div>
                                             </div>
                                             <div className="item-work">

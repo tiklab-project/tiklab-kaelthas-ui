@@ -47,7 +47,7 @@ const Monitoring = (props) => {
             hostName: record.name
         })
 
-        await findHostPage();
+        // await findAlarmPage();
 
         sessionStorage.setItem("menuKey", "alarm")
         props.history.push(`/alarm`);
@@ -68,9 +68,7 @@ const Monitoring = (props) => {
 
         let textTag;
 
-        if (record.alarmNum !==null){
-            record.usability = 4
-        }
+
 
         switch (record.usability) {
             case 1:
@@ -85,14 +83,21 @@ const Monitoring = (props) => {
                 colorTag = "#ebebeb"
                 textTag = "未知"
                 break
-            case 4:
+            /*case 4:
                 colorTag = "red"
                 textTag = "异常"
-                break
+                break*/
 
         }
-        return <Tag color={colorTag}>{textTag}</Tag>
 
+        if (record.alarmNum !==null && record.alarmNum !== 0){
+            return <div>
+                <Tag color={colorTag}>{textTag}</Tag>
+                <Tag color={"red"}>异常</Tag>
+            </div>
+        }
+
+        return <Tag color={colorTag}>{textTag}</Tag>
     }
 
     function conversionColor(text) {
