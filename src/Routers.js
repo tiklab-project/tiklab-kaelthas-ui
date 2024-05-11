@@ -45,7 +45,6 @@ const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDet
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
 const AlarmLayout = AsyncComponent(() => import('./alarm/common/components/AlarmLayout'))
 const alarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
-const AlarmDetails = AsyncComponent(() => import('./alarm/alarmDetails/components/AlarmDetails'))
 const AddHost = AsyncComponent(() => import('./configuration/configurationPage/components/AddHost'))
 const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
 const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
@@ -192,12 +191,6 @@ const Routes = [
             {
                 path: "/alarmLayout",
                 component: AlarmLayout,
-                routes: [
-                    {
-                        path: "/alarmLayout/:id/alarmDetails",
-                        component: AlarmDetails,
-                    },
-                ]
             },
             {
                 path: "/setting",

@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Button, Col, Input, Row, Table, Tag} from "antd";
+import {Col, Input, Row, Select, Table, Tag} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import monitorLayoutStore from "../../../monitorIng/monitoringDetails/store/MonitorLayoutStore";
 import moment from "moment/moment";
+
+const {Option} = Select;
 
 const AlarmPage = (props) => {
 
@@ -19,7 +21,7 @@ const AlarmPage = (props) => {
         searchCondition
     } = alarmPageStore;
 
-    const {setNowTimeInterval} = monitorLayoutStore;
+    const {setNowTimeInterval,setSearchNull,getDateTime} = monitorLayoutStore;
 
     useEffect(async () => {
         await findAlarmPage();
@@ -33,7 +35,7 @@ const AlarmPage = (props) => {
                 </Tag>
             case 2:
                 return <Tag key={status} color={"red"}>
-                    问题
+                    未解决
                 </Tag>
         }
     }
@@ -54,7 +56,14 @@ const AlarmPage = (props) => {
         localStorage.setItem("ip", record.ip)
         sessionStorage.setItem("menuKey", "monitoring")
 
-        setNowTimeInterval([moment(record.alertTime).subtract(5, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).format("YYYY-MM-DD HH:mm:ss")]);
+        // setNowTimeInterval([moment(record.alertTime).subtract(2, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).subtract(-2, 'minutes').format("YYYY-MM-DD HH:mm:ss")]);
+
+        /*setSearchNull({
+            hostId: record.hostId,
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1],
+            triggerId:record.triggerId
+        })*/
 
         props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
     }
@@ -96,16 +105,18 @@ const AlarmPage = (props) => {
     }
 
     function hrefTrigger(record) {
-        props.history.push(`/hostList/${record.hostId}/trigger`);
         localStorage.setItem('hostId', record.hostId);
         localStorage.setItem("url", `/hostList/${record.hostId}/trigger`)
+
+        sessionStorage.setItem("menuKey", "configuration")
+        props.history.push(`/hostList/${record.hostId}/trigger`);
     }
 
     const columns = [
         {
             title: '主机名称',
             dataIndex: 'hostName',
-            // ellipsis: true,
+            ellipsis: true,
             // width: "20%",
             key: 'hostName',
             render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
@@ -114,14 +125,16 @@ const AlarmPage = (props) => {
         {
             title: '主机ip',
             dataIndex: 'ip',
+            ellipsis: true,
             key: 'ip',
         },
         {
             title: '问题',
             dataIndex: 'triggerName',
+            ellipsis: true,
             key: 'triggerName',
-            render:(triggerName,record) => <div onClick={() => hrefTrigger(record)}
-                                         style={{cursor:"pointer"}}>{triggerName}</div>
+            render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
+                                                  style={{cursor: "pointer"}}>{triggerName}</div>
         },
         {
             title: '告警等级',
@@ -149,10 +162,10 @@ const AlarmPage = (props) => {
             dataIndex: 'status',
             key: 'status',
             render: (status, record) => {
-                if (status === 2){
-                    return<div onClick={() => updateAlarm(record)}
-                               style={{cursor: "pointer"}}>{isConfirm(status)}</div>
-                }else {
+                if (status === 2) {
+                    return <div onClick={() => updateAlarm(record)}
+                                style={{cursor: "pointer"}}>{isConfirm(status)}</div>
+                } else {
                     return <div>{isConfirm(status)}</div>
                 }
             }
@@ -172,6 +185,13 @@ const AlarmPage = (props) => {
                 pageSize: pagination.pageSize,
                 currentPage: pagination.current,
             }
+        })
+        await findAlarmPage();
+    }
+
+    async function onSecondCityChange(value) {
+        setSearchCondition({
+            status: value
         })
         await findAlarmPage();
     }
@@ -200,13 +220,24 @@ const AlarmPage = (props) => {
                         </div>
                     </div>*/}
                     <div className="alarm-box-search">
-                        <div>
+                        <div style={{marginRight: 8}}>
                             <Input
                                 className="alarm-box-search-div"
                                 placeholder="根据主机名称进行查询"
                                 onPressEnter={(e) => checkHostName(e)}
                                 prefix={<SearchOutlined/>}
                             />
+                        </div>
+                        <div>
+                            <Select
+                                placeholder="请选择监控项指标"
+                                allowClear
+                                onChange={onSecondCityChange}
+                                className="alarm-box-search-div"
+                            >
+                                <Option value={1} key={1}>已解决</Option>
+                                <Option value={2} key={2}>未解决</Option>
+                            </Select>
                         </div>
                     </div>
                     <div className="alarm-box-table">

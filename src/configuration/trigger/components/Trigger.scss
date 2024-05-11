@@ -1,8 +1,9 @@
 .box-trigger-right {
   flex: 1;
   flex-direction: column;
-  //margin: 0 12.5%;
   padding: 20px;
+  height: 100%;
+  overflow: auto;
 
   .box-trigger-title {
     display: flex;

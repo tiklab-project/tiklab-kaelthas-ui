@@ -22,18 +22,22 @@ const Monitoring = (props) => {
         monitoringList,
     } = monitoringStore;
 
-    const {setNowTimeInterval} = monitorLayoutStore;
+    const {setNowTimeInterval,setSearchNull,getDateTime} = monitorLayoutStore;
 
-    const {findAlarmPage,setNullConditionByMonitoring} = alarmPageStore;
+    const {setNullConditionByMonitoring} = alarmPageStore;
 
     const host = (record) => {
 
         setNowTimeInterval([])
-        console.log("路由跳转到监控项详情中")
-        props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
+        setSearchNull({
+            hostId: record.id,
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1]
+        })
         localStorage.setItem('hostIdForMonitoring', record.id);
         localStorage.setItem("hostName", record.name)
         localStorage.setItem("ip", record.ip)
+        props.history.push(`/monitoringList/${record.id}/monitoringDetails`);
     }
 
     useEffect(async () => {
@@ -43,9 +47,10 @@ const Monitoring = (props) => {
 
 
     async function hrefAlarmPage(record) {
-        setNullConditionByMonitoring({
-            hostName: record.name
-        })
+        /*setNullConditionByMonitoring({
+            hostName: record.name,
+            status: 2
+        })*/
 
         // await findAlarmPage();
 
@@ -64,40 +69,30 @@ const Monitoring = (props) => {
 
     function converType(record) {
 
-        let colorTag;
-
-        let textTag;
-
-
-
-        switch (record.usability) {
-            case 1:
-                colorTag = "blue"
-                textTag = "主机连通"
-                break
-            case 2:
-                colorTag = "red"
-                textTag = "主机不可用"
-                break
-            case 3:
-                colorTag = "#ebebeb"
-                textTag = "未知"
-                break
-            /*case 4:
-                colorTag = "red"
-                textTag = "异常"
-                break*/
-
-        }
-
-        if (record.alarmNum !==null && record.alarmNum !== 0){
+        if (record.usability === 2) {
             return <div>
-                <Tag color={colorTag}>{textTag}</Tag>
-                <Tag color={"red"}>异常</Tag>
+                <Tag color={"red"}>异常</Tag><span>(暂时无法连接)</span>
             </div>
         }
 
-        return <Tag color={colorTag}>{textTag}</Tag>
+        if (record.alarmNum !== null) {
+            if (record.alarmNum === 1){
+                return <div>
+                    <Tag color={"red"}>异常</Tag><span>({record.message})</span>
+                </div>
+            }
+            if (record.alarmNum > 1){
+                return <div>
+                    <Tag color={"red"}>异常</Tag><span>({record.message}...)</span>
+                </div>
+            }
+        }
+
+        if (record.usability === 1) {
+            return <Tag color={"blue"}>正常</Tag>
+        }
+
+
     }
 
     function conversionColor(text) {
@@ -127,16 +122,16 @@ const Monitoring = (props) => {
             dataIndex: 'usability',
             ellipsis: true,
             key: 'usability',
-            render: (usability,record) => <span style={{cursor: "pointer"}}
-                                         onClick={() => hrefState(record)}>{converType(record)}</span>,
+            render: (usability, record) => <span style={{cursor: "pointer"}}
+                                                 onClick={() => hrefState(record)}>{converType(record)}</span>,
         },
         {
-            title: '告警数量',
+            title: '未解决告警数量',
             dataIndex: 'alarmNum',
             ellipsis: true,
             key: 'alarmNum',
-            render: (text,record) => <div style={{cursor: "pointer"}}
-                                   onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                           onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
         },
         {
             title: '创建时间',
@@ -144,7 +139,6 @@ const Monitoring = (props) => {
             ellipsis: true,
             key: 'createTime',
         },
-
     ];
 
     const availabilityTab = [

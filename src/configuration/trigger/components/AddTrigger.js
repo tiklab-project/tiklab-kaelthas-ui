@@ -165,65 +165,6 @@ const AddTrigger = (props) => {
                     >
                         <Input allowClear={true} placeholder="触发器名称"/>
                     </Form.Item>
-
-                    {/*<Form.Item
-                        label="监控项"
-                        name="monitorId"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择监控项!',
-                            },
-                        ]}
-                    >
-                        <Select
-                            placeholder="请选择您的监控项"
-                            onChange={(value, options) => onCheckMonitor(value, options)}
-                            allowClear
-                            showSearch
-                        >
-                            {
-                                monitorData && monitorData.map(item => (
-                                    <Option key={item.id}
-                                            value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label="范围关系"
-                        name="operator"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择范围关系!',
-                            },
-                        ]}
-                    >
-                        <Select
-                            placeholder="范围关系关系"
-                            allowClear
-                        >
-                            <Option value={1}>{">"}</Option>
-                            <Option value={2}>{"<"}</Option>
-                            <Option value={3}>{"="}</Option>
-                            <Option value={4}>{">="}</Option>
-                            <Option value={5}>{"<="}</Option>
-                            <Option value={6}>{"<>"}</Option>
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label="值"
-                        name="numericalValue"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入数字!',
-                            },
-                        ]}
-                    >
-                        <InputNumber/>
-                    </Form.Item>*/}
                     <Form.Item
                         label="触发器表达式"
                         name="expression"
@@ -331,111 +272,13 @@ const AddTrigger = (props) => {
                         name="describe"
                         rules={[
                             {
-                                required: false,
+                                required: true,
                                 message: '问题描述!',
                             },
                         ]}
                     >
                         <Input placeholder="问题描述"/>
                     </Form.Item>
-
-                    {/*<Form.List name="function">
-                        {(fields, { add, remove }) => (
-                            <>
-                                {fields.map(({ key, name, ...restField }) => (
-                                    <Space
-                                        key={key}
-                                        style={{
-                                            display: 'flex',
-                                            marginBottom: 8,
-                                        }}
-                                        align="baseline"
-                                    >
-                                        <Form.Item
-                                            {...restField}
-                                            name={[name, 'first']}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: 'Missing first name',
-                                                },
-                                            ]}
-                                        >
-                                            <Input placeholder="First Name" />
-                                        </Form.Item>
-
-                                        <Form.Item
-                                            {...restField}
-                                            label="监控项"
-                                            name={[name, 'monitorId']}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: '请选择监控项!',
-                                                },
-                                            ]}
-                                        >
-                                            <Select
-                                                placeholder="请选择您的监控项"
-                                                onChange={(value, options) => onCheckMonitor(value, options)}
-                                                allowClear
-                                                showSearch
-                                            >
-                                                {
-                                                    monitorData && monitorData.map(item => (
-                                                        <Option key={item.id}
-                                                                value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
-                                                    ))
-                                                }
-                                            </Select>
-                                        </Form.Item>
-                                        <Form.Item
-                                            {...restField}
-                                            label="范围关系"
-                                            name={[name, 'operator']}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: '请选择范围关系!',
-                                                },
-                                            ]}
-                                        >
-                                            <Select
-                                                placeholder="范围关系关系"
-                                                allowClear
-                                            >
-                                                <Option value={1}>{">"}</Option>
-                                                <Option value={2}>{"<"}</Option>
-                                                <Option value={3}>{"="}</Option>
-                                                <Option value={4}>{">="}</Option>
-                                                <Option value={5}>{"<="}</Option>
-                                                <Option value={6}>{"<>"}</Option>
-                                            </Select>
-                                        </Form.Item>
-                                        <Form.Item
-                                            {...restField}
-                                            label="值"
-                                            name={[name, 'numericalValue']}
-                                            rules={[
-                                                {
-                                                    required: true,
-                                                    message: '请输入数字!',
-                                                },
-                                            ]}
-                                        >
-                                            <InputNumber/>
-                                        </Form.Item>
-                                        <MinusCircleOutlined onClick={() => remove(name)} />
-                                    </Space>
-                                ))}
-                                <Form.Item style={{marginRight:0}}>
-                                    <Button type="dashed" onClick={() => add()} block icon={<PlusOutlined />}>
-                                        Add field
-                                    </Button>
-                                </Form.Item>
-                            </>
-                        )}
-                    </Form.List>*/}
                 </Form>
             </Modal>
         </>

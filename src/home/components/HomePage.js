@@ -12,82 +12,17 @@ import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const HomePage = (props) => {
 
-    const {findHomeRecentList, hostRecentList,findDynamicList,dynamicList} = homeStore;
+    const {findHomeRecentList, hostRecentList,findDynamicList,dynamicList,updateHostRecent} = homeStore;
 
-    const {findAlarmPage, setNullCondition, alarmPage, total} = alarmPageStore;
+    const {findAlarmPage, setNullCondition} = alarmPageStore;
 
-    const host = (item) => {
+    const host = async (item) => {
+        await updateHostRecent(item)
         sessionStorage.setItem("menuKey", "configuration")
         localStorage.setItem("hostId", item.hostId);
+        localStorage.setItem('url', `/hostList/${item.hostId}/hostDetails`)
         props.history.push(`/hostList/${item.hostId}/hostDetails`)
     }
-
-    function jumpToMonitor(record) {
-        localStorage.setItem("hostIdForMonitoring", record.hostId);
-        localStorage.setItem("hostName", record.hostName)
-        localStorage.setItem("ip", record.ip)
-        sessionStorage.setItem("menuKey", "monitoring")
-        props.history.push(`/monitoringList/${record.hostId}/monitoringDetails`)
-    }
-
-    const columns = [
-        {
-            title: '主机名称',
-            dataIndex: 'hostName',
-            /*ellipsis: true,
-            width: "20%",*/
-            key: 'hostName',
-            render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
-                                               style={{cursor: "pointer"}}>{hostName}</div>
-        },
-        {
-            title: '主机ip',
-            dataIndex: 'ip',
-            key: 'ip',
-        },
-        {
-            title: '问题',
-            dataIndex: 'triggerName',
-            key: 'triggerName',
-        },
-        {
-            title: '告警类型',
-            dataIndex: 'severityLevel',
-            key: 'severityLevel',
-            render: (severityLevel) => {
-                let config = {
-                    1: "灾难",
-                    2: "严重",
-                    3: "一般严重",
-                    4: "告警",
-                    5: "信息",
-                    6: "未分类",
-                }
-                return config[severityLevel];
-            }
-        },
-        {
-            title: '告警时间',
-            dataIndex: 'alertTime',
-            key: 'alertTime',
-        },
-        {
-            title: '解决时间',
-            dataIndex: 'resolutionTime',
-            key: 'resolutionTime',
-        },
-        {
-            title: '持续时间',
-            dataIndex: 'duration',
-            key: 'duration',
-        },
-        {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-            render: (status, record) => <div style={{cursor: "pointer"}}>{status === 1 ? "已解决" : "问题"}</div>
-        },
-    ];
 
     useEffect(async () => {
         await findHomeRecentList();
@@ -95,18 +30,6 @@ const HomePage = (props) => {
         await findAlarmPage();
         await findDynamicList();
     }, []);
-
-    async function changePage(pagination) {
-        setNullCondition(
-            {
-                pageParam: {
-                    pageSize: pagination.pageSize,
-                    currentPage: pagination.current,
-                }
-            }
-        )
-        await findAlarmPage();
-    }
 
     return (
 

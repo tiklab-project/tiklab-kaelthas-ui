@@ -72,7 +72,7 @@ const Configuration = (props) => {
 
     function converType(usability) {
 
-        let colorTag;
+        /*let colorTag;
 
         let textTag;
 
@@ -95,7 +95,18 @@ const Configuration = (props) => {
                 break
 
         }
-        return <Tag color={colorTag}>{textTag}</Tag>
+        return <Tag color={colorTag}>{textTag}</Tag>*/
+
+
+        if (usability === 1){
+            return <Tag color={"blue"}>正常</Tag>
+        }
+
+        if (usability === 2){
+            return <div>
+                <Tag color={"red"}>异常</Tag><span>(暂时无法连接)</span>
+            </div>
+        }
 
     }
 

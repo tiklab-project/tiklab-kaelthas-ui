@@ -57,7 +57,7 @@ const MonitorLayout = (props) => {
 
         setSearchCondition({
             dataCate: dataCategories,
-            id: localStorage.getItem("hostIdForMonitoring")
+            id: hostId
         })
         const resData = await findMonitorByCategories();
         setMonitorDataSubclass([...resData])
@@ -195,7 +195,8 @@ const MonitorLayout = (props) => {
     return (
         <Provider>
             <Row className="details">
-                <Col className="details-body" sm={24} md={24} lg={24} xl={24} xxl={24}>
+                <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
+                     xxl={{span: "18", offset: "3"}}>
                     <div className="details-breadcrumb-table">
                         <Breadcrumb>
                             <Breadcrumb.Item onClick={goBackHome}>
@@ -234,7 +235,7 @@ const MonitorLayout = (props) => {
                                         allowClear={true}
                                         defaultValue={monitorNames}
                                         style={{
-                                            width: 300,
+                                            width: 250,
                                         }}
                                         options={monitorDataSubclass && monitorDataSubclass.map((item) => ({
                                             label: item.name,
@@ -245,7 +246,7 @@ const MonitorLayout = (props) => {
                                 </div>
                                 <div className="details-div">
                                     <RangePicker
-                                        style={{width: 400}}
+                                        style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
@@ -260,7 +261,7 @@ const MonitorLayout = (props) => {
                                         onChange={(value) => checkTime(value)}
                                         allowClear
                                         style={{
-                                            width: 300,
+                                            width: 150,
                                         }}
                                     >
                                         <Option value={1} key={1}>过去5分钟</Option>
@@ -288,38 +289,36 @@ const MonitorLayout = (props) => {
                                 }
                             </div>
                         </div>
-                        <div className="layout-body-list">
-                            {
-                                hostState === '1' ?
-                                    <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
-                                    :
-                                    <div>
-                                        {
-                                            condition && condition.length > 0 ?
-                                                <div className="details-tabs-wrap">
-                                                    {
-                                                        condition.map((item, index) => {
-                                                            return (
-                                                                <div key={index}>
-                                                                    <MonitoringItem
-                                                                        reportType={item[0].reportType}
-                                                                        condition={item}
-                                                                        descTime={item[0].dataTimes}
-                                                                        index={index}
-                                                                    />
-                                                                </div>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                                :
-                                                <Empty>
-                                                    <span>没有数据</span>
-                                                </Empty>
-                                        }
-                                    </div>
-                            }
-                        </div>
+                        {
+                            hostState === '1' ?
+                                <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
+                                :
+                                <div className="layout-body-list">
+                                    {
+                                        condition && condition.length > 0 ?
+                                            <div className="details-tabs-wrap">
+                                                {
+                                                    condition.map((item, index) => {
+                                                        return (
+                                                            <div key={index}>
+                                                                <MonitoringItem
+                                                                    reportType={item[0].reportType}
+                                                                    condition={item}
+                                                                    descTime={item[0].dataTimes}
+                                                                    index={index}
+                                                                />
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                            :
+                                            <Empty>
+                                                <span>没有数据</span>
+                                            </Empty>
+                                    }
+                                </div>
+                        }
                     </div>
                 </Col>
             </Row>

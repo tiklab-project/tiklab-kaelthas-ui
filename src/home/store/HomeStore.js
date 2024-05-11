@@ -23,6 +23,11 @@ export class HomeStore{
         return result.data;
     }
 
+    @action
+    updateHostRecent = async (value) =>{
+        await Service("/hostRecent/updateHostRecent",value);
+    }
+
 }
 
 const homeStore = new HomeStore();

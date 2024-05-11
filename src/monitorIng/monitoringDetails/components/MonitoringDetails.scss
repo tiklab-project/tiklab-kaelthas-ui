@@ -1,8 +1,8 @@
 .details {
   display: flex;
   height: calc(100% - 48px);
-  overflow: auto;
-  background: #fafafc;
+  overflow-y: auto;
+  background: #fafbfc;
 
 
   .details-body {
@@ -58,6 +58,10 @@
           height: 50px;
           line-height: 50px;
           margin-right: 20px;
+
+          white-space: nowrap; /* 防止文本换行 */
+          overflow: hidden; /* 隐藏溢出的文本 */
+          text-overflow: ellipsis;
         }
 
         .details-tabs-wrap {
@@ -126,7 +130,7 @@
   width: 1000px;
 
   .details-div {
-    padding: 20px;
+    margin-right: 10px;
   }
 
 }
