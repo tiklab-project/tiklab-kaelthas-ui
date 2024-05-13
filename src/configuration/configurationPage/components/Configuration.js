@@ -72,39 +72,13 @@ const Configuration = (props) => {
 
     function converType(usability) {
 
-        /*let colorTag;
-
-        let textTag;
-
-        switch (usability) {
-            case 1:
-                colorTag = "blue"
-                textTag = "主机连通"
-                break
-            case 2:
-                colorTag = "red"
-                textTag = "主机不可用"
-                break
-            case 3:
-                colorTag = "#ebebeb"
-                textTag = "未知"
-                break
-            case 4:
-                colorTag = "red"
-                textTag = "异常"
-                break
-
-        }
-        return <Tag color={colorTag}>{textTag}</Tag>*/
-
-
         if (usability === 1){
             return <Tag color={"blue"}>正常</Tag>
         }
 
         if (usability === 2){
             return <div>
-                <Tag color={"red"}>异常</Tag><span>(暂时无法连接)</span>
+                <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
         }
 
@@ -118,22 +92,10 @@ const Configuration = (props) => {
             render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</div>,
         },
         {
-            title: '主机ip',
+            title: '主机IP',
             dataIndex: 'ip',
             key: 'ip',
         },
-        /*{
-            title: '主机状态',
-            dataIndex: 'state',
-            key: 'state',
-            render: (state) => {
-                let config = {
-                    1: "启用",
-                    2: "未启用",
-                }
-                return config[state];
-            }
-        },*/
         {
             title: '主机状态',
             dataIndex: 'usability',
@@ -231,7 +193,7 @@ const Configuration = (props) => {
                 <div className="box-configuration-body-item">
                     <div className="box-configuration-body--title">
                         <div className="box-configuration-title-left">
-                            主机配置
+                            配置
                         </div>
                         <div className="box-configuration-title-right" onClick={() => hrefAddHost()}>
                             新建主机
@@ -255,7 +217,7 @@ const Configuration = (props) => {
                         </div>
                         <div>
                             <Input
-                                placeholder="根据主机名称进行查询"
+                                placeholder="主机名称"
                                 className="box-configuration-body-search"
                                 onPressEnter={(event) => searchName(event)}
                                 prefix={<SearchOutlined/>}

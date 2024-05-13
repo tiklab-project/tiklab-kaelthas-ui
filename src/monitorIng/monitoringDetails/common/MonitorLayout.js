@@ -3,9 +3,12 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 
-import monitorLayoutStore from "../store/MonitorLayoutStore";
+import monitorLayoutStore, {MonitorLayoutStore} from "../store/MonitorLayoutStore";
 import MonitoringItem from "./MonitoringItem";
 import moment from "moment";
+import SelectItem from "../../../alarm/common/components/SelectItem";
+import SelectSimple from "../../../alarm/common/components/Select";
+import {withRouter} from "react-router-dom";
 
 const {RangePicker} = DatePicker;
 
@@ -23,13 +26,15 @@ const MonitorLayout = (props) => {
         findInformationByGraphics,
         condition,
         setSearchNull,
-        findMonitorForHost,
+        findHistory,
         findMonitorByCategories,
         hostState,
         setHostState,
         getDateTime,
         findInformationPage,
         total,
+        quickFilterValue,
+        setQuickFilterValue
     } = monitorLayoutStore;
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
@@ -53,10 +58,10 @@ const MonitorLayout = (props) => {
 
         await findInformationByGraphics();
 
-        await findMonitorForHost();
+        await findHistory();
 
         setSearchCondition({
-            dataCate: dataCategories,
+            dataCate: null,
             id: hostId
         })
         const resData = await findMonitorByCategories();
@@ -96,19 +101,18 @@ const MonitorLayout = (props) => {
             beginTime: dateString[0] + ":00",
             endTime: dateString[1] + ":00",
         })
-        await findMonitorForHost();
+        await findHistory();
 
     };
 
 
     async function onCheckMonitor(value) {
-
         setSearchCondition({
             hostId: localStorage.getItem("hostIdForMonitoring"),
             monitorIdList: value
         })
 
-        await findMonitorForHost();
+        await findHistory();
 
         await findInformationByGraphics();
     }
@@ -119,7 +123,7 @@ const MonitorLayout = (props) => {
             dataCate: value,
             id: localStorage.getItem("hostIdForMonitoring")
         })
-        await findMonitorForHost();
+        await findHistory();
 
         await findInformationByGraphics();
 
@@ -149,7 +153,7 @@ const MonitorLayout = (props) => {
 
         switch (value) {
             case 1:
-                checkTimeList.push(moment().subtract(5, 'minutes').format(dateFormat), moment().format(dateFormat))
+                checkTimeList.push(moment().subtract(1, 'minutes').format(dateFormat), moment().format(dateFormat))
                 await onChange(0, checkTimeList)
                 break
             case 2:
@@ -183,14 +187,29 @@ const MonitorLayout = (props) => {
         }
     }
 
-    function getSubclassName() {
-        console.log(monitorDataSubclass)
+    async function getSubclassName(value) {
+
+        setQuickFilterValue(value);
+
+        setSearchCondition({
+            dataCate: value.value,
+            id: localStorage.getItem("hostIdForMonitoring")
+        })
+        await findHistory();
+
+        await findInformationByGraphics();
+
+        //根据监控大类查询监控小类
+        const resData = await findMonitorByCategories();
+        setMonitorDataSubclass([...resData])
+
         return monitorDataSubclass.map(item => ({
             label: item.name,
             key: item.id,
             value: item.id,
         }));
     }
+
 
     return (
         <Provider>
@@ -200,53 +219,55 @@ const MonitorLayout = (props) => {
                     <div className="details-breadcrumb-table">
                         <Breadcrumb>
                             <Breadcrumb.Item onClick={goBackHome}>
-                                <span style={{cursor: "pointer"}}>Home</span>
+                                <span style={{cursor: "pointer"}}>监控</span>
                             </Breadcrumb.Item>
-                            <Breadcrumb.Item>{"主机:" + localStorage.getItem("hostName")}</Breadcrumb.Item>
-                            <Breadcrumb.Item>{"ip:" + localStorage.getItem("ip")}</Breadcrumb.Item>
+                            <Breadcrumb.Item>{localStorage.getItem("hostName")}</Breadcrumb.Item>
                         </Breadcrumb>
                         <div className="details-table-title">
                             <div className="details-search">
-                                <div className="details-div">
-                                    <Select
-                                        mode="multiple"
-                                        maxTagCount='responsive'
-                                        placeholder="请选择监控大类"
-                                        onChange={(value) => searchByDataCategories(value)}
-                                        allowClear={true}
-                                        defaultValue={dataCategories}
-                                        style={{
-                                            width: 150,
-                                        }}
-                                        options={dataCategories && dataCategories.map((province) => ({
-                                            label: province,
-                                            value: province,
-                                        }))}
+                                <div className="details-select">
+                                    <SelectSimple name="quickFilter"
+                                                  onChange={(value) => getSubclassName(value)}
+                                                  title={`监控大类`}
+                                                  ismult={false}
+                                                  value={quickFilterValue}
+                                                  suffixIcon={true}
                                     >
-                                    </Select>
+                                        {
+                                            dataCategories.map(item => {
+                                                return <SelectItem
+                                                    value={item}
+                                                    label={`${item}`}
+                                                    key={item}
+
+                                                />
+                                            })
+                                        }
+                                    </SelectSimple>
                                 </div>
 
-                                <div className="details-div">
-                                    <Select
-                                        mode="multiple"
-                                        maxTagCount='responsive'
-                                        placeholder="请选择您的监控小类"
-                                        onChange={(value) => onCheckMonitor(value)}
-                                        allowClear={true}
-                                        defaultValue={monitorNames}
-                                        style={{
-                                            width: 250,
-                                        }}
-                                        options={monitorDataSubclass && monitorDataSubclass.map((item) => ({
-                                            label: item.name,
-                                            value: item.id,
-                                        }))}
+                                <div className="details-select">
+                                    <SelectSimple name="quickFilter"
+                                                  onChange={(value) => onCheckMonitor(value)}
+                                                  title={`监控小类`}
+                                                  ismult={true}
+                                                  suffixIcon={true}
                                     >
-                                    </Select>
+                                        {
+                                            monitorDataSubclass.map(item => {
+                                                return <SelectItem
+                                                    value={item.id}
+                                                    label={`${item.name}`}
+                                                    key={item.id}
+                                                />
+                                            })
+                                        }
+                                    </SelectSimple>
+
                                 </div>
                                 <div className="details-div">
                                     <RangePicker
-                                        style={{width: 300}}
+                                        // style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
@@ -257,14 +278,14 @@ const MonitorLayout = (props) => {
                                 <div className="details-div">
                                     <Select
                                         maxTagCount='responsive'
-                                        placeholder="请选择您的具体时间区间"
+                                        placeholder="最近时间"
                                         onChange={(value) => checkTime(value)}
                                         allowClear
                                         style={{
                                             width: 150,
                                         }}
                                     >
-                                        <Option value={1} key={1}>过去5分钟</Option>
+                                        <Option value={1} key={1}>过去1分钟</Option>
                                         <Option value={2} key={2}>过去15分钟</Option>
                                         <Option value={3} key={3}>过去30分钟</Option>
                                         <Option value={4} key={4}>过去1小时</Option>
@@ -326,4 +347,4 @@ const MonitorLayout = (props) => {
     );
 };
 
-export default observer(MonitorLayout);
+export default withRouter(observer(MonitorLayout));

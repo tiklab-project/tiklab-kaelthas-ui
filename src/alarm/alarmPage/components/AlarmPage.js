@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
 import {Col, Input, Row, Select, Table, Tag} from "antd";
@@ -7,6 +7,8 @@ import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import monitorLayoutStore from "../../../monitorIng/monitoringDetails/store/MonitorLayoutStore";
 import moment from "moment/moment";
+import SelectSimple from "../../common/components/Select";
+import SelectItem from "../../common/components/SelectItem";
 
 const {Option} = Select;
 
@@ -18,14 +20,58 @@ const AlarmPage = (props) => {
         updateAlarmPage,
         setSearchCondition,
         total,
-        searchCondition
+        searchCondition,
+        setQuickFilterValue,
+        quickFilterValue
     } = alarmPageStore;
 
-    const {setNowTimeInterval,setSearchNull,getDateTime} = monitorLayoutStore;
+
+    const quickFilterList = [
+        {
+            value: "all",
+            key: "all",
+            label: "全部"
+        },
+        {
+            value: "resolved",
+            key: "resolved",
+            label: "已解决"
+        },
+        {
+            value: "unresolved",
+            key: "unresolved",
+            label: "未解决"
+        },
+    ]
 
     useEffect(async () => {
         await findAlarmPage();
     }, []);
+
+    const selectMenu = async (value) => {
+        setQuickFilterValue(value)
+        if (!value) {
+            await onSecondCityChange(null);
+        } else {
+            let data = value.value;
+            let sendData = null
+
+            switch (data) {
+                case "all":
+                    sendData = null
+                    break;
+                case "resolved":
+                    sendData = 1
+                    break;
+                case "ending":
+                    sendData = 2
+                    break;
+                default:
+                    break;
+            }
+            await onSecondCityChange(sendData);
+        }
+    }
 
     function isConfirm(status) {
         switch (status) {
@@ -123,7 +169,7 @@ const AlarmPage = (props) => {
                                                style={{cursor: "pointer"}}>{hostName}</div>
         },
         {
-            title: '主机ip',
+            title: '主机IP',
             dataIndex: 'ip',
             ellipsis: true,
             key: 'ip',
@@ -202,7 +248,7 @@ const AlarmPage = (props) => {
                 <div className="alarm-box-body">
                     <div className="alarm-box-title">
                         <div className="alarm-box-title-text">
-                            主机告警
+                            告警
                         </div>
                     </div>
                     {/*<div className="alarm-box-line">
@@ -223,22 +269,29 @@ const AlarmPage = (props) => {
                         <div style={{marginRight: 8}}>
                             <Input
                                 className="alarm-box-search-div"
-                                placeholder="根据主机名称进行查询"
+                                placeholder="主机名称"
                                 onPressEnter={(e) => checkHostName(e)}
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div>
-                            <Select
-                                placeholder="请选择监控项指标"
-                                allowClear
-                                onChange={onSecondCityChange}
-                                className="alarm-box-search-div"
-                            >
-                                <Option value={1} key={1}>已解决</Option>
-                                <Option value={2} key={2}>未解决</Option>
-                            </Select>
-                        </div>
+                        <SelectSimple name="quickFilter"
+                                      onChange={(value) => selectMenu(value)}
+                                      title={`状态`}
+                                      ismult={false}
+                                      value={quickFilterValue}
+                                      suffixIcon={true}
+                        >
+                            {
+                                quickFilterList.map(item => {
+                                    return <SelectItem
+                                        value={item.value}
+                                        label={`${item.label}`}
+                                        key={item.value}
+
+                                    />
+                                })
+                            }
+                        </SelectSimple>
                     </div>
                     <div className="alarm-box-table">
                         <Table rowKey={record => record.id}

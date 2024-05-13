@@ -47,10 +47,10 @@ const Monitoring = (props) => {
 
 
     async function hrefAlarmPage(record) {
-        /*setNullConditionByMonitoring({
+        setNullConditionByMonitoring({
             hostName: record.name,
             status: 2
-        })*/
+        })
 
         // await findAlarmPage();
 
@@ -71,7 +71,7 @@ const Monitoring = (props) => {
 
         if (record.usability === 2) {
             return <div>
-                <Tag color={"red"}>异常</Tag><span>(暂时无法连接)</span>
+                <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
         }
 
@@ -112,7 +112,7 @@ const Monitoring = (props) => {
             render: (text, record) => <span style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</span>,
         },
         {
-            title: '主机ip',
+            title: '主机IP',
             dataIndex: 'ip',
             ellipsis: true,
             key: 'ip',
@@ -203,7 +203,7 @@ const Monitoring = (props) => {
         <Row className="monitoring">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="monitoring-alarm-table">
-                    <div className="monitoring-table-title">主机监控</div>
+                    <div className="monitoring-table-title">监控</div>
                     <div className="monitoring-search">
                         <div className="monitoring-tabs">
                             {
@@ -219,7 +219,7 @@ const Monitoring = (props) => {
                             }
                         </div>
                         <div>
-                            <Input placeholder="根据主机名称进行查询"
+                            <Input placeholder="主机名称"
                                    className="monitoring-input"
                                    onPressEnter={(event) => searchByName(event)}
                                    prefix={<SearchOutlined/>}

@@ -68,7 +68,7 @@ const HistogramList = (props) => {
         }
         let color = null
         mapList.map(item => {
-            let red = checkColor(value, item.value, item.operator);
+            let red = checkColor(Number(value), Number(item.value), item.operator);
             if (red != null) {
                 color = red;
             }
@@ -150,7 +150,7 @@ const HistogramList = (props) => {
 
                             conditionList.map(item => {
                                 if (item.name === seriesName) {
-                                    const red = checkColor(value, item.value, item.operator);
+                                    const red = checkColor(Number(value), Number(item.value), item.operator);
                                     if (red != null) {
                                         problemName.push(item.problem)
                                     }

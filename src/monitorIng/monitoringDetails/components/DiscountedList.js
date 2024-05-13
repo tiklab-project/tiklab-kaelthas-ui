@@ -43,7 +43,7 @@ const DiscountedList = (props) => {
         let color = null
         if (mapList!=null){
             mapList.map(item => {
-                let red = checkColor(value, item.value, item.operator);
+                let red = checkColor(Number(value), Number(item.value), item.operator);
                 if (red != null) {
                     color = red;
                 }
@@ -56,6 +56,7 @@ const DiscountedList = (props) => {
 
         condition.map(item => {
             series.push({
+                // symbolSize: 5,
                 name: item.name,
                 type: "line",
                 data: item.data.map(function (value) {
@@ -122,7 +123,7 @@ const DiscountedList = (props) => {
 
                             conditionList.map(item => {
                                 if (item.name === seriesName) {
-                                    const red = checkColor(value, item.value, item.operator);
+                                    const red = checkColor(Number(value), Number(item.value), item.operator);
                                     if (red != null){
                                         problemName += item.problem + '<br/>'
                                     }

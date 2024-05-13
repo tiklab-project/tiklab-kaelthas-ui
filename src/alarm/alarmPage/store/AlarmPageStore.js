@@ -19,6 +19,13 @@ class AlarmPageStore {
     @observable
     total = 10;
 
+    @observable quickFilterValue = {};
+
+    @action
+    setQuickFilterValue = (value) => {
+        this.quickFilterValue = value
+    }
+
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})

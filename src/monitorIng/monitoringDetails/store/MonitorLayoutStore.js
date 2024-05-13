@@ -44,6 +44,13 @@ export class MonitorLayoutStore {
         this.hostState = value;
     }
 
+    @observable quickFilterValue = null;
+
+    @action
+    setQuickFilterValue = (value) => {
+        this.quickFilterValue = value
+    }
+
     @action
     getDateTime = () => {
         let date = new Date();
@@ -109,7 +116,7 @@ export class MonitorLayoutStore {
     }
 
     @action
-    findMonitorForHost = async () => {
+    findHistory = async () => {
         const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
         this.findInformationPage = resData.data.dataList;
         this.total = resData.data.totalRecord;
