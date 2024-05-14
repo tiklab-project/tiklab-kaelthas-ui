@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
-import {Button, Col, Drawer, Input, Modal, Row, Space, Table, Tabs} from "antd";
+import {Col, Drawer, Input, Modal, Row, Space, Table, Tabs} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
 import "../../../common/styles/_tabStyle.scss"
@@ -80,8 +80,11 @@ const Template = (props) => {
         })
 
         const resData = await findTemplateByMonitor();
-
-        setDataList([...resData])
+        if (resData === null) {
+            setDataList([])
+        } else {
+            setDataList([...resData])
+        }
     }, []);
     const deleteTemplate = async (id) => {
 
@@ -188,9 +191,10 @@ const Template = (props) => {
                 </div>
                 <div className="template-kind-options">
                     <div>
-                        <Input placeholder="请输入模板名称"
+                        <Input placeholder="模板名称"
                                className="template-kind-search"
                                onPressEnter={(event) => searchName(event)}
+                               allowClear={true}
                                prefix={<SearchOutlined/>}
                         />
                     </div>

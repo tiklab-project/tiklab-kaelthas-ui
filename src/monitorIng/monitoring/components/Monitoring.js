@@ -222,6 +222,7 @@ const Monitoring = (props) => {
                             <Input placeholder="主机名称"
                                    className="monitoring-input"
                                    onPressEnter={(event) => searchByName(event)}
+                                   allowClear={true}
                                    prefix={<SearchOutlined/>}
                             />
                         </div>

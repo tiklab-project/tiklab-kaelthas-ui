@@ -63,7 +63,7 @@ const AlarmPage = (props) => {
                 case "resolved":
                     sendData = 1
                     break;
-                case "ending":
+                case "unresolved":
                     sendData = 2
                     break;
                 default:
@@ -178,6 +178,7 @@ const AlarmPage = (props) => {
             title: '问题',
             dataIndex: 'triggerName',
             ellipsis: true,
+            width: "20%",
             key: 'triggerName',
             render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
                                                   style={{cursor: "pointer"}}>{triggerName}</div>
@@ -271,6 +272,7 @@ const AlarmPage = (props) => {
                                 className="alarm-box-search-div"
                                 placeholder="主机名称"
                                 onPressEnter={(e) => checkHostName(e)}
+                                allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
                         </div>

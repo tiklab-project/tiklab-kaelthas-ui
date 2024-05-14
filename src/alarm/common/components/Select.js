@@ -73,7 +73,7 @@ const SelectSimple = (props) => {
     const clear = () => {
         setSelectData(ismult ? [] : null)
         setSelectLength(0)
-        onChange(null)
+        onChange([])
     }
 
     const showShowDrop = () => {
@@ -147,7 +147,7 @@ const SelectSimple = (props) => {
 
         </div>
         {
-            showDropDown ? <div className="select-dropdown" ref={dropDown}>
+            showDropDown ? <div className={`select-dropdown ${ismult ? 'drop-down-display' : null}`} ref={dropDown}>
                     {
                         onSearchChange && <div className="select-search-box">
                             <input className="select-search-input" ref={inputRef} placeholder="搜索" onChange={(value) => searchInput(value)} />

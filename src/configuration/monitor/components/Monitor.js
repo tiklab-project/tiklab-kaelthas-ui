@@ -74,9 +74,10 @@ const Monitor = (props) => {
                     </div>
                     <div>
                         <Input
-                            placeholder="请输入监控项名称"
+                            placeholder="监控项名称"
                             className="monitor-kind-search"
                             onPressEnter={(event) => searchName(event)}
+                            allowClear={true}
                             prefix={<SearchOutlined />}
                         />
                     </div>

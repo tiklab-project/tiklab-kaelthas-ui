@@ -220,6 +220,7 @@ const Configuration = (props) => {
                                 placeholder="主机名称"
                                 className="box-configuration-body-search"
                                 onPressEnter={(event) => searchName(event)}
+                                allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
                         </div>

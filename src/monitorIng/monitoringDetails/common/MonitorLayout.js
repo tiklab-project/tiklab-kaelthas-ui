@@ -41,11 +41,6 @@ const MonitorLayout = (props) => {
 
     const [monitorDataSubclass, setMonitorDataSubclass] = useState([]);
 
-
-    let monitorNameList = [];
-
-    const [monitorNames, setMonitorNames] = useState(monitorNameList);
-
     useEffect(async () => {
 
         const hostId = localStorage.getItem("hostIdForMonitoring");
@@ -66,13 +61,6 @@ const MonitorLayout = (props) => {
         })
         const resData = await findMonitorByCategories();
         setMonitorDataSubclass([...resData])
-
-
-        resData.map(item => {
-            monitorNameList.push(item.id)
-        })
-
-        setMonitorNames([...monitorNameList])
 
     }, []);
 

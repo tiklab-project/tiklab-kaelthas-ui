@@ -29,9 +29,8 @@ export class TemplateStore {
     @action
     findTemplateByMonitor = async () =>{
         const resData = await Service("/template/findTemplate",this.searchCondition);
-
-        this.total = resData.data.totalRecord
-        return resData.data.dataList;
+        this.total = resData.data?.totalRecord
+        return resData.data?.dataList;
     }
 
     //查询所有模板

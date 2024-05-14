@@ -39,7 +39,8 @@ const Trigger = (props) => {
                         <Input
                             onPressEnter={(event) => searchName(event)}
                             className="trigger-kind-search"
-                            placeholder="请输入触发器名称"
+                            placeholder="触发器名称"
+                            allowClear={true}
                             prefix={<SearchOutlined/>}
                         />
                     </div>
