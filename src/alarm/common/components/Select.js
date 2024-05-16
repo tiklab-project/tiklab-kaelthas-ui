@@ -147,7 +147,7 @@ const SelectSimple = (props) => {
 
         </div>
         {
-            showDropDown ? <div className={`select-dropdown ${ismult ? 'drop-down-display' : null}`} ref={dropDown}>
+            showDropDown ? <div className={`select-dropdown`} ref={dropDown}>
                     {
                         onSearchChange && <div className="select-search-box">
                             <input className="select-search-input" ref={inputRef} placeholder="搜索" onChange={(value) => searchInput(value)} />

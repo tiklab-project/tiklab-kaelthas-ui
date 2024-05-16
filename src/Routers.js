@@ -19,23 +19,22 @@ import {SystemFeature, ProjectFeature, SystemRole, ProjectRole} from "thoughtwar
 import {Orga,User,UserGroup,Directory} from "thoughtware-user-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
 
-const Configuration = AsyncComponent(() => import( "./configuration/configurationPage/components/Configuration"))
-const Host = AsyncComponent(() => import( "./configuration/common/components/HostLayout"))
-const LeftMenu = AsyncComponent(() => import( "./configuration/common/components/LeftMenu"))
-const Monitor = AsyncComponent(() => import( "./configuration/monitor/components/Monitor"))
-const Trigger = AsyncComponent(() => import( "./configuration/trigger/components/Trigger"))
-const Template = AsyncComponent(() => import( "./configuration/template/components/Template"))
-const Setting = AsyncComponent(() => import( "./configuration/setting/common/SettingLayout"))
-const Graphics = AsyncComponent(() => import( "./configuration/graphics/components/Graphics"))
+const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
+const Host = AsyncComponent(() => import( "./host/common/components/HostLayout"))
+const Monitor = AsyncComponent(() => import( "./host/monitor/components/Monitor"))
+const Trigger = AsyncComponent(() => import( "./host/trigger/components/Trigger"))
+const Template = AsyncComponent(() => import( "./host/template/components/Template"))
+const Setting = AsyncComponent(() => import( "./host/setting/common/SettingLayout"))
+const Graphics = AsyncComponent(() => import( "./host/graphics/components/Graphics"))
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Index = AsyncComponent(() => import('./home/common/HomeLayout'))
-const HostDetails = AsyncComponent(() => import('./configuration/host/components/Host'))
-const HostDynamic = AsyncComponent(() => import('./configuration/host/components/HostDynamic'))
-const ProjectInformation = AsyncComponent(() => import('./configuration/setting/projectInformation/components/ProjectInformation'))
-const Member = AsyncComponent(() => import('./configuration/setting/member/Member'))
-const Permissions = AsyncComponent(() => import('./configuration/setting/permissions/Permissions'))
+const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostOverview'))
+const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
+const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
+const Member = AsyncComponent(() => import('./host/setting/member/Member'))
+const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
 const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
 const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
@@ -44,10 +43,13 @@ const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/componen
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
 const MonitoringDetails = AsyncComponent(() => import('./monitorIng/monitoringDetails/components/MonitoringDetails'))
 const AlarmLayout = AsyncComponent(() => import('./alarm/common/components/AlarmLayout'))
-const alarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
-const AddHost = AsyncComponent(() => import('./configuration/configurationPage/components/AddHost'))
+const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
+const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'))
 const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
 const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
+
+const HostConfiguration = AsyncComponent(() => import('./host/configuration/common/Configuration'))
+const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
 
 
 const Routes = [
@@ -123,24 +125,46 @@ const Routes = [
                         component: HostDynamic,
                     },
                     {
-                        path: "/hostList/:id/monitor",
+                        path: "/hostList/:id/configuration",
                         exact: false,
-                        component: Monitor,
+                        component: HostConfiguration,
+                        routes: [
+                            {
+                                path: "/hostList/:id/configuration/monitor",
+                                exact: false,
+                                component: Monitor,
+                            },
+                            {
+                                path: "/hostList/:id/configuration/trigger",
+                                exact: false,
+                                component: Trigger,
+                            },
+                            {
+                                path: "/hostList/:id/configuration/template",
+                                exact: false,
+                                component: Template,
+                            },
+                            {
+                                path: "/hostList/:id/configuration/graphics",
+                                exact: false,
+                                component: Graphics,
+                            },
+                        ]
                     },
                     {
-                        path: "/hostList/:id/trigger",
-                        exact: false,
-                        component: Trigger,
+                        path: "/hostList/:id/monitoring",
+                        component: MonitoringLayout,
+                        routes: [
+                            {
+                                path: "/hostList/:id/monitoringDetails",
+                                component: MonitoringDetails,
+                            },
+                        ]
                     },
                     {
-                        path: "/hostList/:id/template",
+                        path: "/hostList/:id/hostAlarm",
                         exact: false,
-                        component: Template,
-                    },
-                    {
-                        path: "/hostList/:id/graphics",
-                        exact: false,
-                        component: Graphics,
+                        component: HostAlarm,
                     },
                     {
                         path: "/hostList/:id",
@@ -168,7 +192,7 @@ const Routes = [
                     },
                 ]
             },
-            {
+            /*{
                 path: "/monitoring",
                 exact: false,
                 component: Monitoring
@@ -182,11 +206,11 @@ const Routes = [
                         component: MonitoringDetails,
                     },
                 ]
-            },
+            },*/
             {
                 path: "/alarm",
                 exact: false,
-                component: alarmPage,
+                component: AlarmPage,
             },
             {
                 path: "/alarmLayout",

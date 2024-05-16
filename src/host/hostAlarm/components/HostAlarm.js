@@ -1,27 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
-import "./AlarmPage.scss"
+import "./HostAlarm.scss"
 import {Col, Input, Row, Select, Table, Tag} from "antd";
-import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
-import SelectSimple from "../../common/components/Select";
-import SelectItem from "../../common/components/SelectItem";
+import SelectItem from "../../../alarm/common/components/SelectItem";
+import SelectSimple from "../../../alarm/common/components/Select";
+import hostAlarmStore from "../sotre/HostAlarmStore";
 
 const {Option} = Select;
 
-const AlarmPage = (props) => {
+const HostAlarm = (props) => {
 
     const {
         alarmPage,
-        findAlarmPage,
+        findAlarmPageByHostId,
         updateAlarmPage,
         setSearchCondition,
         total,
         searchCondition,
         setQuickFilterValue,
         quickFilterValue
-    } = alarmPageStore;
+    } = hostAlarmStore;
 
 
     const quickFilterList = [
@@ -43,7 +43,10 @@ const AlarmPage = (props) => {
     ]
 
     useEffect(async () => {
-        await findAlarmPage();
+        setSearchCondition({
+            hostId:localStorage.getItem("hostId")
+        })
+        await findAlarmPageByHostId();
     }, []);
 
     const selectMenu = async (value) => {
@@ -91,7 +94,7 @@ const AlarmPage = (props) => {
             status: 1
         });
 
-        await findAlarmPage();
+        await findAlarmPageByHostId();
     }
 
     async function jumpToMonitor(record) {
@@ -99,15 +102,6 @@ const AlarmPage = (props) => {
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
         sessionStorage.setItem("menuKey", "monitoring")
-
-        // setNowTimeInterval([moment(record.alertTime).subtract(2, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).subtract(-2, 'minutes').format("YYYY-MM-DD HH:mm:ss")]);
-
-        /*setSearchNull({
-            hostId: record.hostId,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1],
-            triggerId:record.triggerId
-        })*/
 
         props.history.push(`/hostList/${record.hostId}/monitoring`)
     }
@@ -118,27 +112,27 @@ const AlarmPage = (props) => {
         let tagName;
 
         switch (severityLevel) {
-            case "1":
+            case 1:
                 tagColor = "red";
                 tagName = "灾难";
                 break;
-            case "2":
+            case 2:
                 tagColor = "#e97659";
                 tagName = "严重";
                 break;
-            case "3":
+            case 3:
                 tagColor = "orange";
                 tagName = "一般严重";
                 break;
-            case "4":
+            case 4:
                 tagColor = "yellow";
                 tagName = "告警";
                 break;
-            case "5":
+            case 5:
                 tagColor = "blue";
                 tagName = "信息";
                 break;
-            case "6":
+            case 6:
                 tagColor = "grey";
                 tagName = "未分类";
                 break;
@@ -148,32 +142,43 @@ const AlarmPage = (props) => {
         </Tag>
     }
 
+    function hrefTrigger(record) {
+        localStorage.setItem('hostId', record.hostId);
+        localStorage.setItem("url", `/hostList/${record.hostId}/trigger`)
+
+        sessionStorage.setItem("menuKey", "configuration")
+        props.history.push(`/hostList/${record.hostId}/trigger`);
+    }
+
     const columns = [
         {
             title: '主机名称',
             dataIndex: 'hostName',
+            ellipsis: true,
+            // width: "20%",
             key: 'hostName',
             render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
-                                               style={{cursor: "pointer"}}>{hostName}</div>
+                                               style={{cursor: "pointer"}}>{record?.host?.name}</div>
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
             ellipsis: true,
             key: 'ip',
+            render:(ip,record) => <div>{record?.host?.ip}</div>
         },
         {
             title: '问题',
             dataIndex: 'triggerName',
             key: 'triggerName',
             render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
-                                                  style={{cursor: "pointer"}}>{triggerName}</div>
+                                                  style={{cursor: "pointer"}}>{record?.trigger?.describe}</div>
         },
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
+            render: (severityLevel,record) => <div>{conversionType(record?.trigger?.severityLevel)}</div>
         },
         {
             title: '告警时间',
@@ -205,12 +210,12 @@ const AlarmPage = (props) => {
         },
     ];
 
-    async function checkHostName(e) {
+    /*async function checkHostName(e) {
         setSearchCondition({
             hostName: e.target.value
         })
-        await findAlarmPage();
-    }
+        await findAlarmPageByHostId();
+    }*/
 
     async function checkPage(pagination) {
         setSearchCondition({
@@ -219,14 +224,14 @@ const AlarmPage = (props) => {
                 currentPage: pagination.current,
             }
         })
-        await findAlarmPage();
+        await findAlarmPageByHostId();
     }
 
     async function onSecondCityChange(value) {
         setSearchCondition({
             status: value
         })
-        await findAlarmPage();
+        await findAlarmPageByHostId();
     }
 
     return (
@@ -253,7 +258,7 @@ const AlarmPage = (props) => {
                         </div>
                     </div>*/}
                     <div className="alarm-box-search">
-                        <div style={{marginRight: 8}}>
+                        {/*<div style={{marginRight: 8}}>
                             <Input
                                 className="alarm-box-search-div"
                                 placeholder="主机名称"
@@ -261,7 +266,7 @@ const AlarmPage = (props) => {
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
-                        </div>
+                        </div>*/}
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectMenu(value)}
                                       title={`状态`}
@@ -305,4 +310,4 @@ const AlarmPage = (props) => {
     );
 };
 
-export default withRouter(observer(AlarmPage));
+export default withRouter(observer(HostAlarm));

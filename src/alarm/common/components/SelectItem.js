@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./SelectItem.scss"
 const SelectItem = (props) => {
-    const { value, label, key, imgUrl, onChange, selectData, ismult, setShowDropDown,option, children } = props;
+    const {value, label, key, imgUrl, onChange, selectData, ismult, setShowDropDown, option, children} = props;
     const [checked, setChecked] = useState()
     const selectCheck = useRef()
     const getValue = (e) => {
@@ -11,7 +11,7 @@ const SelectItem = (props) => {
             onChange(e.target)
             setChecked(selectData.includes(value))
         } else {
-            onChange({ label: label, value: value }, option)
+            onChange({label: label, value: value}, option)
             setShowDropDown(false)
         }
 
@@ -25,7 +25,7 @@ const SelectItem = (props) => {
             onChange(selectCheck.current)
             setChecked(selectData.includes(value))
         } else {
-            onChange({ label: label, value: value }, option)
+            onChange({label: label, value: value}, option)
             setShowDropDown(false)
         }
 
@@ -37,7 +37,7 @@ const SelectItem = (props) => {
 
     }, [selectData])
     return (
-        <div key={key} className={`select-item`} onClick={(e) => changeCheck(e)}>
+        <div key={key} className={`select-item ${selectData?.value === value ? 'select-selected':''}`} onClick={(e) => changeCheck(e)}>
             {
                 ismult ? <input type="checkbox"
                                 id="select-check"
@@ -48,7 +48,7 @@ const SelectItem = (props) => {
                                 checked={checked}
                     />
                     :
-                    <input type="radio"
+                    /*<input type="radio"
                            id="select-check"
                            ref={selectCheck}
                            value={value}
@@ -57,10 +57,17 @@ const SelectItem = (props) => {
                            onChange={(e) => getValue(e)}
                            defaultChecked={selectData?.value === value ? true : false}
 
-                    />
+                    />*/
+                    <div id="select-check"
+                         ref={selectCheck}
+                         className={`select-input`}
+                         onClick={(e) => getValue(e)}
+                         onChange={(e) => getValue(e)}
+                         defaultChecked={selectData?.value === value ? true : false}
+                    ></div>
 
             }
-            {imgUrl && <img className="img-icon-right" src={`${imgUrl}`} width="15" height="15" />}
+            {imgUrl && <img className="img-icon-right" src={`${imgUrl}`} width="15" height="15"/>}
             <div className="select-item-text">{label}</div>
 
         </div>

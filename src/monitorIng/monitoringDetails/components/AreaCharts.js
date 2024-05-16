@@ -205,7 +205,9 @@ const AreaCharts = (props) => {
                 series: series
             };
 
-
+            if (myChart) {
+                myChart.clear()
+            }
             myChart.setOption(option);
         }
     }

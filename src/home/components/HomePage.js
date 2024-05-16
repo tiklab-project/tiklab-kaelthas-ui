@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import computerPng from "../../assets/image/dataComputer.png"
 
 import "./HomePage.scss";
-import "../../configuration/configurationPage/components/Configuration";
+import "../../host/hostPage/components/Host";
 import {connect} from "thoughtware-plugin-core-ui";
 import {UserVerify} from "thoughtware-eam-ui";
 import {Col, Image, Layout, Row, Table} from "antd";
@@ -39,7 +39,7 @@ const HomePage = (props) => {
                     <div className="home-content">
                         <div className="home-content-title">
                             <div className="home-content-title-text">
-                                常用主机列表
+                                常用主机
                             </div>
                         </div>
                         <div className="home-content-detail">
@@ -71,9 +71,9 @@ const HomePage = (props) => {
                             }
                         </div>
                     </div>
-                    {/*<div className="home-alarm-table">
+                    {/*<div className="home-hostAlarm-table">
                         <div className="home-table-title">告警信息</div>
-                        <div className="home-alarm-table-list">
+                        <div className="home-hostAlarm-table-list">
                             <Table rowKey={record => record.id}
                                    columns={columns}
                                    dataSource={alarmPage}

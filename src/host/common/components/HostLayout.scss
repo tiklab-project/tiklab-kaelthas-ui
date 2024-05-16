@@ -1,0 +1,15 @@
+.host-layout{
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+
+  .prodetail-row {
+    height: 100%;
+  }
+}
+
+.prodetail-content{
+  height: 100%;
+  background: #fff;
+
+}

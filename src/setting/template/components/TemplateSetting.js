@@ -4,7 +4,7 @@ import {Col, Form, Input, Modal, Row, Space, Table, Tabs} from "antd";
 import "./TemplateSetting.scss"
 import TemplateSettingAdd from "./TemplateSettingAdd";
 import templateSettingStore from "../store/TemplateSettingStore";
-import templateStore from "../../../configuration/template/store/TemplateStore";
+import templateStore from "../../../host/template/store/TemplateStore";
 import TemplateSettingUpdate from "./TemplateSettingUpdate";
 import TemplateSettingMonitorList from "./TemplateSettingMonitorList";
 

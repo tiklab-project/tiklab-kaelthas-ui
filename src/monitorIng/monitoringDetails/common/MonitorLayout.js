@@ -43,7 +43,7 @@ const MonitorLayout = (props) => {
 
     useEffect(async () => {
 
-        const hostId = localStorage.getItem("hostIdForMonitoring");
+        const hostId = localStorage.getItem("hostId");
 
         setSearchNull({
             hostId: hostId,
@@ -69,6 +69,10 @@ const MonitorLayout = (props) => {
 
         if (activeKey === "2") {
             //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
+            setSearchCondition({
+                beginTime: getDateTime()[0],
+                endTime: getDateTime()[1]
+            })
             await findInformationByGraphics()
         }
 
@@ -76,8 +80,6 @@ const MonitorLayout = (props) => {
 
     const onChange = async (value, dateString) => {
 
-        console.log(value)
-        console.log(dateString[0])
         setSearchCondition({
             beginTime: dateString[0] + ":00",
             endTime: dateString[1] + ":00",
@@ -96,7 +98,7 @@ const MonitorLayout = (props) => {
 
     async function onCheckMonitor(value) {
         setSearchCondition({
-            hostId: localStorage.getItem("hostIdForMonitoring"),
+            hostId: localStorage.getItem("hostId"),
             monitorIdList: value
         })
 
@@ -109,7 +111,7 @@ const MonitorLayout = (props) => {
 
         setSearchCondition({
             dataCate: value,
-            id: localStorage.getItem("hostIdForMonitoring")
+            id: localStorage.getItem("hostId")
         })
         await findHistory();
 
@@ -172,6 +174,14 @@ const MonitorLayout = (props) => {
                 checkTimeList.push(moment().subtract(24, 'hours').format(dateFormat), moment().format(dateFormat))
                 await onChange(0, checkTimeList)
                 break
+            case 9:
+                setSearchCondition({
+                    beginTime: getDateTime()[0],
+                    endTime: getDateTime()[1],
+                })
+                await findInformationByGraphics();
+                await findHistory();
+                break
         }
     }
 
@@ -179,10 +189,18 @@ const MonitorLayout = (props) => {
 
         setQuickFilterValue(value);
 
-        setSearchCondition({
-            dataCate: value.value,
-            id: localStorage.getItem("hostIdForMonitoring")
-        })
+        if (value === null){
+            setSearchCondition({
+                dataCate: null,
+                id: localStorage.getItem("hostId")
+            })
+        }else {
+            setSearchCondition({
+                dataCate: value?.value,
+                id: localStorage.getItem("hostId")
+            })
+        }
+
         await findHistory();
 
         await findInformationByGraphics();
@@ -206,10 +224,10 @@ const MonitorLayout = (props) => {
                      xxl={{span: "18", offset: "3"}}>
                     <div className="details-breadcrumb-table">
                         <Breadcrumb>
-                            <Breadcrumb.Item onClick={goBackHome}>
+                            {/*<Breadcrumb.Item onClick={goBackHome}>
                                 <span style={{cursor: "pointer"}}>监控</span>
-                            </Breadcrumb.Item>
-                            <Breadcrumb.Item>{localStorage.getItem("hostName")}</Breadcrumb.Item>
+                            </Breadcrumb.Item>*/}
+                            <Breadcrumb.Item>主机:{localStorage.getItem("hostName")}</Breadcrumb.Item>
                         </Breadcrumb>
                         <div className="details-table-title">
                             <div className="details-search">
@@ -272,7 +290,10 @@ const MonitorLayout = (props) => {
                                         style={{
                                             width: 150,
                                         }}
+                                        defaultValue={9}
+                                        onClear={() => checkTime(9)}
                                     >
+                                        <Option value={9} key={9}>今天</Option>
                                         <Option value={1} key={1}>过去1分钟</Option>
                                         <Option value={2} key={2}>过去15分钟</Option>
                                         <Option value={3} key={3}>过去30分钟</Option>

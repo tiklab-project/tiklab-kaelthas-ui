@@ -52,9 +52,7 @@ const Monitoring = (props) => {
             status: 2
         })
 
-        // await findAlarmPage();
-
-        sessionStorage.setItem("menuKey", "alarm")
+        sessionStorage.setItem("menuKey", "hostAlarm")
         props.history.push(`/alarm`);
     }
 

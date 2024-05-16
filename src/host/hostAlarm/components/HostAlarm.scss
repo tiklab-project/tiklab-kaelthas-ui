@@ -1,5 +1,6 @@
 .alarm-box {
-  height: 100%;
+  height: calc(100% - 48px);;
+  flex: 1;
   background: #fff;
   overflow: auto;
 

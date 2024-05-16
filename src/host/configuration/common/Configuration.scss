@@ -1,0 +1,84 @@
+.host-layout{
+  display: flex;
+  height: calc(100vh - 48px);
+  flex-direction: row;
+
+  .prodetail-row {
+    height: calc(100vh - 48px);
+
+
+    .design{
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .design-up{
+      position: sticky;
+      top: 0;
+      left: 0;
+      background: #ffffff;
+      border-bottom: 1px solid #d9d9d9;
+      z-index: 9;
+      min-width: 768px;
+
+      .design-top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 48px;
+        padding: var(--thoughtware-padding-item) var(--thoughtware-padding-item) 0;
+
+        .configuration-title{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 16px;
+          font-weight: var(--thoughtware-font-weight-bold);
+        }
+      }
+
+      .design-tabs{
+        display: flex;
+        padding: 0 var(--thoughtware-padding-item);
+        height: 40px;
+        line-height: 40px;
+        overflow: hidden;
+        width: 100%;
+
+        .design-tab{
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          &:not(:last-child){
+            margin-right: 30px;
+          }
+          .design-tab-icon{
+            padding-right: 2px;
+          }
+        }
+        .design-active{
+          color: var(--thoughtware-blue);
+          border-bottom: 2px solid var(--thoughtware-blue);
+        }
+
+        .design-tab-title{
+          display: flex;
+          align-items: center;
+
+          .leftMenu-svg-icon{
+            display: flex;
+          }
+        }
+      }
+
+    }
+
+  }
+}
+
+.prodetail-content{
+  height: 100%;
+  background: #fff;
+
+}

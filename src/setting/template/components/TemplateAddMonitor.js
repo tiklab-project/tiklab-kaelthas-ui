@@ -1,7 +1,7 @@
 import {Button, Modal, Form, Input, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../../../configuration/monitor/store/MonitorStore";
-import templateStore from "../../../configuration/template/store/TemplateStore";
+import monitorStore from "../../../host/monitor/store/MonitorStore";
+import templateStore from "../../../host/template/store/TemplateStore";
 import {withRouter} from "react-router";
 import templateSettingStore from "../store/TemplateSettingStore";
 

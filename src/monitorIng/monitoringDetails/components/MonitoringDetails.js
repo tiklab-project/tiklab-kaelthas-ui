@@ -43,7 +43,7 @@ const MonitoringDetails = (props) => {
         searchCondition,
         setSearchNull,
         findInformationByLine,
-        findAllMonitor,
+        getDateTime,
     } = monitorLayoutStore;
 
     const {findInformationPage, total} = props;
@@ -60,22 +60,23 @@ const MonitoringDetails = (props) => {
 
 
     async function showGraphics(record) {
-        console.log(record)
 
         setIsModalOpen(true);
 
-        const monitors = await findAllMonitor()
+        // const monitors = await findAllMonitor()
 
         //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
         setSearchNull({
-            hostId: localStorage.getItem("hostIdForMonitoring"),
+            hostId: localStorage.getItem("hostId"),
             monitorId: record.monitorId,
-            source: monitors[0].monitorSource
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1]
+            // source: monitors[0].monitorSource
         })
 
         const resData = await findInformationByLine();
         setSearchNull({
-            hostId: localStorage.getItem("hostIdForMonitoring"),
+            hostId: localStorage.getItem("hostId"),
             monitorId: null,
             source: null
         })
