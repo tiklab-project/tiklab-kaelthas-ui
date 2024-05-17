@@ -43,8 +43,14 @@ const HostAlarm = (props) => {
     ]
 
     useEffect(async () => {
+        setQuickFilterValue({
+            label:"全部",
+            value:"all"
+        })
+
         setSearchCondition({
-            hostId:localStorage.getItem("hostId")
+            hostId:localStorage.getItem("hostId"),
+            status:null
         })
         await findAlarmPageByHostId();
     }, []);
@@ -97,15 +103,6 @@ const HostAlarm = (props) => {
         await findAlarmPageByHostId();
     }
 
-    async function jumpToMonitor(record) {
-        localStorage.setItem("hostId", record.hostId);
-        localStorage.setItem("hostName", record.hostName)
-        localStorage.setItem("ip", record.ip)
-        sessionStorage.setItem("menuKey", "monitoring")
-
-        props.history.push(`/hostList/${record.hostId}/monitoring`)
-    }
-
     function conversionType(severityLevel) {
 
         let tagColor;
@@ -142,14 +139,6 @@ const HostAlarm = (props) => {
         </Tag>
     }
 
-    function hrefTrigger(record) {
-        localStorage.setItem('hostId', record.hostId);
-        localStorage.setItem("url", `/hostList/${record.hostId}/trigger`)
-
-        sessionStorage.setItem("menuKey", "configuration")
-        props.history.push(`/hostList/${record.hostId}/trigger`);
-    }
-
     const columns = [
         {
             title: '主机名称',
@@ -157,8 +146,7 @@ const HostAlarm = (props) => {
             ellipsis: true,
             // width: "20%",
             key: 'hostName',
-            render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
-                                               style={{cursor: "pointer"}}>{record?.host?.name}</div>
+            render: (hostName, record) => <div>{record?.host?.name}</div>
         },
         {
             title: '主机IP',
@@ -171,8 +159,7 @@ const HostAlarm = (props) => {
             title: '问题',
             dataIndex: 'triggerName',
             key: 'triggerName',
-            render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
-                                                  style={{cursor: "pointer"}}>{record?.trigger?.describe}</div>
+            render: (triggerName, record) => <div>{record?.trigger?.describe}</div>
         },
         {
             title: '告警等级',
@@ -209,13 +196,6 @@ const HostAlarm = (props) => {
             }
         },
     ];
-
-    /*async function checkHostName(e) {
-        setSearchCondition({
-            hostName: e.target.value
-        })
-        await findAlarmPageByHostId();
-    }*/
 
     async function checkPage(pagination) {
         setSearchCondition({
@@ -258,15 +238,6 @@ const HostAlarm = (props) => {
                         </div>
                     </div>*/}
                     <div className="alarm-box-search">
-                        {/*<div style={{marginRight: 8}}>
-                            <Input
-                                className="alarm-box-search-div"
-                                placeholder="主机名称"
-                                onPressEnter={(e) => checkHostName(e)}
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>*/}
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectMenu(value)}
                                       title={`状态`}

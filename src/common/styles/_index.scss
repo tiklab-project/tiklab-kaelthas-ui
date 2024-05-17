@@ -23,7 +23,7 @@
 }
 
 .span-botton {
-
+    white-space: nowrap;
     cursor: pointer;
 }
 .span-botton:hover {
@@ -41,9 +41,10 @@
 }
 .ant-table-thead>tr>th {
     background: #fff;
-    font-weight: 400;
+    font-weight: 600;
     padding: 8px;
-
+    color: #666;
+    font-size: 12px;
 }
 .ant-table table {
     border-bottom: 1px solid #f0f0f0;
@@ -64,7 +65,10 @@
     padding: 0;
 }
 .ant-table-tbody>tr.ant-table-row:hover>td {
-    background: #EDF0F5;
+    background: none;
+}
+.ant-table-tbody>tr.ant-table-row:hover {
+    background: #edf0f5;
 }
 
 .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -78,7 +82,7 @@
     color: var(--thoughtware-blue);
 }
 .ant-modal-title {
-	font-weight: 600;
+    font-weight: 600;
 }
 
 .ant-modal-header {
@@ -124,12 +128,29 @@
         padding: 0 24px;
     }
 }
+.ant-modal-confirm {
+    .ant-modal-body {
+        padding: 32px 32px 24px;
+    }
+}
 .ant-form-item {
-    margin: 0 0 15px;
+    margin: 0 0 20px;
 }
 .ant-form-item-explain {
     font-size: 13px;
 }
+
+.ant-form-item-label {
+    font-size: 12px;
+    font-weight: 600;
+
+}
+
+.ant-form-item-label>label {
+    color: #666;
+    font-size: 12px;
+}
+
 .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):after {
     display: inline-block;
     margin-right: 4px;

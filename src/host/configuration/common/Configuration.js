@@ -51,7 +51,6 @@ const Configuration = (props) => {
 
     return (
         <div className="host-layout">
-
             <Layout className="prodetail-content">
                 <Row justify="start" className="prodetail-row">
                     <Col xs={{ span: 24 }} lg={{ span: 24 }}>
@@ -60,26 +59,6 @@ const Configuration = (props) => {
                                 <div className="configuration-title">配置</div>
                             </div>
                             <div className="design-tabs">
-                                {/*{
-                                    typeLis.map(item=>{
-                                        return(
-                                            <div key={item.id}
-                                                 className={`design-tab ${path===item.id?"design-active":""}`}
-                                                 onClick={()=>props.history.push(item.id)}
-                                            >
-                                                <div className="design-tab-icon">{item.icon}</div>
-                                                <div className="design-tab-title">
-                                                    {item.title}
-                                                    {
-                                                        item?.long &&
-                                                        <span>({item.long})</span>
-                                                    }
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }*/}
-
                                 {
                                     configurationList.map(item =>{
                                         return(

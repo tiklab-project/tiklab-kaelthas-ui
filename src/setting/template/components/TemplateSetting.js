@@ -13,9 +13,7 @@ const TemplateSetting = (props) => {
     const {
         findTemplatePage,
         setSearchCondition,
-        createTemplate,
         deleteTemplate,
-        deleteMonitorById,
         findTemplateMonitorByTemplateId,
         total
     } = templateSettingStore;
@@ -181,7 +179,6 @@ const TemplateSetting = (props) => {
                         </div>
                     </Col>
                 </div>
-
             </Row>
             <TemplateSettingUpdate
                 isOpen={isOpen} setIsOpen={setIsOpen} form={form}

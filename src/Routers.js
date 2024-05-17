@@ -37,7 +37,7 @@ const Member = AsyncComponent(() => import('./host/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
 const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
-const GlobalSettingsHostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
+const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
 const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
 const MonitoringLayout = AsyncComponent(() => import('./monitorIng/monitoringDetails/common/MonitorLayout'))
@@ -230,7 +230,7 @@ const Routes = [
                     },
                     {
                         path: "/setting/hostGroup",
-                        component: GlobalSettingsHostGroup
+                        component: HostGroup
                     },
                     {
                         path: "/setting/monitorItem",
@@ -376,10 +376,6 @@ const Routes = [
                         key: 'productAuth',
                         render: () => <ProductAuth bgroup={"xmonitor"}/>
                     },
-
-
-
-
 
                     {
                         path: "/setting/syr/feature",

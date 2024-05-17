@@ -43,6 +43,10 @@ const AlarmPage = (props) => {
     ]
 
     useEffect(async () => {
+        setQuickFilterValue({
+            label:"全部",
+            value:"all"
+        })
         await findAlarmPage();
     }, []);
 

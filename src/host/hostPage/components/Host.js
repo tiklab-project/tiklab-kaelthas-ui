@@ -40,12 +40,12 @@ const Host = (props) => {
         localStorage.setItem('hostId', record.id);
         localStorage.setItem("hostName", record.name);
         localStorage.setItem("url", `/hostList/${record.id}/monitoring`)
-        //添加到临时表当中
+        props.history.push(`/hostList/${record.id}/monitoring`);
 
+        //添加到临时表当中
         await createHostRecent({
             hostId: record.id
         })
-        props.history.push(`/hostList/${record.id}/monitoring`);
     }
 
     function converType(record) {
@@ -182,7 +182,7 @@ const Host = (props) => {
                 <div className="box-configuration-body-item">
                     <div className="box-configuration-body--title">
                         <div className="box-configuration-title-left">
-                            配置
+                            主机
                         </div>
                         <div className="box-configuration-title-right" onClick={() => hrefAddHost()}>
                             新建主机

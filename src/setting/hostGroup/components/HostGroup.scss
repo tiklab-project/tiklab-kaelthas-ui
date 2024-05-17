@@ -1,0 +1,64 @@
+.host-group {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 20px 30px;
+  overflow: auto;
+
+
+  .host-group-col {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+
+
+    .host-group-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-weight: var(--thoughtware-font-weight-bold);
+      font-size: var(--thoughtware-font-16);
+      padding-bottom: var(--thoughtware-padding-item);
+
+
+      .host-group-title {
+        display: flex;
+
+      }
+
+      .host-group-add {
+        display: inline-block;
+        font-weight: 400;
+        white-space: nowrap;
+        text-align: center;
+        cursor: pointer;
+        padding: 4px 15px;
+        font-size: 14px;
+        border-radius: 4px;
+        color: rgba(0, 0, 0, .85);
+        background: #0d66e4;
+        border-color: #0d66e4;
+        color: #fff;
+
+      }
+
+    }
+
+    .host-group-search {
+      display: flex;
+      padding-bottom: 15px;
+      justify-content: start;
+
+      .host-group-search-input {
+        width: 240px;
+      }
+
+    }
+
+    .host-group-table {
+
+    }
+  }
+
+}

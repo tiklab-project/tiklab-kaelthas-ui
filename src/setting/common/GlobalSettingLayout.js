@@ -1,20 +1,14 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import "./GlobalSettingLayout.scss"
-import {AppstoreAddOutlined, BuildOutlined, LayoutOutlined, MergeCellsOutlined, SoundOutlined} from "@ant-design/icons";
-import SystemContent from "./SettingContent";
-import {ProjectFeature, ProjectRole, SystemFeature} from "thoughtware-privilege-ui";
 import {
-    MessageNotice,
-    MessageSendType,
-    MessageType,
-    MyTodoTask, ProjectMessageNotice,
-    Task,
-    TodoTemp,
-    TodoType
-} from "thoughtware-message-ui";
-import {LogTemplate, LogType} from "thoughtware-security-ui";
-import {UserGroup} from "thoughtware-user-ui";
+    AppstoreAddOutlined,
+    BuildOutlined, GroupOutlined,
+    LayoutOutlined,
+    MergeCellsOutlined,
+    SoundOutlined
+} from "@ant-design/icons";
+import SystemContent from "./SettingContent";
 
 const GlobalSettingLayout = (props) => {
 
@@ -65,6 +59,11 @@ const GlobalSettingLayout = (props) => {
             title: '模板配置',
             id: `/setting/template`,
             icon: <BuildOutlined />,
+        },
+        {
+            title: '主机组',
+            id: `/setting/hostGroup`,
+            icon: <GroupOutlined />,
         },
         {
             title: "插件",
