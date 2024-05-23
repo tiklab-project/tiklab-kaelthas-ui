@@ -102,7 +102,8 @@ const AlarmPage = (props) => {
         localStorage.setItem("hostId", record.hostId);
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
-        sessionStorage.setItem("menuKey", "monitoring")
+        sessionStorage.setItem("menuKey", "configuration")
+        localStorage.setItem("url", `/hostList/${record?.hostId}/monitoring`)
 
         // setNowTimeInterval([moment(record.alertTime).subtract(2, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).subtract(-2, 'minutes').format("YYYY-MM-DD HH:mm:ss")]);
 
