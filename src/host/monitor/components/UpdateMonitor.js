@@ -31,7 +31,7 @@ const UpdateMonitor = (props) => {
                 monitorItemId: res.expression,
                 intervalTime: res.intervalTime,
                 dataRetentionTime: res.dataRetentionTime,
-                monitorSource: columnData.monitorSource,
+                source: columnData.source,
                 monitorStatus: res.monitorStatus
             });
             const resData = await findMonitorCondition();

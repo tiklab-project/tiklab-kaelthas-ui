@@ -7,6 +7,7 @@ import templateSettingStore from "../store/TemplateSettingStore";
 import templateStore from "../../../host/template/store/TemplateStore";
 import TemplateSettingUpdate from "./TemplateSettingUpdate";
 import TemplateSettingMonitorList from "./TemplateSettingMonitorList";
+import {observer} from "mobx-react";
 
 const TemplateSetting = (props) => {
 
@@ -14,8 +15,10 @@ const TemplateSetting = (props) => {
         findTemplatePage,
         setSearchCondition,
         deleteTemplate,
-        findTemplateMonitorByTemplateId,
-        total
+        findMonitorByTemplateId,
+        total,
+        setMonitorSearchCondition, templateList
+
     } = templateSettingStore;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,16 +29,10 @@ const TemplateSetting = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const [monitorList, setMonitorList] = useState([]);
-
     const [form] = Form.useForm();
 
     useEffect(async () => {
-
-        const templatePage = await findTemplatePage();
-
-        setDataList([...templatePage.dataList])
-
+        await findTemplatePage();
     }, []);
 
     const searchName = async (event) => {
@@ -43,9 +40,7 @@ const TemplateSetting = (props) => {
 
         await setSearchCondition({name: name});
 
-        const resData = await findTemplatePage();
-
-        setDataList([...resData.dataList])
+        await findTemplatePage();
     };
 
     async function showTemplateDetails(record) {
@@ -57,19 +52,18 @@ const TemplateSetting = (props) => {
             monitorNum: record.monitorNum
         })
 
-        const resData = await findTemplateMonitorByTemplateId(record.id);
+        await setMonitorSearchCondition({
+            templateId: record.id
+        })
 
-        setMonitorList([...resData.data])
-
+        await findMonitorByTemplateId();
     }
 
     const deleteForTemplate = async (id) => {
 
         await deleteTemplate(id);
+        await findTemplatePage();
 
-        const resData = await findTemplatePage();
-
-        setDataList([...resData.dataList]);
     };
 
     function updateForTemplate(record) {
@@ -144,7 +138,7 @@ const TemplateSetting = (props) => {
                                     <span>模板</span>
                                 </Space>
                                 <Space>
-                                    <TemplateSettingAdd setDataList={setDataList} dataList={dataList}/>
+                                    <TemplateSettingAdd/>
                                 </Space>
                             </div>
                             <div className="template-kind-option">
@@ -160,7 +154,7 @@ const TemplateSetting = (props) => {
                                 <Table
                                     rowKey={record => record.id}
                                     columns={columns}
-                                    dataSource={dataList}
+                                    dataSource={templateList}
                                     pagination={{
                                         position: ["bottomCenter"],
                                         total: total,
@@ -171,8 +165,6 @@ const TemplateSetting = (props) => {
                                 <TemplateSettingMonitorList
                                     isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                     setRowData={setRowData} rowData={rowData}
-                                    monitorList={monitorList} setMonitorList={setMonitorList}
-                                    dataList={dataList} setDataList={setDataList}
                                 />
 
                             </div>
@@ -183,10 +175,10 @@ const TemplateSetting = (props) => {
             <TemplateSettingUpdate
                 isOpen={isOpen} setIsOpen={setIsOpen} form={form}
                 setRowData={setRowData} rowData={rowData}
-                setDataList={setDataList} dataList={dataList}
+                setDataList={setDataList} dataList={templateList}
             />
         </>
     );
 };
 
-export default withRouter(TemplateSetting);
+export default withRouter(observer(TemplateSetting));

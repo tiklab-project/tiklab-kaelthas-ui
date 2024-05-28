@@ -16,7 +16,7 @@ const Monitor = (props) => {
     const searchName = async (e) => {
         const value = e.target.value;
         setSearchCondition({name: value})
-        const resData = await findMonitorCondition();
+        await findMonitorCondition();
     };
 
 
@@ -24,10 +24,10 @@ const Monitor = (props) => {
         setMonitorSource(monitorSource)
         //条件筛选
         setSearchCondition({
-            monitorSource: monitorSource,
+            source: monitorSource,
             name: null
         })
-        const resData = await findMonitorCondition();
+        await findMonitorCondition();
     }
 
     const [monitorSource, setMonitorSource] = useState(null);

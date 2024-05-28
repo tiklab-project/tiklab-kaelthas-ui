@@ -135,6 +135,11 @@ const Routes = [
                                 component: Monitor,
                             },
                             {
+                                path: "/hostList/:id/configuration/monitorAdd",
+                                exact: false,
+                                component: Monitor,
+                            },
+                            {
                                 path: "/hostList/:id/configuration/trigger",
                                 exact: false,
                                 component: Trigger,

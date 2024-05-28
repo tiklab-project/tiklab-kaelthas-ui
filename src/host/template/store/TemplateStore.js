@@ -5,6 +5,9 @@ export class TemplateStore {
 
     @observable total = 1;
 
+    @observable
+    templatePage = [];
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -15,6 +18,20 @@ export class TemplateStore {
             currentPage: 1,
         }
     };
+
+    @observable monitorSearchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
+
+    @observable
+    monitorList = [];
 
     //添加模板当中的模板列表
     @observable templateList = []
@@ -30,6 +47,7 @@ export class TemplateStore {
     findTemplateByMonitor = async () =>{
         const resData = await Service("/template/findTemplate",this.searchCondition);
         this.total = resData.data?.totalRecord
+        this.templatePage = resData.data?.dataList
         return resData.data?.dataList;
     }
 
@@ -52,22 +70,14 @@ export class TemplateStore {
     //从主机当中移除模板
     @action
     deleteTemplateById = async (params) =>{
-
         await Service("/template/removeTemplateForHost", params);
     }
 
     //根据模板id查询模板下的监控项
     @action
-    findMonitorByTemplateId = async (id) =>{
-        const params = new FormData();
-        params.append("templateId",id);
-        const resData = Service("/templateMonitor/findTemplateMonitorByTemplateId",params)
-        return resData;
-    }
-
-    @action
-    addTemplateMonitor = (value) =>{
-        return Service("/templateMonitor/createTemplateMonitor", value);
+    findMonitorByTemplateId = async () =>{
+        const resData = Service("/monitor/findMonitorByTemplateId",this.monitorSearchCondition)
+        this.monitorList = resData.data.dataList
     }
 }
 

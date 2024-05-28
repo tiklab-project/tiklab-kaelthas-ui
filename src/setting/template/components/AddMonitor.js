@@ -4,11 +4,12 @@ import monitorStore from "../../../host/monitor/store/MonitorStore";
 import templateStore from "../../../host/template/store/TemplateStore";
 import {withRouter} from "react-router";
 import templateSettingStore from "../store/TemplateSettingStore";
+import {observer} from "mobx-react";
 
 const {Option} = Select
 
 
-const TemplateAddMonitor = (props) => {
+const AddMonitor = (props) => {
 
     const [form] = Form.useForm();
 
@@ -18,11 +19,9 @@ const TemplateAddMonitor = (props) => {
 
     const {findMonitorItemByName} = monitorStore;
 
-    const {addTemplateMonitor} = templateStore;
+    const {findMonitorByTemplateId,setMonitorSearchCondition,createMonitor} = templateSettingStore;
 
-    const {findTemplateMonitorByTemplateId} = templateSettingStore;
-
-    const {rowData,monitorList,setMonitorList} = props;
+    const {rowData,setMonitorList} = props;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -32,20 +31,18 @@ const TemplateAddMonitor = (props) => {
     const handleOk = async () => {
 
         form.validateFields().then(async res => {
-            await addTemplateMonitor({
+            await createMonitor({
                 name: res.monitorName,
                 type: res.monitorType,
                 monitorItemId: res.monitorExpression,
                 intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
-                monitorSource: 2,
+                source: 2,
                 monitorStatus: 1,
-                templateId: rowData.id
+                hostId: rowData.id
             })
 
-            const resData = await findTemplateMonitorByTemplateId(rowData.id);
-
-            setMonitorList([...resData.data])
+            await findMonitorByTemplateId();
 
         })
 
@@ -106,7 +103,6 @@ const TemplateAddMonitor = (props) => {
                         >
                             <Input/>
                         </Form.Item>
-
                         <Form.Item
                             label="监控类型"
                             name="monitorType"
@@ -117,7 +113,6 @@ const TemplateAddMonitor = (props) => {
                                 },
                             ]}
                         >
-
                             <Select
                                 placeholder="请选择您的监控类型"
                                 allowClear
@@ -127,9 +122,7 @@ const TemplateAddMonitor = (props) => {
                                 <Option value="IO" key={2}>IO</Option>
                                 <Option value="memory" key={3}>memory</Option>
                             </Select>
-
                         </Form.Item>
-
                         <Form.Item
                             label="监控指标"
                             name="monitorExpression"
@@ -140,21 +133,17 @@ const TemplateAddMonitor = (props) => {
                                 },
                             ]}
                         >
-
                             <Select
                                 placeholder="请选择监控项指标"
                                 allowClear
-                                // value={expression.id}
                                 onChange={onSecondCityChange}
                             >
                                 {
                                     expression && expression.map((item) => (
-                                        <Option value={item.id} key={item.id}>{item.name}</Option>))
+                                        <Option value={item.id} key={item.id}>{item.dataSubclass}</Option>))
                                 }
                             </Select>
-
                         </Form.Item>
-
                         <Form.Item
                             label="数据保留时间"
                             name="dataRetentionPeriod"
@@ -167,7 +156,6 @@ const TemplateAddMonitor = (props) => {
                         >
                             <Input/>
                         </Form.Item>
-
                         <Form.Item
                             label="更新间隔"
                             name="interval"
@@ -180,7 +168,6 @@ const TemplateAddMonitor = (props) => {
                         >
                             <Input/>
                         </Form.Item>
-
                         <Form.Item
                             label="监控状态"
                             name="monitorStatus"
@@ -191,20 +178,15 @@ const TemplateAddMonitor = (props) => {
                                 },
                             ]}
                         >
-
                             <Select
                                 placeholder="请选择是否启用"
                                 allowClear
                                 onChange={onSecondCityChange}
                             >
-
                                 <Option value={1} key={1}>{"启用"}</Option>))
                                 <Option value={2} key={2}>{"关闭"}</Option>))
-
                             </Select>
-
                         </Form.Item>
-
                     </Form>
                 </div>
             </Modal>
@@ -212,4 +194,4 @@ const TemplateAddMonitor = (props) => {
     );
 };
 
-export default withRouter(TemplateAddMonitor);
+export default withRouter(observer(AddMonitor));

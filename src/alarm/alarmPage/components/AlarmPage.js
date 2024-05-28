@@ -105,15 +105,6 @@ const AlarmPage = (props) => {
         sessionStorage.setItem("menuKey", "configuration")
         localStorage.setItem("url", `/hostList/${record?.hostId}/monitoring`)
 
-        // setNowTimeInterval([moment(record.alertTime).subtract(2, 'minutes').format("YYYY-MM-DD HH:mm:ss"), moment(record.alertTime).subtract(-2, 'minutes').format("YYYY-MM-DD HH:mm:ss")]);
-
-        /*setSearchNull({
-            hostId: record.hostId,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1],
-            triggerId:record.triggerId
-        })*/
-
         props.history.push(`/hostList/${record.hostId}/monitoring`)
     }
 

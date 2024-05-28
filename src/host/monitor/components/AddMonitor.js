@@ -28,7 +28,7 @@ const AddMonitor = (props) => {
                 monitorItemId: res.monitorExpression,
                 intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
-                monitorSource: 1,
+                source: 1,
                 monitorStatus: 1,
             })
             await findMonitorCondition();

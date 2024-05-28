@@ -1,15 +1,16 @@
 import React, {useState} from 'react';
 import {withRouter} from "react-router";
-import TemplateAddMonitor from "./TemplateAddMonitor";
+import TemplateAddMonitor from "./AddMonitor";
 import {Alert, Form, Modal, Space, Table, Tabs} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
 import "./TemplateSettingMonitorList.scss"
 import TemplateUpdateMonitor from "./TemplateUpdateMonitor";
+import {observer} from "mobx-react";
 
 const TemplateSettingMonitorList = (props) => {
 
 
-    const {deleteMonitorById, findTemplateMonitorByTemplateId, findTemplatePage, monitorTotal} = templateSettingStore;
+    const {deleteMonitorById, findMonitorByTemplateId, findTemplatePage, monitorTotal,monitorList} = templateSettingStore;
 
     const [form] = Form.useForm();
 
@@ -19,11 +20,6 @@ const TemplateSettingMonitorList = (props) => {
         setIsModalOpen,
         isModalOpen,
         rowData,
-        setRowData,
-        monitorList,
-        setMonitorList,
-        dataList,
-        setDataList
     } = props;
 
     const [monitorId, setMonitorId] = useState({});
@@ -31,20 +27,13 @@ const TemplateSettingMonitorList = (props) => {
     const [visible, setVisible] = useState(false);
 
     const handleOk = async () => {
-
-        const templatePage = await findTemplatePage();
-
-        setDataList([...templatePage.dataList])
+        await findTemplatePage();
 
         setIsModalOpen(false);
-
     };
 
     const handleCancel = async () => {
-
-        const templatePage = await findTemplatePage();
-
-        setDataList([...templatePage.dataList])
+        await findTemplatePage();
 
         setIsModalOpen(false);
     };
@@ -77,9 +66,7 @@ const TemplateSettingMonitorList = (props) => {
             setVisible(true);
         }
 
-        const resData = await findTemplateMonitorByTemplateId(rowData.id);
-
-        setMonitorList([...resData.data])
+        await findMonitorByTemplateId(rowData.id);
     }
 
     const handleClose = () => {
@@ -179,8 +166,7 @@ const TemplateSettingMonitorList = (props) => {
 
                             </div>
                             <div className="box-templateSetting-details-text">
-                                <TemplateAddMonitor rowData={rowData} monitorList={monitorList}
-                                                    setMonitorList={setMonitorList}/>
+                                <TemplateAddMonitor rowData={rowData}/>
                             </div>
                         </div>
                         <Table
@@ -203,7 +189,6 @@ const TemplateSettingMonitorList = (props) => {
                 <TemplateUpdateMonitor rowData={rowData} form={form}
                                        isUpdateModalOpen={isUpdateModalOpen} setIsUpdateModalOpen={setIsUpdateModalOpen}
                                        monitorId={monitorId}
-                                       monitorList={monitorList} setMonitorList={setMonitorList}
                 />
             </div>
 
@@ -211,4 +196,4 @@ const TemplateSettingMonitorList = (props) => {
     );
 };
 
-export default withRouter(TemplateSettingMonitorList);
+export default withRouter(observer(TemplateSettingMonitorList));

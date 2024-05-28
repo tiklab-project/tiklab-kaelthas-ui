@@ -3,27 +3,20 @@ import React, {useEffect, useState} from 'react';
 import monitorStore from "../../../host/monitor/store/MonitorStore";
 import {withRouter} from "react-router";
 import templateSettingStore from "../store/TemplateSettingStore";
+import {observer} from "mobx-react";
 
 const {Option} = Select
 
 
 const TemplateAddMonitor = (props) => {
 
-    const {setMonitorList,form,rowData,isUpdateModalOpen, setIsUpdateModalOpen,monitorId} = props;
+    const {form, rowData, isUpdateModalOpen, setIsUpdateModalOpen, monitorId} = props;
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
-    const {findMonitorItemByName,findMonitorItemAll} = monitorStore;
+    const {findMonitorItemByName} = monitorStore;
 
-    const {updateTemplateMonitor,findTemplateMonitorByTemplateId} = templateSettingStore;
-
-    useEffect(async () => {
-
-        const resData = await findMonitorItemAll()
-
-        setMonitorItemList([...resData])
-
-    }, []);
+    const {updateTemplateMonitor, findMonitorByTemplateId} = templateSettingStore;
 
     const handleOk = async () => {
         form.validateFields().then(async res => {
@@ -35,14 +28,10 @@ const TemplateAddMonitor = (props) => {
                 monitorItemId: res.expression,
                 intervalTime: res.intervalTime,
                 dataRetentionTime: res.dataRetentionTime,
-                monitorSource: 1,
+                source: 1,
                 monitorStatus: res.monitorStatus
             })
-
-            const resData = await findTemplateMonitorByTemplateId(rowData.id);
-
-            setMonitorList([...resData.data])
-
+            await findMonitorByTemplateId(rowData.id);
         })
 
         setIsUpdateModalOpen(false);
@@ -69,7 +58,8 @@ const TemplateAddMonitor = (props) => {
 
     return (
         <>
-            <Modal title="编辑监控项" open={isUpdateModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isUpdateModalOpen}
+            <Modal title="编辑监控项" open={isUpdateModalOpen} onOk={handleOk} onCancel={handleCancel}
+                   visible={isUpdateModalOpen}
                    cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
                 <div className="addMonitorForm">
                     <Form
@@ -133,7 +123,6 @@ const TemplateAddMonitor = (props) => {
                                 },
                             ]}
                         >
-
                             <Select
                                 placeholder="请选择监控项指标"
                                 allowClear
@@ -143,9 +132,7 @@ const TemplateAddMonitor = (props) => {
                                         <Option value={item.id} key={item.id}>{item.name}</Option>))
                                 }
                             </Select>
-
                         </Form.Item>
-
                         <Form.Item
                             label="数据保留时间"
                             name="dataRetentionTime"
@@ -203,4 +190,4 @@ const TemplateAddMonitor = (props) => {
     );
 };
 
-export default withRouter(TemplateAddMonitor);
+export default withRouter(observer(TemplateAddMonitor));

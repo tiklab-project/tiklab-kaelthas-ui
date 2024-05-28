@@ -6,6 +6,7 @@ import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
 import "../../../common/styles/_tabStyle.scss"
 import {SearchOutlined} from "@ant-design/icons";
+import {observer} from "mobx-react";
 
 const monitorColumns = [
     {
@@ -65,10 +66,10 @@ const Template = (props) => {
         deleteTemplateById,
         setSearchCondition,
         findMonitorByTemplateId,
-        total
+        total,
+        monitorList,
+        templatePage
     } = templateStore;
-
-    const [monitorList, setMonitorList] = useState([]);
 
     const [rowData, setRowData] = useState({});
 
@@ -86,6 +87,8 @@ const Template = (props) => {
             setDataList([...resData])
         }
     }, []);
+
+
     const deleteTemplate = async (id) => {
 
         await deleteTemplateById({
@@ -115,11 +118,6 @@ const Template = (props) => {
 
     };
 
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
-
-
     async function showTemplateDetails(record) {
         setIsModalOpen(true);
 
@@ -129,9 +127,7 @@ const Template = (props) => {
             monitorNum: record.monitorNum
         })
 
-        const resData = await findMonitorByTemplateId(record.id);
-
-        setMonitorList([...resData.data])
+        await findMonitorByTemplateId(record.id);
 
     }
 
@@ -140,8 +136,8 @@ const Template = (props) => {
             title: '模板名称',
             dataIndex: 'name',
             id: 'name',
-            render: (text, record) => <span style={{cursor: "pointer"}}
-                                            onClick={() => showTemplateDetails(record)}>{text}</span>,
+            render: (name, record) => <span style={{cursor: "pointer"}}
+                                            onClick={() => showTemplateDetails(record)}>{name}</span>,
         },
         {
             title: '监控项数量',
@@ -186,7 +182,7 @@ const Template = (props) => {
                         模板
                     </div>
                     <div className="template-top-right">
-                        <AddTemplate dataList={dataList} setDataList={setDataList}/>
+                        <AddTemplate/>
                     </div>
                 </div>
                 <div className="template-kind-options">
@@ -204,7 +200,7 @@ const Template = (props) => {
                     <Table
                         rowKey={record => record.id}
                         columns={columns}
-                        dataSource={dataList}
+                        dataSource={templatePage}
                         className="custom-table"
                         onChange={changePage}
                         pagination={{
@@ -256,4 +252,4 @@ const Template = (props) => {
     );
 };
 
-export default withRouter(Template);
+export default withRouter(observer(Template));

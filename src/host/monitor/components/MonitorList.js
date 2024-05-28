@@ -6,9 +6,10 @@ import UpdateMonitor from "./UpdateMonitor";
 import monitorStore from "../store/MonitorStore";
 import "../../../common/styles/_tabStyle.scss"
 import {observer} from "mobx-react";
+
 const MonitorList = (props) => {
 
-    const {deleteMonitorById, findMonitorCondition,total,setSearchCondition,data} = monitorStore;
+    const {deleteMonitorById, findMonitorCondition, total, setSearchCondition, data} = monitorStore;
 
     const {listData, setListData} = props;
 
@@ -18,31 +19,42 @@ const MonitorList = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [alertVisible, setAlertVisible] = useState(false);
+
+    const showAlert = () => {
+        setAlertVisible(true);
+    };
+
+    const handleAlertClose = () => {
+        setAlertVisible(false);
+    };
+
     useEffect(() => {
         let hostId = localStorage.getItem(`hostId`);
         setSearchCondition({
             hostId: hostId,
             name: null,
-            monitorSource:null
+            monitorSource: null
         });
 
-        findMonitorCondition().then(res =>{
+        findMonitorCondition().then(res => {
             setListData([...res])
         })
     }, []);
 
+
     const removeToList = async (record) => {
 
-        if (record.monitorSource === 1) {
+        if (record.source === 1) {
 
             await deleteMonitorById(record.id);
 
             const resData = await findMonitorCondition();
 
-            console.log(resData)
-
             setListData([...resData])
-        }
+        } /*else {
+            showAlert()
+        }*/
 
     }
 
@@ -56,7 +68,7 @@ const MonitorList = (props) => {
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
-            monitorSource: record.monitorSource,
+            source: record.source,
             monitorStatus: record.monitorStatus
         })
 
@@ -68,7 +80,7 @@ const MonitorList = (props) => {
             monitorItem: record.monitorItem,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
-            monitorSource: record.monitorSource,
+            source: record.source,
             monitorStatus: record.monitorStatus
         })
 
@@ -102,8 +114,8 @@ const MonitorList = (props) => {
         },
         {
             title: '监控项来源',
-            dataIndex: 'monitorSource',
-            id: 'monitorSource',
+            dataIndex: 'source',
+            id: 'source',
             render: (monitorSource) => {
                 let config = {
                     1: "主机",
@@ -167,6 +179,20 @@ const MonitorList = (props) => {
 
     return (
         <>
+            {
+                alertVisible &&
+                <div>
+                    <Alert
+                        // className="alertContainer"
+                        message="删除监控项"
+                        description="删除成功"
+                        type="error"
+                        closable
+                        onClose={handleAlertClose}
+                    />
+                </div>
+
+            }
             <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                            columnData={columnData} setColumnData={setColumnData} form={form}
                            listData={listData} setListData={setListData}

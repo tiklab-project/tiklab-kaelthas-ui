@@ -18,6 +18,20 @@ export class TemplateSettingStore {
         }
     };
 
+    @observable monitorSearchCondition = {
+        orderParams: [{
+            name: "id",
+            orderType: "desc"
+        }],
+        pageParam: {
+            pageSize: 20,
+            currentPage: 1,
+        }
+    };
+
+    @observable
+    monitorList = [];
+
     @observable templateList = [];
 
 
@@ -26,12 +40,17 @@ export class TemplateSettingStore {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
+    @action
+    setMonitorSearchCondition = async (value) => {
+        this.searchCondition = Object.assign(this.monitorSearchCondition, {...value})
+    }
+
     //查询模板列表
     @action
     findTemplatePage = async () => {
         const templateList = await Service("/template/findTemplate", this.searchCondition);
-        this.templateList = templateList.data;
-        return templateList.data;
+        this.templateList = templateList.data.dataList;
+        this.total = templateList.data.totalRecord
     }
 
     //创建模板
@@ -59,7 +78,7 @@ export class TemplateSettingStore {
     deleteMonitorById = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        const resMessage = await Service('/templateMonitor/deleteTemplateMonitor', params)
+        const resMessage = await Service('/monitor/deleteMonitorById', params)
         return resMessage;
 
     }
@@ -67,16 +86,20 @@ export class TemplateSettingStore {
     //修改模板下的监控项
     @action
     updateTemplateMonitor = async (option) => {
-        await Service("/templateMonitor/updateTemplateMonitor", option)
+        await Service("/monitor/updateMonitor", option)
     }
 
     //根据模板id查询模板下的监控项
     @action
-    findTemplateMonitorByTemplateId = async (id) =>{
-        const params = new FormData();
-        params.append("templateId",id);
-        const resData = Service("/templateMonitor/findTemplateMonitorByTemplateId",params)
-        return resData;
+    findMonitorByTemplateId = async () =>{
+        const resData = await Service("/monitor/findMonitorByTemplateId",this.monitorSearchCondition)
+        this.monitorList = resData.data.dataList
+        this.monitorTotal = resData.data.totalRecord
+    }
+
+    @action
+    createMonitor = (value) =>{
+        return Service("/monitor/createMonitor", value);
     }
 
 
