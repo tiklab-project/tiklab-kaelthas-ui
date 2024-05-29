@@ -33,6 +33,9 @@ export class TemplateStore {
     @observable
     monitorList = [];
 
+    @observable
+    monitorTotal = 1;
+
     //添加模板当中的模板列表
     @observable templateList = []
 
@@ -78,6 +81,7 @@ export class TemplateStore {
     findMonitorByTemplateId = async () =>{
         const resData = Service("/monitor/findMonitorByTemplateId",this.monitorSearchCondition)
         this.monitorList = resData.data.dataList
+        this.monitorTotal = resData.data.totalRecord
     }
 }
 

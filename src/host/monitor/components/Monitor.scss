@@ -14,30 +14,14 @@
 
 
     .box-monitor-title-text {
-      font-size: 16px;
+      /*font-size: 16px;
       font-weight: bold;
       display: flex;
-      align-items: center;
+      align-items: center;*/
+      flex: 1;
     }
 
-    .monitor-top-right {
-      gap: 10px;
-      background-color: #0d66e4;
-      color: #ffffff;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      height: 32px;
-      line-height: 32px;
-      width: fit-content;
 
-      .monitor-top-right-button {
-        position: relative;
-      }
-    }
   }
 
   .monitor-kind-options {
@@ -68,6 +52,32 @@
     .monitor-kind-search {
       border-radius: 4px;
       width: 200px;
+    }
+
+    .monitor-top-right-search {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+
+      .monitor-top-right {
+        gap: 10px;
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        margin-left: 50px;
+
+        .monitor-top-right-button {
+          position: relative;
+        }
+      }
     }
 
   }

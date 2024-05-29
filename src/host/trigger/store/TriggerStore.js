@@ -5,7 +5,7 @@ export class TriggerStore {
 
     @observable data = [];
 
-    @observable total = 1;
+    @observable total = 0;
 
     @observable searchCondition = {
         orderParams: [{
@@ -56,7 +56,6 @@ export class TriggerStore {
     findTriggerByName = async (name) => {
         const resData = await Service('/trigger/findTriggerByName', {name: name});
         this.data = resData;
-        console.log(resData)
         return resData;
 
     }

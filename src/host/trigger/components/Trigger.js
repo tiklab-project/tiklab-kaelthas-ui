@@ -6,12 +6,13 @@ import {Col, Input, Row} from "antd";
 import TriggerList from "./TriggerList";
 import triggerStore from "../store/TriggerStore";
 import {SearchOutlined} from "@ant-design/icons";
+import {observer} from "mobx-react";
 
 const Trigger = (props) => {
 
     const [dataList, setDataList] = useState([]);
 
-    const {getTriggerList, setSearchCondition, getMediumAllList} = triggerStore;
+    const {getTriggerList, setSearchCondition, getMediumAllList,total} = triggerStore;
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
@@ -28,23 +29,26 @@ const Trigger = (props) => {
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
-                        触发器
+                        触发器数量:{total}
                     </div>
-                    <div className="trigger-top-right">
-                        <AddTrigger dataList={dataList} setDataList={setDataList}/>
+                    <div className="trigger-kind-search-div">
+                        <div>
+                            <Input
+                                onPressEnter={(event) => searchName(event)}
+                                className="trigger-kind-search"
+                                placeholder="触发器名称"
+                                allowClear={true}
+                                prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div className="trigger-top-right">
+                            <AddTrigger dataList={dataList} setDataList={setDataList}/>
+                        </div>
                     </div>
                 </div>
-                <div className="trigger-kind-options">
-                    <div>
-                        <Input
-                            onPressEnter={(event) => searchName(event)}
-                            className="trigger-kind-search"
-                            placeholder="触发器名称"
-                            allowClear={true}
-                            prefix={<SearchOutlined/>}
-                        />
-                    </div>
-                </div>
+                {/*<div className="trigger-kind-options">
+
+                </div>*/}
 
                 <div className="box-trigger-table">
                     <TriggerList dataList={dataList} setDataList={setDataList}/>
@@ -54,4 +58,4 @@ const Trigger = (props) => {
     );
 };
 
-export default withRouter(Trigger);
+export default withRouter(observer(Trigger));

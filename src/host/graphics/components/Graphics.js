@@ -6,10 +6,11 @@ import GraphicsList from "./GraphicsList";
 import graphicsStore from "../store/GraphicsStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
+import {observer} from "mobx-react";
 
 const Graphics = (props) => {
 
-    const {getGraphicsStoreList, setSearchCondition, findMonitorListById} = graphicsStore;
+    const {getGraphicsStoreList, setSearchCondition, findMonitorListById,total} = graphicsStore;
 
     const [dataList, setDataList] = useState([]);
 
@@ -38,21 +39,25 @@ const Graphics = (props) => {
         <Row className="box-graphics-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-graphics-title">
-                    <div className="box-graphics-title-text">
-                        图形
-                    </div>
-                    <div className="graphics-top-right">
-                        <AddGraphics dataList={dataList} setDataList={setDataList} monitorData={monitorData}/>
-                    </div>
+
+
                 </div>
                 <div className="graphics-kind-options">
-                    <div>
-                        <Input placeholder="图形名称"
-                               className="graphics-kind-search"
-                               onPressEnter={(event) => searchName(event)}
-                               allowClear={true}
-                               prefix={<SearchOutlined/>}
-                        />
+                    <div className="box-graphics-title-text">
+                        图形的数量:{total}
+                    </div>
+                    <div className="box-graphics-title-div">
+                        <div>
+                            <Input placeholder="图形名称"
+                                   className="graphics-kind-search"
+                                   onPressEnter={(event) => searchName(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div className="graphics-top-right">
+                            <AddGraphics dataList={dataList} setDataList={setDataList} monitorData={monitorData}/>
+                        </div>
                     </div>
                 </div>
                 <div className="box-graphics-table">
@@ -63,4 +68,4 @@ const Graphics = (props) => {
     );
 };
 
-export default withRouter(Graphics);
+export default withRouter(observer(Graphics));

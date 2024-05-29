@@ -1,17 +1,14 @@
-import {Drawer, Form, Input, InputNumber, Select} from 'antd';
+import {AutoComplete, Drawer, Form, Input, InputNumber, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../store/MonitorStore";
 
 const {Option} = Select
 
 const UpdateMonitor = (props) => {
-    const {setListData, listData} = props;
 
-    const {form} = props;
+    const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
-    const {isModalOpen, setIsModalOpen} = props;
-
-    const {columnData, setColumnData} = props;
+    const {isModalOpen, setIsModalOpen, form, columnData} = props;
 
     const {updateMonitorById, findMonitorItemByName, findMonitorCondition, findMonitorItemAll} = monitorStore;
 
@@ -34,8 +31,7 @@ const UpdateMonitor = (props) => {
                 source: columnData.source,
                 monitorStatus: res.monitorStatus
             });
-            const resData = await findMonitorCondition();
-            setListData([...resData])
+            await findMonitorCondition();
         })
         setIsModalOpen(false);
     };
@@ -64,7 +60,7 @@ const UpdateMonitor = (props) => {
             visible={isModalOpen}
             width={500}
             contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
-            maskStyle={{background:"transparent"}}
+            maskStyle={{background: "transparent"}}
         >
             <Form
                 name="basic"
@@ -107,15 +103,15 @@ const UpdateMonitor = (props) => {
                         },
                     ]}
                 >
-
                     <Select
                         placeholder="请选择您的监控类型"
-                        onChange={onMonitorChange}
                         allowClear
+                        onChange={onMonitorChange}
+                        options={provinceData && provinceData.map((province) => ({
+                            label: province,
+                            value: province,
+                        }))}
                     >
-                        <Option value={"CPU"} key={1}>{"CPU"}</Option>
-                        <Option value={"IO"} key={2}>{"IO"}</Option>
-                        <Option value={"memory"} key={3}>{"memory"}</Option>
                     </Select>
 
                 </Form.Item>
@@ -131,17 +127,17 @@ const UpdateMonitor = (props) => {
                     ]}
                 >
 
-                    <Select
+                    <AutoComplete
                         placeholder="请选择监控项指标"
                         allowClear
                     >
                         {
                             monitorItemList && monitorItemList.map(item => (
-                                <Option value={item.id} key={item.id}>{item.dataSubclass}</Option>
+                                <Option value={item.name} key={item.id}>{item.name}</Option>
                             ))
                         }
 
-                    </Select>
+                    </AutoComplete>
 
                 </Form.Item>
 

@@ -1,4 +1,4 @@
-import {Button, Modal, Form, Input, Select, InputNumber} from 'antd';
+import {Button, Modal, Form, Input, Select, InputNumber, AutoComplete} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../store/MonitorStore";
 
@@ -108,6 +108,15 @@ const AddMonitor = (props) => {
                             }))}
                         >
                         </Select>
+                        {/*<AutoComplete
+                            placeholder="请选择您的监控类型"
+                            allowClear
+                            onChange={handleProvinceChange}
+                            options={provinceData && provinceData.map((province) => ({
+                                label: province,
+                                value: province,
+                            }))}
+                        />*/}
 
                     </Form.Item>
 
@@ -121,7 +130,7 @@ const AddMonitor = (props) => {
                             },
                         ]}
                     >
-                        <Select
+                        <AutoComplete
                             placeholder="请选择监控项指标"
                             allowClear
                             value={expression.id}
@@ -129,9 +138,9 @@ const AddMonitor = (props) => {
                         >
                             {
                                 expression && expression.map((item) => (
-                                    <Option value={item.id}>{item.dataSubclass}</Option>))
+                                    <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
                             }
-                        </Select>
+                        </AutoComplete>
                     </Form.Item>
 
                     <Form.Item

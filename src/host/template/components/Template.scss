@@ -11,26 +11,6 @@
     align-items: center;
     justify-content: space-between;
 
-    .box-template-title-text {
-      font-size: 16px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-    }
-
-    .template-top-right {
-      background-color: #0d66e4;
-      color: #ffffff;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      height: 32px;
-      line-height: 32px;
-      width: fit-content;
-    }
   }
 
   .template-kind-options {
@@ -41,6 +21,38 @@
     margin-top: 15px;
     height: 42px;
     line-height: 42px;
+
+
+    .box-template-title-text {
+      /*font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;*/
+      flex: 1;
+    }
+
+    .template-right-div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .template-top-right {
+        gap: 10px;
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        width: fit-content;
+        margin-left: 50px;
+      }
+
+    }
 
     .template-kind-search {
       border-radius: 4px;

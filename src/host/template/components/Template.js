@@ -68,7 +68,9 @@ const Template = (props) => {
         findMonitorByTemplateId,
         total,
         monitorList,
-        templatePage
+        templatePage,
+        monitorTotal,
+        searchCondition
     } = templateStore;
 
     const [rowData, setRowData] = useState({});
@@ -177,22 +179,26 @@ const Template = (props) => {
     return (
         <Row className="box-template-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
-                <div className="box-template-title">
-                    <div className="box-template-title-text">
-                        模板
-                    </div>
-                    <div className="template-top-right">
-                        <AddTemplate/>
-                    </div>
-                </div>
+                {/*<div className="box-template-title">
+
+
+                </div>*/}
                 <div className="template-kind-options">
-                    <div>
-                        <Input placeholder="模板名称"
-                               className="template-kind-search"
-                               onPressEnter={(event) => searchName(event)}
-                               allowClear={true}
-                               prefix={<SearchOutlined/>}
-                        />
+                    <div className="box-template-title-text">
+                        模板数量:{total}
+                    </div>
+                    <div className="template-right-div">
+                        <div>
+                            <Input placeholder="模板名称"
+                                   className="template-kind-search"
+                                   onPressEnter={(event) => searchName(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div className="template-top-right">
+                            <AddTemplate/>
+                        </div>
                     </div>
                 </div>
 
@@ -230,14 +236,12 @@ const Template = (props) => {
                                     columns={monitorColumns}
                                     className="custom-table"
                                     dataSource={monitorList}
-                                    scroll={{
-                                        x: 300,
-                                        y: 'max-content'
-                                    }}
                                     pagination={{
                                         position: ["bottomCenter"],
-                                        total: total,
-                                        showSizeChanger: true
+                                        total: monitorTotal,
+                                        showSizeChanger: true,
+                                        pageSize: searchCondition.pageParam.pageSize,
+                                        current: searchCondition.pageParam.currentPage,
                                     }}
                                 />
                             </Tabs.TabPane>

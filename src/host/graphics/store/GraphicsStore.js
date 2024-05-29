@@ -5,7 +5,7 @@ export class GraphicsStore {
 
     @observable graphicsList = [];
 
-    @observable total = 1;
+    @observable total = 0;
 
     @observable searchCondition = {
         orderParams: [{

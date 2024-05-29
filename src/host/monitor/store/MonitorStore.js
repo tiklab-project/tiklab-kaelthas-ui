@@ -3,7 +3,7 @@ import {Service} from "../../../common/utils/requset";
 export class MonitorStore {
 
 
-    @observable data = [];
+    @observable monitorList = [];
 
     @observable total = 1;
 
@@ -24,14 +24,27 @@ export class MonitorStore {
 
         const resData = await Service('/monitor/findMonitorCondition', this.searchCondition);
         this.total = resData.data.totalRecord
-        this.data = resData.data.dataList
+        this.monitorList = resData.data.dataList
         return resData.data.dataList;
     }
 
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition,  { ...value })
+    }
 
+    @action
+    setSearchNullCondition = (value) => {
+        this.searchCondition = Object.assign({
+            orderParams: [{
+                name: "id",
+                orderType: "desc"
+            }],
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        },  { ...value })
     }
 
     //监控项修改
