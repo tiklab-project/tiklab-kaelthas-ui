@@ -6,31 +6,27 @@ const {Option} = Select
 
 const UpdateGraphics = (props) => {
 
-    const {isModalOpen, setIsModalOpen} = props;
+    const {form, isModalOpen, setIsModalOpen, columnData} = props;
 
-    const {columnData, setColumnData} = props;
-
-    const {form} = props;
-
-    const [monitorList, setMonitorList] = useState([]);
-
-    const {updateGraphicsStoreById, getGraphicsStoreList, findMonitorListById, setSearchCondition} = graphicsStore;
+    const {
+        updateGraphics,
+        findGraphics,
+        findMonitorListById,
+        setSearchCondition,
+        monitorList
+    } = graphicsStore;
 
     useEffect(async () => {
         setSearchCondition({
             hostId: localStorage.getItem("hostId"),
             reportType: 2
         })
-        const resMonitorList = await findMonitorListById()
-        setMonitorList([...resMonitorList])
+        await findMonitorListById()
     }, []);
 
     const handleOk = () => {
-        setIsModalOpen(false);
-
         form.validateFields().then(async res => {
-
-            await updateGraphicsStoreById({
+            await updateGraphics({
                 id: columnData.id,
                 width: res.width,
                 height: res.height,
@@ -40,11 +36,13 @@ const UpdateGraphics = (props) => {
                 source: res.source
             })
 
-            getGraphicsStoreList().then((res) => {
-                setDataList([...res.dataList])
+            await setSearchCondition({
+                hostId: localStorage.getItem("hostId")
             })
-        })
 
+            await findGraphics();
+        })
+        setIsModalOpen(false);
     };
 
     const conversionMonitorType = (type) => {
@@ -67,7 +65,7 @@ const UpdateGraphics = (props) => {
             visible={isModalOpen}
             width={500}
             contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
-            maskStyle={{background:"transparent"}}
+            maskStyle={{background: "transparent"}}
         >
             <Form
                 name="basic"
@@ -88,85 +86,37 @@ const UpdateGraphics = (props) => {
                 <Form.Item
                     label="图表名称"
                     name="name"
-                    rules={[
-                        {
-                            required: true,
-                            message: '' +
-                                '请输入图表名称!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请输入图表名称!'}]}
                 >
                     <Input/>
                 </Form.Item>
-
-                <Form.Item
-                    label="图表宽度"
-                    name="width"
-                    rules={[
-                        {
-                            required: true,
-                            message: '' +
-                                '请输入图表宽度!',
-                        },
-                    ]}
-                >
-                    <InputNumber/>
-                </Form.Item>
-
-                <Form.Item
-                    label="图表高度"
-                    name="height"
-                    rules={[
-                        {
-                            required: true,
-                            message: '' +
-                                '请输入图表高度!',
-                        },
-                    ]}
-                >
-                    <InputNumber/>
-                </Form.Item>
-
                 <Form.Item
                     label="监控项"
                     name="monitorId"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择监控项!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请选择监控项!'}]}
                 >
                     <Select
                         mode="multiple"
                         placeholder="请选择监控项"
                         allowClear
                         showSearch
+                        defaultValue={monitorList}
                     >
-
                         {
                             monitorList && monitorList.map(item => (
                                 <Option key={item.id}
                                         value={[item.id, item.monitorSource]}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
                             ))
                         }
-
                     </Select>
                 </Form.Item>
-
                 <Form.Item
                     label="问题描述"
                     name="describe"
-                    rules={[
-                        {
-                            required: false,
-                            message: '问题描述!',
-                        },
-                    ]}
+                    rules={[{required: false, message: '问题描述!'}]}
                 >
                     <Input/>
                 </Form.Item>
-
             </Form>
         </Drawer>
     );

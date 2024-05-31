@@ -75,18 +75,14 @@ export class TemplateSettingStore {
 
     //根据监控项id删除监控项
     @action
-    deleteMonitorById = async (id) => {
-        const params = new FormData();
-        params.append("id", id)
-        const resMessage = await Service('/monitor/deleteMonitorById', params)
-        return resMessage;
-
+    deleteMonitorById = async (params) => {
+        return await Service('/templateMonitor/deleteTemplateMonitor', params);
     }
 
     //修改模板下的监控项
     @action
     updateTemplateMonitor = async (option) => {
-        await Service("/monitor/updateMonitor", option)
+        await Service("/templateMonitor/updateTemplateMonitor", option)
     }
 
     //根据模板id查询模板下的监控项
@@ -99,7 +95,7 @@ export class TemplateSettingStore {
 
     @action
     createMonitor = (value) =>{
-        return Service("/monitor/createMonitor", value);
+        return Service("/templateMonitor/createTemplateMonitor", value);
     }
 
 

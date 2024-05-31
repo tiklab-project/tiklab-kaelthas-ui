@@ -13,6 +13,8 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
+    const [itemId,setItemId] = useState();
+
     const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
 
     const showModal = () => {
@@ -25,7 +27,8 @@ const AddMonitor = (props) => {
                 hostId: localStorage.getItem("hostId"),
                 name: res.monitorName,
                 type: res.monitorType,
-                monitorItemId: res.monitorExpression,
+                monitorItemId:itemId,
+                expression: res.monitorExpression,
                 intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
                 source: 1,
@@ -47,8 +50,11 @@ const AddMonitor = (props) => {
         setExpression([...resData])
 
     };
-    const onSecondCityChange = (value) => {
-        console.log(value)
+
+    const onSecondCityChange = (value,option) => {
+        if (option.key !== undefined && option.key !== null){
+            setItemId(option.key)
+        }
     };
 
     return (
@@ -91,12 +97,7 @@ const AddMonitor = (props) => {
                     <Form.Item
                         label="监控类型"
                         name="monitorType"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择监控项类型!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '请选择监控项类型!'}]}
                     >
                         <Select
                             placeholder="请选择您的监控类型"
@@ -146,12 +147,7 @@ const AddMonitor = (props) => {
                     <Form.Item
                         label="数据保留时间"
                         name="dataRetentionPeriod"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入数据保留时间!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '请输入数据保留时间!'}]}
                     >
                         <InputNumber min={1}/>
                     </Form.Item>

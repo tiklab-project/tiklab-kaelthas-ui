@@ -5,14 +5,11 @@ import templateSettingStore from "../store/TemplateSettingStore";
 const {Option} = Select
 const TemplateSettingAdd = (props) => {
 
-
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {createTemplate,findTemplatePage} = templateSettingStore;
-
-    const {setDataList,dataList} = props;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -28,9 +25,7 @@ const TemplateSettingAdd = (props) => {
                 describe: res.describe
             })
 
-            const resData = await findTemplatePage();
-
-            setDataList([...resData.dataList]);
+            await findTemplatePage();
         })
 
         setIsModalOpen(false);

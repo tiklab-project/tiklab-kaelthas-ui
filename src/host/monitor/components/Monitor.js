@@ -86,7 +86,7 @@ const Monitor = (props) => {
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
-            expression: record.monitorItem.id,
+            expression: record.expression,
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -149,7 +149,7 @@ const Monitor = (props) => {
         },
         {
             title: '监控表达式',
-            dataIndex: ['monitorItem', 'name'],
+            dataIndex: 'expression',
             id: 'expression',
         },
         {

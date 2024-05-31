@@ -34,7 +34,7 @@ export class TemplateStore {
     monitorList = [];
 
     @observable
-    monitorTotal = 1;
+    monitorTotal = 0;
 
     //添加模板当中的模板列表
     @observable templateList = []
@@ -44,6 +44,10 @@ export class TemplateStore {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
+    @action
+    setMonitorSearchCondition = (value) => {
+        this.searchCondition = Object.assign(this.monitorSearchCondition, {...value})
+    }
 
     //根据条件查询主机当中的模板
     @action
@@ -79,7 +83,7 @@ export class TemplateStore {
     //根据模板id查询模板下的监控项
     @action
     findMonitorByTemplateId = async () =>{
-        const resData = Service("/monitor/findMonitorByTemplateId",this.monitorSearchCondition)
+        const resData = await Service("/monitor/findMonitorByTemplateId",this.monitorSearchCondition)
         this.monitorList = resData.data.dataList
         this.monitorTotal = resData.data.totalRecord
     }

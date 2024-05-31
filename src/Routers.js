@@ -37,6 +37,7 @@ const Member = AsyncComponent(() => import('./host/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
 const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
+const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
 const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
 const Monitoring = AsyncComponent(() => import('./monitorIng/monitoring/components/Monitoring'))
@@ -232,6 +233,10 @@ const Routes = [
                     {
                         path: "/setting/template",
                         component: GlobalSettingsTemplate
+                    },
+                    {
+                        path: "/setting/monitor/:id",
+                        component: TemplateMonitor
                     },
                     {
                         path: "/setting/hostGroup",

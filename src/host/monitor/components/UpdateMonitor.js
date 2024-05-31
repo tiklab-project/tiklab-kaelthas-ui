@@ -14,6 +14,8 @@ const UpdateMonitor = (props) => {
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
+    const [itemId, setItemId] = useState();
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -25,10 +27,11 @@ const UpdateMonitor = (props) => {
                 id: columnData.id,
                 name: res.name,
                 type: res.monitorType,
-                monitorItemId: res.expression,
+                monitorItemId: itemId,
+                expression: res.expression,
                 intervalTime: res.intervalTime,
                 dataRetentionTime: res.dataRetentionTime,
-                source: columnData.source,
+                source: 1,
                 monitorStatus: res.monitorStatus
             });
             await findMonitorCondition();
@@ -45,11 +48,12 @@ const UpdateMonitor = (props) => {
         setMonitorItemList([...resData])
     };
 
-    useEffect(async () => {
-        const resData = await findMonitorItemAll()
-        setMonitorItemList([...resData])
-    }, []);
 
+    function onSecondCityChange(value, option) {
+        if (option.key !== undefined && option.key !== null) {
+            setItemId(option.key)
+        }
+    }
 
     return (
         <Drawer
@@ -82,26 +86,14 @@ const UpdateMonitor = (props) => {
                 <Form.Item
                     label="监控项名称"
                     name="name"
-                    rules={[
-                        {
-                            required: true,
-                            message: '' +
-                                '请输入监控项名称!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请输入监控项名称!'}]}
                 >
                     <Input/>
                 </Form.Item>
-
                 <Form.Item
                     label="监控类型"
                     name="monitorType"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择监控项类型!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请选择监控项类型!'}]}
                 >
                     <Select
                         placeholder="请选择您的监控类型"
@@ -113,71 +105,44 @@ const UpdateMonitor = (props) => {
                         }))}
                     >
                     </Select>
-
                 </Form.Item>
-
                 <Form.Item
                     label="监控指标"
                     name="expression"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择监控项指标!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请选择监控项指标!'}]}
                 >
-
                     <AutoComplete
                         placeholder="请选择监控项指标"
                         allowClear
+                        value={monitorItemList.id}
+                        onChange={onSecondCityChange}
                     >
                         {
                             monitorItemList && monitorItemList.map(item => (
-                                <Option value={item.name} key={item.id}>{item.name}</Option>
+                                <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>
                             ))
                         }
-
                     </AutoComplete>
-
                 </Form.Item>
-
                 <Form.Item
                     label="数据保留时间"
                     name="dataRetentionTime"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入数据保留时间!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请输入数据保留时间!'}]}
                 >
                     <InputNumber min={1}/>
                 </Form.Item>
-
                 <Form.Item
                     label="更新间隔"
                     name="intervalTime"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请输入更新间隔!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请输入更新间隔!'}]}
                 >
                     <InputNumber min={1}/>
                 </Form.Item>
-
                 <Form.Item
                     label="监控项状态"
                     name="monitorStatus"
-                    rules={[
-                        {
-                            required: true,
-                            message: '请选择监控项状态!',
-                        },
-                    ]}
+                    rules={[{required: true, message: '请选择监控项状态!'}]}
                 >
-
                     <Select
                         placeholder="请选择您的监控项状态"
                         onChange={onMonitorChange}
@@ -186,9 +151,7 @@ const UpdateMonitor = (props) => {
                         <Option value={1} key={1}>{"开启"}</Option>
                         <Option value={2} key={2}>{"关闭"}</Option>
                     </Select>
-
                 </Form.Item>
-
             </Form>
         </Drawer>
     );

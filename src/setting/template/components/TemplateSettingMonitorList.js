@@ -1,43 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
-import TemplateAddMonitor from "./AddMonitor";
-import {Alert, Form, Modal, Space, Table, Tabs} from "antd";
+import {Alert, Col, Form, Modal, Row, Space, Table, Tabs} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
 import "./TemplateSettingMonitorList.scss"
-import TemplateUpdateMonitor from "./TemplateUpdateMonitor";
+import TemplateUpdateMonitor from "./UpdateTemplateMonitor";
 import {observer} from "mobx-react";
+import AddTemplateMonitor from "./AddTemplateMonitor";
+import {LeftOutlined} from "@ant-design/icons";
 
 const TemplateSettingMonitorList = (props) => {
 
+    const resData = localStorage.getItem("rowData");
 
-    const {deleteMonitorById, findMonitorByTemplateId, findTemplatePage, monitorTotal,monitorList} = templateSettingStore;
+    const rowData = JSON.parse(resData);
+
+    const {
+        deleteMonitorById,
+        findMonitorByTemplateId,
+        monitorTotal,
+        monitorList,
+        setMonitorSearchCondition
+    } = templateSettingStore;
 
     const [form] = Form.useForm();
 
     const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
 
-    const {
-        setIsModalOpen,
-        isModalOpen,
-        rowData,
-    } = props;
-
     const [monitorId, setMonitorId] = useState({});
 
-    const [visible, setVisible] = useState(false);
+    useEffect(async () => {
 
-    const handleOk = async () => {
-        await findTemplatePage();
+        const resData = localStorage.getItem("rowData");
 
-        setIsModalOpen(false);
-    };
+        const rowData = JSON.parse(resData);
 
-    const handleCancel = async () => {
-        await findTemplatePage();
+        await setMonitorSearchCondition({
+            templateId: rowData.id
+        })
 
-        setIsModalOpen(false);
-    };
-
+        await findMonitorByTemplateId()
+    }, []);
 
     async function updateMonitorForTemplate(record) {
 
@@ -46,7 +48,7 @@ const TemplateSettingMonitorList = (props) => {
         form.setFieldsValue({
             name: record.name,
             monitorType: record.monitorItem.type,
-            expression: record.monitorItem.id,
+            expression: record.expression,
             monitorItemId: record.monitorItem.id,
             intervalTime: record.intervalTime,
             dataRetentionTime: record.dataRetentionTime,
@@ -58,20 +60,15 @@ const TemplateSettingMonitorList = (props) => {
         setIsUpdateModalOpen(true)
     }
 
-    async function deleteMonitorForTemplate(id) {
+    async function deleteMonitorForTemplate(record) {
 
-        const resMessage = await deleteMonitorById(id);
-
-        if (resMessage.code === 110) {
-            setVisible(true);
-        }
-
+        await deleteMonitorById({
+            id: record?.id,
+            templateId: record?.hostId,
+            monitorItemId: record?.monitorItem?.id
+        });
         await findMonitorByTemplateId(rowData.id);
     }
-
-    const handleClose = () => {
-        setVisible(false);
-    };
 
 
     const monitorColumns = [
@@ -89,7 +86,7 @@ const TemplateSettingMonitorList = (props) => {
         },
         {
             title: '监控表达式',
-            dataIndex: ['monitorItem', 'name'],
+            dataIndex: 'expression',
             id: 'expression',
         },
         {
@@ -114,59 +111,59 @@ const TemplateSettingMonitorList = (props) => {
                 return config[monitorStatus];
             }
         },
-        {
+        /*{
             title: '监控信息',
             dataIndex: 'information',
             id: 'information',
-        },
+        },*/
         {
             title: '操作',
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => deleteMonitorForTemplate(record.id)}>删除</span>
+                    <span style={{cursor: "pointer"}} onClick={() => deleteMonitorForTemplate(record)}>删除</span>
                 </Space>
             ),
         },
 
     ];
 
+    function hrefTemplate() {
+        props.history.push(`/setting/template`);
+    }
+
     return (
-        <div>
-            <Modal
-                open={isModalOpen}
-                title="模板详情"
-                onOk={handleOk}
-                onCancel={handleCancel}
-                visible={isModalOpen}
-                width={1200}
-            >
-                <div className="box-templateSetting-details-between">
-                    <div className="">
-                        <div
-                            className="box-templateSetting-details-text">模板名称: {rowData.name}
+        <Row className="monitor-row">
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
+                <div className="box-between-div">
+                    <div className="template-monitor-title">
+                        <LeftOutlined onClick={() =>hrefTemplate()}/>
+                        模板下监控项
+                    </div>
+                    <div className="box-between">
+                        <div>
+                            模板名称: {rowData.name}
                         </div>
-                        <div
-                            className="box-templateSetting-details-text">模板下监控项数量：{rowData.monitorNum}
+                        <div className="box-between-title">
+                            模板下监控项数量：{rowData.monitorNum}
                         </div>
                     </div>
-
                 </div>
-                <div>
+                {/*<div>
                     {visible ? (
                         <Alert message="监控项下有关联触发器或者图表,无法删除" type="warning" banner={true} closable
                                afterClose={handleClose}/>
                     ) : null}
-                </div>
+                </div>*/}
 
                 <Tabs defaultActiveKey="1">
                     <Tabs.TabPane tab="监控项信息" key="2">
-                        <div className="box-templateSetting-details-between">
+                        <div className="box-between">
                             <div>
 
                             </div>
-                            <div className="box-templateSetting-details-text">
-                                <TemplateAddMonitor rowData={rowData}/>
+                            <div className="box-details-text">
+                                <AddTemplateMonitor/>
                             </div>
                         </div>
                         <Table
@@ -184,15 +181,14 @@ const TemplateSettingMonitorList = (props) => {
                         其他信息
                     </Tabs.TabPane>
                 </Tabs>
-            </Modal>
-            <div>
-                <TemplateUpdateMonitor rowData={rowData} form={form}
+            </Col>
+            <>
+                <TemplateUpdateMonitor form={form}
                                        isUpdateModalOpen={isUpdateModalOpen} setIsUpdateModalOpen={setIsUpdateModalOpen}
                                        monitorId={monitorId}
                 />
-            </div>
-
-        </div>
+            </>
+        </Row>
     );
 };
 

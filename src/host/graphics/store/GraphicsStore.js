@@ -7,6 +7,10 @@ export class GraphicsStore {
 
     @observable total = 0;
 
+    @observable monitorList = [];
+
+    @observable monitorTotal = 0;
+
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -25,9 +29,10 @@ export class GraphicsStore {
 
     //根据条件查询
     @action
-    getGraphicsStoreList = async () => {
+    findGraphics = async () => {
         const resData = await Service("/graphics/findGraphics",this.searchCondition);
         this.graphicsList = resData.data.dataList;
+        this.total = resData.data.totalRecord
         return resData.data;
     }
 
@@ -43,20 +48,21 @@ export class GraphicsStore {
     //根据主机id查询监控项列表
     @action
     findMonitorListById = async () => {
-        const monitorList = await Service("/monitor/findAllMonitor", this.searchCondition)
-        return monitorList.data;
+        const list = await Service("/monitor/findAllMonitor", this.searchCondition)
+        this.monitorList = list.data
+        return list.data;
     }
 
     //新增
     @action
-    addGraphicsStore = async (option) =>{
+    addGraphics = async (option) =>{
         const resData = await Service("/graphics/addGraphics",option);
         return resData;
     }
 
     //修改
     @action
-    updateGraphicsStoreById = async (option) =>{
+    updateGraphics = async (option) =>{
         const resData = await Service("/graphics/updateGraphics",option);
         return resData;
     }

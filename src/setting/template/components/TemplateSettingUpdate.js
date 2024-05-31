@@ -2,11 +2,12 @@ import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
 import {Button, Form, Input, Modal, Select} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
+import {observer} from "mobx-react";
 
 const {Option} = Select
-const TemplateSettingAdd = (props) => {
+const TemplateSettingUpdate = (props) => {
 
-    const {isOpen, setIsOpen, form, rowData, setDataList, dataList} = props;
+    const {isOpen, setIsOpen, form} = props;
 
     const {updateTemplate, findTemplatePage} = templateSettingStore;
 
@@ -14,15 +15,13 @@ const TemplateSettingAdd = (props) => {
 
         form.validateFields().then(async res => {
             await updateTemplate({
-                id: rowData.id,
+                id: localStorage.getItem("templateId"),
                 name: res.name,
                 isOpen: res.isOpen,
                 describe: res.describe
             })
 
-            const resData = await findTemplatePage();
-
-            setDataList([...resData.dataList]);
+            await findTemplatePage();
 
         })
         setIsOpen(false);
@@ -122,4 +121,4 @@ const TemplateSettingAdd = (props) => {
     );
 };
 
-export default withRouter(TemplateSettingAdd);
+export default withRouter(observer(TemplateSettingUpdate));

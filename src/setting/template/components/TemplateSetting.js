@@ -15,13 +15,10 @@ const TemplateSetting = (props) => {
         findTemplatePage,
         setSearchCondition,
         deleteTemplate,
-        findMonitorByTemplateId,
         total,
-        setMonitorSearchCondition, templateList
+        templateList
 
     } = templateSettingStore;
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -44,19 +41,17 @@ const TemplateSetting = (props) => {
     };
 
     async function showTemplateDetails(record) {
-        setIsModalOpen(true);
-
-        setRowData({
+        const stringify = JSON.stringify({
             id: record.id,
             name: record.name,
             monitorNum: record.monitorNum
-        })
+        });
 
-        await setMonitorSearchCondition({
-            templateId: record.id
-        })
+        localStorage.setItem("rowData",stringify)
 
-        await findMonitorByTemplateId();
+        localStorage.setItem("templateId",record.id)
+
+        props.history.push(`/setting/monitor/${record.id}`)
     }
 
     const deleteForTemplate = async (id) => {
@@ -161,12 +156,6 @@ const TemplateSetting = (props) => {
                                         showSizeChanger: true
                                     }}
                                 />
-
-                                <TemplateSettingMonitorList
-                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-                                    setRowData={setRowData} rowData={rowData}
-                                />
-
                             </div>
                         </div>
                     </Col>
@@ -174,7 +163,6 @@ const TemplateSetting = (props) => {
             </Row>
             <TemplateSettingUpdate
                 isOpen={isOpen} setIsOpen={setIsOpen} form={form}
-                setRowData={setRowData} rowData={rowData}
                 setDataList={setDataList} dataList={templateList}
             />
         </>

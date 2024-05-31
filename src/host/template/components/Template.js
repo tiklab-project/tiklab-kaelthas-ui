@@ -8,52 +8,6 @@ import "../../../common/styles/_tabStyle.scss"
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 
-const monitorColumns = [
-    {
-        title: '监控项名称',
-        dataIndex: 'name',
-        id: 'name',
-        render: (text) => <span>{text}</span>,
-    },
-    {
-        title: '监控项类别',
-        dataIndex: ['monitorItem', 'type'],
-        id: 'monitorType',
-    },
-    {
-        title: '监控表达式',
-        dataIndex: ['monitorItem', 'name'],
-        id: 'expression',
-    },
-    {
-        title: '间隔时间',
-        dataIndex: 'intervalTime',
-        id: 'intervalTime',
-    },
-    {
-        title: '数据保留时间',
-        dataIndex: 'dataRetentionTime',
-        id: 'dataRetentionTime',
-    },
-    {
-        title: '监控项状态',
-        dataIndex: 'monitorStatus',
-        id: 'monitorStatus',
-        render: (monitorStatus) => {
-            let config = {
-                1: "启用",
-                2: "未启用",
-            }
-            return config[monitorStatus];
-        }
-    },
-    {
-        title: '监控信息',
-        dataIndex: 'information',
-        id: 'information',
-    },
-
-];
 
 const Template = (props) => {
 
@@ -66,6 +20,7 @@ const Template = (props) => {
         deleteTemplateById,
         setSearchCondition,
         findMonitorByTemplateId,
+        setMonitorSearchCondition,
         total,
         monitorList,
         templatePage,
@@ -129,7 +84,11 @@ const Template = (props) => {
             monitorNum: record.monitorNum
         })
 
-        await findMonitorByTemplateId(record.id);
+        await setMonitorSearchCondition({
+            templateId: record.id
+        })
+
+        await findMonitorByTemplateId();
 
     }
 
@@ -160,6 +119,53 @@ const Template = (props) => {
                 </Space>
             ),
         },
+
+    ];
+
+    const monitorColumns = [
+        {
+            title: '监控项名称',
+            dataIndex: 'name',
+            id: 'name',
+            render: (text) => <span>{text}</span>,
+        },
+        {
+            title: '监控项类别',
+            dataIndex: ['monitorItem', 'type'],
+            id: 'monitorType',
+        },
+        {
+            title: '监控表达式',
+            dataIndex: 'expression',
+            id: 'expression',
+        },
+        {
+            title: '间隔时间',
+            dataIndex: 'intervalTime',
+            id: 'intervalTime',
+        },
+        {
+            title: '数据保留时间',
+            dataIndex: 'dataRetentionTime',
+            id: 'dataRetentionTime',
+        },
+        {
+            title: '监控项状态',
+            dataIndex: 'monitorStatus',
+            id: 'monitorStatus',
+            render: (monitorStatus) => {
+                let config = {
+                    1: "启用",
+                    2: "未启用",
+                }
+                return config[monitorStatus];
+            }
+        },
+        /*{
+            title: '监控信息',
+            dataIndex: 'information',
+            id: 'information',
+        },*/
 
     ];
 

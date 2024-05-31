@@ -1,19 +1,40 @@
-.box-templateSetting-details-between {
+
+.monitor-row {
+  flex: 1;
+  flex-direction: column;
+  padding: 20px;
+  height: 100%;
+  overflow: auto;
+}
+
+.box-between-div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .template-monitor-title{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 15px 0;
+  }
+}
+
+.box-between {
   display: flex;
   justify-content: space-between;
 
-  .box-templateSetting-details-left {
-    width: 30%;
+  .box-between-title{
+    margin-left: 20px;
+  }
 
-    .box-templateSetting-details-text {
-      font-size: 16px;
+    .box-details-text {
       display: flex;
+      font-size: 16px;
       align-items: center;
       gap: 5px;
       width: 150px;
-      margin: 20px 20px;
+      margin: 10px 20px;
     }
-  }
 
 
 }
