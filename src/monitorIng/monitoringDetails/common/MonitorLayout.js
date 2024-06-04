@@ -67,14 +67,14 @@ const MonitorLayout = (props) => {
     async function checkTabGraphics(activeKey) {
         setHostState(activeKey)
 
-        if (activeKey === "2") {
-            //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-            setSearchCondition({
-                beginTime: getDateTime()[0],
-                endTime: getDateTime()[1]
-            })
-            await findInformationByGraphics()
-        }
+        /*if (activeKey === "2") {
+        }*/
+        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
+        /*setSearchCondition({
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1]
+        })*/
+        await findInformationByGraphics()
 
     }
 
@@ -125,14 +125,19 @@ const MonitorLayout = (props) => {
 
     const showTabs = [
         {
-            title: '列表展示',
-            key: '1',
-            icon: "showList"
+            title: '折线图',
+            key: 1,
+            icon: "lineChart"
         },
         {
-            title: '图表展示',
-            key: '2',
-            icon: "graphicsList"
+            title: '柱状图',
+            key: 3,
+            icon: "histogram"
+        },
+        {
+            title: '面积图',
+            key: 4,
+            icon: "areaChart"
         }
     ]
 
@@ -231,7 +236,7 @@ const MonitorLayout = (props) => {
                         </Breadcrumb>
                         <div className="details-table-title">
                             <div className="details-search">
-                                <div className="details-select">
+                                {/*<div className="details-select">
                                     <SelectSimple name="quickFilter"
                                                   onChange={(value) => getSubclassName(value)}
                                                   title={`监控大类`}
@@ -270,7 +275,7 @@ const MonitorLayout = (props) => {
                                         }
                                     </SelectSimple>
 
-                                </div>
+                                </div>*/}
                                 <div className="details-div">
                                     <RangePicker
                                         // style={{width: 300}}
@@ -279,7 +284,6 @@ const MonitorLayout = (props) => {
                                         showTime
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
-
                                 </div>
                                 <div className="details-div">
                                     <Select
@@ -291,7 +295,7 @@ const MonitorLayout = (props) => {
                                             width: 150,
                                         }}
                                         defaultValue={9}
-                                        onClear={() => checkTime(9)}
+                                        onClear={() => checkTime()}
                                     >
                                         <Option value={9} key={9}>今天</Option>
                                         <Option value={1} key={1}>过去1分钟</Option>
@@ -320,9 +324,9 @@ const MonitorLayout = (props) => {
                             </div>
                         </div>
                         {
-                            hostState === '1' ?
+                            /*hostState === '1' ?
                                 <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
-                                :
+                                :*/
                                 <div className="layout-body-list">
                                     {
                                         condition && condition.length > 0 ?
@@ -332,7 +336,7 @@ const MonitorLayout = (props) => {
                                                         return (
                                                             <div key={index}>
                                                                 <MonitoringItem
-                                                                    reportType={item[0].reportType}
+                                                                    reportType={hostState}
                                                                     condition={item}
                                                                     descTime={item[0].dataTimes}
                                                                     index={index}

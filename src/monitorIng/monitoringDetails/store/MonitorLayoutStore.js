@@ -27,7 +27,7 @@ export class MonitorLayoutStore {
     descTime = [];
 
     @observable
-    hostState = '2';
+    hostState = 1;
 
     //监控项的id
     @observable

@@ -1,5 +1,5 @@
-import {Button, Form, Input, InputNumber, Modal, Select} from 'antd';
-import React, {useEffect, useState} from 'react';
+import {Form, Input, Modal, Select} from 'antd';
+import React, {useState} from 'react';
 import graphicsStore from "../store/GraphicsStore";
 import {observer} from "mobx-react";
 
@@ -52,10 +52,6 @@ const AddGraphics = (props) => {
         }
     }
 
-    async function onGenderChange(value, options) {
-
-    }
-
     return (
         <>
             <div onClick={showModal}>
@@ -97,7 +93,6 @@ const AddGraphics = (props) => {
                             <Select
                                 mode="multiple"
                                 placeholder="请选择监控项"
-                                onChange={(value, options) => onGenderChange(value, options)}
                                 allowClear
                                 showSearch
                             >

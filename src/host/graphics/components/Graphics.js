@@ -10,8 +10,6 @@ import UpdateGraphics from "./UpdateGraphics";
 
 const Graphics = (props) => {
 
-    const [dataList, setDataList] = useState([]);
-
     const [form] = Form.useForm();
 
     const [columnData, setColumnData] = useState({});
@@ -62,8 +60,8 @@ const Graphics = (props) => {
 
     const updateGraphicsColumn = async (record) => {
 
-        await setSearchCondition({
-            hostId: record.id
+        setColumnData({
+            graphicsId:record.id
         })
 
         await findGraphics();
@@ -72,17 +70,9 @@ const Graphics = (props) => {
             id: record.id,
             name: record.name,
             describe: record.describe,
-            monitorId: record.monitorId,
-            source: record.source,
-            monitorName: record.monitorName
+            monitorIds: record.monitorIds,
+            source: record.source
         });
-
-        setColumnData({
-            id: record.id,
-            name: record.name,
-            describe: record.describe,
-            monitorId: record.monitorId
-        })
 
         setIsModalOpen(true);
 
@@ -139,8 +129,7 @@ const Graphics = (props) => {
                 </div>
                 <div className="box-graphics-table">
                     <>
-                        <UpdateGraphics form={form} columnData={columnData} setColumnData={setColumnData}
-                                        isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} columnData={columnData}
                         />
 
                         <Table rowKey={record => record.id}

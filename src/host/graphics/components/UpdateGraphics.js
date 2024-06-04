@@ -1,6 +1,7 @@
-import {Button, Drawer, Form, Input, InputNumber, Modal, Select} from 'antd';
-import React, {useEffect, useState} from 'react';
+import {Drawer, Form, Input, Select} from 'antd';
+import React, {useEffect} from 'react';
 import graphicsStore from "../store/GraphicsStore";
+import {observer} from "mobx-react";
 
 const {Option} = Select
 
@@ -11,29 +12,17 @@ const UpdateGraphics = (props) => {
     const {
         updateGraphics,
         findGraphics,
-        findMonitorListById,
         setSearchCondition,
         monitorList
     } = graphicsStore;
 
-    useEffect(async () => {
-        setSearchCondition({
-            hostId: localStorage.getItem("hostId"),
-            reportType: 2
-        })
-        await findMonitorListById()
-    }, []);
-
     const handleOk = () => {
         form.validateFields().then(async res => {
             await updateGraphics({
-                id: columnData.id,
-                width: res.width,
-                height: res.height,
+                id: columnData.graphicsId,
                 describe: res.describe,
                 name: res.name,
-                monitorId: res.monitorId,
-                source: res.source
+                monitorIds: res.monitorIds
             })
 
             await setSearchCondition({
@@ -92,7 +81,7 @@ const UpdateGraphics = (props) => {
                 </Form.Item>
                 <Form.Item
                     label="监控项"
-                    name="monitorId"
+                    name="monitorIds"
                     rules={[{required: true, message: '请选择监控项!'}]}
                 >
                     <Select
@@ -100,12 +89,10 @@ const UpdateGraphics = (props) => {
                         placeholder="请选择监控项"
                         allowClear
                         showSearch
-                        defaultValue={monitorList}
                     >
                         {
                             monitorList && monitorList.map(item => (
-                                <Option key={item.id}
-                                        value={[item.id, item.monitorSource]}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
+                                <Option key={item.id} value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.source)}</Option>
                             ))
                         }
                     </Select>
@@ -122,4 +109,4 @@ const UpdateGraphics = (props) => {
     );
 };
 
-export default UpdateGraphics;
+export default observer(UpdateGraphics);
