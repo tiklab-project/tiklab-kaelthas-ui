@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./Graphics.scss"
 import AddGraphics from "./AddGraphics";
-import {Col, Form, Input, Row, Space, Table} from "antd";
+import {Col, Form, Input, Row, Space, Table, Tag} from "antd";
 import graphicsStore from "../store/GraphicsStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
@@ -61,7 +61,7 @@ const Graphics = (props) => {
     const updateGraphicsColumn = async (record) => {
 
         setColumnData({
-            graphicsId:record.id
+            graphicsId: record.id
         })
 
         await findGraphics();
@@ -86,6 +86,16 @@ const Graphics = (props) => {
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => updateGraphicsColumn(record)}>{text}</span>,
+        },
+        {
+            title: '监控数量',
+            dataIndex: 'monitorNum',
+            id: 'monitorNum',
+            render: (text, record) => (
+                <Tag>
+                    {record.monitorIds.length}
+                </Tag>
+            )
         },
         {
             title: '监控描述',
@@ -129,7 +139,8 @@ const Graphics = (props) => {
                 </div>
                 <div className="box-graphics-table">
                     <>
-                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} columnData={columnData}
+                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                                        columnData={columnData}
                         />
 
                         <Table rowKey={record => record.id}

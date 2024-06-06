@@ -3,12 +3,13 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
 import MonitoringDetails from "../components/MonitoringDetails";
 
-import monitorLayoutStore, {MonitorLayoutStore} from "../store/MonitorLayoutStore";
+import monitorLayoutStore from "../store/MonitorLayoutStore";
 import MonitoringItem from "./MonitoringItem";
 import moment from "moment";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import {withRouter} from "react-router-dom";
+import ChangeViewChart from "./ChangeViewChart";
 
 const {RangePicker} = DatePicker;
 
@@ -28,14 +29,14 @@ const MonitorLayout = (props) => {
         setSearchNull,
         findHistory,
         findMonitorByCategories,
-        hostState,
-        setHostState,
         getDateTime,
         findInformationPage,
         total,
         quickFilterValue,
         setQuickFilterValue
     } = monitorLayoutStore;
+
+    const [pageStatus,setPageStatus] = useState(1);
 
     const dataCategories = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
@@ -65,15 +66,7 @@ const MonitorLayout = (props) => {
     }, []);
 
     async function checkTabGraphics(activeKey) {
-        setHostState(activeKey)
 
-        /*if (activeKey === "2") {
-        }*/
-        //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
-        /*setSearchCondition({
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
-        })*/
         await findInformationByGraphics()
 
     }
@@ -228,12 +221,13 @@ const MonitorLayout = (props) => {
                 <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
                      xxl={{span: "18", offset: "3"}}>
                     <div className="details-breadcrumb-table">
-                        <Breadcrumb>
-                            {/*<Breadcrumb.Item onClick={goBackHome}>
-                                <span style={{cursor: "pointer"}}>监控</span>
-                            </Breadcrumb.Item>*/}
-                            <Breadcrumb.Item>主机:{localStorage.getItem("hostName")}</Breadcrumb.Item>
-                        </Breadcrumb>
+                        <div className="details-table-title">
+                            <Breadcrumb>
+                                <Breadcrumb.Item>主机:{localStorage.getItem("hostName")}</Breadcrumb.Item>
+                            </Breadcrumb>
+                            <ChangeViewChart pageStatus={pageStatus} setPageStatus={setPageStatus}/>
+                        </div>
+
                         <div className="details-table-title">
                             <div className="details-search">
                                 {/*<div className="details-select">
@@ -309,7 +303,7 @@ const MonitorLayout = (props) => {
                                     </Select>
                                 </div>
                             </div>
-                            <div className="details-tables">
+                            {/*<div className="details-tables">
                                 {
                                     showTabs.map(item => {
                                         return <div
@@ -321,12 +315,12 @@ const MonitorLayout = (props) => {
                                         </div>
                                     })
                                 }
-                            </div>
+                            </div>*/}
                         </div>
                         {
-                            /*hostState === '1' ?
-                                <MonitoringDetails findInformationPage={findInformationPage} total={total}/>
-                                :*/
+                            pageStatus === 2 ?
+                                <MonitoringDetails/>
+                                :
                                 <div className="layout-body-list">
                                     {
                                         condition && condition.length > 0 ?
@@ -336,7 +330,7 @@ const MonitorLayout = (props) => {
                                                         return (
                                                             <div key={index}>
                                                                 <MonitoringItem
-                                                                    reportType={hostState}
+                                                                    reportType={pageStatus}
                                                                     condition={item}
                                                                     descTime={item[0].dataTimes}
                                                                     index={index}

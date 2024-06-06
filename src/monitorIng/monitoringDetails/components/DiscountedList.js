@@ -37,11 +37,11 @@ const DiscountedList = (props) => {
     }
 
     function checkListColor(value, mapList) {
-        if (value === null || value === "null"){
+        if (value === null || value === "null") {
             return null
         }
         let color = null
-        if (mapList!=null){
+        if (mapList != null) {
             mapList.map(item => {
                 let red = checkColor(Number(value), Number(item.value), item.operator);
                 if (red != null) {
@@ -56,7 +56,6 @@ const DiscountedList = (props) => {
 
         condition.map(item => {
             series.push({
-                // symbolSize: 5,
                 name: item.name,
                 type: "line",
                 data: item.data.map(function (value) {
@@ -76,8 +75,8 @@ const DiscountedList = (props) => {
                     conditionList.push({
                         name: item.name,
                         problem: trigger.problem,
-                        value:trigger.value,
-                        operator:trigger.operator
+                        value: trigger.value,
+                        operator: trigger.operator
                     })
                 })
             }
@@ -90,6 +89,26 @@ const DiscountedList = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
+                /*title: {
+                    text: 'ECharts 示例标题', // 标题文本
+                    // subtext: '副标题文本', // 副标题文本（可选）
+                    left: 'left', // 标题的位置，可以是 'left', 'center', 'right'
+                    top: 'top', // 标题的垂直位置，可以是 'top', 'middle', 'bottom'
+                    textStyle: {
+                        color: '#333', // 文字颜色
+                        fontStyle: 'normal', // 文字风格，可以是 'normal', 'italic', 'oblique'
+                        fontWeight: 'bold', // 文字粗细，可以是 'normal', 'bold', 'bolder', 'lighter'
+                        fontFamily: 'sans-serif', // 字体系列
+                        fontSize: 16 // 文字大小
+                    },
+                    subtextStyle: {
+                        color: '#aaa', // 副标题颜色
+                        fontStyle: 'italic', // 副标题风格
+                        fontWeight: 'normal', // 副标题粗细
+                        fontFamily: 'sans-serif', // 副标题字体系列
+                        fontSize: 14 // 副标题大小
+                    }
+                },*/
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params) {
@@ -102,13 +121,12 @@ const DiscountedList = (props) => {
                             tooltipContent += '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + item.color + '"></span>';
                             tooltipContent += item.seriesName + ':' + item.value + '<br/>'; // 显示系列名
                             if (item.color === 'red') {
-                                conTypeList(conditionList, item.seriesName,item.value); // 添加其他内容
+                                conTypeList(conditionList, item.seriesName, item.value); // 添加其他内容
                             }
                         });
 
 
-
-                        function conTypeList(conditionList, seriesName,value) {
+                        function conTypeList(conditionList, seriesName, value) {
                             let problemName = ''
 
                             // 使用 filter 方法过滤非空元素
@@ -124,15 +142,16 @@ const DiscountedList = (props) => {
                             conditionList.map(item => {
                                 if (item.name === seriesName) {
                                     const red = checkColor(Number(value), Number(item.value), item.operator);
-                                    if (red != null){
+                                    if (red != null) {
                                         problemName += item.problem + '<br/>'
                                     }
                                 }
                             })
-                            if (problemName !== ''){
+                            if (problemName !== '') {
                                 textList.push(problemName + '<br/>');
                             }
                         }
+
                         if (textList.length > 0) {
                             return tooltipContent + '<hr/>' + tagText + textList;
                         }
@@ -168,6 +187,10 @@ const DiscountedList = (props) => {
                 myChart.clear()
             }
             myChart.setOption(option);
+
+            /*if (chartDom !== null && chartDom !== '' && chartDom !== undefined){
+                myChart.dispose()
+            }*/
         }
     };
 

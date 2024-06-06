@@ -17,6 +17,7 @@ import {ScatterChart, LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import monitorLayoutStore from "../store/MonitorLayoutStore";
+import {observer} from "mobx-react";
 
 echarts.use([
     TimelineComponent,
@@ -38,15 +39,15 @@ const MonitoringDetails = (props) => {
 
 
     const {
-        findMonitorForHost,
+        findHistory,
         setSearchCondition,
         searchCondition,
         setSearchNull,
         findInformationByLine,
         getDateTime,
+        historyList,
+        total
     } = monitorLayoutStore;
-
-    const {findInformationPage, total} = props;
 
     const dom = useRef(null);
 
@@ -57,6 +58,10 @@ const MonitoringDetails = (props) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
+
+    useEffect(async () => {
+        await findHistory();
+    }, []);
 
 
     async function showGraphics(record) {
@@ -194,7 +199,7 @@ const MonitoringDetails = (props) => {
             }
         })
 
-        await findMonitorForHost();
+        await findHistory();
     }
 
     return (
@@ -203,13 +208,9 @@ const MonitoringDetails = (props) => {
                 <Table
                     rowKey={record => record.id}
                     columns={columns}
-                    dataSource={findInformationPage}
+                    dataSource={historyList}
                     className="custom-table"
                     pagination={false}
-                    scroll={{
-                        x: 300,
-                    }}
-
                 />
                 <div className="details-pagination">
                     <Pagination
@@ -235,4 +236,4 @@ const MonitoringDetails = (props) => {
 };
 
 
-export default withRouter(MonitoringDetails);
+export default withRouter(observer(MonitoringDetails));

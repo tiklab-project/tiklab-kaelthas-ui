@@ -13,6 +13,7 @@ import {CanvasRenderer} from 'echarts/renderers';
 import {observer} from "mobx-react";
 import "./MonitoringDetails.scss"
 import {Col} from "antd";
+
 echarts.use([
     TitleComponent,
     ToolboxComponent,
@@ -56,7 +57,7 @@ const AreaCharts = (props) => {
     }
 
     function checkListColor(value, mapList) {
-        if (value === null || value === "null"){
+        if (value === null || value === "null") {
             return null
         }
         let color = null
@@ -100,15 +101,15 @@ const AreaCharts = (props) => {
                     conditionList.push({
                         name: item.name,
                         problem: trigger.problem,
-                        value:trigger.value,
-                        operator:trigger.operator
+                        value: trigger.value,
+                        operator: trigger.operator
                     })
                 })
             }
         })
 
         if (dom) {
-            if (myChart){
+            if (myChart) {
                 myChart.dispose();
             }
 
@@ -119,61 +120,58 @@ const AreaCharts = (props) => {
             const option = {
                 tooltip: {
                     trigger: 'axis',
-                    tooltip: {
-                        trigger: 'axis',
-                        formatter: function (params) {
-                            let tagText = '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + 'red' + '"></span>' + '告警:'
-                            let textList = [];
-                            let tooltipContent = params[0].name + '<br/>'; // 显示 X 轴的值
-                            // 遍历每个数据项，构建对应的信息
-                            params.forEach(function (item) {
-                                // 添加颜色点
-                                tooltipContent += '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + item.color + '"></span>';
-                                tooltipContent += item.seriesName + ':' + item.value + '<br/>'; // 显示系列名
-                                if (item.color === 'red') {
-                                    conTypeList(conditionList, item.seriesName,item.value); // 添加其他内容
-                                }
+                    formatter: function (params) {
+                        let tagText = '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + 'red' + '"></span>' + '告警:'
+                        let textList = [];
+                        let tooltipContent = params[0].name + '<br/>'; // 显示 X 轴的值
+                        // 遍历每个数据项，构建对应的信息
+                        params.forEach(function (item) {
+                            // 添加颜色点
+                            tooltipContent += '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + item.color + '"></span>';
+                            tooltipContent += item.seriesName + ':' + item.value + '<br/>'; // 显示系列名
+                            if (item.color === 'red') {
+                                conTypeList(conditionList, item.seriesName, item.value); // 添加其他内容
+                            }
+                        });
+
+
+                        function conTypeList(conditionList, seriesName, value) {
+                            let problemName = ''
+
+                            // 使用 filter 方法过滤非空元素
+                            const nonEmptyElements = conditionList.filter(function (element) {
+                                // 如果元素不为空，则返回 true，保留该元素
+                                return element !== null && element !== undefined && element !== '';
                             });
 
+                            if (nonEmptyElements.length === 0) {
+                                return ''
+                            }
 
-
-                            function conTypeList(conditionList, seriesName,value) {
-                                let problemName = ''
-
-                                // 使用 filter 方法过滤非空元素
-                                const nonEmptyElements = conditionList.filter(function (element) {
-                                    // 如果元素不为空，则返回 true，保留该元素
-                                    return element !== null && element !== undefined && element !== '';
-                                });
-
-                                if (nonEmptyElements.length === 0) {
-                                    return ''
-                                }
-
-                                conditionList.map(item => {
-                                    if (item.name === seriesName) {
-                                        const red = checkColor(Number(value), Number(item.value), item.operator);
-                                        if (red != null){
-                                            problemName += item.problem + ','
-                                        }
+                            conditionList.map(item => {
+                                if (item.name === seriesName) {
+                                    const red = checkColor(Number(value), Number(item.value), item.operator);
+                                    if (red != null) {
+                                        problemName += item.problem + '<br/>'
                                     }
-                                })
-                                if (problemName != null){
-                                    textList.push(problemName + '<br/>');
                                 }
+                            })
+                            if (problemName != null) {
+                                textList.push(problemName + '<br/>');
                             }
-                            if (textList.length > 0) {
-                                return tooltipContent + '<hr/>' + tagText + textList;
-                            }
+                        }
 
-                            return tooltipContent;
+                        if (textList.length > 0) {
+                            return tooltipContent + '<hr/>' + tagText + textList;
                         }
-                    },
-                    axisPointer: {
-                        type: 'cross',
-                        label: {
-                            backgroundColor: '#6a7985'
-                        }
+
+                        return tooltipContent;
+                    }
+                },
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
                     }
                 },
                 legend: {

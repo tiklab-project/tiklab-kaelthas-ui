@@ -21,13 +21,10 @@ export class MonitorLayoutStore {
     @observable alarmCondition = [];
 
     @observable
-    findInformationPage = [];
+    historyList = [];
 
     @observable
     descTime = [];
-
-    @observable
-    hostState = 1;
 
     //监控项的id
     @observable
@@ -38,11 +35,6 @@ export class MonitorLayoutStore {
 
     @observable
     nowTimeInterval = [];
-
-    @action
-    setHostState = value => {
-        this.hostState = value;
-    }
 
     @observable quickFilterValue = null;
 
@@ -118,7 +110,7 @@ export class MonitorLayoutStore {
     @action
     findHistory = async () => {
         const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
-        this.findInformationPage = resData.data.dataList;
+        this.historyList = resData.data.dataList;
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
     }

@@ -234,7 +234,7 @@ const AlarmPage = (props) => {
                             告警
                         </div>
                     </div>
-                    {/*<div className="hostAlarm-box-line">
+                    {/*<div className="hostAlarm-box-line.svg">
                         <div className="hostAlarm-box-div">
                             <span>告警详情</span>
                             <div className="hostAlarm-box-div-details">
