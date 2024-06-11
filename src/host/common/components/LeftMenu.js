@@ -63,6 +63,7 @@ const LeftMenu = (props) => {
     async function changeHost(item) {
         if (hostId !== item.id) {
             localStorage.setItem("hostId", item.id);
+            localStorage.setItem("hostName", item?.name);
             localStorage.setItem("url",`/hostList/${item.id}/hostDetails`);
             props.history.push(`/hostList/${item.id}/hostDetails`);
         }

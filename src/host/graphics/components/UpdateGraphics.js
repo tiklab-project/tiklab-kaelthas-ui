@@ -89,6 +89,7 @@ const UpdateGraphics = (props) => {
                         placeholder="请选择监控项"
                         allowClear
                         showSearch
+                        maxTagCount={"responsive"}
                     >
                         {
                             monitorList && monitorList.map(item => (

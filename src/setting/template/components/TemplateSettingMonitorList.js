@@ -145,7 +145,7 @@ const TemplateSettingMonitorList = (props) => {
                             模板名称: {rowData.name}
                         </div>
                         <div className="box-between-title">
-                            模板下监控项数量：{rowData.monitorNum}
+                            模板下监控项数量：{monitorTotal}
                         </div>
                     </div>
                 </div>

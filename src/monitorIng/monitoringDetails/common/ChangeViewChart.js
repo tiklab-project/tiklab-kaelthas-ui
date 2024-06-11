@@ -5,7 +5,7 @@ import monitorLayoutStore from "../store/MonitorLayoutStore";
 
 const ChangeViewChart = (props) => {
 
-    const {pageStatus,setPageStatus} = props;
+    const {setPageStatus} = props;
 
     const [listOpen, setListOpen] = useState(false);
 
@@ -61,7 +61,7 @@ const ChangeViewChart = (props) => {
 
         setPageStatus(value?.value)
 
-        await findInformationByGraphics();
+        // await findInformationByGraphics();
 
         setListOpen(false)
     }

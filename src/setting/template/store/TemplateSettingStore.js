@@ -73,16 +73,16 @@ export class TemplateSettingStore {
         await Service("/template/updateTemplate", option);
     }
 
-    //根据监控项id删除监控项
+    //根据监控项id删除模板下监控项
     @action
     deleteMonitorById = async (params) => {
-        return await Service('/templateMonitor/deleteTemplateMonitor', params);
+        await Service('/template/deleteTemplateMonitor', params);
     }
 
     //修改模板下的监控项
     @action
     updateTemplateMonitor = async (option) => {
-        await Service("/templateMonitor/updateTemplateMonitor", option)
+        await Service("/template/updateTemplateMonitor", option)
     }
 
     //根据模板id查询模板下的监控项
@@ -93,9 +93,10 @@ export class TemplateSettingStore {
         this.monitorTotal = resData.data.totalRecord
     }
 
+    //向模板下添加监控系
     @action
     createMonitor = (value) =>{
-        return Service("/templateMonitor/createTemplateMonitor", value);
+        return Service("/template/createTemplateMonitor", value);
     }
 
 

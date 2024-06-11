@@ -152,7 +152,7 @@ const AreaCharts = (props) => {
                                 if (item.name === seriesName) {
                                     const red = checkColor(Number(value), Number(item.value), item.operator);
                                     if (red != null) {
-                                        problemName += item.problem + '<br/>'
+                                        problemName += item?.problem + '<br/>'
                                     }
                                 }
                             })

@@ -186,17 +186,17 @@ const Monitor = (props) => {
                 return config[monitorStatus];
             }
         },
-        /*{
-            title: '监控信息',
-            dataIndex: 'information',
-            id: 'information',
-        },*/
         {
             title: '操作',
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => removeToList(record)}>删除</span>
+                    {
+                        record?.source === 1 ? <span style={{cursor: "pointer"}} onClick={() => removeToList(record)}>删除</span>
+                            :
+                            <span>无</span>
+                    }
+
                 </Space>
             ),
         },

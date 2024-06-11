@@ -136,7 +136,7 @@ const HistogramList = (props) => {
 
 
                         function conTypeList(conditionList, seriesName, value) {
-                            let problemName = []
+                            let problemName = ''
 
                             // 使用 filter 方法过滤非空元素
                             const nonEmptyElements = conditionList.filter(function (element) {
@@ -152,7 +152,7 @@ const HistogramList = (props) => {
                                 if (item.name === seriesName) {
                                     const red = checkColor(Number(value), Number(item.value), item.operator);
                                     if (red != null) {
-                                        problemName.push(item.problem)
+                                        problemName += item?.problem + '<br/>'
                                     }
                                 }
                             })

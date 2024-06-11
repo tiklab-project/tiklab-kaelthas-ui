@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
-import {Col, Form, Input, InputNumber, Modal, Row, Select, Space, Table} from "antd";
+import {Col, Drawer, Form, Input, InputNumber, Modal, Row, Select, Space, Table} from "antd";
 import {observer} from "mobx-react";
 import "./HostGroup.scss"
 import {SearchOutlined} from "@ant-design/icons";
@@ -16,12 +16,15 @@ const HostGroup = (props) => {
         findHostGroupPage,
         total,
         createHostGroup,
-        deleteHostGroup
+        deleteHostGroup,
+        updateHostGroup
     } = hostGroupStore;
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [form] = Form.useForm();
+
+    const [hostGroupId, setHostGroupId] = useState();
 
     useEffect(async () => {
         setNullCondition();
@@ -37,6 +40,21 @@ const HostGroup = (props) => {
         await findHostGroupPage();
     }
 
+    const [open, setOpen] = useState(false);
+
+    const onClose = () => {
+        form.validateFields().then(async res => {
+            await updateHostGroup({
+                id: hostGroupId,
+                name: res.name,
+                describe: res.describe
+            });
+
+            await findHostGroupPage();
+        })
+        setOpen(false);
+    };
+
     async function selectPage(pagination) {
         setSearchCondition({
             pageParam: {
@@ -48,7 +66,7 @@ const HostGroup = (props) => {
         await findHostGroupPage();
     }
 
-    const handleOk = () =>{
+    const handleOk = () => {
         form.validateFields().then(async res => {
             await createHostGroup({
                 name: res.name,
@@ -73,11 +91,22 @@ const HostGroup = (props) => {
         await findHostGroupPage();
     }
 
+    function updateHostGroupById(record) {
+        form.setFieldsValue({
+            name: record.name,
+            describe: record.describe
+        })
+        setHostGroupId(record.id);
+        setOpen(true);
+    }
+
     const columns = [
         {
             title: '主机组名称',
             dataIndex: 'name',
             key: 'name',
+            render: (name, record) => <div style={{cursor: "pointer"}}
+                                           onClick={() => updateHostGroupById(record)}>{name}</div>
         },
         {
             title: '描述',
@@ -178,6 +207,59 @@ const HostGroup = (props) => {
 
                 </Form>
             </Modal>
+            <Drawer
+                title="修改主机组"
+                placement="right"
+                onClose={onClose}
+                open={open}
+                visible={open}
+                width={500}
+                contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
+                maskStyle={{background: "transparent"}}
+            >
+                <Form
+                    name="basic"
+                    labelCol={{
+                        span: 8,
+                    }}
+                    wrapperCol={{
+                        span: 16,
+                    }}
+                    initialValues={{
+                        remember: true,
+                    }}
+                    layout="vertical"
+                    autoComplete="off"
+                    form={form}
+                    labelAlign={"left"}
+                >
+                    <Form.Item
+                        label="主机组名称"
+                        name="name"
+                        rules={[
+                            {
+                                required: true,
+                                message: '主机组名称!',
+                            },
+                        ]}
+                    >
+                        <Input allowClear={true} placeholder="主机组名称"/>
+                    </Form.Item>
+                    <Form.Item
+                        label="描述"
+                        name="describe"
+                        rules={[
+                            {
+                                required: false,
+                                message: '描述!',
+                            },
+                        ]}
+                    >
+                        <Input allowClear={true} placeholder="描述"/>
+                    </Form.Item>
+
+                </Form>
+            </Drawer>
         </>
     );
 };

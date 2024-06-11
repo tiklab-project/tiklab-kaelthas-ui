@@ -5,14 +5,14 @@ import "./HomePage.scss";
 import "../../host/hostPage/components/Host";
 import {connect} from "thoughtware-plugin-core-ui";
 import {UserVerify} from "thoughtware-eam-ui";
-import {Col, Image, Layout, Row, Table} from "antd";
+import {Col, Empty, Image, Layout, Row, Table} from "antd";
 import {observer} from "mobx-react";
 import homeStore from "../store/HomeStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const HomePage = (props) => {
 
-    const {findHomeRecentList, hostRecentList,findDynamicList,dynamicList,updateHostRecent} = homeStore;
+    const {findHomeRecentList, hostRecentList, findDynamicList, dynamicList, updateHostRecent} = homeStore;
 
     const {findAlarmPage, setNullCondition} = alarmPageStore;
 
@@ -42,64 +42,64 @@ const HomePage = (props) => {
                                 常用主机
                             </div>
                         </div>
-                        <div className="home-content-detail">
-                            {
-                                hostRecentList && hostRecentList.map(item => {
-                                    return (
-                                        <div className="home-content-detail-item" onClick={() =>host(item)} key={item.id}>
-                                            <div className="item-title">
-                                                <div className="item-title-png">
-                                                    <div className={`user-big-icon mf-icon-${item?.color}`}>{item?.hostName?.substring(0, 1).toUpperCase()}</div>
+                        {
+                            hostRecentList.length > 0 ?
+                                <div className="home-content-detail">
+                                    {
+                                        hostRecentList && hostRecentList.map(item => {
+                                            return (
+                                                <div className="home-content-detail-item" onClick={() => host(item)}
+                                                     key={item.id}>
+                                                    <div className="item-title">
+                                                        <div className="item-title-png">
+                                                            <div
+                                                                className={`user-big-icon mf-icon-${item?.color}`}>{item?.hostName?.substring(0, 1).toUpperCase()}</div>
+                                                        </div>
+                                                        <div className="item-title-text">
+                                                            <span>{item?.hostName}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="item-work">
+                                                        <div className="item-work-item">
+                                                            <span className="item-work-label"
+                                                                  style={{color: "#999"}}>告警数量</span>
+                                                            <span>{item.alarmNum}</span>
+                                                        </div>
+                                                        <div className="item-work-item">
+                                                            <span className="item-work-label"
+                                                                  style={{color: "#999"}}>主机状态</span>
+                                                            <span>{item?.state === 1 ? "已启用" : "未启用"}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className="item-title-text">
-                                                    <span>{item?.hostName}</span>
-                                                </div>
-                                            </div>
-                                            <div className="item-work">
-                                                <div className="item-work-item">
-                                                    <span className="item-work-label" style={{color: "#999"}}>告警数量</span>
-                                                    <span>{item.alarmNum}</span>
-                                                </div>
-                                                <div className="item-work-item">
-                                                    <span className="item-work-label" style={{color: "#999"}}>主机状态</span>
-                                                    <span>{item?.state === 1 ? "已启用" : "未启用"}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+                                <Empty/>
+                        }
+
                     </div>
-                    {/*<div className="home-hostAlarm-table">
-                        <div className="home-table-title">告警信息</div>
-                        <div className="home-hostAlarm-table-list">
-                            <Table rowKey={record => record.id}
-                                   columns={columns}
-                                   dataSource={alarmPage}
-                                   className="custom-table"
-                                   scroll={{
-                                       x: 300,
-                                   }}
-                                   onChange={changePage}
-                                   pagination={false}
-                            />
-                        </div>
-                    </div>*/}
                     <div className="home-alarm-table">
                         <div className="home-table-title">动态信息</div>
-                        <div className="home-alarm-table-list">
-                            {
-                                dynamicList&&dynamicList.map(item =>{
-                                    return(
-                                        <div className="home-alarm-table-line" key={item.id}>
-                                            <div className="home-alarm-table-div">{item.name}</div>
-                                            <div className="home-alarm-table-line">{item.updateTime} </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
+                        {
+                            dynamicList.length > 0 ?
+                                <div className="home-alarm-table-list">
+                                    {
+                                        dynamicList && dynamicList.map(item => {
+                                            return (
+                                                <div className="home-alarm-table-line" key={item.id}>
+                                                    <div className="home-alarm-table-div">{item.name}</div>
+                                                    <div className="home-alarm-table-line">{item.updateTime} </div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
+                                :
+                                <Empty/>
+                        }
                     </div>
                 </div>
             </Col>

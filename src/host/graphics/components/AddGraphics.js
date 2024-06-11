@@ -95,11 +95,12 @@ const AddGraphics = (props) => {
                                 placeholder="请选择监控项"
                                 allowClear
                                 showSearch
+                                maxTagCount={"responsive"}
                             >
                                 {
                                     monitorList && monitorList.map(item => (
                                         <Option key={item.id}
-                                                value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.source)}</Option>
+                                                value={item.id}>{item.name}{"  来源--"}{conversionMonitorType(item.source)}{" 数据类型--"}{item?.monitorItem.reportType}</Option>
                                     ))
                                 }
                             </Select>
