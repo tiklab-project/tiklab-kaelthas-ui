@@ -4,9 +4,7 @@ import {Col, Form, Input, Modal, Row, Space, Table, Tabs} from "antd";
 import "./TemplateSetting.scss"
 import TemplateSettingAdd from "./TemplateSettingAdd";
 import templateSettingStore from "../store/TemplateSettingStore";
-import templateStore from "../../../host/template/store/TemplateStore";
 import TemplateSettingUpdate from "./TemplateSettingUpdate";
-import TemplateSettingMonitorList from "./TemplateSettingMonitorList";
 import {observer} from "mobx-react";
 
 const TemplateSetting = (props) => {
@@ -47,9 +45,9 @@ const TemplateSetting = (props) => {
             monitorNum: record.monitorNum
         });
 
-        localStorage.setItem("rowData",stringify)
+        localStorage.setItem("rowData", stringify)
 
-        localStorage.setItem("templateId",record.id)
+        localStorage.setItem("templateId", record.id)
 
         props.history.push(`/setting/monitor/${record.id}`)
     }
@@ -137,26 +135,21 @@ const TemplateSetting = (props) => {
                                 </Space>
                             </div>
                             <div className="template-kind-option">
-                                <div className="template-kind-search">
-                                    <div>
-                                        <Input placeholder="请输入模板名称"
-                                               onPressEnter={(event) => searchName(event)}/>
-                                    </div>
+                                <div>
+                                    <Input placeholder="请输入模板名称"
+                                           onPressEnter={(event) => searchName(event)}/>
                                 </div>
                             </div>
-
-                            <div className="box-templateSetting-table">
-                                <Table
-                                    rowKey={record => record.id}
-                                    columns={columns}
-                                    dataSource={templateList}
-                                    pagination={{
-                                        position: ["bottomCenter"],
-                                        total: total,
-                                        showSizeChanger: true
-                                    }}
-                                />
-                            </div>
+                            <Table
+                                rowKey={record => record.id}
+                                columns={columns}
+                                dataSource={templateList}
+                                pagination={{
+                                    position: ["bottomCenter"],
+                                    total: total,
+                                    showSizeChanger: true
+                                }}
+                            />
                         </div>
                     </Col>
                 </div>

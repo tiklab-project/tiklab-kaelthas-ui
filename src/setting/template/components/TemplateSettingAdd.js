@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {withRouter} from "react-router";
 import {Button, Form, Input, Modal, Select} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
+import "./TemplateSetting.scss"
 const {Option} = Select
 const TemplateSettingAdd = (props) => {
 
@@ -46,9 +47,9 @@ const TemplateSettingAdd = (props) => {
 
     return (
         <>
-            <Button type="primary" onClick={showModal}>
+            <div className="template-add" onClick={showModal}>
                 新建模板
-            </Button>
+            </div>
             <Modal title="新建模板" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
                 <div className="TemplateSettingAddForm">

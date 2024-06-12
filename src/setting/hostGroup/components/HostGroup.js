@@ -162,7 +162,7 @@ const HostGroup = (props) => {
                 </Col>
             </Row>
 
-            <Modal title="新建监控项" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
+            <Modal title="新建主机组" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
                    cancelText="取消" okText="确定" width={800}>
                 <Form
                     name="basic"

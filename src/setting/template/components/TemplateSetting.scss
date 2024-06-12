@@ -35,8 +35,8 @@
         display: flex;
         width: 100%;
         align-items: center;
-        justify-content: flex-end;
-        margin-top: 15px;
+        justify-content: flex-start;
+        padding-bottom: 15px;
 
         .template-kind-search {
           display: flex;
@@ -46,15 +46,24 @@
           margin-top: 15px;
         }
       }
-
-
-      .box-templateSetting-table {
-        margin-top: 30px;
-
-      }
     }
 
 
   }
 
+}
+
+
+.template-add {
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  background: #0d66e4;
+  border-color: #0d66e4;
+  color: #fff;
 }

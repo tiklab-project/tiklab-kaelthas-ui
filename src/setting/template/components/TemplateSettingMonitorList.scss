@@ -21,7 +21,7 @@
 
 .box-between {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 
   .box-between-title{
     margin-left: 20px;
@@ -32,9 +32,22 @@
       font-size: 16px;
       align-items: center;
       gap: 5px;
-      width: 150px;
-      margin: 10px 20px;
+      margin: 10px 0;
     }
 
 
+}
+
+.monitor-add {
+  display: inline-block;
+  font-weight: 400;
+  white-space: nowrap;
+  text-align: center;
+  cursor: pointer;
+  padding: 4px 15px;
+  font-size: 14px;
+  border-radius: 4px;
+  background: #0d66e4;
+  border-color: #0d66e4;
+  color: #fff;
 }

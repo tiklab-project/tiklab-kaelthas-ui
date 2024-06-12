@@ -111,11 +111,6 @@ const TemplateSettingMonitorList = (props) => {
                 return config[monitorStatus];
             }
         },
-        /*{
-            title: '监控信息',
-            dataIndex: 'information',
-            id: 'information',
-        },*/
         {
             title: '操作',
             id: 'action',
@@ -137,31 +132,19 @@ const TemplateSettingMonitorList = (props) => {
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-between-div">
                     <div className="template-monitor-title">
-                        <LeftOutlined onClick={() =>hrefTemplate()}/>
-                        模板下监控项
+                        <LeftOutlined onClick={() => hrefTemplate()}/>
+                        &nbsp; 模板名称: {rowData.name}
                     </div>
                     <div className="box-between">
-                        <div>
-                            模板名称: {rowData.name}
-                        </div>
                         <div className="box-between-title">
                             模板下监控项数量：{monitorTotal}
                         </div>
                     </div>
                 </div>
-                {/*<div>
-                    {visible ? (
-                        <Alert message="监控项下有关联触发器或者图表,无法删除" type="warning" banner={true} closable
-                               afterClose={handleClose}/>
-                    ) : null}
-                </div>*/}
 
                 <Tabs defaultActiveKey="1">
                     <Tabs.TabPane tab="监控项信息" key="2">
                         <div className="box-between">
-                            <div>
-
-                            </div>
                             <div className="box-details-text">
                                 <AddTemplateMonitor/>
                             </div>
