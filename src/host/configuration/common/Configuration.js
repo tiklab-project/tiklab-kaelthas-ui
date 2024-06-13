@@ -3,7 +3,6 @@ import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./Configuration.scss"
 import {Col, Layout, Row} from "antd";
-import {BreadCrumb} from "thoughtware-flow-ui/es/commons";
 
 const Configuration = (props) => {
 

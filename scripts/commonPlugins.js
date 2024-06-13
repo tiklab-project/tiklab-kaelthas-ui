@@ -19,10 +19,6 @@ import json from '@rollup/plugin-json';
 
 import {NODE_ENV} from './constant';
 
-import image from '@rollup/plugin-image';
-
-import copy from 'rollup-plugin-copy';
-
 import url from '@rollup/plugin-url';
 
 const extensions = ['.js', '.jsx']
@@ -51,13 +47,6 @@ const commonPlugins = [
         destDir: 'es/src/assets/images',
         publicPath: '/images/'
     }),
-    // copy({
-    //     targets: [
-    //       { src: 'src/assets/*', dest: 'es/src/assets' },
-    //       // 添加其他图片格式的配置
-    //     ],
-    //     flatten: false, // 设置为true时，只拷贝文件，不复制目录结构
-    // }),
 ];
 
 export default commonPlugins;

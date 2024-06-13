@@ -14,7 +14,6 @@ import {
 } from "thoughtware-message-ui";
 import {ProductAuth, Version} from "thoughtware-licence-ui";
 import {ExcludeProductUser, InternalWechatEntry, NotFound} from "thoughtware-eam-ui";
-import {PluginDetail, Plugin} from "thoughtware-plugin-manager-ui";
 import {SystemFeature, ProjectFeature, SystemRole, ProjectRole} from "thoughtware-privilege-ui";
 import {Orga,User,UserGroup,Directory} from "thoughtware-user-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
@@ -29,7 +28,7 @@ const Graphics = AsyncComponent(() => import( "./host/graphics/components/Graphi
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
-const Index = AsyncComponent(() => import('./home/common/HomeLayout'))
+const Home = AsyncComponent(() => import('./home/common/HomeLayout'))
 const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostOverview'))
 const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
@@ -93,7 +92,7 @@ const Routes = [
     },
     {
         path: "/",
-        component: Index,
+        component: Home,
         routes: [
             {
                 path: "/home",
@@ -292,11 +291,6 @@ const Routes = [
                         key:'version',
                         exact: true,
                         component:VersionContent
-                    },
-                    {
-                        path: "/setting/plugin",
-                        key: 'plugin',
-                        render: (props) => <Plugin {...props} detailRouter={"/setting/plugindetail"}/>,
                     },
                     {
                         path: "/setting/systemFeature",

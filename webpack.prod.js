@@ -1,11 +1,3 @@
-/*
- * @Descripttion: 
- * @version: 1.0.0
- * @Author: 袁婕轩
- * @Date: 2021-04-19 16:47:25
- * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-12-31 09:51:05
- */
 const webpack = require('webpack')
 const { merge } = require('webpack-merge');
 const path = require('path');
@@ -62,13 +54,6 @@ module.exports = merge(baseWebpackConfig, {
                     test: /@ant-design/,
                     priority: 0,
                     reuseExistingChunk: true //遇到重复包直接引用，不重新打包
-                },
-                thoughtwarePluginUI: {
-                    name: "chunk-thoughtware-plugin-manager-ui",
-                    chunks: "all",
-                    test: /thoughtware-plugin-manager-ui/,
-                    priority: 0,
-                    reuseExistingChunk: true
                 },
                 thoughtwareEamUI: {
                     name: "chunk-thoughtware-eam-ui",

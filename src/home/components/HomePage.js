@@ -1,14 +1,11 @@
 import React, {useEffect} from "react";
-import computerPng from "../../assets/image/dataComputer.png"
 
 import "./HomePage.scss";
 import "../../host/hostPage/components/Host";
-import {connect} from "thoughtware-plugin-core-ui";
-import {UserVerify} from "thoughtware-eam-ui";
 import {Col, Empty, Image, Layout, Row, Table} from "antd";
-import {observer} from "mobx-react";
 import homeStore from "../store/HomeStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+import {observer} from "mobx-react";
 
 const HomePage = (props) => {
 
@@ -107,12 +104,4 @@ const HomePage = (props) => {
     )
 }
 
-const HomeLayout = UserVerify(Layout, '/')
-
-function mapStateToProps(state) {
-    return {
-        pluginStore: state.pluginStore
-    }
-}
-
-export default connect(mapStateToProps)(observer(HomePage));
+export default observer(HomePage);

@@ -1,9 +1,12 @@
+
+/**
+ * @name: rollup.config
+ * @author mahai
+ * @date 2022/7/8 1:07 PM
+ * @description rollup.config
+ */
 import fs from 'fs';
 import path from 'path';
-import filesize from 'rollup-plugin-filesize';
-import { uglify } from "rollup-plugin-uglify";
-import {terser} from 'rollup-plugin-terser';
-
 import commonPlugins from "./scripts/commonPlugins";
 
 const pkg = require("./package.json");
@@ -33,13 +36,15 @@ const getFiles = (entry, extensions=[], excludeExtensions = []) => {
     return fileNames;
 }
 const globals = {
-    'react': 'React',
+    react: 'React',
     'react-dom': 'ReactDOM',
-    'antd':"antd",
+    antd:"antd",
     'react-i18next':'reactI18next',
     "thoughtware-core-ui":"thoughtwareCoreUi",
     "@ant-design/icons":"icons",
-    "thoughtware-plugin-ui":"thoughtwarePluginUi",
+    "thoughtware-form-ui":"thoughtwareFormUi",
+    "thoughtware-privilege-ui":"thoughtwarePrivilegeUi",
+    "thoughtware-user-ui":"thoughtwareUserUi",
     'mobx-react':'mobxReact',
     'mobx':'mobx',
     "react-router-dom":"reactRouterDom"
@@ -48,19 +53,12 @@ const globals = {
 
 const extensions = ['.js', '.jsx',]
 
-const umdOutput = {
-    format: 'umd',
-    name: 'thoughtware-matflow-ui',
-    globals,
-    assetFileNames: '[name].[ext]'
-};
 const esOutput = {
     globals,
     preserveModules: true,
     preserveModulesRoot: 'components',
     exports: 'named',
     assetFileNames: ({name}) => {
-        console.log(name)
         const {ext, dir, base} = path.parse(name);
         if (ext !== '.css') return '[name].[ext]';
         // 规范 style 的输出格式
@@ -72,21 +70,6 @@ const external = Object.keys(pkg.peerDependencies || {}).concat('react-dom')
 
 export default () => {
     switch (BABEL_ENV) {
-        case 'umd':
-            console.log(BABEL_ENV, 'BABEL_ENV-umd')
-            return [{
-                input: 'src/ui.js',
-                output: {...umdOutput, file: `dist/${pkg.name}.development.js`,sourcemap: true,},
-                external,
-                // 使用gulpfile 抽离css
-                plugins: [ ...commonPlugins, filesize()]
-            }, {
-                input: 'src/ui.js',
-                output: {...umdOutput, file: `dist/${pkg.name}.production.min.js`, plugins: [terser(), uglify()]},
-                external,
-                // 使用gulpfile 抽离css
-                plugins: [ ...commonPlugins, filesize(), terser()]
-            }];
         case "esm":
             return {
                 input: [
@@ -95,19 +78,6 @@ export default () => {
                 ],
                 output: { ...esOutput, dir: 'es', format: 'es', sourcemap: IS_DEV},
                 external,
-                plugins: [ ...commonPlugins]
-            };
-        case 'cjs':
-            return {
-                input: [
-                    'src/ui.js',
-                    ...getFiles('./src', extensions),
-                ],
-                preserveModules: true, // rollup-plugin-styles 还是需要使用
-                output: { ...esOutput, dir: 'lib', format: 'cjs', sourcemap: IS_DEV},
-                external,
-                // plugins: [styles(esStylePluginConfig), ...commonPlugins]
-
                 plugins: [ ...commonPlugins]
             };
         default:

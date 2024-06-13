@@ -81,11 +81,6 @@ const Header = props => {
             title: '主机',
             key: 'configuration'
         },
-        /*{
-            to: '/monitoring',
-            title: '监控',
-            key: 'monitoring'
-        },*/
         {
             to: '/alarm',
             title: '告警',

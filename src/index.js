@@ -13,17 +13,13 @@ import './common/language/i18n'
 import "./index.scss"
 import "./common/styles/_tabStyle.scss"
 import { observer } from "mobx-react"
-import { pluginLoader, PluginProvider } from "thoughtware-plugin-core-ui";
 import "./assets/index";
-import resources from "./common/language/resources";
 import {useVersion} from "thoughtware-eam-ui/es/utils";
 import {privilegeStores} from "thoughtware-privilege-ui/es/store";
-import {fetchMethod} from "../enviroment/enviroment_dev";
 enableAxios()
 const Index = observer((props) => {
 
     const { i18n } = useTranslation();
-    const [visable, setVisable] = useState(true);
     useVersion()
 
     const allStore = {
@@ -37,29 +33,16 @@ const Index = observer((props) => {
         pluginStore: [],
         languageStore: []
     });
-
-    useEffect(() => {
-        pluginLoader(Routers, resources,i18n, fetchMethod).then(res => {
-            setPluginData(res)
-            console.log("res",res)
-            setVisable(false)
-        })
-    }, []);
-
-    if (visable) return <div>加载中</div>
-
     return (
-        <PluginProvider store={pluginData}>
             <Provider {...allStore}>
                 <ConfigProvider locale={zhCN}>
                     <HashRouter>
                         {
-                            renderRoutes(pluginData?.routes)
+                            renderRoutes(Routers)
                         }
                     </HashRouter>
                 </ConfigProvider>
             </Provider>
-        </PluginProvider>
     )
 });
 
