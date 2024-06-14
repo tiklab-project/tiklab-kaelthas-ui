@@ -63,6 +63,7 @@ const AddHost = (props) => {
                         preserve={false}
                         layout={"vertical"}
                         {...layout}
+                        initialValues={{ isOpen: "1" }}
                     >
                         <div className={"ws-edit-form-input"}>
                             <Form.Item
@@ -165,7 +166,6 @@ const AddHost = (props) => {
                                     <Select
                                         placeholder="是否开启"
                                         allowClear
-                                        defaultValue={"1"}
                                     >
                                         <Option key={1} value="1">开启</Option>
                                         <Option key={2} value="2">关闭</Option>

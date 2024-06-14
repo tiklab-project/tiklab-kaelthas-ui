@@ -7,15 +7,15 @@ import {observer} from "mobx-react";
 const {Option} = Select
 const schemeList = [
     {
-        name: "avg(平均值)",
+        name: "last(最近一个值)",
         value: 1
     },
     {
-        name: "percentage(百分比)",
+        name: "avg(平均值)",
         value: 2
     },
     {
-        name: "last(最近一个值)",
+        name: "percentage(百分比)",
         value: 3
     },
 ]

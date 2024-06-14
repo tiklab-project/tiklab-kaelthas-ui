@@ -1,12 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import "./ProjectInformation.scss"
 import {withRouter} from "react-router-dom";
 import {Alert, Button, Collapse, Form, Input, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
 import configurationStore from "../../../hostPage/store/ConfigurationStore";
+import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
+import {observer} from "mobx-react";
 
 const {Panel} = Collapse;
-
 
 const {Option} = Select;
 const layout = {
@@ -26,16 +27,13 @@ const tailLayout = {
 
 const ProjectInformation = (props) => {
 
-    const onChange = (key) => {
-        console.log('key', key);
-    };
-    const {deleteHostById, findHostById, findAllHostGroupList, updateHost} = projectInformationStore;
+    const {deleteHostById, findHostById, findAllHostGroupList, updateHost, allHostGroupList} = projectInformationStore;
 
     const {setNullCondition, findPageHost} = configurationStore;
 
-    const [allHostGroupList, setAllHostGroupList] = useState([]);
-
     const [form] = Form.useForm();
+
+    const formRef = useRef(null);
 
     const onFinish = async (values) => {
         values.id = localStorage.getItem("hostId")
@@ -46,25 +44,23 @@ const ProjectInformation = (props) => {
         form.resetFields();
     };
 
-    useEffect(async () => {
-        //调用根据id查询,将查询的数据放到表单当中
-        const resData = await findHostById(localStorage.getItem("hostId"));
+    const onChange = async (key) => {
+        if ("1" === key[0]) {
+            //调用根据id查询,将查询的数据放到表单当中
+            const resData = await findHostById(localStorage.getItem("hostId"));
 
+            await findAllHostGroupList();
 
-        const resHostGroup = await findAllHostGroupList();
-
-        setAllHostGroupList([...resHostGroup])
-
-        form.setFieldsValue({
-            id: localStorage.getItem("hostId"),
-            name: resData.name,
-            ip: resData.ip,
-            hostGroupId: resData.hostGroup === null ? null : resData.hostGroup.id,
-            state: resData.state,
-            describe: resData.describe
-        })
-
-    }, []);
+            form.setFieldsValue({
+                id: localStorage.getItem("hostId"),
+                name: resData.name,
+                ip: resData.ip,
+                hostGroupId: resData.hostGroup === null ? null : resData.hostGroup.id,
+                state: resData.state,
+                describe: resData.describe
+            })
+        }
+    };
 
 
     //删除主机
@@ -76,10 +72,22 @@ const ProjectInformation = (props) => {
 
         await findPageHost();
 
-        console.log('localStorage.getItem("hostId")', localStorage.getItem("hostId"));
-
         props.history.push("/configuration");
     }
+
+    const hostHeader = () => (
+        <div className="project-info-title">
+            <FormOutlined/> &nbsp;
+            项目信息
+        </div>
+    )
+
+    const deleteHost = () => (
+        <div className="project-info-title">
+            <DeleteOutlined/> &nbsp;
+            删除主机
+        </div>
+    );
 
     return (
         <div className="setting-box-body-right">
@@ -88,12 +96,14 @@ const ProjectInformation = (props) => {
                     主机信息
                 </div>
                 <Collapse onChange={onChange} expandIconPosition="right">
-                    <Panel header="主机信息" key="1">
+                    <Panel header={hostHeader()} key="1">
                         <Form {...layout}
                               form={form}
-                              name="control-hooks"
+                              name="basic"
                               onFinish={onFinish}
+                              initialValues={{remember: true}}
                               labelAlign={"left"}
+                            // ref={formRef}
                         >
                             <Form.Item
                                 name="name"
@@ -179,10 +189,10 @@ const ProjectInformation = (props) => {
                             </Form.Item>
                         </Form>
                     </Panel>
-                    <Panel header="删除主机" key="2">
+                    <Panel header={deleteHost()} key="2">
                         <div className="dropDownMenu-box">
                             <div style={{color: "#ff0000"}}>
-                                此主机及其事务、组件、附件和版本将在回收站中保留 60 天，之后将被永久删除。
+                                此主机及其监控项、触发器、图形和模板将被永久删除。
                             </div>
                             <div className="setting-box-div-delete"
                                  onClick={() => deleteByHost()}
@@ -197,4 +207,4 @@ const ProjectInformation = (props) => {
     );
 };
 
-export default withRouter(ProjectInformation);
+export default withRouter(observer(ProjectInformation));

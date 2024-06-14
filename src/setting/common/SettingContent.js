@@ -11,7 +11,6 @@ import {renderRoutes} from "react-router-config";
 const SettingContent= props =>  {
 
     const {route,isDepartment,applicationRouters,systemRoleStore} = props
-    console.log(route)
 
     const {systemPermissions} = systemRoleStore
 

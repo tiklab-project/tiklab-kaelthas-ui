@@ -5,15 +5,15 @@ import triggerStore from "../store/TriggerStore";
 const {Option} = Select
 const schemeList = [
     {
-        name: "avg(平均值)",
+        name: "last(最近一个值)",
         value: 1
     },
     {
-        name: "percentage(百分比)",
+        name: "avg(平均值)",
         value: 2
     },
     {
-        name: "last(最近一个值)",
+        name: "percentage(百分比)",
         value: 3
     },
 ]
@@ -58,6 +58,11 @@ const AddTrigger = (props) => {
     const [monitorData, setMonitorData] = useState([]);
 
     const [rowData, setRowData] = useState({});
+
+    //定义两个状态,分别表示时间范畴和百分比输入框
+    const [timeStatus, setTimeStatus] = useState(true);
+
+    const [percentageStatus, setPercentageStatus] = useState(true);
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -119,6 +124,23 @@ const AddTrigger = (props) => {
                 return "主机";
             case 2:
                 return "模板";
+        }
+    }
+
+    function updateStatus(value) {
+        switch (value) {
+            case 1:
+                setTimeStatus(false)
+                setPercentageStatus(false)
+                break
+            case 2:
+                setTimeStatus(true)
+                setPercentageStatus(false)
+                break
+            case 3:
+                setTimeStatus(true)
+                setPercentageStatus(true)
+                break
         }
     }
 
@@ -191,6 +213,7 @@ const AddTrigger = (props) => {
                         <Select
                             placeholder="请选择触发方案"
                             allowClear
+                            onSelect={updateStatus}
                         >
                             {
                                 schemeList.map(item => {
@@ -199,30 +222,38 @@ const AddTrigger = (props) => {
                             }
                         </Select>
                     </Form.Item>
-                    <Form.Item
-                        label="选择时间范畴"
-                        name="rangeTime"
-                        rules={[
-                            {
-                                required: true,
-                                message: '选择时间范畴(单位为分钟)!',
-                            },
-                        ]}
-                    >
-                        <InputNumber placeholder="分钟" min={0}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="百分比达到多少进行触发"
-                        name="percentage"
-                        rules={[
-                            {
-                                required: true,
-                                message: '百分比达到多少进行触发',
-                            },
-                        ]}
-                    >
-                        <InputNumber placeholder="数据百分比" min={1} max={100}/>
-                    </Form.Item>
+                    {
+                        timeStatus ? <Form.Item
+                                label="选择时间范畴"
+                                name="rangeTime"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '选择时间范畴(单位为分钟)!',
+                                    },
+                                ]}
+                            >
+                                <InputNumber placeholder="分钟" min={0}/>
+                            </Form.Item>
+                            :
+                            <></>
+                    }
+                    {
+                        percentageStatus ? <Form.Item
+                                label="百分比达到多少进行触发"
+                                name="percentage"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: '百分比达到多少进行触发',
+                                    },
+                                ]}
+                            >
+                                <InputNumber placeholder="数据百分比" min={1} max={100}/>
+                            </Form.Item>
+                            :
+                            <></>
+                    }
                     <Form.Item
                         label="消息通知方案"
                         name="mediumType"
