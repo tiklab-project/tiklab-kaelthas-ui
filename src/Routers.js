@@ -28,7 +28,7 @@ const Graphics = AsyncComponent(() => import( "./host/graphics/components/Graphi
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
-const Home = AsyncComponent(() => import('./home/common/HomeLayout'))
+const Home = AsyncComponent(() => import('./home/common/Home'))
 const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostOverview'))
 const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
