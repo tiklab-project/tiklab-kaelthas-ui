@@ -9,7 +9,7 @@ const ProjectLogin = (props) => {
             {...props}
             loginGoRouter={'/'}
             vaildUserAuthRouter = {'/no-auth'}
-            title = {'xmonitor'}
+            bgroup = {'xmonitor'}
         />
     )
 }

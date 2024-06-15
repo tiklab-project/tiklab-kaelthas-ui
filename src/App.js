@@ -1,12 +1,21 @@
 import React from 'react';
+import {Provider} from "mobx-react";
+import {ConfigProvider} from "antd";
+import zhCN from "antd/es/locale/zh_CN";
+import {HashRouter} from "react-router-dom";
+import {renderRoutes} from "react-router-config";
 
-const App = () => {
+const App = ({allStore,routes}) => {
     return (
-        <div>
-            <h1>Hello World!</h1>
-            <h2>这是第二行</h2>
-            <div>第二个div</div> <div>第三个div</div>
-        </div>
+        <Provider {...allStore}>
+            <ConfigProvider locale={zhCN}>
+                <HashRouter>
+                    {
+                        renderRoutes(routes)
+                    }
+                </HashRouter>
+            </ConfigProvider>
+        </Provider>
     );
 };
 

@@ -1,17 +1,7 @@
-/*
- * @Descripttion: 
- * @version: 1.0.0
- * @Author: 袁婕轩
- * @Date: 2020-12-18 16:04:03
- * @LastEditors: 袁婕轩
- * @LastEditTime: 2021-12-31 09:49:07
- */
-
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const path = require('path');
 const baseWebpackConfig = require('./webpack.base');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const TerserPlugin  = require('terser-webpack-plugin');
 const PORT = 3004;
 
@@ -35,7 +25,6 @@ module.exports = merge(baseWebpackConfig, {
             {
                 name: false,
                 chunks: 'all',
-                // minportal: 1,
                 minChunks: 1,
                 cacheGroups:
                     {

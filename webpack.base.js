@@ -9,7 +9,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');//压缩css
 const path = require('path');
 
 const DIST_PATH = path.resolve(__dirname, 'dist');
-const envData_dev = require(`./enviroment/enviroment_${process.env.CUSTOM_ENV}`);
+const customEnv = process.env.CUSTOM_ENV;
+const {webpackGlobal} = require("./enviroment/enviroment_" + customEnv);
+
 const devMode = process.env.API_ENV === 'dev'; 
 
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -142,7 +144,7 @@ module.exports = {
                 removeAttributeQuotes: true
             }
         }),
-        new webpack.DefinePlugin(envData_dev),
+        new webpack.DefinePlugin({ENV:JSON.stringify(customEnv), ...webpackGlobal}),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css',
             chunkFilename: 'css/[id].[contenthash].css',

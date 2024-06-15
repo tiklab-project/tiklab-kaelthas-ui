@@ -16,6 +16,7 @@ import { observer } from "mobx-react"
 import "./assets/index";
 import {useVersion} from "thoughtware-eam-ui/es/utils";
 import {privilegeStores} from "thoughtware-privilege-ui/es/store";
+import App from "./App";
 enableAxios()
 const Index = observer((props) => {
 
@@ -27,22 +28,11 @@ const Index = observer((props) => {
         ...orgStores
     }
 
-
-    const [pluginData, setPluginData] = useState({
-        routes: Routers,
-        pluginStore: [],
-        languageStore: []
-    });
     return (
-            <Provider {...allStore}>
-                <ConfigProvider locale={zhCN}>
-                    <HashRouter>
-                        {
-                            renderRoutes(Routers)
-                        }
-                    </HashRouter>
-                </ConfigProvider>
-            </Provider>
+        <App
+            routes={Routers}
+            allStore={allStore}
+        />
     )
 });
 

@@ -1,42 +1,28 @@
-const api =  'http://192.168.10.14:8080';
+const api =  "http://192.168.10.14:8080";
 const base_url = JSON.stringify(api);
 
+const webpackGlobal = {
+    // 判断是否是用户环境， 如果是用户环境收到切换为true， 如果是内部公司手动切换为false
+    userProduction: true,
+    base_url: base_url,
+    plugin_base_url : base_url,
 
-const url = "http://127.0.0.1:8060/";
-const plugin_base_url = JSON.stringify(url);
+    // 这个不是固定的
+    plugin_url: JSON.stringify( `/pluginConfig/getPluginConfig`),
+    method:JSON.stringify('post'),
 
+    appKey: JSON.stringify('appKey-1'),
+    appSecret: JSON.stringify('appSecret-1'),
+    version: JSON.stringify('ce'),
+    client: JSON.stringify('web'),
 
-let plugin_url = `/pluginConfig/getPluginConfig`;
-plugin_url = JSON.stringify(plugin_url);
+    tenant_type: JSON.stringify('single'), // mult  参数带tenant
 
-const upload_url = JSON.stringify('http://192.168.10.14:8060')
+    acc_url: JSON.stringify(''),
+    mobile: JSON.stringify(''),
+    devProduction: true
+}
 
-
-let fetchMethod = "get"
-fetchMethod = JSON.stringify(fetchMethod);
-// 判断是否是用户环境， 如果是用户环境收到切换为true， 如果是内部公司手动切换为false
-const userProduction = true;
-
-let env = "local";
-env = JSON.stringify(env)
-const appKey = JSON.stringify('');
-const appSecret = JSON.stringify('');
-const version = JSON.stringify('ce');
-const client = JSON.stringify('web');
-
-const isSaas = false;
-
-module.exports = {
-    base_url,
-    userProduction,
-    plugin_base_url,
-    plugin_url,
-    fetchMethod,
-    env,
-    appKey,
-    appSecret,
-    version,
-    client,
-    isSaas,
-    upload_url
+module.exports =  {
+    webpackGlobal,
 }
