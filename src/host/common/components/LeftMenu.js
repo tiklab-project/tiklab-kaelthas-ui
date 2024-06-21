@@ -4,7 +4,7 @@ import "./LeftMenu.scss"
 import {Dropdown, Space, Tooltip} from "antd";
 import Listicon from "./Listicon";
 import {CaretDownOutlined} from "@ant-design/icons";
-import hostStore from "../../hostOverview/store/HostStore";
+import hostStore from "../../hostDetails/store/HostStore";
 import {observer} from "mobx-react";
 
 const LeftMenu = (props) => {

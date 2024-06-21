@@ -7,6 +7,7 @@ import monitorStore from "../store/MonitorStore";
 import {SearchOutlined} from "@ant-design/icons";
 import UpdateMonitor from "./UpdateMonitor";
 import {observer} from "mobx-react";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const Monitor = (props) => {
 
@@ -72,13 +73,10 @@ const Monitor = (props) => {
     }
 
     const removeToList = async (record) => {
-
         if (record.source === 1) {
-
             await deleteMonitorById(record.id);
             await findMonitorCondition();
         }
-
     }
 
     const drawerList = (record) => {
@@ -131,53 +129,68 @@ const Monitor = (props) => {
             title: '监控项名称',
             dataIndex: 'name',
             id: 'name',
-            render: (text, record) => <span style={{cursor: "pointer"}}
-                                            onClick={() => drawerList(record)}>{text}</span>,
+            width:"20%",
+            ellipsis:"true",
+            render: (name, record) => {
+                let text;
+                record?.source === 1 ?
+                    text = <span style={{cursor: "pointer"}}
+                                 onClick={() => drawerList(record)}>{name}</span>
+                    :
+                    text = <span>{name}</span>
+                return text;
+            }
         },
         {
             title: '监控项大类',
             dataIndex: ['monitorItem', 'type'],
             id: 'monitorType',
+            width:"10%",
+            ellipsis:"true"
         },
         {
             title: '监控项小类',
             dataIndex: ['monitorItem', 'dataSubclass'],
             id: 'dataSubclass',
-            render: (name) => <Tooltip title={name}>
-                <div>{name}</div>
-            </Tooltip>
+            width:"10%",
+            ellipsis:"true",
+            render: (name) => <span>{name}</span>
         },
         {
             title: '监控表达式',
             dataIndex: 'expression',
             id: 'expression',
+            width:"20%",
+            ellipsis:"true"
         },
         {
             title: '监控项来源',
             dataIndex: 'source',
             id: 'source',
-            render: (monitorSource) => {
-                let config = {
-                    1: "主机",
-                    2: "模板",
-                }
-                return config[monitorSource];
+            width:"10%",
+            ellipsis:"true",
+            render: (monitorSource, record) => {
+                let text;
+                record?.templateId !== null ?
+                    text = <span>模板</span>
+                    :
+                    text = <span>主机</span>
+                return text;
             }
-        },
-        {
-            title: '间隔时间',
-            dataIndex: 'intervalTime',
-            id: 'intervalTime',
         },
         {
             title: '数据保留时间',
             dataIndex: 'dataRetentionTime',
             id: 'dataRetentionTime',
+            width:"10%",
+            ellipsis:"true",
         },
         {
             title: '监控项状态',
             dataIndex: 'monitorStatus',
             id: 'monitorStatus',
+            width:"10%",
+            ellipsis:"true",
             render: (monitorStatus) => {
                 let config = {
                     1: "启用",
@@ -189,14 +202,16 @@ const Monitor = (props) => {
         {
             title: '操作',
             id: 'action',
+            width:"10%",
+            ellipsis:"true",
             render: (_, record) => (
                 <Space size="middle">
                     {
-                        record?.source === 1 ? <span style={{cursor: "pointer"}} onClick={() => removeToList(record)}>删除</span>
-                            :
-                            <span>无</span>
+                        record?.source === 1 ? <HideDelete
+                            deleteFn={() => removeToList(record)}
+                            operation={"删除"}
+                        /> : <span>无</span>
                     }
-
                 </Space>
             ),
         },

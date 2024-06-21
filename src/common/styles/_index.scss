@@ -46,9 +46,9 @@
     color: #666;
     font-size: 12px;
 }
-.ant-table table {
+/*.ant-table table {
     border-bottom: 1px solid #f0f0f0;
-}
+}*/
 
 
 .ant-modal-mask   {
@@ -105,6 +105,21 @@
     width: 15px;
     height: 15px;
     margin-right: 5px;
+}
+
+.mf-dropdown-more{
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background: #ffffff;
+    width: 150px;
+    padding: 8px;
+    .dropdown-more-item{
+        cursor: pointer;
+        padding: 5px;
+        &:hover{
+            background: #f4f4f4;
+        }
+    }
 }
 
 .search-add{
@@ -196,4 +211,9 @@ shadow-view {
     &-5{
         background: #caf3ef;
     }
+}
+
+.icon-s {
+    width: 16px;
+    height: 16px;
 }

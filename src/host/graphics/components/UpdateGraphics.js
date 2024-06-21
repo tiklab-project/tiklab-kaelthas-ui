@@ -1,4 +1,4 @@
-import {Drawer, Form, Input, Select} from 'antd';
+import {Drawer, Form, Input, message, Select} from 'antd';
 import React, {useEffect} from 'react';
 import graphicsStore from "../store/GraphicsStore";
 import {observer} from "mobx-react";
@@ -17,32 +17,32 @@ const UpdateGraphics = (props) => {
     } = graphicsStore;
 
     const handleOk = () => {
-        form.validateFields().then(async res => {
-            await updateGraphics({
-                id: columnData.graphicsId,
-                describe: res.describe,
-                name: res.name,
-                monitorIds: res.monitorIds
-            })
-
-            await setSearchCondition({
-                hostId: localStorage.getItem("hostId")
-            })
-
-            await findGraphics();
-        })
         setIsModalOpen(false);
     };
 
-    const conversionMonitorType = (type) => {
 
-        switch (type) {
-            case 1:
-                return "主机";
-            case 2:
-                return "模板";
+    const handBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    id: columnData.graphicsId,
+                };
+                obj[field] = values[field];
+
+                await updateGraphics(obj);
+                message.success("修改成功")
+
+                await setSearchCondition({
+                    hostId: localStorage.getItem("hostId")
+                })
+                await findGraphics();
+            })
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+            message.warning("修改失败")
         }
-
     }
 
     return (
@@ -58,15 +58,6 @@ const UpdateGraphics = (props) => {
         >
             <Form
                 name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-                initialValues={{
-                    remember: true,
-                }}
                 autoComplete="off"
                 form={form}
                 layout="vertical"
@@ -77,7 +68,7 @@ const UpdateGraphics = (props) => {
                     name="name"
                     rules={[{required: true, message: '请输入图表名称!'}]}
                 >
-                    <Input/>
+                    <Input onBlur={() =>handBlur('name')}/>
                 </Form.Item>
                 <Form.Item
                     label="监控项"
@@ -90,10 +81,13 @@ const UpdateGraphics = (props) => {
                         allowClear
                         showSearch
                         maxTagCount={"responsive"}
+                        onChange={() => handBlur('monitorIds')}
                     >
                         {
                             monitorList && monitorList.map(item => (
-                                <Option key={item.id} value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.source)}</Option>
+                                <Option key={item.id} value={item.id}>
+                                    {item.name}{"(来源  "}{item.source === 1 ? "主机" : "模板"}{" 数据类型--"}{item?.monitorItem.reportType}{")"}
+                                </Option>
                             ))
                         }
                     </Select>
@@ -103,7 +97,7 @@ const UpdateGraphics = (props) => {
                     name="describe"
                     rules={[{required: false, message: '问题描述!'}]}
                 >
-                    <Input/>
+                    <Input onBlur={() =>handBlur('describe')}/>
                 </Form.Item>
             </Form>
         </Drawer>

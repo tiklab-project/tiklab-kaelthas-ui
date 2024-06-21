@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
-import {Button, Form, Input, Modal, Select} from "antd";
+import {Button, Drawer, Form, Input, message, Modal, Select} from "antd";
 import templateSettingStore from "../store/TemplateSettingStore";
 import {observer} from "mobx-react";
 
@@ -12,112 +12,89 @@ const TemplateSettingUpdate = (props) => {
     const {updateTemplate, findTemplatePage} = templateSettingStore;
 
     const handleOk = async () => {
+        setIsOpen(false);
+    };
 
-        form.validateFields().then(async res => {
-            await updateTemplate({
-                id: localStorage.getItem("templateId"),
-                name: res.name,
-                isOpen: res.isOpen,
-                describe: res.describe
+    const updateTempBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    id: localStorage.getItem("templateId")
+                };
+                obj[field] = values[field];
+
+                await updateTemplate(obj);
+                message.success("修改成功")
+                await findTemplatePage();
             })
-
-            await findTemplatePage();
-
-        })
-        setIsOpen(false);
-    };
-
-    const handleCancel = () => {
-        setIsOpen(false);
-    };
-
-    const addDataForMonitor = () => {
-        console.log('模板添加成功')
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+            message.warning("修改失败")
+        }
     }
 
-    const onSecondCityChange = (value) => {
-        console.log(value)
-    };
-
-
     return (
-        <>
-            <Modal title="编辑模板" open={isOpen} onOk={handleOk} onCancel={handleCancel} visible={isOpen}
-                   cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
-                <div className="TemplateSettingAddForm">
-                    <div>
-                        <Form
-                            name="basic"
-                            labelCol={{
-                                span: 8,
-                            }}
-                            wrapperCol={{
-                                span: 16,
-                            }}
-                            initialValues={{
-                                remember: true,
-                            }}
-                            autoComplete="off"
-                            form={form}
-                        >
-                            <Form.Item
-                                label="模板名称"
-                                name="name"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '' +
-                                            '请输入模板名称!',
-                                    },
-                                ]}
-                            >
-                                <Input/>
-                            </Form.Item>
+        <Drawer
+            title="编辑模板"
+            open={isOpen}
+            onClose={handleOk}
+            visible={isOpen}
+            width={500}
+            contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
+            maskStyle={{background: "transparent"}}
+        >
+            <Form
+                name="basic"
+                autoComplete="off"
+                form={form}
+                layout="vertical"
+                labelAlign={"left"}
+                preserve={false}
+            >
+                <Form.Item
+                    label="模板名称"
+                    name="name"
+                    rules={[{required: true, message: '请输入模板名称!'}]}
+                >
+                    <Input onBlur={() =>updateTempBlur('name')}/>
+                </Form.Item>
+                <Form.Item
+                    label="是否开启"
+                    name="isOpen"
+                    rules={[
+                        {
+                            required: true,
+                            message: '模板是否开启!',
+                        },
+                    ]}
+                >
+                    <Select
+                        placeholder="请选择模板是否开启"
+                        allowClear
+                        onBlur={() =>updateTempBlur('isOpen')}
+                    >
 
+                        <Option value={1} key={1}>{"开启"}</Option>
+                        <Option value={0} key={0}>{"关闭"}</Option>
 
-                            <Form.Item
-                                label="是否开启"
-                                name="isOpen"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '模板是否开启!',
-                                    },
-                                ]}
-                            >
-
-                                <Select
-                                    placeholder="请选择模板是否开启"
-                                    allowClear
-                                    onChange={onSecondCityChange}
-                                >
-
-                                    <Option value={1} key={1}>{"开启"}</Option>
-                                    <Option value={0} key={0}>{"关闭"}</Option>
-
-                                </Select>
-
-                            </Form.Item>
-
-                            <Form.Item
-                                label="描述"
-                                name="describe"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请输入描述!',
-                                    },
-                                ]}
-                            >
-                                <Input/>
-                            </Form.Item>
-
-                        </Form>
-                    </div>
-
-                </div>
-            </Modal>
-        </>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="描述"
+                    name="describe"
+                    rules={[
+                        {
+                            required: true,
+                            message: '请输入描述!',
+                        },
+                    ]}
+                >
+                    <Input onBlur={() =>updateTempBlur('describe')}/>
+                </Form.Item>
+            </Form>
+        </Drawer>
     );
 };
 

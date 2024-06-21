@@ -60,8 +60,8 @@ const MonitorLayout = (props) => {
             dataCate: null,
             id: hostId
         })
-        const resData = await findMonitorByCategories();
-        setMonitorDataSubclass([...resData])
+        // const resData = await findMonitorByCategories();
+        // setMonitorDataSubclass([...resData])
 
     }, []);
 
@@ -341,9 +341,7 @@ const MonitorLayout = (props) => {
                                                 }
                                             </div>
                                             :
-                                            <Empty>
-                                                <span>没有数据</span>
-                                            </Empty>
+                                            <Empty/>
                                     }
                                 </div>
                         }

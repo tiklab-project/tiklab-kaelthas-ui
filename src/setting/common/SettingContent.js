@@ -3,14 +3,12 @@ import {DownOutlined, ProjectOutlined, UpOutlined} from "@ant-design/icons";
 import {SystemNav,PrivilegeButton} from "thoughtware-privilege-ui";
 import {applyJump} from 'thoughtware-core-ui';
 import {inject,observer} from "mobx-react";
-import  {ExportOutlined} from "@ant-design/icons";
-import {departmentRouters} from "./SettingRouters";
-import "./SettingContent.scss";
 import {renderRoutes} from "react-router-config";
-
+import  {ExportOutlined} from "@ant-design/icons";
+import "./SettingContent.scss";
 
 // 基础数据路由
-export const templateRouter = [
+const templateRouter = [
     {
         id:"base",
         title:"基础数据",
@@ -21,7 +19,7 @@ export const templateRouter = [
                 title:"系统功能",
             },
             {
-                id:"/setting/roletrue",
+                id:"/setting/system/role",
                 title:"系统角色",
             },
             {
@@ -31,6 +29,10 @@ export const templateRouter = [
             {
                 id:"/setting/project/role",
                 title:"项目角色",
+            },
+            {
+                id:"/setting/project/vRole",
+                title:"项目虚拟角色",
             },
             {
                 id:"/setting/todoTask",
@@ -74,14 +76,15 @@ export const templateRouter = [
             },
             {
                 id:"/setting/userGrouptrue",
-                title:"用户组true",
+                title:"用户组",
             },
         ]
     }
 ]
+
 const SettingContent= props =>  {
 
-    const {route,isDepartment,applicationRouters,systemRoleStore} = props
+    const {route,applicationRouters,systemRoleStore} = props
 
     const {systemPermissions} = systemRoleStore
 
@@ -90,31 +93,24 @@ const SettingContent= props =>  {
     // 菜单
     let menus = () => {
         try{
-            if(isDepartment && devProduction){
-                return [...departmentRouters,...applicationRouters,...templateRouter]
-            }
-            if(!isDepartment && devProduction){
+            if(devProduction){
                 return [...applicationRouters,...templateRouter]
-            }
-            if(isDepartment && !devProduction){
-                return [...departmentRouters,...applicationRouters]
-            }
-            else {
-                return [...applicationRouters]
+            }else {
+                return applicationRouters
             }
         }catch {
-            return [...applicationRouters]
+            return applicationRouters
         }
     }
 
     // 树的展开与闭合
     const [expandedTree,setExpandedTree] = useState([""])
 
-    const li = ['department','user','user_group','user_directory'];
+    const li = ['/setting/orga','/setting/user','/setting/userGroup','/setting/dir'];
     const authConfig = JSON.parse(localStorage.getItem("authConfig"));
     const isUnify = data =>{
         if(!authConfig?.authType){
-            const isAuth = li.some(item => item===data.purviewCode)
+            const isAuth = li.some(item => item===data.id)
             if(isAuth){return false}
         }
         return true
@@ -182,8 +178,8 @@ const SettingContent= props =>  {
                         {
                             item.children ?
                                 (isExpandedTree(item.id)?
-                                    <DownOutlined style={{fontSize: "10px"}}/> :
-                                    <UpOutlined style={{fontSize: "10px"}}/>
+                                        <DownOutlined style={{fontSize: "10px"}}/> :
+                                        <UpOutlined style={{fontSize: "10px"}}/>
                                 ): ""
                         }
                     </div>
@@ -211,10 +207,11 @@ const SettingContent= props =>  {
     return (
         <SystemNav
             {...props}
-            applicationRouters={applicationRouters}
+            applicationRouters={menus()}
             expandedTree={expandedTree}
             setExpandedTree={setExpandedTree}
             outerPath={"/setting"}
+            noAccessPath={"/noaccess"}
         >
             <div className="system">
                 <div className="system-aside">

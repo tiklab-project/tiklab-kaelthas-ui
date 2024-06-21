@@ -3,7 +3,7 @@ const { merge } = require('webpack-merge');
 const path = require('path');
 const baseWebpackConfig = require('./webpack.base');
 const TerserPlugin  = require('terser-webpack-plugin');
-const PORT = 3004;
+const PORT = 3001;
 
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',

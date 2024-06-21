@@ -19,11 +19,11 @@ const AddTemplateMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const [itemId,setItemId] = useState();
+    const [itemId, setItemId] = useState();
 
     const {findMonitorItemByName} = monitorStore;
 
-    const {findMonitorByTemplateId,createMonitor} = templateSettingStore;
+    const {findMonitorByTemplateId, createMonitor} = templateSettingStore;
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -55,21 +55,14 @@ const AddTemplateMonitor = (props) => {
         setIsModalOpen(false);
     };
 
-    const addDataForMonitor = () => {
-        console.log('监控项添加成功')
-    }
-
 
     const handleProvinceChange = async (value) => {
         //根据名称查询item中的表达式
         const resData = await findMonitorItemByName(value)
-
         setExpression([...resData])
-
     };
-    const onSecondCityChange = (value,option) => {
-        console.log(option.key)
-        if (option.key !== undefined && option.key !== null){
+    const onSecondCityChange = (value, option) => {
+        if (option.key !== undefined && option.key !== null) {
             setItemId(option.key)
         }
     };
@@ -80,93 +73,92 @@ const AddTemplateMonitor = (props) => {
             <div className="monitor-add" onClick={showModal}>
                 新建监控项
             </div>
-            <Modal title="新建监控项" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                   cancelText="取消" okText="确定" afterClose={addDataForMonitor}>
-                <div className="addMonitorForm">
-                    <Form
-                        name="basic"
-                        labelCol={{
-                            span: 8,
-                        }}
-                        wrapperCol={{
-                            span: 16,
-                        }}
-                        initialValues={{
-                            remember: true,
-                        }}
-                        autoComplete="off"
-                        form={form}
-                        layout="vertical"
-                        labelAlign={"left"}
+            <Modal
+                destroyOnClose={true}
+                title="新建监控项"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                visible={isModalOpen}
+                cancelText="取消"
+                okText="确定"
+                centered
+                bodyStyle={{maxHeight: '400px', overflowY: 'auto'}}
+            >
+                <Form
+                    autoComplete="off"
+                    form={form}
+                    layout="vertical"
+                    labelAlign={"left"}
+                    preserve={false}
+                >
+                    <Form.Item
+                        label="监控项名称"
+                        name="monitorName"
+                        rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
-                        <Form.Item
-                            label="监控项名称"
-                            name="monitorName"
-                            rules={[{required: true, message: '请输入监控项名称!'}]}
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控类型"
+                        name="monitorType"
+                        rules={[{required: true, message: '请选择监控项类型!'}]}
+                    >
+                        <Select
+                            placeholder="请选择您的监控类型"
+                            allowClear
+                            onChange={handleProvinceChange}
+                            options={provinceData && provinceData.map((province) => ({
+                                label: province,
+                                value: province,
+                            }))}
                         >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="监控类型"
-                            name="monitorType"
-                            rules={[{required: true, message: '请选择监控项类型!'}]}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控指标"
+                        name="monitorExpression"
+                        rules={[{required: true, message: '请选择监控项指标!'}]}
+                    >
+                        <AutoComplete
+                            placeholder="请选择监控项指标"
+                            allowClear
+                            onChange={onSecondCityChange}
                         >
-                            <Select
-                                placeholder="请选择您的监控类型"
-                                allowClear
-                                onChange={handleProvinceChange}
-                                options={provinceData && provinceData.map((province) => ({
-                                    label: province,
-                                    value: province,
-                                }))}
-                            >
-                            </Select>
-                        </Form.Item>
-                        <Form.Item
-                            label="监控指标"
-                            name="monitorExpression"
-                            rules={[{required: true, message: '请选择监控项指标!'}]}
+                            {
+                                expression && expression.map((item) => (
+                                    <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
+                            }
+                        </AutoComplete>
+                    </Form.Item>
+                    <Form.Item
+                        label="数据保留时间"
+                        name="dataRetentionPeriod"
+                        rules={[{required: true, message: '请输入数据保留时间!'}]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="更新间隔"
+                        name="interval"
+                        rules={[{required: true, message: '请输入更新间隔!'}]}
+                    >
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控状态"
+                        name="monitorStatus"
+                        rules={[{required: true, message: '请选择是否启用!'}]}
+                    >
+                        <Select
+                            placeholder="请选择是否启用"
+                            allowClear
                         >
-                            <AutoComplete
-                                placeholder="请选择监控项指标"
-                                allowClear
-                                onChange={onSecondCityChange}
-                            >
-                                {
-                                    expression && expression.map((item) => (
-                                        <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
-                                }
-                            </AutoComplete>
-                        </Form.Item>
-                        <Form.Item
-                            label="数据保留时间"
-                            name="dataRetentionPeriod"
-                            rules={[{required: true, message: '请输入数据保留时间!'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="更新间隔"
-                            name="interval"
-                            rules={[{required: true, message: '请输入更新间隔!'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="监控状态"
-                            name="monitorStatus"
-                            rules={[{required: true, message: '请选择是否启用!'}]}
-                        >
-                            <Select
-                                placeholder="请选择是否启用"
-                                allowClear
-                            >
-                                <Option value={1} key={1}>{"启用"}</Option>))
-                                <Option value={2} key={2}>{"关闭"}</Option>))
-                            </Select>
-                        </Form.Item>
-                    </Form>
-                </div>
+                            <Option value={1} key={1}>{"启用"}</Option>))
+                            <Option value={2} key={2}>{"关闭"}</Option>))
+                        </Select>
+                    </Form.Item>
+                </Form>
             </Modal>
         </>
     );

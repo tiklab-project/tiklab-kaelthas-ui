@@ -24,7 +24,7 @@ const HomePage = (props) => {
     useEffect(async () => {
         await findHomeRecentList();
         setNullCondition();
-        await findAlarmPage();
+        // await findAlarmPage();
         await findDynamicList();
     }, []);
 

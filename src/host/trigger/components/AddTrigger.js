@@ -1,4 +1,4 @@
-import {Button, Form, Input, InputNumber, Modal, Select, Space} from 'antd';
+import {Button, Form, Input, InputNumber, message, Modal, Select, Space} from 'antd';
 import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
 
@@ -68,17 +68,17 @@ const AddTrigger = (props) => {
         setIsModalOpen(true);
     };
 
-    useEffect(async () => {
+    /*useEffect(async () => {
         const resData = await findMonitorListById({
             hostId: localStorage.getItem("hostId")
         });
         setMonitorData([...resData])
-    }, []);
+    }, []);*/
 
     const handleOk = async () => {
-        console.log(form.getFieldsValue())
+
         form.validateFields().then(async res => {
-            await addTrigger({
+            const resData = await addTrigger({
                 hostId: localStorage.getItem("hostId"),
                 name: res.name,
                 monitorId: res.monitorId,
@@ -94,6 +94,12 @@ const AddTrigger = (props) => {
                 percentage: res.percentage,
                 scheme: res.scheme
             });
+
+            if (resData?.data !== null){
+                message.success("添加成功!")
+            }else {
+                message.warn("添加失败!")
+            }
             await getTriggerList();
         })
         setIsModalOpen(false);
@@ -102,30 +108,6 @@ const AddTrigger = (props) => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-
-    const onCheckMonitor = (value, options) => {
-        const type = options.children[2];
-
-        switch (type) {
-            case "主机":
-                rowData.source = 1
-                setRowData(rowData)
-                break;
-            case "模板":
-                rowData.source = 2
-                setRowData(rowData)
-                break;
-        }
-    };
-
-    function conversionMonitorType(monitorSource) {
-        switch (monitorSource) {
-            case 1:
-                return "主机";
-            case 2:
-                return "模板";
-        }
-    }
 
     function updateStatus(value) {
         switch (value) {
@@ -150,6 +132,7 @@ const AddTrigger = (props) => {
                 新建触发器
             </div>
             <Modal
+                destroyOnClose={true}
                 title="新建触发器"
                 open={isModalOpen}
                 onOk={handleOk}
@@ -157,61 +140,39 @@ const AddTrigger = (props) => {
                 visible={isModalOpen}
                 cancelText="取消"
                 okText="确定"
-                width={800}
+                width={600}
+                centered={true}
+                bodyStyle={{ maxHeight: '400px', overflowY: 'auto' }}
             >
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
                     layout="vertical"
                     autoComplete="off"
                     form={form}
                     labelAlign={"left"}
+                    preserve={false}
                 >
                     <Form.Item
                         label="触发器名称"
                         name="name"
-                        rules={[
-                            {
-                                required: true,
-                                message: '触发器名称!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '触发器名称!'}]}
                     >
                         <Input allowClear={true} placeholder="触发器名称"/>
                     </Form.Item>
                     <Form.Item
                         label="触发器表达式"
                         name="expression"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入触发器表达式!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '触发器表达式!'}]}
                     >
-                        <Input.TextArea placeholder="请输入触发器表达式"/>
+                        <Input.TextArea placeholder="触发器表达式"/>
                     </Form.Item>
-
                     <Form.Item
                         label="请选择触发方案"
                         name="scheme"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择触发方案!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '请选择触发方案!'}]}
                     >
                         <Select
-                            placeholder="请选择触发方案"
+                            placeholder="触发方案"
                             allowClear
                             onSelect={updateStatus}
                         >
@@ -226,12 +187,7 @@ const AddTrigger = (props) => {
                         timeStatus ? <Form.Item
                                 label="选择时间范畴"
                                 name="rangeTime"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '选择时间范畴(单位为分钟)!',
-                                    },
-                                ]}
+                                rules={[{required: true, message: '选择时间范畴(单位为分钟)!'}]}
                             >
                                 <InputNumber placeholder="分钟" min={0}/>
                             </Form.Item>
@@ -242,12 +198,7 @@ const AddTrigger = (props) => {
                         percentageStatus ? <Form.Item
                                 label="百分比达到多少进行触发"
                                 name="percentage"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '百分比达到多少进行触发',
-                                    },
-                                ]}
+                                rules={[{required: true, message: '百分比达到多少进行触发'}]}
                             >
                                 <InputNumber placeholder="数据百分比" min={1} max={100}/>
                             </Form.Item>

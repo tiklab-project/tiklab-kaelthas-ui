@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router";
-import {Col, Drawer, Form, Input, InputNumber, Modal, Row, Select, Space, Table} from "antd";
+import {Col, Drawer, Form, Input, Modal, Row, Space, Table} from "antd";
 import {observer} from "mobx-react";
 import "./HostGroup.scss"
 import {SearchOutlined} from "@ant-design/icons";
 import hostGroupStore from "../store/HostGroupStore";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const HostGroup = (props) => {
 
@@ -43,7 +44,7 @@ const HostGroup = (props) => {
     const [open, setOpen] = useState(false);
 
     const onClose = () => {
-        form.validateFields().then(async res => {
+        /*form.validateFields().then(async res => {
             await updateHostGroup({
                 id: hostGroupId,
                 name: res.name,
@@ -51,9 +52,29 @@ const HostGroup = (props) => {
             });
 
             await findHostGroupPage();
-        })
+        })*/
         setOpen(false);
     };
+
+    const updateHandBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    id: hostGroupId
+                };
+                obj[field] = values[field];
+
+                await updateHostGroup(obj);
+
+                await findHostGroupPage();
+            })
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+
+        }
+    }
 
     async function selectPage(pagination) {
         setSearchCondition({
@@ -117,7 +138,10 @@ const HostGroup = (props) => {
             title: '操作',
             key: 'action',
             render: (_, record) => (<Space size="middle">
-                    <div style={{cursor: "pointer"}} onClick={() => deleteHostGroupById(record)}>删除</div>
+                    <HideDelete
+                        deleteFn={() => deleteHostGroupById(record)}
+                        operation={"删除"}
+                    />
                 </Space>
             ),
         },
@@ -162,33 +186,29 @@ const HostGroup = (props) => {
                 </Col>
             </Row>
 
-            <Modal title="新建主机组" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                   cancelText="取消" okText="确定" width={800}>
+            <Modal
+                destroyOnClose={true}
+                title="新建主机组"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                visible={isModalOpen}
+                cancelText="取消"
+                okText="确定"
+                width={600}
+            >
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
                     layout="vertical"
                     autoComplete="off"
                     form={form}
                     labelAlign={"left"}
+                    preserve={false}
                 >
                     <Form.Item
                         label="主机组名称"
                         name="name"
-                        rules={[
-                            {
-                                required: true,
-                                message: '主机组名称!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '主机组名称!'}]}
                     >
                         <Input allowClear={true} placeholder="主机组名称"/>
                     </Form.Item>
@@ -204,7 +224,6 @@ const HostGroup = (props) => {
                     >
                         <Input allowClear={true} placeholder="描述"/>
                     </Form.Item>
-
                 </Form>
             </Modal>
             <Drawer
@@ -219,15 +238,6 @@ const HostGroup = (props) => {
             >
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
                     layout="vertical"
                     autoComplete="off"
                     form={form}
@@ -243,7 +253,7 @@ const HostGroup = (props) => {
                             },
                         ]}
                     >
-                        <Input allowClear={true} placeholder="主机组名称"/>
+                        <Input onChange={() => updateHandBlur('name')} allowClear={true} placeholder="主机组名称"/>
                     </Form.Item>
                     <Form.Item
                         label="描述"
@@ -255,9 +265,8 @@ const HostGroup = (props) => {
                             },
                         ]}
                     >
-                        <Input allowClear={true} placeholder="描述"/>
+                        <Input onChange={() => updateHandBlur('describe')} allowClear={true} placeholder="描述"/>
                     </Form.Item>
-
                 </Form>
             </Drawer>
         </>

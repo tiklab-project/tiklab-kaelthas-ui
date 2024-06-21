@@ -7,6 +7,7 @@ import TemplateUpdateMonitor from "./UpdateTemplateMonitor";
 import {observer} from "mobx-react";
 import AddTemplateMonitor from "./AddTemplateMonitor";
 import {LeftOutlined} from "@ant-design/icons";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const TemplateSettingMonitorList = (props) => {
 
@@ -116,7 +117,10 @@ const TemplateSettingMonitorList = (props) => {
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => deleteMonitorForTemplate(record)}>删除</span>
+                    <HideDelete
+                        deleteFn={() => deleteMonitorForTemplate(record)}
+                        operation={"删除"}
+                    />
                 </Space>
             ),
         },

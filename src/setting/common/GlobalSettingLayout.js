@@ -1,11 +1,8 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
-import "./GlobalSettingLayout.scss"
 import {
-    AppstoreAddOutlined,
-    BuildOutlined, GroupOutlined,
+    BuildOutlined, GroupOutlined, InboxOutlined,
     LayoutOutlined,
-    MergeCellsOutlined,
     SoundOutlined
 } from "@ant-design/icons";
 import SystemContent from "./SettingContent";
@@ -20,7 +17,7 @@ const GlobalSettingLayout = (props) => {
             children: [
                 {
                     title: '部门',
-                    id: "/setting/department",
+                    id: "/setting/orga",
                 },
                 {
                     title: '用户',
@@ -32,7 +29,7 @@ const GlobalSettingLayout = (props) => {
                 },
                 {
                     title: '用户目录',
-                    id: "/setting/directory",
+                    id: "/setting/dir",
                 },
                 {
                     title: '权限',
@@ -83,7 +80,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "应用",
             id: "licence",
-            icon: <LayoutOutlined/>,
+            icon: <InboxOutlined />,
             children: [
                 {
                     title: "版本与许可证",
@@ -100,7 +97,6 @@ const GlobalSettingLayout = (props) => {
     return (
         <SystemContent
             {...props}
-            isDepartment={true}
             applicationRouters={router}
         />
     );

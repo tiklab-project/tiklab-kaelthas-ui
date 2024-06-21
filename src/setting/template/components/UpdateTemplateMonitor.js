@@ -1,4 +1,4 @@
-import {Button, Modal, Form, Input, Select, Drawer, AutoComplete} from 'antd';
+import {Button, Modal, Form, Input, Select, Drawer, AutoComplete, message, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../../../host/monitor/store/MonitorStore";
 import templateSettingStore from "../store/TemplateSettingStore";
@@ -19,7 +19,7 @@ const UpdateTemplateMonitor = (props) => {
 
     const {findMonitorItemByName} = monitorStore;
 
-    const {updateTemplateMonitor, findMonitorByTemplateId,setMonitorSearchCondition} = templateSettingStore;
+    const {updateTemplateMonitor, findMonitorByTemplateId, setMonitorSearchCondition} = templateSettingStore;
 
     const handleOk = async () => {
         form.validateFields().then(async res => {
@@ -37,7 +37,7 @@ const UpdateTemplateMonitor = (props) => {
             })
 
             await setMonitorSearchCondition({
-                templateId:localStorage.getItem("templateId")
+                templateId: localStorage.getItem("templateId")
             })
 
             await findMonitorByTemplateId();
@@ -47,6 +47,29 @@ const UpdateTemplateMonitor = (props) => {
         setIsUpdateModalOpen(false);
     };
 
+    const handleBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    id: monitorId,
+                    hostId: localStorage.getItem("templateId"),
+                    monitorItemId: itemId,
+                    source: 2,
+                };
+                obj[field] = values[field];
+
+                await updateTemplateMonitor(obj);
+                message.success("修改成功")
+                await findMonitorByTemplateId();
+            })
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+            message.warning("修改失败")
+        }
+    }
+
     const handleProvinceChange = async (value) => {
         //根据名称查询item中的表达式
         const resData = await findMonitorItemByName(value)
@@ -55,115 +78,95 @@ const UpdateTemplateMonitor = (props) => {
 
     };
 
-    function changeExpression(value,option) {
+    function changeExpression(value, option) {
         if (option.key !== undefined && option.key !== null) {
             setItemId(option.key)
         }
     }
 
     return (
-        <>
-            <div className="addMonitorForm">
-                <Drawer
-                    title="编辑监控项"
-                    placement="right"
-                    onClose={handleOk}
-                    open={isUpdateModalOpen}
-                    visible={isUpdateModalOpen}
-                    width={500}
-                    contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
-                    maskStyle={{background: "transparent"}}
+        <Drawer
+            title="编辑监控项"
+            placement="right"
+            onClose={handleOk}
+            open={isUpdateModalOpen}
+            visible={isUpdateModalOpen}
+            width={500}
+            contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
+            maskStyle={{background: "transparent"}}
+        >
+            <Form
+                name="basic"
+                autoComplete="off"
+                form={form}
+                layout="vertical"
+                labelAlign={"left"}
+                preserve={false}
+            >
+                <Form.Item
+                    label="监控项名称"
+                    name="name"
+                    rules={[{required: true, message: '监控项名称!'}]}
                 >
-                    <Form
-                        name="basic"
-                        labelCol={{
-                            span: 8,
-                        }}
-                        wrapperCol={{
-                            span: 16,
-                        }}
-                        initialValues={{
-                            remember: true,
-                        }}
-                        autoComplete="off"
-                        form={form}
-                        layout="vertical"
-                        labelAlign={"left"}
+                    <Input onChange={() => handleBlur('name')}/>
+                </Form.Item>
+                <Form.Item
+                    label="监控类型"
+                    name="monitorType"
+                    rules={[{required: true, message: '监控项类型!'}]}
+                >
+                    <Select
+                        placeholder="请选择您的监控类型"
+                        allowClear
+                        onChange={handleProvinceChange}
+                        options={provinceData && provinceData.map((province) => ({
+                            label: province,
+                            value: province,
+                        }))}
                     >
-                        <Form.Item
-                            label="监控项名称"
-                            name="name"
-                            rules={[{required: true, message: '请输入监控项名称!'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="监控类型"
-                            name="monitorType"
-                            rules={[{required: true, message: '请选择监控项类型!'}]}
-                        >
-                            <Select
-                                placeholder="请选择您的监控类型"
-                                allowClear
-                                onChange={handleProvinceChange}
-                                options={provinceData && provinceData.map((province) => ({
-                                    label: province,
-                                    value: province,
-                                }))}
-                            >
-                            </Select>
-
-                        </Form.Item>
-
-                        <Form.Item
-                            label="监控指标"
-                            name="expression"
-                            rules={[{required: true, message: '请选择监控项指标!'}]}
-                        >
-                            <AutoComplete
-                                placeholder="请选择监控项指标"
-                                allowClear
-                                value={monitorItemList.id}
-                                onChange={changeExpression}
-                            >
-                                {
-                                    monitorItemList && monitorItemList.map((item) => (
-                                        <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
-                                }
-                            </AutoComplete>
-                        </Form.Item>
-                        <Form.Item
-                            label="数据保留时间"
-                            name="dataRetentionTime"
-                            rules={[{required: true, message: '请输入数据保留时间!'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-
-                        <Form.Item
-                            label="更新间隔"
-                            name="intervalTime"
-                            rules={[{required: true, message: '请输入更新间隔!'}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            label="监控状态"
-                            name="monitorStatus"
-                            rules={[{required: true, message: '请选择监控项指标!'}]}
-                        >
-                            <Select
-                                placeholder="请选择监控项状态"
-                                allowClear
-                            >
-                                <Option value={1} key={1}>{"启用"}</Option>))
-                                <Option value={2} key={2}>{"未启用"}</Option>))
-                            </Select>
-                        </Form.Item>
-                    </Form>
-                </Drawer>
-            </div>
-        </>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="监控指标"
+                    name="expression"
+                    rules={[{required: true, message: '监控项指标!'}]}
+                >
+                    <AutoComplete
+                        placeholder="监控项指标"
+                        allowClear
+                        value={monitorItemList.id}
+                        onChange={changeExpression}
+                        onBlur={() => handleBlur('expression')}
+                    >
+                        {
+                            monitorItemList && monitorItemList.map((item) => (
+                                <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
+                        }
+                    </AutoComplete>
+                </Form.Item>
+                <Form.Item
+                    label="数据保留时间"
+                    name="dataRetentionTime"
+                    rules={[{required: true, message: '请输入数据保留时间!'}]}
+                >
+                    <InputNumber onBlur={() => handleBlur('dataRetentionTime')} min={1}/>
+                </Form.Item>
+                <Form.Item
+                    label="监控状态"
+                    name="monitorStatus"
+                    rules={[{required: true, message: '请选择监控项指标!'}]}
+                >
+                    <Select
+                        placeholder="请选择监控项状态"
+                        allowClear
+                        onBlur={() => handleBlur('monitorStatus')}
+                    >
+                        <Option value={1} key={1}>{"启用"}</Option>))
+                        <Option value={2} key={2}>{"关闭"}</Option>))
+                    </Select>
+                </Form.Item>
+            </Form>
+        </Drawer>
     );
 };
 

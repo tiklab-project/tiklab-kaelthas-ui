@@ -63,8 +63,7 @@ export class TriggerStore {
     //新增
     @action
     addTrigger = async (option) => {
-        await Service('/trigger/createTrigger', option);
-
+        return await Service('/trigger/createTrigger', option);
     }
 
     //修改触发器
@@ -93,7 +92,6 @@ export class TriggerStore {
     @action
     getMediumAllList = async () => {
         const mediumList = await Service("/medium/getMediumAllList");
-
         this.mediumList = mediumList.data
     }
 

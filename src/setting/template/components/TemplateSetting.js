@@ -6,6 +6,7 @@ import TemplateSettingAdd from "./TemplateSettingAdd";
 import templateSettingStore from "../store/TemplateSettingStore";
 import TemplateSettingUpdate from "./TemplateSettingUpdate";
 import {observer} from "mobx-react";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const TemplateSetting = (props) => {
 
@@ -112,11 +113,14 @@ const TemplateSetting = (props) => {
             render: (_, record) => (
                 <Space size="middle">
                     <div style={{cursor: "pointer"}} onClick={() => updateForTemplate(record)}>修改</div>
-                    <div style={{cursor: "pointer"}} onClick={() => deleteForTemplate(record.id)}>删除</div>
+                    {/*<div style={{cursor: "pointer"}} onClick={() => deleteForTemplate(record.id)}>删除</div>*/}
+                    <HideDelete
+                        deleteFn={() => deleteForTemplate(record)}
+                        operation={"删除"}
+                    />
                 </Space>
             ),
         },
-
     ];
 
     return (

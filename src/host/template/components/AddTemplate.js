@@ -14,13 +14,6 @@ const AddMonitor = (props) => {
         await getTemplateAll();
     }, []);
 
-    const onFinish = (values) => {
-        console.log('Success:', values);
-    };
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
-
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -50,17 +43,6 @@ const AddMonitor = (props) => {
                    cancelText="取消" okText="确定">
                 <Form
                     name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
                     autoComplete="off"
                     form={form}
                     labelAlign={"left"}

@@ -4,11 +4,16 @@ import {Col, Empty, Pagination, Row} from "antd";
 import "./hostDynamic.scss"
 import Breadcumb from "../../common/components/Breadcrumb";
 import hostStore from "../store/HostStore";
-import {observable} from "mobx";
 import {observer} from "mobx-react";
 const HostDynamic = (props) => {
 
-    const {setNullCondition,setSearchCondition,findHostDynamicPage,hostDynamicList} = hostStore;
+    const {
+        setNullCondition,
+        setSearchCondition,
+        findHostDynamicPage,
+        hostDynamicList,
+        searchCondition
+    } = hostStore;
 
     useEffect(async () => {
         setNullCondition({
@@ -58,11 +63,11 @@ const HostDynamic = (props) => {
                             <Pagination
                                 onChange={onPageChange}
                                 defaultCurrent={1}
-                                total={hostDynamicList.totalRecord}
-                                current={hostDynamicList.currentPage}
-                                showSizeChanger={false}
                                 defaultPageSize={20}
-                                pageSize={20}
+                                total={hostDynamicList.totalRecord}
+                                // showSizeChanger={false}
+                                current={searchCondition.pageParam.currentPage}
+                                pageSize={searchCondition.pageParam.pageSize}
                             />
                         </div>
                     }

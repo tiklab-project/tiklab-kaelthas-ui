@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import "../../../common/styles/_tabStyle.scss"
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 
 const Template = (props) => {
@@ -115,7 +116,10 @@ const Template = (props) => {
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <div style={{cursor: "pointer"}} onClick={() => deleteTemplate(record.id)}>移除</div>
+                    <HideDelete
+                        deleteFn={() => deleteTemplate(record.id)}
+                        operation={"移除"}
+                    ></HideDelete>
                 </Space>
             ),
         },
@@ -160,13 +164,7 @@ const Template = (props) => {
                 }
                 return config[monitorStatus];
             }
-        },
-        /*{
-            title: '监控信息',
-            dataIndex: 'information',
-            id: 'information',
-        },*/
-
+        }
     ];
 
     async function changePage(pagination) {
@@ -176,19 +174,13 @@ const Template = (props) => {
                 currentPage: pagination.current,
             }
         })
-
         const resData = await findTemplateByMonitor();
-
         setDataList([...resData])
     }
 
     return (
         <Row className="box-template-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
-                {/*<div className="box-template-title">
-
-
-                </div>*/}
                 <div className="template-kind-options">
                     <div className="box-template-title-text">
                         模板数量:{total}
@@ -207,7 +199,6 @@ const Template = (props) => {
                         </div>
                     </div>
                 </div>
-
                 <div className="box-template-table">
                     <Table
                         rowKey={record => record.id}

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import "./HostOverview.scss"
+import "./HostDetails.scss"
 import {withRouter} from "react-router-dom";
 import {Col, Empty, Row} from "antd";
 import hostStore from "../store/HostStore";
 import "../../../common/styles/_tabStyle.scss"
+import {observer} from "mobx-react";
 
-const HostOverview = (props) => {
+const HostDetails = (props) => {
 
     const {findHostById, findHostDynamicPage, hostDynamicList, setNullCondition} = hostStore;
 
@@ -166,4 +167,4 @@ const HostOverview = (props) => {
     );
 };
 
-export default withRouter(HostOverview);
+export default withRouter(observer(HostDetails));

@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 import UpdateGraphics from "./UpdateGraphics";
+import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const Graphics = (props) => {
 
@@ -107,7 +108,10 @@ const Graphics = (props) => {
             id: 'action',
             render: (_, record) => (
                 <Space size="middle">
-                    <span style={{cursor: "pointer"}} onClick={() => deleteGraphics(record.id)}>删除</span>
+                    <HideDelete
+                        deleteFn={() => deleteGraphics(record.id)}
+                        operation={"删除"}
+                    ></HideDelete>
                 </Space>
             ),
         },

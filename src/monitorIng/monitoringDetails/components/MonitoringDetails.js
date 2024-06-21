@@ -185,7 +185,7 @@ const MonitoringDetails = (props) => {
             case 3:
                 return reportData + "G"
             case 4:
-                return reportData + "s"
+                return reportData
             default:
                 return reportData
         }

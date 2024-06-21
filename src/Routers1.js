@@ -305,8 +305,11 @@ const Routes = [
                         key: 'MessageSendType',
                         render: (props) => <MessageSendType bgroup={"xmonitor"} {...props}/>
                     },
-
-
+                    {
+                        path: "/setting/messageNotice",
+                        key: 'MessageNotice',
+                        render: (props) => <MessageNotice bgroup={"xmonitor"} {...props}/>
+                    },
                     {
                         path: "/setting/ProjectMessageNotice",
                         key: 'ProjectMessageNotice',

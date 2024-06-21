@@ -12,16 +12,20 @@ const {Panel} = Collapse;
 const {Option} = Select;
 const layout = {
     labelCol: {
-        span: 8,
+        span: 4,
     },
     wrapperCol: {
-        span: 16,
+        span: 20,
     },
 };
 const tailLayout = {
+
+    labelCol: {
+        span: 4,
+    },
     wrapperCol: {
-        offset: 8,
-        span: 16,
+        span: 18,
+        offset: 4
     },
 };
 
@@ -97,22 +101,17 @@ const ProjectInformation = (props) => {
                 </div>
                 <Collapse onChange={onChange} expandIconPosition="right">
                     <Panel header={hostHeader()} key="1">
-                        <Form {...layout}
-                              form={form}
-                              name="basic"
-                              onFinish={onFinish}
-                              initialValues={{remember: true}}
-                              labelAlign={"left"}
-                            // ref={formRef}
+                        <Form
+                            {...layout}
+                            form={form}
+                            name="basic"
+                            onFinish={onFinish}
+                            labelAlign={"left"}
                         >
                             <Form.Item
                                 name="name"
                                 label="主机名称"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
+                                rules={[{required: true,}]}
                             >
                                 <Input/>
                             </Form.Item>
@@ -162,8 +161,8 @@ const ProjectInformation = (props) => {
                                     placeholder="是否开启"
                                     allowClear
                                 >
-                                    <Option value={1}>启用</Option>
-                                    <Option value={2}>未启用</Option>
+                                    <Option key={1} value={1}>开启</Option>
+                                    <Option key={2} value={2}>关闭</Option>
                                 </Select>
                             </Form.Item>
 

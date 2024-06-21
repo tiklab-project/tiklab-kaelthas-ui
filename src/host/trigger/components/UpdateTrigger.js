@@ -1,4 +1,4 @@
-import {Button, Drawer, Form, Input, InputNumber, Modal, Select} from 'antd';
+import {Button, Drawer, Form, Input, InputNumber, message, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import triggerStore from "../store/TriggerStore";
 import TextArea from "antd/es/input/TextArea";
@@ -21,11 +21,7 @@ const schemeList = [
 ]
 const UpdateTrigger = (props) => {
 
-    const {isModalOpen, setIsModalOpen} = props;
-
-    const {rowData, setRowData} = props;
-
-    const {form} = props;
+    const {isModalOpen, setIsModalOpen, form, rowData} = props;
 
     const {
         updateTrigger,
@@ -54,9 +50,7 @@ const UpdateTrigger = (props) => {
     };
 
     const handleOk = () => {
-        setIsModalOpen(false);
-        form.validateFields().then(async res => {
-
+        /*form.validateFields().then(async res => {
             await updateTrigger({
                 id: rowData.id,
                 expressionId: rowData.expressionId,
@@ -73,55 +67,38 @@ const UpdateTrigger = (props) => {
                 rangeTime: res.rangeTime,
                 scheme: res.scheme,
                 percentage: res.percentage,
-                hostId:localStorage.getItem("hostId")
+                hostId: localStorage.getItem("hostId")
             });
 
             await getTriggerList();
-        })
+        })*/
+
+        setIsModalOpen(false);
     };
 
-    async function checkSource(value) {
-        const resData = await findMonitorListById({
-            hostId: localStorage.getItem("hostId"),
-            monitorSource: value
-        });
+    const updateBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    hostId: localStorage.getItem("hostId"),
+                    id: rowData.id,
+                };
+                obj[field] = values[field];
 
-        setMonitorData([...resData])
-
-        if (resData !== null) {
-            form.setFieldsValue({
-                monitorId: resData[0].id
+                await updateTrigger(obj);
+                // message.success("修改成功")
+                await getTriggerList();
             })
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+            message.warning("修改失败")
         }
-
     }
 
-    const onCheckMonitor = (value, options) => {
-
-        const type = options.children[2];
-
-        switch (type) {
-            case "主机":
-                rowData.source = 1
-                setRowData(rowData)
-                break;
-            case "模板":
-                rowData.source = 2
-                setRowData(rowData)
-                break;
-        }
-
-    }
-
-    const conversionMonitorType = (type) => {
-
-        switch (type) {
-            case 1:
-                return "主机";
-            case 2:
-                return "模板";
-        }
-
+    function showText(exe) {
+        console.log(exe)
     }
 
     return (
@@ -133,228 +110,107 @@ const UpdateTrigger = (props) => {
             visible={isModalOpen}
             width={500}
             contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
-            maskStyle={{background:"transparent"}}
+            maskStyle={{background: "transparent"}}
         >
-            <div className="updateTriggerForm">
-                <Form
-                    name="updateMonitorForm"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
-                    onFinishFailed={onFinishFailed}
-                    autoComplete="off"
-                    layout="vertical"
-                    form={form}
-                    labelAlign={"left"}
+            <Form
+                name="updateMonitorForm"
+                autoComplete="off"
+                layout="vertical"
+                form={form}
+                labelAlign={"left"}
+                preserve={false}
+            >
+                <Form.Item
+                    label="触发器名称"
+                    name="name"
+                    rules={[{required: true, message: '请输入触发器名称!'}]}
                 >
-                    <Form.Item
-                        label="触发器名称"
-                        name="name"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入触发器名称!',
-                            },
-                        ]}
+                    <Input onBlur={() => updateBlur('name')}/>
+                </Form.Item>
+                <Form.Item
+                    label="触发器表达式"
+                    name="expression"
+                    rules={[{required: true, message: '触发器表达式!'}]}
+                >
+                    <TextArea onChange={() => updateBlur('expression')}/>
+                </Form.Item>
+                <Form.Item
+                    label="请选择触发方案"
+                    name="scheme"
+                    rules={[{required: true, message: '请选择触发方案!'}]}
+                >
+                    <Select
+                        placeholder="请选择触发方案"
+                        allowClear
+                        onBlur={() => updateBlur('scheme')}
                     >
-                        <Input/>
-                    </Form.Item>
-
-                    {/*<Form.Item
-                                label="监控项"
-                                name="monitorId"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请选择监控项!',
-                                    },
-                                ]}
-                            >
-
-                                <Select
-                                    placeholder="请选择您的监控项"
-                                    onChange={(value, options) => onCheckMonitor(value, options)}
-                                    allowClear
-                                    showSearch
-                                >
-                                    {
-                                        monitorData && monitorData.map(item => (
-                                            <Option key={item.id}
-                                                    value={item.id}>{item.name}{"  来源  "}{conversionMonitorType(item.monitorSource)}</Option>
-                                        ))
-                                    }
-                                </Select>
-
-                            </Form.Item>
-
-                            <Form.Item
-                                label="范围关系"
-                                name="operator"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请选择范围关系!',
-                                    },
-                                ]}
-                            >
-                                <Select
-                                    placeholder="范围关系关系"
-                                    allowClear
-                                >
-                                    <Option value={1} key={1}>{">"}</Option>
-                                    <Option value={2} key={2}>{"<"}</Option>
-                                    <Option value={3} key={3}>{"="}</Option>
-                                    <Option value={4} key={4}>{">="}</Option>
-                                    <Option value={5} key={5}>{"<="}</Option>
-                                    <Option value={6} key={6}>{"<>"}</Option>
-                                </Select>
-                            </Form.Item>
-                            <Form.Item
-                                label="值"
-                                name="numericalValue"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: '请输入数字!',
-                                    },
-                                ]}
-                            >
-                                <InputNumber/>
-                            </Form.Item>*/}
-
-                    <Form.Item
-                        label="触发器表达式"
-                        name="expression"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入触发器表达式!',
-                            },
-                        ]}
+                        {
+                            schemeList.map(item => {
+                                return <Option value={item.value} key={item.value}>{item.name}</Option>
+                            })
+                        }
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="选择时间范畴"
+                    name="rangeTime"
+                    rules={[{required: true, message: '选择时间范畴(单位为分钟)!'}]}
+                >
+                    <InputNumber onChange={() => updateBlur('rangeTime')} placeholder="分钟" min={0}/>
+                </Form.Item>
+                <Form.Item
+                    label="百分比达到多少进行触发"
+                    name="percentage"
+                    rules={[{required: true, message: '百分比达到多少进行触发'}]}
+                >
+                    <InputNumber  onChange={() => updateBlur('percentage')} placeholder="数据百分比" min={1} max={100}/>
+                </Form.Item>
+                <Form.Item
+                    label="消息通知方案"
+                    name="mediumIds"
+                    rules={[{required: true, message: '请选择消息通知方案!'}]}
+                >
+                    <Select
+                        mode="multiple"
+                        maxTagCount="responsive"
+                        placeholder="请选择您的消息通知方案"
+                        allowClear
+                        onChange={() => updateBlur('mediumIds')}
                     >
-                        <TextArea placeholder="手动输入触发器表达式" allowClear/>
-                    </Form.Item>
-                    <Form.Item
-                        label="请选择触发方案"
-                        name="scheme"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择触发方案!',
-                            },
-                        ]}
+                        {
+                            mediumList && mediumList.map(item => {
+                                return <Option value={item.id} key={item.id}>{item.name}</Option>
+                            })
+                        }
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label="严重性"
+                    name="severityLevel"
+                    rules={[{required: true, message: '严重性!'}]}
+                >
+                    <Select
+                        placeholder="严重性选择"
+                        allowClear
+                        onBlur={() => updateBlur('severityLevel')}
                     >
-                        <Select
-                            placeholder="请选择触发方案"
-                            allowClear
-                        >
-                            {
-                                schemeList.map(item => {
-                                    return <Option value={item.value} key={item.value}>{item.name}</Option>
-                                })
-                            }
-                            {/*<Option value={1} key={1}>avg(平均值)</Option>
-                                    <Option value={2} key={2}>max(最大值)</Option>
-                                    <Option value={3} key={3}>min(最小值)</Option>
-                                    <Option value={4} key={4}>last(最近一个值)</Option>*/}
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        label="选择时间范畴"
-                        name="rangeTime"
-                        rules={[
-                            {
-                                required: true,
-                                message: '选择时间范畴(单位为分钟)!',
-                            },
-                        ]}
-                    >
-                        <InputNumber placeholder="分钟" min={0}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="百分比达到多少进行触发"
-                        name="percentage"
-                        rules={[
-                            {
-                                required: true,
-                                message: '百分比达到多少进行触发',
-                            },
-                        ]}
-                    >
-                        <InputNumber placeholder="数据百分比" min={1} max={100}/>
-                    </Form.Item>
-                    <Form.Item
-                        label="消息通知方案"
-                        name="mediumType"
-                        rules={[
-                            {
-                                required: false,
-                                message: '请选择消息通知方案!',
-                            },
-                        ]}
-                    >
-
-                        <Select
-                            mode="multiple"
-                            maxTagCount="responsive"
-                            placeholder="请选择您的消息通知方案"
-                            allowClear
-                        >
-                            {
-                                mediumList && mediumList.map(item => {
-                                    return <Option value={item.id} key={item.id}>{item.name}</Option>
-                                })
-                            }
-                        </Select>
-
-                    </Form.Item>
-
-                    <Form.Item
-                        label="严重性"
-                        name="severityLevel"
-                        rules={[
-                            {
-                                required: true,
-                                message: '严重性!',
-                            },
-                        ]}
-                    >
-
-                        <Select
-                            placeholder="严重性选择"
-                            allowClear
-                        >
-                            <Option value={1} key={1}>灾难</Option>
-                            <Option value={2} key={2}>严重</Option>
-                            <Option value={3} key={3}>一般严重</Option>
-                            <Option value={4} key={4}>告警</Option>
-                            <Option value={5} key={5}>信息</Option>
-                            <Option value={6} key={6}>未分类</Option>
-                        </Select>
-
-                    </Form.Item>
-
-                    <Form.Item
-                        label="问题描述"
-                        name="describe"
-                        rules={[
-                            {
-                                required: false,
-                                message: '问题描述!',
-                            },
-                        ]}
-                    >
-                        <Input/>
-                    </Form.Item>
-
-                </Form>
-            </div>
+                        <Option value={1} key={1}>灾难</Option>
+                        <Option value={2} key={2}>严重</Option>
+                        <Option value={3} key={3}>一般严重</Option>
+                        <Option value={4} key={4}>告警</Option>
+                        <Option value={5} key={5}>信息</Option>
+                        <Option value={6} key={6}>未分类</Option>
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    label="问题描述"
+                    name="describe"
+                    rules={[{required: true, message: '问题描述!'}]}
+                >
+                    <Input onBlur={() => updateBlur('describe')}/>
+                </Form.Item>
+            </Form>
         </Drawer>
     );
 };

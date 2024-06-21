@@ -99,9 +99,9 @@ const TriggerList = (props) => {
             id: 'scheme',
             render: (mediumType) => {
                 let config = {
-                    1: "avg(平均值)",
-                    2: "percentage(百分比)",
-                    3: "last(最近一个值)",
+                    1: "last(最近一个值)",
+                    2: "avg(平均值)",
+                    3: "percentage(百分比)",
                 }
                 return config[mediumType];
             }

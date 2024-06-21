@@ -1,6 +1,7 @@
-import {Button, Modal, Form, Input, Select, InputNumber, AutoComplete} from 'antd';
-import React, {useEffect, useState} from 'react';
+import {Modal, Form, Input, Select, InputNumber, AutoComplete, message} from 'antd';
+import React, {useState} from 'react';
 import monitorStore from "../store/MonitorStore";
+import {observer} from "mobx-react";
 
 const {Option} = Select
 
@@ -13,7 +14,7 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const [itemId,setItemId] = useState();
+    const [itemId, setItemId] = useState();
 
     const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
 
@@ -23,17 +24,21 @@ const AddMonitor = (props) => {
 
     const handleOk = async () => {
         form.validateFields().then(async res => {
-            await addMonitor({
+            const resData = await addMonitor({
                 hostId: localStorage.getItem("hostId"),
                 name: res.monitorName,
                 type: res.monitorType,
-                monitorItemId:itemId,
+                monitorItemId: itemId,
                 expression: res.monitorExpression,
-                intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
                 source: 1,
                 monitorStatus: 1,
             })
+            if (resData.data === null) {
+                message.warning("已经创建过相同监控项了!")
+            }else {
+                message.success("添加成功!")
+            }
             await findMonitorCondition();
         })
         setIsModalOpen(false);
@@ -51,8 +56,8 @@ const AddMonitor = (props) => {
 
     };
 
-    const onSecondCityChange = (value,option) => {
-        if (option.key !== undefined && option.key !== null){
+    const onSecondCityChange = (value, option) => {
+        if (option.key !== undefined && option.key !== null) {
             setItemId(option.key)
         }
     };
@@ -62,34 +67,29 @@ const AddMonitor = (props) => {
             <div onClick={showModal}>
                 新建监控项
             </div>
-            <Modal title="新建监控项" open={isModalOpen} onOk={handleOk} onCancel={handleCancel} visible={isModalOpen}
-                   cancelText="取消" okText="确定" width={800}>
+            <Modal
+                destroyOnClose={true}
+                title="新建监控项"
+                open={isModalOpen}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                visible={isModalOpen}
+                okText="确定"
+                cancelText="取消"
+                centered
+                bodyStyle={{ maxHeight: '400px', overflowY: 'auto' }}
+            >
                 <Form
-                    name="basic"
-                    labelCol={{
-                        span: 8,
-                    }}
-                    wrapperCol={{
-                        span: 16,
-                    }}
-                    initialValues={{
-                        remember: true,
-                    }}
                     layout="vertical"
                     autoComplete="off"
                     form={form}
                     labelAlign={"left"}
+                    preserve={false}
                 >
                     <Form.Item
                         label="监控项名称"
                         name="monitorName"
-                        rules={[
-                            {
-                                required: true,
-                                message: '' +
-                                    '请输入监控项名称!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
                         <Input allowClear={true} placeholder="监控项名称"/>
                     </Form.Item>
@@ -97,10 +97,10 @@ const AddMonitor = (props) => {
                     <Form.Item
                         label="监控类型"
                         name="monitorType"
-                        rules={[{required: true, message: '请选择监控项类型!'}]}
+                        rules={[{required: true, message: '监控项类型'}]}
                     >
                         <Select
-                            placeholder="请选择您的监控类型"
+                            placeholder="监控类型"
                             allowClear
                             onChange={handleProvinceChange}
                             options={provinceData && provinceData.map((province) => ({
@@ -109,30 +109,14 @@ const AddMonitor = (props) => {
                             }))}
                         >
                         </Select>
-                        {/*<AutoComplete
-                            placeholder="请选择您的监控类型"
-                            allowClear
-                            onChange={handleProvinceChange}
-                            options={provinceData && provinceData.map((province) => ({
-                                label: province,
-                                value: province,
-                            }))}
-                        />*/}
-
                     </Form.Item>
-
                     <Form.Item
                         label="监控指标"
                         name="monitorExpression"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请选择监控项指标!',
-                            },
-                        ]}
+                        rules={[{required: true, message: '监控项指标'}]}
                     >
                         <AutoComplete
-                            placeholder="请选择监控项指标"
+                            placeholder="监控项指标"
                             allowClear
                             value={expression.id}
                             onChange={onSecondCityChange}
@@ -143,32 +127,17 @@ const AddMonitor = (props) => {
                             }
                         </AutoComplete>
                     </Form.Item>
-
                     <Form.Item
                         label="数据保留时间"
                         name="dataRetentionPeriod"
-                        rules={[{required: true, message: '请输入数据保留时间!'}]}
+                        rules={[{required: true, message: '数据保留时间!'}]}
                     >
                         <InputNumber min={1}/>
                     </Form.Item>
-
-                    <Form.Item
-                        label="更新间隔"
-                        name="interval"
-                        rules={[
-                            {
-                                required: true,
-                                message: '请输入更新间隔!',
-                            },
-                        ]}
-                    >
-                        <InputNumber min={1}/>
-                    </Form.Item>
-
                 </Form>
             </Modal>
         </>
     );
 };
 
-export default AddMonitor;
+export default observer(AddMonitor);

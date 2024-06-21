@@ -24,13 +24,17 @@ const AddHost = (props) => {
     }, []);
 
     const onFinish = async () => {
-        const values = await form.validateFields();
-        await addHost({
-            name: values.name,
-            ip: values.ip,
-            hostGroupId: values.hostGroupId,
-            templateId: values.templateId,
-        });
+
+        form.validateFields().then(async res => {
+            await addHost({
+                name: res.name,
+                ip: res.ip,
+                state: res.isOpen,
+                hostGroupId: res.hostGroupId,
+                templateId: res.templateId,
+            });
+        })
+
         await findPageHost()
         props.history.push('/configuration')
     };
@@ -63,7 +67,7 @@ const AddHost = (props) => {
                         preserve={false}
                         layout={"vertical"}
                         {...layout}
-                        initialValues={{ isOpen: "1" }}
+                        initialValues={{isOpen: "1"}}
                     >
                         <div className={"ws-edit-form-input"}>
                             <Form.Item
@@ -158,20 +162,20 @@ const AddHost = (props) => {
                             </Form.Item>
                         </div>
                         <div className={"ws-edit-form-input"}>
-                                <Form.Item
-                                    label="是否开启"
-                                    name="isOpen"
-                                    rules={[{required: false, message: '是否开启!'}]}
+                            <Form.Item
+                                label="是否开启"
+                                name="isOpen"
+                                rules={[{required: false, message: '是否开启!'}]}
+                            >
+                                <Select
+                                    placeholder="是否开启"
+                                    allowClear
                                 >
-                                    <Select
-                                        placeholder="是否开启"
-                                        allowClear
-                                    >
-                                        <Option key={1} value="1">开启</Option>
-                                        <Option key={2} value="2">关闭</Option>
-                                    </Select>
-                                </Form.Item>
-                            </div>
+                                    <Option key={1} value="1">开启</Option>
+                                    <Option key={2} value="2">关闭</Option>
+                                </Select>
+                            </Form.Item>
+                        </div>
                     </Form>
                     <div className={"ws-edit-box-footer"}>
                         <Button onClick={onCancel} style={{margin: "0 10px 0 0"}}

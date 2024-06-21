@@ -1,4 +1,4 @@
-import {AutoComplete, Drawer, Form, Input, InputNumber, Select} from 'antd';
+import {AutoComplete, Drawer, Form, Input, InputNumber, message, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../store/MonitorStore";
 
@@ -16,29 +16,8 @@ const UpdateMonitor = (props) => {
 
     const [itemId, setItemId] = useState();
 
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
 
     const handleOk = () => {
-        form.validateFields().then(async res => {
-            await updateMonitorById({
-                hostId: localStorage.getItem("hostId"),
-                id: columnData.id,
-                name: res.name,
-                type: res.monitorType,
-                monitorItemId: itemId,
-                expression: res.expression,
-                intervalTime: res.intervalTime,
-                dataRetentionTime: res.dataRetentionTime,
-                source: 1,
-                monitorStatus: res.monitorStatus
-            });
-            await findMonitorCondition();
-        })
-        setIsModalOpen(false);
-    };
-    const handleCancel = () => {
         setIsModalOpen(false);
     };
 
@@ -55,6 +34,29 @@ const UpdateMonitor = (props) => {
         }
     }
 
+    const handleBlur = async (field) => {
+        try {
+            const values = await form.validateFields([field]);
+            // 假设此处调用 API 进行保存
+            form.validateFields().then(async () => {
+                let obj = {
+                    hostId: localStorage.getItem("hostId"),
+                    id: columnData.id,
+                    source: 1,
+                    monitorItemId: itemId,
+                };
+                obj[field] = values[field];
+
+                await updateMonitorById(obj);
+                message.success("修改成功")
+                await findMonitorCondition();
+            })
+        } catch (errorInfo) {
+            console.error('Validation failed:', errorInfo);
+            message.warning("修改失败")
+        }
+    };
+
     return (
         <Drawer
             title="编辑监控项"
@@ -68,32 +70,23 @@ const UpdateMonitor = (props) => {
         >
             <Form
                 name="basic"
-                labelCol={{
-                    span: 8,
-                }}
-                wrapperCol={{
-                    span: 16,
-                }}
-                initialValues={{
-                    remember: true,
-                }}
-                onFinishFailed={onFinishFailed}
                 autoComplete="off"
                 form={form}
                 layout="vertical"
                 labelAlign={"left"}
+                preserve={false}
             >
                 <Form.Item
                     label="监控项名称"
                     name="name"
-                    rules={[{required: true, message: '请输入监控项名称!'}]}
+                    rules={[{required: true, message: '监控项名称!'}]}
                 >
-                    <Input/>
+                    <Input onBlur={() => handleBlur('name')}/>
                 </Form.Item>
                 <Form.Item
                     label="监控类型"
                     name="monitorType"
-                    rules={[{required: true, message: '请选择监控项类型!'}]}
+                    rules={[{required: true, message: '监控项类型!'}]}
                 >
                     <Select
                         placeholder="请选择您的监控类型"
@@ -109,13 +102,14 @@ const UpdateMonitor = (props) => {
                 <Form.Item
                     label="监控指标"
                     name="expression"
-                    rules={[{required: true, message: '请选择监控项指标!'}]}
+                    rules={[{required: true, message: '监控项指标!'}]}
                 >
                     <AutoComplete
-                        placeholder="请选择监控项指标"
+                        placeholder="监控项指标"
                         allowClear
                         value={monitorItemList.id}
                         onChange={onSecondCityChange}
+                        onBlur={()=>handleBlur('expression')}
                     >
                         {
                             monitorItemList && monitorItemList.map(item => (
@@ -129,14 +123,7 @@ const UpdateMonitor = (props) => {
                     name="dataRetentionTime"
                     rules={[{required: true, message: '请输入数据保留时间!'}]}
                 >
-                    <InputNumber min={1}/>
-                </Form.Item>
-                <Form.Item
-                    label="更新间隔"
-                    name="intervalTime"
-                    rules={[{required: true, message: '请输入更新间隔!'}]}
-                >
-                    <InputNumber min={1}/>
+                    <InputNumber onBlur={() => handleBlur('dataRetentionTime')} min={1}/>
                 </Form.Item>
                 <Form.Item
                     label="监控项状态"
@@ -145,8 +132,8 @@ const UpdateMonitor = (props) => {
                 >
                     <Select
                         placeholder="请选择您的监控项状态"
-                        onChange={onMonitorChange}
                         allowClear
+                        onBlur={()=>handleBlur('monitorStatus')}
                     >
                         <Option value={1} key={1}>{"开启"}</Option>
                         <Option value={2} key={2}>{"关闭"}</Option>

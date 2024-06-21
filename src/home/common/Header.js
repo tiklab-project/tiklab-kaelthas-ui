@@ -6,7 +6,6 @@ import { getUser } from 'thoughtware-core-ui';
 import logo from "../../assets/png/monitorPng.png"
 
 import "./Header.scss";
-import {AppLink,HelpLink,AvatarLink} from "thoughtware-licence-ui";
 import MessageList from "./MessageList";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 const Header = props => {
@@ -14,6 +13,8 @@ const Header = props => {
     const { i18n } = useTranslation();
     // 登录者的信息
     const user = getUser();
+
+    const {AppLink, HelpLink, AvatarLink } = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
@@ -92,7 +93,7 @@ const Header = props => {
         <Row className="frame-header">
             <Col span={12}>
                 <div className={'frame-header-left'}>
-                    <AppLink isSSO={false} />
+                    {AppLink}
                     {logo && <div className={'frame-header-logo'}>
                         <img src={logo} alt={'logo'} className="logo-img"/>
                         {/*<div className="logo-img">{"Xmonitor".substring(0,1).toLocaleUpperCase()}</div>*/}
@@ -114,8 +115,8 @@ const Header = props => {
                             </div>
                         </div>
                         <MessageList/>
-                        <HelpLink/>
-                        <AvatarLink {...props}/>
+                        {HelpLink}
+                        {AvatarLink}
                     </div>
                 </div>
             </Col>
