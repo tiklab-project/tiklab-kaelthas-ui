@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Col, Input, Row, Select, Table, Tag} from "antd";
+import {Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import SelectSimple from "../../common/components/Select";
 import SelectItem from "../../common/components/SelectItem";
+import IconCommon from "../../../common/IconCommon";
 
 const {Option} = Select;
 
@@ -23,6 +24,9 @@ const AlarmPage = (props) => {
         quickFilterValue
     } = alarmPageStore;
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const [alarm,setAlarm] = useState();
 
     const quickFilterList = [
         {
@@ -89,13 +93,15 @@ const AlarmPage = (props) => {
     }
 
     async function updateAlarm(record) {
-        await updateAlarmPage({
+        /*await updateAlarmPage({
             id: record.id,
             alertTime: record.alertTime,
             status: 1
         });
 
-        await findAlarmPage();
+        await findAlarmPage();*/
+        setAlarm(record)
+        setIsModalVisible(true)
     }
 
     async function jumpToMonitor(record) {
@@ -201,6 +207,24 @@ const AlarmPage = (props) => {
         },
     ];
 
+
+    const handleOk = async () => {
+
+        await updateAlarmPage({
+            id: alarm?.id,
+            alertTime: alarm?.alertTime,
+            status: 1
+        });
+
+        await findAlarmPage();
+
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     async function checkHostName(e) {
         setSearchCondition({
             hostName: e.target.value
@@ -277,6 +301,19 @@ const AlarmPage = (props) => {
                             }
                         </SelectSimple>
                     </div>
+                    <>
+                        <Modal
+                            title="确认操作"
+                            visible={isModalVisible}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                            width={200}
+                        >
+                            <p>你确定要更改状态吗？</p>
+                        </Modal>
+                    </>
                     <div className="alarm-box-table">
                         <Table rowKey={record => record.id}
                                columns={columns}

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./HostAlarm.scss"
-import {Col, Input, Row, Select, Table, Tag} from "antd";
+import {Col, Input, Modal, Row, Select, Table, Tag} from "antd";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import SelectItem from "../../../alarm/common/components/SelectItem";
@@ -23,6 +23,9 @@ const HostAlarm = (props) => {
         quickFilterValue
     } = hostAlarmStore;
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const [alarm,setAlarm] = useState();
 
     const quickFilterList = [
         {
@@ -94,13 +97,15 @@ const HostAlarm = (props) => {
     }
 
     async function updateAlarm(record) {
-        await updateAlarmPage({
+        /*await updateAlarmPage({
             id: record.id,
             alertTime: record.alertTime,
             status: 1
         });
 
-        await findAlarmPageByHostId();
+        await findAlarmPageByHostId();*/
+        setAlarm(record)
+        setIsModalVisible(true)
     }
 
     function conversionType(severityLevel) {
@@ -197,6 +202,23 @@ const HostAlarm = (props) => {
         },
     ];
 
+    const handleOk = async () => {
+
+        await updateAlarmPage({
+            id: alarm?.id,
+            alertTime: alarm?.alertTime,
+            status: 1
+        });
+
+        await findAlarmPageByHostId()
+
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
     async function checkPage(pagination) {
         setSearchCondition({
             pageParam: {
@@ -257,6 +279,19 @@ const HostAlarm = (props) => {
                             }
                         </SelectSimple>
                     </div>
+                    <>
+                        <Modal
+                            title="确认操作"
+                            visible={isModalVisible}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                            width={200}
+                        >
+                            <p>你确定要更改状态吗？</p>
+                        </Modal>
+                    </>
                     <div className="alarm-box-table">
                         <Table rowKey={record => record.id}
                                columns={columns}
