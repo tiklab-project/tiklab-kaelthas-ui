@@ -1,4 +1,4 @@
-import {TemplateStore} from "../../../template/store/TemplateStore";
+import {TemplateStore} from "../../../configuration/template/store/TemplateStore";
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
 

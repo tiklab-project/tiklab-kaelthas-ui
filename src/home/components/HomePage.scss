@@ -3,7 +3,6 @@
   flex: 1;
   overflow: auto;
 
-
   .home-body {
     width: 1080px;
     margin: 0 auto;
@@ -64,7 +63,6 @@
             .item-title-png {
               padding-right: 10px;
 
-
               .user-big-icon {
                 width: 32px;
                 height: 32px;
@@ -76,7 +74,6 @@
               }
             }
 
-
             .item-title-text {
               margin-right: 15px;
               text-overflow: ellipsis;
@@ -84,8 +81,6 @@
               overflow: hidden;
               max-width: 140px;
             }
-
-
           }
 
           .item-work {
@@ -110,12 +105,25 @@
             }
           }
         }
-
       }
-
     }
 
-    .home-alarm-table {
+    .host-graphics{
+      margin: 15px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 4px;
+
+      .home-graphics-title {
+        width: 100%;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .home-dynamic-table {
       margin: 15px auto;
       padding: 20px;
       background-color: #fff;
@@ -150,12 +158,6 @@
           }
         }
       }
-    }
-
-    .home-dynamic-table {
-      border-radius: 4px;
-      background: #fff;
-      margin: 0 0 10px;
     }
   }
 

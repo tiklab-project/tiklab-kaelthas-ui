@@ -96,7 +96,6 @@ const Header = props => {
                     {AppLink}
                     {logo && <div className={'frame-header-logo'}>
                         <img src={logo} alt={'logo'} className="logo-img"/>
-                        {/*<div className="logo-img">{"Xmonitor".substring(0,1).toLocaleUpperCase()}</div>*/}
                         <div className="logo-text">Xmonitor</div>
                     </div>}
                     {renderRouter()}

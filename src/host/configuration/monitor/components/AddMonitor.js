@@ -1,54 +1,46 @@
-import {Button, Modal, Form, Input, Select, AutoComplete} from 'antd';
-import React, {useEffect, useState} from 'react';
-import monitorStore from "../../../host/configuration/monitor/store/MonitorStore";
-import templateStore from "../../../host/configuration/template/store/TemplateStore";
-import {withRouter} from "react-router";
-import templateSettingStore from "../store/TemplateSettingStore";
+import {Modal, Form, Input, Select, InputNumber, AutoComplete, message} from 'antd';
+import React, {useState} from 'react';
+import monitorStore from "../store/MonitorStore";
 import {observer} from "mobx-react";
 
 const {Option} = Select
 
 
-const AddTemplateMonitor = (props) => {
+const AddMonitor = (props) => {
+    const [form] = Form.useForm();
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
-
-    const [form] = Form.useForm();
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [expression, setExpression] = useState([]);
 
     const [itemId, setItemId] = useState();
 
-    const {findMonitorItemByName} = monitorStore;
-
-    const {findMonitorByTemplateId, createMonitor} = templateSettingStore;
+    const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
-
     const handleOk = async () => {
-
         form.validateFields().then(async res => {
-            await createMonitor({
-                hostId: localStorage.getItem("templateId"),
+            const resData = await addMonitor({
+                hostId: localStorage.getItem("hostId"),
                 name: res.monitorName,
                 type: res.monitorType,
                 monitorItemId: itemId,
                 expression: res.monitorExpression,
-                intervalTime: res.interval,
                 dataRetentionTime: res.dataRetentionPeriod,
-                source: 2,
-                monitorStatus: 1
+                source: 1,
+                monitorStatus: 1,
             })
-
-            await findMonitorByTemplateId();
-
+            if (resData.data === null) {
+                message.warning("已经创建过相同监控项了!")
+            }else {
+                message.success("添加成功!")
+            }
+            await findMonitorCondition();
         })
-
         setIsModalOpen(false);
     };
     const handleCancel = () => {
@@ -59,18 +51,20 @@ const AddTemplateMonitor = (props) => {
     const handleProvinceChange = async (value) => {
         //根据名称查询item中的表达式
         const resData = await findMonitorItemByName(value)
+
         setExpression([...resData])
+
     };
+
     const onSecondCityChange = (value, option) => {
         if (option.key !== undefined && option.key !== null) {
             setItemId(option.key)
         }
     };
 
-
     return (
         <>
-            <div className="monitor-add" onClick={showModal}>
+            <div onClick={showModal}>
                 新建监控项
             </div>
             <Modal
@@ -80,15 +74,15 @@ const AddTemplateMonitor = (props) => {
                 onOk={handleOk}
                 onCancel={handleCancel}
                 visible={isModalOpen}
-                cancelText="取消"
                 okText="确定"
+                cancelText="取消"
                 centered
-                bodyStyle={{maxHeight: '400px', overflowY: 'auto'}}
+                bodyStyle={{ maxHeight: '400px', overflowY: 'auto' }}
             >
                 <Form
+                    layout="vertical"
                     autoComplete="off"
                     form={form}
-                    layout="vertical"
                     labelAlign={"left"}
                     preserve={false}
                 >
@@ -97,15 +91,16 @@ const AddTemplateMonitor = (props) => {
                         name="monitorName"
                         rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
-                        <Input/>
+                        <Input allowClear={true} placeholder="监控项名称"/>
                     </Form.Item>
+
                     <Form.Item
                         label="监控类型"
                         name="monitorType"
-                        rules={[{required: true, message: '请选择监控项类型!'}]}
+                        rules={[{required: true, message: '监控项类型'}]}
                     >
                         <Select
-                            placeholder="请选择您的监控类型"
+                            placeholder="监控类型"
                             allowClear
                             onChange={handleProvinceChange}
                             options={provinceData && provinceData.map((province) => ({
@@ -118,38 +113,26 @@ const AddTemplateMonitor = (props) => {
                     <Form.Item
                         label="监控指标"
                         name="monitorExpression"
-                        rules={[{required: true, message: '请选择监控项指标!'}]}
+                        rules={[{required: true, message: '监控项指标'}]}
                     >
                         <AutoComplete
-                            placeholder="请选择监控项指标"
+                            placeholder="监控项指标"
                             allowClear
+                            value={expression.id}
                             onChange={onSecondCityChange}
                         >
                             {
                                 expression && expression.map((item) => (
-                                    <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
+                                    <Option value={item.name} key={item.id}>{item.name}({item.dataSubclass})</Option>))
                             }
                         </AutoComplete>
                     </Form.Item>
                     <Form.Item
                         label="数据保留时间"
                         name="dataRetentionPeriod"
-                        rules={[{required: true, message: '请输入数据保留时间!'}]}
+                        rules={[{required: true, message: '数据保留时间!'}]}
                     >
-                        <Input/>
-                    </Form.Item>
-                    <Form.Item
-                        label="监控状态"
-                        name="monitorStatus"
-                        rules={[{required: true, message: '请选择是否启用!'}]}
-                    >
-                        <Select
-                            placeholder="请选择是否启用"
-                            allowClear
-                        >
-                            <Option value={1} key={1}>{"启用"}</Option>))
-                            <Option value={2} key={2}>{"关闭"}</Option>))
-                        </Select>
+                        <InputNumber min={1}/>
                     </Form.Item>
                 </Form>
             </Modal>
@@ -157,4 +140,4 @@ const AddTemplateMonitor = (props) => {
     );
 };
 
-export default withRouter(observer(AddTemplateMonitor));
+export default observer(AddMonitor);

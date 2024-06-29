@@ -20,7 +20,8 @@ const TemplateSettingMonitorList = (props) => {
         findMonitorByTemplateId,
         monitorTotal,
         monitorList,
-        setMonitorSearchCondition
+        setMonitorSearchCondition,
+        monitorSearchCondition
     } = templateSettingStore;
 
     const [form] = Form.useForm();
@@ -91,11 +92,6 @@ const TemplateSettingMonitorList = (props) => {
             id: 'expression',
         },
         {
-            title: '间隔时间',
-            dataIndex: 'intervalTime',
-            id: 'intervalTime',
-        },
-        {
             title: '数据保留时间',
             dataIndex: 'dataRetentionTime',
             id: 'dataRetentionTime',
@@ -131,6 +127,16 @@ const TemplateSettingMonitorList = (props) => {
         props.history.push(`/setting/template`);
     }
 
+    async function checkPage(pagination) {
+        setMonitorSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+        await findMonitorByTemplateId();
+    }
+
     return (
         <Row className="monitor-row">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
@@ -157,10 +163,14 @@ const TemplateSettingMonitorList = (props) => {
                             rowKey={record => record.id}
                             columns={monitorColumns}
                             dataSource={monitorList}
+                            className="custom-table"
+                            onChange={checkPage}
                             pagination={{
                                 position: ["bottomCenter"],
                                 total: monitorTotal,
-                                showSizeChanger: true
+                                showSizeChanger: true,
+                                pageSize: monitorSearchCondition.pageParam.pageSize,
+                                current: monitorSearchCondition.pageParam.currentPage,
                             }}
                         />
                     </Tabs.TabPane>
@@ -170,9 +180,9 @@ const TemplateSettingMonitorList = (props) => {
                 </Tabs>
             </Col>
             <>
-                <TemplateUpdateMonitor form={form}
-                                       isUpdateModalOpen={isUpdateModalOpen} setIsUpdateModalOpen={setIsUpdateModalOpen}
-                                       monitorId={monitorId}
+                <TemplateUpdateMonitor form={form}  monitorId={monitorId}
+                                       isUpdateModalOpen={isUpdateModalOpen}
+                                       setIsUpdateModalOpen={setIsUpdateModalOpen}
                 />
             </>
         </Row>

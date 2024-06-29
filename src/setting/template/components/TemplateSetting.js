@@ -15,8 +15,8 @@ const TemplateSetting = (props) => {
         setSearchCondition,
         deleteTemplate,
         total,
-        templateList
-
+        templateList,
+        searchCondition
     } = templateSettingStore;
 
     const [isOpen, setIsOpen] = useState(false);
@@ -123,6 +123,17 @@ const TemplateSetting = (props) => {
         },
     ];
 
+    async function changePage(pagination) {
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+
+        await findTemplatePage();
+    }
+
     return (
 
         <>
@@ -148,10 +159,14 @@ const TemplateSetting = (props) => {
                                 rowKey={record => record.id}
                                 columns={columns}
                                 dataSource={templateList}
+                                className="custom-table"
+                                onChange={changePage}
                                 pagination={{
                                     position: ["bottomCenter"],
                                     total: total,
-                                    showSizeChanger: true
+                                    showSizeChanger: true,
+                                    pageSize: searchCondition.pageParam.pageSize,
+                                    current: searchCondition.pageParam.currentPage,
                                 }}
                             />
                         </div>

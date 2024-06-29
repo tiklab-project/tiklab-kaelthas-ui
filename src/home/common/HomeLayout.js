@@ -6,20 +6,11 @@ import "./HomeLayout.scss";
 import {Provider} from 'mobx-react';
 import Header from "./Header";
 import {AppLink, AvatarLink, HelpLink} from "thoughtware-licence-ui";
-import {getUser} from "thoughtware-core-ui";
 
 const HomeLayout = (props) => {
 
     const route = props.route.routes;
 
-    /*const {systemRoleStore} = props;
-
-    const {getSystemPermissions} = systemRoleStore
-
-    useEffect(()=>{
-        // 获取系统权限
-        getSystemPermissions(getUser().userId)
-    },[])*/
 
     return (
         <Provider >

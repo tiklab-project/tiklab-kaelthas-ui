@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { Drawer, Tabs, Badge, Avatar, } from 'antd';
 import { MessageOutlined } from '@ant-design/icons';
 import "./MessageList.scss"
@@ -17,7 +17,16 @@ const MessageList = (props) => {
     const messageRef = useRef()
 
 
+    /**
+     * 挂载监听点击事件
+     */
+    useEffect(() => {
+        window.addEventListener("mousedown", closeModal, false);
+        return () => {
+            window.removeEventListener("mousedown", closeModal, false);
+        }
 
+    },[])
     
     /**
      * 点击抽屉之外的地方关闭抽屉

@@ -36,12 +36,12 @@ export class TemplateSettingStore {
 
 
     @action
-    setSearchCondition = async (value) => {
+    setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
     @action
-    setMonitorSearchCondition = async (value) => {
+    setMonitorSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.monitorSearchCondition, {...value})
     }
 

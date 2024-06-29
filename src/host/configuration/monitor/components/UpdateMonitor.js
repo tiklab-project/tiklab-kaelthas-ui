@@ -1,51 +1,38 @@
-import {Button, Modal, Form, Input, Select, Drawer, AutoComplete, message, InputNumber} from 'antd';
+import {AutoComplete, Drawer, Form, Input, InputNumber, message, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../../../host/configuration/monitor/store/MonitorStore";
-import templateSettingStore from "../store/TemplateSettingStore";
-import {observer} from "mobx-react";
+import monitorStore from "../store/MonitorStore";
 
 const {Option} = Select
 
-
-const UpdateTemplateMonitor = (props) => {
+const UpdateMonitor = (props) => {
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
-    const {form, rowData, isUpdateModalOpen, setIsUpdateModalOpen, monitorId} = props;
+    const {isModalOpen, setIsModalOpen, form, columnData} = props;
+
+    const {updateMonitorById, findMonitorItemByName, findMonitorCondition, findMonitorItemAll} = monitorStore;
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
     const [itemId, setItemId] = useState();
 
-    const {findMonitorItemByName} = monitorStore;
 
-    const {updateTemplateMonitor, findMonitorByTemplateId, setMonitorSearchCondition} = templateSettingStore;
-
-    const handleOk = async () => {
-        form.validateFields().then(async res => {
-            await updateTemplateMonitor({
-                id: monitorId,
-                name: res.name,
-                hostId: localStorage.getItem("templateId"),
-                type: res.monitorType,
-                monitorItemId: itemId,
-                expression: res.expression,
-                intervalTime: res.intervalTime,
-                dataRetentionTime: res.dataRetentionTime,
-                source: 2,
-                monitorStatus: res.monitorStatus
-            })
-
-            await setMonitorSearchCondition({
-                templateId: localStorage.getItem("templateId")
-            })
-
-            await findMonitorByTemplateId();
-
-        })
-
-        setIsUpdateModalOpen(false);
+    const handleOk = () => {
+        setIsModalOpen(false);
     };
+
+    const onMonitorChange = async (value) => {
+        //根据名称查询item中的表达式
+        const resData = await findMonitorItemByName(value)
+        setMonitorItemList([...resData])
+    };
+
+
+    function onSecondCityChange(value, option) {
+        if (option.key !== undefined && option.key !== null) {
+            setItemId(option.key)
+        }
+    }
 
     const handleBlur = async (field) => {
         try {
@@ -53,44 +40,29 @@ const UpdateTemplateMonitor = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    id: monitorId,
-                    hostId: localStorage.getItem("templateId"),
+                    hostId: localStorage.getItem("hostId"),
+                    id: columnData.id,
+                    source: 1,
                     monitorItemId: itemId,
-                    source: 2,
                 };
                 obj[field] = values[field];
 
-                await updateTemplateMonitor(obj);
-
-                await findMonitorByTemplateId();
+                await updateMonitorById(obj);
+                await findMonitorCondition();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
             message.warning("修改失败")
         }
-    }
-
-    const handleProvinceChange = async (value) => {
-        //根据名称查询item中的表达式
-        const resData = await findMonitorItemByName(value)
-
-        setMonitorItemList([...resData])
-
     };
-
-    function changeExpression(value, option) {
-        if (option.key !== undefined && option.key !== null) {
-            setItemId(option.key)
-        }
-    }
 
     return (
         <Drawer
             title="编辑监控项"
             placement="right"
             onClose={handleOk}
-            open={isUpdateModalOpen}
-            visible={isUpdateModalOpen}
+            open={isModalOpen}
+            visible={isModalOpen}
             width={500}
             contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
             maskStyle={{background: "transparent"}}
@@ -108,7 +80,7 @@ const UpdateTemplateMonitor = (props) => {
                     name="name"
                     rules={[{required: true, message: '监控项名称!'}]}
                 >
-                    <Input onChange={() => handleBlur('name')}/>
+                    <Input onBlur={() => handleBlur('name')}/>
                 </Form.Item>
                 <Form.Item
                     label="监控类型"
@@ -118,7 +90,7 @@ const UpdateTemplateMonitor = (props) => {
                     <Select
                         placeholder="请选择您的监控类型"
                         allowClear
-                        onChange={handleProvinceChange}
+                        onChange={onMonitorChange}
                         options={provinceData && provinceData.map((province) => ({
                             label: province,
                             value: province,
@@ -135,12 +107,13 @@ const UpdateTemplateMonitor = (props) => {
                         placeholder="监控项指标"
                         allowClear
                         value={monitorItemList.id}
-                        onChange={changeExpression}
-                        onBlur={() => handleBlur('expression')}
+                        onChange={onSecondCityChange}
+                        onBlur={()=>handleBlur('expression')}
                     >
                         {
-                            monitorItemList && monitorItemList.map((item) => (
-                                <Option value={item.name} key={item.id}>{item.name}---{item.dataSubclass}</Option>))
+                            monitorItemList && monitorItemList.map(item => (
+                                <Option value={item.name} key={item.id}>{item.name}({item.dataSubclass})</Option>
+                            ))
                         }
                     </AutoComplete>
                 </Form.Item>
@@ -152,17 +125,17 @@ const UpdateTemplateMonitor = (props) => {
                     <InputNumber onBlur={() => handleBlur('dataRetentionTime')} min={1}/>
                 </Form.Item>
                 <Form.Item
-                    label="监控状态"
+                    label="监控项状态"
                     name="monitorStatus"
-                    rules={[{required: true, message: '请选择监控项指标!'}]}
+                    rules={[{required: true, message: '请选择监控项状态!'}]}
                 >
                     <Select
-                        placeholder="请选择监控项状态"
+                        placeholder="请选择您的监控项状态"
                         allowClear
-                        onBlur={() => handleBlur('monitorStatus')}
+                        onBlur={()=>handleBlur('monitorStatus')}
                     >
-                        <Option value={1} key={1}>{"启用"}</Option>))
-                        <Option value={2} key={2}>{"关闭"}</Option>))
+                        <Option value={1} key={1}>{"开启"}</Option>
+                        <Option value={2} key={2}>{"关闭"}</Option>
                     </Select>
                 </Form.Item>
             </Form>
@@ -170,4 +143,4 @@ const UpdateTemplateMonitor = (props) => {
     );
 };
 
-export default observer(UpdateTemplateMonitor);
+export default UpdateMonitor;

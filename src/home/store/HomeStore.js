@@ -9,6 +9,9 @@ export class HomeStore{
     @observable
     dynamicList = [];
 
+    @observable
+    leave = [];
+
     @action
     findHomeRecentList = async () => {
         const hostRecent = await Service("/hostRecent/findHostRecentList")
@@ -26,6 +29,13 @@ export class HomeStore{
     @action
     updateHostRecent = async (value) =>{
         await Service("/hostRecent/updateHostRecent",value);
+    }
+
+    @action
+    getAlertCategory = async () =>{
+        const resData = await Service("/hostList/getAlertCategory");
+        this.leave = resData.data;
+        return resData.data;
     }
 
 }

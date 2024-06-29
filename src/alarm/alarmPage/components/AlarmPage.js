@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag} from "antd";
+import {Button, Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
@@ -305,10 +305,15 @@ const AlarmPage = (props) => {
                         <Modal
                             title="确认操作"
                             visible={isModalVisible}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                            okText="确定"
-                            cancelText="取消"
+                            onCancel={handleCancel} 
+                            footer={[
+                                <Button key="back" onClick={handleCancel} style={{ float: 'left' }}>
+                                    取消
+                                </Button>,
+                                <Button key="submit" type="primary" onClick={handleOk}>
+                                    确定
+                                </Button>,
+                            ]}
                             width={200}
                         >
                             <p>你确定要更改状态吗？</p>
