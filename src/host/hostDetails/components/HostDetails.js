@@ -157,7 +157,7 @@ const HostDetails = (props) => {
                                         )
                                     })
                                     :
-                                    <Empty /*image="src/assets/image/nodata.png"*/ description="暂时没有动态~"/>
+                                    <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
                             }
                         </div>
                     </div>

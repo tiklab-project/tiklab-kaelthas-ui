@@ -15,8 +15,7 @@
       background-color: #fff;
 
       .home-content-title {
-        padding: 10px;
-        margin: 0 0 5px;
+        padding: 10px 10px 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,7 +34,6 @@
         display: flex;
         align-items: center;
         flex-wrap: wrap;
-        margin-top: 10px;
         overflow: hidden;
         gap: 10px;
         height: 104px;
@@ -108,7 +106,7 @@
       }
     }
 
-    .host-graphics{
+    .host-graphics-list{
       margin: 15px auto;
       padding: 20px;
       background-color: #fff;
@@ -121,6 +119,59 @@
         align-items: center;
         justify-content: space-between;
       }
+
+      .host-graphics-line{
+        display: flex;
+        justify-content: flex-start;
+        gap: 10px;
+        margin-top: 10px;
+
+        .host-graphics-overview{
+          flex: 1;
+          max-width: 25%;
+          min-width: 120px;
+          padding: 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          background-color: #f7f7f7;
+          border-bottom: 2px solid #fafbfc;
+
+          .host-graphics-title{
+            display: flex;
+            justify-content: space-between;
+
+          }
+
+        }
+
+
+        .host-one-overview{
+          flex: 1;
+          max-width: 25%;
+          min-width: 120px;
+          padding: 10px;
+          border-radius: 4px;
+          background-color: #f7f7f7;
+          border-bottom: 2px solid #fafbfc;
+
+          .host-one-title{
+            display: flex;
+            justify-content: start;
+            height: 40px;
+            line-height: 40px;
+
+            .host-one-title-text{
+              margin: 0 10px;
+            }
+          }
+        }
+      }
+
+      .host-graphics{
+
+      }
+
+
     }
 
     .home-dynamic-table {

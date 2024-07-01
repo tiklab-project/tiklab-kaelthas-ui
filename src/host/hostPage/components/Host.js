@@ -161,12 +161,12 @@ const Host = (props) => {
             icon: "allHost"
         },
         {
-            title: '可用',
+            title: '启用',
             key: 1,
             icon: "availableHost"
         },
         {
-            title: '不可用',
+            title: '关闭',
             key: 2,
             icon: "noAvailableHost"
         }

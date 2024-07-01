@@ -2,27 +2,27 @@ import React, {useEffect, useRef, useState} from "react";
 
 import "./HomePage.scss";
 import "../../host/hostPage/components/Host";
-import {Col, Empty, Image, Layout, Row, Table} from "antd";
+import {Col, Empty, Progress, Row} from "antd";
 import homeStore from "../store/HomeStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {observer} from "mobx-react";
 import * as echarts from 'echarts/core';
 import {
+    TitleComponent,
     TooltipComponent,
-    GridComponent,
-    LegendComponent,
-    DataZoomComponent
+    LegendComponent
 } from 'echarts/components';
-import {BarChart} from 'echarts/charts';
+import {PieChart} from 'echarts/charts';
+import {LabelLayout} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 
 echarts.use([
+    TitleComponent,
     TooltipComponent,
-    GridComponent,
     LegendComponent,
-    BarChart,
+    PieChart,
     CanvasRenderer,
-    DataZoomComponent
+    LabelLayout
 ]);
 
 const HomePage = (props) => {
@@ -33,8 +33,9 @@ const HomePage = (props) => {
         findDynamicList,
         dynamicList,
         updateHostRecent,
-        getAlertCategory,
-        leave
+        findAlarmTypeNum,
+        leave,
+        findHostUsage,
     } = homeStore;
 
     const {setNullCondition} = alarmPageStore;
@@ -42,6 +43,8 @@ const HomePage = (props) => {
     const dom = useRef(null);
 
     const leaveList = ['灾难', '严重', '一般严重', '告警', '信息', '未分类']
+
+    const [homeObj,setHomeObj] = useState();
 
     const series = [];
 
@@ -58,49 +61,73 @@ const HomePage = (props) => {
         setNullCondition();
         // await findAlarmPage();
         await findDynamicList();
+        findHostUsage().then(res=>{
+            if(res.code===0){
+                console.log(res)
+                setHomeObj(res.data)
+            }
+        })
     }, []);
 
     useEffect(async () => {
-        const resData = await getAlertCategory();
-        resData?.leaveList.map((item, index) => {
+        const resData = await findAlarmTypeNum();
+        const typeData = [];
+
+        resData?.map((item, index) => {
             let colorTag;
-            switch (index) {
-                case 0:
-                    colorTag = 'red'
-                    break
-                case 1:
+            let name;
+            switch (item?.severityLevel) {
+                case "1":
                     colorTag = '#e97659'
+                    name = '灾难'
                     break
-                case 2:
+                case "2":
                     colorTag = 'orange'
+                    name = '严重'
                     break
-                case 3:
+                case "3":
                     colorTag = 'yellow'
+                    name = '一般严重'
                     break
-                case 4:
+                case "4":
                     colorTag = 'blue'
+                    name = '告警'
                     break
-                case 5:
+                case "5":
                     colorTag = 'grey'
+                    name = '信息'
+                    break
+                case "6":
+                    colorTag = 'grey'
+                    name = '未分类'
                     break
             }
             if (item.length !== 0) {
-                series.push({
-                    name: leaveList[index],
-                    type: 'bar',
-                    stack: 'total',
-                    label: {
-                        show: true
-                    },
-                    emphasis: {
-                        focus: 'series'
-                    },
-                    itemStyle: {
-                        color: colorTag
-                    },
-                    data: item
-                })
+                typeData.push(
+                    {
+                        name:name,
+                        value:item?.alarmNum
+                    }
+                )
             }
+        })
+
+        series.push({
+            name: '告警类型及对应数量',
+            type: 'pie',
+            radius: '50%',
+            label: {
+                show: true
+            },
+            emphasis: {
+                itemStyle: {
+                    shadowBlur: 10,
+                    shadowOffsetX: 0,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+            },
+            data: typeData,
+
         })
         showGraphics();
     }, [dom?.current]);
@@ -113,35 +140,18 @@ const HomePage = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
+                title: {
+                    text: '告警类型分布情况',
+                    subtext: '(全部主机未解决告警)',
+                    left: 'center'
+                },
                 tooltip: {
-                    trigger: 'axis',
+                    trigger: 'item'
                 },
-                legend: {},
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                legend: {
+                    orient: 'vertical',
+                    left: 'left'
                 },
-                xAxis: {
-                    type: 'category',
-                    data: leave?.nameList
-                },
-                yAxis: {
-                    type: 'value',
-                },
-                dataZoom: [
-                    {
-                        type: 'slider', // 显示为滑动条
-                        start: 0,       // 起始位置（百分比）
-                        end: 100        // 结束位置（百分比）
-                    },
-                    {
-                        type: 'inside', // 鼠标滚轮缩放
-                        start: 0,
-                        end: 100
-                    }
-                ],
                 series: series
             };
 
@@ -153,6 +163,24 @@ const HomePage = (props) => {
         }
     }
 
+
+    function hrefHost() {
+        sessionStorage.setItem("menuKey", "configuration")
+        props.history.push(`/configuration`)
+    }
+
+    function hrefAlarm() {
+        sessionStorage.setItem("menuKey", "alarm")
+        props.history.push(`/alarm`)
+    }
+
+    function divideAndRound(a, b) {
+        if (b === 0) {
+            throw new Error("除数不能为零");
+        }
+        let result = a / b;
+        return result.toFixed(1);
+    }
 
     return (
 
@@ -202,29 +230,65 @@ const HomePage = (props) => {
                                 :
                                 <Empty/>
                         }
-
                     </div>
-                    <div className="host-graphics">
-                        <div className="home-graphics-title">主机状况</div>
-                        {
-                            leave?.nameList && leave.nameList.length>0?
-                                <Col key="chartsShow" ref={dom}
-                                     style={{
-                                         position: "relative",
-                                         width: 1000,
-                                         height: 492, margin: "auto",
-                                         borderWidth: 0,
-                                         cursor: "default",
-                                         padding: 20
-                                     }}
-                                     xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
-                                >
+                    <div className="host-graphics-list">
+                        <div className="home-graphics-title">主机概览</div>
+                        <div className="host-graphics-line">
+                            <div className="host-graphics-overview" onClick={() => hrefHost()}>
+                                <div className="host-graphics-title">
+                                    <span>在线主机/主机总数</span>
+                                    <span>{homeObj?.hostUsability}/{homeObj?.hostCount}</span>
+                                </div>
+                                <Progress percent={divideAndRound(homeObj?.hostUsability*100,homeObj?.hostCount)}/>
+                            </div>
+                            <div className="host-graphics-overview" onClick={() => hrefAlarm()}>
+                                <div className="host-graphics-title">
+                                    <span>告警数量/触发器数量</span>
+                                    <span>{homeObj?.alarmNum}/{homeObj?.triggerNum}</span>
+                                </div>
+                                <Progress percent={divideAndRound(homeObj?.alarmNum,homeObj?.triggerNum/100)}/>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <div className="host-one-title">
+                                    <span className="host-one-title-text">监控项数量</span>
+                                    <span>{homeObj?.monitorNum}</span>
+                                </div>
+                            </div>
+                            <div className="host-one-overview">
+                                <div className="host-one-title">
+                                    <span className="host-one-title-text">图形数量</span>
+                                    <span>{homeObj?.graphicsNum}</span>
+                                </div>
+                            </div>
+                            <div className="host-one-overview">
+                                <div className="host-one-title">
+                                    <span className="host-one-title-text">模板数量</span>
+                                    <span>{homeObj?.templateNum}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            {
+                                leave && leave?.length > 0 ?
+                                    <Col key="chartsShow" ref={dom}
+                                         style={{
+                                             position: "relative",
+                                             width: 1000,
+                                             height: 492, margin: "auto",
+                                             borderWidth: 0,
+                                             cursor: "default",
+                                             padding: 20
+                                         }}
+                                         xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
+                                    >
 
-                                </Col>
-                                :
-                                <Empty/>
-                        }
-
+                                    </Col>
+                                    :
+                                    <Empty/>
+                            }
+                        </div>
                     </div>
                     <div className="home-dynamic-table">
                         <div className="home-table-title">动态信息</div>

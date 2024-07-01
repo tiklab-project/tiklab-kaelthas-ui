@@ -38,6 +38,19 @@ export class HomeStore{
         return resData.data;
     }
 
+    @action
+    findAlarmTypeNum = async () =>{
+        const resData = await Service("/home/findAlarmTypeNum");
+        this.leave = resData.data;
+        return resData.data;
+    }
+
+    @action
+    findHostUsage = async () =>{
+        const resData = await Service("/home/findHostUsage");
+        return resData;
+    }
+
 }
 
 const homeStore = new HomeStore();
