@@ -103,10 +103,17 @@
             }
           }
         }
+
+        .home-content-detail-item:hover {
+          border-radius: 4px 4px 0 0;
+          border-bottom-color: var(--thoughtware-blue);
+          transition: 1s;
+        }
+
       }
     }
 
-    .host-graphics-list{
+    .host-graphics-list {
       margin: 15px auto;
       padding: 20px;
       background-color: #fff;
@@ -120,54 +127,60 @@
         justify-content: space-between;
       }
 
-      .host-graphics-line{
+      .host-graphics-line {
         display: flex;
         justify-content: flex-start;
         gap: 10px;
+        height: 90px;
         margin-top: 10px;
 
-        .host-graphics-overview{
+        .host-graphics-overview {
           flex: 1;
-          max-width: 25%;
+          //max-width: 25%;
           min-width: 120px;
           padding: 10px;
           border-radius: 4px;
           cursor: pointer;
           background-color: #f7f7f7;
-          border-bottom: 2px solid #fafbfc;
+          //border-bottom: 2px solid #fafbfc;
 
-          .host-graphics-title{
+          .host-graphics-title {
             display: flex;
             justify-content: space-between;
+            margin-right: 10px;
 
+          }
+
+          .host-graphics-progress {
+            margin-top: 30px;
+            margin-right: 10px;
           }
 
         }
 
 
-        .host-one-overview{
+        .host-one-overview {
           flex: 1;
           max-width: 25%;
           min-width: 120px;
           padding: 10px;
           border-radius: 4px;
           background-color: #f7f7f7;
-          border-bottom: 2px solid #fafbfc;
+          text-align: center;
+          height: 90px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
 
-          .host-one-title{
-            display: flex;
-            justify-content: start;
-            height: 40px;
-            line-height: 40px;
-
-            .host-one-title-text{
-              margin: 0 10px;
-            }
+          .host-one-title-text {
+            margin: 0 10px;
           }
+
         }
       }
 
-      .host-graphics{
+      .host-graphics {
 
       }
 
@@ -193,14 +206,14 @@
         display: flex;
         flex-direction: column;
 
-        .home-alarm-table-line{
+        .home-alarm-table-line {
           display: flex;
           align-items: center;
           margin-bottom: 10px;
           gap: 20px;
           justify-content: space-between;
 
-          .home-alarm-table-div{
+          .home-alarm-table-div {
             display: flex;
             align-items: center;
             gap: 5px;

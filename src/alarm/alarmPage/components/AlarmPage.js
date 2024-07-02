@@ -93,13 +93,6 @@ const AlarmPage = (props) => {
     }
 
     async function updateAlarm(record) {
-        /*await updateAlarmPage({
-            id: record.id,
-            alertTime: record.alertTime,
-            status: 1
-        });
-
-        await findAlarmPage();*/
         setAlarm(record)
         setIsModalVisible(true)
     }

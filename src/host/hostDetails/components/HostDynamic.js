@@ -55,7 +55,7 @@ const HostDynamic = (props) => {
                                     )
                                 })
                                 :
-                                <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
+                                <Empty description="暂时没有动态~"/>
                         }
                     </div>
                     {
@@ -65,7 +65,7 @@ const HostDynamic = (props) => {
                                 defaultCurrent={1}
                                 defaultPageSize={20}
                                 total={hostDynamicList.totalRecord}
-                                // showSizeChanger={false}
+                                showSizeChanger={true}
                                 current={searchCondition.pageParam.currentPage}
                                 pageSize={searchCondition.pageParam.pageSize}
                             />

@@ -1,7 +1,7 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import {
-    BuildOutlined, GroupOutlined, InboxOutlined,
+    ForkOutlined, InboxOutlined,
     LayoutOutlined,
     SoundOutlined
 } from "@ant-design/icons";
@@ -39,28 +39,33 @@ const GlobalSettingLayout = (props) => {
         },
         {
             title: "消息",
-            id:"message",
-            icon:<SoundOutlined/>,
+            id: "message",
+            icon: <SoundOutlined/>,
             children: [
                 {
-                    title:"消息通知方案",
-                    id:"/setting/messageNotice",
+                    title: "消息通知方案",
+                    id: "/setting/messageNotice",
                 },
                 {
                     title: "消息发送方式",
-                    id:"/setting/messageSendType",
+                    id: "/setting/messageSendType",
                 },
             ]
         },
         {
-            title: '模板配置',
-            id: `/setting/template`,
-            icon: <BuildOutlined />,
-        },
-        {
-            title: '主机组',
-            id: `/setting/hostGroup`,
-            icon: <GroupOutlined />,
+            title: "主机配置",
+            id: "hostConfiguration",
+            icon: <ForkOutlined/>,
+            children: [
+                {
+                    title: '模板配置',
+                    id: `/setting/template`,
+                },
+                {
+                    title: '主机组',
+                    id: `/setting/hostGroup`,
+                },
+            ]
         },
         {
             title: "安全",
@@ -80,7 +85,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "应用",
             id: "licence",
-            icon: <InboxOutlined />,
+            icon: <InboxOutlined/>,
             children: [
                 {
                     title: "版本与许可证",

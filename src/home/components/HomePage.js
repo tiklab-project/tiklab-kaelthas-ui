@@ -44,7 +44,7 @@ const HomePage = (props) => {
 
     const leaveList = ['灾难', '严重', '一般严重', '告警', '信息', '未分类']
 
-    const [homeObj,setHomeObj] = useState();
+    const [homeObj, setHomeObj] = useState();
 
     const series = [];
 
@@ -61,8 +61,8 @@ const HomePage = (props) => {
         setNullCondition();
         // await findAlarmPage();
         await findDynamicList();
-        findHostUsage().then(res=>{
-            if(res.code===0){
+        findHostUsage().then(res => {
+            if (res.code === 0) {
                 console.log(res)
                 setHomeObj(res.data)
             }
@@ -105,8 +105,8 @@ const HomePage = (props) => {
             if (item.length !== 0) {
                 typeData.push(
                     {
-                        name:name,
-                        value:item?.alarmNum
+                        name: name,
+                        value: item?.alarmNum
                     }
                 )
             }
@@ -170,8 +170,8 @@ const HomePage = (props) => {
     }
 
     function hrefAlarm() {
-        sessionStorage.setItem("menuKey", "alarm")
-        props.history.push(`/alarm`)
+        sessionStorage.setItem("menuKey", "alarm");
+        props.history.push(`/alarm`);
     }
 
     function divideAndRound(a, b) {
@@ -180,6 +180,16 @@ const HomePage = (props) => {
         }
         let result = a / b;
         return result.toFixed(1);
+    }
+
+    function hrefTemplate() {
+        props.history.push(`/setting/template`);
+        sessionStorage.setItem("menuKey", null)
+    }
+
+    function hrefHostGroup() {
+        props.history.push(`/setting/hostGroup`)
+        sessionStorage.setItem("menuKey", null)
     }
 
     return (
@@ -194,7 +204,7 @@ const HomePage = (props) => {
                             </div>
                         </div>
                         {
-                            hostRecentList.length > 0 ?
+                            hostRecentList && hostRecentList?.length > 0 ?
                                 <div className="home-content-detail">
                                     {
                                         hostRecentList && hostRecentList.map(item => {
@@ -219,7 +229,7 @@ const HomePage = (props) => {
                                                         <div className="item-work-item">
                                                             <span className="item-work-label"
                                                                   style={{color: "#999"}}>主机状态</span>
-                                                            <span>{item?.state === 1 ? "已启用" : "未启用"}</span>
+                                                            <span>{item?.state === 1 ? "启用" : "关闭"}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -234,38 +244,42 @@ const HomePage = (props) => {
                     <div className="host-graphics-list">
                         <div className="home-graphics-title">主机概览</div>
                         <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <span>{homeObj?.monitorNum}</span>
+                                <span className="host-one-title-text">监控项数量</span>
+                            </div>
+                            <div className="host-one-overview">
+                                <span>{homeObj?.graphicsNum}</span>
+                                <span className="host-one-title-text">图形数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefTemplate()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.templateNum}</span>
+                                <span className="host-one-title-text">模板数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefHostGroup()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.hostGroupNum}</span>
+                                <span className="host-one-title-text">主机组数量</span>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
                             <div className="host-graphics-overview" onClick={() => hrefHost()}>
                                 <div className="host-graphics-title">
                                     <span>在线主机/主机总数</span>
                                     <span>{homeObj?.hostUsability}/{homeObj?.hostCount}</span>
                                 </div>
-                                <Progress percent={divideAndRound(homeObj?.hostUsability*100,homeObj?.hostCount)}/>
+                                <div className="host-graphics-progress">
+                                    <Progress percent={divideAndRound(homeObj?.hostUsability * 100, homeObj?.hostCount)}/>
+                                </div>
                             </div>
                             <div className="host-graphics-overview" onClick={() => hrefAlarm()}>
                                 <div className="host-graphics-title">
                                     <span>告警数量/触发器数量</span>
                                     <span>{homeObj?.alarmNum}/{homeObj?.triggerNum}</span>
                                 </div>
-                                <Progress percent={divideAndRound(homeObj?.alarmNum,homeObj?.triggerNum/100)}/>
-                            </div>
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-one-overview">
-                                <div className="host-one-title">
-                                    <span className="host-one-title-text">监控项数量</span>
-                                    <span>{homeObj?.monitorNum}</span>
-                                </div>
-                            </div>
-                            <div className="host-one-overview">
-                                <div className="host-one-title">
-                                    <span className="host-one-title-text">图形数量</span>
-                                    <span>{homeObj?.graphicsNum}</span>
-                                </div>
-                            </div>
-                            <div className="host-one-overview">
-                                <div className="host-one-title">
-                                    <span className="host-one-title-text">模板数量</span>
-                                    <span>{homeObj?.templateNum}</span>
+                                <div className="host-graphics-progress">
+                                    <Progress percent={divideAndRound(homeObj?.alarmNum, homeObj?.triggerNum / 100)}/>
                                 </div>
                             </div>
                         </div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./ProjectInformation.scss"
 import {withRouter} from "react-router-dom";
-import {Alert, Button, Collapse, Form, Input, Select} from "antd";
+import {Alert, Button, Collapse, Form, Input, Modal, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
 import configurationStore from "../../../hostPage/store/ConfigurationStore";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
@@ -37,7 +37,7 @@ const ProjectInformation = (props) => {
 
     const [form] = Form.useForm();
 
-    const formRef = useRef(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
 
     const onFinish = async (values) => {
         values.id = localStorage.getItem("hostId")
@@ -66,9 +66,7 @@ const ProjectInformation = (props) => {
         }
     };
 
-
-    //删除主机
-    async function deleteByHost() {
+    const handleOk = async () => {
 
         await deleteHostById(localStorage.getItem("hostId"));
 
@@ -77,6 +75,25 @@ const ProjectInformation = (props) => {
         await findPageHost();
 
         props.history.push("/configuration");
+
+        setIsModalVisible(false);
+    };
+
+    const handleCancel = () => {
+        setIsModalVisible(false);
+    };
+
+    //删除主机
+    async function deleteByHost() {
+
+        setIsModalVisible(true)
+        /*await deleteHostById(localStorage.getItem("hostId"));
+
+        setNullCondition();
+
+        await findPageHost();
+
+        props.history.push("/configuration");*/
     }
 
     const hostHeader = () => (
@@ -118,23 +135,14 @@ const ProjectInformation = (props) => {
                             <Form.Item
                                 name="ip"
                                 label="ip地址"
-                                rules={[
-                                    {
-                                        required: true,
-                                    },
-                                ]}
+                                rules={[{required: true}]}
                             >
                                 <Input/>
                             </Form.Item>
-
                             <Form.Item
                                 name="hostGroupId"
                                 label="主机群组"
-                                rules={[
-                                    {
-                                        required: false,
-                                    },
-                                ]}
+                                rules={[{required: false}]}
                             >
                                 <Select
                                     placeholder="请选择主机群组"
@@ -147,15 +155,10 @@ const ProjectInformation = (props) => {
                                     }
                                 </Select>
                             </Form.Item>
-
                             <Form.Item
                                 name="state"
                                 label="是否开启"
-                                rules={[
-                                    {
-                                        required: false,
-                                    },
-                                ]}
+                                rules={[{required: false}]}
                             >
                                 <Select
                                     placeholder="是否开启"
@@ -165,19 +168,13 @@ const ProjectInformation = (props) => {
                                     <Option key={2} value={2}>关闭</Option>
                                 </Select>
                             </Form.Item>
-
                             <Form.Item
                                 name="describe"
                                 label="描述"
-                                rules={[
-                                    {
-                                        required: false,
-                                    },
-                                ]}
+                                rules={[{required: false}]}
                             >
                                 <Input/>
                             </Form.Item>
-
                             <Form.Item {...tailLayout}>
                                 <Button type="primary" htmlType="submit">
                                     确定
@@ -201,6 +198,24 @@ const ProjectInformation = (props) => {
                         </div>
                     </Panel>
                 </Collapse>
+                <>
+                    <Modal
+                        title="确认操作"
+                        visible={isModalVisible}
+                        onCancel={handleCancel}
+                        footer={[
+                            <Button key="back" onClick={handleCancel} style={{ float: 'left' }}>
+                                取消
+                            </Button>,
+                            <Button key="submit" type="primary" onClick={handleOk}>
+                                确定
+                            </Button>,
+                        ]}
+                        width={200}
+                    >
+                        <p>你确定要删除主机吗？</p>
+                    </Modal>
+                </>
             </div>
         </div>
     );

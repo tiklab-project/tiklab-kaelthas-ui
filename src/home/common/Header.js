@@ -68,6 +68,7 @@ const Header = props => {
      */
     const goSet = () => {
         props.history.push("/setting/home")
+        sessionStorage.setItem("menuKey", null)
     };
 
     // 系统顶部菜单
