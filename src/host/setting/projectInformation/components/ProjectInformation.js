@@ -39,13 +39,15 @@ const ProjectInformation = (props) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
+    const [activeKey, setActiveKey] = useState([]);
+
     const onFinish = async (values) => {
         values.id = localStorage.getItem("hostId")
 
         await updateHost(values)
     };
     const onReset = () => {
-        form.resetFields();
+        setActiveKey([])
     };
 
     const onChange = async (key) => {
@@ -64,6 +66,7 @@ const ProjectInformation = (props) => {
                 describe: resData.describe
             })
         }
+        setActiveKey(key)
     };
 
     const handleOk = async () => {
@@ -85,21 +88,13 @@ const ProjectInformation = (props) => {
 
     //删除主机
     async function deleteByHost() {
-
         setIsModalVisible(true)
-        /*await deleteHostById(localStorage.getItem("hostId"));
-
-        setNullCondition();
-
-        await findPageHost();
-
-        props.history.push("/configuration");*/
     }
 
     const hostHeader = () => (
         <div className="project-info-title">
             <FormOutlined/> &nbsp;
-            项目信息
+            主机信息
         </div>
     )
 
@@ -116,7 +111,7 @@ const ProjectInformation = (props) => {
                 <div className="setting-box-right-head-text">
                     主机信息
                 </div>
-                <Collapse onChange={onChange} expandIconPosition="right">
+                <Collapse onChange={(key) => onChange(key)} expandIconPosition="right" activeKey={activeKey}>
                     <Panel header={hostHeader()} key="1">
                         <Form
                             {...layout}
@@ -176,11 +171,11 @@ const ProjectInformation = (props) => {
                                 <Input/>
                             </Form.Item>
                             <Form.Item {...tailLayout}>
+                                <Button htmlType="button" onClick={onReset}>
+                                    取消
+                                </Button>
                                 <Button type="primary" htmlType="submit">
                                     确定
-                                </Button>
-                                <Button htmlType="button" onClick={onReset}>
-                                    清除信息
                                 </Button>
                             </Form.Item>
                         </Form>

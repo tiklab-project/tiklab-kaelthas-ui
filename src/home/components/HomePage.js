@@ -264,26 +264,58 @@ const HomePage = (props) => {
                             </div>
                         </div>
                         <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <span>{homeObj?.triggerNum}</span>
+                                <span className="host-one-title-text">触发器数量</span>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
                             <div className="host-graphics-overview" onClick={() => hrefHost()}>
                                 <div className="host-graphics-title">
-                                    <span>在线主机/主机总数</span>
-                                    <span>{homeObj?.hostUsability}/{homeObj?.hostCount}</span>
+                                    <span>异常主机/主机总数</span>
+                                    <span>
+                                    <span
+                                        style={{color: "red"}}>{homeObj?.hostAbnormal}
+                                    </span>
+                                        /
+                                    <span
+                                        style={{color: "blue"}}>{homeObj?.hostCount}
+                                    </span>
+                                    </span>
                                 </div>
                                 <div className="host-graphics-progress">
-                                    <Progress percent={divideAndRound(homeObj?.hostUsability * 100, homeObj?.hostCount)}/>
+                                    <Progress
+                                        strokeColor={{
+                                            '0%': '#108ee9',
+                                            '100%': '#87d068',
+                                        }}
+                                        percent={divideAndRound(homeObj?.hostAbnormal * 100, homeObj?.hostCount)}/>
                                 </div>
                             </div>
                             <div className="host-graphics-overview" onClick={() => hrefAlarm()}>
                                 <div className="host-graphics-title">
-                                    <span>告警数量/触发器数量</span>
-                                    <span>{homeObj?.alarmNum}/{homeObj?.triggerNum}</span>
+                                    <span>未解决告警数量/告警数量</span>
+                                    <span>
+                                        <span
+                                            style={{color: "red"}}>{homeObj?.alarmTimeNum}
+                                        </span>
+                                            /
+                                        <span
+                                            style={{color: "blue"}}>{homeObj?.alarmNum}
+                                        </span>
+                                    </span>
                                 </div>
                                 <div className="host-graphics-progress">
-                                    <Progress percent={divideAndRound(homeObj?.alarmNum, homeObj?.triggerNum / 100)}/>
+                                    <Progress
+                                        strokeColor={{
+                                            '0%': '#108ee9',
+                                            '100%': '#87d068',
+                                        }}
+                                        percent={divideAndRound(homeObj?.alarmTimeNum, homeObj?.alarmNum / 100)}/>
                                 </div>
                             </div>
                         </div>
-                        <div>
+                        <div className="host-graphics">
                             {
                                 leave && leave?.length > 0 ?
                                     <Col key="chartsShow" ref={dom}

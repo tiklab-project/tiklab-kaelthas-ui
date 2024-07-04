@@ -29,13 +29,13 @@
       }
 
       .home-content-detail {
-        padding: 10px;
+        padding: 20px;
         min-height: 130px;
         display: flex;
         align-items: center;
         flex-wrap: wrap;
         overflow: hidden;
-        gap: 10px;
+        gap: 20px;
         height: 104px;
         justify-content: start;
 
@@ -130,19 +130,17 @@
       .host-graphics-line {
         display: flex;
         justify-content: flex-start;
-        gap: 10px;
+        gap: 20px;
         height: 90px;
-        margin-top: 10px;
+        margin-top: 20px;
 
         .host-graphics-overview {
           flex: 1;
-          //max-width: 25%;
           min-width: 120px;
           padding: 10px;
           border-radius: 4px;
           cursor: pointer;
           background-color: #f7f7f7;
-          //border-bottom: 2px solid #fafbfc;
 
           .host-graphics-title {
             display: flex;
@@ -160,9 +158,7 @@
 
 
         .host-one-overview {
-          flex: 1;
-          max-width: 25%;
-          min-width: 120px;
+          width: 235px;
           padding: 10px;
           border-radius: 4px;
           background-color: #f7f7f7;
@@ -181,7 +177,8 @@
       }
 
       .host-graphics {
-
+        margin-top: 20px;
+        background-color: #f7f7f7;
       }
 
 

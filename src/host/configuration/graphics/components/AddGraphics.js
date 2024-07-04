@@ -105,11 +105,11 @@ const AddGraphics = (props) => {
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        label="问题描述"
+                        label="图形描述"
                         name="describe"
                         rules={[{required: false, message: '问题描述!'}]}
                     >
-                        <Input allowClear={true} placeholder="问题描述"/>
+                        <Input allowClear={true} placeholder="图形描述"/>
                     </Form.Item>
                 </Form>
             </Modal>

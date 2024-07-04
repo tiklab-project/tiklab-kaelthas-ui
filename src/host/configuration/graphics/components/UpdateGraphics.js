@@ -93,9 +93,9 @@ const UpdateGraphics = (props) => {
                     </Select>
                 </Form.Item>
                 <Form.Item
-                    label="问题描述"
+                    label="图形描述"
                     name="describe"
-                    rules={[{required: false, message: '问题描述!'}]}
+                    rules={[{required: false, message: '图形描述!'}]}
                 >
                     <Input onBlur={() =>handBlur('describe')}/>
                 </Form.Item>
