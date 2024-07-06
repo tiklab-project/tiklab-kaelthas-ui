@@ -20,7 +20,7 @@ const webpackGlobal = {
 
     acc_url: JSON.stringify(''),
     mobile: JSON.stringify(''),
-    devProduction: true
+    devProduction: false
 }
 
 module.exports =  {

@@ -176,7 +176,7 @@ const HomePage = (props) => {
 
     function divideAndRound(a, b) {
         if (b === 0) {
-            throw new Error("除数不能为零");
+            return 0;
         }
         let result = a / b;
         return result.toFixed(1);

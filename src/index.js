@@ -8,6 +8,7 @@ import { observer } from "mobx-react"
 import {useVersion} from "thoughtware-eam-ui/es/utils";
 import {privilegeStores} from "thoughtware-privilege-ui/es/store";
 import App from "./App";
+import "./assets/index";
 enableAxios()
 const Index = observer((props) => {
 

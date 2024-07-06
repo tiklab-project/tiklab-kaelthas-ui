@@ -6,7 +6,6 @@ import {HashRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import './common/language/i18n'
 import "./index.scss"
-import "./assets/index";
 
 const App = ({allStore,routes}) => {
     return (

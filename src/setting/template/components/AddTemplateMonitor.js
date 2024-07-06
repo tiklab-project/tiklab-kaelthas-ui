@@ -1,4 +1,4 @@
-import {Button, Modal, Form, Input, Select, AutoComplete} from 'antd';
+import {Button, Modal, Form, Input, Select, AutoComplete, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
 import monitorStore from "../../../host/configuration/monitor/store/MonitorStore";
 import templateStore from "../../../host/configuration/template/store/TemplateStore";
@@ -136,9 +136,9 @@ const AddTemplateMonitor = (props) => {
                         name="dataRetentionPeriod"
                         rules={[{required: true, message: '请输入数据保留时间!'}]}
                     >
-                        <Input/>
+                        <InputNumber min={1}/>
                     </Form.Item>
-                    <Form.Item
+                    {/*<Form.Item
                         label="监控状态"
                         name="monitorStatus"
                         rules={[{required: true, message: '请选择是否启用!'}]}
@@ -150,7 +150,7 @@ const AddTemplateMonitor = (props) => {
                             <Option value={1} key={1}>{"启用"}</Option>))
                             <Option value={2} key={2}>{"关闭"}</Option>))
                         </Select>
-                    </Form.Item>
+                    </Form.Item>*/}
                 </Form>
             </Modal>
         </>
