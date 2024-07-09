@@ -42,7 +42,7 @@ const HomePage = (props) => {
 
     const dom = useRef(null);
 
-    const leaveList = ['灾难', '严重', '一般严重', '告警', '信息', '未分类']
+    const leveObj = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
 
     const [homeObj, setHomeObj] = useState();
 
@@ -117,7 +117,7 @@ const HomePage = (props) => {
             type: 'pie',
             radius: '50%',
             label: {
-                show: true
+                formatter: '{b}: {c} ({d}%)'
             },
             emphasis: {
                 itemStyle: {
@@ -192,6 +192,10 @@ const HomePage = (props) => {
         sessionStorage.setItem("menuKey", null)
     }
 
+    function converType(severityLevel) {
+        return leveObj[severityLevel];
+    }
+
     return (
 
         <Row className="home">
@@ -243,6 +247,33 @@ const HomePage = (props) => {
                     </div>
                     <div className="host-graphics-list">
                         <div className="home-graphics-title">主机概览</div>
+                        <div className="host-graphics">
+                            {
+                                leave && leave?.length > 0 ?
+                                    <div key="chartsShow" ref={dom}
+                                         className="host-graphics-chart"
+                                    >
+
+                                    </div>
+                                    :
+                                    <Empty/>
+                            }
+                            {/*<div className="host-graphics-alarmTypeNum">
+                                {
+                                    leave && leave?.length > 0 ?
+                                        leave.map(item => {
+                                            return (
+                                                <div className="host-graphics-item">
+                                                    <div className="graphics-item-title">{converType(item?.severityLevel)}</div>
+                                                    <div className="graphics-item-num">{item?.alarmNum}</div>
+                                                </div>
+                                            )
+                                        })
+                                        :
+                                        <Empty/>
+                                }
+                            </div>*/}
+                        </div>
                         <div className="host-graphics-line">
                             <div className="host-one-overview">
                                 <span>{homeObj?.monitorNum}</span>
@@ -314,26 +345,6 @@ const HomePage = (props) => {
                                         percent={divideAndRound(homeObj?.alarmTimeNum, homeObj?.alarmNum / 100)}/>
                                 </div>
                             </div>
-                        </div>
-                        <div className="host-graphics">
-                            {
-                                leave && leave?.length > 0 ?
-                                    <Col key="chartsShow" ref={dom}
-                                         style={{
-                                             position: "relative",
-                                             width: 1000,
-                                             height: 492, margin: "auto",
-                                             borderWidth: 0,
-                                             cursor: "default",
-                                             padding: 20
-                                         }}
-                                         xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}
-                                    >
-
-                                    </Col>
-                                    :
-                                    <Empty/>
-                            }
                         </div>
                     </div>
                     <div className="home-dynamic-table">

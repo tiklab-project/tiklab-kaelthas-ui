@@ -21,12 +21,48 @@ const AlarmPage = (props) => {
         total,
         searchCondition,
         setQuickFilterValue,
-        quickFilterValue
+        quickFilterValue,
+        setLeveType,
+        leveType
     } = alarmPageStore;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const [alarm,setAlarm] = useState();
+    const [alarm, setAlarm] = useState();
+
+    const leveList = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
+
+    const leveValueList = [
+        {
+            key: "all",
+            label: "全部"
+        },
+        {
+            key: "1",
+            label: "灾难"
+        },
+        {
+            key: "2",
+            label: "严重"
+        },
+        {
+            key: "3",
+            label: "一般严重"
+        },
+        {
+            key: "4",
+            label: "告警"
+        },
+        {
+            key: "5",
+            label: "信息"
+        },
+        {
+            key: "6",
+            label: "未分类"
+        }
+
+    ]
 
     const quickFilterList = [
         {
@@ -48,7 +84,12 @@ const AlarmPage = (props) => {
 
     useEffect(async () => {
         setQuickFilterValue({
-            label:"全部",
+            label: "全部",
+            value: "all"
+        })
+        setLeveType({
+            key: "all",
+            label: "全部",
             value:"all"
         })
         await findAlarmPage();
@@ -76,6 +117,23 @@ const AlarmPage = (props) => {
                     break;
             }
             await onSecondCityChange(sendData);
+        }
+    }
+
+    async function selectLeveType(value) {
+        setLeveType(value)
+        if (!value) {
+            await onLeveTypeChange(null);
+        } else {
+            let data = value.value;
+            let sendData;
+
+            if (data === "all"){
+                sendData = null
+            }else {
+                sendData = data
+            }
+            await onLeveTypeChange(sendData);
         }
     }
 
@@ -115,27 +173,27 @@ const AlarmPage = (props) => {
         switch (severityLevel) {
             case "1":
                 tagColor = "red";
-                tagName = "灾难";
+                tagName = leveList[severityLevel];
                 break;
             case "2":
                 tagColor = "#e97659";
-                tagName = "严重";
+                tagName = leveList[severityLevel];
                 break;
             case "3":
                 tagColor = "orange";
-                tagName = "一般严重";
+                tagName = leveList[severityLevel];
                 break;
             case "4":
                 tagColor = "yellow";
-                tagName = "告警";
+                tagName = leveList[severityLevel];
                 break;
             case "5":
                 tagColor = "blue";
-                tagName = "信息";
+                tagName = leveList[severityLevel];
                 break;
             case "6":
                 tagColor = "grey";
-                tagName = "未分类";
+                tagName = leveList[severityLevel];
                 break;
         }
         return <Tag key={severityLevel} color={tagColor}>
@@ -242,6 +300,13 @@ const AlarmPage = (props) => {
         await findAlarmPage();
     }
 
+    async function onLeveTypeChange(value) {
+        setSearchCondition({
+            severityLevel: value
+        })
+        await findAlarmPage();
+    }
+
     return (
         <Row className="alarm-box">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
@@ -251,20 +316,6 @@ const AlarmPage = (props) => {
                             告警
                         </div>
                     </div>
-                    {/*<div className="hostAlarm-box-line.svg">
-                        <div className="hostAlarm-box-div">
-                            <span>告警详情</span>
-                            <div className="hostAlarm-box-div-details">
-
-                            </div>
-                        </div>
-                        <div className="hostAlarm-box-div">
-                            <span>告警数量图表展示</span>
-                            <div className="hostAlarm-box-div-details">
-
-                            </div>
-                        </div>
-                    </div>*/}
                     <div className="alarm-box-search">
                         <div style={{marginRight: 8}}>
                             <Input
@@ -274,6 +325,25 @@ const AlarmPage = (props) => {
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
+                        </div>
+                        <div style={{marginRight: 8}}>
+                            <SelectSimple name="quickFilter"
+                                          onChange={(value) => selectLeveType(value)}
+                                          title={`告警等级`}
+                                          ismult={false}
+                                          value={leveType}
+                                          suffixIcon={true}
+                            >
+                                {
+                                    leveValueList.map(item => {
+                                        return <SelectItem
+                                            value={item.key}
+                                            label={`${item.label}`}
+                                            key={item.key}
+                                        />
+                                    })
+                                }
+                            </SelectSimple>
                         </div>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectMenu(value)}
@@ -298,9 +368,9 @@ const AlarmPage = (props) => {
                         <Modal
                             title="确认操作"
                             visible={isModalVisible}
-                            onCancel={handleCancel} 
+                            onCancel={handleCancel}
                             footer={[
-                                <Button key="back" onClick={handleCancel} style={{ float: 'left' }}>
+                                <Button key="back" onClick={handleCancel} style={{float: 'left'}}>
                                     取消
                                 </Button>,
                                 <Button key="submit" type="primary" onClick={handleOk}>
