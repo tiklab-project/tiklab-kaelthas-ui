@@ -30,6 +30,10 @@
         width: 100%;
         justify-content: space-between;
 
+        white-space: nowrap;    /* 禁止换行 */
+        overflow: hidden;       /* 超出部分隐藏 */
+        text-overflow: ellipsis;/* 显示省略号 */
+
         .box-host-margin-details {
           display: flex;
           align-items: center;
@@ -43,6 +47,7 @@
             display: flex;
             align-items: center;
             margin: auto;
+            padding: 10px;
           }
 
           .user-big-icon {

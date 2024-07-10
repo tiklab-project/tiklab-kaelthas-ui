@@ -16,10 +16,10 @@ const LeftMenu = (props) => {
     const router = [
         {
             name: '概况',
-            icon: 'host',
+            icon: 'hostDetails',
             url: `/hostList/${hostId}/hostDetails`,
-            key: "host",
-            encoded: "host",
+            key: "hostDetails",
+            encoded: "hostDetails",
         },
         {
             name: '配置',
@@ -51,9 +51,9 @@ const LeftMenu = (props) => {
         await findRecentHostList(hostId);
     }, [hostId]);
 
-    const selectMenu = (url,key) => {
-        if (key === "configuration"){
-            localStorage.setItem("configurationUrl",`/hostList/${hostId}/configuration/monitor`)
+    const selectMenu = (url, key) => {
+        if (key === "configuration") {
+            localStorage.setItem("configurationUrl", `/hostList/${hostId}/configuration/monitor`)
         }
         localStorage.setItem("url", url)
         props.history.push(url)
@@ -64,7 +64,7 @@ const LeftMenu = (props) => {
         if (hostId !== item.id) {
             localStorage.setItem("hostId", item.id);
             localStorage.setItem("hostName", item?.name);
-            localStorage.setItem("url",`/hostList/${item.id}/hostDetails`);
+            localStorage.setItem("url", `/hostList/${item.id}/hostDetails`);
             props.history.push(`/hostList/${item.id}/hostDetails`);
         }
     }
@@ -115,38 +115,39 @@ const LeftMenu = (props) => {
                                 />
                             </div>
                         </Tooltip>
-                        <span><CaretDownOutlined/></span>
+                        {/*<span><CaretDownOutlined/></span>*/}
                     </div>
                 </Dropdown>
-            </div>
-            <div className="box-left">
-                {
-                    router.map((item, index) => {
-                        return (
-                            <div
-                                key={index}
-                                onClick={() => selectMenu(item.url,item.key)}
-                                className={`leftMenu-box ${url === item.url ? "border-left" : ""}`}
-                            >
-                                <svg className="leftMenu-svg-icon" aria-hidden="true">
-                                    <use xlinkHref={`#icon-${item.icon}`}></use>
-                                </svg>
-                                <span className="leftMenu-text">
+                <div className="box-left">
+                    {
+                        router.map((item, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    onClick={() => selectMenu(item.url, item.key)}
+                                    className={`leftMenu-box ${url === item.url ? "border-bottom" : ""}`}
+                                >
+                                    <svg className="leftMenu-svg-icon" aria-hidden="true">
+                                        <use xlinkHref={`#icon-${item.icon}`}></use>
+                                    </svg>
+                                    <span className="leftMenu-text">
                                     {item.name}
-                                </span>
-                            </div>
-                        )
-                    })
-                }
+                                    </span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div className="box-left-button"
+                     onClick={() => selectMenu(`/hostList/${hostId}/projectInformation`)}
+                >
+                    <svg className="leftMenu-svg-icon" aria-hidden="true">
+                        <use xlinkHref={"#icon-setting"}></use>
+                    </svg>
+                    <span className="leftMenu-text">设置</span>
+                </div>
             </div>
-            <div className="box-left-button"
-                 onClick={() => selectMenu(`/hostList/${hostId}/projectInformation`)}
-            >
-                <svg className="leftMenu-svg-icon" aria-hidden="true">
-                    <use xlinkHref={"#icon-setting"}></use>
-                </svg>
-                <span className="leftMenu-text">设置</span>
-            </div>
+
         </div>
     );
 };

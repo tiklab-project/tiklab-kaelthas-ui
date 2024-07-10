@@ -159,7 +159,7 @@ const AlarmPage = (props) => {
         localStorage.setItem("hostId", record.hostId);
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
-        sessionStorage.setItem("menuKey", "configuration")
+        sessionStorage.setItem("menuKey", "host")
         localStorage.setItem("url", `/hostList/${record?.hostId}/monitoring`)
 
         props.history.push(`/hostList/${record.hostId}/monitoring`)

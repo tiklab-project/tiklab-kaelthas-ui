@@ -49,7 +49,7 @@ const Configuration = (props) => {
     }
 
     return (
-        <div className="host-layout">
+        <div className="hostDetails-layout">
             <Layout className="prodetail-content">
                 <Row justify="start" className="prodetail-row">
                     <Col xs={{ span: 24 }} lg={{ span: 24 }}>

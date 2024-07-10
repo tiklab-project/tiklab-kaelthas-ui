@@ -1,4 +1,4 @@
-.host-layout{
+.hostDetails-layout{
   display: flex;
   height: calc(100vh - 48px);
   flex-direction: row;
@@ -51,7 +51,8 @@
           display: flex;
           align-items: center;
           &:not(:last-child){
-            margin-right: 30px;
+            width: 60px;
+            margin: 0 15px;
           }
           .design-tab-icon{
             padding-right: 2px;

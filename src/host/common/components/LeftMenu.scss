@@ -1,19 +1,48 @@
 .leftMenu-body {
-  height: calc(100vh - 48px);
   display: flex;
-  flex-direction: column;
-  background: #fafbfc;
-  max-width: 80px;
-  min-width: 80px;
-  width: 80px;
-  border-right: 1px solid #f0f0f0;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-width: 600px;
+  height: 48px;
+  background-color: #fff;
 
   .leftMenu-top {
     display: flex;
     width: 100%;
     align-items: center;
     padding: 10px 22px;
-    cursor: pointer;
+
+    .box-left {
+      flex: 1;
+      list-style-type: none;
+      display: flex;
+      justify-content: start;
+
+      .leftMenu-box {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        overflow: hidden;
+        flex-shrink: 0;
+        margin: 0 15px;
+
+        height: 32px;
+        width: 80px;
+        justify-content: center;
+        border-radius: 10px;
+
+        .leftMenu-text {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+
+      .leftMenu-box:hover {
+        background-color: #EDF0F5;
+      }
+    }
 
     .normal-aside-opt-icon {
       display: flex;
@@ -23,6 +52,7 @@
 
     .normal-aside-opt-icon:hover {
       background: #F8F8F8;
+      cursor: pointer;
     }
 
     .normal-aside-up {
@@ -49,43 +79,19 @@
 
     .normal-aside-select {
       background: var(--thoughtware-gray-400);
-      border-left: 3px solid var(--thoughtware-blue);
+      border-bottom: 3px solid var(--thoughtware-blue);
     }
   }
 
-  .box-left {
-    flex: 1;
-    list-style-type: none;
 
-    .leftMenu-box {
-      list-style-type: none;
-      display: flex;
-      width: 80px;
-      align-items: center;
-      flex-direction: column;
-      margin-bottom: 10px;
-      padding: 5px 0;
-      cursor: pointer;
-
-      .leftMenu-text {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-    .leftMenu-box:hover {
-      background-color: #EDF0F5;
-    }
-  }
 
   .box-left-button {
     display: flex;
-    flex-direction: column;
+    justify-content: start;
     align-items: center;
     padding: 10px 0;
     cursor: pointer;
-    border-left: 3px solid #F8F8F8;
+    //border-bottom: 3px solid #F8F8F8;
   }
 
   .box-left-button:hover {
@@ -160,9 +166,10 @@
   height: 18px;
 }
 
-.border-left {
-  background-color: #e3e8f0;
-  border-left: 3px solid #5d70ea;
+.border-bottom {
+  font-weight: bold;
+  color: #0d66e4;
+  background-color: #ececec;
 }
 
 .modal-show {

@@ -50,7 +50,7 @@ const HomePage = (props) => {
 
     const host = async (item) => {
         await updateHostRecent(item)
-        sessionStorage.setItem("menuKey", "configuration")
+        sessionStorage.setItem("menuKey", "host")
         localStorage.setItem("hostId", item.hostId);
         localStorage.setItem('url', `/hostList/${item.hostId}/hostDetails`)
         props.history.push(`/hostList/${item.hostId}/hostDetails`)
@@ -258,21 +258,6 @@ const HomePage = (props) => {
                                     :
                                     <Empty/>
                             }
-                            {/*<div className="host-graphics-alarmTypeNum">
-                                {
-                                    leave && leave?.length > 0 ?
-                                        leave.map(item => {
-                                            return (
-                                                <div className="host-graphics-item">
-                                                    <div className="graphics-item-title">{converType(item?.severityLevel)}</div>
-                                                    <div className="graphics-item-num">{item?.alarmNum}</div>
-                                                </div>
-                                            )
-                                        })
-                                        :
-                                        <Empty/>
-                                }
-                            </div>*/}
                         </div>
                         <div className="host-graphics-line">
                             <div className="host-one-overview">

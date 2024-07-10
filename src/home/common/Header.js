@@ -99,13 +99,13 @@ const Header = props => {
                         <img src={logo} alt={'logo'} className="logo-img"/>
                         <div className="logo-text">Xmonitor</div>
                     </div>}
-                    {renderRouter()}
+                    {/*{renderRouter()}*/}
                 </div>
             </Col>
             <Col>
                 <div className={'frame-header-right'}>
                     <div className={'frame-header-right-text'}>
-                        <div className="frame-header-icon">
+                        {/*<div className="frame-header-icon">
                             <div className="frame-header-set" data-title-bottom="系统设置" onClick={() => goSet()}>
                                 <Space>
                                     <svg aria-hidden="true" className="header-icon">
@@ -113,9 +113,8 @@ const Header = props => {
                                     </svg>
                                 </Space>
                             </div>
-                        </div>
+                        </div>*/}
                         <MessageList/>
-                        {HelpLink}
                         {AvatarLink}
                     </div>
                 </div>

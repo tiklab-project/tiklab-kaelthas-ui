@@ -53,8 +53,8 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        height: 50px;
-        line-height: 50px;
+        height: 35px;
+        line-height: 35px;
 
         .box-configuration-tabs {
           color: #000;
@@ -64,8 +64,6 @@
         .box-configuration-body-tabs-item {
           font-size: 13px;
           cursor: pointer;
-          height: 50px;
-          line-height: 50px;
           margin-right: 20px;
         }
 

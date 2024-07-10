@@ -196,21 +196,6 @@ const Routes = [
                     },
                 ]
             },
-            /*{
-                path: "/monitoring",
-                exact: false,
-                component: Monitoring
-            },
-            {
-                path: "/monitoringList/:id",
-                component: MonitoringLayout,
-                routes: [
-                    {
-                        path: "/monitoringList/:id/monitoringDetails",
-                        component: MonitoringDetails,
-                    },
-                ]
-            },*/
             {
                 path: "/alarm",
                 exact: false,

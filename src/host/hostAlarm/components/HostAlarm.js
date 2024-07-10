@@ -20,7 +20,9 @@ const HostAlarm = (props) => {
         total,
         searchCondition,
         setQuickFilterValue,
-        quickFilterValue
+        quickFilterValue,
+        setLeveType,
+        leveType
     } = hostAlarmStore;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -43,7 +45,39 @@ const HostAlarm = (props) => {
             key: "unresolved",
             label: "未解决"
         },
-    ]
+    ];
+
+    const leveValueList = [
+        {
+            key: "all",
+            label: "全部"
+        },
+        {
+            key: "1",
+            label: "灾难"
+        },
+        {
+            key: "2",
+            label: "严重"
+        },
+        {
+            key: "3",
+            label: "一般严重"
+        },
+        {
+            key: "4",
+            label: "告警"
+        },
+        {
+            key: "5",
+            label: "信息"
+        },
+        {
+            key: "6",
+            label: "未分类"
+        }
+
+    ];
 
     useEffect(async () => {
         setQuickFilterValue({
@@ -57,6 +91,30 @@ const HostAlarm = (props) => {
         })
         await findAlarmPageByHostId();
     }, []);
+
+    async function onLeveTypeChange(value) {
+        setSearchCondition({
+            severityLevel: value
+        })
+        await findAlarmPageByHostId();
+    }
+
+    async function selectLeveType(value) {
+        setLeveType(value)
+        if (!value) {
+            await onLeveTypeChange(null);
+        } else {
+            let data = value.value;
+            let sendData;
+
+            if (data === "all"){
+                sendData = null
+            }else {
+                sendData = data
+            }
+            await onLeveTypeChange(sendData);
+        }
+    }
 
     const selectMenu = async (value) => {
         setQuickFilterValue(value)
@@ -97,44 +155,43 @@ const HostAlarm = (props) => {
     }
 
     async function updateAlarm(record) {
-        /*await updateAlarmPage({
-            id: record.id,
-            alertTime: record.alertTime,
-            status: 1
-        });
-
-        await findAlarmPageByHostId();*/
         setAlarm(record)
         setIsModalVisible(true)
     }
 
     function conversionType(severityLevel) {
 
+        leveValueList.map(item =>{
+            if (item.key === severityLevel){
+                return item.label;
+            }
+        })
+
         let tagColor;
         let tagName;
 
         switch (severityLevel) {
-            case 1:
+            case "1":
                 tagColor = "red";
                 tagName = "灾难";
                 break;
-            case 2:
+            case "2":
                 tagColor = "#e97659";
                 tagName = "严重";
                 break;
-            case 3:
+            case "3":
                 tagColor = "orange";
                 tagName = "一般严重";
                 break;
-            case 4:
+            case "4":
                 tagColor = "yellow";
                 tagName = "告警";
                 break;
-            case 5:
+            case "5":
                 tagColor = "blue";
                 tagName = "信息";
                 break;
-            case 6:
+            case "6":
                 tagColor = "grey";
                 tagName = "未分类";
                 break;
@@ -151,26 +208,26 @@ const HostAlarm = (props) => {
             ellipsis: true,
             // width: "20%",
             key: 'hostName',
-            render: (hostName, record) => <div>{record?.host?.name}</div>
+            // render: (hostName, record) => <div>{record?.host?.name}</div>
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
             ellipsis: true,
             key: 'ip',
-            render:(ip,record) => <div>{record?.host?.ip}</div>
+            // render:(ip,record) => <div>{record?.host?.ip}</div>
         },
         {
             title: '问题',
-            dataIndex: 'triggerName',
-            key: 'triggerName',
-            render: (triggerName, record) => <div>{record?.trigger?.describe}</div>
+            dataIndex: 'sendMessage',
+            key: 'sendMessage',
+            // render: (triggerName, record) => <div>{record?.trigger?.describe}</div>
         },
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            render: (severityLevel,record) => <div>{conversionType(record?.trigger?.severityLevel)}</div>
+            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
         {
             title: '告警时间',
@@ -245,21 +302,26 @@ const HostAlarm = (props) => {
                             告警
                         </div>
                     </div>
-                    {/*<div className="hostAlarm-box-line.svg">
-                        <div className="hostAlarm-box-div">
-                            <span>告警详情</span>
-                            <div className="hostAlarm-box-div-details">
-
-                            </div>
-                        </div>
-                        <div className="hostAlarm-box-div">
-                            <span>告警数量图表展示</span>
-                            <div className="hostAlarm-box-div-details">
-
-                            </div>
-                        </div>
-                    </div>*/}
                     <div className="alarm-box-search">
+                        <div style={{marginRight: 8}}>
+                            <SelectSimple name="quickFilter"
+                                          onChange={(value) => selectLeveType(value)}
+                                          title={`告警等级`}
+                                          ismult={false}
+                                          value={leveType}
+                                          suffixIcon={true}
+                            >
+                                {
+                                    leveValueList.map(item => {
+                                        return <SelectItem
+                                            value={item.key}
+                                            label={`${item.label}`}
+                                            key={item.key}
+                                        />
+                                    })
+                                }
+                            </SelectSimple>
+                        </div>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectMenu(value)}
                                       title={`状态`}

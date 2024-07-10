@@ -19,6 +19,13 @@ class HostAlarmStore {
     @observable
     total = 10;
 
+    @observable leveType;
+
+    @action
+    setLeveType = (value) =>{
+        this.leveType = value;
+    }
+
     @observable quickFilterValue = {};
 
     @action
@@ -47,7 +54,7 @@ class HostAlarmStore {
 
     @action
     findAlarmPageByHostId = async () => {
-        const resData = await Service("/alarm/findAlarmPageByHostId", this.searchCondition)
+        const resData = await Service("alarm/findAlarmPage", this.searchCondition)
         this.alarmPage = resData.data.dataList;
         this.total = resData.data.totalRecord
         return resData.data.dataList;
