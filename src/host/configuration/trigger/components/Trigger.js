@@ -130,16 +130,6 @@ const Trigger = (props) => {
                 return config[mediumType];
             }
         },
-        /*{
-            title: '时间范畴',
-            dataIndex: 'rangeTime',
-            id: 'rangeTime',
-            width:"10%",
-            ellipsis:"true",
-            render:(rangeTime)=>{
-                return rangeTime + "分钟";
-            }
-        },*/
         {
             title: '消息通知方案',
             dataIndex: 'mediumIds',
@@ -201,7 +191,6 @@ const Trigger = (props) => {
             ellipsis:"true",
             render: (_, record) => (
                 <Space size="middle">
-                   {/* <span style={{cursor: "pointer"}} onClick={() => deleteTrigger(record.id)}>删除</span>*/}
                     <HideDelete
                         deleteFn={() => deleteTrigger(record.id)}
                         operation={"删除"}
@@ -225,7 +214,7 @@ const Trigger = (props) => {
 
     return (
         <Row className="box-trigger-right">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
+            <Col style={{marginLeft:10}}>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
                         触发器数量:{total}

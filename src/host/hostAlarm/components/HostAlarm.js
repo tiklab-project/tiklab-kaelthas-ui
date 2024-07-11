@@ -297,11 +297,6 @@ const HostAlarm = (props) => {
         <Row className="alarm-box">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="alarm-box-body">
-                    <div className="alarm-box-title">
-                        <div className="alarm-box-title-text">
-                            告警
-                        </div>
-                    </div>
                     <div className="alarm-box-search">
                         <div style={{marginRight: 8}}>
                             <SelectSimple name="quickFilter"

@@ -7,6 +7,7 @@ import {Provider} from 'mobx-react';
 import Header from "./Header";
 import {AppLink, AvatarLink, HelpLink} from "thoughtware-licence-ui";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+import {Tooltip} from "antd";
 
 const HomeLayout = (props) => {
 
@@ -109,7 +110,7 @@ const HomeLayout = (props) => {
                                             onClick={() => selectMenu(item.url, item.key)}
                                             className={`leftMenu-host ${menuKey === item.key ? "border-left" : ""}`}
                                         >
-                                            <svg className="leftMenu-svg-icon" aria-hidden="true">
+                                            <svg className="host-svg-icon" aria-hidden="true">
                                                 <use xlinkHref={`#icon-${item.key}`}></use>
                                             </svg>
                                             <span className="leftMenu-text">
@@ -127,9 +128,11 @@ const HomeLayout = (props) => {
                             <div className="host-left-button"
                                  onClick={() => goSet()}
                             >
-                                <svg aria-hidden="true" className="header-icon">
-                                    <use xlinkHref="#icon-iconsetsys"></use>
-                                </svg>
+                                <Tooltip title="设置" placement="right">
+                                    <svg aria-hidden="true" className="header-icon">
+                                        <use xlinkHref="#icon-iconsetsys"></use>
+                                    </svg>
+                                </Tooltip>
                             </div>
                         </div>
                     </div>

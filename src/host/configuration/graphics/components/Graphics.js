@@ -119,7 +119,7 @@ const Graphics = (props) => {
 
     return (
         <Row className="box-graphics-right">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
+            <Col style={{marginLeft:10}}>
                 <div className="box-graphics-title">
 
                 </div>

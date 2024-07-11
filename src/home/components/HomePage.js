@@ -57,9 +57,87 @@ const HomePage = (props) => {
     }
 
     useEffect(async () => {
+        const intervalId = setInterval(async () => {
+            // 在这里执行需要定时刷新的操作
+            // 这里只是简单地增加 count，可以根据需求刷新数据或者执行其他操作
+            await findHomeRecentList();
+            setNullCondition();
+            await findDynamicList();
+            findHostUsage().then(res => {
+                if (res.code === 0) {
+                    setHomeObj(res.data)
+                }
+            })
+
+            const resData = await findAlarmTypeNum();
+            const typeData = [];
+
+            resData?.map((item, index) => {
+                let colorTag;
+                let name;
+                switch (item?.severityLevel) {
+                    case "1":
+                        colorTag = '#e97659'
+                        name = '灾难'
+                        break
+                    case "2":
+                        colorTag = 'orange'
+                        name = '严重'
+                        break
+                    case "3":
+                        colorTag = 'yellow'
+                        name = '一般严重'
+                        break
+                    case "4":
+                        colorTag = 'blue'
+                        name = '告警'
+                        break
+                    case "5":
+                        colorTag = 'grey'
+                        name = '信息'
+                        break
+                    case "6":
+                        colorTag = 'grey'
+                        name = '未分类'
+                        break
+                }
+                if (item.length !== 0) {
+                    typeData.push(
+                        {
+                            name: name,
+                            value: item?.alarmNum
+                        }
+                    )
+                }
+            })
+
+            series.push({
+                name: '告警类型及对应数量',
+                type: 'pie',
+                radius: '50%',
+                label: {
+                    formatter: '{b}: {c} ({d}%)'
+                },
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                },
+                data: typeData,
+
+            })
+            showGraphics();
+        }, 10000); // 每 5000 毫秒（即5秒）执行一次
+
+        // 清除定时器的方法
+        return () => clearInterval(intervalId);
+    }, [dom?.current]);
+
+    useEffect(async () => {
         await findHomeRecentList();
         setNullCondition();
-        // await findAlarmPage();
         await findDynamicList();
         findHostUsage().then(res => {
             if (res.code === 0) {
@@ -67,9 +145,6 @@ const HomePage = (props) => {
                 setHomeObj(res.data)
             }
         })
-    }, []);
-
-    useEffect(async () => {
         const resData = await findAlarmTypeNum();
         const typeData = [];
 
@@ -192,9 +267,17 @@ const HomePage = (props) => {
         sessionStorage.setItem("menuKey", null)
     }
 
-    function converType(severityLevel) {
-        return leveObj[severityLevel];
-    }
+    const fullScreenRef = useRef(null);
+
+    const handleFullScreenToggle = () => {
+        if (!document.fullscreenElement) {
+            fullScreenRef.current.requestFullscreen().catch(err => {
+                alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+            });
+        } else {
+            document.exitFullscreen();
+        }
+    };
 
     return (
 
@@ -245,8 +328,16 @@ const HomePage = (props) => {
                                 <Empty/>
                         }
                     </div>
-                    <div className="host-graphics-list">
-                        <div className="home-graphics-title">主机概览</div>
+                    <div className="host-graphics-list" ref={fullScreenRef}>
+                        <div className="home-graphics-title">
+                            <div>
+                                主机概览
+                            </div>
+                            <div onClick={handleFullScreenToggle} style={{cursor: "pointer"}}>
+                                切换全屏
+                            </div>
+                        </div>
+
                         <div className="host-graphics">
                             {
                                 leave && leave?.length > 0 ?
@@ -258,32 +349,6 @@ const HomePage = (props) => {
                                     :
                                     <Empty/>
                             }
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-one-overview">
-                                <span>{homeObj?.monitorNum}</span>
-                                <span className="host-one-title-text">监控项数量</span>
-                            </div>
-                            <div className="host-one-overview">
-                                <span>{homeObj?.graphicsNum}</span>
-                                <span className="host-one-title-text">图形数量</span>
-                            </div>
-                            <div className="host-one-overview" onClick={() => hrefTemplate()}
-                                 style={{cursor: "pointer"}}>
-                                <span>{homeObj?.templateNum}</span>
-                                <span className="host-one-title-text">模板数量</span>
-                            </div>
-                            <div className="host-one-overview" onClick={() => hrefHostGroup()}
-                                 style={{cursor: "pointer"}}>
-                                <span>{homeObj?.hostGroupNum}</span>
-                                <span className="host-one-title-text">主机组数量</span>
-                            </div>
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-one-overview">
-                                <span>{homeObj?.triggerNum}</span>
-                                <span className="host-one-title-text">触发器数量</span>
-                            </div>
                         </div>
                         <div className="host-graphics-line">
                             <div className="host-graphics-overview" onClick={() => hrefHost()}>
@@ -329,6 +394,32 @@ const HomePage = (props) => {
                                         }}
                                         percent={divideAndRound(homeObj?.alarmTimeNum, homeObj?.alarmNum / 100)}/>
                                 </div>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <span>{homeObj?.monitorNum}</span>
+                                <span className="host-one-title-text">监控项数量</span>
+                            </div>
+                            <div className="host-one-overview">
+                                <span>{homeObj?.graphicsNum}</span>
+                                <span className="host-one-title-text">图形数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefTemplate()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.templateNum}</span>
+                                <span className="host-one-title-text">模板数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefHostGroup()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.hostGroupNum}</span>
+                                <span className="host-one-title-text">主机组数量</span>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <span>{homeObj?.triggerNum}</span>
+                                <span className="host-one-title-text">触发器数量</span>
                             </div>
                         </div>
                     </div>

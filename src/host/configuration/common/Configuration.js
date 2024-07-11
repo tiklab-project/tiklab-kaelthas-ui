@@ -44,38 +44,28 @@ const Configuration = (props) => {
     ]
 
     function hrefConfiguration(item) {
-        localStorage.setItem("configurationUrl",item.url)
+        localStorage.setItem("configurationUrl", item.url)
         props.history.push(item.url)
     }
 
     return (
         <div className="hostDetails-layout">
             <Layout className="prodetail-content">
-                <Row justify="start" className="prodetail-row">
-                    <Col xs={{ span: 24 }} lg={{ span: 24 }}>
+                <Row justify="start" className="host-configuration-row">
+                    <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                         <div className="design-up">
-                            <div className="design-top">
-                                <div className="configuration-title">配置</div>
-                            </div>
-                            <div className="design-tabs">
-                                {
-                                    configurationList.map(item =>{
-                                        return(
-                                            <div key={item.key}
-                                                 className={`design-tab ${url===item.url?"design-active":""}`}
-                                                 onClick={() => hrefConfiguration(item)}
-                                            >
-                                                <div className="design-tab-title">
-                                                    <svg className="leftMenu-svg-icon" aria-hidden="true">
-                                                        <use xlinkHref={`#icon-${item.icon}`}></use>
-                                                    </svg>
-                                                    {item.name}
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                            {
+                                configurationList.map(item => {
+                                    return (
+                                        <div key={item.key}
+                                             className={`design-tab ${url === item.url ? "design-active" : ""}`}
+                                             onClick={() => hrefConfiguration(item)}
+                                        >
+                                            {item.name}
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
                         {renderRoutes(route.routes)}
                     </Col>

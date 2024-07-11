@@ -112,13 +112,6 @@ const MonitorLayout = () => {
                      xxl={{span: "18", offset: "3"}}>
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
-                            <Breadcrumb>
-                                <Breadcrumb.Item>主机:{localStorage.getItem("hostName")}</Breadcrumb.Item>
-                            </Breadcrumb>
-                            <ChangeViewChart pageStatus={pageStatus} setPageStatus={setPageStatus}/>
-                        </div>
-
-                        <div className="details-table-title">
                             <div className="details-search">
                                 <div className="details-div">
                                     <RangePicker
@@ -153,6 +146,7 @@ const MonitorLayout = () => {
                                     </Select>
                                 </div>
                             </div>
+                            <ChangeViewChart pageStatus={pageStatus} setPageStatus={setPageStatus}/>
                         </div>
                         {
                             pageStatus === 2 ?

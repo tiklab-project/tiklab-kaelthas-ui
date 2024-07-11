@@ -13,7 +13,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: '用户与权限',
             id: "user",
-            icon: <SoundOutlined/>,
+            // icon: <SoundOutlined/>,
             children: [
                 {
                     title: '部门',
@@ -40,7 +40,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "消息",
             id: "message",
-            icon: <SoundOutlined/>,
+            // icon: <SoundOutlined/>,
             children: [
                 {
                     title: "消息通知方案",
@@ -55,7 +55,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "主机配置",
             id: "hostConfiguration",
-            icon: <ForkOutlined/>,
+            // icon: <ForkOutlined/>,
             children: [
                 {
                     title: '模板配置',
@@ -70,7 +70,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "安全",
             id: "security",
-            icon: <LayoutOutlined/>,
+            // icon: <LayoutOutlined/>,
             children: [
                 {
                     title: "备份与恢复",
@@ -85,7 +85,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "应用",
             id: "licence",
-            icon: <InboxOutlined/>,
+            // icon: <InboxOutlined/>,
             children: [
                 {
                     title: "版本与许可证",

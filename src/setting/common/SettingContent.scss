@@ -19,6 +19,15 @@
         &-top{
             height: 100%;
             overflow: auto;
+
+            &-head{
+                height: 40px;
+                line-height: 40px;
+                width: 100%;
+                padding: 0 20px;
+                font-weight: bold;
+                border-bottom: 1px solid #ececec;
+            }
         }
         ul,li {
             list-style: none;

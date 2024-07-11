@@ -22,13 +22,6 @@ const LeftMenu = (props) => {
             encoded: "hostDetails",
         },
         {
-            name: '配置',
-            icon: 'configuration',
-            url: `/hostList/${hostId}/configuration/monitor`,
-            key: "configuration",
-            encoded: "configuration",
-        },
-        {
             name: '监控',
             icon: 'monitoring',
             url: `/hostList/${hostId}/monitoring`,
@@ -41,6 +34,20 @@ const LeftMenu = (props) => {
             url: `/hostList/${hostId}/hostAlarm`,
             key: "hostAlarm",
             encoded: "hostAlarm",
+        },
+        {
+            name: '配置',
+            icon: 'configuration',
+            url: `/hostList/${hostId}/configuration/monitor`,
+            key: "configuration",
+            encoded: "configuration",
+        },
+        {
+            name: '设置',
+            icon: 'setting',
+            url: `/hostList/${hostId}/projectInformation`,
+            key: "setting",
+            encoded: "setting",
         },
     ];
 
@@ -108,14 +115,16 @@ const LeftMenu = (props) => {
                 >
                     <div className="normal-aside-opt-icon">
                         <Tooltip placement="right" title={hostData?.name}>
-                            <div>
-                                <Listicon
+                            <div className="normal-host-opt-title">
+                                {/*<Listicon
                                     text={hostData?.name}
                                     colors={hostData?.color}
-                                />
+                                />*/}
+
+                                    {hostData?.name && hostData?.name}
+                                    <CaretDownOutlined/>
                             </div>
                         </Tooltip>
-                        {/*<span><CaretDownOutlined/></span>*/}
                     </div>
                 </Dropdown>
                 <div className="box-left">
@@ -137,14 +146,6 @@ const LeftMenu = (props) => {
                             )
                         })
                     }
-                </div>
-                <div className="box-left-button"
-                     onClick={() => selectMenu(`/hostList/${hostId}/projectInformation`)}
-                >
-                    <svg className="leftMenu-svg-icon" aria-hidden="true">
-                        <use xlinkHref={"#icon-setting"}></use>
-                    </svg>
-                    <span className="leftMenu-text">设置</span>
                 </div>
             </div>
 

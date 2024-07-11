@@ -1,20 +1,21 @@
 import React from 'react';
-import { useTranslation } from "react-i18next";
-import { Col, Row,  Space } from "antd";
-import { withRouter } from 'react-router';
-import { getUser } from 'thoughtware-core-ui';
+import {useTranslation} from "react-i18next";
+import {Col, Row, Space} from "antd";
+import {withRouter} from 'react-router';
+import {getUser} from 'thoughtware-core-ui';
 import logo from "../../assets/png/monitorPng.png"
 
 import "./Header.scss";
 import MessageList from "./MessageList";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+
 const Header = props => {
     // 语言包
-    const { i18n } = useTranslation();
+    const {i18n} = useTranslation();
     // 登录者的信息
     const user = getUser();
 
-    const {AppLink, HelpLink, AvatarLink } = props;
+    const {AppLink, HelpLink, AvatarLink} = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
@@ -22,7 +23,7 @@ const Header = props => {
 
     /**
      * 点击菜单跳转
-     * @param {菜单信息} item 
+     * @param {菜单信息} item
      */
     const changeCurrentLink = async item => {
 
@@ -37,7 +38,7 @@ const Header = props => {
 
     /**
      * 渲染左侧菜单
-     * @returns 
+     * @returns
      */
     const renderRouter = () => {
         if (routers) {
@@ -46,8 +47,8 @@ const Header = props => {
                     {
                         routers.map(item => {
                             return <div key={item.key}
-                                onClick={() => changeCurrentLink(item)}
-                                className={`frame-header-link-item ${menuKey === item.key ? 'frame-header-link-active' : null}`}
+                                        onClick={() => changeCurrentLink(item)}
+                                        className={`frame-header-link-item ${menuKey === item.key ? 'frame-header-link-active' : null}`}
                             >
                                 <span>
                                     {item.title}
@@ -60,7 +61,6 @@ const Header = props => {
             )
         }
     }
-
 
 
     /**
@@ -90,16 +90,25 @@ const Header = props => {
         },
 
     ]
+
+    function hrefHome() {
+        props.history.push("/home")
+    }
+
     return (
         <Row className="frame-header">
             <Col span={12}>
                 <div className={'frame-header-left'}>
-                    {AppLink}
-                    {logo && <div className={'frame-header-logo'}>
-                        <img src={logo} alt={'logo'} className="logo-img"/>
-                        <div className="logo-text">Xmonitor</div>
-                    </div>}
-                    {/*{renderRouter()}*/}
+                    <div className="frame-header-left-choose">
+                        {AppLink}
+                    </div>
+                    {
+                        logo &&
+                        <div className={'frame-header-logo'} onClick={() => hrefHome()}>
+                            <img src={logo} alt={'logo'} className="logo-img"/>
+                            <div className="logo-text">Xmonitor</div>
+                        </div>
+                    }
                 </div>
             </Col>
             <Col>

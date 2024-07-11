@@ -216,6 +216,9 @@ const SettingContent= props =>  {
             <div className="system">
                 <div className="system-aside">
                     <ul className="system-aside-top" style={{padding:0}}>
+                        <div className="system-aside-top-head">
+                            设置
+                        </div>
                         {
                             menus().map(firstItem => {
                                 return firstItem.children && firstItem.children.length > 0 ?

@@ -220,11 +220,7 @@ const Monitor = (props) => {
 
     return (
         <Row className="box-monitor-right">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
-                {/*<div className="box-monitor-title">
-                    <div className="box-monitor-title-text">监控项数量:{total}</div>
-
-                </div>*/}
+            <Col style={{marginLeft:10}}>
                 <div className="monitor-kind-options">
                     <div className="monitor-kind-options-tabs">
                         {

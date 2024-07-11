@@ -1,11 +1,3 @@
-/**
-* @name: header
-* @author: mahai
-* @date: 2021-09-01 16:52
-* @description：header
-* @update: 2021-09-01 16:52
-*/
-
 .frame-header {
     display: flex;
     align-items: center;
@@ -21,6 +13,7 @@
         margin-left: 10px;
         display: flex;
         align-items: center;
+        cursor: pointer;
         .logo-img {
             height: 24px;
         }
@@ -72,7 +65,12 @@
         flex-direction: row;
         align-items: center;
         height: 100%;
-        padding-left: 22px;
+
+        .frame-header-left-choose{
+            display: flex;
+            justify-content: center;
+            width: 80px;
+        }
     }
 
     &-right {
@@ -95,9 +93,6 @@
             // height: 100%;
             padding-right: 10px;
             gap: 20px;
-            // a {
-            //     padding: 0 10px;
-            // }
 
             .badge {
                 position: relative;
