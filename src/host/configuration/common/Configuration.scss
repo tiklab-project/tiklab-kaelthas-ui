@@ -1,11 +1,8 @@
 .hostDetails-layout{
   display: flex;
-  height: calc(100vh - 48px);
+  height: calc(100% - 176px);
   flex-direction: row;
-
-  .host-configuration-row {
-    height: calc(100vh - 48px);
-    padding: 20px;
+  padding: 20px 0;
 
     .design{
       height: 100%;
@@ -17,6 +14,7 @@
       display: flex;
       background: #ffffff;
       border-radius: 10px;
+      margin-bottom: 20px;
 
       padding: 0 var(--thoughtware-padding-item);
       height: 40px;
@@ -70,8 +68,6 @@
 
       }
     }
-
-  }
 }
 
 .prodetail-content{

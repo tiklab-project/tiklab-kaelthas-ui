@@ -172,7 +172,7 @@ const HostAlarm = (props) => {
 
         switch (severityLevel) {
             case "1":
-                tagColor = "red";
+                tagColor = "#ff0003";
                 tagName = "灾难";
                 break;
             case "2":
@@ -184,11 +184,11 @@ const HostAlarm = (props) => {
                 tagName = "一般严重";
                 break;
             case "4":
-                tagColor = "yellow";
+                tagColor = "#fac858";
                 tagName = "告警";
                 break;
             case "5":
-                tagColor = "blue";
+                tagColor = "#FFFFE0";
                 tagName = "信息";
                 break;
             case "6":
@@ -208,20 +208,17 @@ const HostAlarm = (props) => {
             ellipsis: true,
             // width: "20%",
             key: 'hostName',
-            // render: (hostName, record) => <div>{record?.host?.name}</div>
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
             ellipsis: true,
             key: 'ip',
-            // render:(ip,record) => <div>{record?.host?.ip}</div>
         },
         {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
-            // render: (triggerName, record) => <div>{record?.trigger?.describe}</div>
         },
         {
             title: '告警等级',
@@ -295,7 +292,7 @@ const HostAlarm = (props) => {
 
     return (
         <Row className="alarm-box">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
                 <div className="alarm-box-body">
                     <div className="alarm-box-search">
                         <div style={{marginRight: 8}}>

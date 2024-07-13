@@ -1,8 +1,10 @@
 .setting-layout{
   display: flex;
-  height: calc(100vh - 48px);
+  height: calc(100% - 116px);
   flex-direction: row;
   width: 100%;
+  margin: 0 80px;
+
   .setting-layout-right{
     flex: 1;
     padding: 0 5px;

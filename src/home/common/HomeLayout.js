@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
 import {renderRoutes} from "react-router-config";
 import "./HomeLayout.scss";
@@ -19,8 +19,6 @@ const HomeLayout = (props) => {
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
-    let url = localStorage.getItem('url');
-
     const routers = [
         {
             name: '首页',
@@ -37,29 +35,7 @@ const HomeLayout = (props) => {
             url: '/alarm',
             key: 'alarm',
         }
-
     ];
-
-    const renderRouter = () => {
-        if (routers) {
-            return (
-                <div className={'frame-header-link'}>
-                    {
-                        routers.map(item => {
-                            return <div key={item.key}
-                                        onClick={() => changeCurrentLink(item)}
-                                        className={`frame-header-link-item ${menuKey === item.key ? 'frame-header-link-active' : null}`}
-                            >
-                                <span>
-                                    {item.name}
-                                </span>
-                            </div>
-                        })
-                    }
-                </div>
-            )
-        }
-    }
 
     /**
      * 点击菜单跳转
@@ -83,7 +59,6 @@ const HomeLayout = (props) => {
         }
         localStorage.setItem("url", url)
         sessionStorage.setItem("menuKey", key)
-        console.log(url)
         props.history.push(url)
     }
 

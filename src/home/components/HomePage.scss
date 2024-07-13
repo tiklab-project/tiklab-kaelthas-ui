@@ -125,6 +125,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+
+        .host-graphics-choose{
+          border-radius: 4px;
+          cursor: pointer;
+        }
       }
 
       .host-graphics-line {
@@ -174,6 +179,19 @@
           }
 
         }
+
+        //占据一个空格,保持美观的同时百分比展示也不会样式走样
+        .host-one-substitute{
+          width: 25%;
+          padding: 10px;
+          border-radius: 4px;
+          text-align: center;
+          height: 90px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+        }
       }
 
       .host-graphics {
@@ -181,16 +199,24 @@
         margin-top: 20px;
         background-color: #f7f7f7;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
 
         .host-graphics-chart{
+          display: flex;
+          justify-content: center;
           width: 1000px;
           height: 400px;
           user-select: none;
           -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
           position: relative;
-          margin-top: 20px;
-          margin-left: 20px;
+          padding: 20px;
+
+          .empty-style{
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin: auto;
+          }
         }
 
         .host-graphics-alarmTypeNum{
@@ -228,11 +254,10 @@
       border-radius: 4px;
 
       .home-table-title {
-        width: 100%;
-        font-weight: bold;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        font-weight: bold;
+        font-size: 16px;
       }
 
       .home-alarm-table-list {

@@ -108,8 +108,7 @@ const MonitorLayout = () => {
     return (
         <Provider>
             <Row className="details">
-                <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
-                     xxl={{span: "18", offset: "3"}}>
+                    <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
                             <div className="details-search">

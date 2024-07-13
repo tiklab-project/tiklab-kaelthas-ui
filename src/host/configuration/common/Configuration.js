@@ -49,29 +49,25 @@ const Configuration = (props) => {
     }
 
     return (
-        <div className="hostDetails-layout">
-            <Layout className="prodetail-content">
-                <Row justify="start" className="host-configuration-row">
-                    <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
-                        <div className="design-up">
-                            {
-                                configurationList.map(item => {
-                                    return (
-                                        <div key={item.key}
-                                             className={`design-tab ${url === item.url ? "design-active" : ""}`}
-                                             onClick={() => hrefConfiguration(item)}
-                                        >
-                                            {item.name}
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        {renderRoutes(route.routes)}
-                    </Col>
-                </Row>
-            </Layout>
-        </div>
+        <Row justify="start" className="hostDetails-layout">
+            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
+                <div className="design-up">
+                    {
+                        configurationList.map(item => {
+                            return (
+                                <div key={item.key}
+                                     className={`design-tab ${url === item.url ? "design-active" : ""}`}
+                                     onClick={() => hrefConfiguration(item)}
+                                >
+                                    {item.name}
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                {renderRoutes(route.routes)}
+            </Col>
+        </Row>
     );
 };
 

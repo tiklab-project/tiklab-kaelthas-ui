@@ -12,6 +12,9 @@ export class HomeStore{
     @observable
     leave = [];
 
+    @observable
+    distributionList = [];
+
     @action
     findHomeRecentList = async () => {
         const hostRecent = await Service("/hostRecent/findHostRecentList")
@@ -47,8 +50,14 @@ export class HomeStore{
 
     @action
     findHostUsage = async () =>{
-        const resData = await Service("/home/findHostUsage");
-        return resData;
+        return await Service("/home/findHostUsage");
+    }
+
+    @action
+    findTypeDistribution = async () =>{
+        const resData = await Service("/home/findTypeDistribution");
+        this.distributionList = resData.data;
+        return resData.data;
     }
 
 }

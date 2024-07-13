@@ -4,19 +4,17 @@ import {Provider} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import SettingLeftTabs from "./SettingLeftTabs";
 import "./SettingLayout.scss"
+import {Col, Row} from "antd";
+
 const SettingLayout = (props) => {
 
     const {route} = props;
 
     return (
         <div className="setting-layout">
-            <div>
                 <SettingLeftTabs/>
-            </div>
             <div className="setting-layout-right">
-                <Provider>
-                    {renderRoutes(route.routes)}
-                </Provider>
+                {renderRoutes(route.routes)}
             </div>
         </div>
     );

@@ -10,9 +10,10 @@ import * as echarts from 'echarts/core';
 import {
     TitleComponent,
     TooltipComponent,
-    LegendComponent
+    LegendComponent,
+    GridComponent
 } from 'echarts/components';
-import {PieChart} from 'echarts/charts';
+import {PieChart, BarChart} from 'echarts/charts';
 import {LabelLayout} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 
@@ -22,7 +23,9 @@ echarts.use([
     LegendComponent,
     PieChart,
     CanvasRenderer,
-    LabelLayout
+    LabelLayout,
+    GridComponent,
+    BarChart
 ]);
 
 const HomePage = (props) => {
@@ -36,17 +39,25 @@ const HomePage = (props) => {
         findAlarmTypeNum,
         leave,
         findHostUsage,
+        findTypeDistribution,
+        distributionList
     } = homeStore;
 
     const {setNullCondition} = alarmPageStore;
 
     const dom = useRef(null);
 
+    const dom2 = useRef(null);
+
     const leveObj = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
 
-    const [homeObj, setHomeObj] = useState();
+    const [homeObj, setHomeObj] = useState([]);
 
     const series = [];
+
+    let series2 = [];
+
+    let hName = [];
 
     const host = async (item) => {
         await updateHostRecent(item)
@@ -57,131 +68,80 @@ const HomePage = (props) => {
     }
 
     useEffect(async () => {
+        await extractedUseEffect();
+    }, [dom?.current, dom2?.current]);
+
+    useEffect(async () => {
         const intervalId = setInterval(async () => {
-            // 在这里执行需要定时刷新的操作
-            // 这里只是简单地增加 count，可以根据需求刷新数据或者执行其他操作
-            await findHomeRecentList();
-            setNullCondition();
-            await findDynamicList();
-            findHostUsage().then(res => {
-                if (res.code === 0) {
-                    setHomeObj(res.data)
-                }
-            })
-
-            const resData = await findAlarmTypeNum();
-            const typeData = [];
-
-            resData?.map((item, index) => {
-                let colorTag;
-                let name;
-                switch (item?.severityLevel) {
-                    case "1":
-                        colorTag = '#e97659'
-                        name = '灾难'
-                        break
-                    case "2":
-                        colorTag = 'orange'
-                        name = '严重'
-                        break
-                    case "3":
-                        colorTag = 'yellow'
-                        name = '一般严重'
-                        break
-                    case "4":
-                        colorTag = 'blue'
-                        name = '告警'
-                        break
-                    case "5":
-                        colorTag = 'grey'
-                        name = '信息'
-                        break
-                    case "6":
-                        colorTag = 'grey'
-                        name = '未分类'
-                        break
-                }
-                if (item.length !== 0) {
-                    typeData.push(
-                        {
-                            name: name,
-                            value: item?.alarmNum
-                        }
-                    )
-                }
-            })
-
-            series.push({
-                name: '告警类型及对应数量',
-                type: 'pie',
-                radius: '50%',
-                label: {
-                    formatter: '{b}: {c} ({d}%)'
-                },
-                emphasis: {
-                    itemStyle: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                },
-                data: typeData,
-
-            })
-            showGraphics();
-        }, 10000); // 每 5000 毫秒（即5秒）执行一次
-
+            await extractedUseEffect()
+        }, 10000);
         // 清除定时器的方法
         return () => clearInterval(intervalId);
     }, [dom?.current]);
 
-    useEffect(async () => {
+    async function extractedUseEffect() {
         await findHomeRecentList();
         setNullCondition();
         await findDynamicList();
         findHostUsage().then(res => {
             if (res.code === 0) {
-                console.log(res)
                 setHomeObj(res.data)
             }
         })
         const resData = await findAlarmTypeNum();
         const typeData = [];
 
-        resData?.map((item, index) => {
+        const disData = await findTypeDistribution();
+
+        series2 = []
+        series2.push(
+            {
+                name: "告警数量",
+                type: 'bar',
+                stack: 'total',
+                label: {
+                    show: true
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: disData !== null ? disData["count"] : [],
+                animationDuration: 0, // 动画持续时间
+                animationEasing: 'cubicOut' // 动画缓动效果
+            }
+        )
+
+        hName = []
+        hName.push(disData !== null ? disData["ip"] : [])
+
+        resData?.map((item) => {
             let colorTag;
-            let name;
             switch (item?.severityLevel) {
                 case "1":
-                    colorTag = '#e97659'
-                    name = '灾难'
+                    colorTag = '#ff0003'
                     break
                 case "2":
-                    colorTag = 'orange'
-                    name = '严重'
+                    colorTag = '#e97659'
                     break
                 case "3":
-                    colorTag = 'yellow'
-                    name = '一般严重'
+                    colorTag = 'orange'
                     break
                 case "4":
-                    colorTag = 'blue'
-                    name = '告警'
+                    colorTag = '#fac858'
                     break
                 case "5":
-                    colorTag = 'grey'
-                    name = '信息'
+                    colorTag = '#FFFFE0'
                     break
                 case "6":
                     colorTag = 'grey'
-                    name = '未分类'
                     break
             }
             if (item.length !== 0) {
                 typeData.push(
                     {
-                        name: name,
-                        value: item?.alarmNum
+                        name: leveObj[item?.severityLevel],
+                        value: item?.alarmNum,
+                        itemStyle: {color: colorTag}
                     }
                 )
             }
@@ -194,23 +154,22 @@ const HomePage = (props) => {
             label: {
                 formatter: '{b}: {c} ({d}%)'
             },
-            emphasis: {
-                itemStyle: {
-                    shadowBlur: 10,
-                    shadowOffsetX: 0,
-                    shadowColor: 'rgba(0, 0, 0, 0.5)'
-                }
-            },
             data: typeData,
-
+            animationDuration: 0, // 动画持续时间
+            // animationEasing: 'cubicOut' // 动画缓动效果
         })
         showGraphics();
-    }, [dom?.current]);
+        showGraphics2();
+    }
 
 
     function showGraphics() {
         if (dom?.current) {
             const chartDom = dom.current
+
+            if (echarts.getInstanceByDom(chartDom)) {
+                echarts.dispose(chartDom);
+            }
 
             const myChart = echarts.init(chartDom);
 
@@ -238,9 +197,59 @@ const HomePage = (props) => {
         }
     }
 
+    function showGraphics2() {
+
+        if (dom2?.current) {
+            const chartDom = dom2.current
+            if (echarts.getInstanceByDom(chartDom)) {
+                echarts.dispose(chartDom);
+            }
+
+            const myChart2 = echarts.init(chartDom);
+
+            const option2 = {
+                /*title: {
+                    text: '告警类型分布情况',
+                    subtext: '(设备类型维度)',
+                    left: 'center'
+                },*/
+                legend: {
+                    /*orient: 'vertical',
+                    left: 'left'*/
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                xAxis: {
+                    type: 'category',
+                    data: hName
+                },
+                series: series2
+            };
+
+            if (myChart2) {
+                myChart2.clear()
+            }
+
+            myChart2.setOption(option2);
+        }
+    }
+
 
     function hrefHost() {
-        sessionStorage.setItem("menuKey", "configuration")
+        sessionStorage.setItem("menuKey", "host")
         props.history.push(`/configuration`)
     }
 
@@ -284,6 +293,143 @@ const HomePage = (props) => {
         <Row className="home">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
                 <div className="home-body">
+                    <div className="host-graphics-list" ref={fullScreenRef}>
+                        <div className="home-graphics-title">
+                            <div className="home-content-title-text">
+                                主机概览
+                            </div>
+                            <div onClick={handleFullScreenToggle} className="host-graphics-choose">
+                                <svg className="common-icon-show" aria-hidden="true">
+                                    <use xlinkHref={`#icon-fullScreen`}></use>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div className="host-graphics">
+                            {
+                                leave && leave?.length > 0 ?
+                                    <div key="chartsShow" ref={dom} className="host-graphics-chart">
+
+                                    </div>
+                                    :
+                                    <div className="host-graphics-chart">
+                                        <Empty className="empty-style"/>
+                                    </div>
+                            }
+                            {
+                                distributionList !== null ?
+                                    <div key="chartsShow2" ref={dom2} className="host-graphics-chart">
+
+                                    </div>
+                                    :
+                                    <div className="host-graphics-chart">
+                                        <Empty className="empty-style"/>
+                                    </div>
+                            }
+                        </div>
+                        {/*<div className="host-graphics-line">
+                            <div className="host-graphics-overview" onClick={() => hrefHost()}>
+                                <div className="host-graphics-title">
+                                    <span>异常主机/主机总数</span>
+                                    <span>
+                                    <span
+                                        style={{color: "red"}}>{homeObj?.hostAbnormal}
+                                    </span>
+                                        /
+                                    <span
+                                        style={{color: "blue"}}>{homeObj?.hostCount}
+                                    </span>
+                                    </span>
+                                </div>
+                                <div className="host-graphics-progress">
+                                    <Progress
+                                        strokeColor={{
+                                            '0%': '#ff0003',
+                                            '100%': '#ff0003',
+                                        }}
+                                        percent={divideAndRound(homeObj?.hostAbnormal * 100, homeObj?.hostCount)}/>
+                                </div>
+                            </div>
+                            <div className="host-graphics-overview" onClick={() => hrefAlarm()}>
+                                <div className="host-graphics-title">
+                                    <span>未解决告警数量/告警数量</span>
+                                    <span>
+                                        <span style={{color: "red"}}>
+                                            {homeObj?.alarmTimeNum}
+                                        </span>
+                                            /
+                                        <span style={{color: "blue"}}>
+                                            {homeObj?.alarmNum}
+                                        </span>
+                                    </span>
+                                </div>
+                                <div className="host-graphics-progress">
+                                    <Progress
+                                        strokeColor={{
+                                            '0%': '#ff0003',
+                                            '100%': '#ff0003',
+                                        }}
+                                        percent={divideAndRound(homeObj?.alarmTimeNum, homeObj?.alarmNum / 100)}/>
+                                </div>
+                            </div>
+                        </div>*/}
+                        <div className="host-graphics-line">
+                            <div className="host-one-overview" onClick={() => hrefHost()}
+                                 style={{cursor: "pointer"}}>
+                                    <span>
+                                        <span
+                                            style={{color: "red"}}>{homeObj?.hostAbnormal}
+                                        </span>
+                                            /
+                                        <span
+                                            style={{color: "blue"}}>{homeObj?.hostCount}
+                                        </span>
+                                    </span>
+                                <span className="host-one-title-text">异常主机/主机总数</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefAlarm()}
+                                 style={{cursor: "pointer"}}>
+                                    <span>
+                                        <span style={{color: "red"}}>
+                                            {homeObj?.alarmTimeNum}
+                                        </span>
+                                            /
+                                        <span style={{color: "blue"}}>
+                                            {homeObj?.alarmNum}
+                                        </span>
+                                    </span>
+                                <span className="host-one-title-text">未解决告警数量/告警数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefTemplate()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.templateNum}</span>
+                                <span className="host-one-title-text">模板数量</span>
+                            </div>
+                            <div className="host-one-overview" onClick={() => hrefHostGroup()}
+                                 style={{cursor: "pointer"}}>
+                                <span>{homeObj?.hostGroupNum}</span>
+                                <span className="host-one-title-text">主机组数量</span>
+                            </div>
+                        </div>
+                        <div className="host-graphics-line">
+                            <div className="host-one-overview">
+                                <span>{homeObj?.monitorNum}</span>
+                                <span className="host-one-title-text">监控项数量</span>
+                            </div>
+                            <div className="host-one-overview">
+                                <span>{homeObj?.graphicsNum}</span>
+                                <span className="host-one-title-text">图形数量</span>
+                            </div>
+                            <div className="host-one-overview">
+                                <span>{homeObj?.triggerNum}</span>
+                                <span className="host-one-title-text">触发器数量</span>
+                            </div>
+                            <div className="host-one-substitute">
+
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="home-content">
                         <div className="home-content-title">
                             <div className="home-content-title-text">
@@ -327,101 +473,6 @@ const HomePage = (props) => {
                                 :
                                 <Empty/>
                         }
-                    </div>
-                    <div className="host-graphics-list" ref={fullScreenRef}>
-                        <div className="home-graphics-title">
-                            <div>
-                                主机概览
-                            </div>
-                            <div onClick={handleFullScreenToggle} style={{cursor: "pointer"}}>
-                                切换全屏
-                            </div>
-                        </div>
-
-                        <div className="host-graphics">
-                            {
-                                leave && leave?.length > 0 ?
-                                    <div key="chartsShow" ref={dom}
-                                         className="host-graphics-chart"
-                                    >
-
-                                    </div>
-                                    :
-                                    <Empty/>
-                            }
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-graphics-overview" onClick={() => hrefHost()}>
-                                <div className="host-graphics-title">
-                                    <span>异常主机/主机总数</span>
-                                    <span>
-                                    <span
-                                        style={{color: "red"}}>{homeObj?.hostAbnormal}
-                                    </span>
-                                        /
-                                    <span
-                                        style={{color: "blue"}}>{homeObj?.hostCount}
-                                    </span>
-                                    </span>
-                                </div>
-                                <div className="host-graphics-progress">
-                                    <Progress
-                                        strokeColor={{
-                                            '0%': '#108ee9',
-                                            '100%': '#87d068',
-                                        }}
-                                        percent={divideAndRound(homeObj?.hostAbnormal * 100, homeObj?.hostCount)}/>
-                                </div>
-                            </div>
-                            <div className="host-graphics-overview" onClick={() => hrefAlarm()}>
-                                <div className="host-graphics-title">
-                                    <span>未解决告警数量/告警数量</span>
-                                    <span>
-                                        <span
-                                            style={{color: "red"}}>{homeObj?.alarmTimeNum}
-                                        </span>
-                                            /
-                                        <span
-                                            style={{color: "blue"}}>{homeObj?.alarmNum}
-                                        </span>
-                                    </span>
-                                </div>
-                                <div className="host-graphics-progress">
-                                    <Progress
-                                        strokeColor={{
-                                            '0%': '#108ee9',
-                                            '100%': '#87d068',
-                                        }}
-                                        percent={divideAndRound(homeObj?.alarmTimeNum, homeObj?.alarmNum / 100)}/>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-one-overview">
-                                <span>{homeObj?.monitorNum}</span>
-                                <span className="host-one-title-text">监控项数量</span>
-                            </div>
-                            <div className="host-one-overview">
-                                <span>{homeObj?.graphicsNum}</span>
-                                <span className="host-one-title-text">图形数量</span>
-                            </div>
-                            <div className="host-one-overview" onClick={() => hrefTemplate()}
-                                 style={{cursor: "pointer"}}>
-                                <span>{homeObj?.templateNum}</span>
-                                <span className="host-one-title-text">模板数量</span>
-                            </div>
-                            <div className="host-one-overview" onClick={() => hrefHostGroup()}
-                                 style={{cursor: "pointer"}}>
-                                <span>{homeObj?.hostGroupNum}</span>
-                                <span className="host-one-title-text">主机组数量</span>
-                            </div>
-                        </div>
-                        <div className="host-graphics-line">
-                            <div className="host-one-overview">
-                                <span>{homeObj?.triggerNum}</span>
-                                <span className="host-one-title-text">触发器数量</span>
-                            </div>
-                        </div>
                     </div>
                     <div className="home-dynamic-table">
                         <div className="home-table-title">动态信息</div>

@@ -1,7 +1,7 @@
 .box-right {
   flex: 1;
   flex-direction: column;
-  height: 100%;
+  height: calc(100% - 116px);
   background-color: #fafbfc;
   overflow: auto;
 

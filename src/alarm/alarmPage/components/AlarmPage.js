@@ -166,13 +166,12 @@ const AlarmPage = (props) => {
     }
 
     function conversionType(severityLevel) {
-
         let tagColor;
         let tagName;
 
         switch (severityLevel) {
             case "1":
-                tagColor = "red";
+                tagColor = "#ff0003";
                 tagName = leveList[severityLevel];
                 break;
             case "2":
@@ -184,11 +183,11 @@ const AlarmPage = (props) => {
                 tagName = leveList[severityLevel];
                 break;
             case "4":
-                tagColor = "yellow";
+                tagColor = "#fac858";
                 tagName = leveList[severityLevel];
                 break;
             case "5":
-                tagColor = "blue";
+                tagColor = "#FFFFE0";
                 tagName = leveList[severityLevel];
                 break;
             case "6":
