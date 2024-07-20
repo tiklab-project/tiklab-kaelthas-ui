@@ -1,0 +1,78 @@
+.db-row{
+    flex: 1;
+    height: 100%;
+    overflow: auto;
+    background-color: #fff;
+
+    .db-body{
+        padding: 20px;
+
+        .db-title{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 32px;
+            line-height: 32px;
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: 700;
+
+            .db-title-text{
+                text-align: center;
+            }
+
+            .db-title-add-button{
+                background-color: #0d66e4;
+                color: #ffffff;
+                font-weight: 500;
+                padding: 5px 10px;
+                border-radius: 4px;
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                height: 32px;
+                line-height: 32px;
+                width: fit-content;
+            }
+        }
+
+        .db-type-search{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 50px;
+            line-height: 50px;
+
+            .db-type{
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                height: 42px;
+                line-height: 42px;
+
+                .db-type-text{
+                    cursor: pointer;
+                    padding: 0 5px;
+                    height: 42px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                .db-type-text-button-color{
+                    color: #000;
+                    border-bottom: 2px solid #5d70ea;
+                }
+
+            }
+
+            .db-search{
+
+            }
+        }
+
+        .db-table{
+            padding-top: 20px;
+        }
+    }
+}

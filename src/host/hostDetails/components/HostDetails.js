@@ -64,7 +64,7 @@ const HostDetails = (props) => {
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-host-survey">
                     <div className="box-host-body-head">
-                        <span className="box-host-title">概况</span>
+                        <span className="box-host-title">主机详情</span>
                         <div className="box-host-details">
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">

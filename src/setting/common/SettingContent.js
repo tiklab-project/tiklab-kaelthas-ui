@@ -125,7 +125,18 @@ const SettingContent= props =>  {
         if(!isUnify(data)){
             return applyJump(`${authConfig?.authServiceUrl}/#${data.id}`)
         }
-        props.history.push(data.id)
+        console.log("data.id",data.id)
+        if ("/setting/orga" === data.id){
+            props.history.push("/user/orga")
+        }else if ("/setting/user" === data.id){
+            props.history.push("/user/user")
+        }else if ("/setting/userGroup" === data.id){
+            props.history.push("/user/userGroup")
+        }else if ("/setting/dir" === data.id){
+            props.history.push("/user/dir")
+        }else {
+            props.history.push(data.id)
+        }
     }
 
 

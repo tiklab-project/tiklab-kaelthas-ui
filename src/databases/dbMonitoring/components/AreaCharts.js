@@ -109,11 +109,12 @@ const AreaCharts = (props) => {
         })
 
         if (dom) {
-            if (myChart) {
-                myChart.dispose();
-            }
 
             const chartDom = dom.current
+
+            if (echarts.getInstanceByDom(chartDom)) {
+                echarts.dispose(chartDom);
+            }
 
             myChart = echarts.init(chartDom);
 

@@ -13,7 +13,7 @@ import {
     TodoType
 } from "thoughtware-message-ui";
 import {ProductAuth, Version} from "thoughtware-licence-ui";
-import {ExcludeProductUser, InternalWechatEntry, NotFound} from "thoughtware-eam-ui";
+import {ExcludeProductUser, NotFound} from "thoughtware-eam-ui";
 import {SystemFeature, ProjectFeature, SystemRole, ProjectRole,ProjectVirtualRole} from "thoughtware-privilege-ui";
 import {Orga, User, UserGroup, Directory} from "thoughtware-user-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
@@ -39,17 +39,30 @@ const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/c
 const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
 const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
-const MonitoringLayout = AsyncComponent(() => import('./host/monitorIng/common/MonitorLayout'))
-const MonitoringDetails = AsyncComponent(() => import('./host/monitorIng/components/MonitoringDetails'))
-const AlarmLayout = AsyncComponent(() => import('./alarm/common/components/AlarmLayout'))
+const MonitoringLayout = AsyncComponent(() => import('./host/monitoring/components/MonitorGraphics'))
 const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
 const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'))
 const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
 const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
 
 const HostConfiguration = AsyncComponent(() => import('./host/configuration/common/Configuration'))
+const Databases = AsyncComponent(() => import('./databases/databasesPage/components/Databases'))
+const DatabasesLayout = AsyncComponent(() => import('./databases/common/DbLayout'))
+const AddDatabases = AsyncComponent(() => import('./databases/databasesPage/components/AddDatabases'))
 const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
 
+const databasesDetails = AsyncComponent(() => import ('./databases/dbDetails/components/DbDetails'))
+const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/components/MonitorGraphics'))
+const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBAlarm'))
+const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
+
+const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/Monitor'))
+const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/Trigger'))
+const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
+const DBGraphics = AsyncComponent(() => import('./databases/configs/graphics/components/Graphics'))
+
+const TestMonitor = AsyncComponent(() => import('./databases/databasesPage/components/TestMonitor'))
+const AddDBMonitor = AsyncComponent(() => import('./databases/databasesPage/components/AddDBMonitor'))
 
 const Routes = [
 
@@ -82,13 +95,7 @@ const Routes = [
             return <ExcludeProductUser {...props}/>
         }
     },
-    {
-        path: "/wechat",
-        exact: true,
-        render: (props) => {
-            return <InternalWechatEntry {...props}/>
-        }
-    },
+
     {
         path: "/",
         component: Home,
@@ -134,11 +141,6 @@ const Routes = [
                                 component: Monitor,
                             },
                             {
-                                path: "/hostList/:id/configuration/monitorAdd",
-                                exact: false,
-                                component: Monitor,
-                            },
-                            {
                                 path: "/hostList/:id/configuration/trigger",
                                 exact: false,
                                 component: Trigger,
@@ -158,12 +160,6 @@ const Routes = [
                     {
                         path: "/hostList/:id/monitoring",
                         component: MonitoringLayout,
-                        routes: [
-                            {
-                                path: "/hostList/:id/monitoringDetails",
-                                component: MonitoringDetails,
-                            },
-                        ]
                     },
                     {
                         path: "/hostList/:id/hostAlarm",
@@ -197,13 +193,106 @@ const Routes = [
                 ]
             },
             {
+                path: "/databases",
+                exact: true,
+                component: Databases,
+            },
+            {
+                path: "/testMonitor",
+                exact: true,
+                component: TestMonitor,
+            },
+            {
+                path: "/databases/addDatabases",
+                exact: true,
+                component: AddDatabases,
+            },
+            {
+                path: "/databases/addDBMonitor",
+                exact: true,
+                component: AddDBMonitor,
+            },
+            {
+                path: "/databasesList/:id",
+                exact: false,
+                component: DatabasesLayout,
+                routes: [
+                    {
+                        path: "/databasesList/:id/databasesDetails",
+                        exact: true,
+                        component: databasesDetails,
+                    },
+                    {
+                        path: "/databasesList/:id/databasesDynamic",
+                        exact: false,
+                        component: HostDynamic,
+                    },
+                    {
+                        path: "/databasesList/:id/configs",
+                        exact: false,
+                        component: HostConfigs,
+                        routes: [
+                            {
+                                path: "/databasesList/:id/configs/monitor",
+                                exact: false,
+                                component: DBMonitor,
+                            },
+                            {
+                                path: "/databasesList/:id/configs/trigger",
+                                exact: false,
+                                component: DBTrigger,
+                            },
+                            {
+                                path: "/databasesList/:id/configs/template",
+                                exact: false,
+                                component: DBTemplate,
+                            },
+                            {
+                                path: "/databasesList/:id/configs/graphics",
+                                exact: false,
+                                component: DBGraphics,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/databasesList/:id/monitoring",
+                        component: DBMonitoring,
+                    },
+                    {
+                        path: "/databasesList/:id/DBAlarm",
+                        exact: false,
+                        component: DBAlarm,
+                    },
+                    {
+                        path: "/databasesSetting/:id",
+                        component: Setting,
+                        routes: [
+                            {
+                                path: "/databasesSetting/:id/projectInformation",
+                                exact: true,
+                                component: ProjectInformation,
+                            },
+                            {
+                                path: "/databasesSetting/:id/member",
+                                key: 'member',
+                                exact: true,
+                                component: Member,
+                            },
+                            {
+                                path: "/databasesSetting/:id/permissions",
+                                key: 'permissions',
+                                exact: true,
+                                component: Permissions,
+                            },
+
+                        ]
+                    },
+                ]
+            },
+            {
                 path: "/alarm",
                 exact: false,
                 component: AlarmPage,
-            },
-            {
-                path: "/alarmLayout",
-                component: AlarmLayout,
             },
             {
                 path: "/setting",

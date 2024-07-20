@@ -1,10 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTranslation} from "react-i18next";
-import {Col, Row, Space} from "antd";
+import {Col, Modal, Row, Space, Tooltip} from "antd";
 import {withRouter} from 'react-router';
-import {getUser} from 'thoughtware-core-ui';
+import {getUser,productImg,productWhiteImg} from 'thoughtware-core-ui';
 import logo from "../../assets/png/monitorPng.png"
-
 import "./Header.scss";
 import MessageList from "./MessageList";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
@@ -15,7 +14,7 @@ const Header = props => {
     // 登录者的信息
     const user = getUser();
 
-    const {AppLink, HelpLink, AvatarLink} = props;
+    const {AppLink, HelpLink, AvatarLink ,VipType} = props;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
 
@@ -105,7 +104,7 @@ const Header = props => {
                     {
                         logo &&
                         <div className={'frame-header-logo'} onClick={() => hrefHome()}>
-                            <img src={logo} alt={'logo'} className="logo-img"/>
+                            <img src={productWhiteImg.xmonitor} alt={'logo'} className="logo-img"/>
                             <div className="logo-text">Xmonitor</div>
                         </div>
                     }
@@ -124,6 +123,8 @@ const Header = props => {
                             </div>
                         </div>*/}
                         <MessageList/>
+                        {HelpLink}
+                        {VipType}
                         {AvatarLink}
                     </div>
                 </div>

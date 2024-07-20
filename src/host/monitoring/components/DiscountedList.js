@@ -86,6 +86,10 @@ const DiscountedList = (props) => {
         if (dom) {
             const chartDom = dom.current
 
+            if (echarts.getInstanceByDom(chartDom)) {
+                echarts.dispose(chartDom);
+            }
+
             const myChart = echarts.init(chartDom);
 
             const option = {

@@ -188,7 +188,7 @@ const HostAlarm = (props) => {
                 tagName = "告警";
                 break;
             case "5":
-                tagColor = "#FFFFE0";
+                tagColor = "yellow";
                 tagName = "信息";
                 break;
             case "6":

@@ -53,8 +53,9 @@
         display: flex;
         align-items: center;
         justify-content: flex-start;
-        height: 35px;
-        line-height: 35px;
+        gap: 10px;
+        height: 42px;
+        line-height: 42px;
 
         .box-configuration-tabs {
           color: #000;
@@ -62,9 +63,12 @@
         }
 
         .box-configuration-body-tabs-item {
-          font-size: 13px;
           cursor: pointer;
-          margin-right: 20px;
+          padding: 0 5px;
+          height: 42px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
         }
 
       }
@@ -77,7 +81,7 @@
 
 
     .box-configuration-body-list {
-      margin-top: 15px;
+      padding-top: 20px;
     }
   }
 }

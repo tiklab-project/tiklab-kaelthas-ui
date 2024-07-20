@@ -151,8 +151,12 @@
         top: 100%;
         left: 50%;
         pointer-events: none;
-        opacity: 0;
         transition: opacity 0.3s, transform 0.3s;
         opacity: 1;
     }
+    .header-vip-contrast{
+        height: calc(100% - 48px);
+        top: 48px;
+    }
+
 }

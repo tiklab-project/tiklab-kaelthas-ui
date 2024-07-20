@@ -35,13 +35,6 @@ export class HomeStore{
     }
 
     @action
-    getAlertCategory = async () =>{
-        const resData = await Service("/hostList/getAlertCategory");
-        this.leave = resData.data;
-        return resData.data;
-    }
-
-    @action
     findAlarmTypeNum = async () =>{
         const resData = await Service("/home/findAlarmTypeNum");
         this.leave = resData.data;

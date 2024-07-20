@@ -8,6 +8,7 @@ import Header from "./Header";
 import {AppLink, AvatarLink, HelpLink} from "thoughtware-licence-ui";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {Tooltip} from "antd";
+import VipType from "./VipType";
 
 const HomeLayout = (props) => {
 
@@ -30,6 +31,11 @@ const HomeLayout = (props) => {
             url: '/configuration',
             key: 'host',
         },
+        /*{
+            name: '数据',
+            url: '/databases',
+            key: 'databases',
+        },*/
         {
             name: '告警',
             url: '/alarm',
@@ -73,7 +79,7 @@ const HomeLayout = (props) => {
     return (
         <Provider>
             <div className="frame">
-                <Header AppLink={<AppLink/>} HelpLink={<HelpLink/>} AvatarLink={<AvatarLink/>} {...props} />
+                <Header AppLink={<AppLink/>} HelpLink={<HelpLink/>} AvatarLink={<AvatarLink {...props}/>} VipType={<VipType/>}/>
                 <div className="frame-content">
                     <div className="frame-content-left">
                         <div className="host-left">
@@ -97,9 +103,6 @@ const HomeLayout = (props) => {
                             }
                         </div>
                         <div>
-                            <div className="host-left-button">
-                                <HelpLink/>
-                            </div>
                             <div className="host-left-button"
                                  onClick={() => goSet()}
                             >

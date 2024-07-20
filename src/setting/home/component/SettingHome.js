@@ -44,6 +44,7 @@ const SettingHome = props => {
             >
                 <div className='mf-home-limited'>
                     <div className='setting-home-chunk'>
+
                         <div className='home-title'>用户与权限</div>
                         <div className='home-chunk'>
                             {
@@ -79,13 +80,13 @@ const SettingHome = props => {
                                     </div>*/}
                                 </>
                             }
-                            {/*<div className='home-chunk-item' onClick={()=>goPath('systemRole')}>
+                            <div className='home-chunk-item' onClick={()=>goPath('systemRole')}>
                                 <div className='home-chunk-label'>权限</div>
                                 <div className='home-chunk-info'>
                                     <div className='home-chunk-desc'>权限</div>
                                     <div className='home-chunk-length'>{count?.roleNumber || 0}</div>
                                 </div>
-                            </div>*/}
+                            </div>
                         </div>
                     </div>
                     <div className='setting-home-chunk'>

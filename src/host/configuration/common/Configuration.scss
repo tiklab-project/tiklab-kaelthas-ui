@@ -1,8 +1,9 @@
 .hostDetails-layout{
   display: flex;
-  height: calc(100% - 176px);
+  height: calc(100% - 116px);
   flex-direction: row;
-  padding: 20px 0;
+  padding: 20px 30px;
+  overflow: auto;
 
     .design{
       height: 100%;
@@ -15,8 +16,6 @@
       background: #ffffff;
       border-radius: 10px;
       margin-bottom: 20px;
-
-      padding: 0 var(--thoughtware-padding-item);
       height: 40px;
       line-height: 40px;
       overflow: hidden;

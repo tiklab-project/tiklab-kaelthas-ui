@@ -1,10 +1,5 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
-import {
-    ForkOutlined, InboxOutlined,
-    LayoutOutlined,
-    SoundOutlined
-} from "@ant-design/icons";
 import SystemContent from "./SettingContent";
 
 const GlobalSettingLayout = (props) => {

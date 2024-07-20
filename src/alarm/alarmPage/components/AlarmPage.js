@@ -187,7 +187,7 @@ const AlarmPage = (props) => {
                 tagName = leveList[severityLevel];
                 break;
             case "5":
-                tagColor = "#FFFFE0";
+                tagColor = "yellow";
                 tagName = leveList[severityLevel];
                 break;
             case "6":

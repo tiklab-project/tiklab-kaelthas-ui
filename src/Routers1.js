@@ -39,9 +39,9 @@ const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/c
 const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
 const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
 const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
-const Monitoring = AsyncComponent(() => import('./host/monitorIng/monitoring/components/Monitoring'))
-const MonitoringLayout = AsyncComponent(() => import('./host/monitorIng/common/MonitorLayout'))
-const MonitoringDetails = AsyncComponent(() => import('./host/monitorIng/components/MonitoringDetails'))
+const Monitoring = AsyncComponent(() => import('./host/monitoring/monitoring/components/Monitoring'))
+const MonitoringLayout = AsyncComponent(() => import('./host/monitoring/components/MonitorGraphics'))
+const MonitoringDetails = AsyncComponent(() => import('./host/monitoring/components/MonitoringDetails'))
 const AlarmLayout = AsyncComponent(() => import('./alarm/common/components/AlarmLayout'))
 const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
 const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'))
@@ -200,15 +200,15 @@ const Routes = [
             /*{
                 path: "/monitoring",
                 exact: false,
-                component: Monitoring
+                components: Monitoring
             },
             {
                 path: "/monitoringList/:id",
-                component: MonitoringLayout,
+                components: MonitoringLayout,
                 routes: [
                     {
                         path: "/monitoringList/:id/monitoringDetails",
-                        component: MonitoringDetails,
+                        components: MonitoringDetails,
                     },
                 ]
             },*/

@@ -1,59 +1,28 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
-import MonitoringDetails from "../components/MonitoringDetails";
+import MonitoringDetails from "./MonitoringDetails";
 
-import monitorLayoutStore from "../store/MonitorLayoutStore";
-import MonitoringItem from "./MonitoringItem";
 import moment from "moment";
 import {withRouter} from "react-router-dom";
-import ChangeViewChart from "./ChangeViewChart";
+import ChangeViewChart from "../common/ChangeViewChart";
 
 const {RangePicker} = DatePicker;
 
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const MonitorLayout = () => {
+const MonitorGraphics = () => {
 
-    const {
-        setSearchCondition,
-        findInformationByGraphics,
-        condition,
-        setSearchNull,
-        findHistory,
-        getDateTime,
-    } = monitorLayoutStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
-        const hostId = localStorage.getItem("hostId");
-        setSearchNull({
-            hostId: hostId,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
-        })
 
-        await findInformationByGraphics();
-        await findHistory();
-        setSearchCondition({
-            dataCate: null,
-            id: hostId
-        })
     }, []);
 
     const onChange = async (value, dateString) => {
-        setSearchCondition({
-            beginTime: dateString[0] + ":00",
-            endTime: dateString[1] + ":00",
-        })
-        await findInformationByGraphics()
-        setSearchCondition({
-            beginTime: dateString[0] + ":00",
-            endTime: dateString[1] + ":00",
-        })
-        await findHistory();
+
     };
 
 
@@ -116,22 +85,22 @@ const MonitorLayout = () => {
                                     <RangePicker
                                         // style={{width: 300}}
                                         format={dateFormat}
-                                        onChange={onChange}
+                                        // onChange={onChange}
                                         showTime
-                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        // defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
                                 <div className="details-div">
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"
-                                        onChange={(value) => checkTime(value)}
+                                        // onChange={(value) => checkTime(value)}
                                         allowClear
                                         style={{
                                             width: 150,
                                         }}
                                         defaultValue={9}
-                                        onClear={() => checkTime()}
+                                        // onClear={() => checkTime()}
                                     >
                                         <Option value={9} key={9}>今天</Option>
                                         <Option value={1} key={1}>过去1分钟</Option>
@@ -152,7 +121,7 @@ const MonitorLayout = () => {
                                 <MonitoringDetails/>
                                 :
                                 <div className="layout-body-list">
-                                    {
+                                    {/*{
                                         condition && condition.length > 0 ?
                                             <div className="details-tabs-wrap">
                                                 {
@@ -172,7 +141,7 @@ const MonitorLayout = () => {
                                             </div>
                                             :
                                             <Empty/>
-                                    }
+                                    }*/}
                                 </div>
                         }
                     </div>
@@ -182,4 +151,4 @@ const MonitorLayout = () => {
     );
 };
 
-export default withRouter(observer(MonitorLayout));
+export default withRouter(observer(MonitorGraphics));
