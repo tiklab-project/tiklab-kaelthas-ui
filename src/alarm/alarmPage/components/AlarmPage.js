@@ -205,19 +205,24 @@ const AlarmPage = (props) => {
             title: '主机名称',
             dataIndex: 'hostName',
             key: 'hostName',
+            width:"14%",
+            ellipsis: true,
             render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
                                                style={{cursor: "pointer"}}>{hostName}</div>
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
-            ellipsis: true,
             key: 'ip',
+            width:"14%",
+            ellipsis: true,
         },
         {
             title: '问题',
             dataIndex: 'triggerName',
             key: 'triggerName',
+            width:"14%",
+            ellipsis: true,
             render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
                                                   style={{cursor: "pointer"}}>{triggerName}</div>
         },
@@ -225,27 +230,37 @@ const AlarmPage = (props) => {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
+            width:"8%",
+            ellipsis: true,
             render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
         {
             title: '告警时间',
             dataIndex: 'alertTime',
             key: 'alertTime',
+            width:"14%",
+            ellipsis: true,
         },
         {
             title: '解决时间',
             dataIndex: 'resolutionTime',
             key: 'resolutionTime',
+            width:"14%",
+            ellipsis: true,
         },
         {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
+            width:"14%",
+            ellipsis: true,
         },
         {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
+            width:"8%",
+            ellipsis: true,
             render: (status, record) => {
                 if (status === 2) {
                     return <div onClick={() => updateAlarm(record)}

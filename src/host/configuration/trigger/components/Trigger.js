@@ -217,7 +217,7 @@ const Trigger = (props) => {
             <Col style={{marginLeft:10}}>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
-                        触发器数量:{total}
+                        触发器数量:<span className="count-trigger">{total}</span>
                     </div>
                     <div className="trigger-kind-search-div">
                         <div>

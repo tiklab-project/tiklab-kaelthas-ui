@@ -98,6 +98,8 @@ const Template = (props) => {
             title: '模板名称',
             dataIndex: 'name',
             id: 'name',
+            width:"50%",
+            ellipsis:"true",
             render: (name, record) => <span style={{cursor: "pointer"}}
                                             onClick={() => showTemplateDetails(record)}>{name}</span>,
         },
@@ -105,15 +107,21 @@ const Template = (props) => {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             id: 'monitorNum',
+            width:"10%",
+            ellipsis:"true",
         },
         /*{
             title: '触发器数量',
             dataIndex: 'triggerNum',
             id: 'triggerNum',
+            width:"10%",
+            ellipsis:"true",
         },*/
         {
             title: '操作',
             id: 'action',
+            width:"10%",
+            ellipsis:"true",
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
@@ -183,7 +191,7 @@ const Template = (props) => {
             <Col style={{marginLeft:10}}>
                 <div className="template-kind-options">
                     <div className="box-template-title-text">
-                        模板数量:{total}
+                        模板数量:<span className="count-template">{total}</span>
                     </div>
                     <div className="template-right-div">
                         <div>

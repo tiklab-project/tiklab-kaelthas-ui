@@ -84,6 +84,8 @@ const Graphics = (props) => {
             title: '图形名称',
             dataIndex: 'name',
             id: 'name',
+            width:"30%",
+            ellipsis: true,
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => updateGraphicsColumn(record)}>{text}</span>,
@@ -92,6 +94,8 @@ const Graphics = (props) => {
             title: '监控数量',
             dataIndex: 'monitorNum',
             id: 'monitorNum',
+            width:"20%",
+            ellipsis: true,
             render: (text, record) => (
                 <Tag>
                     {record.monitorIds.length}
@@ -102,10 +106,14 @@ const Graphics = (props) => {
             title: '监控描述',
             dataIndex: 'describe',
             id: 'describe',
+            width:"30%",
+            ellipsis: true,
         },
         {
             title: '操作',
             id: 'action',
+            width:"10%",
+            ellipsis: true,
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
@@ -125,7 +133,7 @@ const Graphics = (props) => {
                 </div>
                 <div className="graphics-kind-options">
                     <div className="box-graphics-title-text">
-                        图形的数量:{total}
+                        图形的数量:<span className="count-graphics">{total}</span>
                     </div>
                     <div className="box-graphics-title-div">
                         <div>

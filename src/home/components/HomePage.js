@@ -293,7 +293,7 @@ const HomePage = (props) => {
                                     </div>
                                     :
                                     <div className="host-alarm-div">
-                                        <Empty className="empty-style"/>
+                                        <Empty className="host-alarm-div-empty"/>
                                     </div>
                             }
                         </div>

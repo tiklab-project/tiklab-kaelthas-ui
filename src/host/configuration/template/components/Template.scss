@@ -22,11 +22,12 @@
 
 
     .box-template-title-text {
-      /*font-size: 16px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;*/
       flex: 1;
+      .count-template{
+        font-size: 12px;
+        padding-left: 3px;
+        color: #999;
+      }
     }
 
     .template-right-div{

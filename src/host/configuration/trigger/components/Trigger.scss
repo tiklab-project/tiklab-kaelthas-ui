@@ -14,6 +14,11 @@
 
     .box-trigger-title-text {
       flex: 1;
+      .count-trigger{
+        font-size: 12px;
+        padding-left: 3px;
+        color: #999;
+      }
     }
 
     .trigger-kind-search-div {

@@ -89,7 +89,7 @@ const Host = (props) => {
             status: 2
         })
 
-        sessionStorage.setItem("menuKey", "hostAlarm")
+        sessionStorage.setItem("menuKey", "alarm")
         props.history.push(`/alarm`);
     }
 
@@ -98,25 +98,37 @@ const Host = (props) => {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
+            width:"20%",
+            ellipsis: true,
+
+            // className:"host-columns-style",
             render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</div>,
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
             key: 'ip',
+            width:"20%",
+            ellipsis: true,
+            // className:"host-columns-style",
         },
         {
             title: '主机状态',
             dataIndex: 'usability',
             key: 'usability',
+            width:"20%",
+            ellipsis: true,
+            // className:"host-columns-style",
             render: (usability, record) => <div style={{cursor: "pointer"}}
                                                 onClick={() => host(record)}>{converType(record)}</div>,
         },
         {
             title: '未解决告警数量',
             dataIndex: 'alarmNum',
-            ellipsis: true,
             key: 'alarmNum',
+            width:"20%",
+            ellipsis: true,
+            // className:"host-columns-style",
             render: (text, record) => <div style={{cursor: "pointer"}}
                                            onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
         },
@@ -124,6 +136,9 @@ const Host = (props) => {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
+            width:"20%",
+            ellipsis: true,
+            // className:"host-columns-style",
         },
 
     ];

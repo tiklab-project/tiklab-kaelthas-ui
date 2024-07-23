@@ -2,7 +2,7 @@
   flex: 1;
   flex-direction: column;
   height: calc(100% - 116px);
-  background-color: #fafbfc;
+  background: #ffffff;
   overflow: auto;
 
   .box-host-survey {
@@ -40,7 +40,7 @@
           gap: 5px;
           margin-bottom: 10px;
           width: 200px;
-          background-color: #f8f8f8;
+          background-color: #fafbfc;
 
 
           .box-host-margin-div{
@@ -76,6 +76,10 @@
             .item-top {
               height: 30px;
               line-height: 30px;
+              width: 100px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
 
             .item-bottom {

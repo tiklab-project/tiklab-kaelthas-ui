@@ -13,18 +13,26 @@ const GlobalSettingLayout = (props) => {
                 {
                     title: '部门',
                     id: "/setting/orga",
+                    easId:"/user/orga",
+                    islink:true
                 },
                 {
                     title: '用户',
                     id: "/setting/user",
+                    easId: "/user/user",
+                    islink:true
                 },
                 {
                     title: '用户组',
                     id: "/setting/userGroup",
+                    easId: "/user/userGroup",
+                    islink:true
                 },
                 {
                     title: '用户目录',
                     id: "/setting/dir",
+                    easId: "/user/dir",
+                    islink:true
                 },
                 {
                     title: '权限',
@@ -97,6 +105,7 @@ const GlobalSettingLayout = (props) => {
     return (
         <SystemContent
             {...props}
+            outerPath={'/setting'}
             applicationRouters={router}
         />
     );

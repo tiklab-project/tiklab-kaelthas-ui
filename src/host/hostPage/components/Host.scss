@@ -123,3 +123,12 @@
 .custom-table .ant-table-tbody > tr:last-child > td {
   border-bottom: 1px solid #f0f0f0; /* 保留最后一行的底部边框线 */
 }
+
+.host-columns-style{
+  //text-align: center;
+  /*width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;*/
+  padding: 10px;
+}
