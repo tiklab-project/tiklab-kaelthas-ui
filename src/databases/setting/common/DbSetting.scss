@@ -1,0 +1,13 @@
+.setting-layout{
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  width: 100%;
+  margin: 0 80px;
+
+  .setting-layout-right{
+    flex: 1;
+    padding: 0 5px;
+    overflow: auto;
+  }
+}

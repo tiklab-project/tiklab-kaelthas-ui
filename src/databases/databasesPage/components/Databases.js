@@ -1,12 +1,22 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Input, Row, Table, Tag} from "antd";
 import "./Databases.scss"
 import {SearchOutlined} from "@ant-design/icons";
-import TestMonitor from "./TestMonitor";
+import databasesStore from "../store/DatabasesStore";
+import {observer} from "mobx-react";
 
 const Databases = (props) => {
 
-    const [state, setState] = useState(1);
+    const {
+        findDbInfoPage,
+        createDbInfo,
+        updateDbInfo,
+        deleteDbInfo,
+        dbPage,
+        total
+    } = databasesStore
+
+    const [state, setState] = useState(0);
 
     const availabilityTab = [
         {
@@ -26,27 +36,14 @@ const Databases = (props) => {
         }
     ];
 
-    const resultData = [
-        {
-            id: 1,
-            name: "pgsql",
-            dbType: "PostgreSQL",
-            state: 2,
-            alarmNum: 3,
-            updateTime: "2024-04-24 20:04:41",
-            driverName: "org.postgresql.Driver",
-            driverUrl: "jdbc:postgresql://127.0.0.1:5432/xmonitor",
-            password: "root",
-            testSQL: "select version()",
-            username: "root",
-            isOpen: "1",
-        }
-    ]
+    useEffect(async () => {
+        await findDbInfoPage()
+    }, []);
 
     function hrefDatabases(record) {
         localStorage.setItem('dbId', record.id);
-        localStorage.setItem("url", `/databasesList/${record.id}/databasesDetails`)
-        props.history.push(`/databasesList/${record.id}/databasesDetails`);
+        localStorage.setItem("url", `/dbList/${record.id}/dbDetails`)
+        props.history.push(`/dbList/${record.id}/dbDetails`);
     }
 
     const columns = [
@@ -56,6 +53,11 @@ const Databases = (props) => {
             key: 'name',
             render: (text, record) => <div style={{cursor: "pointer"}}
                                            onClick={() => hrefDatabases(record)}>{text}</div>,
+        },
+        {
+            title: '主机IP',
+            dataIndex: 'ip',
+            key: 'ip',
         },
         {
             title: '数据库类型',
@@ -76,9 +78,9 @@ const Databases = (props) => {
             render: (text, record) => <div style={{cursor: "pointer"}}>{conversionColor(text)}</div>
         },
         {
-            title: '更新时间',
-            dataIndex: 'updateTime',
-            key: 'updateTime',
+            title: '创建时间',
+            dataIndex: 'createTime',
+            key: 'createTime',
         },
 
     ];
@@ -119,14 +121,12 @@ const Databases = (props) => {
     }
 
     function checkTab(key) {
-        if (2 === key){
-            props.history.push('/testMonitor');
-        }
+
     }
 
     function hrefAddDatabases() {
-        if (location.pathname !== '/databases/addDatabases') {
-            props.history.push('/databases/addDatabases');
+        if (location.pathname !== '/db/addDatabases') {
+            props.history.push('/db/addDatabases');
         }
     }
 
@@ -158,8 +158,6 @@ const Databases = (props) => {
                                     </div>
                                 })
                             }
-                            {/*<div className="db-type-text" onClick={() => checkTab(1)}>数据库</div>*/}
-                            {/*<div className="db-type-text" onClick={() => checkTab(2)}>监控项</div>*/}
                         </div>
                         <div>
                             <Input
@@ -176,7 +174,7 @@ const Databases = (props) => {
                             rowKey={record => record.id}
                             columns={columns}
                             className="custom-table"
-                            dataSource={resultData}
+                            dataSource={dbPage}
                             // onChange={changePage}
 
                             pagination={{
@@ -194,4 +192,4 @@ const Databases = (props) => {
     );
 };
 
-export default Databases;
+export default observer(Databases);

@@ -68,8 +68,7 @@ const HostDetails = (props) => {
                         <div className="box-host-details">
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
-                                <span
-                                    className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
+                                <span className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
                                     <div className="box-host-details-text">
                                         <div className="item-top">{dataList?.name}</div>
                                         <div className="item-bottom">主机名称</div>

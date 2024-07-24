@@ -176,13 +176,13 @@ const Routes = [
                         component: Setting,
                         routes: [
                             {
-                                path: "/hostList/:id/projectInformation",
+                                path: "/hostList/:id/dbProject",
                                 exact: true,
                                 component: ProjectInformation,
                             },
                             {
-                                path: "/hostList/:id/member",
-                                key: 'member',
+                                path: "/hostList/:id/dbMember",
+                                key: 'dbMember',
                                 exact: true,
                                 component: Member,
                             },

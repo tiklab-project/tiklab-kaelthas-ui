@@ -31,11 +31,11 @@ const HomeLayout = (props) => {
             url: '/configuration',
             key: 'host',
         },
-        /*{
+        {
             name: '数据',
-            url: '/databases',
-            key: 'databases',
-        },*/
+            url: '/db',
+            key: 'db',
+        },
         {
             name: '告警',
             url: '/alarm',

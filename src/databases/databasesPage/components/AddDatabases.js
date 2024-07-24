@@ -3,12 +3,18 @@ import {Button, Col, Form, Input, message, Row, Select} from "antd";
 
 const {Option} = Select
 import "./AddDatabases.scss"
+import databasesStore from "../store/DatabasesStore";
 
 const layout = {
     labelCol: {span: 0},
     wrapperCol: {span: 24},
 };
 const AddDatabases = (props) => {
+
+    const {
+        createDbInfo,
+        testJDBCSql
+    } = databasesStore;
 
 
     const [form] = Form.useForm();
@@ -19,37 +25,43 @@ const AddDatabases = (props) => {
 
     const onFinish = async () => {
         console.log(form.getFieldsValue())
+        await createDbInfo(form.getFieldsValue())
 
-        // props.history.push('/databases')
+        props.history.push('/db')
     };
 
     const onCancel = () => {
-        props.history.push('/databases')
+        props.history.push('/db')
     };
 
     function SelectChangeDBType(value) {
 
         let driverName = '';
         let driverUrl = '';
-        let testSQL = '';
+        let testSql = '';
 
         switch (value) {
             case "PostgreSQL":
                 driverName = 'org.postgresql.Driver';
                 driverUrl = 'jdbc:postgresql://127.0.0.1:5432/xmonitor';
-                testSQL = 'select version()';
+                testSql = 'select version()';
                 break;
         }
 
         form.setFieldsValue({
             driverName: driverName,
             driverUrl: driverUrl,
-            testSQL:testSQL
+            testSql:testSql
         });
     }
 
     async function testSql() {
-        await message.success("连接数据库成功")
+        const resData = await testJDBCSql(form.getFieldsValue())
+        if (resData.code === 0){
+            await message.success("连接数据库成功")
+        }else {
+            await message.error("连接失败!")
+        }
     }
 
     return (
@@ -75,7 +87,7 @@ const AddDatabases = (props) => {
                         preserve={false}
                         layout={"vertical"}
                         {...layout}
-                        initialValues={{isOpen: "1"}}
+                        initialValues={{state: "1"}}
                     >
                         <div className={"db-edit-form-input"}>
                             <Form.Item
@@ -88,8 +100,17 @@ const AddDatabases = (props) => {
                         </div>
                         <div className={"db-edit-form-input"}>
                             <Form.Item
+                                label="数据源ip"
+                                name="ip"
+                                rules={[{required: true, message: '请输入数据源ip!'}]}
+                            >
+                                <Input placeholder="数据源ip"/>
+                            </Form.Item>
+                        </div>
+                        <div className={"db-edit-form-input"}>
+                            <Form.Item
                                 label="数据库类型"
-                                name="dbTupe"
+                                name="dbType"
                                 rules={[{required: true, message: '请输入数据库类型!'}]}
                             >
                                 <Select
@@ -128,7 +149,7 @@ const AddDatabases = (props) => {
                             <Form.Item
                                 label="用户名"
                                 name="username"
-                                rules={[{required: false, message: '用户名!'}]}
+                                rules={[{required: true, message: '用户名!'}]}
                             >
                                 <Input placeholder="用户名"/>
                             </Form.Item>
@@ -137,7 +158,7 @@ const AddDatabases = (props) => {
                             <Form.Item
                                 label="密码"
                                 name="password"
-                                rules={[{required: false, message: '密码!'}]}
+                                rules={[{required: true, message: '密码!'}]}
                             >
                                 <Input placeholder="密码"/>
                             </Form.Item>
@@ -145,8 +166,8 @@ const AddDatabases = (props) => {
                         <div className={"db-edit-form-input"}>
                             <Form.Item
                                 label="测试SQL"
-                                name="testSQL"
-                                rules={[{required: false, message: '测试SQL!'}]}
+                                name="testSql"
+                                rules={[{required: true, message: '测试SQL!'}]}
                             >
                                 <Input placeholder="测试SQL"/>
                             </Form.Item>
@@ -154,8 +175,8 @@ const AddDatabases = (props) => {
                         <div className={"db-edit-form-input"}>
                             <Form.Item
                                 label="是否开启"
-                                name="isOpen"
-                                rules={[{required: false, message: '是否开启!'}]}
+                                name="state"
+                                rules={[{required: true, message: '是否开启!'}]}
                             >
                                 <Select
                                     placeholder="是否开启"

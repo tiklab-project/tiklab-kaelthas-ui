@@ -11,34 +11,27 @@ const DbDetails = () => {
                     <div className="box-host-body-head">
                         <span className="box-host-title">数据库概况</span>
                         <div className="box-host-details">
-                            {/*<div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                <span className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top">{dataList?.name}</div>
-                                        <div className="item-bottom">主机名称</div>
-                                    </div>
-                                </div>
-                            </div>*/}
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
-                                    {/*<svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-hostIp"></use>
-                                    </svg>*/}
+                                    <span className={`user-big-icon mf-icon-1`}>{"pgsql".substring(0, 1).toUpperCase()}</span>
+                                    <div className="box-host-details-text">
+                                        <div className="item-top">pgsql</div>
+                                        <div className="item-bottom">数据源名称</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="box-host-margin-details">
+                                <div className="box-host-margin-div">
+                                    <svg className="status-img" aria-hidden="true">
+                                        <use xlinkHref="#icon-dbType"></use>
+                                    </svg>
                                     <div className="box-host-details-text">
                                         <div className="item-top">Postgresql</div>
                                         <div className="item-bottom">数据库类型</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <div className="box-host-details-text">
-                                        <div className="item-top">pgsql</div>
-                                        <div className="item-bottom">数据库名称</div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
                                     <svg className="status-img" aria-hidden="true">

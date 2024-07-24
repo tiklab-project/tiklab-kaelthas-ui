@@ -11,7 +11,7 @@ const HostLayout = (props) => {
     return (
         <div className="host-layout">
             <TopMenu/>
-            <div className="prodetail-row prodetail-content">
+            <div className="prodetail-content">
                 {renderRoutes(route.routes)}
             </div>
         </div>

@@ -1,35 +1,36 @@
 import React, {useEffect, useState} from 'react';
-import "./SettingLeftTabs.scss"
+import "./DbSettingTabs.scss"
 import {withRouter} from "react-router-dom";
 
-const SettingLeftTabs = (props) => {
+const DbSettingTabs = (props) => {
 
     const dbId = localStorage.getItem("dbId")
 
     const router = [
         {
             name: '主机信息',
-            url: `/hostList/${dbId}/projectInformation`,
+            url: `/dbList/${dbId}/dbSetting/dbProject`,
             key: "setting",
             encoded: "setting",
         },
         {
             name: '成员',
-            url: `/hostList/${dbId}/member`,
+            url: `/dbList/${dbId}/dbSetting/dbMember`,
             key: "dbMember",
             encoded: "dbMember",
         },
         {
             name: '权限',
-            url: `/hostList/${dbId}/permissions`,
+            url: `/dbList/${dbId}/dbSetting/dbPermissions`,
             key: "permissions",
             encoded: "permissions",
         },
-    ];
+    ]
 
-    const [selectKey,setSelectKey] = useState(`/hostList/${dbId}/projectInformation`);
+    const [selectKey,setSelectKey] = useState(`/dbList/${dbId}/dbSetting/dbProject`);
 
     const selectSetting = (url) => {
+        console.log(url)
         setSelectKey(url)
         props.history.push(url)
     }
@@ -63,4 +64,4 @@ const SettingLeftTabs = (props) => {
     );
 };
 
-export default withRouter(SettingLeftTabs);
+export default withRouter(DbSettingTabs);

@@ -51,7 +51,7 @@ const DatabasesLayout = AsyncComponent(() => import('./databases/common/DbLayout
 const AddDatabases = AsyncComponent(() => import('./databases/databasesPage/components/AddDatabases'))
 const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
 
-const databasesDetails = AsyncComponent(() => import ('./databases/dbDetails/components/DbDetails'))
+const DbDetails = AsyncComponent(() => import ('./databases/dbDetails/components/DbDetails'))
 const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/components/MonitorGraphics'))
 const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBAlarm'))
 const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
@@ -61,8 +61,13 @@ const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/compo
 const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
 const DBGraphics = AsyncComponent(() => import('./databases/configs/graphics/components/Graphics'))
 
-const TestMonitor = AsyncComponent(() => import('./databases/databasesPage/components/TestMonitor'))
 const AddDBMonitor = AsyncComponent(() => import('./databases/databasesPage/components/AddDBMonitor'))
+
+
+const DbSetting = AsyncComponent(() => import('./databases/setting/common/DbSetting'))
+const DbProject = AsyncComponent(() => import('./databases/setting/dbProject/components/DbProject'))
+const DbMember = AsyncComponent(() => import('./databases/setting/dbMember/DbMember'))
+const DbPermissions = AsyncComponent(() => import('./databases/setting/permissions/DbPermissions'))
 
 const Routes = [
 
@@ -193,96 +198,91 @@ const Routes = [
                 ]
             },
             {
-                path: "/databases",
+                path: "/db",
                 exact: true,
                 component: Databases,
             },
             {
-                path: "/testMonitor",
-                exact: true,
-                component: TestMonitor,
-            },
-            {
-                path: "/databases/addDatabases",
+                path: "/db/addDatabases",
                 exact: true,
                 component: AddDatabases,
             },
             {
-                path: "/databases/addDBMonitor",
+                path: "/db/addDBMonitor",
                 exact: true,
                 component: AddDBMonitor,
             },
             {
-                path: "/databasesList/:id",
+                path: "/dbList/:id",
                 exact: false,
                 component: DatabasesLayout,
                 routes: [
                     {
-                        path: "/databasesList/:id/databasesDetails",
+                        path: "/dbList/:id/dbDetails",
                         exact: true,
-                        component: databasesDetails,
+                        component: DbDetails,
                     },
                     {
-                        path: "/databasesList/:id/databasesDynamic",
+                        path: "/dbList/:id/dbDynamic",
                         exact: false,
                         component: HostDynamic,
                     },
                     {
-                        path: "/databasesList/:id/configs",
+                        path: "/dbList/:id/configs",
                         exact: false,
                         component: HostConfigs,
                         routes: [
                             {
-                                path: "/databasesList/:id/configs/monitor",
+                                path: "/dbList/:id/configs/monitor",
                                 exact: false,
                                 component: DBMonitor,
                             },
                             {
-                                path: "/databasesList/:id/configs/trigger",
+                                path: "/dbList/:id/configs/trigger",
                                 exact: false,
                                 component: DBTrigger,
                             },
                             {
-                                path: "/databasesList/:id/configs/template",
+                                path: "/dbList/:id/configs/template",
                                 exact: false,
                                 component: DBTemplate,
                             },
                             {
-                                path: "/databasesList/:id/configs/graphics",
+                                path: "/dbList/:id/configs/graphics",
                                 exact: false,
                                 component: DBGraphics,
                             },
                         ]
                     },
                     {
-                        path: "/databasesList/:id/monitoring",
+                        path: "/dbList/:id/monitoring",
                         component: DBMonitoring,
                     },
                     {
-                        path: "/databasesList/:id/DBAlarm",
+                        path: "/dbList/:id/dbAlarm",
                         exact: false,
                         component: DBAlarm,
                     },
                     {
-                        path: "/databasesSetting/:id",
-                        component: Setting,
+                        path: "/dbList/:id/dbSetting",
+                        component: DbSetting,
                         routes: [
                             {
-                                path: "/databasesSetting/:id/projectInformation",
+                                path: "/dbList/:id/dbSetting/dbProject",
                                 exact: true,
-                                component: ProjectInformation,
+                                component: DbProject,
                             },
                             {
-                                path: "/databasesSetting/:id/member",
-                                key: 'member',
+                                path: "/dbList/:id/dbSetting/dbMember",
+                                key: 'dbMember',
                                 exact: true,
-                                component: Member,
+                                component: DbMember,
                             },
                             {
-                                path: "/databasesSetting/:id/permissions",
+                                path: "/dbList/:id/dbSetting/dbPermissions",
                                 key: 'permissions',
                                 exact: true,
-                                component: Permissions,
+                                component: DbPermissions,
                             },
 
                         ]

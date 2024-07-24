@@ -98,7 +98,7 @@ const Template = (props) => {
             title: '模板名称',
             dataIndex: 'name',
             id: 'name',
-            width:"50%",
+            width:"40%",
             ellipsis:"true",
             render: (name, record) => <span style={{cursor: "pointer"}}
                                             onClick={() => showTemplateDetails(record)}>{name}</span>,
@@ -107,7 +107,7 @@ const Template = (props) => {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             id: 'monitorNum',
-            width:"10%",
+            width:"40%",
             ellipsis:"true",
         },
         /*{
@@ -120,7 +120,7 @@ const Template = (props) => {
         {
             title: '操作',
             id: 'action',
-            width:"10%",
+            width:"20%",
             ellipsis:"true",
             render: (_, record) => (
                 <Space size="middle">
