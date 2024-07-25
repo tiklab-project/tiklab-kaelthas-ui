@@ -2,11 +2,16 @@ import {Modal, Form, Input, Select, InputNumber} from 'antd';
 import React, {useState} from 'react';
 import {observer} from "mobx-react";
 import TextArea from "antd/es/input/TextArea";
+import dbMonitorStore from "../store/DbMonitorStore";
 
 const {Option} = Select
 
 
-const AddMonitor = (props) => {
+const DbAddMonitor = (props) => {
+
+    const {
+        findMonitorItemAll
+    } = dbMonitorStore;
 
     const [form] = Form.useForm();
 
@@ -16,14 +21,17 @@ const AddMonitor = (props) => {
 
     const [expression, setExpression] = useState([]);
 
-    const [customize, setCustomize] = useState(true);
+    const dbId = localStorage.getItem("dbId");
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
     const handleOk = async () => {
-        console.log(form.getFieldsValue())
+
+        const fieldsValue = form.getFieldsValue();
+        fieldsValue.dbId = dbId;
+        console.log(fieldsValue);
         setIsModalOpen(false);
     };
 
@@ -35,10 +43,10 @@ const AddMonitor = (props) => {
     const handleProvinceChange = async (value) => {
         switch (value) {
             case 1:
-                setCustomize(true)
+                const newVar = await findMonitorItemAll();
+                setExpression(newVar)
                 break
             case 2:
-                setCustomize(false)
                 break
 
         }
@@ -71,10 +79,11 @@ const AddMonitor = (props) => {
                     form={form}
                     labelAlign={"left"}
                     preserve={false}
+                    initialValues={{status: 1}}
                 >
                     <Form.Item
                         label="监控项名称"
-                        name="monitorName"
+                        name="name"
                         rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
                         <Input allowClear={true} placeholder="监控项名称"/>
@@ -100,48 +109,46 @@ const AddMonitor = (props) => {
                         </Select>
                     </Form.Item>
 
-                    {
-                        customize ?
-                            <Form.Item
-                                label="监控指标"
-                                name="monitorExpression"
-                                rules={[{required: true, message: '监控项指标'}]}
-                            >
-                                <Select
-                                    placeholder="监控项指标"
-                                    allowClear
-                                    value={expression.id}
-                                    onChange={onSecondCityChange}
-                                >
-                                    {
-                                        expression && expression.map((item) => (
-                                            <Option value={item.name}
-                                                    key={item.id}>{item.name}({item.dataSubclass})</Option>))
-                                    }
-                                </Select>
-                            </Form.Item>
-                            :
-                            <div></div>
-                    }
-                    {
-                        !customize ?
-                            <Form.Item
-                                label="自定义SQL"
-                                name="monitorExpression"
-                                rules={[{required: true, message: '自定义SQL'}]}
-                            >
-                                <TextArea/>
-                            </Form.Item>
-                            :
-                            <div></div>
-                    }
+                    <Form.Item
+                        label="监控指标"
+                        name="dbItemId"
+                        rules={[{required: true, message: '监控项指标'}]}
+                    >
+                        <Select
+                            placeholder="监控项指标"
+                            allowClear
+                            value={expression.id}
+                            onChange={onSecondCityChange}
+                        >
+                            {
+                                expression && expression.map((item) => (
+                                    <Option value={item.id}
+                                            key={item.id}>{item.expression}({item.describe})</Option>))
+                            }
+                        </Select>
+                    </Form.Item>
+
 
                     <Form.Item
                         label="数据保留时间"
-                        name="dataRetentionPeriod"
+                        name="retentionTime"
                         rules={[{required: true, message: '数据保留时间!'}]}
                     >
                         <InputNumber min={1}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控项状态"
+                        name="status"
+                        rules={[{required: true, message: '请选择监控项状态!'}]}
+                    >
+                        <Select
+                            placeholder="请选择您的监控项状态"
+                            allowClear
+                            onBlur={() => handleBlur('monitorStatus')}
+                        >
+                            <Option value={1} key={1}>{"开启"}</Option>
+                            <Option value={2} key={2}>{"关闭"}</Option>
+                        </Select>
                     </Form.Item>
                 </Form>
             </Modal>
@@ -149,4 +156,4 @@ const AddMonitor = (props) => {
     );
 };
 
-export default observer(AddMonitor);
+export default observer(DbAddMonitor);

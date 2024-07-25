@@ -1,5 +1,5 @@
 .host-Dynamic {
-  height: 100%;
+  height: calc(100vh - 164px);
   overflow: auto;
   background: #ffffff;
   row-gap: 0;
@@ -27,6 +27,14 @@
           justify-content: space-between;
           margin-bottom: 10px;
           gap: 20px;
+
+          .Dynamic-list-name{
+            width: 300px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
         }
 
       }

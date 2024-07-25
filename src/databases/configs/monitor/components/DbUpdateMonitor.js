@@ -1,10 +1,10 @@
 import {AutoComplete, Drawer, Form, Input, InputNumber, message, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../store/MonitorStore";
+import monitorStore from "../store/DbMonitorStore";
 
 const {Option} = Select
 
-const UpdateMonitor = (props) => {
+const DbUpdateMonitor = (props) => {
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
@@ -143,4 +143,4 @@ const UpdateMonitor = (props) => {
     );
 };
 
-export default UpdateMonitor;
+export default DbUpdateMonitor;

@@ -12,6 +12,7 @@ const ConfigHeader = (props) => {
 
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
+        localStorage.setItem("confUrl",`/dbList/${dbId}/configs/monitor`)
         props.history.push(url)
     }
 
@@ -61,10 +62,12 @@ const ConfigHeader = (props) => {
         <div className="configs-header">
             <div className="topMenu-top">
                 <div className="topMenu-top-title">
-                    <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
-                         onClick={() => goBackHost()}>
-                        <use xlinkHref={`#icon-left`}></use>
-                    </svg>
+                    <div className="normal-aside-left">
+                        <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
+                             onClick={() => goBackHost()}>
+                            <use xlinkHref={`#icon-left`}></use>
+                        </svg>
+                    </div>
                     <Dropdown
                         getPopupContainer={e => e.parentElement}
                         overlayStyle={{width: 200, top: 48, left: 80}}
@@ -103,7 +106,7 @@ const ConfigHeader = (props) => {
                             <Tooltip placement="right" title={"pgsql"}>
                                 <div className="normal-host-opt-title">
                                     <span style={{fontSize: 16}}>
-                                    {"pgsql"}
+                                        {"pgsql"}
                                     </span>
                                     <CaretDownOutlined/>
                                 </div>

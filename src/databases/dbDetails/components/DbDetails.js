@@ -1,7 +1,7 @@
 import React from 'react';
 import "./DbDetails.scss"
 import {withRouter} from "react-router-dom";
-import {Col, Empty, Row} from "antd";
+import {Col, Empty, Row, Timeline} from "antd";
 
 const DbDetails = () => {
 
@@ -90,12 +90,12 @@ const DbDetails = () => {
                                 </svg>
                             </div>
                         </div>
-                        <div className="host-news-List">
+                        {/*<div className="host-news-List">
                             <div className="host-news-Line">
                                 <div>添加监控项</div>
                                 <div>2024-05-10 15:04:54</div>
                             </div>
-                            {/*{
+                            {
                                 hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
                                         return (
                                             <div className="host-news-Line" key={item.id}>
@@ -104,7 +104,18 @@ const DbDetails = () => {
                                             </div>
                                         )
                                     })
-                            }*/}
+                                    :
+                                    <div></div>
+                            }
+                        </div>*/}
+
+                        <div className="host-news-List">
+                            <Timeline>
+                                <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
+                                <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
+                                <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
+                                <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
+                            </Timeline>
                         </div>
                     </div>
                 </div>

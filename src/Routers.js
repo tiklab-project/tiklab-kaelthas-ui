@@ -56,10 +56,11 @@ const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/comp
 const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBAlarm'))
 const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
 
-const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/Monitor'))
+const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/DbMonitor'))
 const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/Trigger'))
 const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
 const DBGraphics = AsyncComponent(() => import('./databases/configs/graphics/components/Graphics'))
+const DBCustomize = AsyncComponent(() => import('./databases/configs/customize/components/Customize'))
 
 const AddDBMonitor = AsyncComponent(() => import('./databases/databasesPage/components/AddDBMonitor'))
 
@@ -241,6 +242,11 @@ const Routes = [
                                 path: "/dbList/:id/configs/trigger",
                                 exact: false,
                                 component: DBTrigger,
+                            },
+                            {
+                                path: "/dbList/:id/configs/customize",
+                                exact: false,
+                                component: DBCustomize,
                             },
                             {
                                 path: "/dbList/:id/configs/template",

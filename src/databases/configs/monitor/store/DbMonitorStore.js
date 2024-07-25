@@ -1,6 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
-export class MonitorStore {
+export class DbMonitorStore {
 
 
     @observable monitorList = [];
@@ -79,11 +79,11 @@ export class MonitorStore {
 
     @action
     findMonitorItemAll = async () => {
-        const resData = await Service("/monitor/findMonitorItemAll")
+        const resData = await Service("/dbItem/findAll")
         return resData.data;
     }
 
 }
 
-const monitorStore = new MonitorStore();
-export default monitorStore
+const dbMonitorStore = new DbMonitorStore();
+export default dbMonitorStore

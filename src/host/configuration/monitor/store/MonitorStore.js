@@ -50,8 +50,7 @@ export class MonitorStore {
     //监控项修改
     @action
     updateMonitorById = async (option) => {
-
-        return Service('/monitor/updateMonitor', option);
+        Service('/monitor/updateMonitor', option);
     }
 
     //删除

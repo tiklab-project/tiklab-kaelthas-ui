@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import "./Monitor.scss"
-import AddMonitor from "./AddMonitor";
 import {Col, Form, Input, Row, Space, Table, Tooltip} from "antd";
 import {withRouter} from "react-router-dom";
-import monitorStore from "../store/MonitorStore";
 import {SearchOutlined} from "@ant-design/icons";
-import UpdateMonitor from "./UpdateMonitor";
+import DbUpdateMonitor from "./DbUpdateMonitor";
 import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
+import dbMonitorStore from "../store/DbMonitorStore";
+import DbAddMonitor from "./DbAddMonitor";
 
-const Monitor = (props) => {
+const DbMonitor = (props) => {
 
     const {
         findMonitorCondition,
@@ -19,7 +19,7 @@ const Monitor = (props) => {
         total,
         deleteMonitorById,
         searchCondition
-    } = monitorStore;
+    } = dbMonitorStore;
 
     const [monitorSource, setMonitorSource] = useState(null);
 
@@ -62,7 +62,6 @@ const Monitor = (props) => {
 
     const drawerList = (record) => {
         setIsModalOpen(true);
-
     };
 
     const availabilityTab = [
@@ -101,28 +100,13 @@ const Monitor = (props) => {
             }
         },
         {
-            title: '监控项大类',
-            dataIndex: ['monitorItem', 'type'],
-            id: 'monitorType',
-            width:"10%",
-            ellipsis:"true"
-        },
-        {
-            title: '监控项小类',
-            dataIndex: ['monitorItem', 'dataSubclass'],
-            id: 'dataSubclass',
-            width:"10%",
-            ellipsis:"true",
-            render: (name) => <span>{name}</span>
-        },
-        {
             title: '监控表达式',
             dataIndex: 'expression',
             id: 'expression',
             width:"10%",
             ellipsis:"true"
         },
-        {
+        /*{
             title: '监控项来源',
             dataIndex: 'source',
             id: 'source',
@@ -136,7 +120,7 @@ const Monitor = (props) => {
                     text = <span>主机</span>
                 return text;
             }
-        },
+        },*/
         {
             title: '数据保留时间',
             dataIndex: 'dataRetentionTime',
@@ -204,14 +188,14 @@ const Monitor = (props) => {
                             />
                         </div>
                         <div className="monitor-top-right">
-                            <AddMonitor/>
+                            <DbAddMonitor/>
                         </div>
                     </div>
                 </div>
                 <div className="box-monitor-table">
                     <>
-                        <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-                                       form={form} columnData={columnData}
+                        <DbUpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                                         form={form} columnData={columnData}
                         />
                         <Table rowKey={record => record.id}
                                columns={columns}
@@ -233,4 +217,4 @@ const Monitor = (props) => {
     );
 };
 
-export default withRouter(observer(Monitor));
+export default withRouter(observer(DbMonitor));

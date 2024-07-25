@@ -69,7 +69,7 @@ const HomePage = (props) => {
 
     async function extractedUseEffect() {
         setNullCondition();
-        await findDynamicList();
+        // await findDynamicList();
         findHostUsage().then(res => {
             if (res.code === 0) {
                 setHomeObj(res.data)
@@ -341,7 +341,7 @@ const HomePage = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div className="home-dynamic-table">
+                    {/*<div className="home-dynamic-table">
                         <div className="home-table-title">动态信息</div>
                         {
                             dynamicList.length > 0 ?
@@ -360,7 +360,7 @@ const HomePage = (props) => {
                                 :
                                 <Empty/>
                         }
-                    </div>
+                    </div>*/}
                 </div>
             </Col>
         </Row>

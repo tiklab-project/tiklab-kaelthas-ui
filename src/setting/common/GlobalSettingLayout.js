@@ -1,6 +1,7 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import SystemContent from "./SettingContent";
+import {ForkOutlined, InboxOutlined, LayoutOutlined, LockOutlined, SoundOutlined} from "@ant-design/icons";
 
 const GlobalSettingLayout = (props) => {
 
@@ -8,30 +9,30 @@ const GlobalSettingLayout = (props) => {
         {
             title: '用户与权限',
             id: "user",
-            // icon: <SoundOutlined/>,
+            icon:<LockOutlined />,
             children: [
-                {
-                    title: '部门',
-                    id: "/setting/orga",
-                    easId:"/user/orga",
-                    islink:true
-                },
                 {
                     title: '用户',
                     id: "/setting/user",
-                    easId: "/user/user",
+                    easId: "/setting/user",
+                    islink:true
+                },
+                {
+                    title: '部门',
+                    id: "/setting/orga",
+                    easId:"/setting/orga",
                     islink:true
                 },
                 {
                     title: '用户组',
                     id: "/setting/userGroup",
-                    easId: "/user/userGroup",
+                    easId: "/setting/userGroup",
                     islink:true
                 },
                 {
                     title: '用户目录',
                     id: "/setting/dir",
-                    easId: "/user/dir",
+                    easId: "/setting/dir",
                     islink:true
                 },
                 {
@@ -43,7 +44,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "消息",
             id: "message",
-            // icon: <SoundOutlined/>,
+            icon: <SoundOutlined/>,
             children: [
                 {
                     title: "消息通知方案",
@@ -58,7 +59,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "主机配置",
             id: "hostConfiguration",
-            // icon: <ForkOutlined/>,
+            icon: <ForkOutlined/>,
             children: [
                 {
                     title: '模板配置',
@@ -73,7 +74,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "安全",
             id: "security",
-            // icon: <LayoutOutlined/>,
+            icon: <LayoutOutlined/>,
             children: [
                 {
                     title: "备份与恢复",
@@ -88,7 +89,7 @@ const GlobalSettingLayout = (props) => {
         {
             title: "应用",
             id: "licence",
-            // icon: <InboxOutlined/>,
+            icon: <InboxOutlined/>,
             children: [
                 {
                     title: "版本与许可证",

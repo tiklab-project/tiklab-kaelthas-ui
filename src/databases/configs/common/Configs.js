@@ -10,42 +10,49 @@ const Configs = (props) => {
 
     let dbId = localStorage.getItem('dbId');
 
-    let url = localStorage.getItem('url');
+    let url = localStorage.getItem('confUrl');
 
     const configList = [
         {
             name: '监控项',
             icon: 'monitor',
-            url: `/DbList/${dbId}/configs/monitor`,
+            url: `/dbList/${dbId}/configs/monitor`,
             key: "monitor",
             encoded: "monitor",
         },
         {
             name: '触发器',
             icon: 'trigger',
-            url: `/DbList/${dbId}/configs/trigger`,
+            url: `/dbList/${dbId}/configs/trigger`,
             key: "trigger",
             encoded: "trigger",
         },
         {
+            name: '自定义SQL',
+            icon: 'customize',
+            url: `/dbList/${dbId}/configs/customize`,
+            key: "customize",
+            encoded: "customize",
+        },
+        {
             name: '模板',
             icon: 'template',
-            url: `/DbList/${dbId}/configs/template`,
+            url: `/dbList/${dbId}/configs/template`,
             key: "template",
             encoded: "template",
         },
         {
             name: '图形',
             icon: 'graphics',
-            url: `/DbList/${dbId}/configs/graphics`,
+            url: `/dbList/${dbId}/configs/graphics`,
             key: "graphics",
             encoded: "graphics",
         },
     ]
 
     function hrefConfiguration(item) {
-        console.log(item)
-        localStorage.setItem("url", item.url)
+
+        localStorage.setItem("confUrl", item.url)
         props.history.push(item.url)
     }
 

@@ -78,7 +78,7 @@ const AddDatabases = (props) => {
                 <div className="db-edit-box">
                     <div className="db-edit-box-header">
                         <div className="db-edit-box-header-title">
-                            新建数据库
+                            新建数据源
                         </div>
                     </div>
                     <Form

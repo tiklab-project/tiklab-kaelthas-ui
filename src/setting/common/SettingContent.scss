@@ -21,12 +21,18 @@
             overflow: auto;
 
             &-head{
+                display: flex;
+                align-items: center;
                 height: 40px;
                 line-height: 40px;
                 width: 100%;
-                padding: 0 20px;
+                padding: 0 30px;
                 font-weight: bold;
                 border-bottom: 1px solid #ececec;
+
+                &-text{
+                    margin-left: 5px;
+                }
             }
         }
         ul,li {

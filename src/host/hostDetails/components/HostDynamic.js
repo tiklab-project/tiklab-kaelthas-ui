@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
-import {Col, Empty, Pagination, Row} from "antd";
+import {Col, Empty, Pagination, Row, Timeline} from "antd";
 import "./hostDynamic.scss"
 import Breadcumb from "../../common/components/Breadcrumb";
 import hostStore from "../store/HostStore";
@@ -45,7 +45,7 @@ const HostDynamic = (props) => {
                         />
                     </div>
                     <div className="host-Dynamic-list">
-                        {
+                        {/*{
                             hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
                                     return (
                                         <div className="host-Dynamic-list-item" key={item.id}>
@@ -57,6 +57,23 @@ const HostDynamic = (props) => {
                                 :
                                 <Empty description="暂时没有动态~"/>
                         }
+*/}
+                        <Timeline>
+                            {
+                                hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
+                                        return (
+                                            <Timeline.Item>
+                                                <div className="host-Dynamic-list-item" key={item.id}>
+                                                    <div>{item.time}</div>
+                                                    <div className="Dynamic-list-name">{item.name}</div>
+                                                </div>
+                                            </Timeline.Item>
+                                        )
+                                    })
+                                    :
+                                    <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
+                            }
+                        </Timeline>
                     </div>
                     {
                         hostDynamicList.dataList && hostDynamicList.dataList.length > 0 && <div className="host-Dynamic-pagination">

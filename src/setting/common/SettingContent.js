@@ -83,16 +83,16 @@ const templateRouter = [
 
 const SettingContent = props => {
 
-    const {route, applicationRouters, systemRoleStore,outerPath} = props
+    const {route, applicationRouters, systemRoleStore, outerPath} = props
 
 
     const {systemPermissions} = systemRoleStore
 
     let path = props.location.pathname
 
-    const [setSelectKey,  selectKey] = "/setting/orga";
+    const [setSelectKey, selectKey] = "/setting/orga";
 
-    const authType =JSON.parse(localStorage.getItem("authConfig"))?.authType;
+    const authType = JSON.parse(localStorage.getItem("authConfig"))?.authType;
 
     // 菜单
     let menus = () => {
@@ -132,9 +132,8 @@ const SettingContent = props => {
         if (data.islink && !authType) {
             const authUrl = JSON.parse(localStorage.getItem("authConfig")).authServiceUrl + "#" + data.easId;
             window.open(authUrl, '_blank');
-        }else {
+        } else {
             props.history.push(id)
-            setSelectKey(id)
         }
     }
 
@@ -214,6 +213,10 @@ const SettingContent = props => {
         return isPromise && subMenu(item, deep)
     }
 
+    function hrefBack() {
+        props.history.push("/home")
+    }
+
     return (
         <SystemNav
             {...props}
@@ -226,8 +229,14 @@ const SettingContent = props => {
             <div className="system">
                 <div className="system-aside">
                     <ul className="system-aside-top" style={{padding: 0}}>
+
                         <div className="system-aside-top-head">
-                            设置
+                            <svg aria-hidden="true" className="botton-icon" style={{cursor:"pointer"}} onClick={() =>hrefBack()}>
+                                <use xlinkHref="#icon-settingLeft"></use>
+                            </svg>
+                            <div className="system-aside-top-head-text">
+                                设置
+                            </div>
                         </div>
                         {
                             menus().map(firstItem => {

@@ -9,6 +9,7 @@ import {AppLink, AvatarLink, HelpLink} from "thoughtware-licence-ui";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {Tooltip} from "antd";
 import VipType from "./VipType";
+import {useHistory} from "react-router";
 
 const HomeLayout = (props) => {
 
@@ -19,6 +20,8 @@ const HomeLayout = (props) => {
     const {setNullCondition} = alarmPageStore;
 
     const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
+
+    const history = useHistory()
 
     const routers = [
         {
@@ -72,48 +75,58 @@ const HomeLayout = (props) => {
      * 跳转到系统设置
      */
     const goSet = () => {
-        props.history.push("/setting/home")
+        props.history.push("/setting/version")
         sessionStorage.setItem("menuKey", null)
     };
+
+    function showMainMenu() {
+        let pathname =  history.location.pathname;
+
+        if (!pathname.startsWith("/setting")) {
+
+            return <div className="frame-content-left">
+                <div className="host-left">
+                    {
+                        routers.map((item, index) => {
+                            return (
+                                <div
+                                    key={index}
+                                    onClick={() => selectMenu(item.url, item.key)}
+                                    className={`leftMenu-host ${menuKey === item.key ? "border-left" : ""}`}
+                                >
+                                    <svg className="host-svg-icon" aria-hidden="true">
+                                        <use xlinkHref={`#icon-${item.key}`}></use>
+                                    </svg>
+                                    <span className="leftMenu-text">
+                                                {item.name}
+                                            </span>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div>
+                    <div className="host-left-button"
+                         onClick={() => goSet()}
+                    >
+                        <Tooltip title="设置" placement="right">
+                            <svg aria-hidden="true" className="header-icon">
+                                <use xlinkHref="#icon-iconsetsys"></use>
+                            </svg>
+                        </Tooltip>
+                    </div>
+                </div>
+            </div>;
+        }
+    }
 
     return (
         <Provider>
             <div className="frame">
-                <Header AppLink={<AppLink/>} HelpLink={<HelpLink/>} AvatarLink={<AvatarLink {...props}/>} VipType={<VipType/>}/>
+                <Header AppLink={<AppLink/>} HelpLink={<HelpLink/>} AvatarLink={<AvatarLink {...props}/>}
+                        VipType={<VipType/>}/>
                 <div className="frame-content">
-                    <div className="frame-content-left">
-                        <div className="host-left">
-                            {
-                                routers.map((item, index) => {
-                                    return (
-                                        <div
-                                            key={index}
-                                            onClick={() => selectMenu(item.url, item.key)}
-                                            className={`leftMenu-host ${menuKey === item.key ? "border-left" : ""}`}
-                                        >
-                                            <svg className="host-svg-icon" aria-hidden="true">
-                                                <use xlinkHref={`#icon-${item.key}`}></use>
-                                            </svg>
-                                            <span className="leftMenu-text">
-                                                {item.name}
-                                            </span>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        <div>
-                            <div className="host-left-button"
-                                 onClick={() => goSet()}
-                            >
-                                <Tooltip title="设置" placement="right">
-                                    <svg aria-hidden="true" className="header-icon">
-                                        <use xlinkHref="#icon-iconsetsys"></use>
-                                    </svg>
-                                </Tooltip>
-                            </div>
-                        </div>
-                    </div>
+                    {showMainMenu()}
                     {renderRoutes(route)}
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./HostDetails.scss"
 import {withRouter} from "react-router-dom";
-import {Col, Empty, Row} from "antd";
+import {Col, Empty, Row, Timeline} from "antd";
 import hostStore from "../store/HostStore";
 import "../../../common/styles/_tabStyle.scss"
 import {observer} from "mobx-react";
@@ -68,7 +68,8 @@ const HostDetails = (props) => {
                         <div className="box-host-details">
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
-                                <span className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
+                                    <span
+                                        className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
                                     <div className="box-host-details-text">
                                         <div className="item-top">{dataList?.name}</div>
                                         <div className="item-bottom">主机名称</div>
@@ -137,7 +138,7 @@ const HostDetails = (props) => {
                     </div>
                     <div className="box-host-body">
                         <div className="host-news">
-                            <div>主机最新动态</div>
+                            <div>最新动态</div>
                             <div className="more" onClick={() => goDynamicList()}>
                                 <svg aria-hidden="true" className="svg-icon">
                                     <use xlinkHref="#icon-rightjump"></use>
@@ -145,18 +146,22 @@ const HostDetails = (props) => {
                             </div>
                         </div>
                         <div className="host-news-List">
-                            {
-                                hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
-                                        return (
-                                            <div className="host-news-Line" key={item.id}>
-                                                <div>{item.name}</div>
-                                                <div>{item.time}</div>
-                                            </div>
-                                        )
-                                    })
-                                    :
-                                    <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
-                            }
+                            <Timeline>
+                                {
+                                    hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
+                                            return (
+                                                <Timeline.Item key={item.id}>
+                                                    <div className="host-news-Line" >
+                                                        <div>{item.time}</div>
+                                                        <div className="host-news-name">{item.name}</div>
+                                                    </div>
+                                                </Timeline.Item>
+                                            )
+                                        })
+                                        :
+                                        <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
+                                }
+                            </Timeline>
                         </div>
                     </div>
                 </div>

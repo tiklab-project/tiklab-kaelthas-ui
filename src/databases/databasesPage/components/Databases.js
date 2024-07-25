@@ -9,11 +9,10 @@ const Databases = (props) => {
 
     const {
         findDbInfoPage,
-        createDbInfo,
-        updateDbInfo,
-        deleteDbInfo,
         dbPage,
-        total
+        total,
+        searchCondition,
+        setSearchCondition
     } = databasesStore
 
     const [state, setState] = useState(0);
@@ -120,8 +119,17 @@ const Databases = (props) => {
         }
     }
 
-    function checkTab(key) {
+    function checkTab(value) {
+        setState(value)
 
+        if (value === 0) {
+            value = null
+        }
+
+        setSearchCondition({
+            usability: value,
+            name: ""
+        });
     }
 
     function hrefAddDatabases() {
@@ -136,14 +144,32 @@ const Databases = (props) => {
         setHostType(number)
     }
 
+    async function searchDbName(e) {
+        const name = e.target.value;
+        setSearchCondition({name: name})
+        await findDbInfoPage();
+    }
+
+    const changePage = async (pagination, filters, sorter) => {
+
+        setSearchCondition({
+            pageParam: {
+                currentPage: pagination.current,
+                pageSize: pagination.pageSize,
+            }
+        })
+
+        await findDbInfoPage()
+    };
+
     return (
         <Row className="db-row">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
 
                 <div className="db-body">
                     <div className="db-title">
-                        <div className="db-title-text">数据库配置</div>
-                        <div className="db-title-add-button" onClick={() => hrefAddDatabases()}>新建数据</div>
+                        <div className="db-title-text">数据库</div>
+                        <div className="db-title-add-button" onClick={() => hrefAddDatabases()}>新建数据源</div>
                     </div>
                     <div className="db-type-search">
                         <div className="db-type">
@@ -161,9 +187,9 @@ const Databases = (props) => {
                         </div>
                         <div>
                             <Input
-                                placeholder="主机名称"
+                                placeholder="数据源名称"
                                 className="box-configuration-body-search"
-                                // onPressEnter={(event) => searchName(event)}
+                                onPressEnter={(event) => searchDbName(event)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
@@ -175,14 +201,14 @@ const Databases = (props) => {
                             columns={columns}
                             className="custom-table"
                             dataSource={dbPage}
-                            // onChange={changePage}
+                            onChange={changePage}
 
                             pagination={{
                                 position: ["bottomCenter"],
-                                total: 10,
+                                total: total,
                                 showSizeChanger: true,
-                                pageSize: 10,
-                                current: 1,
+                                pageSize: searchCondition.pageParam.pageSize,
+                                current: searchCondition.pageParam.currentPage,
                             }}
                         />
                     </div>
