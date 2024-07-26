@@ -1,7 +1,6 @@
 import {Modal, Form, Input, Select, InputNumber} from 'antd';
 import React, {useState} from 'react';
 import {observer} from "mobx-react";
-import TextArea from "antd/es/input/TextArea";
 import dbMonitorStore from "../store/DbMonitorStore";
 
 const {Option} = Select
@@ -10,7 +9,9 @@ const {Option} = Select
 const DbAddMonitor = (props) => {
 
     const {
-        findMonitorItemAll
+        findMonitorItemAll,
+        createDbMonitor,
+        findDbMonitorPage
     } = dbMonitorStore;
 
     const [form] = Form.useForm();
@@ -31,7 +32,8 @@ const DbAddMonitor = (props) => {
 
         const fieldsValue = form.getFieldsValue();
         fieldsValue.dbId = dbId;
-        console.log(fieldsValue);
+        await createDbMonitor(fieldsValue);
+        await findDbMonitorPage();
         setIsModalOpen(false);
     };
 
@@ -52,9 +54,6 @@ const DbAddMonitor = (props) => {
         }
     };
 
-    const onSecondCityChange = (value, option) => {
-
-    };
 
     return (
         <>
@@ -118,7 +117,6 @@ const DbAddMonitor = (props) => {
                             placeholder="监控项指标"
                             allowClear
                             value={expression.id}
-                            onChange={onSecondCityChange}
                         >
                             {
                                 expression && expression.map((item) => (
@@ -144,7 +142,6 @@ const DbAddMonitor = (props) => {
                         <Select
                             placeholder="请选择您的监控项状态"
                             allowClear
-                            onBlur={() => handleBlur('monitorStatus')}
                         >
                             <Option value={1} key={1}>{"开启"}</Option>
                             <Option value={2} key={2}>{"关闭"}</Option>

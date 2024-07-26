@@ -12,12 +12,12 @@ import DbAddMonitor from "./DbAddMonitor";
 const DbMonitor = (props) => {
 
     const {
-        findMonitorCondition,
+        findDbMonitorPage,
         setSearchCondition,
-        monitorList,
+        dbMonitorList,
         setSearchNullCondition,
         total,
-        deleteMonitorById,
+        deleteDbMonitor,
         searchCondition
     } = dbMonitorStore;
 
@@ -30,12 +30,15 @@ const DbMonitor = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(async () => {
-
+        await findDbMonitorPage()
     }, []);
 
     const searchName = async (e) => {
         const value = e.target.value;
-
+        setSearchCondition({
+            name: value
+        })
+        await findDbMonitorPage()
     };
 
 
@@ -51,16 +54,17 @@ const DbMonitor = (props) => {
             }
         });
 
-        await findMonitorCondition();
+        await findDbMonitorPage();
     }
 
     const removeToList = async (record) => {
-        if (record.source === 1) {
-
-        }
+        await deleteDbMonitor(record.id)
+        await findDbMonitorPage()
     }
 
     const drawerList = (record) => {
+        form.setFieldsValue(record)
+        setColumnData(record)
         setIsModalOpen(true);
     };
 
@@ -87,24 +91,18 @@ const DbMonitor = (props) => {
             title: '监控项名称',
             dataIndex: 'name',
             id: 'name',
-            width:"10%",
-            ellipsis:"true",
-            render: (name, record) => {
-                let text;
-                record?.source === 1 ?
-                    text = <span style={{cursor: "pointer"}}
-                                 onClick={() => drawerList(record)}>{name}</span>
-                    :
-                    text = <span>{name}</span>
-                return text;
-            }
+            width: "10%",
+            ellipsis: "true",
+            render: (name, record) => <span style={{cursor: "pointer"}} onClick={() => drawerList(record)}>{name}</span>
+
+
         },
         {
             title: '监控表达式',
-            dataIndex: 'expression',
+            dataIndex: ['dbItem','expression'],
             id: 'expression',
-            width:"10%",
-            ellipsis:"true"
+            width: "20%",
+            ellipsis: "true"
         },
         /*{
             title: '监控项来源',
@@ -123,17 +121,17 @@ const DbMonitor = (props) => {
         },*/
         {
             title: '数据保留时间',
-            dataIndex: 'dataRetentionTime',
-            id: 'dataRetentionTime',
-            width:"10%",
-            ellipsis:"true",
+            dataIndex: 'retentionTime',
+            id: 'retentionTime',
+            width: "10%",
+            ellipsis: "true",
         },
         {
             title: '监控项状态',
-            dataIndex: 'monitorStatus',
-            id: 'monitorStatus',
-            width:"10%",
-            ellipsis:"true",
+            dataIndex: 'status',
+            id: 'status',
+            width: "10%",
+            ellipsis: "true",
             render: (monitorStatus) => {
                 let config = {
                     1: "启用",
@@ -145,16 +143,14 @@ const DbMonitor = (props) => {
         {
             title: '操作',
             id: 'action',
-            width:"10%",
-            ellipsis:"true",
+            width: "5%",
+            ellipsis: "true",
             render: (_, record) => (
                 <Space size="middle">
-                    {
-                        record?.source === 1 ? <HideDelete
-                            deleteFn={() => removeToList(record)}
-                            operation={"删除"}
-                        /> : <span>无</span>
-                    }
+                    <HideDelete
+                        deleteFn={() => removeToList(record)}
+                        operation={"删除"}
+                    />
                 </Space>
             ),
         },
@@ -163,7 +159,7 @@ const DbMonitor = (props) => {
 
     return (
         <Row className="box-monitor-right">
-            <Col style={{marginLeft:10}}>
+            <Col style={{marginLeft: 10}}>
                 <div className="monitor-kind-options">
                     <div className="monitor-kind-options-tabs">
                         {
@@ -199,15 +195,15 @@ const DbMonitor = (props) => {
                         />
                         <Table rowKey={record => record.id}
                                columns={columns}
-                               // dataSource={monitorList}
+                               dataSource={dbMonitorList}
                                className="custom-table"
-                               // onChange={changePage}
+                               onChange={changePage}
                                pagination={{
                                    position: ["bottomCenter"],
-                                   total: 10,
+                                   total: total,
                                    showSizeChanger: true,
-                                   pageSize: 10,
-                                   current: 1,
+                                   pageSize: searchCondition.pageParam.pageSize,
+                                   current: searchCondition.pageParam.currentPage,
                                }}
                         />
                     </>

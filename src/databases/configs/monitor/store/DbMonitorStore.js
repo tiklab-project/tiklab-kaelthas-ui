@@ -3,30 +3,16 @@ import {Service} from "../../../../common/utils/requset";
 export class DbMonitorStore {
 
 
-    @observable monitorList = [];
+    @observable dbMonitorList = [];
 
     @observable total = 1;
 
     @observable searchCondition = {
-        orderParams: [{
-            name: "id",
-            orderType: "desc"
-        }],
         pageParam: {
             pageSize: 20,
             currentPage: 1,
         }
     };
-
-    //根据条件查询
-    @action
-    findMonitorCondition = async () => {
-
-        const resData = await Service('/monitor/findMonitorCondition', this.searchCondition);
-        this.total = resData.data.totalRecord
-        this.monitorList = resData.data.dataList
-        return resData.data.dataList;
-    }
 
     @action
     setSearchCondition = (value) => {
@@ -36,10 +22,6 @@ export class DbMonitorStore {
     @action
     setSearchNullCondition = (value) => {
         this.searchCondition = Object.assign({
-            orderParams: [{
-                name: "id",
-                orderType: "desc"
-            }],
             pageParam: {
                 pageSize: 20,
                 currentPage: 1,
@@ -49,32 +31,31 @@ export class DbMonitorStore {
 
     //监控项修改
     @action
-    updateMonitorById = async (option) => {
-
-        return Service('/monitor/updateMonitor', option);
+    updateDbMonitor = async (option) => {
+        return Service('/dbMonitor/updateDbMonitor', option);
     }
 
     //删除
     @action
-    deleteMonitorById = async (id) =>{
+    deleteDbMonitor = async (id) =>{
         const params = new FormData();
         params.append("id",id)
-        await Service('/monitor/deleteMonitorById',params)
+        await Service('/dbMonitor/deleteDbMonitor',params)
 
     }
 
     //根据监控类型查询监控item
     @action
-    findMonitorItemByName = async (name) => {
-        const params = new FormData();
-        params.append("name",name)
-        const resData = await Service("/monitor/findMonitorItemByName",params)
+    findDbMonitorPage = async () => {
+        const resData = await Service("/dbMonitor/findDbMonitorPage",this.searchCondition)
+        this.dbMonitorList = resData.data.dataList
+        this.total = resData.data.totalRecord
         return resData.data;
     }
 
     @action
-    addMonitor = async (params) => {
-        return await Service("/monitor/createMonitor", params)
+    createDbMonitor = async (params) => {
+        return await Service("/dbMonitor/createDbMonitor", params)
     }
 
     @action
