@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./DbProject.scss"
 import {withRouter} from "react-router-dom";
-import {Alert, Button, Collapse, Form, Input, Modal, Select} from "antd";
+import {Alert, Button, Collapse, Form, Input, InputNumber, Modal, Select} from "antd";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 import databasesStore from "../../../databasesPage/store/DatabasesStore";
@@ -163,27 +163,25 @@ const DbProject = (props) => {
                                     showSearch
                                     style={{width: 200}}
                                     optionFilterProp="children"
-                                    onChange={SelectChangeDBType}
+                                    // onChange={SelectChangeDBType}
                                 >
                                     <Option key={1} value="PostgreSQL">PostgreSQL</Option>
                                 </Select>
                             </Form.Item>
-
-
                             <Form.Item
-                                label="驱动名称"
-                                name="driverName"
-                                rules={[{required: true, message: '请选择驱动名称!'}]}
+                                label="数据库名称"
+                                name="dbName"
+                                rules={[{required: true, message: '请选择数据库名称!'}]}
                             >
-                                <Input placeholder="驱动名称"/>
+                                <Input placeholder="数据库名称"/>
                             </Form.Item>
 
                             <Form.Item
-                                label="连接字符串"
-                                name="driverUrl"
-                                rules={[{required: true, message: '请选择连接字符串!'}]}
+                                label="数据库端口"
+                                name="dbPort"
+                                rules={[{required: true, message: '请选择数据库端口!'}]}
                             >
-                                <Input placeholder="连接字符串"/>
+                                <InputNumber placeholder="数据库端口"/>
                             </Form.Item>
 
                             <Form.Item
@@ -200,14 +198,6 @@ const DbProject = (props) => {
                                 rules={[{required: false, message: '密码!'}]}
                             >
                                 <Input placeholder="密码"/>
-                            </Form.Item>
-
-                            <Form.Item
-                                label="测试SQL"
-                                name="testSql"
-                                rules={[{required: false, message: '测试SQL!'}]}
-                            >
-                                <Input placeholder="测试SQL"/>
                             </Form.Item>
 
                             <Form.Item

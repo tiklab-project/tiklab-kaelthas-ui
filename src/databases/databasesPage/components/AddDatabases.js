@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Button, Col, Form, Input, message, Row, Select} from "antd";
+import {Button, Col, Form, Input, InputNumber, message, Row, Select} from "antd";
 
 const {Option} = Select
 import "./AddDatabases.scss"
@@ -24,9 +24,8 @@ const AddDatabases = (props) => {
     }, []);
 
     const onFinish = async () => {
-        console.log(form.getFieldsValue())
+        // console.log(form.getFieldsValue())
         await createDbInfo(form.getFieldsValue())
-
         props.history.push('/db')
     };
 
@@ -120,7 +119,7 @@ const AddDatabases = (props) => {
                                     showSearch
                                     style={{width: 200}}
                                     optionFilterProp="children"
-                                    onChange={SelectChangeDBType}
+                                    // onChange={SelectChangeDBType}
                                 >
                                     <Option key={1} value="PostgreSQL">PostgreSQL</Option>
                                 </Select>
@@ -129,20 +128,20 @@ const AddDatabases = (props) => {
 
                         <div className={"db-edit-form-input"}>
                             <Form.Item
-                                label="驱动名称"
-                                name="driverName"
-                                rules={[{required: true, message: '请选择驱动名称!'}]}
+                                label="数据库名称"
+                                name="dbName"
+                                rules={[{required: true, message: '请选择数据库名称!'}]}
                             >
-                                <Input placeholder="驱动名称"/>
+                                <Input placeholder="数据库名称"/>
                             </Form.Item>
                         </div>
                         <div className={"db-edit-form-input"}>
                             <Form.Item
-                                label="连接字符串"
-                                name="driverUrl"
-                                rules={[{required: true, message: '请选择连接字符串!'}]}
+                                label="数据库端口号"
+                                name="dbPort"
+                                rules={[{required: true, message: '请选择数据库端口号!'}]}
                             >
-                                <Input placeholder="连接字符串"/>
+                                <InputNumber placeholder="数据库端口号" min={0}/>
                             </Form.Item>
                         </div>
                         <div className={"db-edit-form-input"}>
@@ -161,15 +160,6 @@ const AddDatabases = (props) => {
                                 rules={[{required: true, message: '密码!'}]}
                             >
                                 <Input placeholder="密码"/>
-                            </Form.Item>
-                        </div>
-                        <div className={"db-edit-form-input"}>
-                            <Form.Item
-                                label="测试SQL"
-                                name="testSql"
-                                rules={[{required: true, message: '测试SQL!'}]}
-                            >
-                                <Input placeholder="测试SQL"/>
                             </Form.Item>
                         </div>
                         <div className={"db-edit-form-input"}>

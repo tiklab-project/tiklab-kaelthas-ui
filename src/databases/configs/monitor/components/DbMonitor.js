@@ -30,6 +30,9 @@ const DbMonitor = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(async () => {
+        setSearchCondition({
+            dbId: localStorage.getItem("dbId")
+        })
         await findDbMonitorPage()
     }, []);
 
@@ -99,7 +102,7 @@ const DbMonitor = (props) => {
         },
         {
             title: '监控表达式',
-            dataIndex: ['dbItem','expression'],
+            dataIndex: ['dbItem', 'expression'],
             id: 'expression',
             width: "20%",
             ellipsis: "true"
