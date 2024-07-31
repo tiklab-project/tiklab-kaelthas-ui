@@ -1,17 +1,17 @@
 import {Drawer, Form, Input, message, Select} from 'antd';
 import React, {useEffect} from 'react';
-import graphicsStore from "../store/GraphicsStore";
+import graphicsStore from "../store/DbGraphicsStore";
 import {observer} from "mobx-react";
 
 const {Option} = Select
 
-const UpdateGraphics = (props) => {
+const DbUpdateGraphics = (props) => {
 
     const {form, isModalOpen, setIsModalOpen, columnData} = props;
 
     const {
         updateGraphics,
-        findGraphics,
+        findGraphicsPage,
         setSearchCondition,
         monitorList
     } = graphicsStore;
@@ -27,7 +27,7 @@ const UpdateGraphics = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    id: columnData.graphicsId,
+                    id: columnData.id,
                 };
                 obj[field] = values[field];
 
@@ -37,7 +37,7 @@ const UpdateGraphics = (props) => {
                 await setSearchCondition({
                     hostId: localStorage.getItem("hostId")
                 })
-                await findGraphics();
+                await findGraphicsPage();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
@@ -86,7 +86,7 @@ const UpdateGraphics = (props) => {
                         {
                             monitorList && monitorList.map(item => (
                                 <Option key={item.id} value={item.id}>
-                                    {item.name}{"(来源  "}{item.source === 1 ? "主机" : "模板"}{" 数据类型--"}{item?.monitorItem.reportType}{")"}
+                                    {item.name}
                                 </Option>
                             ))
                         }
@@ -104,4 +104,4 @@ const UpdateGraphics = (props) => {
     );
 };
 
-export default observer(UpdateGraphics);
+export default observer(DbUpdateGraphics);

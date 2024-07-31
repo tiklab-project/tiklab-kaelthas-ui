@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
 import {observer} from "mobx-react";
-import "./MonitoringDetails.scss"
+import "../../host/monitoring/components/MonitorGraphics.scss"
 import {Col} from "antd";
 
 const DiscountedList = (props) => {

@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
+import {Axios} from "thoughtware-core-ui";
 
 export class GraphicsStore {
 
@@ -34,6 +35,12 @@ export class GraphicsStore {
         this.graphicsList = resData.data.dataList;
         this.total = resData.data.totalRecord
         return resData.data;
+    }
+
+    @action
+    findMonitorIds = async (value) =>{
+        const resData = await Axios.post("/graphics/findMonitorIds",value)
+        return resData.data
     }
 
     //根据名称查询

@@ -1,28 +1,57 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
-import MonitoringDetails from "./MonitoringDetails";
 
 import moment from "moment";
 import {withRouter} from "react-router-dom";
-import ChangeViewChart from "../common/ChangeViewChart";
-
+import ChangeViewChart from "../../../common/graphics/ChangeViewChart";
+import dbMonitorGraphicsStore from "../store/DbMonitorGraphicsStore";
+import MonitoringItem from "../../../common/graphics/MonitoringItem";
+import "./DbMonitorGraphics.scss"
 const {RangePicker} = DatePicker;
 
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const MonitorGraphics = () => {
+const DbMonitorGraphics = () => {
 
+
+    const {
+        setSearchCondition,
+        findGraphicsLine,
+        condition,
+        setSearchNull,
+        getDateTime,
+    } = dbMonitorGraphicsStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
+        const dbId = localStorage.getItem("dbId");
+        setSearchNull({
+            hostId: dbId,
+            beginTime: getDateTime()[0],
+            endTime: getDateTime()[1]
+        })
 
+        await findGraphicsLine();
+        // await findHistory();
+        setSearchCondition({
+            dataCate: null,
+            id: dbId
+        })
     }, []);
 
     const onChange = async (value, dateString) => {
-
+        setSearchCondition({
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
+        })
+        await findGraphicsLine()
+        setSearchCondition({
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
+        })
     };
 
 
@@ -68,16 +97,17 @@ const MonitorGraphics = () => {
                     beginTime: getDateTime()[0],
                     endTime: getDateTime()[1],
                 })
-                await findInformationByGraphics();
-                await findHistory();
+                await findGraphicsLine();
+                // await findHistory();
                 break
         }
     }
 
     return (
         <Provider>
-            <Row className="details">
-                    <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
+            <Row className="db-details">
+                <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
+                     xxl={{span: "22", offset: "1"}}>
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
                             <div className="details-search">
@@ -85,22 +115,22 @@ const MonitorGraphics = () => {
                                     <RangePicker
                                         // style={{width: 300}}
                                         format={dateFormat}
-                                        // onChange={onChange}
+                                        onChange={onChange}
                                         showTime
-                                        // defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
                                 <div className="details-div">
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"
-                                        // onChange={(value) => checkTime(value)}
+                                        onChange={(value) => checkTime(value)}
                                         allowClear
                                         style={{
                                             width: 150,
                                         }}
                                         defaultValue={9}
-                                        // onClear={() => checkTime()}
+                                        onClear={() => checkTime()}
                                     >
                                         <Option value={9} key={9}>今天</Option>
                                         <Option value={1} key={1}>过去1分钟</Option>
@@ -116,34 +146,29 @@ const MonitorGraphics = () => {
                             </div>
                             <ChangeViewChart pageStatus={pageStatus} setPageStatus={setPageStatus}/>
                         </div>
-                        {
-                            pageStatus === 2 ?
-                                <MonitoringDetails/>
-                                :
-                                <div className="layout-body-list">
-                                    {/*{
-                                        condition && condition.length > 0 ?
-                                            <div className="details-tabs-wrap">
-                                                {
-                                                    condition.map((item, index) => {
-                                                        return (
-                                                            <div key={index}>
-                                                                <MonitoringItem
-                                                                    reportType={pageStatus}
-                                                                    condition={item}
-                                                                    descTime={item[0].dataTimes}
-                                                                    index={index}
-                                                                />
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            :
-                                            <Empty/>
-                                    }*/}
-                                </div>
-                        }
+                        <div className="layout-body-list">
+                            {
+                                condition && condition.length > 0 ?
+                                    <div className="details-tabs-wrap">
+                                        {
+                                            condition.map((item, index) => {
+                                                return (
+                                                    <div key={index}>
+                                                        <MonitoringItem
+                                                            reportType={pageStatus}
+                                                            condition={item}
+                                                            descTime={item[0].dataTimes}
+                                                            index={index}
+                                                        />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    :
+                                    <Empty/>
+                            }
+                        </div>
                     </div>
                 </Col>
             </Row>
@@ -151,4 +176,4 @@ const MonitorGraphics = () => {
     );
 };
 
-export default withRouter(observer(MonitorGraphics));
+export default withRouter(observer(DbMonitorGraphics));

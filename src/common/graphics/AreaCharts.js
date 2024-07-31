@@ -11,7 +11,7 @@ import {LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
 import {observer} from "mobx-react";
-import "./MonitoringDetails.scss"
+import "../../host/monitoring/components/MonitorGraphics.scss"
 import {Col} from "antd";
 
 echarts.use([

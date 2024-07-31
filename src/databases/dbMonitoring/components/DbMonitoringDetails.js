@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import "./MonitoringDetails.scss"
+import "./DbMonitorGraphics.scss"
 import {withRouter} from "react-router-dom";
 import {DatePicker, Input, Modal, Pagination, Select, Table, Tooltip} from "antd";
 import "../../../common/styles/_tabStyle.scss"
@@ -16,7 +16,7 @@ import {
 import {ScatterChart, LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
-import monitorLayoutStore from "../store/MonitorLayoutStore";
+import monitorLayoutStore from "../store/DbMonitorGraphicsStore";
 import {observer} from "mobx-react";
 
 echarts.use([
@@ -33,7 +33,7 @@ echarts.use([
     ToolboxComponent
 ]);
 
-const MonitoringDetails = (props) => {
+const DbMonitoringDetails = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -166,8 +166,8 @@ const MonitoringDetails = (props) => {
         },
         {
             title: '图形',
-            dataIndex: 'graphics',
-            key: 'graphics',
+            dataIndex: 'dbGraphics',
+            key: 'dbGraphics',
             render: (text, record) => (
                 <a onClick={() => showGraphics(record)}>{
                     record.reportType !== 2 ? "图形" : ""
@@ -236,4 +236,4 @@ const MonitoringDetails = (props) => {
 };
 
 
-export default withRouter(observer(MonitoringDetails));
+export default withRouter(observer(DbMonitoringDetails));

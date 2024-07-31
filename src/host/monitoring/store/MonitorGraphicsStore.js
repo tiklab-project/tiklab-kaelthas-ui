@@ -1,8 +1,7 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
-import moment from "moment";
 
-export class MonitorLayoutStore {
+export class MonitorGraphicsStore {
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -165,6 +164,6 @@ export class MonitorLayoutStore {
 
 }
 
-const monitorLayoutStore = new MonitorLayoutStore();
+const monitorLayoutStore = new MonitorGraphicsStore();
 
 export default monitorLayoutStore;

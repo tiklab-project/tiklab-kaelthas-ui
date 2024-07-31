@@ -9,6 +9,7 @@ const Databases = (props) => {
 
     const {
         findDbInfoPage,
+        updateDbInfo,
         dbPage,
         total,
         searchCondition,
@@ -39,8 +40,10 @@ const Databases = (props) => {
         await findDbInfoPage()
     }, []);
 
-    function hrefDatabases(record) {
+    async function hrefDatabases(record) {
+        await updateDbInfo(record)
         localStorage.setItem('dbId', record.id);
+        localStorage.setItem("dbName", record.name)
         localStorage.setItem("url", `/dbList/${record.id}/dbDetails`)
         props.history.push(`/dbList/${record.id}/dbDetails`);
     }

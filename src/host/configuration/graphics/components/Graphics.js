@@ -24,7 +24,8 @@ const Graphics = (props) => {
         findMonitorListById,
         graphicsList,
         total,
-        searchCondition
+        searchCondition,
+        findMonitorIds
     } = graphicsStore;
 
     useEffect(async () => {
@@ -61,19 +62,13 @@ const Graphics = (props) => {
 
     const updateGraphicsColumn = async (record) => {
 
-        setColumnData({
-            graphicsId: record.id
-        })
+        //点击的时候查询当前图形的监控项ids
+        const monitorList = await findMonitorIds({id:record.id});
 
-        await findGraphics();
+        record.monitorIds = monitorList;
 
-        form.setFieldsValue({
-            id: record.id,
-            name: record.name,
-            describe: record.describe,
-            monitorIds: record.monitorIds,
-            source: record.source
-        });
+        setColumnData(record)
+        form.setFieldsValue(record);
 
         setIsModalOpen(true);
 
@@ -92,13 +87,13 @@ const Graphics = (props) => {
         },
         {
             title: '监控数量',
-            dataIndex: 'monitorNum',
-            id: 'monitorNum',
+            dataIndex: 'monitorSum',
+            id: 'monitorSum',
             width:"20%",
             ellipsis: true,
             render: (text, record) => (
                 <Tag>
-                    {record.monitorIds.length}
+                    {record.monitorSum}
                 </Tag>
             )
         },

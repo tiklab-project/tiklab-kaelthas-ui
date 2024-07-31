@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import {Axios} from "thoughtware-core-ui";
 
 export class DatabasesStore {
 
@@ -59,6 +60,12 @@ export class DatabasesStore {
     testJDBCSql = async (value) =>{
         const resData = await Service("/dbInfo/testSql",value)
         return resData;
+    }
+
+    @action
+    findDropDown = async () =>{
+        const resData = await Axios.post("/dbInfo/findDropDown")
+        return resData.data
     }
 
 }

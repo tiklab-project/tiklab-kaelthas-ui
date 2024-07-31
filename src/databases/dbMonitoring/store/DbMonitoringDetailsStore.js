@@ -1,7 +1,7 @@
 import {action, observable, values} from "mobx";
 import {Service} from "../../../common/utils/requset";
 
-export class MonitoringDetailsStore {
+export class DbMonitoringDetailsStore {
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -97,6 +97,6 @@ export class MonitoringDetailsStore {
 
 }
 
-const monitoringDetailsStore = new MonitoringDetailsStore();
+const monitoringDetailsStore = new DbMonitoringDetailsStore();
 
 export default monitoringDetailsStore;

@@ -1,17 +1,17 @@
 import {Form, Input, message, Modal, Select} from 'antd';
 import React, {useState} from 'react';
-import graphicsStore from "../store/GraphicsStore";
+import graphicsStore from "../store/DbGraphicsStore";
 import {observer} from "mobx-react";
 
 const {Option} = Select
-const AddGraphics = (props) => {
+const DbAddGraphics = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {
-        addGraphics,
+        createGraphics,
         monitorList,
-        findGraphics,
+        findGraphicsPage,
         setSearchCondition
     } = graphicsStore;
 
@@ -23,8 +23,8 @@ const AddGraphics = (props) => {
 
     const handleOk = () => {
         form.validateFields().then(async res => {
-            await addGraphics({
-                hostId: localStorage.getItem("hostId"),
+            await createGraphics({
+                dbId: localStorage.getItem("dbId"),
                 name: res.name,
                 describe: res.describe,
                 monitorIds: res.monitorIds,
@@ -32,7 +32,7 @@ const AddGraphics = (props) => {
             await setSearchCondition({
                 hostId: localStorage.getItem("hostId")
             })
-            await findGraphics();
+            await findGraphicsPage();
         })
         setIsModalOpen(false);
     };
@@ -41,14 +41,14 @@ const AddGraphics = (props) => {
         setIsModalOpen(false);
     };
 
-    function changeDataType(value, option) {
+    async function changeDataType(value, option) {
         const dataType = [];
         option && option.map(item => {
             dataType.push(item?.children[4])
         })
         const set = [...new Set(dataType)]
         if (set.length !== 1) {
-            message.warning('选择了不同数据类型的监控项')
+            await message.warning('选择了不同数据类型的监控项')
         }
     }
 
@@ -93,12 +93,12 @@ const AddGraphics = (props) => {
                             allowClear
                             showSearch
                             maxTagCount={"responsive"}
-                            onChange={changeDataType}
+                            // onChange={changeDataType}
                         >
                             {
                                 monitorList && monitorList.map(item => (
                                     <Option key={item.id} value={item.id}>
-                                        {item.name}{"(来源 "}{item.source === 1 ? "主机" : "模板"}{" 数据类型 "}{item?.monitorItem.reportType}{")"}
+                                        {item.name}
                                     </Option>
                                 ))
                             }
@@ -117,4 +117,4 @@ const AddGraphics = (props) => {
     );
 };
 
-export default observer(AddGraphics);
+export default observer(DbAddGraphics);

@@ -1,20 +1,46 @@
 import React, {useEffect, useRef} from 'react';
 import * as echarts from "echarts/core";
+import {
+    GridComponent,
+    LegendComponent,
+    TimelineComponent,
+    TitleComponent,
+    ToolboxComponent,
+    TooltipComponent,
+    VisualMapComponent
+} from 'echarts/components';
+import {BarChart, LineChart, PieChart, ScatterChart} from 'echarts/charts';
+import {UniversalTransition} from 'echarts/features';
+import {CanvasRenderer} from 'echarts/renderers';
 import {observer} from "mobx-react";
-import "./MonitoringDetails.scss"
+import "../../host/monitoring/components/MonitorGraphics.scss"
 import {Col} from "antd";
 
-const DiscountedList = (props) => {
+echarts.use([
+    TimelineComponent,
+    TitleComponent,
+    TooltipComponent,
+    GridComponent,
+    VisualMapComponent,
+    ScatterChart,
+    CanvasRenderer,
+    UniversalTransition,
+    LegendComponent,
+    LineChart,
+    ToolboxComponent,
+    PieChart,
+    BarChart
+]);
+
+const HistogramList = (props) => {
 
     const dom = useRef(null);
-
-    const {condition, descTime, index} = props;
 
     const series = [];
 
     const nameList = [];
 
-    const conditionList = [];
+    const {descTime, condition, index} = props;
 
     function checkColor(value, threshold, operator) {
 
@@ -37,39 +63,44 @@ const DiscountedList = (props) => {
     }
 
     function checkListColor(value, mapList) {
-        if (value === null || value === "null") {
+        if (value === null || value === "null"){
             return null
         }
         let color = null
-        if (mapList != null) {
-            mapList.map(item => {
-                let red = checkColor(Number(value), Number(item.value), item.operator);
-                if (red != null) {
-                    color = red;
-                }
-            })
-        }
+        mapList.map(item => {
+            let red = checkColor(Number(value), Number(item.value), item.operator);
+            if (red != null) {
+                color = red;
+            }
+        })
         return color;
     }
 
-    const rendingView = async () => {
+    let conditionList = [];
 
-        condition.map(item => {
+    async function showHistogram() {
+
+        condition.map((item, index) => {
             series.push({
                 name: item.name,
-                type: "line",
+                type: "bar",
                 data: item.data.map(function (value) {
+
                     return {
                         value: value,
                         itemStyle: {
-                            // color: item.reportData == null ? null : (value > item.reportData ? 'red' : null)
                             color: checkListColor(value, item.mapList)
-
                         }
                     };
                 }),
             })
             nameList.push(item.name)
+            /*if (item.problem !== null && item.problem !== undefined && item.problem !== ''){
+                conditionList.push({
+                    name:item.name,
+                    problem:item.problem
+                })
+            }*/
             if (item.mapList.length > 0) {
                 item.mapList.map(trigger => {
                     conditionList.push({
@@ -82,7 +113,6 @@ const DiscountedList = (props) => {
             }
         })
 
-
         if (dom) {
             const chartDom = dom.current
 
@@ -91,28 +121,7 @@ const DiscountedList = (props) => {
             }
 
             const myChart = echarts.init(chartDom);
-
             const option = {
-                /*title: {
-                    text: 'ECharts 示例标题', // 标题文本
-                    // subtext: '副标题文本', // 副标题文本（可选）
-                    left: 'left', // 标题的位置，可以是 'left', 'center', 'right'
-                    top: 'top', // 标题的垂直位置，可以是 'top', 'middle', 'bottom'
-                    textStyle: {
-                        color: '#333', // 文字颜色
-                        fontStyle: 'normal', // 文字风格，可以是 'normal', 'italic', 'oblique'
-                        fontWeight: 'bold', // 文字粗细，可以是 'normal', 'bold', 'bolder', 'lighter'
-                        fontFamily: 'sans-serif', // 字体系列
-                        fontSize: 16 // 文字大小
-                    },
-                    subtextStyle: {
-                        color: '#aaa', // 副标题颜色
-                        fontStyle: 'italic', // 副标题风格
-                        fontWeight: 'normal', // 副标题粗细
-                        fontFamily: 'sans-serif', // 副标题字体系列
-                        fontSize: 14 // 副标题大小
-                    }
-                },*/
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params) {
@@ -151,7 +160,7 @@ const DiscountedList = (props) => {
                                     }
                                 }
                             })
-                            if (problemName !== '') {
+                            if (problemName !== ''){
                                 textList.push(problemName + '<br/>');
                             }
                         }
@@ -166,20 +175,8 @@ const DiscountedList = (props) => {
                 legend: {
                     data: nameList
                 },
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                toolbox: {
-                    feature: {
-                        saveAsImage: {}
-                    }
-                },
                 xAxis: {
                     type: 'category',
-                    boundaryGap: false,
                     data: descTime
                 },
                 yAxis: {
@@ -191,21 +188,16 @@ const DiscountedList = (props) => {
                 myChart.clear()
             }
             myChart.setOption(option);
-
-            /*if (chartDom !== null && chartDom !== '' && chartDom !== undefined){
-                myChart.dispose()
-            }*/
         }
-    };
+    }
 
     useEffect(async () => {
-        await rendingView()
+        await showHistogram();
     }, [dom, condition, descTime]);
 
-
     return (
-        <div className="item-tabs-item" key={`discounted-${index}`} id={`discounted-${index}`}>
-            <Col key="chartsone" ref={dom}
+        <div className="item-tabs-item" key={`histogram-${index}`} id={`histogram-${index}`}>
+            <Col key="chartsthree" ref={dom}
                  style={{
                      position: "relative",
                      width: 1000,
@@ -222,4 +214,4 @@ const DiscountedList = (props) => {
     );
 };
 
-export default observer(DiscountedList);
+export default observer(HistogramList);

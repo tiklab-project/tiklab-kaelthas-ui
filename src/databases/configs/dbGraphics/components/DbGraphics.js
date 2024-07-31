@@ -1,15 +1,26 @@
 import React, {useEffect, useState} from 'react';
-import "./Graphics.scss"
-import AddGraphics from "./AddGraphics";
+import "./DbGraphics.scss"
+import AddGraphics from "./DbAddGraphics";
 import {Col, Form, Input, Row, Space, Table, Tag} from "antd";
-import graphicsStore from "../store/GraphicsStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import UpdateGraphics from "./UpdateGraphics";
+import UpdateGraphics from "./DbUpdateGraphics";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
+import dbGraphicsStore from "../store/DbGraphicsStore";
 
-const Graphics = (props) => {
+const DbGraphics = (props) => {
+
+    const {
+        findGraphicsPage,
+        findAllMonitor,
+        graphicsList,
+        total,
+        searchCondition,
+        setSearchCondition,
+        deleteGraphics,
+        findMonitorIds
+    } = dbGraphicsStore;
 
     const [form] = Form.useForm();
 
@@ -18,19 +29,47 @@ const Graphics = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(async () => {
+        setSearchCondition({
+            dbId: localStorage.getItem("dbId")
+        })
 
+        await findAllMonitor();
+
+        await findGraphicsPage();
     }, []);
 
     const searchName = async (e) => {
+        setSearchCondition({
+            name: e.target.value
+        })
+        await findGraphicsPage();
     };
 
 
-    const deleteGraphics = async (id) => {
-
+    const deleteGraphicsById = async (id) => {
+        await deleteGraphics(id);
+        await findGraphicsPage();
     };
 
     const updateGraphicsColumn = async (record) => {
+        //点击的时候查询当前图形的监控项ids
+        const monitorList = await findMonitorIds({id:record.id});
 
+        record.monitorIds = monitorList
+        setColumnData(record)
+        form.setFieldsValue(record)
+        setIsModalOpen(true)
+    };
+
+    const changePage = async (pagination, filters, sorter) => {
+        setSearchCondition({
+            pageParam: {
+                currentPage: pagination.current,
+                pageSize: pagination.pageSize,
+            }
+        })
+
+        await findGraphicsPage();
     };
 
     const columns = [
@@ -44,11 +83,11 @@ const Graphics = (props) => {
         },
         {
             title: '监控数量',
-            dataIndex: 'monitorNum',
-            id: 'monitorNum',
+            dataIndex: 'monitorSum',
+            id: 'monitorSum',
             render: (text, record) => (
                 <Tag>
-                    {record.monitorIds.length}
+                    {record.monitorSum}
                 </Tag>
             )
         },
@@ -63,7 +102,7 @@ const Graphics = (props) => {
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
-                        deleteFn={() => deleteGraphics(record.id)}
+                        deleteFn={() => deleteGraphicsById(record.id)}
                         operation={"删除"}
                     ></HideDelete>
                 </Space>
@@ -72,30 +111,30 @@ const Graphics = (props) => {
     ];
 
     return (
-        <Row className="box-graphics-right">
-            <Col style={{marginLeft:10}}>
-                <div className="box-graphics-title">
+        <Row className="db-box-graphics-right">
+            <Col style={{marginLeft: 10}}>
+                <div className="db-box-graphics-title">
 
                 </div>
-                <div className="graphics-kind-options">
-                    <div className="box-graphics-title-text">
-                        图形的数量:{0}
+                <div className="db-graphics-kind-options">
+                    <div className="db-box-graphics-title-text">
+                        图形的数量:{total}
                     </div>
-                    <div className="box-graphics-title-div">
+                    <div className="db-box-graphics-title-div">
                         <div>
                             <Input placeholder="图形名称"
-                                   className="graphics-kind-search"
+                                   className="db-graphics-kind-search"
                                    onPressEnter={(event) => searchName(event)}
                                    allowClear={true}
                                    prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="graphics-top-right">
+                        <div className="db-graphics-top-right">
                             <AddGraphics/>
                         </div>
                     </div>
                 </div>
-                <div className="box-graphics-table">
+                <div className="db-box-graphics-table">
                     <>
                         <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                         columnData={columnData}
@@ -103,15 +142,15 @@ const Graphics = (props) => {
 
                         <Table rowKey={record => record.id}
                                columns={columns}
-                               // dataSource={graphicsList}
+                               dataSource={graphicsList}
                                className="custom-table"
-                               // onChange={changePage}
+                               onChange={changePage}
                                pagination={{
                                    position: ["bottomCenter"],
-                                   total: 10,
+                                   total: total,
                                    showSizeChanger: true,
-                                   pageSize: 10,
-                                   current: 1,
+                                   pageSize: searchCondition.pageParam.pageSize,
+                                   current: searchCondition.pageParam.currentPage,
                                }}
                         />
                     </>
@@ -121,4 +160,4 @@ const Graphics = (props) => {
     );
 };
 
-export default withRouter(observer(Graphics));
+export default withRouter(observer(DbGraphics));

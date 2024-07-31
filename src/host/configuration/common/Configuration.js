@@ -36,10 +36,10 @@ const Configuration = (props) => {
         },
         {
             name: '图形',
-            icon: 'graphics',
+            icon: 'dbGraphics',
             url: `/hostList/${hostId}/configuration/graphics`,
-            key: "graphics",
-            encoded: "graphics",
+            key: "dbGraphics",
+            encoded: "dbGraphics",
         },
     ]
 

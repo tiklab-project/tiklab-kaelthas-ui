@@ -27,7 +27,7 @@ const UpdateGraphics = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    id: columnData.graphicsId,
+                    id: columnData.id,
                 };
                 obj[field] = values[field];
 

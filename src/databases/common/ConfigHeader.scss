@@ -2,20 +2,20 @@
     background: #ffffff;
     border-bottom: 1px solid #e9e9e9;
 
-    .topMenu-top {
+    .db-topMenu-top {
         display: flex;
         width: 100%;
         align-items: start;
         padding: 10px 80px;
         flex-direction: column;
 
-        .topMenu-top-title{
+        .db-topMenu-top-title{
             display: flex;
             justify-content: start;
             align-items: center;
             gap: 10px;
 
-            .normal-aside-left{
+            .db-normal-aside-left{
                 display: flex;
                 height: 48px;
                 line-height: 48px;
@@ -23,13 +23,13 @@
             }
         }
 
-        .normal-aside-opt-icon {
+        .db-normal-aside-opt-icon {
             display: flex;
             align-items: center;
             justify-content: center;
 
-            .normal-host-opt-title{
-                width: 150px;           /* 设置宽度 */
+            .db-normal-host-opt-title{
+                width: 120px;           /* 设置宽度 */
                 white-space: nowrap;    /* 禁止换行 */
                 overflow: hidden;       /* 超出部分隐藏 */
                 text-overflow: ellipsis;/* 显示省略号 */
@@ -45,7 +45,7 @@
             }
         }
 
-        .normal-aside-opt-icon:hover {
+        .db-normal-aside-opt-icon:hover {
             cursor: pointer;
         }
 
@@ -110,6 +110,70 @@
         .border-bottom {
             color: var(--thoughtware-blue);
             border-bottom: 2px solid var(--thoughtware-blue);
+        }
+    }
+}
+
+.normal-aside-dropdown {
+    left: 80px !important;
+    top: 48px !important;
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-top: 68px;
+    margin-left: 80px;
+
+    .db-opt {
+
+        &-title {
+            font-weight: bold;
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #ececec;
+        }
+
+        &-group {
+            max-height: calc(100vh - 120px);
+            min-height: 45px;
+            overflow: auto;
+        }
+
+        &-item {
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 200px;
+
+            &:hover {
+                background: #edf0f5;
+            }
+        }
+
+        &-icon {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        &-active {
+            background: #edf0f5;
+        }
+
+        &-more {
+            cursor: pointer;
+            text-align: center;
+            padding: 8px 0;
+            background: #f8f8f8;
+            color: var(--thoughtware-blue);
         }
     }
 }

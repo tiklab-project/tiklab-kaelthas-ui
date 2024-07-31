@@ -1,8 +1,8 @@
 import React, {Fragment} from 'react';
 import {withRouter} from "react-router-dom";
-import DiscountedList from "../components/DiscountedList";
-import HistogramList from "../components/HistogramList";
-import AreaCharts from "../components/AreaCharts";
+import DiscountedList from "./DiscountedList";
+import HistogramList from "./HistogramList";
+import AreaCharts from "./AreaCharts";
 
 const MonitoringItem = (props) => {
 

@@ -52,14 +52,14 @@ const AddDatabases = AsyncComponent(() => import('./databases/databasesPage/comp
 const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
 
 const DbDetails = AsyncComponent(() => import ('./databases/dbDetails/components/DbDetails'))
-const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/components/MonitorGraphics'))
+const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/components/DbMonitorGraphics'))
 const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBAlarm'))
 const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
 
 const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/DbMonitor'))
 const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/Trigger'))
 const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
-const DBGraphics = AsyncComponent(() => import('./databases/configs/graphics/components/Graphics'))
+const DBGraphics = AsyncComponent(() => import('./databases/configs/dbGraphics/components/DbGraphics'))
 const DBCustomize = AsyncComponent(() => import('./databases/configs/customize/components/Customize'))
 
 const AddDBMonitor = AsyncComponent(() => import('./databases/databasesPage/components/AddDBMonitor'))
@@ -254,7 +254,7 @@ const Routes = [
                                 component: DBTemplate,
                             },
                             {
-                                path: "/dbList/:id/configs/graphics",
+                                path: "/dbList/:id/configs/dbGraphics",
                                 exact: false,
                                 component: DBGraphics,
                             },

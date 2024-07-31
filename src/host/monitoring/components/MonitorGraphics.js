@@ -3,12 +3,12 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
 import MonitoringDetails from "./MonitoringDetails";
 
-import monitorLayoutStore from "../store/MonitorLayoutStore";
-import MonitoringItem from "../common/MonitoringItem";
+import monitorLayoutStore from "../store/MonitorGraphicsStore";
+import MonitoringItem from "../../../common/graphics/MonitoringItem";
 import moment from "moment";
 import {withRouter} from "react-router-dom";
-import ChangeViewChart from "../common/ChangeViewChart";
-
+import ChangeViewChart from "../../../common/graphics/ChangeViewChart";
+import "./MonitorGraphics.scss"
 const {RangePicker} = DatePicker;
 
 const {Option} = Select;
@@ -21,7 +21,6 @@ const MonitorGraphics = () => {
         findInformationByGraphics,
         condition,
         setSearchNull,
-        findHistory,
         getDateTime,
     } = monitorLayoutStore;
 
