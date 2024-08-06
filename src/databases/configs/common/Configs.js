@@ -58,14 +58,14 @@ const Configs = (props) => {
 
 
     return (
-        <Row justify="start" className="hostDetails-layout">
+        <Row justify="start" className="db-hostDetails-layout">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
-                <div className="design-up">
+                <div className="db-design-up">
                     {
                         configList.map(item => {
                             return (
                                 <div key={item.key}
-                                     className={`design-tab ${url === item.url ? "design-active" : ""}`}
+                                     className={`db-design-tab ${url === item.url ? "design-active" : ""}`}
                                      onClick={() => hrefConfiguration(item)}
                                 >
                                     {item.name}

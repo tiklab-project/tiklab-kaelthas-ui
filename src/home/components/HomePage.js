@@ -83,22 +83,22 @@ const HomePage = (props) => {
         resData?.map((item) => {
             let colorTag;
             switch (item?.severityLevel) {
-                case "1":
+                case 1:
                     colorTag = '#ff0003'
                     break
-                case "2":
+                case 2:
                     colorTag = '#e97659'
                     break
-                case "3":
+                case 3:
                     colorTag = 'orange'
                     break
-                case "4":
+                case 4:
                     colorTag = '#fac858'
                     break
-                case "5":
+                case 5:
                     colorTag = 'yellow'
                     break
-                case "6":
+                case 6:
                     colorTag = 'grey'
                     break
             }

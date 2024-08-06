@@ -84,10 +84,17 @@ const HostAlarm = (props) => {
             label:"全部",
             value:"all"
         })
+        setLeveType({
+            key: "all",
+            label: "全部",
+            value: "all"
+        })
 
         setSearchCondition({
             hostId:localStorage.getItem("hostId"),
-            status:null
+            status:null,
+            machineType: 1,
+            severityLevel: null
         })
         await findAlarmPageByHostId();
     }, []);
@@ -171,27 +178,27 @@ const HostAlarm = (props) => {
         let tagName;
 
         switch (severityLevel) {
-            case "1":
+            case 1:
                 tagColor = "#ff0003";
                 tagName = "灾难";
                 break;
-            case "2":
+            case 2:
                 tagColor = "#e97659";
                 tagName = "严重";
                 break;
-            case "3":
+            case 3:
                 tagColor = "orange";
                 tagName = "一般严重";
                 break;
-            case "4":
+            case 4:
                 tagColor = "#fac858";
                 tagName = "告警";
                 break;
-            case "5":
+            case 5:
                 tagColor = "yellow";
                 tagName = "信息";
                 break;
-            case "6":
+            case 6:
                 tagColor = "grey";
                 tagName = "未分类";
                 break;

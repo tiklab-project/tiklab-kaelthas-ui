@@ -69,7 +69,6 @@ class AlarmPageStore {
     @action
     findAlarmPage = async () => {
         const resData = await Service("/alarm/findAlarmPage", this.searchCondition)
-        // this.setNullCondition()
         this.alarmPage = resData.data.dataList;
         this.total = resData.data.totalRecord
         return resData.data.dataList;

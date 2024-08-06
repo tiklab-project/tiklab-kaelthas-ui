@@ -1,6 +1,6 @@
 import {Button, Form, Input, InputNumber, message, Modal, Select, Space} from 'antd';
 import React, {useEffect, useState} from 'react';
-import triggerStore from "../store/TriggerStore";
+import dbTriggerStore from "../store/DbTriggerStore";
 
 const {Option} = Select
 const schemeList = [
@@ -47,13 +47,18 @@ const alarmGrade = [
 ];
 
 
-const AddTrigger = (props) => {
+const DbAddTrigger = (props) => {
 
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {addTrigger, findMonitorListById, getTriggerList, monitorList, mediumList} = triggerStore;
+    const {
+        getMediumAllList,
+        mediumList,
+        createDbTrigger,
+        findDbTriggerPage
+    } = dbTriggerStore;
 
 
     const [rowData, setRowData] = useState({});
@@ -63,37 +68,24 @@ const AddTrigger = (props) => {
 
     const [percentageStatus, setPercentageStatus] = useState(true);
 
-    const showModal = () => {
+    const showModal = async () => {
+        await getMediumAllList();
         setIsModalOpen(true);
     };
 
     const handleOk = async () => {
 
-        form.validateFields().then(async res => {
-            const resData = await addTrigger({
-                hostId: localStorage.getItem("hostId"),
-                name: res.name,
-                monitorId: res.monitorId,
-                state: 1,
-                operator: res.operator,
-                numericalValue: res.numericalValue,
-                mediumIds: res.mediumType,
-                severityLevel: res.severityLevel,
-                describe: res.describe,
-                source: rowData.source,
-                expression: res.expression,
-                rangeTime: res.rangeTime,
-                percentage: res.percentage,
-                scheme: res.scheme
-            });
+        const fieldsValue = await form.validateFields();
 
-            if (resData?.data !== null){
-                message.success("添加成功!")
-            }else {
-                message.warn("添加失败!")
-            }
-            await getTriggerList();
-        })
+        fieldsValue.dbId = localStorage.getItem("dbId")
+
+        const resData = await createDbTrigger(fieldsValue);
+        if (resData?.data !== null) {
+            message.success("添加成功!")
+        } else {
+            message.warn("添加失败!")
+        }
+        await findDbTriggerPage();
         setIsModalOpen(false);
     };
 
@@ -134,7 +126,7 @@ const AddTrigger = (props) => {
                 okText="确定"
                 width={600}
                 centered={true}
-                bodyStyle={{ maxHeight: '400px', overflowY: 'auto' }}
+                bodyStyle={{maxHeight: '400px', overflowY: 'auto'}}
             >
                 <Form
                     name="basic"
@@ -143,6 +135,7 @@ const AddTrigger = (props) => {
                     form={form}
                     labelAlign={"left"}
                     preserve={false}
+                    initialValues={{state: 1}}
                 >
                     <Form.Item
                         label="触发器名称"
@@ -181,7 +174,7 @@ const AddTrigger = (props) => {
                                 name="rangeTime"
                                 rules={[{required: true, message: '选择时间范畴(单位为分钟)!'}]}
                             >
-                                <InputNumber placeholder="分钟" min={0}/>
+                                <InputNumber placeholder="分钟" min={0} max={10}/>
                             </Form.Item>
                             :
                             <></>
@@ -253,10 +246,24 @@ const AddTrigger = (props) => {
                     >
                         <Input placeholder="问题描述"/>
                     </Form.Item>
+
+                    <Form.Item
+                        label="是否开启"
+                        name="state"
+                        rules={[{required: true, message: '是否开启!'}]}
+                    >
+                        <Select
+                            placeholder="是否开启"
+                            allowClear
+                        >
+                            <Option value={1} key={1}>{"开启"}</Option>
+                            <Option value={2} key={2}>{"关闭"}</Option>
+                        </Select>
+                    </Form.Item>
                 </Form>
             </Modal>
         </>
     );
 };
 
-export default AddTrigger;
+export default DbAddTrigger;

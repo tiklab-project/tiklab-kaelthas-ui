@@ -106,12 +106,12 @@ const DbMonitorGraphics = () => {
     return (
         <Provider>
             <Row className="db-details">
-                <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
+                <Col className="db-details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
                      xxl={{span: "22", offset: "1"}}>
-                    <div className="details-breadcrumb-table">
-                        <div className="details-table-title">
-                            <div className="details-search">
-                                <div className="details-div">
+                    <div className="db-details-breadcrumb-table">
+                        <div className="db-details-table-title">
+                            <div className="db-details-search">
+                                <div className="db-details-div">
                                     <RangePicker
                                         // style={{width: 300}}
                                         format={dateFormat}
@@ -120,7 +120,7 @@ const DbMonitorGraphics = () => {
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
-                                <div className="details-div">
+                                <div className="db-details-div">
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"
@@ -149,11 +149,11 @@ const DbMonitorGraphics = () => {
                         <div className="layout-body-list">
                             {
                                 condition && condition.length > 0 ?
-                                    <div className="details-tabs-wrap">
+                                    <div className="db-details-tabs-wrap">
                                         {
                                             condition.map((item, index) => {
                                                 return (
-                                                    <div key={index}>
+                                                    <div key={index} className="item-tabs-item">
                                                         <MonitoringItem
                                                             reportType={pageStatus}
                                                             condition={item}

@@ -91,8 +91,8 @@ export class TriggerStore {
 
     @action
     getMediumAllList = async () => {
-        const mediumList = await Service("/medium/getMediumAllList");
-        this.mediumList = mediumList.data
+        const resData = await Service("/medium/getMediumAllList");
+        this.mediumList = resData.data
     }
 
 }

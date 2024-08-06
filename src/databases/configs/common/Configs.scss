@@ -1,16 +1,9 @@
-.hostDetails-layout{
+.db-hostDetails-layout{
   display: flex;
   height: 100%;
   flex-direction: row;
   padding: 20px 30px;
-
-    .design{
-      height: 100%;
-      width: 100%;
-      overflow: hidden;
-    }
-
-    .design-up{
+    .db-design-up{
       display: flex;
       background: #ffffff;
       border-radius: 10px;
@@ -36,7 +29,7 @@
         }
       }
 
-      .design-tab{
+      .db-design-tab{
         display: flex;
         cursor: pointer;
         width: 100px;

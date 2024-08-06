@@ -89,14 +89,14 @@ const DbProject = (props) => {
     const hostHeader = () => (
         <div className="project-info-title">
             <FormOutlined/> &nbsp;
-            数据源信息
+            数据库信息
         </div>
     )
 
     const deleteHost = () => (
         <div className="project-info-title">
             <DeleteOutlined/> &nbsp;
-            删除数据源
+            删除数据库
         </div>
     );
 
@@ -124,7 +124,7 @@ const DbProject = (props) => {
         <div className="setting-box-body-right">
             <div className="setting-box-right-head">
                 <div className="setting-box-right-head-text">
-                    数据源信息
+                    数据库信息
                 </div>
                 <Collapse onChange={(key) => onChange(key)} expandIconPosition="right" activeKey={activeKey}>
                     <Panel header={hostHeader()} key={1}>

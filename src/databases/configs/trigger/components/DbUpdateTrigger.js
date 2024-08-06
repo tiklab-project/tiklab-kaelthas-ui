@@ -1,8 +1,8 @@
 import {Button, Drawer, Form, Input, InputNumber, message, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import triggerStore from "../store/TriggerStore";
 import TextArea from "antd/es/input/TextArea";
 import {observer} from "mobx-react";
+import dbTriggerStore from "../store/DbTriggerStore";
 
 const {Option} = Select
 const schemeList = [
@@ -19,17 +19,16 @@ const schemeList = [
         value: 3
     },
 ]
-const UpdateTrigger = (props) => {
+const DbUpdateTrigger = (props) => {
 
     const {isModalOpen, setIsModalOpen, form, rowData} = props;
 
     const {
-        updateTrigger,
-        findMonitorListById,
-        getTriggerList,
-        findTriggerExpressionAll,
+        updateDbTrigger,
+        findDbTriggerPage,
+        getMediumAllList,
         mediumList
-    } = triggerStore;
+    } = dbTriggerStore;
 
     const [triggerExData, setTriggerExData] = useState([]);
 
@@ -38,12 +37,7 @@ const UpdateTrigger = (props) => {
     const [percentageStatus, setPercentageStatus] = useState(rowData?.percentageStatus);
 
     useEffect(async () => {
-        await findMonitorListById({
-            hostId: localStorage.getItem("hostId")
-        });
-
-        const triggerExAll = await findTriggerExpressionAll();
-        setTriggerExData([...triggerExAll])
+        await getMediumAllList();
     }, []);
 
     const handleOk = () => {
@@ -56,14 +50,14 @@ const UpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    hostId: localStorage.getItem("hostId"),
+                    dbId: localStorage.getItem("dbId"),
                     id: rowData.id,
                 };
                 obj[field] = values[field];
 
-                await updateTrigger(obj);
+                await updateDbTrigger(obj);
                 // message.success("修改成功")
-                await getTriggerList();
+                await findDbTriggerPage();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
@@ -164,7 +158,7 @@ const UpdateTrigger = (props) => {
                 }
                 <Form.Item
                     label="消息通知方案"
-                    name="mediumIds"
+                    name="mediumType"
                     rules={[{required: true, message: '请选择消息通知方案!'}]}
                 >
                     <Select
@@ -172,7 +166,7 @@ const UpdateTrigger = (props) => {
                         maxTagCount="responsive"
                         placeholder="请选择您的消息通知方案"
                         allowClear
-                        onChange={() => updateBlur('mediumIds')}
+                        onChange={() => updateBlur('mediumType')}
                     >
                         {
                             mediumList && mediumList.map(item => {
@@ -211,4 +205,4 @@ const UpdateTrigger = (props) => {
     );
 };
 
-export default observer(UpdateTrigger);
+export default observer(DbUpdateTrigger);

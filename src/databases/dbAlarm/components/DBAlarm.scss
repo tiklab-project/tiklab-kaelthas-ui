@@ -1,12 +1,12 @@
-.alarm-box {
+.db-alarm-box {
   height: calc(100% - 96px);
   background: #fff;
 
-  .alarm-box-body {
+  .db-alarm-box-body {
     padding: 20px 30px;
     border-radius: 4px;
 
-    .alarm-box-title {
+    .db-alarm-box-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -14,7 +14,7 @@
       line-height: 32px;
       height: 32px;
 
-      .alarm-box-title-text {
+      .db-alarm-box-title-text {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -24,18 +24,18 @@
       }
     }
 
-    .alarm-box-line {
+    .db-alarm-box-line {
       display: flex;
       padding: 10px;
       margin-bottom: 15px;
 
-      .alarm-box-div {
+      .db-alarm-box-div {
         width: 500px;
         height: 400px;
         padding: 15px;
 
 
-        .alarm-box-div-details {
+        .db-alarm-box-div-details {
           background: #fff;
           width: 100%;
           height: 100%;
@@ -43,7 +43,7 @@
       }
     }
 
-    .alarm-box-search {
+    .db-alarm-box-search {
       display: flex;
       height: 50px;
       justify-content: flex-start;
@@ -60,7 +60,7 @@
       }
     }
 
-    .alarm-box-table {
+    .db-alarm-box-table {
       margin-top: 15px;
     }
   }

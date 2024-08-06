@@ -7,7 +7,6 @@ import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
 import SelectSimple from "../../common/components/Select";
 import SelectItem from "../../common/components/SelectItem";
-import IconCommon from "../../../common/IconCommon";
 
 const {Option} = Select;
 
@@ -90,7 +89,7 @@ const AlarmPage = (props) => {
         setLeveType({
             key: "all",
             label: "全部",
-            value:"all"
+            value: "all"
         })
         await findAlarmPage();
     }, []);
@@ -128,9 +127,9 @@ const AlarmPage = (props) => {
             let data = value.value;
             let sendData;
 
-            if (data === "all"){
+            if (data === "all") {
                 sendData = null
-            }else {
+            } else {
                 sendData = data
             }
             await onLeveTypeChange(sendData);
@@ -170,27 +169,27 @@ const AlarmPage = (props) => {
         let tagName;
 
         switch (severityLevel) {
-            case "1":
+            case 1:
                 tagColor = "#ff0003";
                 tagName = leveList[severityLevel];
                 break;
-            case "2":
+            case 2:
                 tagColor = "#e97659";
                 tagName = leveList[severityLevel];
                 break;
-            case "3":
+            case 3:
                 tagColor = "orange";
                 tagName = leveList[severityLevel];
                 break;
-            case "4":
+            case 4:
                 tagColor = "#fac858";
                 tagName = leveList[severityLevel];
                 break;
-            case "5":
+            case 5:
                 tagColor = "yellow";
                 tagName = leveList[severityLevel];
                 break;
-            case "6":
+            case 6:
                 tagColor = "grey";
                 tagName = leveList[severityLevel];
                 break;
@@ -200,12 +199,25 @@ const AlarmPage = (props) => {
         </Tag>
     }
 
+    function converMachine(machineType) {
+        let machineName;
+        switch (machineType) {
+            case 1:
+                machineName = "主机"
+                break;
+            case 2:
+                machineName = "数据库"
+                break;
+        }
+        return <Tag>{machineName}</Tag>
+    }
+
     const columns = [
         {
-            title: '主机名称',
+            title: '设备名称',
             dataIndex: 'hostName',
             key: 'hostName',
-            width:"14%",
+            width: "12%",
             ellipsis: true,
             render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
                                                style={{cursor: "pointer"}}>{hostName}</div>
@@ -214,23 +226,23 @@ const AlarmPage = (props) => {
             title: '主机IP',
             dataIndex: 'ip',
             key: 'ip',
-            width:"14%",
+            width: "12%",
             ellipsis: true,
         },
         {
             title: '问题',
-            dataIndex: 'triggerName',
-            key: 'triggerName',
-            width:"14%",
+            dataIndex: 'sendMessage',
+            key: 'sendMessage',
+            width: "12%",
             ellipsis: true,
-            render: (triggerName, record) => <div onClick={() => jumpToMonitor(record)}
-                                                  style={{cursor: "pointer"}}>{triggerName}</div>
+            render: (sendMessage, record) => <div onClick={() => jumpToMonitor(record)}
+                                                  style={{cursor: "pointer"}}>{sendMessage}</div>
         },
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            width:"8%",
+            width: "8%",
             ellipsis: true,
             render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
@@ -238,28 +250,38 @@ const AlarmPage = (props) => {
             title: '告警时间',
             dataIndex: 'alertTime',
             key: 'alertTime',
-            width:"14%",
+            width: "12%",
             ellipsis: true,
         },
         {
             title: '解决时间',
             dataIndex: 'resolutionTime',
             key: 'resolutionTime',
-            width:"14%",
+            width: "12%",
             ellipsis: true,
         },
         {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
-            width:"14%",
+            width: "12%",
             ellipsis: true,
+        },
+        {
+            title: '设备类型',
+            dataIndex: 'machineType',
+            key: 'machineType',
+            width: "12%",
+            ellipsis: true,
+            render: (machineType) => <div>
+                {converMachine(machineType)}
+            </div>
         },
         {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            width:"8%",
+            width: "8%",
             ellipsis: true,
             render: (status, record) => {
                 if (status === 2) {

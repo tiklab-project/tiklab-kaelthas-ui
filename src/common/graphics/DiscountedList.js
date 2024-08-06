@@ -204,12 +204,12 @@ const DiscountedList = (props) => {
 
 
     return (
-        <div className="item-tabs-item" key={`discounted-${index}`} id={`discounted-${index}`}>
+        <div  key={`discounted-${index}`} id={`discounted-${index}`}>
             <Col key="chartsone" ref={dom}
                  style={{
                      position: "relative",
-                     width: 1000,
-                     height: 492, margin: "auto",
+                     width: "100%",
+                     height: "100%", margin: "auto",
                      borderWidth: 0,
                      cursor: "default",
                      padding: 20

@@ -215,12 +215,12 @@ const AreaCharts = (props) => {
         await showPei();
     }, [dom, condition, descTime]);
     return (
-        <div className="item-tabs-item" key={`area-${index}`} id={`area-${index}`}>
+        <div key={`area-${index}`} id={`area-${index}`}>
             <Col key="chartstwo" ref={dom}
                  style={{
                      position: "relative",
-                     width: 1000,
-                     height: 492, margin: "auto",
+                     width: "100%",
+                     height: "100%", margin: "auto",
                      borderWidth: 0,
                      cursor: "default",
                      padding: 20

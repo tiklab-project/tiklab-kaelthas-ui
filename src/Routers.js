@@ -57,13 +57,10 @@ const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBA
 const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
 
 const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/DbMonitor'))
-const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/Trigger'))
+const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/DbTrigger'))
 const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
 const DBGraphics = AsyncComponent(() => import('./databases/configs/dbGraphics/components/DbGraphics'))
 const DBCustomize = AsyncComponent(() => import('./databases/configs/customize/components/Customize'))
-
-const AddDBMonitor = AsyncComponent(() => import('./databases/databasesPage/components/AddDBMonitor'))
-
 
 const DbSetting = AsyncComponent(() => import('./databases/setting/common/DbSetting'))
 const DbProject = AsyncComponent(() => import('./databases/setting/dbProject/components/DbProject'))
@@ -207,11 +204,6 @@ const Routes = [
                 path: "/db/addDatabases",
                 exact: true,
                 component: AddDatabases,
-            },
-            {
-                path: "/db/addDBMonitor",
-                exact: true,
-                component: AddDBMonitor,
             },
             {
                 path: "/dbList/:id",

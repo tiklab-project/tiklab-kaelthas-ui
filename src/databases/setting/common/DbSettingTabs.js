@@ -8,7 +8,7 @@ const DbSettingTabs = (props) => {
 
     const router = [
         {
-            name: '主机信息',
+            name: '数据库信息',
             url: `/dbList/${dbId}/dbSetting/dbProject`,
             key: "setting",
             encoded: "setting",
@@ -30,7 +30,6 @@ const DbSettingTabs = (props) => {
     const [selectKey,setSelectKey] = useState(`/dbList/${dbId}/dbSetting/dbProject`);
 
     const selectSetting = (url) => {
-        console.log(url)
         setSelectKey(url)
         props.history.push(url)
     }

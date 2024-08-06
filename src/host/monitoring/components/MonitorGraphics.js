@@ -157,7 +157,7 @@ const MonitorGraphics = () => {
                                                 {
                                                     condition.map((item, index) => {
                                                         return (
-                                                            <div key={index}>
+                                                            <div key={index} className="item-tabs-item">
                                                                 <MonitoringItem
                                                                     reportType={pageStatus}
                                                                     condition={item}

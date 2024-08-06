@@ -1,23 +1,22 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
-import "./Trigger.scss"
-import AddTrigger from "./AddTrigger";
+import "./DbTrigger.scss"
+import DbAddTrigger from "./DbAddTrigger";
 import {Col, Form, Input, Row, Space, Table, Tag, Tooltip} from "antd";
-import triggerStore from "../store/TriggerStore";
+import triggerStore from "../store/DbTriggerStore";
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import UpdateTrigger from "./UpdateTrigger";
+import UpdateTrigger from "./DbUpdateTrigger";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
-const Trigger = (props) => {
+const DbTrigger = (props) => {
 
     const {
-        getTriggerList,
-        deleteTriggerById,
+        findDbTriggerPage,
+        deleteDbTrigger,
         setSearchCondition,
         total,
         triggerList,
-        getMediumAllList,
         mediumList,
         searchCondition
     } = triggerStore;
@@ -29,23 +28,28 @@ const Trigger = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(async () => {
-
+        setSearchCondition({
+            dbId: localStorage.getItem("dbId")
+        })
+        await findDbTriggerPage();
     }, []);
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
-        await getTriggerList();
+        await findDbTriggerPage();
     };
 
     const deleteTrigger = async (id) => {
-
+        await deleteDbTrigger(id);
+        await findDbTriggerPage();
     }
 
     const rowEcho = (record) => {
-
+        const split = record.mediumId.split(",");
+        record.mediumType = split
+        form.setFieldsValue(record)
+        setRowData(record)
         setIsModalOpen(true);
-
-
     };
 
     const columns = [
@@ -84,12 +88,14 @@ const Trigger = (props) => {
         },
         {
             title: '消息通知方案',
-            dataIndex: 'mediumIds',
-            id: 'mediumIds',
+            dataIndex: 'mediumId',
+            id: 'mediumId',
             width:"15%",
             ellipsis:"true",
-            render: (mediumIds) => (
-                <span>
+            render: (mediumId) => {
+                const mediumIds = mediumId.split(",");
+                return (
+                    <span>
                     {
                         mediumIds && mediumIds.map(tag => {
                                 let color = tag.length > 5 ? 'geekblue' : 'green';
@@ -108,7 +114,8 @@ const Trigger = (props) => {
                         )
                     }
                 </span>
-            )
+                );
+            }
         },
         {
             title: '告警等级',
@@ -161,7 +168,7 @@ const Trigger = (props) => {
             }
         })
 
-        await getTriggerList();
+        await findDbTriggerPage();
     }
 
     return (
@@ -169,7 +176,7 @@ const Trigger = (props) => {
             <Col style={{marginLeft:10}}>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
-                        触发器数量:{0}
+                        触发器数量:{total}
                     </div>
                     <div className="trigger-kind-search-div">
                         <div>
@@ -182,7 +189,7 @@ const Trigger = (props) => {
                             />
                         </div>
                         <div className="trigger-top-right">
-                            <AddTrigger/>
+                            <DbAddTrigger/>
                         </div>
                     </div>
                 </div>
@@ -195,15 +202,15 @@ const Trigger = (props) => {
                     <Table
                         rowKey={record => record.id}
                         columns={columns}
-                        // dataSource={triggerList}
+                        dataSource={triggerList}
                         className="custom-table"
-                        // onChange={changePage}
+                        onChange={changePage}
                         pagination={{
                             position: ["bottomCenter"],
-                            total: 10,
+                            total: total,
                             showSizeChanger: true,
-                            pageSize: 10,
-                            current: 1,
+                            pageSize: searchCondition.pageParam.pageSize,
+                            current: searchCondition.pageParam.currentPage,
                         }}
                     />
                 </div>
@@ -212,4 +219,4 @@ const Trigger = (props) => {
     );
 };
 
-export default withRouter(observer(Trigger));
+export default withRouter(observer(DbTrigger));

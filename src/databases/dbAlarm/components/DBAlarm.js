@@ -1,18 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./DBAlarm.scss"
-import {Col, Input, Modal, Row, Select, Table, Tag} from "antd";
+import {Button, Col, Input, Modal, Row, Select, Table, Tag} from "antd";
 import {withRouter} from "react-router-dom";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
+import hostAlarmStore from "../../../host/hostAlarm/sotre/HostAlarmStore";
 
 
 const DBAlarm = (props) => {
 
+    const {
+        alarmPage,
+        findAlarmPageByHostId,
+        updateAlarmPage,
+        setSearchCondition,
+        total,
+        searchCondition,
+        setQuickFilterValue,
+        quickFilterValue,
+        setLeveType,
+        leveType
+    } = hostAlarmStore;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const [alarm,setAlarm] = useState();
+    const [alarm, setAlarm] = useState();
 
     const quickFilterList = [
         {
@@ -65,19 +78,72 @@ const DBAlarm = (props) => {
     ];
 
     useEffect(async () => {
+        setQuickFilterValue({
+            label: "全部",
+            value: "all"
+        })
+        setLeveType({
+            key: "all",
+            label: "全部",
+            value: "all"
+        })
 
+        setSearchCondition({
+            hostId: localStorage.getItem("dbId"),
+            status: null,
+            machineType: 2,
+            severityLevel: null
+        })
+        await findAlarmPageByHostId();
     }, []);
 
     async function onLeveTypeChange(value) {
-
+        setSearchCondition({
+            severityLevel: value
+        })
+        await findAlarmPageByHostId();
     }
 
     async function selectLeveType(value) {
+        setLeveType(value)
+        if (!value) {
+            await onLeveTypeChange(null);
+        } else {
+            let data = value.value;
+            let sendData;
 
+            if (data === "all") {
+                sendData = null
+            } else {
+                sendData = data
+            }
+            await onLeveTypeChange(sendData);
+        }
     }
 
     const selectMenu = async (value) => {
+        setQuickFilterValue(value)
+        if (!value) {
+            await onSecondCityChange(null);
+        } else {
+            let data = value.value;
+            let sendData = null
 
+            switch (data) {
+                case "all":
+                    sendData = null
+                    break;
+                case "resolved":
+                    sendData = 1
+                    break;
+                case "unresolved":
+                    sendData = 2
+                    break;
+                default:
+                    break;
+            }
+            await onSecondCityChange(sendData);
+        }
     }
 
     function isConfirm(status) {
@@ -100,8 +166,8 @@ const DBAlarm = (props) => {
 
     function conversionType(severityLevel) {
 
-        leveValueList.map(item =>{
-            if (item.key === severityLevel){
+        leveValueList.map(item => {
+            if (item.key === severityLevel) {
                 return item.label;
             }
         })
@@ -110,27 +176,27 @@ const DBAlarm = (props) => {
         let tagName;
 
         switch (severityLevel) {
-            case "1":
+            case 1:
                 tagColor = "#ff0003";
                 tagName = "灾难";
                 break;
-            case "2":
+            case 2:
                 tagColor = "#e97659";
                 tagName = "严重";
                 break;
-            case "3":
+            case 3:
                 tagColor = "orange";
                 tagName = "一般严重";
                 break;
-            case "4":
+            case 4:
                 tagColor = "#fac858";
                 tagName = "告警";
                 break;
-            case "5":
+            case 5:
                 tagColor = "yellow";
                 tagName = "信息";
                 break;
-            case "6":
+            case 6:
                 tagColor = "grey";
                 tagName = "未分类";
                 break;
@@ -142,7 +208,7 @@ const DBAlarm = (props) => {
 
     const columns = [
         {
-            title: '主机名称',
+            title: '数据源名称',
             dataIndex: 'hostName',
             ellipsis: true,
             // width: "20%",
@@ -163,7 +229,7 @@ const DBAlarm = (props) => {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            // render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
+            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
         {
             title: '告警时间',
@@ -184,18 +250,27 @@ const DBAlarm = (props) => {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            /*render: (status, record) => {
+            render: (status, record) => {
                 if (status === 2) {
                     return <div onClick={() => updateAlarm(record)}
                                 style={{cursor: "pointer"}}>{isConfirm(status)}</div>
                 } else {
                     return <div>{isConfirm(status)}</div>
                 }
-            }*/
+            }
         },
     ];
 
     const handleOk = async () => {
+
+        await updateAlarmPage({
+            id: alarm?.id,
+            alertTime: alarm?.alertTime,
+            status: 1
+        });
+
+        await findAlarmPageByHostId()
+
         setIsModalVisible(false);
     };
 
@@ -204,24 +279,33 @@ const DBAlarm = (props) => {
     };
 
     async function checkPage(pagination) {
-
+        setSearchCondition({
+            pageParam: {
+                pageSize: pagination.pageSize,
+                currentPage: pagination.current,
+            }
+        })
+        await findAlarmPageByHostId();
     }
 
     async function onSecondCityChange(value) {
-
+        setSearchCondition({
+            status: value
+        })
+        await findAlarmPageByHostId();
     }
 
     return (
-        <Row className="alarm-box">
+        <Row className="db-alarm-box">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
-                <div className="alarm-box-body">
-                    <div className="alarm-box-search">
+                <div className="db-alarm-box-body">
+                    <div className="db-alarm-box-search">
                         <div style={{marginRight: 8}}>
                             <SelectSimple name="quickFilter"
                                           onChange={(value) => selectLeveType(value)}
                                           title={`告警等级`}
                                           ismult={false}
-                                          value={"all"}
+                                          value={leveType}
                                           suffixIcon={true}
                             >
                                 {
@@ -239,7 +323,7 @@ const DBAlarm = (props) => {
                                       onChange={(value) => selectMenu(value)}
                                       title={`状态`}
                                       ismult={false}
-                                      value={"all"}
+                                      value={quickFilterValue}
                                       suffixIcon={true}
                         >
                             {
@@ -267,21 +351,21 @@ const DBAlarm = (props) => {
                             <p>你确定要更改状态吗？</p>
                         </Modal>
                     </>
-                    <div className="alarm-box-table">
+                    <div className="db-alarm-box-table">
                         <Table rowKey={record => record.id}
                                columns={columns}
                                className="custom-table"
-                               // dataSource={alarmPage}
+                               dataSource={alarmPage}
                                onChange={checkPage}
                                scroll={{
                                    x: 400,
                                }}
                                pagination={{
                                    position: ["bottomCenter"],
-                                   total: 10,
+                                   total: total,
                                    showSizeChanger: true,
-                                   pageSize: 10,
-                                   current: 1,
+                                   pageSize: searchCondition.pageParam.pageSize,
+                                   current: searchCondition.pageParam.currentPage,
                                }}
                         />
                     </div>

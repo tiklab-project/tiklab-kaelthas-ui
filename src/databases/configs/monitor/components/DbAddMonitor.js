@@ -30,7 +30,7 @@ const DbAddMonitor = (props) => {
 
     const handleOk = async () => {
 
-        const fieldsValue = form.getFieldsValue();
+        const fieldsValue = await form.validateFields();
         fieldsValue.dbId = dbId;
         await createDbMonitor(fieldsValue);
         await findDbMonitorPage();

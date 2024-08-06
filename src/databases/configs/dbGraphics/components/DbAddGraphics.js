@@ -21,19 +21,17 @@ const DbAddGraphics = (props) => {
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        form.validateFields().then(async res => {
-            await createGraphics({
-                dbId: localStorage.getItem("dbId"),
-                name: res.name,
-                describe: res.describe,
-                monitorIds: res.monitorIds,
-            });
-            await setSearchCondition({
-                hostId: localStorage.getItem("hostId")
-            })
-            await findGraphicsPage();
+    const handleOk = async () => {
+        let values = await form.validateFields();
+
+        values.dbId = localStorage.getItem("dbId");
+
+        await createGraphics(values)
+
+        await setSearchCondition({
+            hostId: localStorage.getItem("hostId")
         })
+        await findGraphicsPage();
         setIsModalOpen(false);
     };
 

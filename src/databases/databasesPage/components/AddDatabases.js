@@ -24,8 +24,9 @@ const AddDatabases = (props) => {
     }, []);
 
     const onFinish = async () => {
-        // console.log(form.getFieldsValue())
-        await createDbInfo(form.getFieldsValue())
+        let values = await form.validateFields();
+
+        await createDbInfo(values)
         props.history.push('/db')
     };
 
@@ -55,7 +56,9 @@ const AddDatabases = (props) => {
     }
 
     async function testSql() {
-        const resData = await testJDBCSql(form.getFieldsValue())
+        let values = await form.validateFields();
+
+        const resData = await testJDBCSql(values)
         if (resData.code === 0){
             await message.success("连接数据库成功")
         }else {
@@ -77,7 +80,7 @@ const AddDatabases = (props) => {
                 <div className="db-edit-box">
                     <div className="db-edit-box-header">
                         <div className="db-edit-box-header-title">
-                            新建数据源
+                            新建数据库
                         </div>
                     </div>
                     <Form
@@ -90,11 +93,11 @@ const AddDatabases = (props) => {
                     >
                         <div className={"db-edit-form-input"}>
                             <Form.Item
-                                label="数据源名称"
+                                label="名称"
                                 name="name"
-                                rules={[{required: true, message: '请输入数据源名称!'}]}
+                                rules={[{required: true, message: '请输入名称!'}]}
                             >
-                                <Input placeholder="数据源名称"/>
+                                <Input placeholder="名称"/>
                             </Form.Item>
                         </div>
                         <div className={"db-edit-form-input"}>

@@ -21,19 +21,17 @@ const AddCustomize = (props) => {
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        form.validateFields().then(async res => {
-            await createCustomize({
-                dbId: localStorage.getItem("dbId"),
-                expression: res.expression,
-                statementSql:res.statementSql,
-                describe: res.describe,
-            });
-            await setSearchCondition({
-                dbId: localStorage.getItem("dbId")
-            })
-            await findCustomizePage();
+    const handleOk = async () => {
+        const values = await form.validateFields();
+        values.dbId = localStorage.getItem("dbId")
+
+        await createCustomize(values)
+
+        await setSearchCondition({
+            dbId: localStorage.getItem("dbId")
         })
+        await findCustomizePage();
+
         setIsModalOpen(false);
     };
 

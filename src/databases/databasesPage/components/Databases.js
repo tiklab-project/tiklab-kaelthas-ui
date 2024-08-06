@@ -44,8 +44,8 @@ const Databases = (props) => {
         await updateDbInfo(record)
         localStorage.setItem('dbId', record.id);
         localStorage.setItem("dbName", record.name)
-        localStorage.setItem("url", `/dbList/${record.id}/dbDetails`)
-        props.history.push(`/dbList/${record.id}/dbDetails`);
+        localStorage.setItem("url", `/dbList/${record.id}/monitoring`)
+        props.history.push(`/dbList/${record.id}/monitoring`);
     }
 
     const columns = [
@@ -89,7 +89,7 @@ const Databases = (props) => {
 
     function converType(record) {
 
-        if (record.usability === 2) {
+        if (record.usability === 0) {
             return <div>
                 <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
@@ -141,12 +141,6 @@ const Databases = (props) => {
         }
     }
 
-    const [hostType, setHostType] = useState(1);
-
-    function checkType(number) {
-        setHostType(number)
-    }
-
     async function searchDbName(e) {
         const name = e.target.value;
         setSearchCondition({name: name})
@@ -172,7 +166,7 @@ const Databases = (props) => {
                 <div className="db-body">
                     <div className="db-title">
                         <div className="db-title-text">数据库</div>
-                        <div className="db-title-add-button" onClick={() => hrefAddDatabases()}>新建数据源</div>
+                        <div className="db-title-add-button" onClick={() => hrefAddDatabases()}>新建数据库</div>
                     </div>
                     <div className="db-type-search">
                         <div className="db-type">

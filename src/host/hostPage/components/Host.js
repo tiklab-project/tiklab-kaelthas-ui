@@ -101,7 +101,6 @@ const Host = (props) => {
             width:"20%",
             ellipsis: true,
 
-            // className:"host-columns-style",
             render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</div>,
         },
         {
@@ -110,7 +109,6 @@ const Host = (props) => {
             key: 'ip',
             width:"20%",
             ellipsis: true,
-            // className:"host-columns-style",
         },
         {
             title: '主机状态',
@@ -118,7 +116,6 @@ const Host = (props) => {
             key: 'usability',
             width:"20%",
             ellipsis: true,
-            // className:"host-columns-style",
             render: (usability, record) => <div style={{cursor: "pointer"}}
                                                 onClick={() => host(record)}>{converType(record)}</div>,
         },
@@ -128,7 +125,6 @@ const Host = (props) => {
             key: 'alarmNum',
             width:"20%",
             ellipsis: true,
-            // className:"host-columns-style",
             render: (text, record) => <div style={{cursor: "pointer"}}
                                            onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
         },
@@ -138,7 +134,6 @@ const Host = (props) => {
             key: 'createTime',
             width:"20%",
             ellipsis: true,
-            // className:"host-columns-style",
         },
 
     ];

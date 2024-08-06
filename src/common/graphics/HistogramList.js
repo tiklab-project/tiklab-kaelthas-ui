@@ -196,12 +196,12 @@ const HistogramList = (props) => {
     }, [dom, condition, descTime]);
 
     return (
-        <div className="item-tabs-item" key={`histogram-${index}`} id={`histogram-${index}`}>
+        <div key={`histogram-${index}`} id={`histogram-${index}`}>
             <Col key="chartsthree" ref={dom}
                  style={{
                      position: "relative",
-                     width: 1000,
-                     height: 492, margin: "auto",
+                     width: "100%",
+                     height: "100%", margin: "auto",
                      borderWidth: 0,
                      cursor: "default",
                      padding: 20

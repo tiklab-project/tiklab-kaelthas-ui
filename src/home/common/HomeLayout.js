@@ -35,7 +35,7 @@ const HomeLayout = (props) => {
             key: 'host',
         },
         {
-            name: '数据',
+            name: '数据库',
             url: '/db',
             key: 'db',
         },
