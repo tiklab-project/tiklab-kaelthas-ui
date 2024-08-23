@@ -166,16 +166,16 @@ const DbProject = (props) => {
                                     // onChange={SelectChangeDBType}
                                 >
                                     <Option key={1} value="PostgreSQL">PostgreSQL</Option>
+                                    <Option key={2} value="MYSQL">MYSQL</Option>
                                 </Select>
                             </Form.Item>
-                            <Form.Item
+                            {/*<Form.Item
                                 label="数据库名称"
                                 name="dbName"
                                 rules={[{required: true, message: '请选择数据库名称!'}]}
                             >
                                 <Input placeholder="数据库名称"/>
-                            </Form.Item>
-
+                            </Form.Item>*/}
                             <Form.Item
                                 label="数据库端口"
                                 name="dbPort"

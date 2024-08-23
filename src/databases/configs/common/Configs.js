@@ -43,10 +43,10 @@ const Configs = (props) => {
         },
         {
             name: '图形',
-            icon: 'dbGraphics',
+            icon: 'graphics',
             url: `/dbList/${dbId}/configs/dbGraphics`,
-            key: "dbGraphics",
-            encoded: "dbGraphics",
+            key: "graphics",
+            encoded: "graphics",
         },
     ]
 

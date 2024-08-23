@@ -59,8 +59,8 @@ export class DbMonitorStore {
     }
 
     @action
-    findMonitorItemAll = async () => {
-        const resData = await Service("/dbItem/findAll")
+    findItemListByType = async (value) => {
+        const resData = await Service("/dbItem/findItemListByType",value)
         return resData.data;
     }
 

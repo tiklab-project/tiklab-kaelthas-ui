@@ -41,7 +41,6 @@ const Databases = (props) => {
     }, []);
 
     async function hrefDatabases(record) {
-        await updateDbInfo(record)
         localStorage.setItem('dbId', record.id);
         localStorage.setItem("dbName", record.name)
         localStorage.setItem("url", `/dbList/${record.id}/monitoring`)

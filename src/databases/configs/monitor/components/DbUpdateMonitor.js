@@ -6,20 +6,20 @@ const {Option} = Select
 
 const DbUpdateMonitor = (props) => {
 
-    const provinceData = [{name: '系统指标', value: 1}, {name: '自定义', value: 2}];
+    const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
 
     const {isModalOpen, setIsModalOpen, form, columnData} = props;
 
     const {
         updateDbMonitor,
         findDbMonitorPage,
-        findMonitorItemAll
+        findItemListByType
     } = monitorStore;
 
     const [expression, setExpression] = useState([]);
 
     useEffect(async () => {
-        const newVar = await findMonitorItemAll();
+        const newVar = await findItemListByType({dbType:null});
         setExpression(newVar)
     }, []);
 
@@ -28,6 +28,7 @@ const DbUpdateMonitor = (props) => {
     };
 
     const handleBlur = async (field) => {
+        console.log(form.getFieldsValue())
         try {
             const values = await form.validateFields([field]);
             // 假设此处调用 API 进行保存
@@ -50,14 +51,25 @@ const DbUpdateMonitor = (props) => {
     async function handleChange(value) {
         switch (value) {
             case 1:
-                const newVar = await findMonitorItemAll();
-                setExpression(newVar)
+                const postgresql = await findItemListByType({
+                    dbType: "Postgresql"
+                });
+                setExpression(postgresql)
                 break
             case 2:
-                /*form.setFieldsValue({
-                    dbItemId:null
-                })*/
-                setExpression([])
+                const mysql = await findItemListByType({
+                    dbType: "MYSQL"
+                });
+                setExpression(mysql)
+                break
+            case 3:
+                break
+
+            default:
+                const itemList = await findItemListByType({
+                    dbType: null
+                });
+                setExpression(itemList)
                 break
 
         }
@@ -91,6 +103,14 @@ const DbUpdateMonitor = (props) => {
                 </Form.Item>
 
                 <Form.Item
+                    label="采集数据库名称"
+                    name="datName"
+                    rules={[{required: false, message: '请输入采集数据库名称!'}]}
+                >
+                    <Input allowClear={true} onBlur={() => handleBlur('datName')}/>
+                </Form.Item>
+
+                <Form.Item
                     label="监控类型"
                     name="monitorType"
                     rules={[{required: true, message: '监控项类型'}]}
@@ -118,6 +138,7 @@ const DbUpdateMonitor = (props) => {
                     <Select
                         placeholder="监控项指标"
                         allowClear
+                        onBlur={()=>handleBlur('dbItemId')}
                     >
                         {
                             expression && expression.map((item) => (

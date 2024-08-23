@@ -9,9 +9,9 @@ const DbSetting = (props) => {
     const {route} = props;
 
     return (
-        <div className="setting-layout">
+        <div className="db-setting-layout">
             <SettingTabs/>
-            <div className="setting-layout-right">
+            <div className="db-setting-layout-right">
                 {renderRoutes(route.routes)}
             </div>
         </div>

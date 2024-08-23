@@ -9,7 +9,7 @@ const {Option} = Select
 const DbAddMonitor = (props) => {
 
     const {
-        findMonitorItemAll,
+        findItemListByType,
         createDbMonitor,
         findDbMonitorPage
     } = dbMonitorStore;
@@ -18,7 +18,7 @@ const DbAddMonitor = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const provinceData = [{name: '系统指标', value: 1}, {name: '自定义', value: 2}];
+    const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
 
     const [expression, setExpression] = useState([]);
 
@@ -45,10 +45,18 @@ const DbAddMonitor = (props) => {
     const handleProvinceChange = async (value) => {
         switch (value) {
             case 1:
-                const newVar = await findMonitorItemAll();
-                setExpression(newVar)
+                const postgresql = await findItemListByType({
+                    dbType:"Postgresql"
+                });
+                setExpression(postgresql)
                 break
             case 2:
+                const mysql = await findItemListByType({
+                    dbType:"MYSQL"
+                });
+                setExpression(mysql)
+                break
+            case 3:
                 break
 
         }
@@ -86,6 +94,14 @@ const DbAddMonitor = (props) => {
                         rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
                         <Input allowClear={true} placeholder="监控项名称"/>
+                    </Form.Item>
+
+                    <Form.Item
+                        label="采集数据库名称"
+                        name="datName"
+                        rules={[{required: false, message: '请输入采集数据库名称!'}]}
+                    >
+                        <Input allowClear={true} placeholder="不输入默认采集所有数据库总和指标"/>
                     </Form.Item>
 
                     <Form.Item

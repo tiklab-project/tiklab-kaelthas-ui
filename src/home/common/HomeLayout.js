@@ -40,6 +40,11 @@ const HomeLayout = (props) => {
             key: 'db',
         },
         {
+            name: 'k8s',
+            url: '/kubernetes',
+            key: 'kubernetes',
+        },
+        {
             name: '告警',
             url: '/alarm',
             key: 'alarm',

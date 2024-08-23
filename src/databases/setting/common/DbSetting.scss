@@ -1,13 +1,13 @@
-.setting-layout{
+.db-setting-layout {
   display: flex;
   height: 100%;
+  overflow: auto;
   flex-direction: row;
-  width: 100%;
-  margin: 0 80px;
+  margin: 0 0 0 80px;
 
-  .setting-layout-right{
+  .db-setting-layout-right {
     flex: 1;
     padding: 0 5px;
-    overflow: auto;
   }
+
 }

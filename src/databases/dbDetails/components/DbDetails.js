@@ -14,7 +14,7 @@ const DbDetails = () => {
         await findDbInfoById(localStorage.getItem("dbId"))
     }, []);
 
-    return (<Row className="box-right">
+    return (<Row className="db-box-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
                 <div className="box-host-survey">
                     <div className="box-host-body-head">

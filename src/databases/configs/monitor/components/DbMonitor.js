@@ -97,8 +97,13 @@ const DbMonitor = (props) => {
             width: "10%",
             ellipsis: "true",
             render: (name, record) => <span style={{cursor: "pointer"}} onClick={() => drawerList(record)}>{name}</span>
-
-
+        },
+        {
+            title: '采集数据库名称',
+            dataIndex: 'datName',
+            id: 'datName',
+            width: "10%",
+            ellipsis: "true"
         },
         {
             title: '监控表达式',

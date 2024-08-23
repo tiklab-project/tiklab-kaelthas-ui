@@ -150,7 +150,7 @@ const Routes = [
                                 component: Template,
                             },
                             {
-                                path: "/hostList/:id/configuration/dbGraphics",
+                                path: "/hostList/:id/configuration/graphics",
                                 exact: false,
                                 component: Graphics,
                             },

@@ -111,12 +111,12 @@ const AddDatabases = (props) => {
                         </div>
                         <div className={"db-edit-form-input"}>
                             <Form.Item
-                                label="数据库类型"
+                                label="数据库类型和版本"
                                 name="dbType"
-                                rules={[{required: true, message: '请输入数据库类型!'}]}
+                                rules={[{required: true, message: '请输入数据库类型和版本!'}]}
                             >
                                 <Select
-                                    placeholder="请选择数据库类型"
+                                    placeholder="请选择数据库类型和版本"
                                     key="selectGroup"
                                     allowClear
                                     showSearch
@@ -125,11 +125,12 @@ const AddDatabases = (props) => {
                                     // onChange={SelectChangeDBType}
                                 >
                                     <Option key={1} value="PostgreSQL">PostgreSQL</Option>
+                                    <Option key={2} value="MYSQL">MYSQL</Option>
                                 </Select>
                             </Form.Item>
                         </div>
 
-                        <div className={"db-edit-form-input"}>
+                        {/*<div className={"db-edit-form-input"}>
                             <Form.Item
                                 label="数据库名称"
                                 name="dbName"
@@ -137,7 +138,7 @@ const AddDatabases = (props) => {
                             >
                                 <Input placeholder="数据库名称"/>
                             </Form.Item>
-                        </div>
+                        </div>*/}
                         <div className={"db-edit-form-input"}>
                             <Form.Item
                                 label="数据库端口号"

@@ -1,7 +1,7 @@
 .box-right {
   flex: 1;
   flex-direction: column;
-  height: calc(100% - 116px);
+  height: 100%;
   background: #ffffff;
   overflow: auto;
 
@@ -12,10 +12,8 @@
     .box-host-body-head {
       display: flex;
       flex-direction: column;
-      margin-bottom: 15px;
       gap: 20px;
-      padding: 15px;
-
+      padding: 0 15px;
       background-color: #fff;
 
       .box-host-title {
@@ -137,7 +135,7 @@
         justify-content: space-between;
         font-size: 16px;
         font-weight: bold;
-        margin-bottom: 25px;
+        margin-bottom: 15px;
 
         .more {
           color: var(--thoughtware-blue);
@@ -173,6 +171,13 @@
 }
 
 
+.ant-timeline-item{
+  position: relative;
+  margin: 0;
+  padding-bottom: 16px;
+  font-size: 14px;
+  list-style: none;
+}
 
 
 

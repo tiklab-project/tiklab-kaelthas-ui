@@ -12,7 +12,7 @@ import {
     TodoTemp,
     TodoType
 } from "thoughtware-message-ui";
-import {ProductAuth, Version} from "thoughtware-licence-ui";
+import {ProductAuth} from "thoughtware-licence-ui";
 import {ExcludeProductUser, NotFound} from "thoughtware-eam-ui";
 import {SystemFeature, ProjectFeature, SystemRole, ProjectRole,ProjectVirtualRole} from "thoughtware-privilege-ui";
 import {Orga, User, UserGroup, Directory} from "thoughtware-user-ui";
@@ -66,6 +66,17 @@ const DbSetting = AsyncComponent(() => import('./databases/setting/common/DbSett
 const DbProject = AsyncComponent(() => import('./databases/setting/dbProject/components/DbProject'))
 const DbMember = AsyncComponent(() => import('./databases/setting/dbMember/DbMember'))
 const DbPermissions = AsyncComponent(() => import('./databases/setting/permissions/DbPermissions'))
+
+
+const Kubernetes = AsyncComponent(() => import('./k8s/kuPage/components/Kubernetes'))
+const AddKubernetes = AsyncComponent(() => import('./k8s/kuPage/components/AddKubernetes'))
+const KubernetesLayout = AsyncComponent(() => import('./k8s/common/KubernetesLayout'))
+const KuOverview = AsyncComponent(() => import('./k8s/overview/components/KuOverview'))
+
+const KuMonitoring = AsyncComponent(() => import('./k8s/kuMonitoring/components/KuMonitorGraphics'))
+const KuConfigs = AsyncComponent(() => import('./k8s/configs/common/KuConfigs'))
+const KuMonitor = AsyncComponent(() => import('./k8s/configs/monitor/components/KuMonitor'))
+const KuGraphics = AsyncComponent(() => import('./k8s/configs/graphics/components/KuGraphics'))
 
 const Routes = [
 
@@ -287,6 +298,59 @@ const Routes = [
                     },
                 ]
             },
+            {
+                path: "/kubernetes",
+                exact: true,
+                component: Kubernetes,
+            },
+            {
+                path: "/kubernetes/addKubernetes",
+                exact: true,
+                component: AddKubernetes,
+            },
+            {
+                component: KubernetesLayout,
+                routes: [
+                    {
+                        path: "/kubernetes/:id/kuOverview",
+                        exact: true,
+                        component: KuOverview,
+                    },
+                    {
+                        path: "/kubernetes/:id/monitoring",
+                        exact: true,
+                        component: KuMonitoring,
+                    },
+                    {
+                        path: "/kubernetes/:id/kuAlarm",
+                        exact: true,
+                        component: KuMonitoring,
+                    },
+                    {
+                        path: "/kubernetes/:id/configs",
+                        component: KuConfigs,
+                        routes: [
+                            {
+                                path: "/kubernetes/:id/configs/monitor",
+                                exact: true,
+                                component: KuMonitor,
+                            },
+                            {
+                                path: "/kubernetes/:id/configs/graphics",
+                                exact: true,
+                                component: KuGraphics,
+                            },
+                        ]
+                    },
+
+                    {
+                        path: "/kubernetes/:id/kuSetting/kuProject",
+                        exact: true,
+                        component: AddKubernetes,
+                    },
+                ]
+            },
+
             {
                 path: "/alarm",
                 exact: false,

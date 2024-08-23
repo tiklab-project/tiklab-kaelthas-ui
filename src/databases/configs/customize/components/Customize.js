@@ -26,6 +26,10 @@ const Customize = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(async () => {
+
+        setSearchCondition({
+            dbId: localStorage.getItem("dbId")
+        })
         await findCustomizePage();
 
     }, []);
@@ -66,9 +70,9 @@ const Customize = () => {
             title: '监控键值',
             dataIndex: 'expression',
             id: 'expression',
-             render: (text, record) =>
-                 <span style={{cursor: "pointer"}}
-                       onClick={() => updateGraphicsColumn(record)}>{text}</span>,
+            render: (text, record) =>
+                <span style={{cursor: "pointer"}}
+                      onClick={() => updateGraphicsColumn(record)}>{text}</span>,
         },
         {
             title: 'SQL语句',

@@ -105,7 +105,7 @@ const DbMonitorGraphics = () => {
 
     return (
         <Provider>
-            <Row className="db-details">
+            <Row className="db-graphics-monitoring">
                 <Col className="db-details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
                      xxl={{span: "22", offset: "1"}}>
                     <div className="db-details-breadcrumb-table">

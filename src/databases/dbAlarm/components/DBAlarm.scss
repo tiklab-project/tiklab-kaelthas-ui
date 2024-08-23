@@ -1,6 +1,7 @@
 .db-alarm-box {
-  height: calc(100% - 96px);
+  height: 100%;
   background: #fff;
+  overflow: auto;
 
   .db-alarm-box-body {
     padding: 20px 30px;

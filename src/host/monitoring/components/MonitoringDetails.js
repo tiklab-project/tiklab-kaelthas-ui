@@ -166,8 +166,8 @@ const MonitoringDetails = (props) => {
         },
         {
             title: '图形',
-            dataIndex: 'dbGraphics',
-            key: 'dbGraphics',
+            dataIndex: 'graphics',
+            key: 'graphics',
             render: (text, record) => (
                 <a onClick={() => showGraphics(record)}>{
                     record.reportType !== 2 ? "图形" : ""

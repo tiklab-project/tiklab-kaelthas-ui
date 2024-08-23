@@ -2,7 +2,7 @@
 .box-graphics-right {
   flex-direction: column;
   padding: 20px;
-  height: 100%;
+  height: calc(100% - 60px);
 
   .box-graphics-title {
     display: flex;

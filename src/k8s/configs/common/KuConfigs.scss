@@ -1,0 +1,70 @@
+.ku-hostDetails-layout{
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  padding: 20px 30px;
+  overflow: auto;
+
+    .ku-design-up{
+      display: flex;
+      background: #ffffff;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      height: 40px;
+      line-height: 40px;
+      overflow: hidden;
+      width: 100%;
+
+      .design-top{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 48px;
+        padding: var(--thoughtware-padding-item) var(--thoughtware-padding-item) 0;
+
+        .configuration-title{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-size: 16px;
+          font-weight: var(--thoughtware-font-weight-bold);
+        }
+      }
+
+      .ku-design-tab{
+        display: flex;
+        cursor: pointer;
+        width: 100px;
+        align-items: center;
+        border-radius: 10px;
+        justify-content: center;
+
+
+        &:not(:last-child){
+          width: 100px;
+          margin: 0 5px;
+        }
+        .design-tab-icon{
+          padding-right: 2px;
+        }
+      }
+      .design-active{
+        //width: 60px;
+        font-weight: bold;
+        color: #0d66e4;
+        background-color: #ececec;
+      }
+
+      .design-tab-title{
+        display: flex;
+        align-items: center;
+
+      }
+    }
+}
+
+.prodetail-content{
+  height: 100%;
+  background: #fff;
+
+}
