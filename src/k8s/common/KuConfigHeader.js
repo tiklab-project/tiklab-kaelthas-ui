@@ -3,15 +3,21 @@ import "./KuConfigHeader.scss"
 import {withRouter} from "react-router-dom";
 import {Dropdown, Tooltip} from "antd";
 import {CaretDownOutlined} from "@ant-design/icons";
+import kubernetesStore from "../kuPage/store/KubernetesStore";
 
 const KuConfigHeader = (props) => {
+
+    const {
+        updateKbInfo,
+        findKuDropDown
+    } = kubernetesStore;
 
 
     let kuId = localStorage.getItem('kuId');
 
     let url = localStorage.getItem('url');
 
-    const [kuList,setDbList] = useState();
+    const [kuList,setKuList] = useState([]);
 
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
@@ -62,13 +68,13 @@ const KuConfigHeader = (props) => {
     }
 
     async function dropDownList() {
-        // const kus = await findDropDown();
-        // setDbList(kus)
+        const kus = await findKuDropDown();
+        setKuList(kus)
     }
 
     async function changeHost(item) {
         if (kuId !== item.id) {
-            // await updateDbInfo(item)
+            await updateKbInfo(item)
             localStorage.setItem("kuId", item.id);
             localStorage.setItem("kuName", item?.name);
             localStorage.setItem("url", `/kuList/${item.id}/kuDetails`);
@@ -86,7 +92,7 @@ const KuConfigHeader = (props) => {
                             <use xlinkHref={`#icon-left`}></use>
                         </svg>
                     </div>
-                    {/*<Dropdown
+                    <Dropdown
                         getPopupContainer={e => e.parentElement}
                         overlayStyle={{width: 200, top: 48, left: 80}}
                         trigger={['click']}
@@ -112,7 +118,7 @@ const KuConfigHeader = (props) => {
                                             )
                                         })
                                     }
-                                    <div className='ku-opt-more' onClick={() => props.history.push('/ku')}>更多</div>
+                                    <div className='ku-opt-more' onClick={() => props.history.push('/kubernetes')}>更多</div>
                                 </div>
                             </div>
                         }
@@ -120,14 +126,14 @@ const KuConfigHeader = (props) => {
                         <div className="ku-normal-aside-opt-icon">
                             <Tooltip placement="right" title={localStorage.getItem("kuName")}>
                                 <div className="ku-normal-host-opt-title">
-                                    <span style={{fontSize: 16}} onClick={() => dropDownList()}>
+                                    <span className="ku-normal-opt-text" onClick={() => dropDownList()}>
                                         {localStorage.getItem("kuName")}
                                     </span>
                                     <CaretDownOutlined/>
                                 </div>
                             </Tooltip>
                         </div>
-                    </Dropdown>*/}
+                    </Dropdown>
                 </div>
             </div>
             <div className="ku-right">

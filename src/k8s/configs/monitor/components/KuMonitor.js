@@ -101,7 +101,7 @@ const KuMonitor = (props) => {
 
         {
             title: '监控表达式',
-            dataIndex: ['kubernetesItem', 'expression'],
+            dataIndex:  'expression',
             id: 'expression',
             width: "20%",
             ellipsis: "true"

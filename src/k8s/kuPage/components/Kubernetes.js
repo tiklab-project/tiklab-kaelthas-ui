@@ -12,17 +12,30 @@ const Kubernetes = (props) => {
         kbPage,
         setSearchCondition,
         searchCondition,
-        total
+        total,
+        updateKbInfo
     } = kubernetesStore;
 
     useEffect(async () => {
         await findKbInfoPage();
     }, []);
 
-    function hrefDatabases(record) {
+    async function hrefDatabases(record) {
+        const now = new Date();
+        record.updateTime = now.toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        }).replace(/\//g, '-');
+
         localStorage.setItem('kuId', record.id);
         localStorage.setItem("kuName", record.name)
         localStorage.setItem("url", `/kubernetes/${record.id}/kuOverview`)
+        await updateKbInfo(record)
         props.history.push(`/kubernetes/${record.id}/kuOverview`);
     }
 
@@ -49,7 +62,7 @@ const Kubernetes = (props) => {
             dataIndex: 'alarmNum',
             ellipsis: true,
             key: 'alarmNum',
-            render: (text, record) => <div style={{cursor: "pointer"}}>{conversionColor(text)}</div>
+            render: (alarmNum) => <div style={{cursor: "pointer"}}>{conversionColor(alarmNum)}</div>
         },
         {
             title: '创建时间',

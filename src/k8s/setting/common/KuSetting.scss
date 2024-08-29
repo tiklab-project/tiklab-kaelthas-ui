@@ -1,0 +1,13 @@
+.ku-setting-layout {
+  display: flex;
+  height: 100%;
+  overflow: auto;
+  flex-direction: row;
+  margin: 0 0 0 80px;
+
+  .ku-setting-layout-right {
+    flex: 1;
+    padding: 0 5px;
+  }
+
+}

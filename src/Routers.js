@@ -78,6 +78,11 @@ const KuConfigs = AsyncComponent(() => import('./k8s/configs/common/KuConfigs'))
 const KuMonitor = AsyncComponent(() => import('./k8s/configs/monitor/components/KuMonitor'))
 const KuGraphics = AsyncComponent(() => import('./k8s/configs/graphics/components/KuGraphics'))
 
+const KuSetting = AsyncComponent(() => import('./k8s/setting/common/KuSetting'))
+const KuProject = AsyncComponent(() => import('./k8s/setting/kuProject/components/KuProject'))
+const KuMember = AsyncComponent(() => import('./k8s/setting/kuMember/KuMember'))
+const KuPermissions = AsyncComponent(() => import('./k8s/setting/kuPermissions/KuPermissions'))
+
 const Routes = [
 
 
@@ -196,7 +201,7 @@ const Routes = [
                                 component: Member,
                             },
                             {
-                                path: "/hostList/:id/permissions",
+                                path: "/hostList/:id/kuPermissions",
                                 key: 'permissions',
                                 exact: true,
                                 component: Permissions,
@@ -299,6 +304,11 @@ const Routes = [
                 ]
             },
             {
+                path: "/alarm",
+                exact: true,
+                component: AlarmPage,
+            },
+            {
                 path: "/kubernetes",
                 exact: true,
                 component: Kubernetes,
@@ -308,54 +318,7 @@ const Routes = [
                 exact: true,
                 component: AddKubernetes,
             },
-            {
-                component: KubernetesLayout,
-                routes: [
-                    {
-                        path: "/kubernetes/:id/kuOverview",
-                        exact: true,
-                        component: KuOverview,
-                    },
-                    {
-                        path: "/kubernetes/:id/monitoring",
-                        exact: true,
-                        component: KuMonitoring,
-                    },
-                    {
-                        path: "/kubernetes/:id/kuAlarm",
-                        exact: true,
-                        component: KuMonitoring,
-                    },
-                    {
-                        path: "/kubernetes/:id/configs",
-                        component: KuConfigs,
-                        routes: [
-                            {
-                                path: "/kubernetes/:id/configs/monitor",
-                                exact: true,
-                                component: KuMonitor,
-                            },
-                            {
-                                path: "/kubernetes/:id/configs/graphics",
-                                exact: true,
-                                component: KuGraphics,
-                            },
-                        ]
-                    },
 
-                    {
-                        path: "/kubernetes/:id/kuSetting/kuProject",
-                        exact: true,
-                        component: AddKubernetes,
-                    },
-                ]
-            },
-
-            {
-                path: "/alarm",
-                exact: false,
-                component: AlarmPage,
-            },
             {
                 path: "/setting",
                 component: GlobalSettings,
@@ -609,7 +572,67 @@ const Routes = [
                         exact: true,
                     },
                 ]
-            }
+            },
+            {
+                component: KubernetesLayout,
+                routes: [
+                    {
+                        path: "/kubernetes/:id/kuOverview",
+                        exact: true,
+                        component: KuOverview,
+                    },
+                    {
+                        path: "/kubernetes/:id/monitoring",
+                        exact: true,
+                        component: KuMonitoring,
+                    },
+                    {
+                        path: "/kubernetes/:id/kuAlarm",
+                        exact: true,
+                        component: KuMonitoring,
+                    },
+                    {
+                        path: "/kubernetes/:id/configs",
+                        component: KuConfigs,
+                        routes: [
+                            {
+                                path: "/kubernetes/:id/configs/monitor",
+                                exact: true,
+                                component: KuMonitor,
+                            },
+                            {
+                                path: "/kubernetes/:id/configs/graphics",
+                                exact: true,
+                                component: KuGraphics,
+                            },
+                        ]
+                    },
+
+                    {
+                        path: "/kubernetes/:id/kuSetting",
+                        component: KuSetting,
+                        routes: [
+                            {
+                                path: "/kubernetes/:id/kuSetting/kuProject",
+                                exact: true,
+                                component: KuProject,
+                            },
+                            {
+                                path: "/kubernetes/:id/kuSetting/kuMember",
+                                key: 'kuMember',
+                                exact: true,
+                                component: KuMember,
+                            },
+                            {
+                                path: "/kubernetes/:id/kuSetting/kuPermissions",
+                                key: 'permissions',
+                                exact: true,
+                                component: KuPermissions,
+                            },
+                        ]
+                    },
+                ]
+            },
 
         ]
     }

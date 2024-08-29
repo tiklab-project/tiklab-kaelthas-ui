@@ -1,4 +1,4 @@
-const api =  "http://192.168.10.14:8080";
+const api =  "http://192.168.10.24:8080";
 const base_url = JSON.stringify(api);
 
 const webpackGlobal = {

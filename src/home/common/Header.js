@@ -35,31 +35,7 @@ const Header = props => {
         props.history.push(item.to)
     }
 
-    /**
-     * 渲染左侧菜单
-     * @returns
-     */
-    const renderRouter = () => {
-        if (routers) {
-            return (
-                <div className={'frame-header-link'}>
-                    {
-                        routers.map(item => {
-                            return <div key={item.key}
-                                        onClick={() => changeCurrentLink(item)}
-                                        className={`frame-header-link-item ${menuKey === item.key ? 'frame-header-link-active' : null}`}
-                            >
-                                <span>
-                                    {item.title}
-                                </span>
 
-                            </div>
-                        })
-                    }
-                </div>
-            )
-        }
-    }
 
 
     /**
@@ -70,25 +46,6 @@ const Header = props => {
         sessionStorage.setItem("menuKey", null)
     };
 
-    // 系统顶部菜单
-    const routers = [
-        {
-            to: '/home',
-            title: '首页',
-            key: 'home'
-        },
-        {
-            to: '/configuration',
-            title: '主机',
-            key: 'configuration'
-        },
-        {
-            to: '/alarm',
-            title: '告警',
-            key: 'alarm'
-        },
-
-    ]
 
     function hrefHome() {
         props.history.push("/home")

@@ -53,7 +53,7 @@ const KuGraphics = (props) => {
 
     const updateGraphicsColumn = async (record) => {
         // 点击的时候查询当前图形的监控项ids
-        const monitorList = await findMonitorIds({id:record.id});
+        const monitorList = await findMonitorIds({graphicsId:record.id});
 
         record.monitorIds = monitorList
         setColumnData(record)

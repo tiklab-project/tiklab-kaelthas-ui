@@ -1,0 +1,46 @@
+.kuSetting-box-right-left {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  list-style-type: none;
+  height: 100%;
+  cursor: pointer;
+  background: #fafbfc;
+
+  .kuSetting-box-right-text {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    width: 100%;
+    align-items: center;
+    padding: 0 20px;
+    font-weight: 600;
+  }
+
+  .kuSetting-box-menu {
+    list-style-type: none;
+    height: 85vh;
+    cursor: pointer;
+
+    .kuSetting-box-right-tabs {
+
+      height: 40px;
+      display: flex;
+      line-height: 40px;
+      width: 100%;
+      align-items: center;
+      padding-left: 20px;
+    }
+    .kuSetting-box-right-tabs:hover{
+      background-color: #EDF0F5;
+    }
+  }
+}
+
+.kuSetting-kuSetting-select{
+  background-color: #e3e8f0;
+}
+
+.title {
+  border-bottom: 1px solid #f0f2f5;
+}

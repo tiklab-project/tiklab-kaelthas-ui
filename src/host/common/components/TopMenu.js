@@ -124,7 +124,7 @@ const TopMenu = (props) => {
                             <Tooltip placement="right" title={hostData?.name}>
                                 <div className="normal-host-opt-title">
                                     <span style={{fontSize: 16}}>
-                                    {hostData?.name && hostData?.name}
+                                        {hostData?.name && hostData?.name}
                                     </span>
                                     <CaretDownOutlined/>
                                 </div>

@@ -1,7 +1,6 @@
-import {Modal, Form, Input, Select, InputNumber} from 'antd';
+import {Modal, Form, Input, Select, InputNumber, AutoComplete} from 'antd';
 import React, {useState} from 'react';
 import {observer} from "mobx-react";
-import dbMonitorStore from "../store/KuMonitorStore";
 import kuMonitorStore from "../store/KuMonitorStore";
 
 const {Option} = Select
@@ -19,9 +18,16 @@ const KuAddMonitor = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const provinceData = [{name: 'all', value: 1}, {name: 'cluster', value: 2}, {name: 'node', value: 3}];
+    const provinceData = [
+        {name: 'all', value: 1},
+        {name: 'cluster', value: 2},
+        {name: 'node', value: 3},
+        {name: 'service', value: 4}
+    ];
 
     const [expression, setExpression] = useState([]);
+
+    const [itemId, setItemId] = useState();
 
     const kuId = localStorage.getItem("kuId");
 
@@ -35,6 +41,7 @@ const KuAddMonitor = (props) => {
 
         const fieldsValue = await form.validateFields();
         fieldsValue.kuId = kuId;
+        fieldsValue.kuItemId = itemId;
         await createKuMonitor(fieldsValue);
         await findKuMonitorPage();
         setIsModalOpen(false);
@@ -63,10 +70,22 @@ const KuAddMonitor = (props) => {
                 });
                 setExpression(node)
                 break
+            case 4:
+                const service = await findItemList({
+                    kubernetesType: "service"
+                });
+                setExpression(service)
+                break
 
         }
     };
 
+
+    function onChangeItem(value, option) {
+        if (option.key !== undefined && option.key !== null) {
+            setItemId(option.key)
+        }
+    }
 
     return (
         <>
@@ -123,20 +142,21 @@ const KuAddMonitor = (props) => {
 
                     <Form.Item
                         label="监控指标"
-                        name="kuItemId"
+                        name="expression"
                         rules={[{required: true, message: '监控项指标'}]}
                     >
-                        <Select
+                        <AutoComplete
                             placeholder="监控项指标"
                             allowClear
                             value={expression.id}
+                            onChange={onChangeItem}
                         >
                             {
                                 expression && expression.map((item) => (
-                                    <Option value={item.id}
+                                    <Option value={item.expression}
                                             key={item.id}>{item.expression}({item.describe})</Option>))
                             }
-                        </Select>
+                        </AutoComplete>
                     </Form.Item>
 
                     <Form.Item

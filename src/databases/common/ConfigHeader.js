@@ -127,7 +127,7 @@ const ConfigHeader = (props) => {
                         <div className="db-normal-aside-opt-icon">
                             <Tooltip placement="right" title={localStorage.getItem("dbName")}>
                                 <div className="db-normal-host-opt-title">
-                                    <span style={{fontSize: 16}} onClick={() => dropDownList()}>
+                                    <span className="normal-host-opt-text" onClick={() => dropDownList()}>
                                         {localStorage.getItem("dbName")}
                                     </span>
                                     <CaretDownOutlined/>

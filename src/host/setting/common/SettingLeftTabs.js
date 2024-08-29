@@ -16,8 +16,8 @@ const SettingLeftTabs = (props) => {
         {
             name: '成员',
             url: `/hostList/${dbId}/member`,
-            key: "dbMember",
-            encoded: "dbMember",
+            key: "kuMember",
+            encoded: "kuMember",
         },
         {
             name: '权限',

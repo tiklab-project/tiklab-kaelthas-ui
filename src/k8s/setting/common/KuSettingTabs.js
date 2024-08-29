@@ -1,33 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import "./DbSettingTabs.scss"
+import "./KuSettingTabs.scss"
 import {withRouter} from "react-router-dom";
 
-const DbSettingTabs = (props) => {
+const KuSettingTabs = (props) => {
 
-    const dbId = localStorage.getItem("dbId")
+    const kuId = localStorage.getItem("kuId")
 
     const router = [
         {
-            name: '数据库信息',
-            url: `/dbList/${dbId}/dbSetting/dbProject`,
-            key: "setting",
-            encoded: "setting",
+            name: 'k8s信息',
+            url: `/kubernetes/${kuId}/kuSetting/kuProject`,
+            key: "kuSetting",
+            encoded: "kuSetting",
         },
         {
             name: '成员',
-            url: `/dbList/${dbId}/dbSetting/dbMember`,
+            url: `/kubernetes/${kuId}/kuSetting/kuMember`,
             key: "kuMember",
             encoded: "kuMember",
         },
         {
             name: '权限',
-            url: `/dbList/${dbId}/dbSetting/dbPermissions`,
+            url: `/kubernetes/${kuId}/kuSetting/kuPermissions`,
             key: "permissions",
             encoded: "permissions",
         },
     ]
 
-    const [selectKey,setSelectKey] = useState(`/dbList/${dbId}/dbSetting/dbProject`);
+    const [selectKey,setSelectKey] = useState(`/kubernetes/${kuId}/kuSetting/kuProject`);
 
     const selectSetting = (url) => {
         setSelectKey(url)
@@ -37,21 +37,21 @@ const DbSettingTabs = (props) => {
     useEffect(() => {
         // 初次进入激活导航菜单
         setSelectKey(props.location.pathname)
-    }, [dbId])
+    }, [kuId])
 
     return (
-        <div className="setting-box-right-left">
-            <div className="setting-box-right-text title">
+        <div className="kuSetting-box-right-left">
+            <div className="kuSetting-box-right-text title">
                 设置
             </div>
-            <div className="setting-box-menu">
+            <div className="kuSetting-box-menu">
                 {
                     router.map((item, index) => {
                         return (
                             <div
                                 key={index}
                                 onClick={() => selectSetting(item.url)}
-                                className={`setting-box-right-tabs ${item.url === selectKey ? "setting-setting-select" : ""}`}
+                                className={`kuSetting-box-right-tabs ${item.url === selectKey ? "kuSetting-kuSetting-select" : ""}`}
                             >
                                 <span>{item.name}</span>
                             </div>
@@ -63,4 +63,4 @@ const DbSettingTabs = (props) => {
     );
 };
 
-export default withRouter(DbSettingTabs);
+export default withRouter(KuSettingTabs);

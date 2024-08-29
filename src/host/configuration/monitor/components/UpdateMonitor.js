@@ -51,7 +51,6 @@ const UpdateMonitor = (props) => {
                 await findMonitorCondition();
             })
         } catch (errorInfo) {
-            console.error('Validation failed:', errorInfo);
             message.warning("修改失败")
         }
     };

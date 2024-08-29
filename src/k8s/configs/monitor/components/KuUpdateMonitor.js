@@ -6,7 +6,12 @@ const {Option} = Select
 
 const KuUpdateMonitor = (props) => {
 
-    const provinceData = [{name: 'all', value: 1}, {name: 'cluster', value: 2}, {name: 'node', value: 3}];
+    const provinceData = [
+        {name: 'all', value: 1},
+        {name: 'cluster', value: 2},
+        {name: 'node', value: 3},
+        {name: 'service', value: 4}
+    ];
 
     const {isModalOpen, setIsModalOpen, form, columnData} = props;
 
@@ -17,6 +22,8 @@ const KuUpdateMonitor = (props) => {
     } = kuMonitorStore;
 
     const [expression, setExpression] = useState([]);
+
+    const [itemId, setItemId] = useState();
 
     useEffect(async () => {
         const newVar = await findItemList({dbType: null});
@@ -34,7 +41,8 @@ const KuUpdateMonitor = (props) => {
             form.validateFields().then(async () => {
                 let obj = {
                     kuId: localStorage.getItem("kuId"),
-                    id: columnData.id
+                    id: columnData.id,
+                    kuItemId: itemId
                 };
                 obj[field] = values[field];
 
@@ -49,27 +57,43 @@ const KuUpdateMonitor = (props) => {
     async function handleChange(value) {
         switch (value) {
             case 1:
-                const postgresql = await findItemList({
-                    dbType: "Postgresql"
+                const all = await findItemList({
+                    kubernetesType: "all"
                 });
-                setExpression(postgresql)
+                setExpression(all)
                 break
             case 2:
-                const mysql = await findItemList({
-                    dbType: "MYSQL"
+                const cluster = await findItemList({
+                    kubernetesType: "cluster"
                 });
-                setExpression(mysql)
+                setExpression(cluster)
                 break
             case 3:
+                const node = await findItemList({
+                    kubernetesType: "node"
+                });
+                setExpression(node)
                 break
+            case "4":
+                const service = await findItemList({
+                    kubernetesType: "service"
+                });
+                setExpression(service)
+                break;
 
             default:
                 const itemList = await findItemList({
-                    dbType: null
+                    kubernetesType: null
                 });
                 setExpression(itemList)
                 break
 
+        }
+    }
+
+    function updateChangeItem(value, option) {
+        if (option.key !== undefined && option.key !== null) {
+            setItemId(option.key)
         }
     }
 
@@ -122,20 +146,20 @@ const KuUpdateMonitor = (props) => {
 
                 <Form.Item
                     label="监控指标"
-                    name="kuItemId"
+                    name="expression"
                     rules={[{required: true, message: '监控项指标'}]}
+                    onChange={updateChangeItem}
                 >
-                    <Select
+                    <AutoComplete
                         placeholder="监控项指标"
                         allowClear
-                        onBlur={() => handleBlur('kuItemId')}
+                        onBlur={() => handleBlur('expression')}
                     >
                         {
                             expression && expression.map((item) => (
-                                <Option value={item.id}
-                                        key={item.id}>{item.expression}({item.describe})</Option>))
+                                <Option value={item.expression} key={item.id}>{item.expression}({item.describe})</Option>))
                         }
-                    </Select>
+                    </AutoComplete>
                 </Form.Item>
 
                 <Form.Item

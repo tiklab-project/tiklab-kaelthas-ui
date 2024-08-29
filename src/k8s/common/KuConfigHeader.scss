@@ -29,17 +29,15 @@
             justify-content: center;
 
             .ku-normal-host-opt-title{
-                width: 120px;           /* 设置宽度 */
-                white-space: nowrap;    /* 禁止换行 */
-                overflow: hidden;       /* 超出部分隐藏 */
-                text-overflow: ellipsis;/* 显示省略号 */
                 height: 48px;
                 line-height: 48px;
                 align-items: center;
 
-                .normal-host-opt-text{
-                    display: flex;
-                    align-items: center;
+                .ku-normal-opt-text{
+                    width: 100px;           /* 设置宽度 */
+                    white-space: nowrap;    /* 禁止换行 */
+                    overflow: hidden;       /* 超出部分隐藏 */
+                    text-overflow: ellipsis;/* 显示省略号 */
                     font-size: 16px;
                 }
             }

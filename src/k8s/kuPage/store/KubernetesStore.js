@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import {Axios} from "thoughtware-core-ui";
 
 export class KubernetesStore {
 
@@ -17,7 +18,6 @@ export class KubernetesStore {
     @observable kbObj;
 
 
-
     @action
     setSearchCondition = (value) => {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
@@ -26,14 +26,40 @@ export class KubernetesStore {
 
     @action
     findKbInfoPage = async () => {
-        const resData = await Service("/kubernetes/findKbInfoPage",this.searchCondition);
+        const resData = await Service("/kubernetes/findKbInfoPage", this.searchCondition);
         this.kbPage = resData.data.dataList
         this.total = resData.data.totalRecord
     }
 
     @action
-    createKbInfo = async (value) =>{
-        return await Service("/kubernetes/createKbInfo",value)
+    createKbInfo = async (value) => {
+        return await Service("/kubernetes/createKbInfo", value);
+    }
+
+    @action
+    updateKbInfo = async (value) => {
+        await Service("/kubernetes/updateKbInfo", value);
+    }
+
+    @action
+    deleteKuInfo = async (id) =>{
+        const param = new FormData();
+        param.append("id",id);
+        await Service("/kubernetes/deleteKuInfo",param)
+    }
+
+    @action
+    findKuInfoById = async (id) =>{
+        const param = new FormData();
+        param.append("id",id);
+        const kubernetes = await Service("/kubernetes/findKuInfoById",param)
+        return kubernetes.data;
+    }
+
+    @action
+    findKuDropDown = async () =>{
+        const resData = await Axios.post("/kubernetes/findKuDropDown")
+        return resData.data
     }
 
 }
