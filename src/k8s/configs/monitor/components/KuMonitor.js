@@ -15,7 +15,6 @@ const KuMonitor = (props) => {
         findKuMonitorPage,
         setSearchCondition,
         kuMonitorList,
-        setSearchNullCondition,
         total,
         deleteKuMonitor,
         searchCondition
@@ -31,7 +30,7 @@ const KuMonitor = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("kuId")
+            kuId: localStorage.getItem("kuId")
         })
         await findKuMonitorPage()
     }, []);

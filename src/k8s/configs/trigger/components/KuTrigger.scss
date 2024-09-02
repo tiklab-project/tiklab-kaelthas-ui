@@ -1,8 +1,8 @@
-.box-trigger-right {
+.box-ku-trigger-right {
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .box-trigger-title {
+  .box-ku-trigger-title {
     display: flex;
     width: 100%;
     align-items: center;
@@ -11,17 +11,17 @@
     line-height: 42px;
     justify-content: space-between;
 
-    .box-trigger-title-text {
+    .box-ku-trigger-title-text {
       flex: 1;
     }
 
-    .trigger-kind-search-div {
+    .ku-trigger-kind-search-div {
       display: flex;
       align-items: center;
       justify-content: space-between;
 
 
-      .trigger-top-right {
+      .ku-trigger-top-right {
         gap: 10px;
         background-color: #0d66e4;
         color: #ffffff;
@@ -41,7 +41,7 @@
 
   }
 
-  .trigger-kind-options {
+  .ku-trigger-kind-options {
     display: flex;
     width: 100%;
     align-items: center;
@@ -50,19 +50,19 @@
     height: 42px;
     line-height: 42px;
 
-    .trigger-kind-options-tabs-text {
+    .ku-trigger-kind-options-tabs-text {
       padding: 0 5px;
       cursor: pointer;
     }
 
   }
 
-  .trigger-kind-search {
+  .ku-trigger-kind-search {
     border-radius: 4px;
     width: 200px;
   }
 
-  .box-trigger-table {
+  .box-ku-trigger-table {
     padding-top: 20px;
     background: #fff;
   }

@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
 
-export class DbTriggerStore {
+export class KuTriggerStore {
 
     @observable data = [];
 
@@ -24,8 +24,8 @@ export class DbTriggerStore {
 
     //根据条件查询
     @action
-    findDbTriggerPage = async () => {
-        const resData = await Service('/dbTrigger/findDbTriggerPage', this.searchCondition)
+    findKuTriggerPage = async () => {
+        const resData = await Service('/kuTrigger/findKuTriggerPage', this.searchCondition)
         this.total = resData.data.totalRecord
         this.triggerList = resData.data.dataList
         return resData.data;
@@ -38,23 +38,23 @@ export class DbTriggerStore {
 
     //新增
     @action
-    createDbTrigger = async (option) => {
-        return await Service('/dbTrigger/createDbTrigger', option);
+    createKuTrigger = async (option) => {
+        return await Service('/kuTrigger/createKuTrigger', option);
     }
 
     //修改触发器
     @action
-    updateDbTrigger = async (option) => {
-        await Service('/dbTrigger/updateDbTrigger', option);
+    updateKuTrigger = async (option) => {
+        await Service('/kuTrigger/updateKuTrigger', option);
 
     }
 
     //根据id进行删除
     @action
-    deleteDbTrigger = async (id) => {
+    deleteKuTrigger = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        await Service('/dbTrigger/deleteDbTrigger', params);
+        await Service('/kuTrigger/deleteKuTrigger', params);
     }
 
     @action
@@ -65,6 +65,6 @@ export class DbTriggerStore {
 
 }
 
-const dbTriggerStore = new DbTriggerStore();
+const dbTriggerStore = new KuTriggerStore();
 
 export default dbTriggerStore;

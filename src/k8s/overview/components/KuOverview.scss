@@ -1,167 +1,134 @@
-.db-ku-right {
+.ku-right {
   flex: 1;
   flex-direction: column;
   height: 100%;
   background-color: #ffffff;
   overflow: auto;
 
-  .ku-host-survey {
-    padding: 20px;
 
+  .ku-body-head {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    gap: 20px;
+    background-color: #fff;
 
-    .ku-host-body-head {
+    .ku-title {
+      font-weight: 700;
+    }
+
+    .ku-details {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 15px;
-      gap: 20px;
-      padding: 15px;
+      flex-wrap: wrap;
+      padding: 20px;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      justify-content: space-between;
+      white-space: nowrap; /* 禁止换行 */
+      overflow: hidden; /* 超出部分隐藏 */
+      text-overflow: ellipsis; /* 显示省略号 */
 
-      background-color: #fff;
-
-      .ku-host-title {
-        font-weight: 700;
-      }
-
-      .ku-host-details {
+      .ku-margin-details {
         display: flex;
-        padding: 20px;
-        border-radius: 4px;
-        height: 150px;
-        width: 100%;
-        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 10px;
+        width: 320px;
+        box-shadow: 0 0 3px 0 #ccc;
 
-        white-space: nowrap; /* 禁止换行 */
-        overflow: hidden; /* 超出部分隐藏 */
-        text-overflow: ellipsis; /* 显示省略号 */
-
-        .ku-host-margin-details {
+        .ku-margin-div {
           display: flex;
           align-items: center;
-          gap: 5px;
-          margin-bottom: 10px;
-          width: 200px;
-          background-color: #f8f8f8;
-
-
-          .ku-host-margin-div {
-            display: flex;
-            align-items: center;
-            margin: auto;
-            padding: 10px;
-          }
-
-          .user-big-icon {
-            display: flex;
-            line-height: 24px;
-            margin-right: 10px;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            font-size: 16px;
-            justify-content: center;
-            align-items: center;
-          }
-
-          .status-img {
-            width: 24px;
-            height: 24px;
-            margin-right: 5px;
-          }
-
-          .ku-host-details-text {
-            display: flex;
-            gap: 5px;
-            flex-direction: column;
-
-            .item-top {
-              height: 30px;
-              line-height: 30px;
-            }
-
-            .item-bottom {
-              font-size: 12px;
-              color: #999;
-            }
-
-          }
-
+          margin: auto;
+          padding: 10px;
         }
 
-        .ku-host-margin-work {
+        .status-img {
+          width: 24px;
+          height: 24px;
+          margin-right: 5px;
+        }
+
+        .ku-details-text {
           display: flex;
-          justify-content: start;
-          gap: 20px;
+          gap: 5px;
+          flex-direction: column;
 
-          .host-layout-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
+          .ku-item-top {
+            height: 30px;
+            line-height: 30px;
+            margin-left: auto;
+            margin-right: auto;
           }
+
+          .ku-item-bottom {
+            font-size: 12px;
+            //color: #999;
+          }
+
         }
 
-      }
-
-      .ku-host-body-head-graphics {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        height: 260px;
-        margin-top: 50px;
-      }
-
-      .ku-host-List {
-        display: flex;
-        margin: 60px 10px;
-        justify-content: center;
       }
 
     }
 
-
-    .ku-host-body {
+    .ku-body {
       display: flex;
-      flex-direction: column;
-      background-color: #fff;
+      flex-wrap: wrap;
       padding: 20px;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      gap: 5px;
+      justify-content: space-between;
 
-      .host-news {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 10px;
-
-        .more {
-          color: var(--thoughtware-blue);
-          margin-left: 10px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-        }
-      }
-
-      .host-news-List {
-        margin-top: 15px;
+      .ku-body-table {
         display: flex;
         flex-direction: column;
+        border-radius: 4px;
+        align-items: center;
+        width: 49%;
+        height: 300px;
+        box-shadow: 0 0 3px 0 #ccc;
+        overflow: auto;
+        margin-bottom: 20px;
 
-        .host-news-Line {
+        .ku-table-title{
           display: flex;
           align-items: center;
-          font-size: 14px;
-          justify-content: space-between;
+          justify-content: center;
+          font-size: 16px;
+          font-weight: 700;
           margin-bottom: 10px;
+          padding: 20px;
 
-          .host-news-div {
+          height: 20px;
+          line-height: 20px;
+        }
 
+        .ku-table-list {
+          display: flex;
+          gap: 5px;
+          padding: 5px 0;
+
+          .ku-table-text {
+            width: 150px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
           }
+
+
         }
       }
+
     }
 
   }
+
 }
 
 

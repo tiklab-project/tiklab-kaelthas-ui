@@ -1,25 +1,25 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
-import "./DbTrigger.scss"
-import DbAddTrigger from "./DbAddTrigger";
-import {Col, Form, Input, Row, Space, Table, Tag, Tooltip} from "antd";
-import triggerStore from "../store/DbTriggerStore";
+import "./KuTrigger.scss"
+import KuAddTrigger from "./KuAddTrigger";
+import {Col, Form, Input, Row, Space, Table, Tag} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import UpdateTrigger from "./DbUpdateTrigger";
+import UpdateTrigger from "./KuUpdateTrigger";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
+import kuTriggerStore from "../store/KuTriggerStore";
 
-const DbTrigger = (props) => {
+const KuTrigger = (props) => {
 
     const {
-        findDbTriggerPage,
-        deleteDbTrigger,
+        findKuTriggerPage,
+        deleteKuTrigger,
         setSearchCondition,
         total,
         triggerList,
         mediumList,
         searchCondition
-    } = triggerStore;
+    } = kuTriggerStore;
 
 
     const [rowData, setRowData] = useState({});
@@ -29,24 +29,27 @@ const DbTrigger = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            kuId: localStorage.getItem("kuId")
         })
-        await findDbTriggerPage();
+        await findKuTriggerPage();
     }, []);
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
-        await findDbTriggerPage();
+        await findKuTriggerPage();
     };
 
     const deleteTrigger = async (id) => {
-        await deleteDbTrigger(id);
-        await findDbTriggerPage();
+        await deleteKuTrigger(id);
+        await findKuTriggerPage();
     }
 
     const rowEcho = (record) => {
-        const split = record.mediumId.split(",");
-        record.mediumType = split
+        console.log(record?.mediumId)
+        if (record?.mediumId === null) {
+            return
+        }
+        record.mediumType = record?.mediumId?.split(",")
         form.setFieldsValue(record)
         setRowData(record)
         setIsModalOpen(true);
@@ -57,8 +60,8 @@ const DbTrigger = (props) => {
             title: '触发器名称',
             dataIndex: 'name',
             id: 'name',
-            width:"15%",
-            ellipsis:"true",
+            width: "15%",
+            ellipsis: "true",
             render: (text, record) =>
                 <span style={{cursor: "pointer"}}
                       onClick={() => rowEcho(record)}>{text}</span>,
@@ -67,16 +70,16 @@ const DbTrigger = (props) => {
             title: '关系表达式',
             dataIndex: 'expression',
             id: 'expression',
-            width:"20%",
-            ellipsis:"true",
+            width: "20%",
+            ellipsis: "true",
             render: (name) => <span>{name}</span>
         },
         {
             title: '触发方案',
             dataIndex: 'scheme',
             id: 'scheme',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (mediumType) => {
                 let config = {
                     1: "last(最近一个值)",
@@ -90,12 +93,17 @@ const DbTrigger = (props) => {
             title: '消息通知方案',
             dataIndex: 'mediumId',
             id: 'mediumId',
-            width:"15%",
-            ellipsis:"true",
+            width: "15%",
+            ellipsis: "true",
             render: (mediumId) => {
-                const mediumIds = mediumId.split(",");
-                return (
-                    <span>
+                if (mediumId === null || mediumId === undefined) {
+                    return <Tag>
+                        无
+                    </Tag>
+                } else {
+                    const mediumIds = mediumId.split(",");
+                    return (
+                        <span>
                     {
                         mediumIds && mediumIds.map(tag => {
                                 let color = tag.length > 5 ? 'geekblue' : 'green';
@@ -113,16 +121,17 @@ const DbTrigger = (props) => {
                             }
                         )
                     }
-                </span>
-                );
+                        </span>
+                    );
+                }
             }
         },
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
             id: 'severityLevel',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (severityLevel) => {
                 let config = {
                     1: "灾难",
@@ -139,15 +148,15 @@ const DbTrigger = (props) => {
             title: '描述',
             dataIndex: 'describe',
             id: 'describe',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (name) => <span>{name}</span>
         },
         {
             title: '操作',
             id: 'action',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
@@ -168,32 +177,32 @@ const DbTrigger = (props) => {
             }
         })
 
-        await findDbTriggerPage();
+        await findKuTriggerPage();
     }
 
     return (
-        <Row className="box-trigger-right">
-            <Col style={{marginLeft:10}}>
-                <div className="box-trigger-title">
-                    <div className="box-trigger-title-text">
+        <Row className="box-ku-trigger-right">
+            <Col style={{marginLeft: 10}}>
+                <div className="box-ku-trigger-title">
+                    <div className="box-ku-trigger-title-text">
                         触发器数量:{total}
                     </div>
-                    <div className="trigger-kind-search-div">
+                    <div className="ku-trigger-kind-search-div">
                         <div>
                             <Input
                                 onPressEnter={(event) => searchName(event)}
-                                className="trigger-kind-search"
+                                className="ku-trigger-kind-search"
                                 placeholder="触发器名称"
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="trigger-top-right">
-                            <DbAddTrigger/>
+                        <div className="ku-trigger-top-right">
+                            <KuAddTrigger/>
                         </div>
                     </div>
                 </div>
-                <div className="box-trigger-table">
+                <div className="box-ku-trigger-table">
                     <UpdateTrigger form={form}
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
@@ -219,4 +228,4 @@ const DbTrigger = (props) => {
     );
 };
 
-export default withRouter(observer(DbTrigger));
+export default withRouter(observer(KuTrigger));

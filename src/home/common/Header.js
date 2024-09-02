@@ -62,7 +62,7 @@ const Header = props => {
                         logo &&
                         <div className={'frame-header-logo'} onClick={() => hrefHome()}>
                             <img src={productWhiteImg.xmonitor} alt={'logo'} className="logo-img"/>
-                            <div className="logo-text">Xmonitor</div>
+                            <div className="logo-text">Kaelthas</div>
                         </div>
                     }
                 </div>

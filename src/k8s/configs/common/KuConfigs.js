@@ -27,13 +27,13 @@ const KuConfigs = (props) => {
             key: "trigger",
             encoded: "trigger",
         },
-        {
+        /*{
             name: '模板',
             icon: 'template',
             url: `/kubernetes/${kuId}/configs/template`,
             key: "template",
             encoded: "template",
-        },
+        },*/
         {
             name: '图形',
             icon: 'graphics',

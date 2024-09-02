@@ -1,107 +1,88 @@
 import React, {useEffect} from 'react';
 import "./KuOverview.scss"
 import {withRouter} from "react-router-dom";
-import {Col, Empty, Row, Timeline} from "antd";
+import {Col, Empty, Row, Timeline, Tooltip} from "antd";
 import {observer} from "mobx-react";
+import kuOverviewStore from "../store/KuOverviewStore";
 
 const KuOverview = () => {
 
+    const {
+        findKuOverviewTotal,
+        kuOverView
+    } = kuOverviewStore;
 
+    useEffect(async () => {
+        const kuId = localStorage.getItem("kuId");
+        await findKuOverviewTotal(kuId);
+    }, []);
 
-    return (<Row className="db-ku-right">
+    return (
+        <Row className="ku-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
-                <div className="ku-host-survey">
-                    <div className="ku-host-body-head">
-                        <span className="ku-host-title">数据库概况</span>
-                        <div className="ku-host-details">
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <span className={`user-big-icon mf-icon-1`}>{"pgsql".substring(0, 1).toUpperCase()}</span>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top">{333}</div>
-                                        <div className="item-bottom">数据源名称</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-dbType"></use>
-                                    </svg>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top">{333}</div>
-                                        <div className="item-bottom">数据库类型</div>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-hostState"></use>
-                                    </svg>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top">{333 === 1 ? "正常":"异常"}</div>
-                                        <div className="item-bottom">数据库状态</div>
-                                    </div>
-                                </div>
+                <div className="ku-body-head">
+                    {
+                        kuOverView?.mapTotal.length !== 0 ?
+
+                            <div className="ku-details">
+                                {
+                                    kuOverView?.mapTotal && kuOverView?.mapTotal.map((item, index) => {
+                                        return (
+                                            <div className="ku-margin-details" key={index}>
+                                                <div className="ku-margin-div">
+                                                    <div className="ku-details-text">
+                                                        <div className="ku-item-top">{item?.reportData}</div>
+                                                        <div className="ku-item-bottom">{item?.name}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+
+
                             </div>
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-monitorNum"></use>
-                                    </svg>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{333}</div>
-                                        <div className="item-bottom">监控项数量</div>
-                                    </div>
-                                </div>
+                            :
+                            <Empty/>
+                    }
+                    {
+                        kuOverView?.mapStatus.length !== 0 ?
+
+                            <div className="ku-body">
+                                {
+                                    kuOverView?.mapStatus && kuOverView?.mapStatus.map((item, index) => {
+                                        return (
+                                            <div className="ku-body-table" key={index}>
+                                                <div className="ku-table-title" key={index}>
+                                                    {item?.name}
+                                                </div>
+                                                {
+                                                    item?.data && item?.data.map((status, index2) => {
+                                                        return (
+                                                            <div className="ku-table-list" key={index2}>
+                                                                {
+                                                                    status && status?.map((i, index3) => {
+                                                                        return (
+                                                                            <Tooltip className="ku-table-text" key={index3}
+                                                                                     title={i}>
+                                                                                {i}
+                                                                            </Tooltip>
+                                                                        )
+                                                                    })
+                                                                }
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-triggerNum"></use>
-                                    </svg>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{333}</div>
-                                        <div className="item-bottom">触发器数量</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="ku-host-margin-details">
-                                <div className="ku-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-alarmNum"></use>
-                                    </svg>
-                                    <div className="ku-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{333}</div>
-                                        <div className="item-bottom">告警数量</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="ku-host-body">
-                        <div className="host-news">
-                            <div>主机最新动态</div>
-                            <div className="more">
-                                <svg aria-hidden="true" className="svg-icon">
-                                    <use xlinkHref="#icon-rightjump"></use>
-                                </svg>
-                            </div>
-                        </div>
-                        <div className="host-news-List">
-                            <Timeline>
-                                <Timeline.Item>Create a services site 2015-09-01</Timeline.Item>
-                                <Timeline.Item>Solve initial network problems 2015-09-01</Timeline.Item>
-                                <Timeline.Item>Technical testing 2015-09-01</Timeline.Item>
-                                <Timeline.Item>Network problems being solved 2015-09-01</Timeline.Item>
-                            </Timeline>
-                        </div>
-                    </div>
+                            :
+                            <Empty/>
+                    }
                 </div>
             </Col>
         </Row>

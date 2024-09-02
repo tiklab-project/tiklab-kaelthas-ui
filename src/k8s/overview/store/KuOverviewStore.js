@@ -1,4 +1,5 @@
-import {observable} from "mobx";
+import {action, observable} from "mobx";
+import {Service} from "../../../common/utils/requset";
 
 export class KuOverviewStore {
     @observable searchCondition = {
@@ -12,7 +13,16 @@ export class KuOverviewStore {
 
     @observable total = 20;
 
-    @observable kbObj;
+    @observable kuOverView;
+
+    @action
+    findKuOverviewTotal = async (kuId) => {
+        const formData = new FormData();
+        formData.append("kuId",kuId);
+        const resData = await Service("/history/findKuOverviewTotal",formData);
+        this.kuOverView = resData.data
+        console.log(resData.data.mapTotal)
+    }
 }
 
 const kuOverviewStore = new KuOverviewStore();

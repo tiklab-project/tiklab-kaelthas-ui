@@ -37,7 +37,7 @@ export class DbMonitoringDetailsStore {
 
     @action
     findMonitorForHost = async () => {
-        const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
+        const resData = await Service("/history/findInformationPage", this.searchCondition);
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
     }
@@ -59,7 +59,7 @@ export class DbMonitoringDetailsStore {
 
     @action
     findDescGatherTime = async () => {
-        const resData = await Service("/historyInformation/findDescGatherTime", this.searchCondition);
+        const resData = await Service("/history/findDescGatherTime", this.searchCondition);
         return resData.data;
     }
 
@@ -74,7 +74,7 @@ export class DbMonitoringDetailsStore {
 
     @action
     findInformationByLine = async () => {
-        const resData = await Service("/historyInformation/findInformationByLine", this.searchCondition);
+        const resData = await Service("/history/findInformationByLine", this.searchCondition);
         return resData.data;
     }
 
@@ -82,7 +82,7 @@ export class DbMonitoringDetailsStore {
     findAllInformationByHostId = async (value) => {
         const params = new FormData();
         params.append("hostId", value);
-        const resData = await Service("/historyInformation/findAllInformationByHostId", params);
+        const resData = await Service("/history/findAllInformationByHostId", params);
         return resData.data;
     }
 

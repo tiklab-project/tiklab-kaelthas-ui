@@ -2,7 +2,7 @@ import {Button, Drawer, Form, Input, InputNumber, message, Modal, Select} from '
 import React, {useEffect, useState} from 'react';
 import TextArea from "antd/es/input/TextArea";
 import {observer} from "mobx-react";
-import dbTriggerStore from "../store/DbTriggerStore";
+import kuTriggerStore from "../store/KuTriggerStore";
 
 const {Option} = Select
 const schemeList = [
@@ -19,16 +19,16 @@ const schemeList = [
         value: 3
     },
 ]
-const DbUpdateTrigger = (props) => {
+const KuUpdateTrigger = (props) => {
 
     const {isModalOpen, setIsModalOpen, form, rowData} = props;
 
     const {
-        updateDbTrigger,
-        findDbTriggerPage,
+        updateKuTrigger,
+        findKuTriggerPage,
         getMediumAllList,
         mediumList
-    } = dbTriggerStore;
+    } = kuTriggerStore;
 
     const [triggerExData, setTriggerExData] = useState([]);
 
@@ -50,14 +50,13 @@ const DbUpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    dbId: localStorage.getItem("dbId"),
+                    kuId: localStorage.getItem("kuId"),
                     id: rowData.id,
                 };
                 obj[field] = values[field];
 
-                await updateDbTrigger(obj);
-                // message.success("修改成功")
-                await findDbTriggerPage();
+                await updateKuTrigger(obj);
+                await findKuTriggerPage();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
@@ -205,4 +204,4 @@ const DbUpdateTrigger = (props) => {
     );
 };
 
-export default observer(DbUpdateTrigger);
+export default observer(KuUpdateTrigger);

@@ -30,7 +30,7 @@ const KuGraphics = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            kuId: localStorage.getItem("kuId")
         })
 
         await findAllMonitor();

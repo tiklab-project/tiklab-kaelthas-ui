@@ -1,6 +1,6 @@
 import {Button, Form, Input, InputNumber, message, Modal, Select, Space} from 'antd';
 import React, {useEffect, useState} from 'react';
-import dbTriggerStore from "../store/DbTriggerStore";
+import kuTriggerStore from "../store/KuTriggerStore";
 
 const {Option} = Select
 const schemeList = [
@@ -47,7 +47,7 @@ const alarmGrade = [
 ];
 
 
-const DbAddTrigger = (props) => {
+const KuAddTrigger = (props) => {
 
     const [form] = Form.useForm();
 
@@ -56,9 +56,9 @@ const DbAddTrigger = (props) => {
     const {
         getMediumAllList,
         mediumList,
-        createDbTrigger,
-        findDbTriggerPage
-    } = dbTriggerStore;
+        createKuTrigger,
+        findKuTriggerPage
+    } = kuTriggerStore;
 
 
     const [rowData, setRowData] = useState({});
@@ -77,15 +77,15 @@ const DbAddTrigger = (props) => {
 
         const fieldsValue = await form.validateFields();
 
-        fieldsValue.dbId = localStorage.getItem("dbId")
+        fieldsValue.kuId = localStorage.getItem("kuId")
 
-        const resData = await createDbTrigger(fieldsValue);
+        const resData = await createKuTrigger(fieldsValue);
         if (resData?.data !== null) {
             message.success("添加成功!")
         } else {
             message.warn("添加失败!")
         }
-        await findDbTriggerPage();
+        await findKuTriggerPage();
         setIsModalOpen(false);
     };
 
@@ -266,4 +266,4 @@ const DbAddTrigger = (props) => {
     );
 };
 
-export default DbAddTrigger;
+export default KuAddTrigger;

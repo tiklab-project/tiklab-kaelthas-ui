@@ -89,7 +89,7 @@ export class MonitorGraphicsStore {
 
     @action
     findInformationByGraphics = async () => {
-        const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
+        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
         if (this.alarmCondition.length > 0) {
             this.condition = this.alarmCondition;
             this.alarmCondition = [];
@@ -101,14 +101,14 @@ export class MonitorGraphicsStore {
 
     @action
     findInformationByAlarm = async () => {
-        const resData = await Service("/historyInformation/findInformationByGraphics", this.searchCondition);
+        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
         this.alarmCondition = resData.data
         return resData.data;
     }
 
     @action
     findHistory = async () => {
-        const resData = await Service("/historyInformation/findInformationPage", this.searchCondition);
+        const resData = await Service("/history/findInformationPage", this.searchCondition);
         this.historyList = resData.data.dataList;
         this.total = resData.data.totalRecord;
         return resData.data.dataList;
@@ -122,19 +122,19 @@ export class MonitorGraphicsStore {
 
     @action
     findDescGatherTime = async () => {
-        const resData = await Service("/historyInformation/findDescGatherTime", this.searchCondition);
+        const resData = await Service("/history/findDescGatherTime", this.searchCondition);
         return resData.data;
     }
 
     @action
     findInformationByLine = async () => {
-        const resData = await Service("/historyInformation/findInformationByLine", this.searchCondition);
+        const resData = await Service("/history/findInformationByLine", this.searchCondition);
         return resData.data;
     }
 
     @action
     findAllInformationByHostId = async () => {
-        const resData = await Service("/historyInformation/findAllInformationByHostId", this.searchCondition);
+        const resData = await Service("/history/findAllInformationByHostId", this.searchCondition);
         return resData.data;
     }
 

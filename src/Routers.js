@@ -77,6 +77,8 @@ const KuMonitoring = AsyncComponent(() => import('./k8s/kuMonitoring/components/
 const KuConfigs = AsyncComponent(() => import('./k8s/configs/common/KuConfigs'))
 const KuMonitor = AsyncComponent(() => import('./k8s/configs/monitor/components/KuMonitor'))
 const KuGraphics = AsyncComponent(() => import('./k8s/configs/graphics/components/KuGraphics'))
+const KuTrigger = AsyncComponent(() => import('./k8s/configs/trigger/components/KuTrigger'))
+const KuAlarm = AsyncComponent(() => import('./k8s/kuAlarm/components/KuAlarm'))
 
 const KuSetting = AsyncComponent(() => import('./k8s/setting/common/KuSetting'))
 const KuProject = AsyncComponent(() => import('./k8s/setting/kuProject/components/KuProject'))
@@ -589,7 +591,7 @@ const Routes = [
                     {
                         path: "/kubernetes/:id/kuAlarm",
                         exact: true,
-                        component: KuMonitoring,
+                        component: KuAlarm,
                     },
                     {
                         path: "/kubernetes/:id/configs",
@@ -599,6 +601,11 @@ const Routes = [
                                 path: "/kubernetes/:id/configs/monitor",
                                 exact: true,
                                 component: KuMonitor,
+                            },
+                            {
+                                path: "/kubernetes/:id/configs/trigger",
+                                exact: true,
+                                component: KuTrigger,
                             },
                             {
                                 path: "/kubernetes/:id/configs/graphics",

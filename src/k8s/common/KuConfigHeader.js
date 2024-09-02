@@ -136,7 +136,7 @@ const KuConfigHeader = (props) => {
                     </Dropdown>
                 </div>
             </div>
-            <div className="ku-right">
+            <div className="ku-config-right">
                 {
                     router.map((item, index) => {
                         return (
