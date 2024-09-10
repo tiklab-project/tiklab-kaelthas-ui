@@ -296,82 +296,80 @@ const DBAlarm = (props) => {
     }
 
     return (
-        <Row className="db-alarm-box">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
-                <div className="db-alarm-box-body">
-                    <div className="db-alarm-box-search">
-                        <div style={{marginRight: 8}}>
-                            <SelectSimple name="quickFilter"
-                                          onChange={(value) => selectLeveType(value)}
-                                          title={`告警等级`}
-                                          ismult={false}
-                                          value={leveType}
-                                          suffixIcon={true}
-                            >
-                                {
-                                    leveValueList.map(item => {
-                                        return <SelectItem
-                                            value={item.key}
-                                            label={`${item.label}`}
-                                            key={item.key}
-                                        />
-                                    })
-                                }
-                            </SelectSimple>
-                        </div>
+        <div className="db-alarm-box">
+            <div className="db-alarm-box-body">
+                <div className="db-alarm-box-search">
+                    <div style={{marginRight: 8}}>
                         <SelectSimple name="quickFilter"
-                                      onChange={(value) => selectMenu(value)}
-                                      title={`状态`}
+                                      onChange={(value) => selectLeveType(value)}
+                                      title={`告警等级`}
                                       ismult={false}
-                                      value={quickFilterValue}
+                                      value={leveType}
                                       suffixIcon={true}
                         >
                             {
-                                quickFilterList.map(item => {
+                                leveValueList.map(item => {
                                     return <SelectItem
-                                        value={item.value}
+                                        value={item.key}
                                         label={`${item.label}`}
-                                        key={item.value}
-
+                                        key={item.key}
                                     />
                                 })
                             }
                         </SelectSimple>
                     </div>
-                    <>
-                        <Modal
-                            title="确认操作"
-                            visible={isModalVisible}
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                            okText="确定"
-                            cancelText="取消"
-                            width={200}
-                        >
-                            <p>你确定要更改状态吗？</p>
-                        </Modal>
-                    </>
-                    <div className="db-alarm-box-table">
-                        <Table rowKey={record => record.id}
-                               columns={columns}
-                               className="custom-table"
-                               dataSource={alarmPage}
-                               onChange={checkPage}
-                               scroll={{
-                                   x: 400,
-                               }}
-                               pagination={{
-                                   position: ["bottomCenter"],
-                                   total: total,
-                                   showSizeChanger: true,
-                                   pageSize: searchCondition.pageParam.pageSize,
-                                   current: searchCondition.pageParam.currentPage,
-                               }}
-                        />
-                    </div>
+                    <SelectSimple name="quickFilter"
+                                  onChange={(value) => selectMenu(value)}
+                                  title={`状态`}
+                                  ismult={false}
+                                  value={quickFilterValue}
+                                  suffixIcon={true}
+                    >
+                        {
+                            quickFilterList.map(item => {
+                                return <SelectItem
+                                    value={item.value}
+                                    label={`${item.label}`}
+                                    key={item.value}
+
+                                />
+                            })
+                        }
+                    </SelectSimple>
                 </div>
-            </Col>
-        </Row>
+                <>
+                    <Modal
+                        title="确认操作"
+                        visible={isModalVisible}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        okText="确定"
+                        cancelText="取消"
+                        width={200}
+                    >
+                        <p>你确定要更改状态吗？</p>
+                    </Modal>
+                </>
+                <div className="db-alarm-box-table">
+                    <Table rowKey={record => record.id}
+                           columns={columns}
+                           className="custom-table"
+                           dataSource={alarmPage}
+                           onChange={checkPage}
+                           scroll={{
+                               x: 400,
+                           }}
+                           pagination={{
+                               position: ["bottomCenter"],
+                               total: total,
+                               showSizeChanger: true,
+                               pageSize: searchCondition.pageParam.pageSize,
+                               current: searchCondition.pageParam.currentPage,
+                           }}
+                    />
+                </div>
+            </div>
+        </div>
     );
 };
 

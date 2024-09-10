@@ -6,7 +6,7 @@
         display: flex;
         width: 100%;
         align-items: start;
-        padding: 10px 80px;
+        padding: 10px 0;
         flex-direction: column;
 
         .ku-topMenu-top-title{
@@ -81,7 +81,6 @@
         justify-content: start;
         min-width: 600px;
         height: 48px;
-        margin: 0 80px;
 
         .kuMenu-box {
             display: flex;

@@ -298,7 +298,7 @@ const KuAlarm = (props) => {
 
     return (
         <Row className="ku-alarm-box">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
+            <Col span={24}>
                 <div className="ku-alarm-box-body">
                     <div className="ku-alarm-box-search">
                         <div style={{marginRight: 8}}>

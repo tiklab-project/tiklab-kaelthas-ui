@@ -17,12 +17,12 @@ const Databases = (props) => {
         setNullCondition
     } = databasesStore
 
-    const [state, setState] = useState(0);
+    const [state, setState] = useState(2);
 
     const availabilityTab = [
         {
             title: '全部',
-            key: 0,
+            key: 2,
             icon: "all"
         },
         {
@@ -32,7 +32,7 @@ const Databases = (props) => {
         },
         {
             title: '不可用',
-            key: 2,
+            key: 0,
             icon: "noAvailable"
         }
     ];
@@ -126,7 +126,7 @@ const Databases = (props) => {
     async function checkTab(value) {
         setState(value)
 
-        if (value === 0) {
+        if (value === 2) {
             value = null
         }
 

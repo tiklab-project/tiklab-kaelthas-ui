@@ -58,25 +58,23 @@ const Configs = (props) => {
 
 
     return (
-        <Row justify="start" className="db-hostDetails-layout">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
-                <div className="db-design-up">
-                    {
-                        configList.map(item => {
-                            return (
-                                <div key={item.key}
-                                     className={`db-design-tab ${url === item.url ? "design-active" : ""}`}
-                                     onClick={() => hrefConfiguration(item)}
-                                >
-                                    {item.name}
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                {renderRoutes(route.routes)}
-            </Col>
-        </Row>
+        <div className="db-hostDetails-layout">
+            <div className="db-design-up">
+                {
+                    configList.map(item => {
+                        return (
+                            <div key={item.key}
+                                 className={`db-design-tab ${url === item.url ? "design-active" : ""}`}
+                                 onClick={() => hrefConfiguration(item)}
+                            >
+                                {item.name}
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            {renderRoutes(route.routes)}
+        </div>
     );
 };
 

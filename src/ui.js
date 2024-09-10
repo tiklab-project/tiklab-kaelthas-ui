@@ -1,5 +1,4 @@
 import Routers from "./Routers";
-import Header from "./home/common/Header";
 import HomeLayout from "./common/layout/HomeLayout";
 import AsyncComponent from "./common/lazy/AsyncComponent";
 import App from "./app";
@@ -13,7 +12,7 @@ const Graphics = AsyncComponent(() => import( "./host/configuration/graphics/com
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
-const Home = AsyncComponent(() => import('./home/common/Home'))
+const Home = AsyncComponent(() => import('./common/layout/Home'))
 const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostDetails'))
 const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
@@ -41,8 +40,6 @@ const Setting = AsyncComponent(() => import('./setting/common/GlobalSettingLayou
 export {
 
     Routers,
-
-    Header,
 
     HomeLayout,
 

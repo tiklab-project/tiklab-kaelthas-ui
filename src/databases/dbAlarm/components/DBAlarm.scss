@@ -1,10 +1,10 @@
 .db-alarm-box {
   height: 100%;
+  flex: 1;
   background: #fff;
-  overflow: auto;
 
   .db-alarm-box-body {
-    padding: 20px 30px;
+    padding: 20px 0;
     border-radius: 4px;
 
     .db-alarm-box-title {

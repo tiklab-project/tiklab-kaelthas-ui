@@ -12,6 +12,7 @@ const HostDetails = (props) => {
     const {findHostById, findHostDynamicPage, hostDynamicList, setNullCondition} = hostStore;
 
     const hostId = localStorage.getItem("hostId");
+    const hostName = localStorage.getItem("hostName");
 
     const [dataList, setDataList] = useState({});
 
@@ -145,11 +146,11 @@ const HostDetails = (props) => {
                     <div className="box-host-body">
                         <div className="host-news">
                             <div>最新动态</div>
-                            <div className="more" onClick={() => goDynamicList()}>
+                            {/*<div className="more" onClick={() => goDynamicList()}>
                                 <svg aria-hidden="true" className="svg-icon">
                                     <use xlinkHref="#icon-rightjump"></use>
                                 </svg>
-                            </div>
+                            </div>*/}
                         </div>
                         <div className="host-news-List">
                             {/*<Timeline>
@@ -200,7 +201,7 @@ const HostDetails = (props) => {
                                 }
                             </Timeline>*/}
                         </div>
-                        <DynamicWidget screen={{"hostId": hostId}}/>
+                        <DynamicWidget hostId={hostId} hostName={hostName}/>
                     </div>
                 </div>
             </Col>

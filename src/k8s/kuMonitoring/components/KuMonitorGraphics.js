@@ -105,8 +105,7 @@ const KuMonitorGraphics = () => {
     return (
         <Provider>
             <Row className="ku-graphics-monitoring">
-                <Col className="ku-details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
-                     xxl={{span: "22", offset: "1"}}>
+                <Col className="ku-details-body" span={24}>
                     <div className="ku-details-breadcrumb-table">
                         <div className="ku-details-table-title">
                             <div className="ku-details-search">

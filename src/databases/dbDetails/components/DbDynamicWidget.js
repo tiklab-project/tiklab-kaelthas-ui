@@ -3,15 +3,15 @@ import {Axios} from "thoughtware-core-ui";
 import {observer} from "mobx-react";
 import {Empty} from "antd";
 import moment from "moment";
-import "./DynamicList.scss"
+import "./DbDynamicList.scss"
 import {useHistory} from "react-router";
 import Profile from "../../../common/Profile";
 
 /**
  * 首页中动态
  */
-const DynamicWidget = (props) => {
-    const {hostId,hostName} = props;
+const DbDynamicWidget = (props) => {
+    const {dbId,dbName} = props;
 
     const history = useHistory()
 
@@ -33,7 +33,7 @@ const DynamicWidget = (props) => {
      */
     const findList = async (value) => {
         const params = {
-            hostId: hostId,
+            dbId: dbId,
             pageParam: {
                 pageSize: 10,
                 currentPage: 1
@@ -41,7 +41,7 @@ const DynamicWidget = (props) => {
             ...value,
             bgroup: "kaelthas"
         }
-        let res = await Axios.post('/hostDynamic/findHostDynamicPage', params)
+        let res = await Axios.post('/dbDynamic/findDynamicPage', params)
         return res.data;
     };
 
@@ -75,8 +75,8 @@ const DynamicWidget = (props) => {
                                             {user?.nickname || user?.name}{name}
                                         </div>
                                         <div className='dynamic-item-log-desc'>
-                                            <div className='log-desc-action'> {hostName}</div>
-                                            {dataObj?.message && <div className='log-desc-message'>{dataObj.message}</div>}
+                                            <div className='log-desc-action'> {dbName}</div>
+                                            {/*{dataObj?.message && <div className='log-desc-message'>{dataObj.message}</div>}*/}
                                         </div>
                                     </div>
                                 </div>
@@ -164,4 +164,4 @@ const DynamicWidget = (props) => {
     );
 }
 
-export default observer(DynamicWidget);
+export default observer(DbDynamicWidget);

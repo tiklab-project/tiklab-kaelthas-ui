@@ -217,6 +217,10 @@ const SettingContent = props => {
         props.history.push("/home")
     }
 
+    function jumpToHome() {
+        props.history.push("/setting/home")
+    }
+
     return (
         <SystemNav
             {...props}
@@ -231,10 +235,11 @@ const SettingContent = props => {
                     <ul className="system-aside-top" style={{padding: 0}}>
 
                         <div className="system-aside-top-head">
-                            <svg aria-hidden="true" className="botton-icon" style={{cursor:"pointer"}} onClick={() =>hrefBack()}>
+                            <svg aria-hidden="true" className="botton-icon" style={{cursor: "pointer"}}
+                                 onClick={() => hrefBack()}>
                                 <use xlinkHref="#icon-settingLeft"></use>
                             </svg>
-                            <div className="system-aside-top-head-text">
+                            <div className="system-aside-top-head-text" onClick={jumpToHome}>
                                 设置
                             </div>
                         </div>

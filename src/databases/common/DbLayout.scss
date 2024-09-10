@@ -1,11 +1,10 @@
 .db-layout{
-  display: flex;
   height: 100%;
   width: 100%;
-  flex-direction: column;
+  overflow: auto;
+  background: #fff;
 
   .db-body-routes{
-    background: #fff;
     height: calc(100% - 116px);
   }
 }

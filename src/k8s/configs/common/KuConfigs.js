@@ -51,7 +51,7 @@ const KuConfigs = (props) => {
 
     return (
         <Row justify="start" className="ku-hostDetails-layout">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
+            <Col span={24}>
                 <div className="ku-design-up">
                     {
                         configList.map(item => {

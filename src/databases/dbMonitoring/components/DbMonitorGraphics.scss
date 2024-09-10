@@ -1,13 +1,11 @@
 .db-graphics-monitoring {
   display: flex;
   height: 100vh;
-  overflow: auto;
-  padding: 1px 0;
 
   .db-details-body {
     margin: 0 auto;
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 0;
 
     .db-details-breadcrumb-table {
       border-radius: 4px;
@@ -96,7 +94,7 @@
 
           .item-tabs-item {
             width: 48%;
-            background: #fff;
+            background: #fafbfc;
             margin: 10px;
           }
 

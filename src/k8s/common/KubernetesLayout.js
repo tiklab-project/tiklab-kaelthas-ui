@@ -3,18 +3,24 @@ import {renderRoutes} from "react-router-config";
 import {withRouter} from "react-router";
 import KuConfigHeader from "./KuConfigHeader";
 import "./KuBernetesLayout.scss"
+import {Col, Row} from "antd";
 
 const KubernetesLayout = (props) => {
 
     const {route} = props;
 
     return (
-        <div className="ku-layout">
+        <Row className="ku-layout">
+            <Col  md={{ span: 24, offset: 0 }}
+                  lg={{ span: 20, offset: 2 }}
+                  xl={{ span: 20, offset: 2 }}
+                  xll={{ span: 16, offset: 4 }}>
             <KuConfigHeader/>
             <div className="ku-body-routes">
                 {renderRoutes(route.routes)}
             </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

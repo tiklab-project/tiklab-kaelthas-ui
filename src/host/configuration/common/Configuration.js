@@ -2,7 +2,6 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./Configuration.scss"
-import {Col, Layout, Row} from "antd";
 
 const Configuration = (props) => {
 
