@@ -5,11 +5,11 @@
   background-color: #ffffff;
   overflow: auto;
 
-  .box-host-survey {
+  .box-db-survey {
     padding: 20px;
 
 
-    .box-host-body-head {
+    .box-db-body-head {
       display: flex;
       flex-direction: column;
       margin-bottom: 15px;
@@ -18,11 +18,11 @@
 
       background-color: #fff;
 
-      .box-host-title {
+      .box-db-title {
         font-weight: 700;
       }
 
-      .box-host-details {
+      .box-db-details {
         display: flex;
         padding: 20px;
         border-radius: 4px;
@@ -34,7 +34,7 @@
         overflow: hidden; /* 超出部分隐藏 */
         text-overflow: ellipsis; /* 显示省略号 */
 
-        .box-host-margin-details {
+        .box-db-margin-details {
           display: flex;
           align-items: center;
           gap: 5px;
@@ -43,7 +43,7 @@
           background-color: #f8f8f8;
 
 
-          .box-host-margin-div {
+          .box-db-margin-div {
             display: flex;
             align-items: center;
             margin: auto;
@@ -68,7 +68,7 @@
             margin-right: 5px;
           }
 
-          .box-host-details-text {
+          .box-db-details-text {
             display: flex;
             gap: 5px;
             flex-direction: column;
@@ -87,12 +87,12 @@
 
         }
 
-        .box-host-margin-work {
+        .box-db-margin-work {
           display: flex;
           justify-content: start;
           gap: 20px;
 
-          .host-layout-item {
+          .db-layout-item {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -102,7 +102,7 @@
 
       }
 
-      .box-host-body-head-graphics {
+      .box-db-body-head-graphics {
         display: flex;
         flex-direction: column;
         width: 300px;
@@ -110,7 +110,7 @@
         margin-top: 50px;
       }
 
-      .box-host-List {
+      .box-db-List {
         display: flex;
         margin: 60px 10px;
         justify-content: center;
@@ -119,13 +119,13 @@
     }
 
 
-    .box-host-body {
+    .box-db-body {
       display: flex;
       flex-direction: column;
       background-color: #fff;
       padding: 20px;
 
-      .host-news {
+      .db-news {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -142,19 +142,19 @@
         }
       }
 
-      .host-news-List {
+      .db-news-List {
         margin-top: 15px;
         display: flex;
         flex-direction: column;
 
-        .host-news-Line {
+        .db-news-Line {
           display: flex;
           align-items: center;
           font-size: 14px;
           justify-content: space-between;
           margin-bottom: 10px;
 
-          .host-news-div {
+          .db-news-div {
 
           }
         }

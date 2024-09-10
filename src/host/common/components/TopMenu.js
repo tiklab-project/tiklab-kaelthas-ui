@@ -3,7 +3,7 @@ import {withRouter} from "react-router-dom";
 import "./TopMenu.scss"
 import {Col, Dropdown, Row, Space, Tooltip} from "antd";
 import {CaretDownOutlined} from "@ant-design/icons";
-import hostStore from "../../hostDetails/store/HostStore";
+import hostStore from "../../hostOverview/store/HostStore";
 import {observer} from "mobx-react";
 
 const TopMenu = (props) => {
@@ -15,10 +15,10 @@ const TopMenu = (props) => {
     const router = [
         {
             name: '概况',
-            icon: 'hostDetails',
-            url: `/hostList/${hostId}/hostDetails`,
-            key: "hostDetails",
-            encoded: "hostDetails",
+            icon: 'hostOverview',
+            url: `/hostList/${hostId}/hostOverview`,
+            key: "hostOverview",
+            encoded: "hostOverview",
         },
         {
             name: '监控',

@@ -11,7 +11,7 @@ const Permissions = (props) => {
         <DomainRole
             {...props}
             domainId = {hostId}
-            bgroup={"xmonitor"}
+            bgroup={"kaelthas"}
         />
     );
 };

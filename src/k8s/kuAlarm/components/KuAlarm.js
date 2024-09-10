@@ -80,19 +80,19 @@ const KuAlarm = (props) => {
 
     useEffect(async () => {
         setQuickFilterValue({
-            label:"全部",
+            label:"状态",
             value:"all"
         })
         setLeveType({
             key: "all",
-            label: "全部",
+            label: "告警等级",
             value: "all"
         })
 
         setSearchCondition({
             kuId:localStorage.getItem("kuId"),
             status:null,
-            machineType: 1,
+            machineType: 3,
             severityLevel: null
         })
         await findAlarmPageByHostId();

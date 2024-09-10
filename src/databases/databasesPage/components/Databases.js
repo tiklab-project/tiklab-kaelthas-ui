@@ -13,7 +13,8 @@ const Databases = (props) => {
         dbPage,
         total,
         searchCondition,
-        setSearchCondition
+        setSearchCondition,
+        setNullCondition
     } = databasesStore
 
     const [state, setState] = useState(0);
@@ -37,6 +38,7 @@ const Databases = (props) => {
     ];
 
     useEffect(async () => {
+        setNullCondition();
         await findDbInfoPage()
     }, []);
 
@@ -121,7 +123,7 @@ const Databases = (props) => {
         }
     }
 
-    function checkTab(value) {
+    async function checkTab(value) {
         setState(value)
 
         if (value === 0) {
@@ -132,6 +134,7 @@ const Databases = (props) => {
             usability: value,
             name: ""
         });
+        await findDbInfoPage();
     }
 
     function hrefAddDatabases() {

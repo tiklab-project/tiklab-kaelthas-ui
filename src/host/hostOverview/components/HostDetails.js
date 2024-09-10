@@ -5,17 +5,19 @@ import {Col, Empty, Row, Timeline} from "antd";
 import hostStore from "../store/HostStore";
 import "../../../common/styles/_tabStyle.scss"
 import {observer} from "mobx-react";
+import DynamicWidget from "./DynamicWidget";
 
 const HostDetails = (props) => {
 
     const {findHostById, findHostDynamicPage, hostDynamicList, setNullCondition} = hostStore;
 
+    const hostId = localStorage.getItem("hostId");
+
     const [dataList, setDataList] = useState({});
 
     useEffect(async () => {
-        const hostId = localStorage.getItem("hostId");
 
-        setNullCondition({
+        /*setNullCondition({
             pageParam: {
                 pageSize: 10,
                 currentPage: 1,
@@ -23,7 +25,7 @@ const HostDetails = (props) => {
             hostId: hostId
         })
 
-        await findHostDynamicPage();
+        await findHostDynamicPage();*/
 
         const resData = await findHostById(hostId)
 
@@ -59,6 +61,10 @@ const HostDetails = (props) => {
         props.history.push(`/hostList/${localStorage.getItem("hostId")}/hostDynamic`)
     }
 
+    function subStringTime(time) {
+        return time.split(' ')[1];
+    }
+
     return (
         <Row className="box-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
@@ -66,16 +72,16 @@ const HostDetails = (props) => {
                     <div className="box-host-body-head">
                         <span className="box-host-title">主机详情</span>
                         <div className="box-host-details">
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
+                            {/*<div className="box-host-margin-details">
+                            <div className="box-host-margin-div">
                                     <span
                                         className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top">{dataList?.name}</div>
-                                        <div className="item-bottom">主机名称</div>
-                                    </div>
+                                <div className="box-host-details-text">
+                                    <div className="item-top">{dataList?.name}</div>
+                                    <div className="item-bottom">主机名称</div>
                                 </div>
                             </div>
+                        </div>*/}
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
                                     <svg className="status-img" aria-hidden="true">
@@ -122,18 +128,18 @@ const HostDetails = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-alarmNum"></use>
-                                    </svg>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{dataList?.alarmNum === null ? 0 : dataList?.alarmNum}</div>
-                                        <div className="item-bottom">告警数量</div>
-                                    </div>
+                            {/*<div className="box-host-margin-details">
+                            <div className="box-host-margin-div">
+                                <svg className="status-img" aria-hidden="true">
+                                    <use xlinkHref="#icon-alarmNum"></use>
+                                </svg>
+                                <div className="box-host-details-text">
+                                    <div className="item-top"
+                                         style={{textAlign: "center"}}>{dataList?.alarmNum === null ? 0 : dataList?.alarmNum}</div>
+                                    <div className="item-bottom">告警数量</div>
                                 </div>
                             </div>
+                        </div>*/}
                         </div>
                     </div>
                     <div className="box-host-body">
@@ -146,23 +152,55 @@ const HostDetails = (props) => {
                             </div>
                         </div>
                         <div className="host-news-List">
-                            <Timeline>
+                            {/*<Timeline>
+                            {
+                                hostDynamicList.data && hostDynamicList.data ? hostDynamicList.data.map(item => {
+                                        return (
+                                            <Timeline.Item key={item.id}>
+                                                <div className="host-news-Line">
+                                                    <div>{item.time}</div>
+                                                    <div className="host-news-name">{item.name}</div>
+                                                </div>
+                                            </Timeline.Item>
+                                        )
+                                    })
+                                    :
+                                    <Empty description="暂时没有动态~"/>
+                            }
+                        </Timeline>*/}
+                            {/*<Timeline>
                                 {
-                                    hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
+                                    hostDynamicList && hostDynamicList ? Object.entries(hostDynamicList).map(([key, value]) => {
                                             return (
-                                                <Timeline.Item key={item.id}>
-                                                    <div className="host-news-Line" >
-                                                        <div>{item.time}</div>
-                                                        <div className="host-news-name">{item.name}</div>
+                                                <div key={key}>
+                                                    <div className="host-news-title">
+                                                        <Timeline.Item>
+                                                            <div className="host-news-title-text">
+                                                                {key}
+                                                            </div>
+                                                        </Timeline.Item>
                                                     </div>
-                                                </Timeline.Item>
+                                                    {
+                                                        value && value.map((valueLine, index) => {
+                                                            return (
+                                                                <Timeline.Item color="gray" key={index}>
+                                                                    <div className="host-news-Line">
+                                                                        <div className="host-line-time">{subStringTime(valueLine.time)}</div>
+                                                                        <div className="host-news-name">{valueLine.name}</div>
+                                                                    </div>
+                                                                </Timeline.Item>
+                                                            )
+                                                        })
+                                                    }
+                                                </div>
                                             )
                                         })
                                         :
-                                        <Empty /*images="src/assets/images/nodata.png"*/ description="暂时没有动态~"/>
+                                        <Empty/>
                                 }
-                            </Timeline>
+                            </Timeline>*/}
                         </div>
+                        <DynamicWidget screen={{"hostId": hostId}}/>
                     </div>
                 </div>
             </Col>

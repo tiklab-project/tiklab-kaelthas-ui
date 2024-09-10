@@ -23,6 +23,15 @@ export class KubernetesStore {
         this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
+    @action
+    setNullCondition = (value) =>{
+        this.searchCondition = Object.assign({
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
 
     @action
     findKbInfoPage = async () => {

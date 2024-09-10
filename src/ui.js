@@ -1,6 +1,6 @@
 import Routers from "./Routers";
 import Header from "./home/common/Header";
-import HomeLayout from "./home/common/HomeLayout";
+import HomeLayout from "./common/layout/HomeLayout";
 import AsyncComponent from "./common/lazy/AsyncComponent";
 import App from "./app";
 const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
@@ -14,8 +14,8 @@ const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Home = AsyncComponent(() => import('./home/common/Home'))
-const HostDetails = AsyncComponent(() => import('./host/hostDetails/components/HostDetails'))
-const HostDynamic = AsyncComponent(() => import('./host/hostDetails/components/HostDynamic'))
+const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostDetails'))
+const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./host/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))

@@ -3,10 +3,6 @@ import {Service} from "../../../common/utils/requset";
 
 class KuAlarmStore {
     @observable searchCondition = {
-        orderParams: [{
-            name: "id",
-            orderType: "desc"
-        }],
         pageParam: {
             pageSize: 20,
             currentPage: 1,

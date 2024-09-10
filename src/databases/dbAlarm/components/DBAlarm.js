@@ -79,12 +79,12 @@ const DBAlarm = (props) => {
 
     useEffect(async () => {
         setQuickFilterValue({
-            label: "全部",
+            label: "状态",
             value: "all"
         })
         setLeveType({
             key: "all",
-            label: "全部",
+            label: "告警等级",
             value: "all"
         })
 

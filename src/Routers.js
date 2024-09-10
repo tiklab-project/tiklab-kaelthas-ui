@@ -29,8 +29,8 @@ const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Home = AsyncComponent(() => import('./home/common/Home'))
-const HostDetails = AsyncComponent(() => import('./host/hostDetails/components/HostDetails'))
-const HostDynamic = AsyncComponent(() => import('./host/hostDetails/components/HostDynamic'))
+const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostDetails'))
+const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./host/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
@@ -142,7 +142,7 @@ const Routes = [
                 component: Host,
                 routes: [
                     {
-                        path: "/hostList/:id/hostDetails",
+                        path: "/hostList/:id/hostOverview",
                         exact: false,
                         component: HostDetails,
                     },
@@ -203,7 +203,7 @@ const Routes = [
                                 component: Member,
                             },
                             {
-                                path: "/hostList/:id/kuPermissions",
+                                path: "/hostList/:id/permissions",
                                 key: 'permissions',
                                 exact: true,
                                 component: Permissions,
@@ -355,7 +355,7 @@ const Routes = [
                         exact: true,
                         render: (props) => <Orga
                             {...props}
-                            bgroup={"xmonitor"}
+                            bgroup={"kaelthas"}
                         />
                     },
                     {
@@ -364,7 +364,7 @@ const Routes = [
                         exact: true,
                         render: (props) => <UserGroup
                             {...props}
-                            bgroup={"xmonitor"}
+                            bgroup={"kaelthas"}
                             isBase={true}
                         />
                     },
@@ -374,7 +374,7 @@ const Routes = [
                         exact: true,
                         render: (props) => <User
                             {...props}
-                            bgroup={"xmonitor"}
+                            bgroup={"kaelthas"}
                         />
                     },
                     {
@@ -383,14 +383,14 @@ const Routes = [
                         exact: true,
                         render: (props) => <Directory
                             {...props}
-                            bgroup={"xmonitor"}
+                            bgroup={"kaelthas"}
                         />
                     },
                     {
                         path: "/setting/systemRole",
                         key: "systemRole",
                         exact: true,
-                        render: (props) => <SystemRole {...props} bgroup={"xmonitor"}/>
+                        render: (props) => <SystemRole {...props} bgroup={"kaelthas"}/>
                     },
 
 
@@ -398,44 +398,44 @@ const Routes = [
                     {
                         path: "/setting/messageNotice",
                         key: 'MessageNotice',
-                        render: (props) => <MessageNotice bgroup={"xmonitor"} {...props}/>
+                        render: (props) => <MessageNotice bgroup={"kaelthas"} {...props}/>
                     },
                     {
                         path: "/setting/messageSendType",
                         key: 'MessageSendType',
-                        render: (props) => <MessageSendType bgroup={"xmonitor"} {...props}/>
+                        render: (props) => <MessageSendType bgroup={"kaelthas"} {...props}/>
                     },
 
 
                     {
                         path: "/setting/ProjectMessageNotice",
                         key: 'ProjectMessageNotice',
-                        render: () => <ProjectMessageNotice bgroup={"xmonitor"}/>
+                        render: () => <ProjectMessageNotice bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/DomainMessageNotice",
                         key: 'DomainMessageNotice',
-                        render: () => <DomainMessageNotice bgroup={"xmonitor"}/>
+                        render: () => <DomainMessageNotice bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/MyTodoTask",
                         key: 'MyTodoTask',
-                        render: () => <MyTodoTask bgroup={"xmonitor"}/>
+                        render: () => <MyTodoTask bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/Task",
                         key: 'Task',
-                        render: () => <Task bgroup={"xmonitor"}/>
+                        render: () => <Task bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/TodoTemp",
                         key: 'TodoTemp',
-                        render: () => <TodoTemp bgroup={"xmonitor"}/>
+                        render: () => <TodoTemp bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/TodoType",
                         key: 'TodoType',
-                        render: () => <TodoType bgroup={"xmonitor"}/>
+                        render: () => <TodoType bgroup={"kaelthas"}/>
                     },
 
 
@@ -443,19 +443,19 @@ const Routes = [
                         path: "/setting/systemFeature",
                         key: 'SystemFeature',
                         exact: true,
-                        render: () => <SystemFeature isBase={true} bgroup={"xmonitor"}/>,
+                        render: () => <SystemFeature isBase={true} bgroup={"kaelthas"}/>,
                     },
                     {
                         path: "/setting/ProjectFeature",
                         key: 'ProjectFeature',
                         exact: true,
-                        render: () => <ProjectFeature isBase={true} bgroup={"xmonitor"}/>,
+                        render: () => <ProjectFeature isBase={true} bgroup={"kaelthas"}/>,
                     },
                     {
                         path: "/setting/baseSystemRole",
                         key: 'baseSystemRole',
                         exact: true,
-                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"xmonitor"}/>,
+                        render: () => <SystemRole isBase={true} group={'system'} bgroup={"kaelthas"}/>,
                     },
 
 
@@ -471,7 +471,7 @@ const Routes = [
                         path: "/setting/myLog",
                         key: "directory",
                         exact: true,
-                        render: (props) => <MyLog {...props} bgroup={"xmonitor"}/>
+                        render: (props) => <MyLog {...props} bgroup={"kaelthas"}/>
                     },
                     //应用
                     {
@@ -483,7 +483,7 @@ const Routes = [
                     {
                         path: "/setting/productAuth",
                         key: 'productAuth',
-                        render: () => <ProductAuth bgroup={"xmonitor"}/>
+                        render: () => <ProductAuth bgroup={"kaelthas"}/>
                     },
 
 
@@ -493,23 +493,23 @@ const Routes = [
                     //基础组件
                     {
                         path: "/setting/syr/feature",
-                        render: (props) => <SystemFeature {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <SystemFeature {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/system/role",
-                        render: (props) => <SystemRole {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <SystemRole {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
 
                     {
                         path: "/setting/project/feature",
-                        render: (props) => <ProjectFeature {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <ProjectFeature {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/project/role",
-                        render: (props) => <ProjectRole {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <ProjectRole {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                     {
@@ -519,58 +519,58 @@ const Routes = [
                     },
                     {
                         path: "/setting/todoTask",
-                        render: (props) => <MyTodoTask {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <MyTodoTask {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/task",
-                        render: (props) => <Task {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <Task {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/todoTemp",
-                        render: (props) => <TodoTemp {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <TodoTemp {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/todoType",
-                        render: (props) => <TodoType {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <TodoType {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/logTemplate",
-                        render: (props) => <LogTemplate {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <LogTemplate {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
 
                         path: "/setting/logType",
-                        render: (props) => <LogType {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <LogType {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/type",
-                        render: (props) => <MessageType {...props} bgroup={"xmonitor"}/>,
+                        render: (props) => <MessageType {...props} bgroup={"kaelthas"}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/sendtrue",
-                        render: (props) => <MessageSendType {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <MessageSendType {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/systemNotice",
-                        render: (props) => <MessageNotice {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <MessageNotice {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/projectNotice",
-                        render: (props) => <ProjectMessageNotice {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <ProjectMessageNotice {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                     {
                         path: "/setting/userGrouptrue",
-                        render: (props) => <UserGroup {...props} bgroup={"xmonitor"} isBase={true}/>,
+                        render: (props) => <UserGroup {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                 ]

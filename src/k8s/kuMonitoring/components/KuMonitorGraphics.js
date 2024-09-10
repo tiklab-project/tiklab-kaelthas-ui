@@ -104,13 +104,13 @@ const KuMonitorGraphics = () => {
 
     return (
         <Provider>
-            <Row className="db-graphics-monitoring">
-                <Col className="db-details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
+            <Row className="ku-graphics-monitoring">
+                <Col className="ku-details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}}
                      xxl={{span: "22", offset: "1"}}>
-                    <div className="db-details-breadcrumb-table">
-                        <div className="db-details-table-title">
-                            <div className="db-details-search">
-                                <div className="db-details-div">
+                    <div className="ku-details-breadcrumb-table">
+                        <div className="ku-details-table-title">
+                            <div className="ku-details-search">
+                                <div className="ku-details-div">
                                     <RangePicker
                                         // style={{width: 300}}
                                         format={dateFormat}
@@ -119,7 +119,7 @@ const KuMonitorGraphics = () => {
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
-                                <div className="db-details-div">
+                                <div className="ku-details-div">
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"
@@ -148,7 +148,7 @@ const KuMonitorGraphics = () => {
                         <div className="layout-body-list">
                             {
                                 condition && condition.length > 0 ?
-                                    <div className="db-details-tabs-wrap">
+                                    <div className="ku-details-tabs-wrap">
                                         {
                                             condition.map((item, index) => {
                                                 return (

@@ -24,7 +24,7 @@ const ConfigHeader = (props) => {
     const router = [
         {
             name: '概况',
-            icon: 'hostDetails',
+            icon: 'hostOverview',
             url: `/dbList/${dbId}/dbDetails`,
             key: "dbDetails",
             encoded: "dbDetails",

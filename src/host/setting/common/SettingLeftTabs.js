@@ -4,30 +4,30 @@ import {withRouter} from "react-router-dom";
 
 const SettingLeftTabs = (props) => {
 
-    const dbId = localStorage.getItem("dbId")
+    const hostId = localStorage.getItem("hostId")
 
     const router = [
         {
             name: '主机信息',
-            url: `/hostList/${dbId}/projectInformation`,
+            url: `/hostList/${hostId}/projectInformation`,
             key: "setting",
             encoded: "setting",
         },
         {
             name: '成员',
-            url: `/hostList/${dbId}/member`,
-            key: "kuMember",
-            encoded: "kuMember",
+            url: `/hostList/${hostId}/member`,
+            key: "member",
+            encoded: "member",
         },
         {
             name: '权限',
-            url: `/hostList/${dbId}/permissions`,
+            url: `/hostList/${hostId}/permissions`,
             key: "permissions",
             encoded: "permissions",
         },
     ];
 
-    const [selectKey,setSelectKey] = useState(`/hostList/${dbId}/projectInformation`);
+    const [selectKey,setSelectKey] = useState(`/hostList/${hostId}/projectInformation`);
 
     const selectSetting = (url) => {
         setSelectKey(url)
@@ -37,7 +37,7 @@ const SettingLeftTabs = (props) => {
     useEffect(() => {
         // 初次进入激活导航菜单
         setSelectKey(props.location.pathname)
-    }, [dbId])
+    }, [hostId])
 
     return (
         <div className="setting-box-right-left">

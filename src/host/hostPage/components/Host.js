@@ -171,16 +171,16 @@ const Host = (props) => {
             icon: "allHost"
         },
         {
-            title: '启用',
+            title: '可用',
             key: 1,
             icon: "availableHost"
         },
         {
-            title: '关闭',
+            title: '不可用',
             key: 2,
             icon: "noAvailableHost"
         }
-    ]
+    ];
 
     function hrefAddHost() {
         props.history.push('/configuration/addHost');

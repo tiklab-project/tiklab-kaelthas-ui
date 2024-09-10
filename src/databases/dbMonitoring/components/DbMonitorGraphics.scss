@@ -1,8 +1,7 @@
 .db-graphics-monitoring {
   display: flex;
-  height: calc(100vh - 164px);
+  height: 100vh;
   overflow: auto;
-  background: #fafbfc;
   padding: 1px 0;
 
   .db-details-body {

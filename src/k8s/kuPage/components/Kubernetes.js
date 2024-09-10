@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Col, Input, Row, Table, Tag} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import "./Kubernetes.scss"
@@ -13,10 +13,14 @@ const Kubernetes = (props) => {
         setSearchCondition,
         searchCondition,
         total,
-        updateKbInfo
+        updateKbInfo,
+        setNullCondition
     } = kubernetesStore;
 
+    const [kuStatus, setKuStatus] = useState(0);
+
     useEffect(async () => {
+        setNullCondition();
         await findKbInfoPage();
     }, []);
 
@@ -34,17 +38,36 @@ const Kubernetes = (props) => {
 
         localStorage.setItem('kuId', record.id);
         localStorage.setItem("kuName", record.name)
-        localStorage.setItem("url", `/kubernetes/${record.id}/kuOverview`)
+        localStorage.setItem("url", `/kubernetes/${record.id}/monitoring`)
         await updateKbInfo(record)
-        props.history.push(`/kubernetes/${record.id}/kuOverview`);
+        props.history.push(`/kubernetes/${record.id}/monitoring`);
     }
+
+    const availabilityTab = [
+        {
+            title: '全部',
+            key: 0,
+            icon: "allHost"
+        },
+        {
+            title: '可用',
+            key: 1,
+            icon: "availableHost"
+        },
+        {
+            title: '不可用',
+            key: 2,
+            icon: "noAvailableHost"
+        }
+    ];
 
     const columns = [
         {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
-            render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => hrefDatabases(record)}>{text}</div>,
+            render: (text, record) => <div style={{cursor: "pointer"}}
+                                           onClick={() => hrefDatabases(record)}>{text}</div>,
         },
         {
             title: 'IP',
@@ -127,6 +150,18 @@ const Kubernetes = (props) => {
         await findKbInfoPage();
     };
 
+    async function checkTab(key) {
+        setKuStatus(key);
+        if (key === 0) {
+            key = null
+        }
+        setSearchCondition({
+            usability: key,
+            name: null
+        })
+        await findKbInfoPage();
+    }
+
     return (
         <Row className="kb-row">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
@@ -138,7 +173,17 @@ const Kubernetes = (props) => {
                     </div>
                     <div className="kb-type-search">
                         <div className="kb-type">
-
+                            {
+                                availabilityTab.map(item => {
+                                    return <div
+                                        className={`ku-tabs-item ${kuStatus === item.key ? "ku-tabs-button" : ""}`}
+                                        key={item.key}
+                                        onClick={() => checkTab(item.key)}
+                                    >
+                                        {item.title}
+                                    </div>
+                                })
+                            }
                         </div>
                         <div>
                             <Input

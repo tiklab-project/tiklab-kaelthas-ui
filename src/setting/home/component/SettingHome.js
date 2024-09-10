@@ -1,35 +1,121 @@
 import React, {useState,useEffect} from "react";
 import {Row,Col} from "antd";
-import countStore from "../store/CountStore";
+import {applyJump, disableFunction, applySubscription, getVersionInfo, Axios, getUser} from "thoughtware-core-ui";
+import vipLight from '../../../assets/images/vip-light.png';
+import vipDark from '../../../assets/images/vip-dark.png';
 import "./SettingHome.scss";
-import {applyJump} from "thoughtware-core-ui";
+import moment from "moment";
+import {
+    ApartmentOutlined,
+    UserOutlined,
+    MessageOutlined,
+    GroupOutlined,
+    ScheduleOutlined,
+    AlertOutlined,
+    HistoryOutlined,
+    LaptopOutlined,
+} from "@ant-design/icons"
+import versionStore from "thoughtware-licence-ui/es/version/VersionStore";
+
+const IsSubScribeMap={
+    1:"专业版",
+    2:"专业版",
+    3:"免费版",
+    4:"免费版",
+    5:"免费版"
+}
 
 const SettingHome = props => {
+    const {findUseLicence} = versionStore;
 
-    const {findCount} = countStore;
+    //系统设置统计数据
+    const [count,setCount] = useState({});
+    //当前版本
+    const [licence,setLicence] = useState(null);
+    //操作日志
+    const [log,setLog] = useState(null);
 
-    const [count,setCount] = useState({})
+    const [authUser, setAuthUser] = useState();
 
-    useEffect(()=>{
-        findCount().then(res=>{
-            if(res.code===0){
-                setCount(res.data)
-            }
-        })
+    const [cloudProductInfo, setCloudProductInfo] = useState();
+
+    useEffect(async() => {
+        const info = await Axios.post('/system/count', null);
+        setCount(info.data);
+    }, []);
+
+    useEffect(async ()=>{
+        let licenceInfo = await findUseLicence()
+        setLicence(licenceInfo)
     },[])
+
+    useEffect(async ()=>{
+        let logInfo =  await Axios.post("/oplog/findlogpage", {"bgroup":"kaelthas","userId":getUser().userId});
+        setLog(logInfo.data)
+    },[])
+
+    useEffect(async ()=>{
+        let info = await Axios.post("/applyAuth/findApplyAuth",null)
+        setAuthUser(info.data.userNumber)
+    },[])
+
+    useEffect(async ()=>{
+        if(version==="cloud"){
+            let info = await Axios.post("/system/productInfo",null)
+            setCloudProductInfo(info.data)
+        }
+
+    },[])
+
+
+
+    const showProductInfo = () =>{
+        if(version==="cloud"){
+            if(!cloudProductInfo) return ;
+
+            let expired;
+            if( cloudProductInfo?.isSubScribe===1|| cloudProductInfo?.isSubScribe===2){
+                expired=false
+            }else {
+                expired=true
+            }
+            return{
+                expired:expired,
+                time:cloudProductInfo?.endDate,
+                authUser:cloudProductInfo?.authUser,
+                userNum:cloudProductInfo?.userNum||0
+            }
+        }else {
+            return{
+                expired:getVersionInfo()?.expired,
+                time:licence?.issuedTime,
+                authUser:authUser,
+                userNum:licence?.userNum||0
+            }
+        }
+    }
+
 
     /**
      * 路由跳转
      */
-    const li = ['department','user','userGroup','directory'];
+    const li = ['orga','user','userGroup','dir'];
     const goPath = path => {
         const authConfig = JSON.parse(localStorage.getItem("authConfig"))
         if(!authConfig.authType){
-            if(li.some(item => item===path)){
-                return applyJump(`${authConfig.authServiceUrl}/#/setting/${path}`)
+            const isAuth = li.some(item => item===path)
+            if(isAuth){
+                return applyJump(`${authConfig.authServiceUrl}/#/user/${path}`)
             }
         }
         props.history.push(`/setting/${path}`)
+    }
+
+    const goAuth = () => {
+        if(version==='cloud'){
+            return applyJump('https://work.cloud.tiklab.net/#/enterprise/auth/kaelthas')
+        }
+        props.history.push(`/setting/productAuth`)
     }
 
     return (
@@ -37,141 +123,135 @@ const SettingHome = props => {
             <Col
                 xs={{ span: "24" }}
                 sm={{ span: "24" }}
-                md={{ span: "24" }}
-                lg={{ span: "24" }}
-                xl={{ span: "21", offset: "1" }}
-                xxl={{ span: "20", offset: "2" }}
+                md={{ span: 24, offset: 0 }}
+                lg={{ span: 20, offset: 2 }}
+                xl={{ span: 18, offset: 3 }}
+                xll={{ span: 16, offset: 4 }}
             >
-                <div className='mf-home-limited'>
-                    <div className='setting-home-chunk'>
+                <div className='system-home-box'>
 
-                        <div className='home-title'>用户与权限</div>
-                        <div className='home-chunk'>
+                    <div className='home-licence-box'>
+                        <div className='home-licence'>
+                            <div className='home-licence-item'>
+                                <div className='home-licence-item-level'>
+                                    <div className='licence-level-img'>
+                                        <img src={showProductInfo()?.expired ? vipDark:vipLight} alt={''}/>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <span className='licence-level-info'>
+                                                {
+                                                    version==="cloud"
+                                                        ? IsSubScribeMap[cloudProductInfo?.isSubScribe]
+                                                        : disableFunction() ? '社区版' : '企业版'
+                                                }
+                                            </span>
+                                            {showProductInfo()?.time &&
+                                                <span className='licence-level-issuedTime'>
+                                                {moment(showProductInfo()?.time).format('YYYY-MM-DD HH:mm:ss')}到期
+                                            </span>}
+                                        </div>
+                                        <div className='licence-level-applyAuth'>
+                                            <span className='licence-level-applyAuth-title'>授权人数：</span>
+                                            <span className='licence-level-info' onClick={goAuth} style={{cursor:"pointer"}}>
+                                                {showProductInfo()?.authUser } / {showProductInfo()?.expired ? "不限制" : showProductInfo()?.userNum > 0 ? showProductInfo().userNum+'人' : "不限制"}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='home-licence-sub' onClick={()=>applySubscription('kaelthas')}>
+                                {showProductInfo()?.expired ? '订阅' : '续订'}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className='home-chunk-box'>
+                        <div className='home-user-box'>
                             {
-                                version==='ce' &&
-                                <>
-                                    <div className='home-chunk-item' onClick={()=>goPath('department')}>
-                                        <div className='home-chunk-label'>部门</div>
-                                        <div className='home-chunk-info'>
-                                            <div className='home-chunk-desc'>部门</div>
-                                            <div className='home-chunk-length'>{count?.departmentNumber || 0}</div>
+                                version==="cloud"
+                                    ? <>
+                                        <div className='home-title'>权限</div>
+                                        <div className='home-user'>
+                                            <div className='home-user-item' onClick={()=>goPath('systemRole')}>
+                                                <div className='home-icon'><ScheduleOutlined /></div>
+                                                <div className='home-label'>权限</div>
+                                                <div className='home-info'>
+                                                    {count?.roleCount || 0}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='home-chunk-item' onClick={()=>goPath('user')}>
-                                        <div className='home-chunk-label'>用户</div>
-                                        <div className='home-chunk-info'>
-                                            <div className='home-chunk-desc'>用户</div>
-                                            <div className='home-chunk-length'>{count?.userNumber || 0}</div>
+                                    </>
+                                    :<>
+                                        <div className='home-title'>用户与权限</div>
+                                        <div className='home-user'>
+                                            <div className='home-user-item' onClick={()=>goPath('user')}>
+                                                <div className='home-icon'><UserOutlined/></div>
+                                                <div className='home-label'>用户</div>
+                                                <div className='home-info'>
+                                                    {count?.userCount || 0}
+                                                </div>
+                                            </div>
+                                            <div className='home-user-item' onClick={()=>goPath('orga')}>
+                                                <div className='home-icon'><ApartmentOutlined /></div>
+                                                <div className='home-label'>部门</div>
+                                                <div className='home-info'>
+                                                    {count?.orgaCount || 0}
+                                                </div>
+                                            </div>
+                                            <div className='home-user-item' onClick={()=>goPath('userGroup')}>
+                                                <div className='home-icon'><GroupOutlined /></div>
+                                                <div className='home-label'>用户组</div>
+                                                <div className='home-info'>
+                                                    {count?.userGroupCount || 0}
+                                                </div>
+                                            </div>
+                                            <div className='home-user-item' onClick={()=>goPath('systemRole')}>
+                                                <div className='home-icon'><ScheduleOutlined /></div>
+                                                <div className='home-label'>权限</div>
+                                                <div className='home-info'>
+                                                    {count?.roleCount || 0}
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className='home-chunk-item' onClick={()=>goPath('userGroup')}>
-                                        <div className='home-chunk-label'>用户组</div>
-                                        <div className='home-chunk-info'>
-                                            <div className='home-chunk-desc'>用户组</div>
-                                            <div className='home-chunk-length'>{count?.userGroupNumber || 0}</div>
-                                        </div>
-                                    </div>
-                                    {/*<div className='home-chunk-item' onClick={()=>goPath('directory')}>
-                                        <div className='home-chunk-label'>用户目录</div>
-                                        <div className='home-chunk-info'>
-                                            <div className='home-chunk-desc'>用户目录</div>
-                                            <div className='home-chunk-length'>{count?.userDirNumber || 0}</div>
-                                        </div>
-                                    </div>*/}
-                                </>
+                                    </>
                             }
-                            <div className='home-chunk-item' onClick={()=>goPath('systemRole')}>
-                                <div className='home-chunk-label'>权限</div>
-                                <div className='home-chunk-info'>
-                                    <div className='home-chunk-desc'>权限</div>
-                                    <div className='home-chunk-length'>{count?.roleNumber || 0}</div>
+                        </div>
+                        <div className='home-message-box'>
+                            <div className='home-title'>消息</div>
+                            <div className='home-message'>
+                                <div className='home-message-item' onClick={()=>goPath('messageNotice')}>
+                                    <div className='home-icon'><MessageOutlined/></div>
+                                    <div className='home-label'>消息通知方案</div>
+                                    <div className='home-info'>
+                                        {count?.msgNoticeCount || 0}
+                                    </div>
+                                </div>
+                                <div className='home-message-item' onClick={()=>goPath('messageSendType')}>
+                                    <div className='home-icon'><AlertOutlined /></div>
+                                    <div className='home-label'>消息发送方式</div>
+                                    <div className='home-info'>
+                                        {count?.msgSendTypeCount || 0}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='home-security-box'>
+                            <div className='home-title'>安全</div>
+                            <div className='home-security'>
+                                <div className='home-security-item' onClick={()=>goPath('backups')}>
+                                    <div className='home-icon'><HistoryOutlined /></div>
+                                    <div className='home-label'>上次备份时间</div>
+                                    <div className='home-info'>{count?.lastBackupsTime && moment(count.lastBackupsTime).format('YYYY-MM-DD') || '无'}</div>
+                                </div>
+                                <div className='home-security-item' onClick={()=>goPath('log')}>
+                                    <div className='home-icon'><LaptopOutlined /></div>
+                                    <div className='home-label'>操作日志</div>
+                                    <div className='home-info'>{log?.totalRecord || '0'}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div className='setting-home-chunk'>
-                        <div className='home-title'>消息</div>
-                        <div className='home-chunk'>
-                            <div className='home-chunk-item' onClick={()=>goPath('messageNotice')}>
-                                <div className='home-chunk-label'>消息通知方案</div>
-                                <div className='home-chunk-info'>
-                                    <div className='home-chunk-desc'>消息通知方案</div>
-                                    <div className='home-chunk-length'>{count?.messageNoticeNumber || 0}</div>
-                                </div>
-                            </div>
-                            <div className='home-chunk-item' onClick={()=>goPath('messageSendType')}>
-                                <div className='home-chunk-label'>消息发送方式</div>
-                                <div className='home-chunk-info'>
-                                    <div className='home-chunk-desc'>消息发送方式</div>
-                                    <div className='home-chunk-length'>{count?.messageSendTypeNumber || 0}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className='setting-home-chunk'>
-                        <div className='home-title'>监控配置</div>
-                        <div className='home-chunk'>
-                            <div className='home-chunk-item' >
-                                <div className='home-chunk-label'>模板配置</div>
-                                <div className='home-chunk-info home-chunk-wrap' onClick={()=>goPath('grouping')}>
-                                    <div className='home-chunk-wrap-inline'>
-                                        <div className='home-chunk-desc'>模板数量</div>
-                                        <div className='home-chunk-length'>{count?.templateNum || 0}</div>
-                                    </div>
-                                    <div className='home-chunk-wrap-inline'>
-                                        <div className='home-chunk-desc'>监控项数量</div>
-                                        <div className='home-chunk-length'>{count?.templateMonitorNum || 0}</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className='home-chunk-item' >
-                                <div className='home-chunk-label'>主机配置</div>
-                                <div className='home-chunk-info home-chunk-wrap' onClick={()=>goPath('hostGroup')}>
-                                    <div className='home-chunk-wrap-inline' >
-                                        <div className='home-chunk-desc'>主机数量</div>
-                                        <div className='home-chunk-length'>{count?.hostNum || 0}</div>
-                                    </div>
-                                    <div className='home-chunk-wrap-inline'>
-                                        <div className='home-chunk-desc'>监控项数量</div>
-                                        <div className='home-chunk-length'>{count?.hostMonitorNum || 0}</div>
-                                    </div>
-                                    {/*<div className='home-chunk-wrap-inline'>
-                                        <div className='home-chunk-desc'>触发器数量</div>
-                                        <div className='home-chunk-length'>{count?.hostNumber || 0}</div>
-                                    </div>*/}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {
-                        version==='ce' &&
-                        <div className='setting-home-chunk'>
-                            <div className='home-title'>应用与安全</div>
-                            <div className='home-chunk'>
-                                <div className='home-chunk-item' onClick={()=>goPath('backups')}>
-                                    <div className='home-chunk-label'>备份与恢复</div>
-                                    <div className='home-chunk-info'>
-                                        <div className='home-chunk-desc'>上次备份时间</div>
-                                        <div className='home-chunk-length'>{count?.backupsTime || '无'}</div>
-                                    </div>
-                                </div>
-                                <div className='home-chunk-item' onClick={()=>goPath('version')}>
-                                    <div className='home-chunk-label'>版本与许可证</div>
-                                    <div className='home-chunk-info'>
-                                        <div className='home-chunk-desc'>版本类型</div>
-                                        <div className='home-chunk-length'>{count?.expired ? '社区版' : '企业版'}</div>
-                                    </div>
-                                </div>
-                                <div className='home-chunk-item' onClick={()=>goPath('productAuth')}>
-                                    <div className='home-chunk-label'>应用访问权限</div>
-                                    <div className='home-chunk-info'>
-                                        <div className='home-chunk-desc'>已授权</div>
-                                        <div className='home-chunk-length'>{count?.authNumber || 0}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    }
                 </div>
             </Col>
         </Row>

@@ -9,6 +9,7 @@ import moment from "moment";
 import {withRouter} from "react-router-dom";
 import ChangeViewChart from "../../../common/graphics/ChangeViewChart";
 import "./MonitorGraphics.scss"
+
 const {RangePicker} = DatePicker;
 
 const {Option} = Select;
@@ -106,8 +107,8 @@ const MonitorGraphics = () => {
 
     return (
         <Provider>
-            <Row className="details">
-                    <Col className="details-body" sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "22", offset: "1"}}>
+            <div className="details">
+                <div className="details-body">
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
                             <div className="details-search">
@@ -175,8 +176,8 @@ const MonitorGraphics = () => {
                                 </div>
                         }
                     </div>
-                </Col>
-            </Row>
+                </div>
+            </div>
         </Provider>
     );
 };

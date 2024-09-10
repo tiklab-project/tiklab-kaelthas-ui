@@ -3,34 +3,33 @@
   flex-direction: column;
   height: 100%;
   background: #ffffff;
-  overflow: auto;
 
   .box-host-survey {
-    padding: 20px;
+    padding: 20px 0;
 
 
     .box-host-body-head {
       display: flex;
       flex-direction: column;
       gap: 20px;
-      padding: 0 15px;
       background-color: #fff;
 
       .box-host-title {
         font-weight: 700;
+        font-size: 16px;
       }
 
       .box-host-details {
         display: flex;
-        padding: 20px;
+        padding: 20px 0;
         border-radius: 4px;
         height: 150px;
         width: 100%;
         justify-content: space-between;
 
-        white-space: nowrap;    /* 禁止换行 */
-        overflow: hidden;       /* 超出部分隐藏 */
-        text-overflow: ellipsis;/* 显示省略号 */
+        white-space: nowrap; /* 禁止换行 */
+        overflow: hidden; /* 超出部分隐藏 */
+        text-overflow: ellipsis; /* 显示省略号 */
 
         .box-host-margin-details {
           display: flex;
@@ -41,7 +40,7 @@
           background-color: #fafbfc;
 
 
-          .box-host-margin-div{
+          .box-host-margin-div {
             display: flex;
             align-items: center;
             margin: auto;
@@ -91,12 +90,12 @@
 
         }
 
-        .box-host-margin-work{
+        .box-host-margin-work {
           display: flex;
           justify-content: start;
           gap: 20px;
 
-          .host-layout-item{
+          .host-layout-item {
             display: flex;
             align-items: center;
             gap: 5px;
@@ -127,7 +126,7 @@
       display: flex;
       flex-direction: column;
       background-color: #fff;
-      padding: 20px;
+      padding: 20px 0;
 
       .host-news {
         display: flex;
@@ -151,19 +150,40 @@
         display: flex;
         flex-direction: column;
 
-        .host-news-Line{
-          display: flex;
-          //align-items: center;
-          font-size: 14px;
-          justify-content: space-between;
+        .host-news-title {
+          font-size: 15px;
+          line-height: 30px;
+          position: relative;
 
-          .host-news-name{
-            width: 300px;
-            white-space: nowrap;          /* 防止文本换行 */
-            overflow: hidden;             /* 超出部分隐藏 */
-            text-overflow: ellipsis;      /* 使用省略号表示超出部分 */
+          .host-news-title-text {
+            width: 100px;
+            border-radius: 5px;
+            background: #e3e8f0;
+            padding: 0 3px;
+            text-align: center;
           }
         }
+
+        .host-news-Line {
+          display: flex;
+          align-items: center;
+          min-width: 0;
+          position: relative;
+
+          .host-line-time {
+            margin-right: 30px;
+          }
+
+          .host-news-name {
+            width: 300px;
+            margin-left: 30px;
+            white-space: nowrap; /* 防止文本换行 */
+            overflow: hidden; /* 超出部分隐藏 */
+            text-overflow: ellipsis; /* 使用省略号表示超出部分 */
+          }
+        }
+
+
       }
     }
 
@@ -171,12 +191,16 @@
 }
 
 
-.ant-timeline-item{
+.ant-timeline-item {
   position: relative;
   margin: 0;
   padding-bottom: 16px;
   font-size: 14px;
   list-style: none;
+}
+
+.last-item .ant-timeline-item-tail {
+  display: none;
 }
 
 

@@ -28,7 +28,7 @@ const KuConfigHeader = (props) => {
     const router = [
         {
             name: '概况',
-            icon: 'hostDetails',
+            icon: 'hostOverview',
             url: `/kubernetes/${kuId}/kuOverview`,
             key: "kuDetails",
             encoded: "kuDetails",

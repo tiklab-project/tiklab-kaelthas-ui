@@ -133,11 +133,12 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'xMonitor',
+            title:'kaelthas',
             template: path.resolve(__dirname, './public/index.template.html'),
             hash: false,
             filename: 'index.html',
             inject: 'body',
+            favicon: path.resolve(__dirname, './src/assets/logo.png'),
             minify: {
                 collapseWhitespace: true,
                 removeComments: true,

@@ -19,19 +19,6 @@ class AlarmPageStore {
     @observable
     total = 10;
 
-    @observable leveType;
-
-    @action
-    setLeveType = (value) =>{
-        this.leveType = value;
-    }
-
-    @observable quickFilterValue = {};
-
-    @action
-    setQuickFilterValue = (value) => {
-        this.quickFilterValue = value
-    }
 
     @action
     setSearchCondition = (value) => {

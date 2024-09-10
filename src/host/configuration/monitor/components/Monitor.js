@@ -129,8 +129,8 @@ const Monitor = (props) => {
             title: '监控项名称',
             dataIndex: 'name',
             id: 'name',
-            width:"20%",
-            ellipsis:"true",
+            width: "20%",
+            ellipsis: "true",
             render: (name, record) => {
                 let text;
                 record?.source === 1 ?
@@ -145,30 +145,30 @@ const Monitor = (props) => {
             title: '监控项大类',
             dataIndex: ['monitorItem', 'type'],
             id: 'monitorType',
-            width:"10%",
-            ellipsis:"true"
+            width: "10%",
+            ellipsis: "true"
         },
         {
             title: '监控项小类',
             dataIndex: ['monitorItem', 'dataSubclass'],
             id: 'dataSubclass',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (name) => <span>{name}</span>
         },
         {
             title: '监控表达式',
             dataIndex: 'expression',
             id: 'expression',
-            width:"20%",
-            ellipsis:"true"
+            width: "20%",
+            ellipsis: "true"
         },
         {
             title: '监控项来源',
             dataIndex: 'source',
             id: 'source',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (monitorSource, record) => {
                 let text;
                 record?.templateId !== null ?
@@ -182,15 +182,15 @@ const Monitor = (props) => {
             title: '数据保留时间',
             dataIndex: 'dataRetentionTime',
             id: 'dataRetentionTime',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
         },
         {
             title: '监控项状态',
             dataIndex: 'monitorStatus',
             id: 'monitorStatus',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (monitorStatus) => {
                 let config = {
                     1: "启用",
@@ -202,8 +202,8 @@ const Monitor = (props) => {
         {
             title: '操作',
             id: 'action',
-            width:"10%",
-            ellipsis:"true",
+            width: "10%",
+            ellipsis: "true",
             render: (_, record) => (
                 <Space size="middle">
                     {
@@ -219,61 +219,59 @@ const Monitor = (props) => {
     ];
 
     return (
-        <Row className="box-monitor-right">
-            <Col style={{marginLeft:10}}>
-                <div className="monitor-kind-options">
-                    <div className="monitor-kind-options-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    key={item.title}
-                                    className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
-                                    onClick={() => onClickMonitor(item.key)}>
-                                    {item.title}
-                                </div>
-                            })
-                        }
+        <div className="box-monitor-right">
+            <div className="monitor-kind-options">
+                <div className="monitor-kind-options-tabs">
+                    {
+                        availabilityTab.map(item => {
+                            return <div
+                                key={item.title}
+                                className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
+                                onClick={() => onClickMonitor(item.key)}>
+                                {item.title}
+                            </div>
+                        })
+                    }
+                </div>
+                <div className="monitor-top-right-search">
+                    <div>
+                        <Input
+                            placeholder="监控项名称"
+                            className="monitor-kind-search"
+                            onPressEnter={(event) => searchName(event)}
+                            allowClear={true}
+                            prefix={<SearchOutlined/>}
+                        />
                     </div>
-                    <div className="monitor-top-right-search">
-                        <div>
-                            <Input
-                                placeholder="监控项名称"
-                                className="monitor-kind-search"
-                                onPressEnter={(event) => searchName(event)}
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                        <div className="monitor-top-right">
-                            <AddMonitor/>
-                        </div>
+                    <div className="monitor-top-right">
+                        <AddMonitor/>
                     </div>
                 </div>
-                <div className="box-monitor-table">
-                    <>
-                        <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-                                       form={form} columnData={columnData}
-                        />
-                        <Table rowKey={record => record.id}
-                               columns={columns}
-                               dataSource={monitorList}
-                               className="custom-table"
-                               scroll={{
-                                   x: 300,
-                               }}
-                               onChange={changePage}
-                               pagination={{
-                                   position: ["bottomCenter"],
-                                   total: total,
-                                   showSizeChanger: true,
-                                   pageSize: searchCondition.pageParam.pageSize,
-                                   current: searchCondition.pageParam.currentPage,
-                               }}
-                        />
-                    </>
-                </div>
-            </Col>
-        </Row>
+            </div>
+            <div className="box-monitor-table">
+                <>
+                    <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                                   form={form} columnData={columnData}
+                    />
+                    <Table rowKey={record => record.id}
+                           columns={columns}
+                           dataSource={monitorList}
+                           className="custom-table"
+                           scroll={{
+                               x: 300,
+                           }}
+                           onChange={changePage}
+                           pagination={{
+                               position: ["bottomCenter"],
+                               total: total,
+                               showSizeChanger: true,
+                               pageSize: searchCondition.pageParam.pageSize,
+                               current: searchCondition.pageParam.currentPage,
+                           }}
+                    />
+                </>
+            </div>
+        </div>
     );
 };
 

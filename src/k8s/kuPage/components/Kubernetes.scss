@@ -50,6 +50,20 @@
         height: 42px;
         line-height: 42px;
 
+        .ku-tabs-button {
+          color: #000;
+          border-bottom: 2px solid #5d70ea;
+        }
+
+        .ku-tabs-item {
+          cursor: pointer;
+          padding: 0 5px;
+          height: 42px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
       }
 
       .kb-search{

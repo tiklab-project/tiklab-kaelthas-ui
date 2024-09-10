@@ -18,16 +18,16 @@ const AlarmPage = (props) => {
         updateAlarmPage,
         setSearchCondition,
         total,
-        searchCondition,
-        setQuickFilterValue,
-        quickFilterValue,
-        setLeveType,
-        leveType
+        searchCondition
     } = alarmPageStore;
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [alarm, setAlarm] = useState();
+
+    const [quickFilterValue,setQuickFilterValue] = useState();
+
+    const [leveType,setLeveType] = useState();
 
     const leveList = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
 
@@ -83,12 +83,12 @@ const AlarmPage = (props) => {
 
     useEffect(async () => {
         setQuickFilterValue({
-            label: "全部",
+            label: "状态",
             value: "all"
         })
         setLeveType({
             key: "all",
-            label: "全部",
+            label: "告警等级",
             value: "all"
         })
         await findAlarmPage();
@@ -207,6 +207,9 @@ const AlarmPage = (props) => {
                 break;
             case 2:
                 machineName = "数据库"
+                break;
+            case 3:
+                machineName = "kubernetes"
                 break;
         }
         return <Tag>{machineName}</Tag>

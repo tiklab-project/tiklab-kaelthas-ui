@@ -1,16 +1,11 @@
 .host-Dynamic {
   height: calc(100vh - 164px);
-  overflow: auto;
   background: #ffffff;
-  row-gap: 0;
-
-  .host-Dynamic-col {
-    padding: 20px;
 
     .host-Dynamic-list-page{
       background: #fff;
       min-height: calc(100vh - 88px);
-      padding: var(--thoughtware-padding);
+      padding: var(--thoughtware-padding) 0;
 
 
       .host-Dynamic-list-top{
@@ -45,5 +40,4 @@
       }
 
     }
-  }
 }

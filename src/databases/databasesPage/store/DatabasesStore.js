@@ -24,6 +24,16 @@ export class DatabasesStore {
     }
 
     @action
+    setNullCondition = (value) =>{
+        this.searchCondition = Object.assign({
+            pageParam: {
+                pageSize: 20,
+                currentPage: 1,
+            }
+        }, {...value})
+    }
+
+    @action
     findDbInfoPage = async () => {
         const resData = await Service("/dbInfo/findDbInfoPage",this.searchCondition);
         this.dbPage = resData.data.dataList

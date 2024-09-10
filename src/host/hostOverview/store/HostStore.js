@@ -64,7 +64,7 @@ export class HostStore{
     findHostDynamicPage = async () =>{
         const resData = await Service("/hostDynamic/findHostDynamicPage", this.searchCondition);
         this.hostDynamicList = resData.data;
-        return resData.data.dataList;
+        return resData.data;
     }
 
 }

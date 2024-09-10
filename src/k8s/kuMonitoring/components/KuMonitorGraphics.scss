@@ -1,20 +1,19 @@
-.db-graphics-monitoring {
+.ku-graphics-monitoring {
   display: flex;
-  height: calc(100vh - 164px);
+  height: 100vh;
   overflow: auto;
-  background: #fafbfc;
   padding: 1px 0;
 
-  .db-details-body {
+  .ku-details-body {
     margin: 0 auto;
     width: 100%;
     padding: 20px 30px;
 
-    .db-details-breadcrumb-table {
+    .ku-details-breadcrumb-table {
       border-radius: 4px;
       width: 100%;
 
-      .db-details-table-title {
+      .ku-details-table-title {
         width: 100%;
         display: flex;
         align-items: center;
@@ -89,7 +88,7 @@
           margin: 0 auto;
         }
 
-        .db-details-tabs-wrap {
+        .ku-details-tabs-wrap {
           display: flex;
           flex-wrap: wrap;
           width: 100%;
@@ -122,7 +121,7 @@
 
 
 
-.db-details-search {
+.ku-details-search {
   display: flex;
   justify-content: flex-start;
   width: 1000px;
@@ -136,7 +135,7 @@
     margin-right: 10px;
     width: 100px;
   }
-  .db-details-div {
+  .ku-details-div {
     margin-right: 10px;
     width: 100%;
   }

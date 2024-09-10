@@ -1,14 +1,12 @@
 .details {
   display: flex;
   height: 100%;
-  overflow-y: auto;
-  background: #fafbfc;
 
 
   .details-body {
     margin: 0 auto;
     width: 100%;
-    padding: 20px 30px;
+    padding: 20px 0;
 
     .details-breadcrumb-table {
       border-radius: 4px;
