@@ -21,7 +21,6 @@ export class KuOverviewStore {
         formData.append("kuId",kuId);
         const resData = await Service("/history/findKuOverviewTotal",formData);
         this.kuOverView = resData.data
-        console.log(resData.data.mapTotal)
     }
 }
 

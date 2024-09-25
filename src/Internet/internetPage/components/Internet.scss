@@ -1,0 +1,134 @@
+.box-configuration-body {
+  height: 100%;
+  flex: 1;
+  background: #fff;
+  overflow: auto;
+
+  .box-configuration-body-item {
+    padding: 20px;
+    border-radius: 4px;
+    height: 100%;
+
+    .box-configuration-body--title {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+
+      font-weight: 700;
+      font-size: 16px;
+      align-items: center;
+      line-height: 32px;
+      height: 32px;
+
+      .box-configuration-title-left {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .box-configuration-title-right {
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        width: fit-content;
+      }
+    }
+
+    .box-configuration-body-type {
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
+      height: 50px;
+      line-height: 50px;
+      gap: 20px;
+
+      .box-configuration-body-tabs {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 10px;
+        height: 42px;
+        line-height: 42px;
+
+        .box-configuration-tabs {
+          color: #000;
+          border-bottom: 2px solid #5d70ea;
+        }
+
+        .box-configuration-body-tabs-item {
+          cursor: pointer;
+          padding: 0 5px;
+          height: 42px;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+      }
+
+      .box-configuration-body-search {
+        border-radius: 4px;
+        width: 200px;
+      }
+    }
+
+
+    .box-configuration-body-list {
+      padding-top: 20px;
+    }
+  }
+}
+
+
+.addHostForm {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+.custom-table .ant-table-tbody > tr > td {
+  border-bottom: none; /* 去除单元格底部边框线 */
+  box-sizing: border-box;
+  margin: 0;
+  padding: 8px;
+  color: rgba(0, 0, 0, .85);
+  font-variant: tabular-nums;
+  line-height: 1.5715;
+  list-style: none;
+  font-feature-settings: "tnum";
+  position: relative;
+  font-size: 14px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+.custom-table .ant-table-thead > tr > th {
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #666;
+  //cursor: pointer;
+  border-collapse: separate;
+  background: #fff;
+  transition: all .3s;
+}
+
+.custom-table .ant-table-tbody > tr:last-child > td {
+  border-bottom: 1px solid #f0f0f0; /* 保留最后一行的底部边框线 */
+}
+
+.host-columns-style{
+  //text-align: center;
+  /*width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;*/
+  padding: 10px;
+}

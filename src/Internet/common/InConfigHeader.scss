@@ -1,0 +1,176 @@
+.ku-configs-header {
+    background: #ffffff;
+    border-bottom: 1px solid #e9e9e9;
+
+    .ku-topMenu-top {
+        display: flex;
+        width: 100%;
+        align-items: start;
+        padding: 10px 0;
+        flex-direction: column;
+
+        .ku-topMenu-top-title{
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            gap: 10px;
+
+            .ku-normal-aside-left{
+                display: flex;
+                height: 48px;
+                line-height: 48px;
+                align-items: center;
+            }
+        }
+
+        .ku-normal-aside-opt-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .ku-normal-host-opt-title{
+                height: 48px;
+                line-height: 48px;
+                align-items: center;
+
+                .ku-normal-opt-text{
+                    width: 100px;           /* 设置宽度 */
+                    white-space: nowrap;    /* 禁止换行 */
+                    overflow: hidden;       /* 超出部分隐藏 */
+                    text-overflow: ellipsis;/* 显示省略号 */
+                    font-size: 16px;
+                }
+            }
+        }
+
+        .ku-normal-aside-opt-icon:hover {
+            cursor: pointer;
+        }
+
+        .normal-aside-up {
+            flex: 1;
+        }
+
+        .normal-aside-item {
+            cursor: pointer;
+            display: flex;
+            height: 50px;
+            align-items: center;
+            padding: 5px 0;
+            flex-direction: column;
+            justify-content: center;
+
+            &:hover {
+                background: var(--thoughtware-gray-300);
+            }
+
+            &:not(:last-child) {
+                margin-bottom: 5px;
+            }
+        }
+
+        .normal-aside-select {
+            background: var(--thoughtware-gray-400);
+            border-bottom: 3px solid var(--thoughtware-blue);
+        }
+    }
+
+    .ku-config-right {
+        list-style-type: none;
+        display: flex;
+        justify-content: start;
+        min-width: 600px;
+        height: 48px;
+
+        .kuMenu-box {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+            flex-shrink: 0;
+            height: 48px;
+            line-height: 48px;
+            width: 80px;
+            justify-content: center;
+
+            .kuMenu-text {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .kuMenu-box:hover {
+            background-color: #EDF0F5;
+        }
+
+        .border-bottom {
+            color: var(--thoughtware-blue);
+            border-bottom: 2px solid var(--thoughtware-blue);
+        }
+    }
+}
+
+.normal-aside-dropdown {
+    left: 80px !important;
+    top: 48px !important;
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background: #ffffff;
+    margin-top: 68px;
+    margin-left: 80px;
+
+    .ku-opt {
+
+        &-title {
+            font-weight: bold;
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            border-bottom: 1px solid #ececec;
+        }
+
+        &-group {
+            max-height: calc(100vh - 120px);
+            min-height: 45px;
+            overflow: auto;
+        }
+
+        &-item {
+            padding: 0 20px;
+            height: 40px;
+            line-height: 40px;
+            cursor: pointer;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 200px;
+
+            &:hover {
+                background: #edf0f5;
+            }
+        }
+
+        &-icon {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            line-height: 25px;
+            text-align: center;
+            margin-right: 15px;
+            border-radius: 4px;
+        }
+
+        &-active {
+            background: #edf0f5;
+        }
+
+        &-more {
+            cursor: pointer;
+            text-align: center;
+            padding: 8px 0;
+            background: #f8f8f8;
+            color: var(--thoughtware-blue);
+        }
+    }
+}

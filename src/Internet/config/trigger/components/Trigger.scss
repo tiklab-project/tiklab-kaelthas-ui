@@ -1,0 +1,69 @@
+.box-in-trigger-right {
+  flex-direction: column;
+  height: calc(100% - 60px);
+
+  .box-in-trigger-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 15px;
+    height: 42px;
+    line-height: 42px;
+    justify-content: space-between;
+
+    .box-in-trigger-title-text {
+      flex: 1;
+    }
+
+    .in-trigger-kind-search-div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+
+      .in-trigger-top-right {
+        gap: 10px;
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        width: fit-content;
+        margin-left: 50px;
+      }
+    }
+
+
+  }
+
+  .in-trigger-kind-options {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 15px;
+    height: 42px;
+    line-height: 42px;
+
+    .in-trigger-kind-options-tabs-text {
+      padding: 0 5px;
+      cursor: pointer;
+    }
+
+  }
+
+  .in-trigger-kind-search {
+    border-radius: 4px;
+    width: 200px;
+  }
+
+  .box-in-trigger-table {
+    padding-top: 20px;
+    background: #fff;
+  }
+}

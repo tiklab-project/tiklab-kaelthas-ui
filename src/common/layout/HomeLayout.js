@@ -61,6 +61,11 @@ const HomeLayout = (props) => {
             key: 'kubernetes',
         },
         {
+            name: '网络',
+            url: '/internet',
+            key: 'internet',
+        },
+        {
             name: '告警',
             url: '/alarm',
             key: 'alarm',

@@ -100,12 +100,12 @@ const Routes = [
                 component: HomePage,
             },
             {
-                path: "/configuration",
+                path: "/config",
                 exact: true,
                 component: Configuration,
             },
             {
-                path: "/configuration/addHost",
+                path: "/config/addHost",
                 exact: true,
                 component: AddHost,
             },
@@ -115,7 +115,7 @@ const Routes = [
                 component: Host,
                 routes: [
                     {
-                        path: "/hostList/:id/hostOverview",
+                        path: "/hostList/:id/internetOverview",
                         exact: false,
                         component: HostDetails,
                     },
@@ -125,32 +125,32 @@ const Routes = [
                         component: HostDynamic,
                     },
                     {
-                        path: "/hostList/:id/configuration",
+                        path: "/hostList/:id/config",
                         exact: false,
                         component: HostConfiguration,
                         routes: [
                             {
-                                path: "/hostList/:id/configuration/monitor",
+                                path: "/hostList/:id/config/monitor",
                                 exact: false,
                                 component: Monitor,
                             },
                             {
-                                path: "/hostList/:id/configuration/monitorAdd",
+                                path: "/hostList/:id/config/monitorAdd",
                                 exact: false,
                                 component: Monitor,
                             },
                             {
-                                path: "/hostList/:id/configuration/trigger",
+                                path: "/hostList/:id/config/trigger",
                                 exact: false,
                                 component: Trigger,
                             },
                             {
-                                path: "/hostList/:id/configuration/template",
+                                path: "/hostList/:id/config/template",
                                 exact: false,
                                 component: Template,
                             },
                             {
-                                path: "/hostList/:id/configuration/graphics",
+                                path: "/hostList/:id/config/graphics",
                                 exact: false,
                                 component: Graphics,
                             },
@@ -167,7 +167,7 @@ const Routes = [
                         ]
                     },
                     {
-                        path: "/hostList/:id/hostAlarm",
+                        path: "/hostList/:id/internetAlarm",
                         exact: false,
                         component: HostAlarm,
                     },

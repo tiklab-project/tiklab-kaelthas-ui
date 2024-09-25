@@ -9,11 +9,6 @@
     justify-content: space-between;
 
 
-    .box-monitor-title-text {
-      flex: 1;
-    }
-
-
   }
 
   .monitor-kind-options {
@@ -66,9 +61,6 @@
         line-height: 32px;
         margin-left: 50px;
 
-        .monitor-top-right-button {
-          position: relative;
-        }
       }
     }
 
@@ -79,20 +71,4 @@
     padding-top: 20px;
     background: #fff;
   }
-
-  .monitorEdit {
-    position: relative;
-    height: 100%;
-    overflow: hidden;
-    text-align: center;
-  }
-}
-
-.alertContainer {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  maxWidth: 500px
 }

@@ -77,7 +77,7 @@ const ProjectInformation = (props) => {
 
         await findPageHost();
 
-        props.history.push("/configuration");
+        props.history.push("/config");
 
         setIsModalVisible(false);
     };

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Input, Row, Table, Tag} from "antd";
+import {Button, Col, Input, Row, Table, Tag, Tooltip} from "antd";
 import "./Databases.scss"
 import {SearchOutlined} from "@ant-design/icons";
 import databasesStore from "../store/DatabasesStore";
@@ -98,13 +98,20 @@ const Databases = (props) => {
 
         if (record.alarmNum !== null) {
             if (record.alarmNum === 1) {
+                let messageText;
+                if (record.message.length>10){
+                    messageText = record.message.substring(0,10)
+                    return <div>
+                        <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({messageText}...)</Tooltip>
+                    </div>
+                }
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message})</span>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message})</Tooltip>
                 </div>
             }
             if (record.alarmNum > 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message}...)</span>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message}...)</Tooltip>
                 </div>
             }
         }

@@ -37,9 +37,9 @@ const TopMenu = (props) => {
         {
             name: '配置',
             icon: 'configuration',
-            url: `/hostList/${hostId}/configuration/monitor`,
-            key: "configuration",
-            encoded: "configuration",
+            url: `/hostList/${hostId}/config/monitor`,
+            key: "config",
+            encoded: "config",
         },
         {
             name: '设置',
@@ -58,8 +58,8 @@ const TopMenu = (props) => {
     }, [hostId]);
 
     const selectMenu = (url, key) => {
-        if (key === "configuration") {
-            localStorage.setItem("configurationUrl", `/hostList/${hostId}/configuration/monitor`)
+        if (key === "config") {
+            localStorage.setItem("configUrl", `/hostList/${hostId}/config/monitor`)
         }
         localStorage.setItem("url", url)
         props.history.push(url)
@@ -70,13 +70,13 @@ const TopMenu = (props) => {
         if (hostId !== item.id) {
             localStorage.setItem("hostId", item.id);
             localStorage.setItem("hostName", item?.name);
-            localStorage.setItem("url", `/hostList/${item.id}/hostDetails`);
-            props.history.push(`/hostList/${item.id}/hostDetails`);
+            localStorage.setItem("url", `/hostList/${item.id}/hostOverview`);
+            props.history.push(`/hostList/${item.id}/hostOverview`);
         }
     }
 
     function goBackHost() {
-        props.history.push("/configuration")
+        props.history.push("/config")
     }
 
     return (
@@ -113,7 +113,7 @@ const TopMenu = (props) => {
                                         })
                                     }
                                     <div className='host-opt-more'
-                                         onClick={() => props.history.push('/configuration')}
+                                         onClick={() => props.history.push('/config')}
                                     >更多
                                     </div>
                                 </div>

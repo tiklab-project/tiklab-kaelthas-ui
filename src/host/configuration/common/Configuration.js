@@ -9,41 +9,41 @@ const Configuration = (props) => {
 
     let hostId = localStorage.getItem('hostId');
 
-    let url = localStorage.getItem('configurationUrl');
+    let url = localStorage.getItem('configUrl');
 
     const configurationList = [
         {
             name: '监控项',
             icon: 'monitor',
-            url: `/hostList/${hostId}/configuration/monitor`,
+            url: `/hostList/${hostId}/config/monitor`,
             key: "monitor",
             encoded: "monitor",
         },
         {
             name: '触发器',
             icon: 'trigger',
-            url: `/hostList/${hostId}/configuration/trigger`,
+            url: `/hostList/${hostId}/config/trigger`,
             key: "trigger",
             encoded: "trigger",
         },
         {
             name: '模板',
             icon: 'template',
-            url: `/hostList/${hostId}/configuration/template`,
+            url: `/hostList/${hostId}/config/template`,
             key: "template",
             encoded: "template",
         },
         {
             name: '图形',
             icon: 'graphics',
-            url: `/hostList/${hostId}/configuration/graphics`,
+            url: `/hostList/${hostId}/config/graphics`,
             key: "graphics",
             encoded: "graphics",
         },
     ]
 
     function hrefConfiguration(item) {
-        localStorage.setItem("configurationUrl", item.url)
+        localStorage.setItem("configUrl", item.url)
         props.history.push(item.url)
     }
 

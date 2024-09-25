@@ -36,6 +36,8 @@ const AreaCharts = (props) => {
 
     const {condition, descTime, index} = props;
 
+    let title = "ECharts 示例标题";
+
     function checkColor(value, threshold, operator) {
 
         switch (operator) {
@@ -73,6 +75,9 @@ const AreaCharts = (props) => {
     let myChart = null;
 
     async function showPei() {
+
+        title = condition[0]?.graphicsName
+
         condition.map(item => {
             series.push(
                 {
@@ -119,6 +124,26 @@ const AreaCharts = (props) => {
             myChart = echarts.init(chartDom);
 
             const option = {
+                title: {
+                    text: title, // 标题文本
+                    // subtext: '副标题文本', // 副标题文本（可选）
+                    left: 'left', // 标题的位置，可以是 'left', 'center', 'right'
+                    top: 'top', // 标题的垂直位置，可以是 'top', 'middle', 'bottom'
+                    textStyle: {
+                        color: '#333', // 文字颜色
+                        fontStyle: 'normal', // 文字风格，可以是 'normal', 'italic', 'oblique'
+                        fontWeight: 'bold', // 文字粗细，可以是 'normal', 'bold', 'bolder', 'lighter'
+                        fontFamily: 'sans-serif', // 字体系列
+                        fontSize: 16 // 文字大小
+                    },
+                    subtextStyle: {
+                        color: '#aaa', // 副标题颜色
+                        fontStyle: 'italic', // 副标题风格
+                        fontWeight: 'normal', // 副标题粗细
+                        fontFamily: 'sans-serif', // 副标题字体系列
+                        fontSize: 14 // 副标题大小
+                    }
+                },
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params) {
@@ -176,7 +201,8 @@ const AreaCharts = (props) => {
                     }
                 },
                 legend: {
-                    data: nameList
+                    data: nameList,
+                    top: 30
                 },
                 toolbox: {
                     feature: {
@@ -187,7 +213,8 @@ const AreaCharts = (props) => {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
+                    top: 100
                 },
                 xAxis: [
                     {

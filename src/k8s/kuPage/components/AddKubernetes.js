@@ -29,18 +29,6 @@ const AddKubernetes = (props) => {
         props.history.push('/kubernetes')
     };
 
-
-    async function testSql() {
-        let values = await form.validateFields();
-
-        /*const resData = await testJDBCSql(values)
-        if (resData.code === 0){
-            await message.success("连接数据库成功")
-        }else {
-            await message.error("连接失败!")
-        }*/
-    }
-
     return (
         <Row className="kubernetes-edit-modal">
             <Col

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./KuAlarm.scss"
-import {Col, Input, Modal, Row, Select, Table, Tag} from "antd";
+import {Col, Input, Modal, Row, Select, Table, Tag, Tooltip} from "antd";
 import {withRouter} from "react-router-dom";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
@@ -225,6 +225,10 @@ const KuAlarm = (props) => {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (sendMessage) => <Tooltip placement="topLeft" title={sendMessage}>{sendMessage}</Tooltip>
         },
         {
             title: '告警等级',

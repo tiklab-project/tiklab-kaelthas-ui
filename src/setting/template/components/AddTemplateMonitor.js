@@ -11,7 +11,7 @@ const {Option} = Select
 
 const AddTemplateMonitor = (props) => {
 
-    const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
+    const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet.svg'];
 
     const [form] = Form.useForm();
 

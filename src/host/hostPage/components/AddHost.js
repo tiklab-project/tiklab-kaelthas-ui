@@ -36,11 +36,11 @@ const AddHost = (props) => {
         })
 
         await findPageHost()
-        props.history.push('/configuration')
+        props.history.push('/config')
     };
 
     const onCancel = () => {
-        props.history.push('/configuration')
+        props.history.push('/config')
     };
 
 

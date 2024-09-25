@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import "./Host.scss"
-import {Col, Input, Row, Table, Tag} from "antd";
+import {Col, Input, Row, Table, Tag, Tooltip} from "antd";
 import configurationStore from "../store/ConfigurationStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
@@ -57,14 +57,21 @@ const Host = (props) => {
         }
 
         if (record.alarmNum !== null) {
-            if (record.alarmNum === 1){
+            if (record.alarmNum === 1) {
+                let messageText;
+                if (record.message.length > 10) {
+                    messageText = record.message.substring(0, 10)
+                    return <div>
+                        <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({messageText}...)</Tooltip>
+                    </div>
+                }
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message})</span>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message})</Tooltip>
                 </div>
             }
-            if (record.alarmNum > 1){
+            if (record.alarmNum > 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message}...)</span>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message}...)</Tooltip>
                 </div>
             }
         }
@@ -98,7 +105,7 @@ const Host = (props) => {
             title: '名称',
             dataIndex: 'name',
             key: 'name',
-            width:"20%",
+            width: "20%",
             ellipsis: true,
 
             render: (text, record) => <div style={{cursor: "pointer"}} onClick={() => host(record)}>{text}</div>,
@@ -107,14 +114,14 @@ const Host = (props) => {
             title: '主机IP',
             dataIndex: 'ip',
             key: 'ip',
-            width:"20%",
+            width: "20%",
             ellipsis: true,
         },
         {
             title: '主机状态',
             dataIndex: 'usability',
             key: 'usability',
-            width:"20%",
+            width: "20%",
             ellipsis: true,
             render: (usability, record) => <div style={{cursor: "pointer"}}
                                                 onClick={() => host(record)}>{converType(record)}</div>,
@@ -123,7 +130,7 @@ const Host = (props) => {
             title: '未解决告警数量',
             dataIndex: 'alarmNum',
             key: 'alarmNum',
-            width:"20%",
+            width: "20%",
             ellipsis: true,
             render: (text, record) => <div style={{cursor: "pointer"}}
                                            onClick={() => hrefAlarmPage(record)}>{conversionColor(text)}</div>
@@ -132,7 +139,7 @@ const Host = (props) => {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
-            width:"20%",
+            width: "20%",
             ellipsis: true,
         },
 
@@ -183,7 +190,7 @@ const Host = (props) => {
     ];
 
     function hrefAddHost() {
-        props.history.push('/configuration/addHost');
+        props.history.push('/config/addHost');
     }
 
     return (

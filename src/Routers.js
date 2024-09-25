@@ -85,6 +85,24 @@ const KuProject = AsyncComponent(() => import('./k8s/setting/kuProject/component
 const KuMember = AsyncComponent(() => import('./k8s/setting/kuMember/KuMember'))
 const KuPermissions = AsyncComponent(() => import('./k8s/setting/kuPermissions/KuPermissions'))
 
+
+const Internet = AsyncComponent(() => import('./Internet/internetPage/components/Internet'))
+const AddInternet = AsyncComponent(() => import('./Internet/internetPage/components/AddInternet'))
+const InternetLayout = AsyncComponent(() => import('./Internet/common/InternetLayout'))
+const InternetOverview = AsyncComponent(() => import('./Internet/internetOverview/components/InternetOverview'))
+const InternetMonitoring = AsyncComponent(() => import('./Internet/monitoring/components/MonitorGraphics'))
+const InternetAlarm = AsyncComponent(() => import('./Internet/internetAlarm/components/InAlarm'))
+const InternetConfigs = AsyncComponent(() => import('./Internet/config/common/InternetConfig'))
+const InternetMonitor = AsyncComponent(() => import('./Internet/config/monitor/components/InMonitor'))
+const InternetTrigger = AsyncComponent(() => import('./Internet/config/trigger/components/Trigger'))
+const InternetGraphics = AsyncComponent(() => import('./Internet/config/graphics/components/Graphics'))
+const InternetSetting = AsyncComponent(() => import('./Internet/setting/common/SettingLayout'))
+const InternetProject = AsyncComponent(() => import('./Internet/setting/projectInformation/components/ProjectInformation'))
+const InternetMember = AsyncComponent(() => import('./Internet/setting/member/Member'))
+const InternetPermissions = AsyncComponent(() => import('./Internet/setting/permissions/Permissions'))
+
+
+
 const Routes = [
 
 
@@ -152,27 +170,27 @@ const Routes = [
                         component: HostDynamic,
                     },
                     {
-                        path: "/hostList/:id/configuration",
+                        path: "/hostList/:id/config",
                         exact: false,
                         component: HostConfiguration,
                         routes: [
                             {
-                                path: "/hostList/:id/configuration/monitor",
+                                path: "/hostList/:id/config/monitor",
                                 exact: false,
                                 component: Monitor,
                             },
                             {
-                                path: "/hostList/:id/configuration/trigger",
+                                path: "/hostList/:id/config/trigger",
                                 exact: false,
                                 component: Trigger,
                             },
                             {
-                                path: "/hostList/:id/configuration/template",
+                                path: "/hostList/:id/config/template",
                                 exact: false,
                                 component: Template,
                             },
                             {
-                                path: "/hostList/:id/configuration/graphics",
+                                path: "/hostList/:id/config/graphics",
                                 exact: false,
                                 component: Graphics,
                             },
@@ -319,6 +337,17 @@ const Routes = [
                 path: "/kubernetes/addKubernetes",
                 exact: true,
                 component: AddKubernetes,
+            },
+
+            {
+                path: "/internet",
+                exact: true,
+                component: Internet,
+            },
+            {
+                path: "/internet/addInternet",
+                exact: true,
+                component: AddInternet,
             },
 
             {
@@ -486,10 +515,6 @@ const Routes = [
                         render: () => <ProductAuth bgroup={"kaelthas"}/>
                     },
 
-
-
-
-
                     //基础组件
                     {
                         path: "/setting/syr/feature",
@@ -577,6 +602,7 @@ const Routes = [
             },
             {
                 component: KubernetesLayout,
+                path: "/kubernetes/:id",
                 routes: [
                     {
                         path: "/kubernetes/:id/kuOverview",
@@ -638,6 +664,73 @@ const Routes = [
                             },
                         ]
                     },
+
+                ]
+            },
+            {
+                component: InternetLayout,
+                path: "/internet/:id",
+                routes: [
+                    {
+                        path: "/internet/:id/inOverview",
+                        exact: true,
+                        component: InternetOverview,
+                    },
+                    {
+                        path: "/internet/:id/monitoring",
+                        exact: true,
+                        component: InternetMonitoring,
+                    },
+                    {
+                        path: "/internet/:id/inAlarm",
+                        exact: true,
+                        component: InternetAlarm,
+                    },
+                    {
+                        path: "/internet/:id/configs",
+                        component: InternetConfigs,
+                        routes: [
+                            {
+                                path: "/internet/:id/configs/monitor",
+                                exact: true,
+                                component: InternetMonitor,
+                            },
+                            {
+                                path: "/internet/:id/configs/trigger",
+                                exact: true,
+                                component: InternetTrigger,
+                            },
+                            {
+                                path: "/internet/:id/configs/graphics",
+                                exact: true,
+                                component: InternetGraphics,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/internet/:id/inSetting",
+                        component: InternetSetting,
+                        routes: [
+                            {
+                                path: "/internet/:id/inSetting/inProject",
+                                exact: true,
+                                component: InternetProject,
+                            },
+                            {
+                                path: "/internet/:id/inSetting/inMember",
+                                key: 'inMember',
+                                exact: true,
+                                component: InternetMember,
+                            },
+                            {
+                                path: "/internet/:id/inSetting/inPermissions",
+                                key: 'permissions',
+                                exact: true,
+                                component: InternetPermissions,
+                            },
+                        ]
+                    },
+
                 ]
             },
 

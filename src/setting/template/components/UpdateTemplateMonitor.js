@@ -9,7 +9,7 @@ const {Option} = Select
 
 const UpdateTemplateMonitor = (props) => {
 
-    const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
+    const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet.svg'];
 
     const {form, rowData, isUpdateModalOpen, setIsUpdateModalOpen, monitorId} = props;
 

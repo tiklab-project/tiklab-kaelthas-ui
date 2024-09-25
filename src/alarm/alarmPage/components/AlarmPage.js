@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import "./AlarmPage.scss"
-import {Button, Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag} from "antd";
+import {Button, Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag, Tooltip} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
@@ -221,9 +221,10 @@ const AlarmPage = (props) => {
             dataIndex: 'hostName',
             key: 'hostName',
             width: "12%",
-            ellipsis: true,
-            render: (hostName, record) => <div onClick={() => jumpToMonitor(record)}
-                                               style={{cursor: "pointer"}}>{hostName}</div>
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (hostName, record) => <Tooltip title={hostName}>{hostName}</Tooltip>
         },
         {
             title: '主机IP',
@@ -237,9 +238,12 @@ const AlarmPage = (props) => {
             dataIndex: 'sendMessage',
             key: 'sendMessage',
             width: "12%",
-            ellipsis: true,
-            render: (sendMessage, record) => <div onClick={() => jumpToMonitor(record)}
-                                                  style={{cursor: "pointer"}}>{sendMessage}</div>
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (sendMessage, record) => <Tooltip placement="topLeft" title={sendMessage}
+                onClick={() => jumpToMonitor(record)}
+                                                  >{sendMessage}</Tooltip>
         },
         {
             title: '告警等级',

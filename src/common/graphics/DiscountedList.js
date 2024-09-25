@@ -16,6 +16,8 @@ const DiscountedList = (props) => {
 
     const conditionList = [];
 
+    let title = "ECharts 示例标题";
+
     function checkColor(value, threshold, operator) {
 
         switch (operator) {
@@ -54,6 +56,8 @@ const DiscountedList = (props) => {
 
     const rendingView = async () => {
 
+        title = condition[0]?.graphicsName
+
         condition.map(item => {
             series.push({
                 name: item.name,
@@ -62,14 +66,14 @@ const DiscountedList = (props) => {
                     return {
                         value: value,
                         itemStyle: {
-                            // color: item.reportData == null ? null : (value > item.reportData ? 'red' : null)
                             color: checkListColor(value, item.mapList)
-
                         }
                     };
                 }),
             })
+
             nameList.push(item.name)
+
             if (item.mapList.length > 0) {
                 item.mapList.map(trigger => {
                     conditionList.push({
@@ -93,8 +97,8 @@ const DiscountedList = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                /*title: {
-                    text: 'ECharts 示例标题', // 标题文本
+                title: {
+                    text: title, // 标题文本
                     // subtext: '副标题文本', // 副标题文本（可选）
                     left: 'left', // 标题的位置，可以是 'left', 'center', 'right'
                     top: 'top', // 标题的垂直位置，可以是 'top', 'middle', 'bottom'
@@ -112,7 +116,7 @@ const DiscountedList = (props) => {
                         fontFamily: 'sans-serif', // 副标题字体系列
                         fontSize: 14 // 副标题大小
                     }
-                },*/
+                },
                 tooltip: {
                     trigger: 'axis',
                     formatter: function (params) {
@@ -151,6 +155,7 @@ const DiscountedList = (props) => {
                                     }
                                 }
                             })
+
                             if (problemName !== '') {
                                 textList.push(problemName + '<br/>');
                             }
@@ -164,13 +169,15 @@ const DiscountedList = (props) => {
                     }
                 },
                 legend: {
-                    data: nameList
+                    data: nameList,
+                    top:30
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
+                    top: 100
                 },
                 toolbox: {
                     feature: {
@@ -191,10 +198,6 @@ const DiscountedList = (props) => {
                 myChart.clear()
             }
             myChart.setOption(option);
-
-            /*if (chartDom !== null && chartDom !== '' && chartDom !== undefined){
-                myChart.dispose()
-            }*/
         }
     };
 

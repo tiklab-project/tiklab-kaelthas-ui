@@ -1,5 +1,5 @@
 {
-    "name": "thoughtware-xmonitor-ui",
+    "name": "thoughtware-kealthas-ui",
     "version": "1.0.0",
     "description": "thoughtware repository",
     "main": "es/src/ui.js",
@@ -178,6 +178,7 @@
         "thoughtware-licence-ui": "^1.0.2",
         "thoughtware-message-ui": "^1.0.3",
         "thoughtware-privilege-ui": "^1.0.2",
+        "thoughtware-security-cloud-ui": "^1.0.0",
         "thoughtware-security-ui": "^1.0.2",
         "thoughtware-todotask-ui": "^1.0.2",
         "thoughtware-user-extension-ui": "^1.0.0",

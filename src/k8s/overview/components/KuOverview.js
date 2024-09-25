@@ -19,7 +19,7 @@ const KuOverview = () => {
 
     return (
         <Row className="ku-right">
-            <Col span={24}>
+            <Col span={24} xs={24} sm={24} md={24} lg={24} xl={24} xxl={24}>
 
                 <div className="ku-body-head">
                     {
@@ -40,8 +40,6 @@ const KuOverview = () => {
                                         )
                                     })
                                 }
-
-
                             </div>
                             :
                             <Empty/>
