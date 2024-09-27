@@ -94,7 +94,7 @@ const InternetMonitoring = AsyncComponent(() => import('./Internet/monitoring/co
 const InternetAlarm = AsyncComponent(() => import('./Internet/internetAlarm/components/InAlarm'))
 const InternetConfigs = AsyncComponent(() => import('./Internet/config/common/InternetConfig'))
 const InternetMonitor = AsyncComponent(() => import('./Internet/config/monitor/components/InMonitor'))
-const InternetTrigger = AsyncComponent(() => import('./Internet/config/trigger/components/Trigger'))
+const InternetTrigger = AsyncComponent(() => import('./Internet/config/trigger/components/InTrigger'))
 const InternetGraphics = AsyncComponent(() => import('./Internet/config/graphics/components/Graphics'))
 const InternetSetting = AsyncComponent(() => import('./Internet/setting/common/SettingLayout'))
 const InternetProject = AsyncComponent(() => import('./Internet/setting/projectInformation/components/ProjectInformation'))

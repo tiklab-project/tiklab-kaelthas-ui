@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
 
-export class TriggerStore {
+export class InTriggerStore {
 
     @observable data = [];
 
@@ -25,67 +25,47 @@ export class TriggerStore {
 
     @observable
     mediumList = [];
+    @action
+    setSearchCondition = (value) => {
+        this.searchCondition = Object.assign(this.searchCondition, {...value})
+    }
 
     //根据条件查询
     @action
-    getTriggerList = async () => {
-
-        const resData = await Service('/trigger/findTrigger', this.searchCondition)
-
+    findTriggerPage = async () => {
+        const resData = await Service('/inTrigger/findTriggerPage', this.searchCondition)
         this.total = resData.data.totalRecord
         this.triggerList = resData.data.dataList
         return resData.data;
 
     }
 
-    @action
-    setSearchCondition = (value) => {
-        this.searchCondition = Object.assign(this.searchCondition, {...value})
-    }
-
-    //根据主机id查询监控项列表
-    @action
-    findMonitorListById = async (option) => {
-        const monitorList = await Service("/monitor/findAllMonitor", option)
-        this.monitorList = monitorList.data;
-        return monitorList.data;
-    }
-
-    //根据名称查询
-    @action
-    findTriggerByName = async (name) => {
-        const resData = await Service('/trigger/findTriggerByName', {name: name});
-        this.data = resData;
-        return resData;
-
-    }
-
     //新增
     @action
-    addTrigger = async (option) => {
-        return await Service('/trigger/createTrigger', option);
+    createTrigger = async (option) => {
+        return await Service('/inTrigger/createTrigger', option);
     }
 
     //修改触发器
     @action
     updateTrigger = async (option) => {
-        await Service('/trigger/updateTrigger', option);
+        await Service('/inTrigger/updateTrigger', option);
 
     }
 
     //根据id进行删除
     @action
-    deleteTriggerById = async (id) => {
+    deleteTrigger = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        const resData = await Service('/trigger/deleteById', params);
+        const resData = await Service('/inTrigger/deleteTrigger', params);
         this.data = resData;
         return resData;
     }
 
     @action
     findTriggerExpressionAll = async () => {
-        const triggerExAll = await Service("/triggerExpression/findTriggerExpressionAll")
+        const triggerExAll = await Service("/inTriggerExpression/findTriggerExpressionAll")
         return triggerExAll.data;
     }
 
@@ -97,6 +77,6 @@ export class TriggerStore {
 
 }
 
-const triggerStore = new TriggerStore();
+const triggerStore = new InTriggerStore();
 
 export default triggerStore;

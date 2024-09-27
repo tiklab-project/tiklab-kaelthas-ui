@@ -6,7 +6,7 @@ export class InternetOverviewStore {
     @observable hostData = {};
 
     @observable
-    hostList = [];
+    internetOverview = [];
 
     @observable
     hostDynamicList = [];
@@ -67,8 +67,16 @@ export class InternetOverviewStore {
         return resData.data;
     }
 
+    @action
+    findInternetOverview = async (internetId) =>{
+        var formData = new FormData();
+        formData.append("internetId",internetId);
+        const resData = await Service("/history/findInternetOverview",formData)
+        this.internetOverview = resData.data;
+    }
+
 }
 
-const hostStore = new InternetOverviewStore();
+const internetOverviewStore = new InternetOverviewStore();
 
-export default hostStore;
+export default internetOverviewStore;

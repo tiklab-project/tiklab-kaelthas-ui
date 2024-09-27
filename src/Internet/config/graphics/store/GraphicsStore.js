@@ -65,8 +65,7 @@ export class GraphicsStore {
     //新增
     @action
     createGraphics = async (option) =>{
-        const resData = await Service("/internetGraphics/createGraphics",option);
-        return resData;
+        return await Service("/internetGraphics/createGraphics", option);
     }
 
     //修改

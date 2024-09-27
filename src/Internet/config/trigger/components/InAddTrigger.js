@@ -1,62 +1,36 @@
 import {Button, Form, Input, InputNumber, message, Modal, Select, Space} from 'antd';
 import React, {useEffect, useState} from 'react';
-import triggerStore from "../store/TriggerStore";
+import triggerStore from "../store/InTriggerStore";
+import inTriggerStore from "../store/InTriggerStore";
 
 const {Option} = Select
 const schemeList = [
-    {
-        name: "last(最近一个值)",
-        value: 1
-    },
-    {
-        name: "avg(平均值)",
-        value: 2
-    },
-    {
-        name: "percentage(百分比)",
-        value: 3
-    },
+    {name: "last(最近一个值)", value: 1},
+    {name: "avg(平均值)", value: 2},
+    {name: "percentage(百分比)", value: 3}
 ]
 
 const alarmGrade = [
-    {
-        name: "灾难",
-        value: 1
-    },
-    {
-        name: "严重",
-        value: 2
-    },
-    {
-        name: "一般严重",
-        value: 3
-    },
-    {
-        name: "告警",
-        value: 4
-    },
-    {
-        name: "信息",
-        value: 5
-    },
-    {
-        name: "未分类",
-        value: 6
-    },
-
+    {name: "灾难", value: 1},
+    {name: "严重", value: 2},
+    {name: "一般严重", value: 3},
+    {name: "告警", value: 4},
+    {name: "信息", value: 5},
+    {name: "未分类", value: 6}
 ];
 
 
-const AddTrigger = (props) => {
+const InAddTrigger = () => {
 
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const {addTrigger, findMonitorListById, getTriggerList, monitorList, mediumList} = triggerStore;
-
-
-    const [rowData, setRowData] = useState({});
+    const {
+        createTrigger,
+        findTriggerPage,
+        mediumList
+    } = inTriggerStore;
 
     //定义两个状态,分别表示时间范畴和百分比输入框
     const [timeStatus, setTimeStatus] = useState(true);
@@ -68,32 +42,20 @@ const AddTrigger = (props) => {
     };
 
     const handleOk = async () => {
+        const values = await form.validateFields();
 
-        form.validateFields().then(async res => {
-            const resData = await addTrigger({
-                hostId: localStorage.getItem("hostId"),
-                name: res.name,
-                monitorId: res.monitorId,
-                state: 1,
-                operator: res.operator,
-                numericalValue: res.numericalValue,
-                mediumIds: res.mediumType,
-                severityLevel: res.severityLevel,
-                describe: res.describe,
-                source: rowData.source,
-                expression: res.expression,
-                rangeTime: res.rangeTime,
-                percentage: res.percentage,
-                scheme: res.scheme
-            });
+        values.internetId = localStorage.getItem("internetId");
+        values.status = 1;
+        values.source = 1;
 
-            if (resData?.data !== null){
-                message.success("添加成功!")
-            }else {
-                message.warn("添加失败!")
-            }
-            await getTriggerList();
-        })
+        const res = await createTrigger(values);
+
+        if (res?.data !== null) {
+            message.success("添加成功!")
+        } else {
+            message.warn("添加失败!")
+        }
+        await findTriggerPage();
         setIsModalOpen(false);
     };
 
@@ -134,7 +96,7 @@ const AddTrigger = (props) => {
                 okText="确定"
                 width={600}
                 centered={true}
-                bodyStyle={{ maxHeight: '400px', overflowY: 'auto' }}
+                bodyStyle={{maxHeight: '400px', overflowY: 'auto'}}
             >
                 <Form
                     name="basic"
@@ -199,7 +161,7 @@ const AddTrigger = (props) => {
                     }
                     <Form.Item
                         label="消息通知方案"
-                        name="mediumType"
+                        name="mediumIds"
                         rules={[
                             {
                                 required: true,
@@ -259,4 +221,4 @@ const AddTrigger = (props) => {
     );
 };
 
-export default AddTrigger;
+export default InAddTrigger;

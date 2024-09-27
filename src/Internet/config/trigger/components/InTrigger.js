@@ -1,27 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
-import "./Trigger.scss"
-import AddTrigger from "./AddTrigger";
+import "./InTrigger.scss"
+import InAddTrigger from "./InAddTrigger";
 import {Col, Form, Input, Row, Space, Table, Tag, Tooltip} from "antd";
-import triggerStore from "../store/TriggerStore";
 import {SearchOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import UpdateTrigger from "./UpdateTrigger";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
-import kuTriggerStore from "../../../../k8s/configs/trigger/store/KuTriggerStore";
-import KuAddTrigger from "../../../../k8s/configs/trigger/components/KuAddTrigger";
+import inTriggerStore from "../store/InTriggerStore";
+import InUpdateTrigger from "./InUpdateTrigger";
 
-const Trigger = (props) => {
+const InTrigger = (props) => {
 
     const {
-        findKuTriggerPage,
-        deleteKuTrigger,
+        findTriggerPage,
+        deleteTrigger,
         setSearchCondition,
+        getMediumAllList,
         total,
         triggerList,
         mediumList,
         searchCondition
-    } = kuTriggerStore;
+    } = inTriggerStore;
 
 
     const [rowData, setRowData] = useState({});
@@ -29,29 +28,31 @@ const Trigger = (props) => {
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+
     useEffect(async () => {
         setSearchCondition({
-            kuId: localStorage.getItem("kuId")
+            internetId: localStorage.getItem("internetId")
         })
-        await findKuTriggerPage();
+        await findTriggerPage();
+        await getMediumAllList();
     }, []);
 
     const searchName = async (e) => {
         setSearchCondition({name: e.target.value})
-        await findKuTriggerPage();
+        await findTriggerPage();
     };
 
-    const deleteTrigger = async (id) => {
-        await deleteKuTrigger(id);
-        await findKuTriggerPage();
+    const deleteByTrigger = async (id) => {
+        await deleteTrigger(id);
+        await findTriggerPage();
     }
 
     const rowEcho = (record) => {
-        console.log(record?.mediumId)
+
         if (record?.mediumId === null) {
             return
         }
-        record.mediumType = record?.mediumId?.split(",")
+        record.mediumIds = record?.mediumId?.split(",")
         form.setFieldsValue(record)
         setRowData(record)
         setIsModalOpen(true);
@@ -162,7 +163,7 @@ const Trigger = (props) => {
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
-                        deleteFn={() => deleteTrigger(record.id)}
+                        deleteFn={() => deleteByTrigger(record.id)}
                         operation={"删除"}
                     ></HideDelete>
                 </Space>
@@ -179,7 +180,7 @@ const Trigger = (props) => {
             }
         })
 
-        await findKuTriggerPage();
+        await findTriggerPage();
     }
 
     return (
@@ -200,12 +201,12 @@ const Trigger = (props) => {
                             />
                         </div>
                         <div className="in-trigger-top-right">
-                            <KuAddTrigger/>
+                            <InAddTrigger/>
                         </div>
                     </div>
                 </div>
                 <div className="box-in-trigger-table">
-                    <UpdateTrigger form={form}
+                    <InUpdateTrigger form={form}
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                    mediumList={mediumList}
@@ -230,4 +231,4 @@ const Trigger = (props) => {
     );
 };
 
-export default withRouter(observer(Trigger));
+export default withRouter(observer(InTrigger));

@@ -20,7 +20,7 @@ const InUpdateMonitor = (props) => {
     const [itemId, setItemId] = useState();
 
     useEffect(async () => {
-        const res = await findItemList({internetType: localStorage.getItem("internetType")})
+        const res = await findItemList({internetType: localStorage.getItem("internetType"), isOptional: 1})
         setMonitorItemList(res)
     }, []);
 
@@ -92,7 +92,7 @@ const InUpdateMonitor = (props) => {
                         allowClear
                         value={monitorItemList.id}
                         onChange={onSecondCityChange}
-                        onBlur={()=>handleBlur('expression')}
+                        onBlur={() => handleBlur('expression')}
                     >
                         {
                             monitorItemList && monitorItemList.map(item => (
@@ -116,7 +116,7 @@ const InUpdateMonitor = (props) => {
                     <Select
                         placeholder="请选择您的监控项状态"
                         allowClear
-                        onBlur={()=>handleBlur('status')}
+                        onBlur={() => handleBlur('status')}
                     >
                         <Option value={1} key={1}>{"开启"}</Option>
                         <Option value={2} key={2}>{"关闭"}</Option>

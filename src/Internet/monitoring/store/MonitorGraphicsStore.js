@@ -87,38 +87,6 @@ export class MonitorGraphicsStore {
         }, {...value})
     }
 
-    @action
-    findInformationByGraphics = async () => {
-        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
-        if (this.alarmCondition.length > 0) {
-            this.condition = this.alarmCondition;
-            this.alarmCondition = [];
-        } else {
-            this.condition = resData.data
-        }
-        return resData.data;
-    }
-
-    @action
-    findInformationByAlarm = async () => {
-        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
-        this.alarmCondition = resData.data
-        return resData.data;
-    }
-
-    @action
-    findHistory = async () => {
-        const resData = await Service("/history/findInformationPage", this.searchCondition);
-        this.historyList = resData.data.dataList;
-        this.total = resData.data.totalRecord;
-        return resData.data.dataList;
-    }
-
-    @action
-    findMonitorByCategories = async () => {
-        const resData = await Service("/hostList/findMonitorByCategories", this.searchCondition);
-        return resData.data;
-    }
 
     @action
     findDescGatherTime = async () => {
@@ -127,40 +95,12 @@ export class MonitorGraphicsStore {
     }
 
     @action
-    findInformationByLine = async () => {
-        const resData = await Service("/history/findInformationByLine", this.searchCondition);
+    findInGraphicsLine = async () => {
+        const resData = await Service("/history/findInGraphicsLine", this.searchCondition);
+        this.condition = resData.data;
         return resData.data;
     }
 
-    @action
-    findAllInformationByHostId = async () => {
-        const resData = await Service("/history/findAllInformationByHostId", this.searchCondition);
-        return resData.data;
-    }
-
-    @action
-    findAllMonitor = async () => {
-        const resData = await Service("/monitor/findAllMonitor", {
-            hostId: localStorage.getItem("hostIdForMonitoring"),
-            reportType: 2
-        });
-
-        if (this.monitorIds.length === 0) {
-            resData.data.map(item => {
-                this.monitorIds.push(item.name)
-            })
-        }
-        return resData.data;
-    }
-
-    //查询图表当中是否存在上报数据的配置
-    @action
-    findGraphicsByHisInformation = async (value) => {
-        const params = new FormData();
-        params.append("hostId", value);
-        const resData = await Service("/graphics/findGraphicsByHisInformation", params)
-        return resData.data
-    }
 
 }
 

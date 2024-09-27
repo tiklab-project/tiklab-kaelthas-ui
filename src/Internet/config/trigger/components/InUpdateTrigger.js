@@ -1,6 +1,6 @@
 import {Button, Drawer, Form, Input, InputNumber, message, Modal, Select} from 'antd';
 import React, {useEffect, useState} from 'react';
-import triggerStore from "../store/TriggerStore";
+import triggerStore from "../store/InTriggerStore";
 import TextArea from "antd/es/input/TextArea";
 import {observer} from "mobx-react";
 
@@ -19,32 +19,20 @@ const schemeList = [
         value: 3
     },
 ]
-const UpdateTrigger = (props) => {
+const InUpdateTrigger = (props) => {
 
     const {isModalOpen, setIsModalOpen, form, rowData} = props;
 
     const {
         updateTrigger,
-        findMonitorListById,
-        getTriggerList,
-        findTriggerExpressionAll,
+        findTriggerPage,
         mediumList
     } = triggerStore;
-
-    const [triggerExData, setTriggerExData] = useState([]);
 
     const [timeStatus, setTimeStatus] = useState(rowData?.timeStatus);
 
     const [percentageStatus, setPercentageStatus] = useState(rowData?.percentageStatus);
 
-    useEffect(async () => {
-        await findMonitorListById({
-            hostId: localStorage.getItem("hostId")
-        });
-
-        const triggerExAll = await findTriggerExpressionAll();
-        setTriggerExData([...triggerExAll])
-    }, []);
 
     const handleOk = () => {
         setIsModalOpen(false);
@@ -63,7 +51,7 @@ const UpdateTrigger = (props) => {
 
                 await updateTrigger(obj);
                 // message.success("修改成功")
-                await getTriggerList();
+                await findTriggerPage();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
@@ -211,4 +199,4 @@ const UpdateTrigger = (props) => {
     );
 };
 
-export default observer(UpdateTrigger);
+export default observer(InUpdateTrigger);

@@ -41,13 +41,13 @@ const InAddMonitor = (props) => {
         await findMonitorPage();
         setIsModalOpen(false);
     };
-    
+
     const handleCancel = () => {
         setIsModalOpen(false);
     };
 
     useEffect(async () => {
-        const resData = await findItemList({internetType: localStorage.getItem("internetType")})
+        const resData = await findItemList({internetType: localStorage.getItem("internetType"), isOptional: 1})
 
         setExpression([...resData])
     }, []);
@@ -102,7 +102,8 @@ const InAddMonitor = (props) => {
                         >
                             {
                                 expression && expression.map((item) => (
-                                    <Option value={item.expression} key={item.id}>{item.expression}({item.describe})</Option>))
+                                    <Option value={item.expression}
+                                            key={item.id}>{item.expression}({item.describe})</Option>))
                             }
                         </AutoComplete>
                     </Form.Item>

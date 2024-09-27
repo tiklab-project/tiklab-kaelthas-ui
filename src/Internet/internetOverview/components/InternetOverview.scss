@@ -1,194 +1,140 @@
-.box-right {
+.in-right {
   flex: 1;
   flex-direction: column;
   height: 100%;
-  background: #ffffff;
-
-  .box-host-survey {
-    padding: 20px 0;
+  background-color: #ffffff;
 
 
-    .box-host-body-head {
+  .in-body-head {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    gap: 20px;
+    background-color: #fff;
+
+    .in-title {
+      font-weight: 700;
+    }
+
+    .in-details {
       display: flex;
-      flex-direction: column;
-      gap: 20px;
-      background-color: #fff;
+      flex-wrap: wrap;
+      padding: 20px;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      justify-content: space-between;
+      white-space: nowrap; /* 禁止换行 */
+      overflow: hidden; /* 超出部分隐藏 */
+      text-overflow: ellipsis; /* 显示省略号 */
 
-      .box-host-title {
-        font-weight: 700;
-        font-size: 16px;
-      }
-
-      .box-host-details {
+      .in-margin-details {
         display: flex;
-        padding: 20px 0;
-        border-radius: 4px;
-        height: 150px;
-        width: 100%;
-        justify-content: space-between;
+        align-items: center;
+        gap: 5px;
+        margin: 10px 2%;
+        width: 20%;
+        box-shadow: 0 0 3px 0 #ccc;
 
-        white-space: nowrap; /* 禁止换行 */
-        overflow: hidden; /* 超出部分隐藏 */
-        text-overflow: ellipsis; /* 显示省略号 */
-
-        .box-host-margin-details {
+        .in-margin-div {
           display: flex;
           align-items: center;
-          gap: 5px;
-          margin-bottom: 10px;
-          width: 200px;
-          background-color: #fafbfc;
-
-
-          .box-host-margin-div {
-            display: flex;
-            align-items: center;
-            margin: auto;
-            padding: 10px;
-          }
-
-          .user-big-icon {
-            display: flex;
-            line-height: 24px;
-            margin-right: 10px;
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-            font-size: 16px;
-            justify-content: center;
-            align-items: center;
-          }
-
-          .status-img {
-            width: 24px;
-            height: 24px;
-            margin-right: 5px;
-          }
-
-          .box-host-details-text {
-            display: flex;
-            gap: 5px;
-            flex-direction: column;
-
-            .item-top {
-              height: 30px;
-              line-height: 30px;
-              width: 100px;
-              text-align: center;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-
-            .item-bottom {
-              font-size: 12px;
-              color: #999;
-              text-align: center;
-            }
-
-          }
-
+          margin: auto;
+          padding: 10px;
         }
 
-        .box-host-margin-work {
+        .status-img {
+          width: 24px;
+          height: 24px;
+          margin-right: 5px;
+        }
+
+        .in-details-text {
           display: flex;
-          justify-content: start;
-          gap: 20px;
+          gap: 5px;
+          flex-direction: column;
 
-          .host-layout-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            margin-bottom: 10px;
+          .in-item-top {
+            height: 30px;
+            line-height: 30px;
+            margin-left: auto;
+            margin-right: auto;
           }
+
+          .in-item-bottom {
+            display: flex;
+            font-size: 12px;
+            justify-content: center;
+          }
+
         }
 
-      }
-
-      .box-host-body-head-graphics {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        height: 260px;
-        margin-top: 50px;
-      }
-
-      .box-host-List {
-        display: flex;
-        margin: 60px 10px;
-        justify-content: center;
       }
 
     }
 
-
-    .box-host-body {
+    .in-body {
       display: flex;
-      flex-direction: column;
-      background-color: #fff;
-      padding: 20px 0;
+      flex-wrap: wrap;
+      padding: 20px;
+      border-radius: 4px;
+      height: 100%;
+      width: 100%;
+      gap: 5px;
+      justify-content: center;
 
-      .host-news {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 15px;
-
-        .more {
-          color: var(--thoughtware-blue);
-          margin-left: 10px;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-        }
-      }
-
-      .host-news-List {
-        margin-top: 15px;
+      .in-body-table {
         display: flex;
         flex-direction: column;
+        border-radius: 4px;
+        align-items: center;
+        width: 49%;
+        height: 300px;
+        box-shadow: 0 0 3px 0 #ccc;
+        overflow: auto;
+        margin-bottom: 20px;
 
-        .host-news-title {
-          font-size: 15px;
-          line-height: 30px;
-          position: relative;
-
-          .host-news-title-text {
-            width: 100px;
-            border-radius: 5px;
-            background: #e3e8f0;
-            padding: 0 3px;
-            text-align: center;
-          }
-        }
-
-        .host-news-Line {
+        .in-table-title{
           display: flex;
           align-items: center;
-          min-width: 0;
-          position: relative;
+          justify-content: center;
+          font-size: 16px;
+          font-weight: 700;
+          margin-bottom: 10px;
+          padding: 20px;
 
-          .host-line-time {
-            margin-right: 30px;
-          }
-
-          .host-news-name {
-            width: 300px;
-            margin-left: 30px;
-            white-space: nowrap; /* 防止文本换行 */
-            overflow: hidden; /* 超出部分隐藏 */
-            text-overflow: ellipsis; /* 使用省略号表示超出部分 */
-          }
+          height: 20px;
+          line-height: 20px;
         }
 
+        .in-table-list {
+          display: flex;
+          gap: 5px;
+          padding: 5px 0;
+          width: 100%;
+          justify-content: space-around;
 
+          .in-table-text {
+            width: 25%;
+            padding: 0 5px;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 13px;
+          }
+
+
+        }
       }
+
     }
 
   }
+
 }
+
+
 
 
 

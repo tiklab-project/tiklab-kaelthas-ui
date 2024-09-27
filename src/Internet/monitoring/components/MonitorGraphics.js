@@ -19,23 +19,24 @@ const MonitorGraphics = () => {
 
     const {
         setSearchCondition,
-        findInformationByGraphics,
+        findInGraphicsLine,
         condition,
         setSearchNull,
-        getDateTime,
+        getDateTime
     } = monitorLayoutStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
+    const hostId = localStorage.getItem("internetId");
+
     useEffect(async () => {
-        const hostId = localStorage.getItem("hostId");
         setSearchNull({
             hostId: hostId,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
 
-        await findInformationByGraphics();
+        await findInGraphicsLine();
         setSearchCondition({
             dataCate: null,
             id: hostId
@@ -47,12 +48,12 @@ const MonitorGraphics = () => {
             beginTime: dateString[0] + ":00",
             endTime: dateString[1] + ":00",
         })
-        await findInformationByGraphics()
+        await findInGraphicsLine()
         setSearchCondition({
             beginTime: dateString[0] + ":00",
             endTime: dateString[1] + ":00",
         })
-        // await findHistory();
+
     };
 
 
@@ -98,8 +99,7 @@ const MonitorGraphics = () => {
                     beginTime: getDateTime()[0],
                     endTime: getDateTime()[1],
                 })
-                await findInformationByGraphics();
-                // await findHistory();
+                await findInGraphicsLine();
                 break
         }
     }
