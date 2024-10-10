@@ -9,25 +9,25 @@ const DbSettingTabs = (props) => {
     const router = [
         {
             name: '数据库信息',
-            url: `/dbList/${dbId}/dbSetting/dbProject`,
+            url: `/db/${dbId}/dbSetting/dbProject`,
             key: "setting",
             encoded: "setting",
         },
         {
             name: '成员',
-            url: `/dbList/${dbId}/dbSetting/dbMember`,
+            url: `/db/${dbId}/dbSetting/dbMember`,
             key: "kuMember",
             encoded: "kuMember",
         },
         {
             name: '权限',
-            url: `/dbList/${dbId}/dbSetting/dbPermissions`,
+            url: `/db/${dbId}/dbSetting/dbPermissions`,
             key: "permissions",
             encoded: "permissions",
         },
     ]
 
-    const [selectKey,setSelectKey] = useState(`/dbList/${dbId}/dbSetting/dbProject`);
+    const [selectKey,setSelectKey] = useState(`/db/${dbId}/dbSetting/dbProject`);
 
     const selectSetting = (url) => {
         setSelectKey(url)

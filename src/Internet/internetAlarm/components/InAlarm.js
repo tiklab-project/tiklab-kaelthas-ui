@@ -92,7 +92,7 @@ const InAlarm = (props) => {
         setSearchCondition({
             hostId:localStorage.getItem("internetId"),
             status:null,
-            machineType: 3,
+            machineType: 4,
             severityLevel: null
         })
         await findAlarmPageByHostId();

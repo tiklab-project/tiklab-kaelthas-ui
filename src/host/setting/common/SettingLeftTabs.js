@@ -9,25 +9,25 @@ const SettingLeftTabs = (props) => {
     const router = [
         {
             name: '主机信息',
-            url: `/hostList/${hostId}/projectInformation`,
+            url: `/host/${hostId}/projectInformation`,
             key: "setting",
             encoded: "setting",
         },
         {
             name: '成员',
-            url: `/hostList/${hostId}/member`,
+            url: `/host/${hostId}/member`,
             key: "member",
             encoded: "member",
         },
         {
             name: '权限',
-            url: `/hostList/${hostId}/permissions`,
+            url: `/host/${hostId}/permissions`,
             key: "permissions",
             encoded: "permissions",
         },
     ];
 
-    const [selectKey,setSelectKey] = useState(`/hostList/${hostId}/projectInformation`);
+    const [selectKey,setSelectKey] = useState(`/host/${hostId}/projectInformation`);
 
     const selectSetting = (url) => {
         setSelectKey(url)

@@ -50,33 +50,28 @@ const Internet = (props) => {
 
     function converType(record) {
 
-        if (record.usability === 2) {
+        if (record?.usability === 0) {
             return <div>
                 <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
         }
 
-        if (record.alarmNum !== null) {
-            if (record.alarmNum === 1) {
-                let messageText;
-                if (record.message.length > 10) {
-                    messageText = record.message.substring(0, 10)
-                    return <div>
-                        <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({messageText}...)</Tooltip>
-                    </div>
-                }
+        if (record?.alarmNum !== null) {
+            let messageText = record?.message.substring(0, 6)
+            if (record?.alarmNum === 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message})</Tooltip>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record?.message}>({messageText})</Tooltip>
                 </div>
             }
-            if (record.alarmNum > 1) {
+
+            if (record?.alarmNum > 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><Tooltip title={record.message}>({record.message}...)</Tooltip>
+                    <Tag color={"red"}>异常</Tag><Tooltip title={record?.message}>({messageText}...)</Tooltip>
                 </div>
             }
         }
 
-        if (record.usability === 1) {
+        if (record?.usability === 1) {
             return <Tag color={"blue"}>正常</Tag>
         }
 
@@ -142,8 +137,7 @@ const Internet = (props) => {
             key: 'usability',
             width: "14%",
             ellipsis: true,
-            render: (usability, record) => <div style={{cursor: "pointer"}}
-                                                onClick={() => host(record)}>{converType(record)}</div>,
+            render: (usability, record) => <div onClick={() => host(record)}>{converType(record)}</div>,
         },
         {
             title: '未解决告警数量',

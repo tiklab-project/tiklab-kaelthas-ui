@@ -83,10 +83,10 @@ const InConfigHeader = (props) => {
     }
 
     return (
-        <div className="ku-configs-header">
-            <div className="ku-topMenu-top">
-                <div className="ku-topMenu-top-title">
-                    <div className="ku-normal-aside-left">
+        <div className="in-configs-header">
+            <div className="in-topMenu-top">
+                <div className="in-topMenu-top-title">
+                    <div className="in-normal-aside-left">
                         <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
                              onClick={() => goBackHost()}>
                             <use xlinkHref={`#icon-left`}></use>
@@ -98,35 +98,35 @@ const InConfigHeader = (props) => {
                         trigger={['click']}
                         overlayClassName="normal-aside-dropdown"
                         overlay={
-                            <div className="ku-opt">
-                                <div className="ku-opt-title">切换网络</div>
-                                <div className="ku-opt-group">
+                            <div className="in-opt">
+                                <div className="in-opt-title">切换网络</div>
+                                <div className="in-opt-group">
                                     {
                                         internet && internet.map(item => {
                                             return (
                                                 <div onClick={() => changeHost(item)}
                                                      key={item?.id}
-                                                     className={`ku-opt-item ${item?.id === internetId ? "ku-opt-active" : ""}`}
+                                                     className={`in-opt-item ${item?.id === internetId ? "in-opt-active" : ""}`}
                                                 >
-                                                <span className={`ku-opt-icon mf-icon-${item?.color}`}>
+                                                <span className={`in-opt-icon mf-icon-${item?.color}`}>
                                                     {item?.name?.substring(0, 1).toUpperCase()}
                                                 </span>
-                                                    <span className="ku-opt-name">
+                                                    <span className="in-opt-name">
                                                     {item?.name}
                                                 </span>
                                                 </div>
                                             )
                                         })
                                     }
-                                    <div className='ku-opt-more' onClick={() => props.history.push('/internet')}>更多</div>
+                                    <div className='in-opt-more' onClick={() => props.history.push('/internet')}>更多</div>
                                 </div>
                             </div>
                         }
                     >
-                        <div className="ku-normal-aside-opt-icon">
+                        <div className="in-normal-aside-opt-icon">
                             <Tooltip placement="right" title={localStorage.getItem("internetName")}>
-                                <div className="ku-normal-host-opt-title">
-                                    <span className="ku-normal-opt-text" onClick={() => dropDownList()}>
+                                <div className="in-normal-host-opt-title">
+                                    <span className="in-normal-opt-text" onClick={() => dropDownList()}>
                                         {localStorage.getItem("internetName")}
                                     </span>
                                     <CaretDownOutlined/>
@@ -136,19 +136,19 @@ const InConfigHeader = (props) => {
                     </Dropdown>
                 </div>
             </div>
-            <div className="ku-config-right">
+            <div className="in-config-right">
                 {
                     router.map((item, index) => {
                         return (
                             <div
                                 key={index}
                                 onClick={() => selectMenu(item.url)}
-                                className={`kuMenu-box ${url === item.url ? "border-bottom" : ""}`}
+                                className={`inMenu-box ${url === item.url ? "border-bottom" : ""}`}
                             >
                                 <svg className="menu-icon" aria-hidden="true">
                                     <use xlinkHref={`#icon-${item.icon}`}></use>
                                 </svg>
-                                <span className="kuMenu-text">
+                                <span className="inMenu-text">
                                     {item.name}
                                 </span>
                             </div>

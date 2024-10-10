@@ -47,7 +47,7 @@ const HomeLayout = (props) => {
         },
         {
             name: '主机',
-            url: '/configuration',
+            url: '/host',
             key: 'host',
         },
         {
@@ -89,7 +89,7 @@ const HomeLayout = (props) => {
 
     const selectMenu = (url, key) => {
         if (key === "host") {
-            localStorage.setItem("configurationUrl", `/hostList/${hostId}/configuration/monitor`)
+            localStorage.setItem("configurationUrl", `/host/${hostId}/configuration/monitor`)
         }
         if ("alarm" === key) {
             setNullCondition()

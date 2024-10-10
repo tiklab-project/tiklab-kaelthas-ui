@@ -145,91 +145,14 @@ const Routes = [
                 component: HomePage,
             },
             {
-                path: "/configuration",
+                path: "/host",
                 exact: true,
                 component: Configuration,
             },
             {
-                path: "/configuration/addHost",
+                path: "/host/addHost",
                 exact: true,
                 component: AddHost,
-            },
-            {
-                path: "/hostList/:id",
-                exact: false,
-                component: Host,
-                routes: [
-                    {
-                        path: "/hostList/:id/hostOverview",
-                        exact: false,
-                        component: HostDetails,
-                    },
-                    {
-                        path: "/hostList/:id/hostDynamic",
-                        exact: false,
-                        component: HostDynamic,
-                    },
-                    {
-                        path: "/hostList/:id/config",
-                        exact: false,
-                        component: HostConfiguration,
-                        routes: [
-                            {
-                                path: "/hostList/:id/config/monitor",
-                                exact: false,
-                                component: Monitor,
-                            },
-                            {
-                                path: "/hostList/:id/config/trigger",
-                                exact: false,
-                                component: Trigger,
-                            },
-                            {
-                                path: "/hostList/:id/config/template",
-                                exact: false,
-                                component: Template,
-                            },
-                            {
-                                path: "/hostList/:id/config/graphics",
-                                exact: false,
-                                component: Graphics,
-                            },
-                        ]
-                    },
-                    {
-                        path: "/hostList/:id/monitoring",
-                        component: MonitoringLayout,
-                    },
-                    {
-                        path: "/hostList/:id/hostAlarm",
-                        exact: false,
-                        component: HostAlarm,
-                    },
-                    {
-                        path: "/hostList/:id",
-                        component: Setting,
-                        routes: [
-                            {
-                                path: "/hostList/:id/projectInformation",
-                                exact: true,
-                                component: ProjectInformation,
-                            },
-                            {
-                                path: "/hostList/:id/member",
-                                key: 'member',
-                                exact: true,
-                                component: Member,
-                            },
-                            {
-                                path: "/hostList/:id/permissions",
-                                key: 'permissions',
-                                exact: true,
-                                component: Permissions,
-                            },
-
-                        ]
-                    },
-                ]
             },
             {
                 path: "/db",
@@ -240,88 +163,6 @@ const Routes = [
                 path: "/db/addDatabases",
                 exact: true,
                 component: AddDatabases,
-            },
-            {
-                path: "/dbList/:id",
-                exact: false,
-                component: DatabasesLayout,
-                routes: [
-                    {
-                        path: "/dbList/:id/dbDetails",
-                        exact: true,
-                        component: DbDetails,
-                    },
-                    {
-                        path: "/dbList/:id/dbDynamic",
-                        exact: false,
-                        component: HostDynamic,
-                    },
-                    {
-                        path: "/dbList/:id/configs",
-                        exact: false,
-                        component: HostConfigs,
-                        routes: [
-                            {
-                                path: "/dbList/:id/configs/monitor",
-                                exact: false,
-                                component: DBMonitor,
-                            },
-                            {
-                                path: "/dbList/:id/configs/trigger",
-                                exact: false,
-                                component: DBTrigger,
-                            },
-                            {
-                                path: "/dbList/:id/configs/customize",
-                                exact: false,
-                                component: DBCustomize,
-                            },
-                            {
-                                path: "/dbList/:id/configs/template",
-                                exact: false,
-                                component: DBTemplate,
-                            },
-                            {
-                                path: "/dbList/:id/configs/dbGraphics",
-                                exact: false,
-                                component: DBGraphics,
-                            },
-                        ]
-                    },
-                    {
-                        path: "/dbList/:id/monitoring",
-                        component: DBMonitoring,
-                    },
-                    {
-                        path: "/dbList/:id/dbAlarm",
-                        exact: false,
-                        component: DBAlarm,
-                    },
-                    {
-                        path: "/dbList/:id/dbSetting",
-                        component: DbSetting,
-                        routes: [
-                            {
-                                path: "/dbList/:id/dbSetting/dbProject",
-                                exact: true,
-                                component: DbProject,
-                            },
-                            {
-                                path: "/dbList/:id/dbSetting/dbMember",
-                                key: 'dbMember',
-                                exact: true,
-                                component: DbMember,
-                            },
-                            {
-                                path: "/dbList/:id/dbSetting/dbPermissions",
-                                key: 'permissions',
-                                exact: true,
-                                component: DbPermissions,
-                            },
-
-                        ]
-                    },
-                ]
             },
             {
                 path: "/alarm",
@@ -597,6 +438,165 @@ const Routes = [
                         path: "/setting/userGrouptrue",
                         render: (props) => <UserGroup {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
+                    },
+                ]
+            },
+            {
+                path: "/host/:id",
+                exact: false,
+                component: Host,
+                routes: [
+                    {
+                        path: "/host/:id/hostOverview",
+                        exact: false,
+                        component: HostDetails,
+                    },
+                    {
+                        path: "/host/:id/hostDynamic",
+                        exact: false,
+                        component: HostDynamic,
+                    },
+                    {
+                        path: "/host/:id/config",
+                        exact: false,
+                        component: HostConfiguration,
+                        routes: [
+                            {
+                                path: "/host/:id/config/monitor",
+                                exact: false,
+                                component: Monitor,
+                            },
+                            {
+                                path: "/host/:id/config/trigger",
+                                exact: false,
+                                component: Trigger,
+                            },
+                            {
+                                path: "/host/:id/config/template",
+                                exact: false,
+                                component: Template,
+                            },
+                            {
+                                path: "/host/:id/config/graphics",
+                                exact: false,
+                                component: Graphics,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/host/:id/monitoring",
+                        component: MonitoringLayout,
+                    },
+                    {
+                        path: "/host/:id/hostAlarm",
+                        exact: false,
+                        component: HostAlarm,
+                    },
+                    {
+                        path: "/host/:id",
+                        component: Setting,
+                        routes: [
+                            {
+                                path: "/host/:id/projectInformation",
+                                exact: true,
+                                component: ProjectInformation,
+                            },
+                            {
+                                path: "/host/:id/member",
+                                key: 'member',
+                                exact: true,
+                                component: Member,
+                            },
+                            {
+                                path: "/host/:id/permissions",
+                                key: 'permissions',
+                                exact: true,
+                                component: Permissions,
+                            },
+
+                        ]
+                    },
+                ]
+            },
+            {
+                path: "/db/:id",
+                exact: false,
+                component: DatabasesLayout,
+                routes: [
+                    {
+                        path: "/db/:id/dbDetails",
+                        exact: true,
+                        component: DbDetails,
+                    },
+                    {
+                        path: "/db/:id/dbDynamic",
+                        exact: false,
+                        component: HostDynamic,
+                    },
+                    {
+                        path: "/db/:id/configs",
+                        exact: false,
+                        component: HostConfigs,
+                        routes: [
+                            {
+                                path: "/db/:id/configs/monitor",
+                                exact: false,
+                                component: DBMonitor,
+                            },
+                            {
+                                path: "/db/:id/configs/trigger",
+                                exact: false,
+                                component: DBTrigger,
+                            },
+                            {
+                                path: "/db/:id/configs/customize",
+                                exact: false,
+                                component: DBCustomize,
+                            },
+                            {
+                                path: "/db/:id/configs/template",
+                                exact: false,
+                                component: DBTemplate,
+                            },
+                            {
+                                path: "/db/:id/configs/dbGraphics",
+                                exact: false,
+                                component: DBGraphics,
+                            },
+                        ]
+                    },
+                    {
+                        path: "/db/:id/monitoring",
+                        component: DBMonitoring,
+                    },
+                    {
+                        path: "/db/:id/dbAlarm",
+                        exact: false,
+                        component: DBAlarm,
+                    },
+                    {
+                        path: "/db/:id/dbSetting",
+                        component: DbSetting,
+                        routes: [
+                            {
+                                path: "/db/:id/dbSetting/dbProject",
+                                exact: true,
+                                component: DbProject,
+                            },
+                            {
+                                path: "/db/:id/dbSetting/dbMember",
+                                key: 'dbMember',
+                                exact: true,
+                                component: DbMember,
+                            },
+                            {
+                                path: "/db/:id/dbSetting/dbPermissions",
+                                key: 'permissions',
+                                exact: true,
+                                component: DbPermissions,
+                            },
+
+                        ]
                     },
                 ]
             },

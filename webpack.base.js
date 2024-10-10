@@ -145,6 +145,9 @@ module.exports = {
                 removeAttributeQuotes: true
             }
         }),
+        /*new BundleAnalyzerPlugin({
+            analyzerPort: 8481,
+        }),*/
         new webpack.DefinePlugin({ENV:JSON.stringify(customEnv), ...webpackGlobal}),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[contenthash].css',

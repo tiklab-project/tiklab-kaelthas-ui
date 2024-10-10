@@ -209,7 +209,10 @@ const AlarmPage = (props) => {
                 machineName = "数据库"
                 break;
             case 3:
-                machineName = "kubernetes"
+                machineName = "k8s"
+                break;
+            case 4:
+                machineName = "网络"
                 break;
         }
         return <Tag>{machineName}</Tag>
@@ -275,7 +278,7 @@ const AlarmPage = (props) => {
             ellipsis: true,
         },
         {
-            title: '设备类型',
+            title: '告警设备类型',
             dataIndex: 'machineType',
             key: 'machineType',
             width: "12%",

@@ -16,35 +16,35 @@ const TopMenu = (props) => {
         {
             name: '概况',
             icon: 'hostOverview',
-            url: `/hostList/${hostId}/hostOverview`,
+            url: `/host/${hostId}/hostOverview`,
             key: "hostOverview",
             encoded: "hostOverview",
         },
         {
             name: '监控',
             icon: 'monitoring',
-            url: `/hostList/${hostId}/monitoring`,
+            url: `/host/${hostId}/monitoring`,
             key: "monitoring",
             encoded: "monitoring",
         },
         {
             name: '告警',
             icon: 'hostAlarm',
-            url: `/hostList/${hostId}/hostAlarm`,
+            url: `/host/${hostId}/hostAlarm`,
             key: "hostAlarm",
             encoded: "hostAlarm",
         },
         {
             name: '配置',
             icon: 'configuration',
-            url: `/hostList/${hostId}/config/monitor`,
+            url: `/host/${hostId}/config/monitor`,
             key: "config",
             encoded: "config",
         },
         {
             name: '设置',
             icon: 'setting',
-            url: `/hostList/${hostId}/projectInformation`,
+            url: `/host/${hostId}/projectInformation`,
             key: "setting",
             encoded: "setting",
         },
@@ -59,7 +59,7 @@ const TopMenu = (props) => {
 
     const selectMenu = (url, key) => {
         if (key === "config") {
-            localStorage.setItem("configUrl", `/hostList/${hostId}/config/monitor`)
+            localStorage.setItem("configUrl", `/host/${hostId}/config/monitor`)
         }
         localStorage.setItem("url", url)
         props.history.push(url)
@@ -70,8 +70,8 @@ const TopMenu = (props) => {
         if (hostId !== item.id) {
             localStorage.setItem("hostId", item.id);
             localStorage.setItem("hostName", item?.name);
-            localStorage.setItem("url", `/hostList/${item.id}/hostOverview`);
-            props.history.push(`/hostList/${item.id}/hostOverview`);
+            localStorage.setItem("url", `/host/${item.id}/hostOverview`);
+            props.history.push(`/host/${item.id}/hostOverview`);
         }
     }
 

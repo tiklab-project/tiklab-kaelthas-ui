@@ -1,5 +1,5 @@
 {
-    "name": "thoughtware-kealthas-ui",
+    "name": "thoughtware-xmonitor-ui",
     "version": "1.0.0",
     "description": "thoughtware repository",
     "main": "es/src/ui.js",

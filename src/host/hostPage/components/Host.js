@@ -39,8 +39,8 @@ const Host = (props) => {
     const host = async (record) => {
         localStorage.setItem('hostId', record.id);
         localStorage.setItem("hostName", record.name);
-        localStorage.setItem("url", `/hostList/${record.id}/monitoring`)
-        props.history.push(`/hostList/${record.id}/monitoring`);
+        localStorage.setItem("url", `/host/${record.id}/monitoring`)
+        props.history.push(`/host/${record.id}/monitoring`);
 
         //添加到临时表当中
         await createHostRecent({
@@ -50,7 +50,7 @@ const Host = (props) => {
 
     function converType(record) {
 
-        if (record.usability === 2) {
+        if (record.usability === 0) {
             return <div>
                 <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>

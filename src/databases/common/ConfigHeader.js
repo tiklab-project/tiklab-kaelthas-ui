@@ -17,7 +17,7 @@ const ConfigHeader = (props) => {
 
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
-        localStorage.setItem("confUrl",`/dbList/${dbId}/configs/monitor`)
+        localStorage.setItem("confUrl",`/db/${dbId}/configs/monitor`)
         props.history.push(url)
     }
 
@@ -25,35 +25,35 @@ const ConfigHeader = (props) => {
         {
             name: '概况',
             icon: 'hostOverview',
-            url: `/dbList/${dbId}/dbDetails`,
+            url: `/db/${dbId}/dbDetails`,
             key: "dbDetails",
             encoded: "dbDetails",
         },
         {
             name: '监控',
             icon: 'monitoring',
-            url: `/dbList/${dbId}/monitoring`,
+            url: `/db/${dbId}/monitoring`,
             key: "monitoring",
             encoded: "monitoring",
         },
         {
             name: '告警',
             icon: 'hostAlarm',
-            url: `/dbList/${dbId}/dbAlarm`,
+            url: `/db/${dbId}/dbAlarm`,
             key: "hostAlarm",
             encoded: "hostAlarm",
         },
         {
             name: '配置',
             icon: 'configuration',
-            url: `/dbList/${dbId}/configs/monitor`,
+            url: `/db/${dbId}/configs/monitor`,
             key: "configuration",
             encoded: "configuration",
         },
         {
             name: '设置',
             icon: 'setting',
-            url: `/dbList/${dbId}/dbSetting/dbProject`,
+            url: `/db/${dbId}/dbSetting/dbProject`,
             key: "setting",
             encoded: "setting",
         },
@@ -70,7 +70,7 @@ const ConfigHeader = (props) => {
 
     async function dropDownList() {
         const dbs = await findDropDown();
-        setDbList(dbs)
+        setdb(dbs)
     }
 
     async function changeHost(item) {
@@ -78,8 +78,8 @@ const ConfigHeader = (props) => {
             await updateDbInfo(item)
             localStorage.setItem("dbId", item.id);
             localStorage.setItem("dbName", item?.name);
-            localStorage.setItem("url", `/dbList/${item.id}/dbDetails`);
-            props.history.push(`/dbList/${item.id}/dbDetails`);
+            localStorage.setItem("url", `/db/${item.id}/dbDetails`);
+            props.history.push(`/db/${item.id}/dbDetails`);
         }
     }
 

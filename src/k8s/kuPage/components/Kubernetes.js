@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Input, Row, Table, Tag} from "antd";
+import {Col, Input, Row, Table, Tag, Tooltip} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import "./Kubernetes.scss"
 import kubernetesStore from "../store/KubernetesStore";
@@ -17,7 +17,7 @@ const Kubernetes = (props) => {
         setNullCondition
     } = kubernetesStore;
 
-    const [kuStatus, setKuStatus] = useState(0);
+    const [kuStatus, setKuStatus] = useState(2);
 
     useEffect(async () => {
         setNullCondition();
@@ -46,7 +46,7 @@ const Kubernetes = (props) => {
     const availabilityTab = [
         {
             title: '全部',
-            key: 0,
+            key: 2,
             icon: "allHost"
         },
         {
@@ -56,7 +56,7 @@ const Kubernetes = (props) => {
         },
         {
             title: '不可用',
-            key: 2,
+            key: 0,
             icon: "noAvailableHost"
         }
     ];
@@ -105,26 +105,30 @@ const Kubernetes = (props) => {
 
     function converType(record) {
 
-        if (record.status === 0) {
+        if (record?.usability === 0) {
             return <div>
                 <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
         }
 
-        if (record.alarmNum !== null) {
-            if (record.alarmNum === 1) {
+        if (record?.alarmNum !== null) {
+
+            let messageText = record?.message.substring(0, 6)
+
+            if (record?.alarmNum === 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message})</span>
+                    <Tag color={"red"}>异常</Tag><Tooltip>({messageText})</Tooltip>
                 </div>
             }
-            if (record.alarmNum > 1) {
+
+            if (record?.alarmNum > 1) {
                 return <div>
-                    <Tag color={"red"}>异常</Tag><span>({record.message}...)</span>
+                    <Tag color={"red"}>异常</Tag><span>({messageText}...)</span>
                 </div>
             }
         }
 
-        if (record.status === 1) {
+        if (record?.status === 1) {
             return <Tag color={"blue"}>正常</Tag>
         }
 
@@ -152,7 +156,7 @@ const Kubernetes = (props) => {
 
     async function checkTab(key) {
         setKuStatus(key);
-        if (key === 0) {
+        if (key === 2) {
             key = null
         }
         setSearchCondition({

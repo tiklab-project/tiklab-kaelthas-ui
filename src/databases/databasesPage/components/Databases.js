@@ -45,8 +45,8 @@ const Databases = (props) => {
     async function hrefDatabases(record) {
         localStorage.setItem('dbId', record.id);
         localStorage.setItem("dbName", record.name)
-        localStorage.setItem("url", `/dbList/${record.id}/monitoring`)
-        props.history.push(`/dbList/${record.id}/monitoring`);
+        localStorage.setItem("url", `/db/${record.id}/monitoring`)
+        props.history.push(`/db/${record.id}/monitoring`);
     }
 
     const columns = [
