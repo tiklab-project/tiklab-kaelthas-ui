@@ -101,7 +101,7 @@ const Customize = () => {
 
     return (
         <Row className="box-graphics-right">
-            <Col style={{marginLeft: 10}}>
+            <Col>
                 <div className="box-graphics-title">
 
                 </div>

@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
 import {Col, Drawer, Input, Modal, Row, Space, Table, Tabs} from "antd";
-import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
 import "../../../../common/styles/_tabStyle.scss"
 import {SearchOutlined} from "@ant-design/icons";
@@ -12,13 +11,8 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 const Template = (props) => {
 
-    const [dataList, setDataList] = useState([]);
-
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
-
-    const [rowData, setRowData] = useState({});
 
     useEffect(async () => {
 
@@ -125,7 +119,7 @@ const Template = (props) => {
 
     return (
         <Row className="box-template-right">
-            <Col style={{marginLeft:10}}>
+            <Col>
                 <div className="template-kind-options">
                     <div className="box-template-title-text">
                         模板数量:{0}

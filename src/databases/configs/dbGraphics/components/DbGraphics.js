@@ -112,7 +112,7 @@ const DbGraphics = (props) => {
 
     return (
         <Row className="db-box-graphics-right">
-            <Col style={{marginLeft: 10}}>
+            <Col>
                 <div className="db-box-graphics-title">
 
                 </div>

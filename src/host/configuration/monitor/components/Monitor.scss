@@ -1,7 +1,6 @@
 
 .box-monitor-right {
   flex-direction: column;
-  padding: 20px 0;
   height: calc(100% - 60px);
 
   .box-monitor-title {
@@ -23,7 +22,7 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 20px;
 
     .monitor-kind-options-tabs {
       display: flex;

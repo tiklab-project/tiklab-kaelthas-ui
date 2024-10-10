@@ -53,7 +53,7 @@ const KuGraphics = (props) => {
 
     const updateGraphicsColumn = async (record) => {
         // 点击的时候查询当前图形的监控项ids
-        const monitorList = await findMonitorIds({graphicsId:record.id});
+        const monitorList = await findMonitorIds({graphicsId: record.id});
 
         record.monitorIds = monitorList
         setColumnData(record)
@@ -111,10 +111,7 @@ const KuGraphics = (props) => {
 
     return (
         <Row className="db-box-graphics-right">
-            <Col style={{marginLeft: 10}}>
-                <div className="db-box-graphics-title">
-
-                </div>
+            <Col>
                 <div className="db-graphics-kind-options">
                     <div className="db-box-graphics-title-text">
                         图形的数量:{total}

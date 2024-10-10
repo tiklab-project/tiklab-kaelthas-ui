@@ -1,7 +1,6 @@
 
 .box-graphics-right {
   flex-direction: column;
-  padding: 20px;
   height: calc(100% - 60px);
 
   .box-graphics-title {
@@ -9,9 +8,6 @@
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
-
-
-
   }
 
   .graphics-kind-options {
@@ -19,7 +15,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    margin-top: 15px;
+    margin-top: 20px;
     height: 42px;
     line-height: 42px;
 

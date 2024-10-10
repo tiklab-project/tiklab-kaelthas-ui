@@ -188,7 +188,7 @@ const Template = (props) => {
 
     return (
         <Row className="box-template-right">
-            <Col style={{marginLeft:10}}>
+            <Col>
                 <div className="template-kind-options">
                     <div className="box-template-title-text">
                         模板数量:<span className="count-template">{total}</span>

@@ -167,9 +167,9 @@ const DbMonitor = (props) => {
 
     return (
         <Row className="box-monitor-right">
-            <Col style={{marginLeft: 10}}>
+            <Col>
                 <div className="monitor-kind-options">
-                    <div className="monitor-kind-options-tabs">
+                    {/*<div className="monitor-kind-options-tabs">
                         {
                             availabilityTab.map(item => {
                                 return <div
@@ -180,6 +180,9 @@ const DbMonitor = (props) => {
                                 </div>
                             })
                         }
+                    </div>*/}
+                    <div>
+                        监控项数量:{total}
                     </div>
                     <div className="monitor-top-right-search">
                         <div>

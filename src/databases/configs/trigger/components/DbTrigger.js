@@ -173,7 +173,7 @@ const DbTrigger = (props) => {
 
     return (
         <Row className="box-trigger-right">
-            <Col style={{marginLeft:10}}>
+            <Col>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
                         触发器数量:{total}
