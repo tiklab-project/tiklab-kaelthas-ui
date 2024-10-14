@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Permissions.scss"
 import {withRouter} from "react-router-dom";
-import {DomainRole} from 'thoughtware-privilege-ui';
+import {DomainRole} from 'tiklab-privilege-ui';
 
 const Permissions = (props) => {
 

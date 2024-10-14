@@ -16,29 +16,28 @@
         align-items: center;
         justify-content: space-between;
         height: 48px;
-        padding: var(--thoughtware-padding-item) var(--thoughtware-padding-item) 0;
+        padding: var(--tiklab-padding-item) var(--tiklab-padding-item) 0;
 
         .configuration-title{
           display: flex;
           justify-content: space-between;
           align-items: center;
           font-size: 16px;
-          font-weight: var(--thoughtware-font-weight-bold);
+          font-weight: var(--tiklab-font-weight-bold);
         }
       }
 
       .design-tab{
         display: flex;
         cursor: pointer;
-        width: 60px;
+        width: 100px;
         align-items: center;
         border-radius: 10px;
         justify-content: center;
 
 
         &:not(:last-child){
-          width: 60px;
-          margin-right: 10px;
+          width: 100px;
         }
         .design-tab-icon{
           padding-right: 2px;

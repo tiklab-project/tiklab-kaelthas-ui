@@ -92,7 +92,7 @@ const InternetOverview = (props) => {
                                     </div>
                                     <div className="in-table-list">
                                         <div className="in-table-text">
-                                            设备描述
+                                            设备描述：
                                         </div>
                                         <div className="in-table-text">
                                             {internetOverview?.systemInfo?.description}
@@ -100,7 +100,7 @@ const InternetOverview = (props) => {
                                     </div>
                                     <div className="in-table-list">
                                         <div className="in-table-text">
-                                            设备型号
+                                            设备型号：
                                         </div>
                                         <div className="in-table-text">
                                             {internetOverview?.systemInfo?.deviceModel}
@@ -108,7 +108,7 @@ const InternetOverview = (props) => {
                                     </div>
                                     <div className="in-table-list">
                                         <div className="in-table-text">
-                                            运行时间
+                                            运行时间：
                                         </div>
                                         <div className="in-table-text">
                                             {internetOverview?.systemInfo?.runningTime}

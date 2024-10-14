@@ -16,14 +16,14 @@
         align-items: center;
         justify-content: space-between;
         height: 48px;
-        padding: var(--thoughtware-padding-item) var(--thoughtware-padding-item) 0;
+        padding: var(--tiklab-padding-item) var(--tiklab-padding-item) 0;
 
         .configuration-title{
           display: flex;
           justify-content: space-between;
           align-items: center;
           font-size: 16px;
-          font-weight: var(--thoughtware-font-weight-bold);
+          font-weight: var(--tiklab-font-weight-bold);
         }
       }
 
@@ -38,7 +38,6 @@
 
         &:not(:last-child){
           width: 100px;
-          margin-right: 10px;
         }
         .design-tab-icon{
           padding-right: 2px;

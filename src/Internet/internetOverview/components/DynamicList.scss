@@ -38,7 +38,7 @@ $line-color: #dadfe6;
                 left: 0;
                 width: 11px;
                 height: 11px;
-                border: 3px solid var(--thoughtware-blue);
+                border: 3px solid var(--tiklab-blue);
                 border-radius: 50%;
             }
         }
@@ -86,7 +86,7 @@ $line-color: #dadfe6;
                         &:hover {
                             cursor: pointer;
                             text-decoration: underline;
-                            color: var(--thoughtware-blue);
+                            color: var(--tiklab-blue);
                         }
                     }
 
@@ -105,7 +105,7 @@ $line-color: #dadfe6;
 
                         .log-desc-action {
                             font-size: 13px;
-                            color: var(--thoughtware-gray-500);
+                            color: var(--tiklab-gray-500);
                         }
 
                         .log-desc-message {

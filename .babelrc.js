@@ -22,7 +22,7 @@ const plugins = [
     [
         "import",
         {
-            "libraryName": "thoughtware-eam-ui",
+            "libraryName": "tiklab-eam-ui",
             "libraryDirectory": "es",
             "style": true,
             "customName": (name) => {
@@ -36,15 +36,15 @@ const plugins = [
                     const name = UpBit + lowBit
                     return total += name;
                 },'');
-                return `thoughtware-eam-ui/es/${fullName}`;
+                return `tiklab-eam-ui/es/${fullName}`;
             }
         },
-        "thoughtware-eam-ui"
+        "tiklab-eam-ui"
     ],
     [
         "import",
         {
-            "libraryName": "thoughtware-message-ui",
+            "libraryName": "tiklab-message-ui",
             "libraryDirectory": "es",
             "style": true,
             "customName": (name) => {
@@ -58,15 +58,15 @@ const plugins = [
                     const name = UpBit + lowBit
                     return total += name;
                 },'');
-                return `thoughtware-message-ui/es/${fullName}`;
+                return `tiklab-message-ui/es/${fullName}`;
             }
         },
-        "thoughtware-message-ui"
+        "tiklab-message-ui"
     ],
-    [
+    /*[
         "import", 
         {
-            "libraryName": "thoughtware-todotask-ui",
+            "libraryName": "tiklab-todotask-ui",
             "libraryDirectory": "es",
             "style": true,
             "customName": (name) => {
@@ -80,15 +80,15 @@ const plugins = [
                     const name = UpBit + lowBit
                     return total += name;
                 },'');
-                return `thoughtware-todotask-ui/es/${fullName}`;
+                return `tiklab-todotask-ui/es/${fullName}`;
             }
         }, 
-        "thoughtware-todotask-ui"
-    ],
+        "tiklab-todotask-ui"
+    ],*/
     [
         "import", 
         {
-            "libraryName": "thoughtware-security-ui",
+            "libraryName": "tiklab-security-ui",
             "libraryDirectory": "es",
             "style": true,
             "customName": (name) => {
@@ -102,10 +102,10 @@ const plugins = [
                     const name = UpBit + lowBit
                     return total += name;
                 },'');
-                return `thoughtware-security-ui/es/${fullName}`;
+                return `tiklab-security-ui/es/${fullName}`;
             }
         }, 
-        "thoughtware-security-ui"
+        "tiklab-security-ui"
     ],
    
     [

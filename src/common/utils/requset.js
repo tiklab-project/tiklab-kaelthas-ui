@@ -7,7 +7,7 @@
  * @LastEditTime: 2022-04-22 09:33:56
  */
 
-import {Axios as service} from "thoughtware-core-ui";
+import {Axios as service} from "tiklab-core-ui";
 
 const Service = (url, data) => {
     return service.request({

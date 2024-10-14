@@ -7,7 +7,7 @@ import {Provider} from 'mobx-react';
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {Tooltip} from "antd";
 import {useHistory} from "react-router";
-import {getUser, productTitle,productImg,productWhiteImg} from "thoughtware-core-ui";
+import {getUser, productTitle,productImg,productWhiteImg} from "tiklab-core-ui";
 import PortalMessage from "./PortalMessage";
 import {BellOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 
@@ -105,7 +105,7 @@ const HomeLayout = (props) => {
 
     /**
      * type三个参数为:
-     * default(默认 --> --thoughtware-gray-600)，
+     * default(默认 --> --tiklab-gray-600)，
      * blue(蓝色 --> #2f5eb1)，
      * black(黑色 --> #131d30)
      */

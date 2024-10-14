@@ -11,7 +11,7 @@ $inline-padding: 15px;
     overflow: auto;
     .home-title{
         margin-bottom: 15px;
-        font-weight: var(--thoughtware-font-weight-bold);
+        font-weight: var(--tiklab-font-weight-bold);
     }
     .home-icon{
         font-size: 16px;
@@ -24,7 +24,7 @@ $inline-padding: 15px;
         white-space: nowrap;
         text-overflow: ellipsis;
         -o-text-overflow: ellipsis;
-        font-weight: var(--thoughtware-font-weight-bold);
+        font-weight: var(--tiklab-font-weight-bold);
         text-align: end;
     }
     .home-licence-box{
@@ -33,7 +33,7 @@ $inline-padding: 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background-color: var(--thoughtware-gray-600);
+            background-color: var(--tiklab-gray-600);
             padding: 35px 15px;
             gap: $inline-spacing;
             .home-licence-item{
@@ -54,7 +54,7 @@ $inline-padding: 15px;
                     }
                     .licence-level-info{
                         font-size: 15px;
-                        font-weight: var(--thoughtware-font-weight-bold);
+                        font-weight: var(--tiklab-font-weight-bold);
                     }
                     .licence-level-issuedTime{
                         padding-left: 5px;
@@ -72,17 +72,17 @@ $inline-padding: 15px;
                     }
                 }
                 .licence-level-info{
-                    font-weight: var(--thoughtware-font-weight-bold);
+                    font-weight: var(--tiklab-font-weight-bold);
                 }
             }
             .home-licence-sub{
                 cursor: pointer;
-                color: var(--thoughtware-blue);
+                color: var(--tiklab-blue);
             }
         }
     }
     .home-role-box{
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         padding: $inline-padding;
         .home-role{
             .home-role-item{
@@ -96,13 +96,13 @@ $inline-padding: 15px;
                     cursor: pointer;
                 }
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
             }
         }
     }
     .home-user-box{
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         padding: $inline-padding;
         .home-user{
             .home-user-item{
@@ -116,13 +116,13 @@ $inline-padding: 15px;
                     cursor: pointer;
                 }
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
             }
         }
     }
     .home-message-box{
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         padding: $inline-padding;
         .home-message{
             .home-message-item{
@@ -136,13 +136,13 @@ $inline-padding: 15px;
                     cursor: pointer;
                 }
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
             }
         }
     }
     .home-config-box{
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         padding: $inline-padding;
         .home-config{
             .home-config-item{
@@ -156,13 +156,13 @@ $inline-padding: 15px;
                     cursor: pointer;
                 }
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
             }
         }
     }
     .home-security-box{
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         padding: $inline-padding;
         .home-security{
             .home-security-item{
@@ -176,7 +176,7 @@ $inline-padding: 15px;
                     cursor: pointer;
                 }
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
             }
         }
@@ -188,11 +188,11 @@ $inline-padding: 15px;
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: var(--thoughtware-gray-600);
+                background-color: var(--tiklab-gray-600);
                 padding: 30px $inline-padding;
                 cursor: pointer;
                 &:hover{
-                    color: var(--thoughtware-blue);
+                    color: var(--tiklab-blue);
                 }
                 .home-quick-item-title{
                     flex: 1;

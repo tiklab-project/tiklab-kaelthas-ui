@@ -50,7 +50,7 @@
       justify-content: center;
 
       &:hover {
-        background: var(--thoughtware-gray-300);
+        background: var(--tiklab-gray-300);
       }
 
       &:not(:last-child) {
@@ -59,8 +59,8 @@
     }
 
     .normal-aside-select {
-      background: var(--thoughtware-gray-400);
-      border-bottom: 3px solid var(--thoughtware-blue);
+      background: var(--tiklab-gray-400);
+      border-bottom: 3px solid var(--tiklab-blue);
     }
   }
 
@@ -95,8 +95,8 @@
     }
 
     .border-bottom {
-      color: var(--thoughtware-blue);
-      border-bottom: 2px solid var(--thoughtware-blue);
+      color: var(--tiklab-blue);
+      border-bottom: 2px solid var(--tiklab-blue);
     }
   }
 
@@ -175,7 +175,7 @@
       text-align: center;
       padding: 8px 0;
       background: #f8f8f8;
-      color: var(--thoughtware-blue);
+      color: var(--tiklab-blue);
     }
   }
 }

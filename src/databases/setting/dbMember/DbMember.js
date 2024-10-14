@@ -1,6 +1,6 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
-import {DomainUser} from 'thoughtware-user-ui';
+import {DomainUser} from 'tiklab-user-ui';
 
 const DbMember = (props) => {
 

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {DownOutlined, ProjectOutlined, UpOutlined} from "@ant-design/icons";
-import {SystemNav, PrivilegeButton} from "thoughtware-privilege-ui";
+import {SystemNav, PrivilegeButton} from "tiklab-privilege-ui";
 import {inject, observer} from "mobx-react";
 import {renderRoutes} from "react-router-config";
 import {ExportOutlined} from "@ant-design/icons";
@@ -235,18 +235,23 @@ const SettingContent = props => {
                     <ul className="system-aside-top" style={{padding: 0}}>
 
                         <div className="system-aside-top-head">
-                            <svg aria-hidden="true" className="botton-icon" style={{cursor: "pointer"}}
-                                 onClick={() => hrefBack()}>
-                                <use xlinkHref="#icon-settingLeft"></use>
-                            </svg>
                             <div className="system-aside-top-head-text" onClick={jumpToHome}>
                                 设置
+                            </div>
+                            <div className="system-aside-top-head-goHome" style={{cursor: "pointer"}}
+                                 onClick={() => hrefBack()}>
+                                    <svg aria-hidden="true" className="big-icon" style={{cursor: "pointer"}}>
+                                        <use xlinkHref="#icon-goHome"></use>
+                                    </svg>
+                                <div>
+                                    返回首页
+                                </div>
                             </div>
                         </div>
                         {
                             menus().map(firstItem => {
                                 return firstItem.children && firstItem.children.length > 0 ?
-                                    renderSubMenu(firstItem, 30) : renderMenu(firstItem, 30)
+                                    renderSubMenu(firstItem, 20) : renderMenu(firstItem, 20)
                             })
                         }
                     </ul>

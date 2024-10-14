@@ -11,12 +11,12 @@ import {
     Task,
     TodoTemp,
     TodoType
-} from "thoughtware-message-ui";
-import {ProductAuth, Version} from "thoughtware-licence-ui";
-import {ExcludeProductUser, InternalWechatEntry, NotFound} from "thoughtware-eam-ui";
-import {SystemFeature, ProjectFeature, SystemRole, ProjectRole,ProjectVirtualRole} from "thoughtware-privilege-ui";
-import {Orga, User, UserGroup, Directory} from "thoughtware-user-ui";
-import {BackupRestore, LogTemplate, LogType, MyLog} from "thoughtware-security-ui";
+} from "tiklab-message-ui";
+import {ProductAuth, Version} from "tiklab-licence-ui";
+import {ExcludeProductUser, InternalWechatEntry, NotFound} from "tiklab-eam-ui";
+import {SystemFeature, ProjectFeature, SystemRole, ProjectRole,ProjectVirtualRole} from "tiklab-privilege-ui";
+import {Orga, User, UserGroup, Directory} from "tiklab-user-ui";
+import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 
 const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
 const Host = AsyncComponent(() => import( "./host/common/components/HostLayout"))

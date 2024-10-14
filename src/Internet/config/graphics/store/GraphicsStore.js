@@ -1,6 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
-import {Axios} from "thoughtware-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 export class GraphicsStore {
 
