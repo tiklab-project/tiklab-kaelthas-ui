@@ -1,5 +1,5 @@
 {
-    "name": "tiklab-xmonitor-ui",
+    "name": "tiklab-kaelthas-ui",
     "version": "1.0.0",
     "description": "tiklab repository",
     "main": "es/src/ui.js",

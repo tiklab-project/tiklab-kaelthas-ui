@@ -84,8 +84,7 @@ npm run start
 
 
 
-- [Kaelthas 生态系统入口](https://tiklab.net/)- 一个公司下与`Kaelthas`同类型的项目。
-- [Kaelthas 网站](https://github.com/apache/Kaelthas-website)- Apache Kaelthas 官方网站。
-- [Kaelthas 示例](https://demo.tiklab.net/kaelthas)- Apache Kaelthas 的示例。
+- [Kaelthas 网站](https://github.com/apache/Kaelthas-website)- Kaelthas 官方网站。
+- [Kaelthas 示例](https://demo.tiklab.net/kaelthas)- Kaelthas 的示例。
 - [Kaelthas 官方文档](https://doc.tiklab.net/document/45e814a237af) - Kaelthas 的官方文档。
 - 请前往[下载页面](https://download.tiklab.net/)下载 Kaelthas 的发布版本。

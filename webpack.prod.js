@@ -16,7 +16,6 @@ module.exports = merge(baseWebpackConfig, {
     ],
     plugins: [
         // new UglifyJSPlugin(),
-        new BundleAnalyzerPlugin({defaultSizes: 'parsed'}),
         new optimizeCss({
             assetNameRegExp: /\.css$/g,
             cssRepositorycessor: require('cssnano'),

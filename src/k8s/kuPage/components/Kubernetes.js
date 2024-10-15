@@ -111,7 +111,7 @@ const Kubernetes = (props) => {
             </div>
         }
 
-        if (record?.alarmNum !== null) {
+        if (record?.alarmNum !== null && record?.alarmNum !== 0) {
 
             let messageText = record?.message.substring(0, 6)
 
