@@ -230,7 +230,7 @@ const AlarmPage = (props) => {
             render: (hostName, record) => <Tooltip title={hostName}>{hostName}</Tooltip>
         },
         {
-            title: '主机IP',
+            title: '设备IP',
             dataIndex: 'ip',
             key: 'ip',
             width: "12%",
@@ -366,7 +366,7 @@ const AlarmPage = (props) => {
                         <div style={{marginRight: 8}}>
                             <Input
                                 className="alarm-box-search-div"
-                                placeholder="主机名称"
+                                placeholder="设备名称"
                                 onPressEnter={(e) => checkHostName(e)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}

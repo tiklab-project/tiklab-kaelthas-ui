@@ -1,8 +1,8 @@
 import React, {useState,useEffect} from "react";
 import {Row,Col} from "antd";
 import {applyJump, disableFunction, applySubscription, getVersionInfo, Axios, getUser} from "tiklab-core-ui";
-import vipLight from '../../../assets/images/vip-light.png';
-import vipDark from '../../../assets/images/vip-dark.png';
+import vipLight from '../../../assets/images/vip-light1.png';
+import vipDark from '../../../assets/images/vip-dark1.png';
 import "./SettingHome.scss";
 import moment from "moment";
 import {

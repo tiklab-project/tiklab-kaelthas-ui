@@ -1,43 +1,50 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {renderRoutes} from "react-router-config";
 import "./HomeLayout.scss";
 
-import {Provider} from 'mobx-react';
+import {inject, observer, Provider} from 'mobx-react';
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {Tooltip} from "antd";
 import {useHistory} from "react-router";
-import {getUser, productTitle,productImg,productWhiteImg} from "tiklab-core-ui";
+import {getUser, productTitle, productImg, productWhiteImg} from "tiklab-core-ui";
 import PortalMessage from "./PortalMessage";
-import {BellOutlined, QuestionCircleOutlined} from "@ant-design/icons";
+import {
+    BellOutlined,
+    LeftCircleOutlined,
+    QuestionCircleOutlined,
+    RightCircleOutlined,
+    SettingOutlined
+} from "@ant-design/icons";
 
-import menuBack from "../../assets/images/menu-black.png"
+import menuBlack from "../../assets/images/menu-black.png"
 import menuWhite from "../../assets/images/menu-white.png"
 import Profile from "../component/profile/Profile";
+import LeftMenuCommon from "./LeftMenuCommon/LeftMenuCommon";
 
 const HomeLayout = (props) => {
 
-    const {HelpLink,AppLink,AvatarLink} = props;
+    const {HelpLink, AppLink, AvatarLink,systemRoleStore} = props;
+
+    const path = props.location.pathname;
 
     const route = props.route.routes;
 
-    let hostId = localStorage.getItem('hostId');
-
-    const {setNullCondition} = alarmPageStore;
-
     //是否折叠
-    const [isExpand,setIsExpand] = useState(false);
+    const [isExpand, setIsExpand] = useState(false);
 
-    //消息抽屉状态
-    const menuKey = (sessionStorage.getItem("menuKey") && props.location.pathname !== "/home") ? sessionStorage.getItem("menuKey") : "home";
+    //一级导航的选中状态
+    const menuKey = (localStorage.getItem("menuKey") && props.location.pathname !== "/home") ? localStorage.getItem("menuKey") : "home";
 
     //未读
-    const [unread,setUnread] = useState(0);
+    const [unread, setUnread] = useState(0);
 
     //主题色
-    const [themeType,setThemeType] = useState('default');
+    const [themeType, setThemeType] = useState('default');
 
     const history = useHistory()
+
+    const [notificationVisibility, setNotificationVisibility] = useState(false);
 
     const routers = [
         {
@@ -72,36 +79,21 @@ const HomeLayout = (props) => {
         }
     ];
 
-    /**
-     * 点击菜单跳转
-     * @param {菜单信息} item
-     */
-    const changeCurrentLink = async item => {
-
-        if ("alarm" === item.key) {
-            setNullCondition()
-        }
-        sessionStorage.setItem("menuKey", item.key)
-        props.history.push(item.url)
-    }
-
-    const [notificationVisibility,setNotificationVisibility] = useState(false);
-
     const selectMenu = (url, key) => {
-        if (key === "host") {
-            localStorage.setItem("configurationUrl", `/host/${hostId}/configuration/monitor`)
-        }
-        if ("alarm" === key) {
-            setNullCondition()
-        }
         localStorage.setItem("url", url)
-        sessionStorage.setItem("menuKey", key)
+        localStorage.setItem("menuKey", key)
         props.history.push(url)
     }
 
-    function hrefHome() {
-        props.history.push("/home")
-    }
+    const {getSystemPermissions} = systemRoleStore;
+
+    useEffect(()=>{
+        getSystemPermissions(getUser().userId);
+        const type = localStorage.getItem('theme')
+        if(type){
+            setThemeType(type)
+        }
+    },[])
 
     /**
      * type三个参数为:
@@ -111,78 +103,91 @@ const HomeLayout = (props) => {
      */
     const changeTheme = type => {
         setThemeType(type)
-        localStorage.setItem('theme',type)
+        localStorage.setItem('theme', type)
     }
 
-    /**
-     * 跳转到系统设置
-     */
-    const goSet = () => {
-        props.history.push("/setting/home")
-        sessionStorage.setItem("menuKey", null)
-    };
-
     function showMainMenu() {
+        if (path.startsWith('/setting')) {
+            return props.children
+        }
         let pathname = history.location.pathname;
 
         if (!pathname.startsWith("/setting")) {
 
-            return <div className="frame-content-left">
-                <div className="kaelthas-title">
-                    <div className={'frame-header-logo'} onClick={() => hrefHome()}>
-                        <img src={productImg.kaelthas} alt={'logo'} style={{height: 32, width: 32}}/>
+            return (
+                <div
+                    className={`kaelthas-aside ${isExpand ? 'kaelthas-aside-expand' : 'kaelthas-aside-normal'} kaelthas-aside-${themeType}`}>
+                    <div className='aside-logo' onClick={() => history.push('/home')}>
+                        {
+                            isExpand ?
+                                <>
+                                    <img src={themeType === 'default' ? productImg.kaelthas : productWhiteImg.kaelthas}
+                                         height={24} width={24} alt={''}/>
+                                    <div className='aside-logo-text'>{productTitle.kaelthas}</div>
+                                </>
+                                :
+                                <img src={themeType === 'default' ? productImg.kaelthas : productWhiteImg.kaelthas}
+                                     height={32} width={32} alt={''}/>
+                        }
                     </div>
-                </div>
-                <div className="host-left">
-                    {
-                        routers.map((item, index) => {
-                            return (
-                                <div
-                                    key={index}
-                                    onClick={() => selectMenu(item.url, item.key)}
-                                    className={`leftMenu-host ${menuKey === item.key ? "border-left" : ""}`}
+                    <div className="aside-up">
+                        {
+                            routers.map(item => (
+                                <div key={item.key}
+                                     className={`aside-item ${menuKey === item.key ? "aside-select" : ""}`}
+                                     onClick={() => selectMenu(item.url, item.key)}
                                 >
+                                    {/*<div className="aside-item-icon">{item.icon}</div>*/}
                                     <svg className="host-svg-icon" aria-hidden="true">
                                         <use xlinkHref={`#icon-${item.key}`}></use>
                                     </svg>
-                                    <span className="leftMenu-text">
-                                                {item.name}
-                                            </span>
+                                    <div className={`aside-item-title ${isExpand ? "aside-item-title-left" :""}`}>{item.name}</div>
                                 </div>
-                            )
-                        })
-                    }
-                </div>
+                            ))
+                        }
+                    </div>
+                    <div className="aside-bottom">
+                        {
+                            isExpand ?
+                                <>
+                                    <div
+                                        className={`aside-item`}
+                                        onClick={() => history.push(`/setting/home`)}
+                                    >
+                                        <div className="aside-item-icon"><SettingOutlined/></div>
+                                        <div className="aside-item-title">设置</div>
+                                    </div>
+                                    <div
+                                        className={`aside-item`}
+                                        onClick={() => setNotificationVisibility(!notificationVisibility)}
+                                    >
+                                        <div className="aside-item-icon"><BellOutlined/></div>
+                                        <div className="aside-item-title">消息</div>
+                                    </div>
+                                </>
+                                :
+                                <>
+                                    <div className="aside-bottom-text text-icon" data-title-right={'设置'}
+                                         onClick={() => history.push(`/setting/home`)}
+                                    >
+                                        <SettingOutlined className='aside-bottom-text-icon'/>
+                                    </div>
+                                    <div className="aside-bottom-text text-icon" data-title-right={'消息'}
+                                         onClick={() => setNotificationVisibility(!notificationVisibility)}
+                                    >
+                                        <BellOutlined className='aside-bottom-text-icon'/>
+                                    </div>
+                                </>
 
-                <div className="aside-bottom">
-                    <div className="host-left-button"
-                         onClick={() => goSet()}
-                    >
-                        <Tooltip title="设置" placement="right">
-                            <svg aria-hidden="true" className="botton-icon">
-                                <use xlinkHref="#icon-iconsetsys"></use>
-                            </svg>
-                        </Tooltip>
-                    </div>
-                    <div
-                        className="host-left-button"
-                        onClick={()=>setNotificationVisibility(!notificationVisibility)}
-                    >
-                        <Tooltip title="消息" placement="right">
-                            <svg aria-hidden="true" className="icon-24">
-                                <use xlinkHref="#icon-bell"></use>
-                            </svg>
-                        </Tooltip>
-                    </div>
-                    <PortalMessage
-                        translateX={isExpand?200:75}
-                        history={history}
-                        unread={unread}
-                        setUnread={setUnread}
-                        visible={notificationVisibility}
-                        setVisible={setNotificationVisibility}
-                    />
-                    <div className="host-left-button">
+                        }
+                        <PortalMessage
+                            translateX={isExpand ? 200 : 75}
+                            history={history}
+                            unread={unread}
+                            setUnread={setUnread}
+                            visible={notificationVisibility}
+                            setVisible={setNotificationVisibility}
+                        />
                         <HelpLink
                             bgroup={'kaelthas'}
                             iconComponent={
@@ -197,59 +202,58 @@ const HomeLayout = (props) => {
                                     </div>
                             }
                         />
-                    </div>
-                    <div className="host-left-button">
                         <AppLink
-                            translateX={isExpand?200:75}
+                            translateX={isExpand ? 200 : 75}
                             iconComponent={
-                                isExpand?
+                                isExpand ?
                                     <div className='aside-item'>
-                                        {/*<div className="aside-item-icon">
-                                        <img src={themeType==='default'?menuBlack:menuWhite} alt="link" width="18" height="18">
-                                        </img>
-                                    </div>*/}
+                                        <div className="aside-item-icon">
+                                            <img src={themeType === 'default' ? menuBlack : menuWhite} alt="link"
+                                                 width="18" height="18">
+                                            </img>
+                                        </div>
                                         <div className="aside-item-title">应用</div>
                                     </div>
                                     :
                                     <div className="aside-bottom-text" data-title-right={'应用'}>
-                                        <img src={themeType==='default'?menuBack:menuWhite} alt="link" width="15" height="15"
+                                        <img src={themeType === 'default' ? menuBlack : menuWhite} alt="link" width="18"
+                                             height="18"
                                              className='aside-bottom-text-icon'
                                         >
                                         </img>
                                     </div>
                             }
                         />
-                    </div>
-
-                    <div className="host-left-button">
                         <AvatarLink
                             {...props}
                             changeTheme={changeTheme}
                             iconComponent={
                                 isExpand ?
                                     <div className='aside-item aside-item-user'>
-                                        <div className="aside-item-icon"><Profile /></div>
+                                        <div className="aside-item-icon"><Profile/></div>
                                         <div className="aside-item-title">{getUser().nickname || getUser().name}</div>
                                     </div>
                                     :
                                     <div className="aside-bottom-text" data-title-right={'个人中心'}>
-                                        <Profile />
+                                        <Profile/>
                                     </div>
                             }
                         />
                     </div>
+                    <div className="aside-hover-expand"/>
+                    <div className="aside-expand" onClick={() => setIsExpand(!isExpand)}>
+                        {isExpand ? <LeftCircleOutlined/> : <RightCircleOutlined/>}
+                    </div>
                 </div>
-            </div>;
+            )
         }
     }
 
     return (
         <Provider>
-            <div className="frame">
-                {/*<Header AppLink={<AppLink/>} HelpLink={<HelpLink/>} AvatarLink={<AvatarLink {...props}/>}
-                        VipType={<VipType/>}/>*/}
-                <div className="frame-content">
-                    {showMainMenu()}
+            <div className="kaelthas-layout">
+                {showMainMenu()}
+                <div className="kaelthas-layout-content">
                     {renderRoutes(route)}
                 </div>
             </div>
@@ -258,4 +262,4 @@ const HomeLayout = (props) => {
     )
 }
 
-export default HomeLayout;
+export default inject("systemRoleStore")(observer(HomeLayout));
