@@ -27,7 +27,7 @@ const Configs = (props) => {
             key: "trigger",
             encoded: "trigger",
         },
-        {
+        /*{
             name: '自定义SQL',
             icon: 'customize',
             url: `/db/${dbId}/configs/customize`,
@@ -40,7 +40,7 @@ const Configs = (props) => {
             url: `/db/${dbId}/configs/template`,
             key: "template",
             encoded: "template",
-        },
+        },*/
         {
             name: '图形',
             icon: 'graphics',

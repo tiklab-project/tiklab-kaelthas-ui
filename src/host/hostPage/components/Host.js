@@ -160,7 +160,7 @@ const Host = (props) => {
     const checkTab = async (value) => {
         setHostState(value)
 
-        if (value === 0) {
+        if (value === 2) {
             value = null
         }
 
@@ -174,7 +174,7 @@ const Host = (props) => {
     const availabilityTab = [
         {
             title: '全部',
-            key: 0,
+            key: 2,
             icon: "allHost"
         },
         {
@@ -184,13 +184,13 @@ const Host = (props) => {
         },
         {
             title: '不可用',
-            key: 2,
+            key: 0,
             icon: "noAvailableHost"
         }
     ];
 
     function hrefAddHost() {
-        props.history.push('/config/addHost');
+        props.history.push('/host/addHost');
     }
 
     return (

@@ -21,20 +21,15 @@ const AddGraphics = (props) => {
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        form.validateFields().then(async res => {
-            await createGraphics({
-                internetId: localStorage.getItem("internetId"),
-                name: res.name,
-                describe: res.describe,
-                monitorIds: res.monitorIds,
-                source: 1
-            });
-            await setSearchCondition({
-                internetId: localStorage.getItem("internetId")
-            })
-            await findGraphicsPage();
+    const handleOk = async () => {
+        const values = await form.validateFields();
+        values.internetId = localStorage.getItem("internetId");
+        values.source = 1;
+        await createGraphics(values);
+        await setSearchCondition({
+            internetId: localStorage.getItem("internetId")
         })
+        await findGraphicsPage();
         setIsModalOpen(false);
     };
 
@@ -77,7 +72,7 @@ const AddGraphics = (props) => {
                     preserve={false}
                 >
                     <Form.Item
-                        label="图表名称"
+                        label="图形名称"
                         name="name"
                         rules={[{required: true, message: '请输入图形名称!'}]}
                     >

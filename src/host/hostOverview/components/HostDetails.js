@@ -18,24 +18,14 @@ const HostDetails = (props) => {
 
     useEffect(async () => {
 
-        /*setNullCondition({
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1,
-            },
-            hostId: hostId
-        })
-
-        await findHostDynamicPage();*/
-
         const resData = await findHostById(hostId)
 
         switch (resData.state) {
             case 1:
-                resData.state = "启用";
+                resData.state = "开启";
                 break;
             case 2:
-                resData.state = "未启用";
+                resData.state = "关闭";
                 break;
             default:
                 resData.state = "未知";

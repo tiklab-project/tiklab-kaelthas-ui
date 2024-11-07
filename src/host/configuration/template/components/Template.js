@@ -250,9 +250,6 @@ const Template = (props) => {
                                     }}
                                 />
                             </Tabs.TabPane>
-                            <Tabs.TabPane tab="其他" key="3">
-                                其他信息
-                            </Tabs.TabPane>
                         </Tabs>
                     </Drawer>
                 </div>

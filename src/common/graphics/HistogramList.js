@@ -152,6 +152,7 @@ const HistogramList = (props) => {
                         let tagText = '<span style="display:inline-block;margin-right:5px;width:10px;height:10px;background-color:' + 'red' + '"></span>' + '告警:'
                         let textList = [];
                         let tooltipContent = params[0].name + '<br/>'; // 显示 X 轴的值
+
                         // 遍历每个数据项，构建对应的信息
                         params.forEach(function (item) {
                             // 添加颜色点

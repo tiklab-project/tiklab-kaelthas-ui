@@ -6,8 +6,10 @@ import {observer} from "mobx-react";
 const {Option} = Select
 
 
-const AddMonitor = (props) => {
+const AddMonitor = () => {
+
     const [form] = Form.useForm();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
@@ -16,31 +18,31 @@ const AddMonitor = (props) => {
 
     const [itemId, setItemId] = useState();
 
-    const {findMonitorItemByName, addMonitor, findMonitorCondition} = monitorStore;
+    const {
+        findMonitorItemByName,
+        createMonitor,
+        findMonitorCondition
+    } = monitorStore;
 
     const showModal = () => {
         setIsModalOpen(true);
     };
 
     const handleOk = async () => {
-        form.validateFields().then(async res => {
-            const resData = await addMonitor({
-                hostId: localStorage.getItem("hostId"),
-                name: res.monitorName,
-                type: res.monitorType,
-                monitorItemId: itemId,
-                expression: res.monitorExpression,
-                dataRetentionTime: res.dataRetentionPeriod,
-                source: 1,
-                monitorStatus: 1,
-            })
-            if (resData.data === null) {
-                message.warning("已经创建过相同监控项了!")
-            }else {
-                message.success("添加成功!")
-            }
-            await findMonitorCondition();
-        })
+        const values = await form.validateFields();
+        values.hostId = localStorage.getItem("hostId");
+        values.source = 1;
+        values.monitorStatus = 1;
+        values.monitorItemId = itemId;
+        const resData = await createMonitor(values);
+        if (resData.data === null) {
+            message.warning("已经创建过相同监控项了!")
+        }else {
+            message.success("添加成功!")
+        }
+
+        await findMonitorCondition();
+
         setIsModalOpen(false);
     };
     const handleCancel = () => {
@@ -85,10 +87,11 @@ const AddMonitor = (props) => {
                     form={form}
                     labelAlign={"left"}
                     preserve={false}
+                    initialValues={{status: 1}}
                 >
                     <Form.Item
                         label="监控项名称"
-                        name="monitorName"
+                        name="name"
                         rules={[{required: true, message: '请输入监控项名称!'}]}
                     >
                         <Input allowClear={true} placeholder="监控项名称"/>
@@ -96,7 +99,7 @@ const AddMonitor = (props) => {
 
                     <Form.Item
                         label="监控类型"
-                        name="monitorType"
+                        name="type"
                         rules={[{required: true, message: '监控项类型'}]}
                     >
                         <Select
@@ -112,7 +115,7 @@ const AddMonitor = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="监控指标"
-                        name="monitorExpression"
+                        name="expression"
                         rules={[{required: true, message: '监控项指标'}]}
                     >
                         <AutoComplete
@@ -129,10 +132,22 @@ const AddMonitor = (props) => {
                     </Form.Item>
                     <Form.Item
                         label="数据保留时间"
-                        name="dataRetentionPeriod"
+                        name="dataRetentionTime"
                         rules={[{required: true, message: '数据保留时间!'}]}
                     >
-                        <InputNumber min={1}/>
+                        <InputNumber min={1} max={31536000}/>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控项状态"
+                        name="status"
+                        rules={[{required: true, message: '请选择监控项状态!'}]}
+                    >
+                        <Select
+                            allowClear
+                        >
+                            <Option value={1} key={1}>{"开启"}</Option>
+                            <Option value={2} key={2}>{"关闭"}</Option>
+                        </Select>
                     </Form.Item>
                 </Form>
             </Modal>

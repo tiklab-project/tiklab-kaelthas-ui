@@ -20,7 +20,7 @@ const AddKubernetes = (props) => {
 
     const onFinish = async () => {
         let values = await form.validateFields();
-
+        values.usability = 0
         await createKbInfo(values)
         props.history.push('/kubernetes')
     };
@@ -43,7 +43,7 @@ const AddKubernetes = (props) => {
                 <div className="kubernetes-edit-box">
                     <div className="kubernetes-edit-box-header">
                         <div className="kubernetes-edit-box-header-title">
-                            新建数据库
+                            新建Kubernetes
                         </div>
                     </div>
                     <Form
@@ -51,8 +51,7 @@ const AddKubernetes = (props) => {
                         form={form}
                         preserve={false}
                         layout={"vertical"}
-                        {...layout}
-                        initialValues={{state: "1",port:6443}}
+                        initialValues={{status: "1",port:6443}}
                     >
                         <div className={"kubernetes-edit-form-input"}>
                             <Form.Item

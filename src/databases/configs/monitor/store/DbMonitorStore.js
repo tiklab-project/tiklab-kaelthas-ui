@@ -7,6 +7,8 @@ export class DbMonitorStore {
 
     @observable total = 1;
 
+    @observable expression = [];
+
     @observable searchCondition = {
         pageParam: {
             pageSize: 20,
@@ -61,6 +63,7 @@ export class DbMonitorStore {
     @action
     findItemListByType = async (value) => {
         const resData = await Service("/dbItem/findItemListByType",value)
+        this.expression = resData.data;
         return resData.data;
     }
 

@@ -93,6 +93,9 @@ const DbTrigger = (props) => {
             width:"15%",
             ellipsis:"true",
             render: (mediumId) => {
+                if (mediumId == null){
+                    return null;
+                }
                 const mediumIds = mediumId.split(",");
                 return (
                     <span>

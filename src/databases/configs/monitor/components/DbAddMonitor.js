@@ -1,5 +1,5 @@
 import {Modal, Form, Input, Select, InputNumber} from 'antd';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import dbMonitorStore from "../store/DbMonitorStore";
 
@@ -11,7 +11,8 @@ const DbAddMonitor = (props) => {
     const {
         findItemListByType,
         createDbMonitor,
-        findDbMonitorPage
+        findDbMonitorPage,
+        expression
     } = dbMonitorStore;
 
     const [form] = Form.useForm();
@@ -20,7 +21,7 @@ const DbAddMonitor = (props) => {
 
     const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
 
-    const [expression, setExpression] = useState([]);
+    // const [expression, setExpression] = useState([]);
 
     const dbId = localStorage.getItem("dbId");
 
@@ -48,13 +49,13 @@ const DbAddMonitor = (props) => {
                 const postgresql = await findItemListByType({
                     dbType:"Postgresql"
                 });
-                setExpression(postgresql)
+                // setExpression(postgresql)
                 break
             case 2:
                 const mysql = await findItemListByType({
                     dbType:"MYSQL"
                 });
-                setExpression(mysql)
+                // setExpression(mysql)
                 break
             case 3:
                 break
@@ -104,7 +105,7 @@ const DbAddMonitor = (props) => {
                         <Input allowClear={true} placeholder="不输入默认采集所有数据库总和指标"/>
                     </Form.Item>
 
-                    <Form.Item
+                    {/*<Form.Item
                         label="监控类型"
                         name="monitorType"
                         rules={[{required: true, message: '监控项类型'}]}
@@ -122,7 +123,7 @@ const DbAddMonitor = (props) => {
                                 ))
                             }
                         </Select>
-                    </Form.Item>
+                    </Form.Item>*/}
 
                     <Form.Item
                         label="监控指标"

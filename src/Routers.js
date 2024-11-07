@@ -3,7 +3,6 @@ import AsyncComponent from "./common/lazy/AsyncComponent";
 import {Redirect} from "react-router-dom";
 import {
     MessageNotice,
-    MessageSendType,
     MessageType,
     ProjectMessageNotice,
     DomainMessageNotice,
@@ -12,9 +11,14 @@ import {
     TodoTemp,
     TodoType
 } from "tiklab-message-ui";
+
+import {
+    MessageSendType,
+} from "tiklab-message-extension-ui";
+
 import {ProductAuth} from "tiklab-licence-ui";
-import {ExcludeProductUser, NotFound} from "tiklab-eam-ui";
-import {SystemFeature, ProjectFeature, SystemRole, ProjectRole,ProjectVirtualRole} from "tiklab-privilege-ui";
+import {ExcludeProductUser} from "tiklab-eam-ui";
+import {SystemFeature, ProjectFeature, SystemRole, ProjectRole, ProjectVirtualRole} from "tiklab-privilege-ui";
 import {Orga, User, UserGroup, Directory} from "tiklab-user-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 
@@ -100,7 +104,8 @@ const InternetSetting = AsyncComponent(() => import('./Internet/setting/common/S
 const InternetProject = AsyncComponent(() => import('./Internet/setting/projectInformation/components/ProjectInformation'))
 const InternetMember = AsyncComponent(() => import('./Internet/setting/member/Member'))
 const InternetPermissions = AsyncComponent(() => import('./Internet/setting/permissions/Permissions'))
-
+const SysException = AsyncComponent(() => import('./login/SysExceptionContent'))
+const LoginRpw = AsyncComponent(() => import('./login/LoginRpwContent'))
 
 
 const Routes = [
@@ -112,28 +117,38 @@ const Routes = [
         component: Login,
     },
     {
+        component: LoginRpw,
+        exact:true,
+        path: '/loginRpw'
+    },
+    {
         path: "/logout",
         exact: true,
         component: Logout,
+    },
+    {
+        path: "/noAuth",
+        exact: true,
+        render: (props) => {
+            return <ExcludeProductUser {...props}/>
+        }
+    },
+    {
+        path: "/500",
+        exact: true,
+        component: SysException,
     },
     {
         path: "/",
         exact: true,
         component: () => <Redirect to={"/home"}/>,
     },
-    {
+    /*{
         path: "/index/404",
         render: (props) => {
             return <NotFound {...props}/>
         }
-    },
-    {
-        path: "/no-auth",
-        exact: true,
-        render: (props) => {
-            return <ExcludeProductUser {...props}/>
-        }
-    },
+    },*/
 
     {
         path: "/",
@@ -268,12 +283,12 @@ const Routes = [
                     {
                         path: "/setting/messageNotice",
                         key: 'MessageNotice',
-                        render: (props) => <MessageNotice bgroup={"kaelthas"} {...props}/>
+                        render: () => <MessageNotice bgroup={"kaelthas"} />
                     },
                     {
                         path: "/setting/messageSendType",
                         key: 'MessageSendType',
-                        render: (props) => <MessageSendType bgroup={"kaelthas"} {...props}/>
+                        render: () => <MessageSendType bgroup={"kaelthas"}/>
                     },
 
 
@@ -286,16 +301,6 @@ const Routes = [
                         path: "/setting/DomainMessageNotice",
                         key: 'DomainMessageNotice',
                         render: () => <DomainMessageNotice bgroup={"kaelthas"}/>
-                    },
-                    {
-                        path: "/setting/MyTodoTask",
-                        key: 'MyTodoTask',
-                        render: () => <MyTodoTask bgroup={"kaelthas"}/>
-                    },
-                    {
-                        path: "/setting/Task",
-                        key: 'Task',
-                        render: () => <Task bgroup={"kaelthas"}/>
                     },
                     {
                         path: "/setting/TodoTemp",
@@ -329,7 +334,6 @@ const Routes = [
                     },
 
 
-
                     // 安全
                     {
                         path: "/setting/backups",
@@ -338,7 +342,7 @@ const Routes = [
                         render: (props) => <BackupRestore {...props} />
                     },
                     {
-                        path: "/setting/myLog",
+                        path: "/setting/log",
                         key: "directory",
                         exact: true,
                         render: (props) => <MyLog {...props} bgroup={"kaelthas"}/>
@@ -409,7 +413,6 @@ const Routes = [
                         exact: true,
                     },
                     {
-
                         path: "/setting/logType",
                         render: (props) => <LogType {...props} bgroup={"kaelthas"}/>,
                         exact: true,

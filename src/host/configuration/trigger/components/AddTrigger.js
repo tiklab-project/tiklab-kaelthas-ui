@@ -69,7 +69,12 @@ const AddTrigger = (props) => {
 
     const handleOk = async () => {
 
-        form.validateFields().then(async res => {
+        const values = await form.validateFields();
+        values.hostId = localStorage.getItem("hostId");
+
+        const resData = await addTrigger(values);
+
+        /*form.validateFields().then(async res => {
             const resData = await addTrigger({
                 hostId: localStorage.getItem("hostId"),
                 name: res.name,
@@ -87,13 +92,13 @@ const AddTrigger = (props) => {
                 scheme: res.scheme
             });
 
-            if (resData?.data !== null){
-                message.success("添加成功!")
-            }else {
-                message.warn("添加失败!")
-            }
-            await getTriggerList();
-        })
+        })*/
+        if (resData?.data !== null){
+            message.success("添加成功!")
+        }else {
+            message.warn("添加失败!")
+        }
+        await getTriggerList();
         setIsModalOpen(false);
     };
 
@@ -143,6 +148,7 @@ const AddTrigger = (props) => {
                     form={form}
                     labelAlign={"left"}
                     preserve={false}
+                    initialValues={{state: 1}}
                 >
                     <Form.Item
                         label="触发器名称"
@@ -199,7 +205,7 @@ const AddTrigger = (props) => {
                     }
                     <Form.Item
                         label="消息通知方案"
-                        name="mediumType"
+                        name="mediumIds"
                         rules={[
                             {
                                 required: true,
@@ -252,6 +258,18 @@ const AddTrigger = (props) => {
                         ]}
                     >
                         <Input placeholder="问题描述"/>
+                    </Form.Item>
+                    <Form.Item
+                        label="监控项状态"
+                        name="state"
+                        rules={[{required: true, message: '请选择监控项状态!'}]}
+                    >
+                        <Select
+                            allowClear
+                        >
+                            <Option value={1} key={1}>{"开启"}</Option>
+                            <Option value={2} key={2}>{"关闭"}</Option>
+                        </Select>
                     </Form.Item>
                 </Form>
             </Modal>

@@ -13,7 +13,7 @@ const KuGraphics = (props) => {
 
     const {
         findKuGraphicsPage,
-        findAllMonitor,
+        findKuMonitor,
         graphicsList,
         total,
         searchCondition,
@@ -33,7 +33,7 @@ const KuGraphics = (props) => {
             kuId: localStorage.getItem("kuId")
         })
 
-        await findAllMonitor();
+        await findKuMonitor(localStorage.getItem("kuId"));
 
         await findKuGraphicsPage();
     }, []);

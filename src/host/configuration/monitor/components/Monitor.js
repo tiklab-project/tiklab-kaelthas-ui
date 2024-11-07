@@ -129,7 +129,7 @@ const Monitor = (props) => {
             title: '监控项名称',
             dataIndex: 'name',
             id: 'name',
-            width: "20%",
+            width: "10%",
             ellipsis: "true",
             render: (name, record) => {
                 let text;

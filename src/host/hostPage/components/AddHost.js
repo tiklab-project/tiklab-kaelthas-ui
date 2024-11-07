@@ -24,23 +24,17 @@ const AddHost = (props) => {
     }, []);
 
     const onFinish = async () => {
+        const fields = await form.validateFields();
 
-        form.validateFields().then(async res => {
-            await addHost({
-                name: res.name,
-                ip: res.ip,
-                state: res.isOpen,
-                hostGroupId: res.hostGroupId,
-                templateId: res.templateId,
-            });
-        })
+        fields.usability = 0;
+        await addHost(fields);
 
         await findPageHost()
-        props.history.push('/config')
+        props.history.push('/host')
     };
 
     const onCancel = () => {
-        props.history.push('/config')
+        props.history.push('/host')
     };
 
 
@@ -164,15 +158,15 @@ const AddHost = (props) => {
                         <div className={"ws-edit-form-input"}>
                             <Form.Item
                                 label="是否开启"
-                                name="isOpen"
-                                rules={[{required: false, message: '是否开启!'}]}
+                                name="state"
+                                rules={[{required: true, message: '是否开启!'}]}
                             >
                                 <Select
                                     placeholder="是否开启"
                                     allowClear
                                 >
-                                    <Option key={1} value="1">开启</Option>
-                                    <Option key={2} value="2">关闭</Option>
+                                    <Option key={1} value={1}>开启</Option>
+                                    <Option key={2} value={0}>关闭</Option>
                                 </Select>
                             </Form.Item>
                         </div>

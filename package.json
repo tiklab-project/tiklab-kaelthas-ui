@@ -175,6 +175,7 @@
         "react-router": "^5.2.0",
         "react-router-config": "^5.1.1",
         "react-router-dom": "^5.2.0",
+        "thoughtware-eam-ui": "^1.0.2",
         "tiklab-core-ui": "^1.0.3",
         "tiklab-eam-cloud-ui": "^1.0.3",
         "tiklab-eam-ui": "^1.0.3",

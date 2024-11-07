@@ -28,6 +28,7 @@ const DbUpdateGraphics = (props) => {
             form.validateFields().then(async () => {
                 let obj = {
                     id: columnData.id,
+                    dbId:localStorage.getItem("dbId")
                 };
                 obj[field] = values[field];
 
@@ -64,9 +65,9 @@ const DbUpdateGraphics = (props) => {
                 labelAlign={"left"}
             >
                 <Form.Item
-                    label="图表名称"
+                    label="图形名称"
                     name="name"
-                    rules={[{required: true, message: '请输入图表名称!'}]}
+                    rules={[{required: true, message: '请输入图形名称!'}]}
                 >
                     <Input onBlur={() =>handBlur('name')}/>
                 </Form.Item>

@@ -82,7 +82,7 @@ const GlobalSettingLayout = (props) => {
                 },
                 {
                     title: "操作日志",
-                    id: "/setting/myLog",
+                    id: "/setting/log",
                 }
             ]
         },

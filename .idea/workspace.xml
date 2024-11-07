@@ -5,7 +5,56 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9cf9de87-90b9-46fb-8e3c-9b7a4daf4db8" name="Changes" comment="仓库地址修改">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/login/LoginRpwContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/login/SysExceptionContent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Internet/config/graphics/components/AddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Internet/config/graphics/components/AddGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Internet/config/graphics/components/UpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Internet/config/graphics/components/UpdateGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Stores.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/graphics/HistogramList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/graphics/HistogramList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/common/ConfigHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/common/ConfigHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/common/Configs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/common/Configs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbAddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbAddGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbUpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbUpdateGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbAddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbAddMonitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbUpdateMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbUpdateMonitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/Monitor.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/store/DbMonitorStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/store/DbMonitorStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/configs/trigger/components/DbTrigger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/trigger/components/DbTrigger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/components/AddDatabases.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/components/AddDatabases.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/components/Databases.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/components/Databases.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/store/DatabasesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/store/DatabasesStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/dbAlarm/components/DBAlarm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/dbAlarm/components/DBAlarm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/databases/dbDetails/components/DbDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/dbDetails/components/DbDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/home/components/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/home/components/HomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/common/components/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/common/components/TopMenu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/components/AddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/components/AddGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/components/UpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/components/UpdateGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/store/GraphicsStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/store/GraphicsStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/components/AddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/components/AddMonitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/components/Monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/components/Monitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/store/MonitorStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/store/MonitorStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/template/components/AddTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/template/components/AddTemplate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/template/components/Template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/template/components/Template.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/configuration/trigger/components/AddTrigger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/trigger/components/AddTrigger.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/hostOverview/components/HostDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostOverview/components/HostDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/hostPage/components/AddHost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostPage/components/AddHost.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/hostPage/components/Host.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostPage/components/Host.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/host/setting/projectInformation/components/ProjectInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/setting/projectInformation/components/ProjectInformation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/common/KuConfigHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/common/KuConfigHeader.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuAddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuAddGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuUpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuUpdateGraphics.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/store/KuGraphicsStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/store/KuGraphicsStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/configs/monitor/components/KuAddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/monitor/components/KuAddMonitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/kuAlarm/components/KuAlarm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/kuAlarm/components/KuAlarm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/kuPage/components/AddKubernetes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/kuPage/components/AddKubernetes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/k8s/setting/kuProject/components/KuProject.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/setting/kuProject/components/KuProject.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/common/GlobalSettingLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/common/GlobalSettingLayout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,31 +67,39 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2nS8uIrsU9MFT0hfRrhQv00gKvk" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/code/companycode/xmonitor/tiklab-kaelthas-ee-ui&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "D:/code/companycode/tiklab-postin-ui",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="npm.prod">
     <configuration name="prod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -80,8 +137,28 @@
       <option name="presentableId" value="Default" />
       <updated>1728955338470</updated>
       <workItem from="1728955340513" duration="9017000" />
-      <workItem from="1728972310081" duration="543000" />
+      <workItem from="1728972310081" duration="2632000" />
+      <workItem from="1729218950673" duration="11397000" />
+      <workItem from="1729246303943" duration="20489000" />
+      <workItem from="1729645243326" duration="25105000" />
     </task>
+    <task id="LOCAL-00001" summary="仓库地址修改">
+      <option name="closed" value="true" />
+      <created>1728972979794</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728972979794</updated>
+    </task>
+    <task id="LOCAL-00002" summary="仓库地址修改">
+      <option name="closed" value="true" />
+      <created>1728983835966</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1728983835966</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

@@ -26,9 +26,6 @@ echarts.use([
 const HomePage = (props) => {
 
     const {
-        findHomeRecentList,
-        findDynamicList,
-        dynamicList,
         updateHostRecent,
         findAlarmTypeNum,
         leave,
@@ -165,7 +162,7 @@ const HomePage = (props) => {
 
     function hrefHost() {
         sessionStorage.setItem("menuKey", "host")
-        props.history.push(`/configuration`)
+        props.history.push(`/host`)
     }
 
     function hrefAlarm() {

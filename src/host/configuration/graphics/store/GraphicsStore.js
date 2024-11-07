@@ -63,15 +63,13 @@ export class GraphicsStore {
     //新增
     @action
     addGraphics = async (option) =>{
-        const resData = await Service("/graphics/addGraphics",option);
-        return resData;
+        return await Service("/graphics/addGraphics", option);
     }
 
     //修改
     @action
     updateGraphics = async (option) =>{
-        const resData = await Service("/graphics/updateGraphics",option);
-        return resData;
+        return await Service("/graphics/updateGraphics", option);
     }
 
     //删除

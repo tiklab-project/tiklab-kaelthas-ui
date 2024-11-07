@@ -17,6 +17,7 @@ export class DatabasesStore {
 
     @observable dbObj;
 
+    @observable dbList;
 
     @action
     setSearchCondition = (value) => {
@@ -75,6 +76,7 @@ export class DatabasesStore {
     @action
     findDropDown = async () =>{
         const resData = await Axios.post("/dbInfo/findDropDown")
+        this.dbList = resData.data
         return resData.data
     }
 

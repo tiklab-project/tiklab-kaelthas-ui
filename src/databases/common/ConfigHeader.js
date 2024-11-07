@@ -4,16 +4,21 @@ import {withRouter} from "react-router-dom";
 import {Dropdown, Tooltip} from "antd";
 import {CaretDownOutlined} from "@ant-design/icons";
 import databasesStore from "../databasesPage/store/DatabasesStore";
+import {observer} from "mobx-react";
 
 const ConfigHeader = (props) => {
 
-    const {findDropDown,updateDbInfo} = databasesStore;
+    const {
+        findDropDown,
+        updateDbInfo,
+        dbList
+    } = databasesStore;
 
     let dbId = localStorage.getItem('dbId');
 
     let url = localStorage.getItem('url');
 
-    const [dbList,setDbList] = useState();
+    // const [dbList,setDbList] = useState();
 
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
@@ -70,12 +75,13 @@ const ConfigHeader = (props) => {
 
     async function dropDownList() {
         const dbs = await findDropDown();
-        setdb(dbs)
+        setDbList(dbs)
     }
 
     async function changeHost(item) {
         if (dbId !== item.id) {
             await updateDbInfo(item)
+            localStorage.setItem("dbType", item.dbType);
             localStorage.setItem("dbId", item.id);
             localStorage.setItem("dbName", item?.name);
             localStorage.setItem("url", `/db/${item.id}/dbDetails`);
@@ -161,4 +167,4 @@ const ConfigHeader = (props) => {
     );
 };
 
-export default withRouter(ConfigHeader);
+export default withRouter(observer(ConfigHeader));

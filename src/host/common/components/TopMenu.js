@@ -76,7 +76,7 @@ const TopMenu = (props) => {
     }
 
     function goBackHost() {
-        props.history.push("/config")
+        props.history.push("/host")
     }
 
     return (

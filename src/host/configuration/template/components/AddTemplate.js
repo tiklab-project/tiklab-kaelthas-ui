@@ -18,7 +18,17 @@ const AddMonitor = (props) => {
         setIsModalOpen(true);
     };
     const handleOk = async () => {
-        form.validateFields().then(async res => {
+        const values = await form.validateFields();
+        values.hostId = localStorage.getItem("hostId");
+        values.monitorSource = 2;
+        values.monitorStatus = 1;
+
+        await addTemplate(values);
+
+        const resData = await findTemplateByMonitor();
+        setDataList([...resData]);
+
+        /*form.validateFields().then(async res => {
             await addTemplate({
                 hostId: localStorage.getItem("hostId"),
                 templateId: res.templateId,
@@ -27,7 +37,7 @@ const AddMonitor = (props) => {
             })
             const resData = await findTemplateByMonitor();
             setDataList([...resData]);
-        })
+        })*/
         setIsModalOpen(false);
     };
     const handleCancel = () => {

@@ -55,7 +55,7 @@ const DbDetails = () => {
                                         <use xlinkHref="#icon-hostState"></use>
                                     </svg>
                                     <div className="box-db-details-text">
-                                        <div className="item-top">{dbObj?.state === 1 ? "正常":"异常"}</div>
+                                        <div className="item-top">{dbObj?.state === 1 ? "开启":"关闭"}</div>
                                         <div className="item-bottom">数据库状态</div>
                                     </div>
                                 </div>

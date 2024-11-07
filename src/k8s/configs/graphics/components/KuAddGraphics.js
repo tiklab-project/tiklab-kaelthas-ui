@@ -74,7 +74,7 @@ const KuAddGraphics = (props) => {
                     preserve={false}
                 >
                     <Form.Item
-                        label="图表名称"
+                        label="图形名称"
                         name="name"
                         rules={[{required: true, message: '请输入图形名称!'}]}
                     >

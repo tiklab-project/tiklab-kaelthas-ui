@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import "./Monitor.scss"
+import "./DbMonitor.scss"
 import {Col, Form, Input, Row, Space, Table, Tooltip} from "antd";
 import {withRouter} from "react-router-dom";
 import {SearchOutlined} from "@ant-design/icons";
@@ -9,7 +9,7 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 import dbMonitorStore from "../store/DbMonitorStore";
 import DbAddMonitor from "./DbAddMonitor";
 
-const DbMonitor = (props) => {
+const DbMonitor = () => {
 
     const {
         findDbMonitorPage,
@@ -18,7 +18,8 @@ const DbMonitor = (props) => {
         setSearchNullCondition,
         total,
         deleteDbMonitor,
-        searchCondition
+        searchCondition,
+        findItemListByType
     } = dbMonitorStore;
 
     const [monitorSource, setMonitorSource] = useState(null);
@@ -34,6 +35,10 @@ const DbMonitor = (props) => {
             dbId: localStorage.getItem("dbId")
         })
         await findDbMonitorPage()
+
+        await findItemListByType({
+            dbType: localStorage.getItem("dbType")
+        });
     }, []);
 
     const searchName = async (e) => {

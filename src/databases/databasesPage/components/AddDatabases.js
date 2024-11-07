@@ -25,6 +25,7 @@ const AddDatabases = (props) => {
 
     const onFinish = async () => {
         let values = await form.validateFields();
+        values.usability = 0;
 
         await createDbInfo(values)
         props.history.push('/db')
@@ -33,27 +34,6 @@ const AddDatabases = (props) => {
     const onCancel = () => {
         props.history.push('/db')
     };
-
-    function SelectChangeDBType(value) {
-
-        let driverName = '';
-        let driverUrl = '';
-        let testSql = '';
-
-        switch (value) {
-            case "PostgreSQL":
-                driverName = 'org.postgresql.Driver';
-                driverUrl = 'jdbc:postgresql://127.0.0.1:5432/xmonitor';
-                testSql = 'select version()';
-                break;
-        }
-
-        form.setFieldsValue({
-            driverName: driverName,
-            driverUrl: driverUrl,
-            testSql:testSql
-        });
-    }
 
     async function testSql() {
         let values = await form.validateFields();
@@ -89,7 +69,7 @@ const AddDatabases = (props) => {
                         preserve={false}
                         layout={"vertical"}
                         {...layout}
-                        initialValues={{state: "1"}}
+                        initialValues={{state: 1}}
                     >
                         <div className={"db-edit-form-input"}>
                             <Form.Item
@@ -111,12 +91,12 @@ const AddDatabases = (props) => {
                         </div>
                         <div className={"db-edit-form-input"}>
                             <Form.Item
-                                label="数据库类型和版本"
+                                label="数据库类型"
                                 name="dbType"
-                                rules={[{required: true, message: '请输入数据库类型和版本!'}]}
+                                rules={[{required: true, message: '请输入数据库类型!'}]}
                             >
                                 <Select
-                                    placeholder="请选择数据库类型和版本"
+                                    placeholder="请选择数据库类型"
                                     key="selectGroup"
                                     allowClear
                                     showSearch
@@ -176,8 +156,8 @@ const AddDatabases = (props) => {
                                     placeholder="是否开启"
                                     allowClear
                                 >
-                                    <Option key={1} value="1">开启</Option>
-                                    <Option key={2} value="2">关闭</Option>
+                                    <Option key={1} value={1}>开启</Option>
+                                    <Option key={2} value={0}>关闭</Option>
                                 </Select>
                             </Form.Item>
                         </div>

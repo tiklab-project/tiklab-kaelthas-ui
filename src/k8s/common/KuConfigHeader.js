@@ -77,8 +77,8 @@ const KuConfigHeader = (props) => {
             await updateKbInfo(item)
             localStorage.setItem("kuId", item.id);
             localStorage.setItem("kuName", item?.name);
-            localStorage.setItem("url", `/kuList/${item.id}/kuDetails`);
-            props.history.push(`/kuList/${item.id}/kuDetails`);
+            localStorage.setItem("url", `/kubernetes/${item.id}/monitoring`);
+            props.history.push(`/kubernetes/${item.id}/monitoring`);
         }
     }
 

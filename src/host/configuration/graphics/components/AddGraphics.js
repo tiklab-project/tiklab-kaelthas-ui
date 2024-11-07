@@ -4,7 +4,7 @@ import graphicsStore from "../store/GraphicsStore";
 import {observer} from "mobx-react";
 
 const {Option} = Select
-const AddGraphics = (props) => {
+const AddGraphics = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -21,19 +21,14 @@ const AddGraphics = (props) => {
         setIsModalOpen(true);
     };
 
-    const handleOk = () => {
-        form.validateFields().then(async res => {
-            await addGraphics({
-                hostId: localStorage.getItem("hostId"),
-                name: res.name,
-                describe: res.describe,
-                monitorIds: res.monitorIds,
-            });
-            await setSearchCondition({
-                hostId: localStorage.getItem("hostId")
-            })
-            await findGraphics();
+    const handleOk = async () => {
+        const values = await form.validateFields();
+        values.hostId = localStorage.getItem("hostId");
+        await addGraphics(values);
+        await setSearchCondition({
+            hostId: localStorage.getItem("hostId")
         })
+        await findGraphics();
         setIsModalOpen(false);
     };
 
@@ -41,14 +36,14 @@ const AddGraphics = (props) => {
         setIsModalOpen(false);
     };
 
-    function changeDataType(value, option) {
+    async function changeDataType(value, option) {
         const dataType = [];
         option && option.map(item => {
             dataType.push(item?.children[4])
         })
         const set = [...new Set(dataType)]
         if (set.length !== 1) {
-            message.warning('选择了不同数据类型的监控项')
+            await message.warning('选择了不同数据类型的监控项')
         }
     }
 
@@ -76,7 +71,7 @@ const AddGraphics = (props) => {
                     preserve={false}
                 >
                     <Form.Item
-                        label="图表名称"
+                        label="图形名称"
                         name="name"
                         rules={[{required: true, message: '请输入图形名称!'}]}
                     >

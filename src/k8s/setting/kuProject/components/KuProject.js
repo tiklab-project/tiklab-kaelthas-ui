@@ -83,7 +83,6 @@ const KuProject = (props) => {
 
     //删除主机
     async function deleteByHost() {
-        await deleteKuInfo(localStorage.getItem("kuId"))
         setIsModalVisible(true)
     }
 

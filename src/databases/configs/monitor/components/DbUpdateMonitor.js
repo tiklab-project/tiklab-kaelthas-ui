@@ -1,6 +1,6 @@
-import {AutoComplete, Drawer, Form, Input, InputNumber, message, Select} from 'antd';
-import React, {useEffect, useState} from 'react';
-import monitorStore from "../store/DbMonitorStore";
+import {Drawer, Form, Input, InputNumber, message, Select} from 'antd';
+import React from 'react';
+import dbMonitorStore from "../store/DbMonitorStore";
 
 const {Option} = Select
 
@@ -13,15 +13,9 @@ const DbUpdateMonitor = (props) => {
     const {
         updateDbMonitor,
         findDbMonitorPage,
-        findItemListByType
-    } = monitorStore;
-
-    const [expression, setExpression] = useState([]);
-
-    useEffect(async () => {
-        const newVar = await findItemListByType({dbType:null});
-        setExpression(newVar)
-    }, []);
+        findItemListByType,
+        expression
+    } = dbMonitorStore;
 
     const handleOk = () => {
         setIsModalOpen(false);
@@ -110,7 +104,7 @@ const DbUpdateMonitor = (props) => {
                     <Input allowClear={true} onBlur={() => handleBlur('datName')}/>
                 </Form.Item>
 
-                <Form.Item
+                {/*<Form.Item
                     label="监控类型"
                     name="monitorType"
                     rules={[{required: true, message: '监控项类型'}]}
@@ -128,7 +122,7 @@ const DbUpdateMonitor = (props) => {
                             ))
                         }
                     </Select>
-                </Form.Item>
+                </Form.Item>*/}
 
                 <Form.Item
                     label="监控指标"

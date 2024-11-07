@@ -164,7 +164,7 @@ const KuAddMonitor = (props) => {
                         name="retentionTime"
                         rules={[{required: true, message: '数据保留时间!'}]}
                     >
-                        <InputNumber min={1}/>
+                        <InputNumber min={1} max={31536000}/>
                     </Form.Item>
                     <Form.Item
                         label="监控项状态"

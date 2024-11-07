@@ -90,7 +90,7 @@ const KuAlarm = (props) => {
         })
 
         setSearchCondition({
-            kuId:localStorage.getItem("kuId"),
+            hostId:localStorage.getItem("kuId"),
             status:null,
             machineType: 3,
             severityLevel: null

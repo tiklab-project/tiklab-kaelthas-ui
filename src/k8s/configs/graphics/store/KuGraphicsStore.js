@@ -42,8 +42,10 @@ export class KuGraphicsStore {
 
     //根据数据库id查询监控项列表
     @action
-    findAllMonitor = async () => {
-        const list = await Service("/kuMonitor/findAllKuMonitor", this.searchCondition)
+    findKuMonitor = async (kuId) => {
+        const formData = new FormData();
+        formData.append("kuId",kuId);
+        const list = await Service("/kuMonitor/findAllKuMonitor", formData)
         this.monitorList = list.data
         return list.data;
     }
