@@ -728,6 +728,7 @@ $aside-border-color: #e4e4e4;
         height: 100%;
         flex: 1;
         overflow: auto;
+        min-width: 576px;
     }
 
     .kaelthas-aside{

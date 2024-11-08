@@ -4,8 +4,6 @@ import {renderRoutes} from "react-router-config";
 import "./HomeLayout.scss";
 
 import {inject, observer, Provider} from 'mobx-react';
-import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
-import {Tooltip} from "antd";
 import {useHistory} from "react-router";
 import {getUser, productTitle, productImg, productWhiteImg} from "tiklab-core-ui";
 import PortalMessage from "./PortalMessage";
@@ -20,7 +18,6 @@ import {
 import menuBlack from "../../assets/images/menu-black.png"
 import menuWhite from "../../assets/images/menu-white.png"
 import Profile from "../component/profile/Profile";
-import LeftMenuCommon from "./LeftMenuCommon/LeftMenuCommon";
 
 const HomeLayout = (props) => {
 

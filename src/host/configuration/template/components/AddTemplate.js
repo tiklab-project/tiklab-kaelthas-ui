@@ -4,11 +4,13 @@ import templateStore from "../store/TemplateStore";
 
 const {Option} = Select
 
-const AddMonitor = (props) => {
-    const {dataList, setDataList} = props;
+const AddMonitor = () => {
+
     const [form] = Form.useForm();
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const {addTemplate, getTemplateAll, findTemplateByMonitor, templateList} = templateStore
+
+    const {addTemplate, getTemplateAll, findTemplateByMonitor, templateList} = templateStore;
 
     useEffect(async () => {
         await getTemplateAll();
@@ -25,19 +27,8 @@ const AddMonitor = (props) => {
 
         await addTemplate(values);
 
-        const resData = await findTemplateByMonitor();
-        setDataList([...resData]);
+        await findTemplateByMonitor();
 
-        /*form.validateFields().then(async res => {
-            await addTemplate({
-                hostId: localStorage.getItem("hostId"),
-                templateId: res.templateId,
-                monitorSource: 2,
-                monitorStatus: 1
-            })
-            const resData = await findTemplateByMonitor();
-            setDataList([...resData]);
-        })*/
         setIsModalOpen(false);
     };
     const handleCancel = () => {

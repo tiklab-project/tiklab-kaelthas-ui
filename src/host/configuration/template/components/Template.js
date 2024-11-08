@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import "./Template.scss"
 import AddTemplate from "./AddTemplate";
-import {Col, Drawer, Input, Modal, Row, Space, Table, Tabs} from "antd";
+import {Col, Drawer, Input, Row, Space, Table, Tabs} from "antd";
 import templateStore from "../store/TemplateStore";
 import {withRouter} from "react-router-dom";
 import "../../../../common/styles/_tabStyle.scss"
@@ -11,8 +11,6 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 
 const Template = (props) => {
-
-    const [dataList, setDataList] = useState([]);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -38,12 +36,7 @@ const Template = (props) => {
             monitorSource: 2
         })
 
-        const resData = await findTemplateByMonitor();
-        if (resData === null) {
-            setDataList([])
-        } else {
-            setDataList([...resData])
-        }
+        await findTemplateByMonitor();
     }, []);
 
 
@@ -54,9 +47,7 @@ const Template = (props) => {
             templateId: id
         });
 
-        const resData = await findTemplateByMonitor();
-
-        setDataList([...resData]);
+        await findTemplateByMonitor();
     };
 
     const searchName = async (event) => {
@@ -65,15 +56,11 @@ const Template = (props) => {
 
         setSearchCondition({name: name});
 
-        const resData = await findTemplateByMonitor();
-
-        setDataList([...resData])
-
+        await findTemplateByMonitor();
     };
 
     const handleOk = async () => {
         setIsModalOpen(false);
-
     };
 
     async function showTemplateDetails(record) {
@@ -90,7 +77,6 @@ const Template = (props) => {
         })
 
         await findMonitorByTemplateId();
-
     }
 
     const columns = [
@@ -98,8 +84,8 @@ const Template = (props) => {
             title: '模板名称',
             dataIndex: 'name',
             id: 'name',
-            width:"40%",
-            ellipsis:"true",
+            width: "40%",
+            ellipsis: "true",
             render: (name, record) => <span style={{cursor: "pointer"}}
                                             onClick={() => showTemplateDetails(record)}>{name}</span>,
         },
@@ -107,8 +93,8 @@ const Template = (props) => {
             title: '监控项数量',
             dataIndex: 'monitorNum',
             id: 'monitorNum',
-            width:"40%",
-            ellipsis:"true",
+            width: "40%",
+            ellipsis: "true",
         },
         /*{
             title: '触发器数量',
@@ -120,8 +106,8 @@ const Template = (props) => {
         {
             title: '操作',
             id: 'action',
-            width:"20%",
-            ellipsis:"true",
+            width: "20%",
+            ellipsis: "true",
             render: (_, record) => (
                 <Space size="middle">
                     <HideDelete
@@ -182,8 +168,7 @@ const Template = (props) => {
                 currentPage: pagination.current,
             }
         })
-        const resData = await findTemplateByMonitor();
-        setDataList([...resData])
+        await findTemplateByMonitor();
     }
 
     return (

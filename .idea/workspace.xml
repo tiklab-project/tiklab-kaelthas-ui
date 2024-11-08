@@ -4,57 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9cf9de87-90b9-46fb-8e3c-9b7a4daf4db8" name="Changes" comment="仓库地址修改">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/login/LoginRpwContent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/login/SysExceptionContent.js" afterDir="false" />
+    <list default="true" id="9cf9de87-90b9-46fb-8e3c-9b7a4daf4db8" name="Changes" comment="一级导航栏主机修改,宽度修改">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Internet/config/graphics/components/AddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Internet/config/graphics/components/AddGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Internet/config/graphics/components/UpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Internet/config/graphics/components/UpdateGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Routers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Stores.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/graphics/HistogramList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/graphics/HistogramList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/common/ConfigHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/common/ConfigHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/common/Configs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/common/Configs.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbAddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbAddGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbUpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/dbGraphics/components/DbUpdateGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbAddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbAddMonitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbUpdateMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbUpdateMonitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/components/Monitor.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/components/DbMonitor.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/monitor/store/DbMonitorStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/monitor/store/DbMonitorStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/configs/trigger/components/DbTrigger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/configs/trigger/components/DbTrigger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/components/AddDatabases.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/components/AddDatabases.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/components/Databases.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/components/Databases.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/databasesPage/store/DatabasesStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/databasesPage/store/DatabasesStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/dbAlarm/components/DBAlarm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/dbAlarm/components/DBAlarm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/databases/dbDetails/components/DbDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/databases/dbDetails/components/DbDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/home/components/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/home/components/HomePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/common/components/TopMenu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/common/components/TopMenu.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/components/AddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/components/AddGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/components/UpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/components/UpdateGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/graphics/store/GraphicsStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/graphics/store/GraphicsStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/components/AddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/components/AddMonitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/components/Monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/components/Monitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/monitor/store/MonitorStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/monitor/store/MonitorStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/template/components/AddTemplate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/template/components/AddTemplate.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/template/components/Template.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/template/components/Template.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/configuration/trigger/components/AddTrigger.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/configuration/trigger/components/AddTrigger.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/hostOverview/components/HostDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostOverview/components/HostDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/hostPage/components/AddHost.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostPage/components/AddHost.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/hostPage/components/Host.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/hostPage/components/Host.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/host/setting/projectInformation/components/ProjectInformation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/host/setting/projectInformation/components/ProjectInformation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/common/KuConfigHeader.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/common/KuConfigHeader.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuAddGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuAddGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuUpdateGraphics.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/components/KuUpdateGraphics.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/configs/graphics/store/KuGraphicsStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/graphics/store/KuGraphicsStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/configs/monitor/components/KuAddMonitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/configs/monitor/components/KuAddMonitor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/kuAlarm/components/KuAlarm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/kuAlarm/components/KuAlarm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/kuPage/components/AddKubernetes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/kuPage/components/AddKubernetes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/k8s/setting/kuProject/components/KuProject.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/k8s/setting/kuProject/components/KuProject.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/common/GlobalSettingLayout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/common/GlobalSettingLayout.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +41,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "D:/code/companycode/tiklab-postin-ui",
+    "last_opened_file_path": "D:/code/companycode/xmonitor/kaelthas-ui/tiklab-kaelthas-ee-ui",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -100,6 +51,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\code\companycode\xmonitor\tiklab-kaelthas-ui\src\common\layout" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.prod">
     <configuration name="prod" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
@@ -140,7 +96,8 @@
       <workItem from="1728972310081" duration="2632000" />
       <workItem from="1729218950673" duration="11397000" />
       <workItem from="1729246303943" duration="20489000" />
-      <workItem from="1729645243326" duration="25105000" />
+      <workItem from="1729645243326" duration="39385000" />
+      <workItem from="1730968778005" duration="267000" />
     </task>
     <task id="LOCAL-00001" summary="仓库地址修改">
       <option name="closed" value="true" />
@@ -158,7 +115,23 @@
       <option name="project" value="LOCAL" />
       <updated>1728983835966</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="编写文档发现的问题">
+      <option name="closed" value="true" />
+      <created>1730944275659</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730944275663</updated>
+    </task>
+    <task id="LOCAL-00004" summary="一级导航栏主机修改,宽度修改">
+      <option name="closed" value="true" />
+      <created>1730967428394</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730967428394</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,6 +150,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="仓库地址修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="仓库地址修改" />
+    <MESSAGE value="编写文档发现的问题" />
+    <MESSAGE value="一级导航栏主机修改,宽度修改" />
+    <option name="LAST_COMMIT_MESSAGE" value="一级导航栏主机修改,宽度修改" />
   </component>
 </project>

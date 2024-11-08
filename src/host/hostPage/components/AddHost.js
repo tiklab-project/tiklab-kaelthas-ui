@@ -41,13 +41,12 @@ const AddHost = (props) => {
     return (
         <Row className="ws-edit-modal">
             <Col
-                xs={{span: "24"}}
-                sm={{span: "24"}}
-                md={{span: "24"}}
-                lg={{span: "18", offset: "3"}}
-                xl={{span: "14", offset: "5"}}
-                xxl={{span: "12", offset: "6"}}
-                style={{height: "100%"}}
+                xs={{ span: "24" }}
+                sm={{ span: "24" }}
+                md={{ span: "24" }}
+                lg={{ span: "18", offset: "3" }}
+                xl={{ span: "14", offset: "5" }}
+                xxl={{ span: "12", offset: "6" }}
             >
                 <div className="ws-edit-box">
                     <div className="ws-edit-box-header">

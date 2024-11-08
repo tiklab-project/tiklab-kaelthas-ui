@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import "./KuOverview.scss"
 import {withRouter} from "react-router-dom";
-import {Col, Empty, Row, Timeline, Tooltip} from "antd";
+import {Col, Empty, Row, Tag, Timeline, Tooltip} from "antd";
 import {observer} from "mobx-react";
 import kuOverviewStore from "../store/KuOverviewStore";
 
@@ -16,6 +16,21 @@ const KuOverview = () => {
         const kuId = localStorage.getItem("kuId");
         await findKuOverviewTotal(kuId);
     }, []);
+
+    function givesColor(i) {
+        if ("Running" === i || "True" === i || "Succeeded" === i) {
+            return (
+                <div style={{color:"green"}}>{i}</div>
+            )
+        }
+        if ("False" === i){
+            return (
+                <div style={{color:"red"}}>{i}</div>
+            )
+        }
+
+        return i;
+    }
 
     return (
         <Row className="ku-right">
@@ -64,7 +79,7 @@ const KuOverview = () => {
                                                                         return (
                                                                             <Tooltip className="ku-table-text" key={index3}
                                                                                      title={i}>
-                                                                                {i}
+                                                                                {givesColor(i)}
                                                                             </Tooltip>
                                                                         )
                                                                     })
