@@ -141,9 +141,22 @@ const KuProject = (props) => {
                             <Form.Item
                                 label="apiToken"
                                 name="apiToken"
-                                rules={[{required: false, message: 'apiToken!'}]}
+                                rules={[{required: true, message: 'apiToken!'}]}
                             >
                                 <TextArea placeholder="token"/>
+                            </Form.Item>
+                            <Form.Item
+                                label="是否开启"
+                                name="status"
+                                rules={[{required: true, message: '是否开启!'}]}
+                            >
+                                <Select
+                                    placeholder="是否开启"
+                                    allowClear
+                                >
+                                    <Option key={1} value={1}>开启</Option>
+                                    <Option key={2} value={2}>关闭</Option>
+                                </Select>
                             </Form.Item>
                             <Form.Item {...tailLayout}>
                                 <Button htmlType="button" onClick={onReset}>

@@ -3,7 +3,7 @@ import "./ProjectInformation.scss"
 import {withRouter} from "react-router-dom";
 import {Alert, Button, Collapse, Form, Input, Modal, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
-import configurationStore from "../../../hostPage/store/ConfigurationStore";
+import hostStore from "../../../hostPage/store/HostStore";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 
@@ -33,7 +33,7 @@ const ProjectInformation = (props) => {
 
     const {deleteHostById, findHostById, findAllHostGroupList, updateHost, allHostGroupList} = projectInformationStore;
 
-    const {setNullCondition, findPageHost} = configurationStore;
+    const {setNullCondition, findPageHost} = hostStore;
 
     const [form] = Form.useForm();
 

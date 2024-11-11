@@ -1,7 +1,7 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
 
-export class ConfigurationStore {
+export class HostStore {
 
     @observable resultData = [];
 
@@ -13,8 +13,6 @@ export class ConfigurationStore {
 
     @observable total = 1;
 
-    @observable hostState = 0
-
     @observable searchCondition = {
         orderParams: [{
             name: "id",
@@ -25,11 +23,6 @@ export class ConfigurationStore {
             currentPage: 1,
         }
     };
-
-    @action
-    setHostState = value =>{
-        this.hostState = value;
-    }
 
     @action
     setSearchCondition = (value) => {
@@ -93,6 +86,6 @@ export class ConfigurationStore {
 
 }
 
-const configurationStore = new ConfigurationStore();
+const hostStore = new HostStore();
 
-export default configurationStore;
+export default hostStore;

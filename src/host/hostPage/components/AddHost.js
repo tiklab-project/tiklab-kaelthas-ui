@@ -1,6 +1,6 @@
 import {Button, Col, Form, Input, Row, Select, Spin} from 'antd';
 import React, {useEffect, useState} from 'react';
-import configurationStore from "../store/ConfigurationStore";
+import hostStore from "../store/HostStore";
 import {withRouter} from "react-router";
 import "./AddHost.scss"
 import {observer} from "mobx-react";
@@ -16,7 +16,7 @@ const AddHost = (props) => {
 
     const [form] = Form.useForm();
 
-    const {templateList, findTemplateAll, findHostGroup, hostGroupList, addHost, findPageHost} = configurationStore;
+    const {templateList, findTemplateAll, findHostGroup, hostGroupList, addHost, findPageHost} = hostStore;
 
     useEffect(async () => {
         await findTemplateAll();

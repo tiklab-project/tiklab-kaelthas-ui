@@ -187,7 +187,7 @@ const DbProject = (props) => {
                             <Form.Item
                                 label="用户名"
                                 name="username"
-                                rules={[{required: false, message: '用户名!'}]}
+                                rules={[{required: true, message: '用户名!'}]}
                             >
                                 <Input placeholder="用户名"/>
                             </Form.Item>
@@ -195,7 +195,7 @@ const DbProject = (props) => {
                             <Form.Item
                                 label="密码"
                                 name="password"
-                                rules={[{required: false, message: '密码!'}]}
+                                rules={[{required: true, message: '密码!'}]}
                             >
                                 <Input placeholder="密码"/>
                             </Form.Item>
@@ -203,7 +203,7 @@ const DbProject = (props) => {
                             <Form.Item
                                 label="是否开启"
                                 name="state"
-                                rules={[{required: false, message: '是否开启!'}]}
+                                rules={[{required: true, message: '是否开启!'}]}
                             >
                                 <Select
                                     placeholder="是否开启"

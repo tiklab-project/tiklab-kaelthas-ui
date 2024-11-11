@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import "./Host.scss"
 import {Col, Input, Row, Table, Tag, Tooltip} from "antd";
-import configurationStore from "../store/ConfigurationStore";
+import hostStore from "../store/HostStore";
 import {withRouter} from "react-router-dom";
 import {observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
@@ -14,15 +14,15 @@ const Host = (props) => {
         findPageHost,
         setSearchCondition,
         total,
-        setHostState,
-        hostState,
         resultData,
         setNullCondition,
         searchCondition,
         createHostRecent
-    } = configurationStore;
+    } = hostStore;
 
     const {setNullConditionByMonitoring} = alarmPageStore;
+    
+    const [state, setState] = useState(2);
 
     useEffect(async () => {
         setNullCondition()
@@ -96,7 +96,7 @@ const Host = (props) => {
             status: 2
         })
 
-        sessionStorage.setItem("menuKey", "alarm")
+        localStorage.setItem("menuKey", "alarm")
         props.history.push(`/alarm`);
     }
 
@@ -158,7 +158,7 @@ const Host = (props) => {
     };
 
     const checkTab = async (value) => {
-        setHostState(value)
+        setState(value)
 
         if (value === 2) {
             value = null
@@ -212,7 +212,7 @@ const Host = (props) => {
                             {
                                 availabilityTab.map(item => {
                                     return <div
-                                        className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
+                                        className={`box-configuration-body-tabs-item ${state === item.key ? "box-configuration-tabs" : ""}`}
                                         key={item.key}
                                         onClick={() => checkTab(item.key)}
                                     >

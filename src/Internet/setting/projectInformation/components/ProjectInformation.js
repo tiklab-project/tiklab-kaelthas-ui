@@ -137,7 +137,7 @@ const ProjectInformation = (props) => {
                             <Form.Item
                                 name="type"
                                 label="类型"
-                                rules={[{required: false}]}
+                                rules={[{required: true}]}
                             >
                                 <Select
                                     allowClear
@@ -150,7 +150,7 @@ const ProjectInformation = (props) => {
                             <Form.Item
                                 name="status"
                                 label="是否开启"
-                                rules={[{required: false}]}
+                                rules={[{required: true}]}
                             >
                                 <Select
                                     allowClear
