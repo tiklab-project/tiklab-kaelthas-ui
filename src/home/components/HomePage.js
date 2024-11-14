@@ -66,7 +66,6 @@ const HomePage = (props) => {
 
     async function extractedUseEffect() {
         setNullCondition();
-        // await findDynamicList();
         findHostUsage().then(res => {
             if (res.code === 0) {
                 setHomeObj(res.data)
@@ -136,11 +135,11 @@ const HomePage = (props) => {
             const myChart = echarts.init(chartDom);
 
             const option = {
-                title: {
+                /*title: {
                     text: '告警类型分布情况',
                     subtext: '(未解决告警数量)',
                     left: 'center'
-                },
+                },*/
                 tooltip: {
                     trigger: 'item'
                 },
@@ -161,20 +160,13 @@ const HomePage = (props) => {
 
 
     function hrefHost() {
-        sessionStorage.setItem("menuKey", "host")
+        localStorage.setItem("menuKey", "host")
         props.history.push(`/host`)
     }
 
     function hrefAlarm() {
-        sessionStorage.setItem("menuKey", "alarm");
+        localStorage.setItem("menuKey", "alarm");
         props.history.push(`/alarm`);
-    }
-
-    function divideAndRound(a, b) {
-
-        const value = isNaN(a / b) ? 'Invalid value' : (a / b).toString();
-
-        return value.toFixed(1);
     }
 
     function hrefTemplate() {
@@ -239,17 +231,20 @@ const HomePage = (props) => {
                             </div>
                             <div className="host-one-overview" onClick={() => hrefAlarm()}
                                  style={{cursor: "pointer"}}>
-                                <span className="host-one-title-text" style={{color:"orange"}}>{conversionNum(homeObj?.alarmNum)}</span>
+                                <span className="host-one-title-text"
+                                      style={{color: "orange"}}>{conversionNum(homeObj?.alarmNum)}</span>
                                 <span>告警数量</span>
                             </div>
                             <div className="host-one-overview" onClick={() => hrefAlarm()}
                                  style={{cursor: "pointer"}}>
-                                <span className="host-one-title-text" style={{color:"#3257d3"}}>{conversionNum(homeObj?.alarmNum - homeObj?.alarmTimeNum)}</span>
+                                <span className="host-one-title-text"
+                                      style={{color: "#3257d3"}}>{conversionNum(homeObj?.alarmNum - homeObj?.alarmTimeNum)}</span>
                                 <span>已解决告警数量</span>
                             </div>
                             <div className="host-one-overview" onClick={() => hrefAlarm()}
                                  style={{cursor: "pointer"}}>
-                                <span className="host-one-title-text" style={{color:"#ff0003"}}>{conversionNum(homeObj?.alarmTimeNum)}</span>
+                                <span className="host-one-title-text"
+                                      style={{color: "#ff0003"}}>{conversionNum(homeObj?.alarmTimeNum)}</span>
                                 <span>未解决告警数量</span>
                             </div>
                         </div>
@@ -265,34 +260,35 @@ const HomePage = (props) => {
                                         <Empty className="empty-style"/>
                                     </div>
                             }
-                            {
-                                distributionList && distributionList.length > 0 ?
-                                    <div className="host-alarm-div">
-                                        <div className="host-alarm-title">告警数量Top10</div>
-                                        <div className="host-alarm-line">
-                                            <div className="host-alarm-text-title">主机ip</div>
-                                            <div className="host-alarm-text-title">告警总数</div>
-                                            <div className="host-alarm-text-title">已解决告警</div>
-                                            <div className="host-alarm-text-title">未解决告警</div>
-                                        </div>
-                                        {
-                                            distributionList.map((item, index) => {
-                                                return (
-                                                    <div className="host-alarm-line" key={index}>
-                                                        <div className="host-alarm-text">{item?.ip}</div>
-                                                        <div className="host-alarm-text" style={{color:"orange"}}>{item?.count}</div>
-                                                        <div className="host-alarm-text" style={{color:"#3257d3"}}>{item?.settlesum}</div>
-                                                        <div className="host-alarm-text" style={{color:"#ff0003"}}>{item?.nosettlesum}</div>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
-                                    :
-                                    <div className="host-alarm-div">
-                                        <Empty className="host-alarm-div-empty"/>
-                                    </div>
-                            }
+                            <div className="host-alarm-div">
+                                <div className="host-alarm-title">告警数量Top10</div>
+                                <div className="host-alarm-line">
+                                    <div className="host-alarm-text-title">主机ip</div>
+                                    <div className="host-alarm-text-title">告警总数</div>
+                                    <div className="host-alarm-text-title">已解决告警</div>
+                                    <div className="host-alarm-text-title">未解决告警</div>
+                                </div>
+
+                                {
+                                    distributionList && distributionList.length > 0 ?
+                                        distributionList.map((item, index) => {
+                                            return (
+                                                <div className="host-alarm-line" key={index}>
+                                                    <div className="host-alarm-text">{item?.ip}</div>
+                                                    <div className="host-alarm-text"
+                                                         style={{color: "orange"}}>{item?.count}</div>
+                                                    <div className="host-alarm-text"
+                                                         style={{color: "#3257d3"}}>{item?.settlesum}</div>
+                                                    <div className="host-alarm-text"
+                                                         style={{color: "#ff0003"}}>{item?.nosettlesum}</div>
+                                                </div>
+                                            )
+                                        })
+                                        :
+                                            <Empty className="host-alarm-div-empty"/>
+
+                                }
+                            </div>
                         </div>
 
                     </div>
