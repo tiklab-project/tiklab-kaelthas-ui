@@ -2,32 +2,23 @@
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .in-monitor-title {
-    display: flex;
-    box-sizing: border-box;
-    align-items: center;
-    justify-content: space-between;
-
-
-    .in-monitor-title-text {
-      flex: 1;
-    }
-
-
-  }
-
   .monitor-kind-options {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
+    height: 42px;
+    line-height: 42px;
+
+    .in-monitor-title-text {
+      flex: 1;
+    }
 
     .monitor-kind-options-tabs {
       display: flex;
       gap: 10px;
-      height: 42px;
-      line-height: 42px;
+
       justify-content: space-between;
 
       .monitor-kind-options-tabs-text {
@@ -50,7 +41,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 100%;
 
 
       .monitor-top-right {

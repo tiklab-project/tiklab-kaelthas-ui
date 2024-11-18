@@ -10,19 +10,9 @@ import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 
-const Template = (props) => {
-
-    const [dataList, setDataList] = useState([]);
+const Template = () => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
-
-    const [rowData, setRowData] = useState({});
-
-    useEffect(async () => {
-
-    }, []);
 
 
     const deleteTemplate = async (id) => {

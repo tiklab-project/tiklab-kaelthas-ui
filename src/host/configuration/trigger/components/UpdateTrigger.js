@@ -27,11 +27,9 @@ const UpdateTrigger = (props) => {
         updateTrigger,
         findMonitorListById,
         getTriggerList,
-        findTriggerExpressionAll,
         mediumList
     } = triggerStore;
 
-    const [triggerExData, setTriggerExData] = useState([]);
 
     const [timeStatus, setTimeStatus] = useState(rowData?.timeStatus);
 
@@ -41,9 +39,6 @@ const UpdateTrigger = (props) => {
         await findMonitorListById({
             hostId: localStorage.getItem("hostId")
         });
-
-        const triggerExAll = await findTriggerExpressionAll();
-        setTriggerExData([...triggerExAll])
     }, []);
 
     const handleOk = () => {
@@ -96,7 +91,6 @@ const UpdateTrigger = (props) => {
             open={isModalOpen}
             visible={isModalOpen}
             width={500}
-            contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
             maskStyle={{background: "transparent"}}
         >
             <Form
@@ -205,6 +199,20 @@ const UpdateTrigger = (props) => {
                     rules={[{required: true, message: '问题描述!'}]}
                 >
                     <Input onBlur={() => updateBlur('describe')}/>
+                </Form.Item>
+                <Form.Item
+                    label="触发器状态"
+                    name="state"
+                    rules={[{required: true, message: '请选择触发器状态!'}]}
+                >
+                    <Select
+                        placeholder="请选择您的触发器状态"
+                        allowClear
+                        onBlur={()=>handleBlur('state')}
+                    >
+                        <Option value={1} key={1}>{"开启"}</Option>
+                        <Option value={2} key={2}>{"关闭"}</Option>
+                    </Select>
                 </Form.Item>
             </Form>
         </Drawer>

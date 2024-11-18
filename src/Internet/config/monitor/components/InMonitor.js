@@ -41,11 +41,6 @@ const InMonitor = () => {
         await findMonitorPage()
     };
 
-
-    const onClickMonitor = async (monitorSource) => {
-
-    }
-
     async function changePage(pagination) {
         setSearchCondition({
             pageParam: {
@@ -145,18 +140,11 @@ const InMonitor = () => {
         <Row className="in-monitor-right">
             <Col>
                 <div className="monitor-kind-options">
-                    {/*<div className="monitor-kind-options-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    key={item.title}
-                                    className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
-                                    onClick={() => onClickMonitor(item.key)}>
-                                    {item.title}
-                                </div>
-                            })
-                        }
-                    </div>*/}
+                    <div className="monitor-kind-options-tabs">
+                        <div className="in-monitor-title-text">
+                            监控项数量：{total}
+                        </div>
+                    </div>
                     <div className="monitor-top-right-search">
                         <div>
                             <Input

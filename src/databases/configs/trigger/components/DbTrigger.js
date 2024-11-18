@@ -179,7 +179,7 @@ const DbTrigger = (props) => {
             <Col>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
-                        触发器数量:{total}
+                        触发器数量：{total}
                     </div>
                     <div className="trigger-kind-search-div">
                         <div>

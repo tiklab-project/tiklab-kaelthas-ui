@@ -20,8 +20,6 @@ const KuMonitor = (props) => {
         searchCondition
     } = kuMonitorStore;
 
-    const [monitorSource, setMonitorSource] = useState(null);
-
     const [columnData, setColumnData] = useState({});
 
     const [form] = Form.useForm();
@@ -160,7 +158,7 @@ const KuMonitor = (props) => {
                         }
                     </div>*/}
                     <div>
-                        监控项数量:{total}
+                        监控项数量：{total}
                     </div>
                     <div className="monitor-top-right-search">
                         <div>

@@ -188,7 +188,7 @@ const InTrigger = (props) => {
             <Col>
                 <div className="box-in-trigger-title">
                     <div className="box-in-trigger-title-text">
-                        触发器数量:{total}
+                        触发器数量：{total}
                     </div>
                     <div className="in-trigger-kind-search-div">
                         <div>

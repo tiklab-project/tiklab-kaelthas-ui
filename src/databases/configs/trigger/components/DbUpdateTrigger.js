@@ -90,7 +90,6 @@ const DbUpdateTrigger = (props) => {
             open={isModalOpen}
             visible={isModalOpen}
             width={500}
-            contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
             maskStyle={{background: "transparent"}}
         >
             <Form
@@ -199,6 +198,20 @@ const DbUpdateTrigger = (props) => {
                     rules={[{required: true, message: '问题描述!'}]}
                 >
                     <Input onBlur={() => updateBlur('describe')}/>
+                </Form.Item>
+                <Form.Item
+                    label="触发器状态"
+                    name="state"
+                    rules={[{required: true, message: '请选择触发器状态!'}]}
+                >
+                    <Select
+                        placeholder="请选择您的触发器状态"
+                        allowClear
+                        onBlur={()=>handleBlur('state')}
+                    >
+                        <Option value={1} key={1}>{"开启"}</Option>
+                        <Option value={2} key={2}>{"关闭"}</Option>
+                    </Select>
                 </Form.Item>
             </Form>
         </Drawer>

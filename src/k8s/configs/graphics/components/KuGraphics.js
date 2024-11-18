@@ -114,7 +114,7 @@ const KuGraphics = (props) => {
             <Col>
                 <div className="db-graphics-kind-options">
                     <div className="db-box-graphics-title-text">
-                        图形的数量:{total}
+                        图形的数量：{total}
                     </div>
                     <div className="db-box-graphics-title-div">
                         <div>

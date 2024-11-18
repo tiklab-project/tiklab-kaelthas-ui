@@ -53,7 +53,6 @@ const KuUpdateGraphics = (props) => {
             open={isModalOpen}
             visible={isModalOpen}
             width={500}
-            contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
             maskStyle={{background: "transparent"}}
         >
             <Form

@@ -62,7 +62,8 @@ const Trigger = (props) => {
                 source: record.source,
                 scheme: record.scheme,
                 rangeTime: record.rangeTime,
-                percentage: record.percentage
+                percentage: record.percentage,
+                state: record.state
             }
         )
         let timeStatus;
@@ -217,7 +218,7 @@ const Trigger = (props) => {
             <Col>
                 <div className="box-trigger-title">
                     <div className="box-trigger-title-text">
-                        触发器数量:<span className="count-trigger">{total}</span>
+                        触发器数量：{total}
                     </div>
                     <div className="trigger-kind-search-div">
                         <div>

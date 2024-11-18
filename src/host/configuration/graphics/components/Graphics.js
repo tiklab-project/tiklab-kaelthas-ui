@@ -125,7 +125,7 @@ const Graphics = (props) => {
             <Col>
                 <div className="graphics-kind-options">
                     <div className="box-graphics-title-text">
-                        图形的数量:<span className="count-graphics">{total}</span>
+                        图形的数量：{total}
                     </div>
                     <div className="box-graphics-title-div">
                         <div>

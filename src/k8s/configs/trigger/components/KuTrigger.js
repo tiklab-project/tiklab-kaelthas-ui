@@ -185,7 +185,7 @@ const KuTrigger = (props) => {
             <Col>
                 <div className="box-ku-trigger-title">
                     <div className="box-ku-trigger-title-text">
-                        触发器数量:{total}
+                        触发器数量：{total}
                     </div>
                     <div className="ku-trigger-kind-search-div">
                         <div>

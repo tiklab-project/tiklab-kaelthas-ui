@@ -187,7 +187,7 @@ const DbMonitor = () => {
                         }
                     </div>*/}
                     <div>
-                        监控项数量:{total}
+                        监控项数量：{total}
                     </div>
                     <div className="monitor-top-right-search">
                         <div>

@@ -38,9 +38,9 @@ const Kubernetes = (props) => {
 
         localStorage.setItem('kuId', record.id);
         localStorage.setItem("kuName", record.name)
-        localStorage.setItem("url", `/kubernetes/${record.id}/monitoring`)
+        localStorage.setItem("url", `/kubernetes/${record.id}/kuOverview`)
         await updateKbInfo(record)
-        props.history.push(`/kubernetes/${record.id}/monitoring`);
+        props.history.push(`/kubernetes/${record.id}/kuOverview`);
     }
 
     const availabilityTab = [

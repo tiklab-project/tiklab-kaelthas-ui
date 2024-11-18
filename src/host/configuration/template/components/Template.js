@@ -176,7 +176,7 @@ const Template = (props) => {
             <Col>
                 <div className="template-kind-options">
                     <div className="box-template-title-text">
-                        模板数量:<span className="count-template">{total}</span>
+                        模板数量：{total}
                     </div>
                     <div className="template-right-div">
                         <div>
@@ -213,7 +213,6 @@ const Template = (props) => {
                         open={isModalOpen}
                         visible={isModalOpen}
                         width={1000}
-                        contentWrapperStyle={{top: 48, height: "calc(100% - 48px)"}}
                         maskStyle={{background: "transparent"}}
                     >
                         <div className="box-template-details-text">模板名称:{rowData.name}</div>
