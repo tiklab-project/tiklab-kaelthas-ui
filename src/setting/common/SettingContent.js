@@ -90,8 +90,6 @@ const SettingContent = props => {
 
     let path = props.location.pathname
 
-    const [setSelectKey, selectKey] = "/setting/orga";
-
     const authType = JSON.parse(localStorage.getItem("authConfig"))?.authType;
 
     // 菜单

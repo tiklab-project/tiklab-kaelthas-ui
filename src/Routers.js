@@ -42,7 +42,6 @@ const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSetti
 const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
 const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
 const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
-const GlobalSettingsMonitorItem = AsyncComponent(() => import('./setting/MonitorItem/components/MonitorItem'))
 const MonitoringLayout = AsyncComponent(() => import('./host/monitoring/components/MonitorGraphics'))
 const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
 const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'))
@@ -226,10 +225,6 @@ const Routes = [
                     {
                         path: "/setting/hostGroup",
                         component: HostGroup
-                    },
-                    {
-                        path: "/setting/monitorItem",
-                        component: GlobalSettingsMonitorItem
                     },
 
                     // 平台组件

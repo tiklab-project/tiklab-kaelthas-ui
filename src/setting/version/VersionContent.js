@@ -112,7 +112,7 @@ const VersionContent = props =>{
         },
     ]
 
-    return <Version {...props} bgroup={"xmonitor"}>
+    return <Version {...props} bgroup={"kaelthas"}>
         <Table
             bordered
             columns={columns}
