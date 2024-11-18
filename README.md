@@ -242,6 +242,12 @@ Agent是一个放置在电脑主机或者是服务器的一个运行程序，目
 
 可以查看到源码，能够与kaelthas共同成长。
 
+- 开源地址
+
+Gitee： https://gitee.com/tiklab-project/tiklab-kaelthas
+
+GitHub： https://github.com/tiklab-project/tiklab-kaelthas
+
 ﻿
 
 ##### 安全可靠
@@ -321,4 +327,4 @@ cd tiklab-kaelthas
 
 邮箱: [tiklab@163.com](https://gitee.com/link?target=mailto%3Atiklab%40163.com)
 
-**立即体验 Kaelthas，解锁高效的自动化构建、测试和部署流程！**
+**立即体验 Kaelthas，解锁高效稳定监控！**
