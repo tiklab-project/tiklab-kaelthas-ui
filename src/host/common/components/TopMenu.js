@@ -1,16 +1,21 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
 import "./TopMenu.scss"
-import {Col, Dropdown, Row, Space, Tooltip} from "antd";
-import {CaretDownOutlined} from "@ant-design/icons";
 import hostStore from "../../hostOverview/store/HostStore";
 import {observer} from "mobx-react";
+import alarmPageStore from "../../../alarm/alarmPage/store/AlarmPageStore";
 
 const TopMenu = (props) => {
 
     let hostId = localStorage.getItem('hostId');
 
     let url = localStorage.getItem('url');
+
+    const [alarmNum,setAlarmNum] = useState(0);
+
+    const {
+        findAlarmNumByCondition
+    } = alarmPageStore
 
     const router = [
         {
@@ -55,6 +60,8 @@ const TopMenu = (props) => {
     useEffect(async () => {
         await findHostById(hostId);
         await findRecentHostList(hostId);
+        const newVar = await findAlarmNumByCondition({hostId: hostId});
+        setAlarmNum(newVar?.alarmNum)
     }, [hostId]);
 
     const selectMenu = (url, key) => {
@@ -83,9 +90,11 @@ const TopMenu = (props) => {
         <div className="topMenu-body">
             <div className="topMenu-top">
                 <div className="topMenu-top-title">
-                    <svg className="common-icon-show" aria-hidden="true" style={{cursor:"pointer"}} onClick={() => goBackHost()}>
+                    <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
+                         onClick={() => goBackHost()}>
                         <use xlinkHref={`#icon-left`}></use>
                     </svg>
+                    {/*
                     <Dropdown
                         getPopupContainer={e => e.parentElement}
                         overlayStyle={{width: 200, top: 48, left: 80}}
@@ -130,28 +139,50 @@ const TopMenu = (props) => {
                                 </div>
                             </Tooltip>
                         </div>
-                    </Dropdown>
+                    </Dropdown>*/}
+                    <span style={{fontSize: 16}}>
+                         主机 / {hostData?.name && hostData?.name}
+                    </span>
                 </div>
             </div>
-            <div className="top-right">
-                {
-                    router.map((item, index) => {
-                        return (
-                            <div
-                                key={index}
-                                onClick={() => selectMenu(item.url, item.key)}
-                                className={`topMenu-box ${url === item.url ? "border-bottom" : ""}`}
-                            >
-                                <svg className="topMenu-svg-icon" aria-hidden="true">
+            <div className="top-tabs">
+
+                <div className="top-right">
+                    {
+                        router.map((item, index) => {
+                            return (
+
+                                <div
+                                    key={index}
+                                    onClick={() => selectMenu(item.url, item.key)}
+                                    className={`topMenu-box ${url === item.url ? "border-bottom" : ""}`}
+                                >
+                                    {/*<svg className="topMenu-svg-icon" aria-hidden="true">
                                     <use xlinkHref={`#icon-${item.icon}`}></use>
-                                </svg>
-                                <span className="topMenu-text">
+                                </svg>*/}
+                                    <span className={`topMenu-text`}>
                                     {item.name}
                                     </span>
-                            </div>
-                        )
-                    })
-                }
+                                    {"告警" === item.name ?
+                                        <span className="top-text-number">{alarmNum}</span> : ""}
+                                </div>
+                            )
+                        })
+                    }
+                </div>
+                <div>
+
+                </div>
+                {/*<div
+                    onClick={() => selectMenu(`/host/${hostId}/projectInformation`, "setting")}
+                    className={`top-box-right ${url === `/host/${hostId}/projectInformation` ? "border-bottom" : ""}`}>
+                    <svg className="topMenu-svg-icon" aria-hidden="true">
+                        <use xlinkHref={`#icon-setting`}></use>
+                    </svg>
+                    <span className={`top-box-right-text`}>
+                        设置
+                    </span>
+                </div>*/}
             </div>
         </div>
     );

@@ -1,10 +1,8 @@
 import React from 'react';
 import {renderRoutes} from "react-router-config";
-import {Provider} from "mobx-react";
 import {withRouter} from "react-router-dom";
 import SettingLeftTabs from "./SettingLeftTabs";
 import "./SettingLayout.scss"
-import {Col, Row} from "antd";
 
 const SettingLayout = (props) => {
 

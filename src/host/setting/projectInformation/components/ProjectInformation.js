@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./ProjectInformation.scss"
 import {withRouter} from "react-router-dom";
-import {Alert, Button, Collapse, Form, Input, Modal, Select} from "antd";
+import {Alert, Button, Col, Collapse, Form, Input, Modal, Row, Select} from "antd";
 import projectInformationStore from "../store/ProjectInformationStore";
 import hostStore from "../../../hostPage/store/HostStore";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
@@ -106,8 +106,14 @@ const ProjectInformation = (props) => {
     );
 
     return (
-        <div className="setting-box-body-right">
-            <div className="setting-box-right-head">
+        <Row className="setting-box-body-right">
+            <Col xs={{ span: "24" }}
+                 sm={{ span: "24" }}
+                 md={{ span: "24" }}
+                 lg={{ span: "24" }}
+                 xl={{ span: "22" ,offset:"1"}}
+                 xxl={{ span: "20", offset: "3" }}
+                 className="setting-box-right-head">
                 <div className="setting-box-right-head-text">
                     主机信息
                 </div>
@@ -211,8 +217,8 @@ const ProjectInformation = (props) => {
                         <p>你确定要删除主机吗？</p>
                     </Modal>
                 </>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

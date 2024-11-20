@@ -92,6 +92,8 @@ const HostAlarm = (props) => {
 
         setSearchCondition({
             hostId: localStorage.getItem("hostId"),
+            name: null,
+            ip: null,
             status: null,
             machineType: 1,
             severityLevel: null
@@ -211,10 +213,10 @@ const HostAlarm = (props) => {
     const columns = [
         {
             title: '主机名称',
-            dataIndex: 'hostName',
+            dataIndex: 'name',
             ellipsis: true,
             // width: "20%",
-            key: 'hostName',
+            key: 'name',
         },
         {
             title: '主机IP',
@@ -297,11 +299,41 @@ const HostAlarm = (props) => {
         await findAlarmPageByHostId();
     }
 
+    async function selectByName(event) {
+        setSearchCondition({
+            name: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
+    async function selectByIp(event) {
+        setSearchCondition({
+            ip: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
     return (
         <div className="alarm-box">
             <div className="alarm-box-body">
                 <div className="alarm-box-search">
-                    <div style={{marginRight: 8}}>
+                    <div>
+                        <Input placeholder="主机名称"
+                               className="graphics-kind-search"
+                               onChange={(event) => selectByName(event)}
+                               allowClear={true}
+                               prefix={<SearchOutlined/>}
+                        />
+                    </div>
+                    <div>
+                        <Input placeholder="主机ip"
+                               className="graphics-kind-search"
+                               onChange={(event) => selectByIp(event)}
+                               allowClear={true}
+                               prefix={<SearchOutlined/>}
+                        />
+                    </div>
+                    <div>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectLeveType(value)}
                                       title={`告警等级`}

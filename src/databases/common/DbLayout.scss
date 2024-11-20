@@ -1,10 +1,11 @@
-.db-layout{
+.db-layout {
   height: 100%;
   width: 100%;
   overflow: auto;
   background: #fff;
+  padding-top: 10px;
 
-  .db-body-routes{
+  .db-body-routes {
     height: calc(100% - 117px);
   }
 }

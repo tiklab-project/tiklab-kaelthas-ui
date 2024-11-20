@@ -18,8 +18,6 @@ const ConfigHeader = (props) => {
 
     let url = localStorage.getItem('url');
 
-    // const [dbList,setDbList] = useState();
-
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
         localStorage.setItem("confUrl",`/db/${dbId}/configs/monitor`)
@@ -99,7 +97,7 @@ const ConfigHeader = (props) => {
                             <use xlinkHref={`#icon-left`}></use>
                         </svg>
                     </div>
-                    <Dropdown
+                    {/*<Dropdown
                         getPopupContainer={e => e.parentElement}
                         overlayStyle={{width: 200, top: 48, left: 80}}
                         trigger={['click']}
@@ -140,7 +138,13 @@ const ConfigHeader = (props) => {
                                 </div>
                             </Tooltip>
                         </div>
-                    </Dropdown>
+                    </Dropdown>*/}
+                    <div className="db-normal-host-opt-title">
+                                    <span className="normal-host-opt-text" style={{fontSize:16}}>
+                                        数据库 / {localStorage.getItem("dbName")}
+                                    </span>
+                    </div>
+
                 </div>
             </div>
             <div className="db-right">
@@ -152,9 +156,9 @@ const ConfigHeader = (props) => {
                                 onClick={() => selectMenu(item.url)}
                                 className={`dbMenu-box ${url === item.url ? "border-bottom" : ""}`}
                             >
-                                <svg className="menu-icon" aria-hidden="true">
+                                {/*<svg className="menu-icon" aria-hidden="true">
                                     <use xlinkHref={`#icon-${item.icon}`}></use>
-                                </svg>
+                                </svg>*/}
                                 <span className="dbMenu-text">
                                     {item.name}
                                 </span>

@@ -66,6 +66,12 @@ class AlarmPageStore {
         await Service("/alarm/updateAlarm",value);
     }
 
+    @action
+    findAlarmNumByCondition = async (option) => {
+        const resData = await Service("alarm/findAlarmNumByCondition", option)
+        return resData.data;
+    }
+
 }
 
 const alarmPageStore = new AlarmPageStore();

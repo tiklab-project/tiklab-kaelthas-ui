@@ -17,8 +17,8 @@
 
             .db-normal-aside-left{
                 display: flex;
-                height: 48px;
-                line-height: 48px;
+                height: 32px;
+                line-height: 32px;
                 align-items: center;
             }
         }
@@ -29,8 +29,8 @@
             justify-content: center;
 
             .db-normal-host-opt-title{
-                height: 48px;
-                line-height: 48px;
+                height: 32px;
+                line-height: 32px;
                 align-items: center;
 
                 .normal-host-opt-text{
@@ -80,7 +80,8 @@
         display: flex;
         justify-content: start;
         min-width: 600px;
-        height: 48px;
+        height: 32px;
+        gap: 15px;
 
         .dbMenu-box {
             display: flex;
@@ -88,15 +89,16 @@
             cursor: pointer;
             overflow: hidden;
             flex-shrink: 0;
-            height: 48px;
-            line-height: 48px;
-            width: 80px;
+            height: 32px;
+            line-height: 32px;
+            width: 50px;
             justify-content: center;
 
             .dbMenu-text {
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                font-size: 15px;
             }
         }
 
