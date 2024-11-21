@@ -109,16 +109,15 @@ const KuMonitorGraphics = () => {
                     <div className="ku-details-breadcrumb-table">
                         <div className="ku-details-table-title">
                             <div className="ku-details-search">
-                                <div className="ku-details-div">
+                                <div>
                                     <RangePicker
-                                        // style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
-                                <div className="ku-details-div">
+                                <div>
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"

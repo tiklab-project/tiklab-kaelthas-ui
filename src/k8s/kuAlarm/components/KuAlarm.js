@@ -6,6 +6,7 @@ import {withRouter} from "react-router-dom";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import kuAlarmStore from "../sotre/KuAlarmStore";
+import {SearchOutlined} from "@ant-design/icons";
 
 const {Option} = Select;
 
@@ -91,6 +92,8 @@ const KuAlarm = (props) => {
 
         setSearchCondition({
             hostId:localStorage.getItem("kuId"),
+            name: null,
+            ip: null,
             status:null,
             machineType: 3,
             severityLevel: null
@@ -210,10 +213,10 @@ const KuAlarm = (props) => {
     const columns = [
         {
             title: '主机名称',
-            dataIndex: 'hostName',
+            dataIndex: 'name',
             ellipsis: true,
             // width: "20%",
-            key: 'hostName',
+            key: 'name',
         },
         {
             title: '主机IP',
@@ -300,12 +303,42 @@ const KuAlarm = (props) => {
         await findAlarmPageByHostId();
     }
 
+    async function selectByName(event) {
+        setSearchCondition({
+            name: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
+    async function selectByIp(event) {
+        setSearchCondition({
+            ip: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
     return (
         <Row className="ku-alarm-box">
             <Col span={24}>
                 <div className="ku-alarm-box-body">
                     <div className="ku-alarm-box-search">
-                        <div style={{marginRight: 8}}>
+                        <div>
+                            <Input placeholder="集群名称"
+                                   className="graphics-kind-search"
+                                   onChange={(event) => selectByName(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div>
+                            <Input placeholder="集群ip"
+                                   className="graphics-kind-search"
+                                   onChange={(event) => selectByIp(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div>
                             <SelectSimple name="quickFilter"
                                           onChange={(value) => selectLeveType(value)}
                                           title={`告警等级`}

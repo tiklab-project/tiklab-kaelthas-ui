@@ -120,7 +120,7 @@ const MonitorGraphics = () => {
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
-                                <div className="details-div">
+                                <div>
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"

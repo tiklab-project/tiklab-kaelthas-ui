@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./KuProject.scss"
 import {withRouter} from "react-router-dom";
-import {Alert, Button, Collapse, Form, Input, InputNumber, Modal, Select} from "antd";
+import {Alert, Button, Col, Collapse, Form, Input, InputNumber, Modal, Row, Select} from "antd";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 import kubernetesStore from "../../../kuPage/store/KubernetesStore";
@@ -101,8 +101,15 @@ const KuProject = (props) => {
     );
 
     return (
-        <div className="setting-box-body-right">
-            <div className="setting-box-right-head">
+        <Row className="kuSetting-box-body-right">
+            <Col
+                xs={{span: "24"}}
+                sm={{span: "24"}}
+                md={{span: "24"}}
+                lg={{span: "24"}}
+                xl={{span: "22", offset: "1"}}
+                xxl={{span: "20", offset: "3"}}
+                className="setting-box-right-head">
                 <div className="setting-box-right-head-text">
                     集群信息
                 </div>
@@ -199,8 +206,8 @@ const KuProject = (props) => {
                         <p>你确定要删除集群吗？</p>
                     </Modal>
                 </>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

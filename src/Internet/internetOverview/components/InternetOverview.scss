@@ -19,10 +19,11 @@
     .in-details {
       display: flex;
       flex-wrap: wrap;
-      padding: 20px;
+      margin: 20px 0;
       border-radius: 4px;
       height: 100%;
       width: 100%;
+      gap: 20px;
       justify-content: space-between;
       white-space: nowrap; /* 禁止换行 */
       overflow: hidden; /* 超出部分隐藏 */
@@ -32,7 +33,7 @@
         display: flex;
         align-items: center;
         gap: 5px;
-        margin: 10px 2%;
+        margin: 10px 1%;
         width: 20%;
         box-shadow: 0 0 3px 0 #ccc;
 

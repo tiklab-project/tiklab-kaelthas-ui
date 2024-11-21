@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import "./DbProject.scss"
 import {withRouter} from "react-router-dom";
-import {Alert, Button, Collapse, Form, Input, InputNumber, Modal, Select} from "antd";
+import {Alert, Button, Col, Collapse, Form, Input, InputNumber, Modal, Row, Select} from "antd";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 import databasesStore from "../../../databasesPage/store/DatabasesStore";
@@ -121,8 +121,14 @@ const DbProject = (props) => {
     }
 
     return (
-        <div className="setting-box-body-right">
-            <div className="setting-box-right-head">
+        <Row className="dbSetting-box-body-right">
+            <Col xs={{span: "24"}}
+                 sm={{span: "24"}}
+                 md={{span: "24"}}
+                 lg={{span: "24"}}
+                 xl={{span: "22", offset: "1"}}
+                 xxl={{span: "20", offset: "3"}}
+                 className="setting-box-right-head">
                 <div className="setting-box-right-head-text">
                     数据库信息
                 </div>
@@ -254,8 +260,8 @@ const DbProject = (props) => {
                         <p>你确定要删除数据源吗？</p>
                     </Modal>
                 </>
-            </div>
-        </div>
+            </Col>
+        </Row>
     );
 };
 

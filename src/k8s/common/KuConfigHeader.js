@@ -1,23 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import "./KuConfigHeader.scss"
 import {withRouter} from "react-router-dom";
-import {Dropdown, Tooltip} from "antd";
-import {CaretDownOutlined} from "@ant-design/icons";
 import kubernetesStore from "../kuPage/store/KubernetesStore";
+import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const KuConfigHeader = (props) => {
 
     const {
-        updateKbInfo,
-        findKuDropDown
+        updateKbInfo
     } = kubernetesStore;
 
+    const {
+        findAlarmNumByCondition
+    } = alarmPageStore
 
     let kuId = localStorage.getItem('kuId');
 
     let url = localStorage.getItem('url');
 
-    const [kuList,setKuList] = useState([]);
+    const [alarmNum, setAlarmNum] = useState(0);
+
+    useEffect(async () => {
+        const newVar = await findAlarmNumByCondition({hostId: kuId});
+        setAlarmNum(newVar?.alarmNum)
+    }, []);
 
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
@@ -67,11 +73,6 @@ const KuConfigHeader = (props) => {
         props.history.push("/kubernetes")
     }
 
-    async function dropDownList() {
-        const kus = await findKuDropDown();
-        setKuList(kus)
-    }
-
     async function changeHost(item) {
         if (kuId !== item.id) {
             await updateKbInfo(item)
@@ -86,13 +87,14 @@ const KuConfigHeader = (props) => {
         <div className="ku-configs-header">
             <div className="ku-topMenu-top">
                 <div className="ku-topMenu-top-title">
-                    <div className="ku-normal-aside-left">
                         <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
                              onClick={() => goBackHost()}>
                             <use xlinkHref={`#icon-left`}></use>
                         </svg>
-                    </div>
-                    <Dropdown
+                        <span style={{fontSize:16}}>
+                              集群 / {localStorage.getItem("kuName")}
+                        </span>
+                    {/*<Dropdown
                         getPopupContainer={e => e.parentElement}
                         overlayStyle={{width: 200, top: 48, left: 80}}
                         trigger={['click']}
@@ -126,14 +128,12 @@ const KuConfigHeader = (props) => {
                         <div className="ku-normal-aside-opt-icon">
                             <Tooltip placement="right" title={localStorage.getItem("kuName")}>
                                 <div className="ku-normal-host-opt-title">
-                                    <span className="ku-normal-opt-text" onClick={() => dropDownList()}>
-                                        {localStorage.getItem("kuName")}
-                                    </span>
+
                                     <CaretDownOutlined/>
                                 </div>
                             </Tooltip>
                         </div>
-                    </Dropdown>
+                    </Dropdown>*/}
                 </div>
             </div>
             <div className="ku-config-right">
@@ -145,12 +145,18 @@ const KuConfigHeader = (props) => {
                                 onClick={() => selectMenu(item.url)}
                                 className={`kuMenu-box ${url === item.url ? "border-bottom" : ""}`}
                             >
-                                <svg className="menu-icon" aria-hidden="true">
+                                {/*<svg className="menu-icon" aria-hidden="true">
                                     <use xlinkHref={`#icon-${item.icon}`}></use>
-                                </svg>
+                                </svg>*/}
                                 <span className="kuMenu-text">
                                     {item.name}
                                 </span>
+                                {"告警" === item.name ?
+                                    <div className="kuTop-text-div">
+                                        <div className="kuTop-text-number">
+                                            {alarmNum}
+                                        </div>
+                                    </div> : ""}
                             </div>
                         )
                     })

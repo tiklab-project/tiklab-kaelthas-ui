@@ -11,7 +11,7 @@ const KuPermissions = (props) => {
         <DomainRole
             {...props}
             domainId = {hostId}
-            bgroup={"xmonitor"}
+            bgroup={"kaelthas"}
         />
     );
 };

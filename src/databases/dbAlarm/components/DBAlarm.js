@@ -6,9 +6,10 @@ import {withRouter} from "react-router-dom";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import hostAlarmStore from "../../../host/hostAlarm/sotre/HostAlarmStore";
+import {SearchOutlined} from "@ant-design/icons";
 
 
-const DBAlarm = (props) => {
+const DBAlarm = () => {
 
     const {
         alarmPage,
@@ -90,6 +91,8 @@ const DBAlarm = (props) => {
 
         setSearchCondition({
             hostId: localStorage.getItem("dbId"),
+            name: null,
+            ip: null,
             status: null,
             machineType: 2,
             severityLevel: null
@@ -209,10 +212,9 @@ const DBAlarm = (props) => {
     const columns = [
         {
             title: '数据源名称',
-            dataIndex: 'hostName',
+            dataIndex: 'name',
             ellipsis: true,
-            // width: "20%",
-            key: 'hostName',
+            key: 'name',
         },
         {
             title: '主机IP',
@@ -299,11 +301,41 @@ const DBAlarm = (props) => {
         await findAlarmPageByHostId();
     }
 
+    async function selectByName(event) {
+        setSearchCondition({
+            name: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
+    async function selectByIp(event) {
+        setSearchCondition({
+            ip: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
     return (
         <div className="db-alarm-box">
             <div className="db-alarm-box-body">
                 <div className="db-alarm-box-search">
-                    <div style={{marginRight: 8}}>
+                    <div>
+                        <Input placeholder="数据库名称"
+                               className="graphics-kind-search"
+                               onChange={(event) => selectByName(event)}
+                               allowClear={true}
+                               prefix={<SearchOutlined/>}
+                        />
+                    </div>
+                    <div>
+                        <Input placeholder="数据库ip"
+                               className="graphics-kind-search"
+                               onChange={(event) => selectByIp(event)}
+                               allowClear={true}
+                               prefix={<SearchOutlined/>}
+                        />
+                    </div>
+                    <div>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectLeveType(value)}
                                       title={`告警等级`}

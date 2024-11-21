@@ -1,6 +1,6 @@
 .configs-header {
     background: #ffffff;
-    border-bottom: 1px solid #e9e9e9;
+    flex-direction: column;
 
     .db-topMenu-top {
         display: flex;
@@ -17,20 +17,14 @@
 
             .db-normal-aside-left{
                 display: flex;
-                height: 32px;
-                line-height: 32px;
+                height: 18px;
+                line-height: 18px;
                 align-items: center;
             }
-        }
-
-        .db-normal-aside-opt-icon {
-            display: flex;
-            align-items: center;
-            justify-content: center;
 
             .db-normal-host-opt-title{
-                height: 32px;
-                line-height: 32px;
+                height: 35px;
+                line-height: 35px;
                 align-items: center;
 
                 .normal-host-opt-text{
@@ -41,6 +35,14 @@
                     font-size: 16px;
                 }
             }
+        }
+
+        .db-normal-aside-opt-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
         }
 
         .db-normal-aside-opt-icon:hover {
@@ -80,8 +82,9 @@
         display: flex;
         justify-content: start;
         min-width: 600px;
-        height: 32px;
+        height: 35px;
         gap: 15px;
+        border-bottom: 1px solid #d9d9d9;
 
         .dbMenu-box {
             display: flex;
@@ -89,8 +92,8 @@
             cursor: pointer;
             overflow: hidden;
             flex-shrink: 0;
-            height: 32px;
-            line-height: 32px;
+            height: 35px;
+            line-height: 35px;
             width: 50px;
             justify-content: center;
 
@@ -99,6 +102,25 @@
                 justify-content: center;
                 align-items: center;
                 font-size: 15px;
+            }
+
+            .dbTop-text-div{
+                color: #999;
+                font-size: 13px;
+                padding: 4px 0 0 3px;
+
+                .dbTop-text-number{
+                    display: flex;
+                    justify-content: center;
+                    left: 55%;
+                    height: 16px;
+                    width: 16px;
+                    background: red;
+                    line-height: 16px;
+                    color: #fff;
+                    border-radius: 50%;
+                    font-size: 12px;
+                }
             }
         }
 

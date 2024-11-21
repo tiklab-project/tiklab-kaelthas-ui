@@ -1,13 +1,13 @@
-.ku-alarm-box {
+.in-alarm-box {
   height: 100%;
   flex: 1;
   background: #fff;
 
-  .ku-alarm-box-body {
+  .in-alarm-box-body {
     padding: 20px 0;
     border-radius: 4px;
 
-    .ku-alarm-box-title {
+    .in-alarm-box-title {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -15,7 +15,7 @@
       line-height: 32px;
       height: 32px;
 
-      .ku-alarm-box-title-text {
+      .in-alarm-box-title-text {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -25,18 +25,18 @@
       }
     }
 
-    .ku-alarm-box-line {
+    .in-alarm-box-line {
       display: flex;
       padding: 10px;
       margin-bottom: 15px;
 
-      .ku-alarm-box-div {
+      .in-alarm-box-div {
         width: 500px;
         height: 400px;
         padding: 15px;
 
 
-        .ku-alarm-box-div-details {
+        .in-alarm-box-div-details {
           background: #fff;
           width: 100%;
           height: 100%;
@@ -44,12 +44,13 @@
       }
     }
 
-    .ku-alarm-box-search {
+    .in-alarm-box-search {
       display: flex;
       height: 50px;
       justify-content: flex-start;
+      gap: 20px;
 
-      .ku-alarm-box-search-div {
+      .in-alarm-box-search-div {
         border-radius: 4px;
         width: 200px;
       }
@@ -61,7 +62,7 @@
       }
     }
 
-    .ku-alarm-box-table {
+    .in-alarm-box-table {
       margin-top: 15px;
     }
   }

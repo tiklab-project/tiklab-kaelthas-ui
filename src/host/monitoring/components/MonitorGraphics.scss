@@ -123,7 +123,8 @@
 .details-search {
   display: flex;
   justify-content: flex-start;
-  width: 1000px;
+  min-width: 500px;
+  gap: 20px;
 
   .select-content{
     padding: 5px 10px;
@@ -133,10 +134,6 @@
   .details-select {
     margin-right: 10px;
     width: 100px;
-  }
-  .details-div {
-    margin-right: 10px;
-    width: 100%;
   }
 
 }

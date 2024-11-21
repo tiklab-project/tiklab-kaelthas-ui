@@ -1,12 +1,10 @@
 .db-setting-layout {
   display: flex;
   height: 100%;
-  overflow: auto;
   flex-direction: row;
 
   .db-setting-layout-right {
     flex: 1;
-    padding: 0 5px;
   }
 
 }

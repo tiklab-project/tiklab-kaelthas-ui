@@ -94,52 +94,6 @@ const TopMenu = (props) => {
                          onClick={() => goBackHost()}>
                         <use xlinkHref={`#icon-left`}></use>
                     </svg>
-                    {/*
-                    <Dropdown
-                        getPopupContainer={e => e.parentElement}
-                        overlayStyle={{width: 200, top: 48, left: 80}}
-                        trigger={['click']}
-                        overlayClassName="normal-aside-dropdown"
-                        overlay={
-                            <div className="host-opt">
-                                <div className="host-opt-title">切换主机</div>
-                                <div className="host-opt-group">
-                                    {
-                                        hostList && hostList.map(item => {
-                                            return (
-                                                <div onClick={() => changeHost(item)}
-                                                     key={item?.id}
-                                                     className={`host-opt-item ${item?.id === hostId ? "host-opt-active" : ""}`}
-                                                >
-                                                <span className={`host-opt-icon mf-icon-${item?.color}`}>
-                                                    {item?.name?.substring(0, 1).toUpperCase()}
-                                                </span>
-                                                    <span className="host-opt-name">
-                                                    {item?.name}
-                                                </span>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <div className='host-opt-more'
-                                         onClick={() => props.history.push('/config')}
-                                    >更多
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    >
-                        <div className="normal-aside-opt-icon">
-                            <Tooltip placement="right" title={hostData?.name}>
-                                <div className="normal-host-opt-title">
-                                    <span style={{fontSize: 16}}>
-                                        {hostData?.name && hostData?.name}
-                                    </span>
-                                    <CaretDownOutlined/>
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </Dropdown>*/}
                     <span style={{fontSize: 16}}>
                          主机 / {hostData?.name && hostData?.name}
                     </span>
@@ -164,7 +118,11 @@ const TopMenu = (props) => {
                                     {item.name}
                                     </span>
                                     {"告警" === item.name ?
-                                        <span className="top-text-number">{alarmNum}</span> : ""}
+                                        <div className="top-text-div">
+                                            <div className="top-text-number">
+                                                {alarmNum}
+                                            </div>
+                                        </div> : ""}
                                 </div>
                             )
                         })

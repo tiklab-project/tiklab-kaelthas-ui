@@ -10,7 +10,7 @@ const KuMember = (props) => {
         <DomainUser
             {...props}
             domainId={hostId}
-            bgroup={"xmonitor"}
+            bgroup={"kaelthas"}
         />
     );
 };

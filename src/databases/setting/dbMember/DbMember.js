@@ -10,7 +10,7 @@ const DbMember = (props) => {
         <DomainUser
             {...props}
             domainId={hostId}
-            bgroup={"xmonitor"}
+            bgroup={"kaelthas"}
         />
     );
 };

@@ -1,26 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import "./ConfigHeader.scss"
 import {withRouter} from "react-router-dom";
-import {Dropdown, Tooltip} from "antd";
-import {CaretDownOutlined} from "@ant-design/icons";
 import databasesStore from "../databasesPage/store/DatabasesStore";
 import {observer} from "mobx-react";
+import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const ConfigHeader = (props) => {
 
     const {
-        findDropDown,
         updateDbInfo,
-        dbList
     } = databasesStore;
+    const {
+        findAlarmNumByCondition
+    } = alarmPageStore
+
 
     let dbId = localStorage.getItem('dbId');
 
     let url = localStorage.getItem('url');
 
+    const [alarmNum, setAlarmNum] = useState(0);
+
     const selectMenu = (url) => {
         localStorage.setItem("url", url)
-        localStorage.setItem("confUrl",`/db/${dbId}/configs/monitor`)
+        localStorage.setItem("confUrl", `/db/${dbId}/configs/monitor`)
         props.history.push(url)
     }
 
@@ -66,15 +69,11 @@ const ConfigHeader = (props) => {
         props.history.push("/db")
     }
 
-    useEffect(() => {
+    useEffect(async () => {
         //查询配置的数据库列表,查询4个
-
+        const newVar = await findAlarmNumByCondition({hostId: dbId});
+        setAlarmNum(newVar?.alarmNum)
     }, []);
-
-    async function dropDownList() {
-        const dbs = await findDropDown();
-        setDbList(dbs)
-    }
 
     async function changeHost(item) {
         if (dbId !== item.id) {
@@ -91,60 +90,13 @@ const ConfigHeader = (props) => {
         <div className="configs-header">
             <div className="db-topMenu-top">
                 <div className="db-topMenu-top-title">
-                    <div className="db-normal-aside-left">
-                        <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
-                             onClick={() => goBackHost()}>
-                            <use xlinkHref={`#icon-left`}></use>
-                        </svg>
-                    </div>
-                    {/*<Dropdown
-                        getPopupContainer={e => e.parentElement}
-                        overlayStyle={{width: 200, top: 48, left: 80}}
-                        trigger={['click']}
-                        overlayClassName="normal-aside-dropdown"
-                        overlay={
-                            <div className="db-opt">
-                                <div className="db-opt-title">切换主机</div>
-                                <div className="db-opt-group">
-                                    {
-                                        dbList && dbList.map(item => {
-                                            return (
-                                                <div onClick={() => changeHost(item)}
-                                                     key={item?.id}
-                                                     className={`db-opt-item ${item?.id === dbId ? "db-opt-active" : ""}`}
-                                                >
-                                                <span className={`db-opt-icon mf-icon-${item?.color}`}>
-                                                    {item?.name?.substring(0, 1).toUpperCase()}
-                                                </span>
-                                                    <span className="db-opt-name">
-                                                    {item?.name}
-                                                </span>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <div className='db-opt-more' onClick={() => props.history.push('/db')}>更多</div>
-                                </div>
-                            </div>
-                        }
-                    >
-                        <div className="db-normal-aside-opt-icon">
-                            <Tooltip placement="right" title={localStorage.getItem("dbName")}>
-                                <div className="db-normal-host-opt-title">
-                                    <span className="normal-host-opt-text" onClick={() => dropDownList()}>
-                                        {localStorage.getItem("dbName")}
-                                    </span>
-                                    <CaretDownOutlined/>
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </Dropdown>*/}
-                    <div className="db-normal-host-opt-title">
-                                    <span className="normal-host-opt-text" style={{fontSize:16}}>
-                                        数据库 / {localStorage.getItem("dbName")}
-                                    </span>
-                    </div>
-
+                    <svg className="common-icon-show" aria-hidden="true" style={{cursor: "pointer"}}
+                         onClick={() => goBackHost()}>
+                        <use xlinkHref={`#icon-left`}></use>
+                    </svg>
+                    <span style={{fontSize: 16}}>
+                            数据库 / {localStorage.getItem("dbName")}
+                        </span>
                 </div>
             </div>
             <div className="db-right">
@@ -162,6 +114,12 @@ const ConfigHeader = (props) => {
                                 <span className="dbMenu-text">
                                     {item.name}
                                 </span>
+                                {"告警" === item.name ?
+                                    <div className="dbTop-text-div">
+                                        <div className="dbTop-text-number">
+                                            {alarmNum}
+                                        </div>
+                                    </div> : ""}
                             </div>
                         )
                     })

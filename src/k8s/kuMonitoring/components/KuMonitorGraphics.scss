@@ -92,11 +92,13 @@
           flex-wrap: wrap;
           width: 100%;
           height: 590px;
+          margin-top: 10px;
+          justify-content: space-between;
 
           .item-tabs-item {
-            width: 47%;
+            width: 49%;
             background: #fafbfc;
-            margin: 10px;
+            margin: 15px 0;
           }
 
           .layout-search {
@@ -123,7 +125,8 @@
 .ku-details-search {
   display: flex;
   justify-content: flex-start;
-  width: 1000px;
+  min-width: 500px;
+  gap: 20px;
 
   .select-content{
     padding: 5px 10px;
@@ -133,10 +136,6 @@
   .details-select {
     margin-right: 10px;
     width: 100px;
-  }
-  .ku-details-div {
-    margin-right: 10px;
-    width: 100%;
   }
 
 }

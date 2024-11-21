@@ -77,7 +77,6 @@
       justify-content: start;
       gap: 15px;
 
-
     }
 
     .topMenu-box {
@@ -98,10 +97,23 @@
         font-size: 15px;
       }
 
-      .top-text-number{
+      .top-text-div{
         color: #999;
         font-size: 13px;
         padding: 4px 0 0 3px;
+
+        .top-text-number{
+          display: flex;
+          justify-content: center;
+          left: 55%;
+          height: 16px;
+          width: 16px;
+          background: red;
+          line-height: 16px;
+          color: #fff;
+          border-radius: 50%;
+          font-size: 12px;
+        }
       }
     }
 

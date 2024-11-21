@@ -110,8 +110,8 @@ const MonitorGraphics = () => {
                 <div className="details-body">
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
-                            <div className="details-search">
-                                <div className="details-div">
+                            <div className="in-details-search">
+                                <div>
                                     <RangePicker
                                         // style={{width: 300}}
                                         format={dateFormat}
@@ -120,7 +120,7 @@ const MonitorGraphics = () => {
                                         defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
                                     />
                                 </div>
-                                <div className="details-div">
+                                <div>
                                     <Select
                                         maxTagCount='responsive'
                                         placeholder="最近时间"

@@ -6,10 +6,9 @@ import {withRouter} from "react-router-dom";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import kuAlarmStore from "../sotre/InAlarmStore";
+import {SearchOutlined} from "@ant-design/icons";
 
-const {Option} = Select;
-
-const InAlarm = (props) => {
+const InAlarm = () => {
 
     const {
         alarmPage,
@@ -26,7 +25,7 @@ const InAlarm = (props) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const [alarm,setAlarm] = useState();
+    const [alarm, setAlarm] = useState();
 
     const quickFilterList = [
         {
@@ -80,8 +79,8 @@ const InAlarm = (props) => {
 
     useEffect(async () => {
         setQuickFilterValue({
-            label:"状态",
-            value:"all"
+            label: "状态",
+            value: "all"
         })
         setLeveType({
             key: "all",
@@ -90,8 +89,8 @@ const InAlarm = (props) => {
         })
 
         setSearchCondition({
-            hostId:localStorage.getItem("internetId"),
-            status:null,
+            hostId: localStorage.getItem("internetId"),
+            status: null,
             machineType: 4,
             severityLevel: null
         })
@@ -113,9 +112,9 @@ const InAlarm = (props) => {
             let data = value.value;
             let sendData;
 
-            if (data === "all"){
+            if (data === "all") {
                 sendData = null
-            }else {
+            } else {
                 sendData = data
             }
             await onLeveTypeChange(sendData);
@@ -167,8 +166,8 @@ const InAlarm = (props) => {
 
     function conversionType(severityLevel) {
 
-        leveValueList.map(item =>{
-            if (item.key === severityLevel){
+        leveValueList.map(item => {
+            if (item.key === severityLevel) {
                 return item.label;
             }
         })
@@ -210,10 +209,9 @@ const InAlarm = (props) => {
     const columns = [
         {
             title: '主机名称',
-            dataIndex: 'hostName',
+            dataIndex: 'name',
             ellipsis: true,
-            // width: "20%",
-            key: 'hostName',
+            key: 'name',
         },
         {
             title: '主机IP',
@@ -300,30 +298,58 @@ const InAlarm = (props) => {
         await findAlarmPageByHostId();
     }
 
+    async function selectByName(event) {
+        setSearchCondition({
+            name: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
+    async function selectByIp(event) {
+        setSearchCondition({
+            ip: event.target.value
+        })
+        await findAlarmPageByHostId();
+    }
+
     return (
-        <Row className="ku-alarm-box">
+        <Row className="in-alarm-box">
             <Col span={24}>
-                <div className="ku-alarm-box-body">
-                    <div className="ku-alarm-box-search">
-                        <div style={{marginRight: 8}}>
-                            <SelectSimple name="quickFilter"
-                                          onChange={(value) => selectLeveType(value)}
-                                          title={`告警等级`}
-                                          ismult={false}
-                                          value={leveType}
-                                          suffixIcon={true}
-                            >
-                                {
-                                    leveValueList.map(item => {
-                                        return <SelectItem
-                                            value={item.key}
-                                            label={`${item.label}`}
-                                            key={item.key}
-                                        />
-                                    })
-                                }
-                            </SelectSimple>
+                <div className="in-alarm-box-body">
+                    <div className="in-alarm-box-search">
+                        <div>
+                            <Input placeholder="网络设备名称"
+                                   className="graphics-kind-search"
+                                   onChange={(event) => selectByName(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
                         </div>
+                        <div>
+                            <Input placeholder="网络设备ip"
+                                   className="graphics-kind-search"
+                                   onChange={(event) => selectByIp(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <SelectSimple name="quickFilter"
+                                      onChange={(value) => selectLeveType(value)}
+                                      title={`告警等级`}
+                                      ismult={false}
+                                      value={leveType}
+                                      suffixIcon={true}
+                        >
+                            {
+                                leveValueList.map(item => {
+                                    return <SelectItem
+                                        value={item.key}
+                                        label={`${item.label}`}
+                                        key={item.key}
+                                    />
+                                })
+                            }
+                        </SelectSimple>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectMenu(value)}
                                       title={`状态`}
@@ -356,7 +382,7 @@ const InAlarm = (props) => {
                             <p>你确定要更改状态吗？</p>
                         </Modal>
                     </>
-                    <div className="ku-alarm-box-table">
+                    <div className="in-alarm-box-table">
                         <Table rowKey={record => record.id}
                                columns={columns}
                                className="custom-table"

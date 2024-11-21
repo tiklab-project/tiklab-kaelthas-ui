@@ -46,8 +46,9 @@
 
     .ku-alarm-box-search {
       display: flex;
-      height: 50px;
+      height: 32px;
       justify-content: flex-start;
+      gap: 20px;
 
       .ku-alarm-box-search-div {
         border-radius: 4px;

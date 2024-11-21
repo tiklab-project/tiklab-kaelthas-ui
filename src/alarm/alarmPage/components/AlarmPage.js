@@ -221,8 +221,8 @@ const AlarmPage = (props) => {
     const columns = [
         {
             title: '设备名称',
-            dataIndex: 'hostName',
-            key: 'hostName',
+            dataIndex: 'name',
+            key: 'name',
             width: "12%",
             ellipsis: {
                 showTitle: false,
@@ -324,7 +324,7 @@ const AlarmPage = (props) => {
 
     async function checkHostName(e) {
         setSearchCondition({
-            hostName: e.target.value
+            name: e.target.value
         })
         await findAlarmPage();
     }
@@ -353,6 +353,13 @@ const AlarmPage = (props) => {
         await findAlarmPage();
     }
 
+    async function selectByIp(event) {
+        setSearchCondition({
+            ip: event.target.value
+        })
+        await findAlarmPage();
+    }
+
     return (
         <Row className="alarm-box">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
@@ -363,16 +370,24 @@ const AlarmPage = (props) => {
                         </div>
                     </div>
                     <div className="alarm-box-search">
-                        <div style={{marginRight: 8}}>
+                        <div>
                             <Input
                                 className="alarm-box-search-div"
                                 placeholder="设备名称"
-                                onPressEnter={(e) => checkHostName(e)}
+                                onChange={(e) => checkHostName(e)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div style={{marginRight: 8}}>
+                        <div>
+                            <Input placeholder="设备ip"
+                                   className="alarm-box-search-div"
+                                   onChange={(event) => selectByIp(event)}
+                                   allowClear={true}
+                                   prefix={<SearchOutlined/>}
+                            />
+                        </div>
+                        <div>
                             <SelectSimple name="quickFilter"
                                           onChange={(value) => selectLeveType(value)}
                                           title={`告警等级`}

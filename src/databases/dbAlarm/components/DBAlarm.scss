@@ -46,8 +46,9 @@
 
     .db-alarm-box-search {
       display: flex;
-      height: 50px;
+      height: 32px;
       justify-content: flex-start;
+      gap: 20px;
 
       .alarm-box-search-div {
         border-radius: 4px;
