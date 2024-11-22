@@ -156,7 +156,7 @@ const InConfigHeader = (props) => {
                                 <span className="inMenu-text">
                                     {item.name}
                                 </span>
-                                {"告警" === item.name ?
+                                {"告警" === item.name && alarmNum !== 0 ?
                                     <div className="inTop-text-div">
                                         <div className="inTop-text-number">
                                             {alarmNum}

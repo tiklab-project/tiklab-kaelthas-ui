@@ -144,24 +144,8 @@ const KuMonitor = (props) => {
     return (
         <Row className="ku-monitor-right">
             <Col>
-                <div className="monitor-kind-options">
-                    {/*<div className="monitor-kind-options-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    key={item.title}
-                                    className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
-                                    onClick={() => onClickMonitor(item.key)}>
-                                    {item.title}
-                                </div>
-                            })
-                        }
-                    </div>*/}
-                    <div>
-                        监控项数量：{total}
-                    </div>
-                    <div className="monitor-top-right-search">
-                        <div>
+                <div className="ku-monitor-kind-options">
+                    <div className="ku-monitor-top-right-search">
                             <Input
                                 placeholder="监控项名称"
                                 className="monitor-kind-search"
@@ -169,10 +153,9 @@ const KuMonitor = (props) => {
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
-                        </div>
-                        <div className="monitor-top-right">
-                            <KuAddMonitor/>
-                        </div>
+                    </div>
+                    <div className="ku-monitor-top-right">
+                        <KuAddMonitor/>
                     </div>
                 </div>
                 <div className="ku-monitor-table">

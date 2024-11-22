@@ -124,25 +124,17 @@ const Graphics = (props) => {
     return (
         <Row className="box-graphics-right">
             <Col>
-                <div className="box-graphics-title">
-
-                </div>
-                <div className="graphics-kind-options">
-                    <div className="box-graphics-title-text">
-                        图形的数量：{total}
-                    </div>
-                    <div className="box-graphics-title-div">
-                        <div>
+                <div className="in-graphics-kind-options">
+                    <div className="in-box-graphics-title-div">
                             <Input placeholder="图形名称"
                                    className="graphics-kind-search"
                                    onPressEnter={(event) => searchName(event)}
                                    allowClear={true}
                                    prefix={<SearchOutlined/>}
                             />
-                        </div>
-                        <div className="graphics-top-right">
-                            <AddGraphics/>
-                        </div>
+                    </div>
+                    <div className="in-graphics-top-right">
+                        <AddGraphics/>
                     </div>
                 </div>
                 <div className="box-graphics-table">

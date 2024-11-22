@@ -2,7 +2,7 @@
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .box-trigger-title {
+  .db-box-trigger-title {
     display: flex;
     width: 100%;
     align-items: center;
@@ -11,33 +11,27 @@
     line-height: 42px;
     justify-content: space-between;
 
-    .box-trigger-title-text {
-      flex: 1;
-    }
-
-    .trigger-kind-search-div {
+    .db-trigger-kind-search-div {
       display: flex;
       align-items: center;
       justify-content: space-between;
-
-
-      .trigger-top-right {
-        gap: 10px;
-        background-color: #0d66e4;
-        color: #ffffff;
-        font-weight: 500;
-        padding: 5px 10px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        height: 32px;
-        line-height: 32px;
-        width: fit-content;
-        margin-left: 50px;
-      }
     }
 
+    .db-trigger-top-right {
+      gap: 10px;
+      background-color: #0d66e4;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      width: fit-content;
+      margin-left: 50px;
+    }
 
   }
 

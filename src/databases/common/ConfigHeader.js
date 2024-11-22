@@ -114,7 +114,7 @@ const ConfigHeader = (props) => {
                                 <span className="dbMenu-text">
                                     {item.name}
                                 </span>
-                                {"告警" === item.name ?
+                                {"告警" === item.name && alarmNum !== 0 ?
                                     <div className="dbTop-text-div">
                                         <div className="dbTop-text-number">
                                             {alarmNum}

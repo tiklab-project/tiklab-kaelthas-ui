@@ -18,10 +18,11 @@ import {
 import menuBlack from "../../assets/images/menu-black.png"
 import menuWhite from "../../assets/images/menu-white.png"
 import Profile from "../component/profile/Profile";
+import MoreMenuModel from "./MoreMenuModal";
 
 const HomeLayout = (props) => {
 
-    const {HelpLink, AppLink, AvatarLink,systemRoleStore} = props;
+    const {HelpLink, AppLink, AvatarLink, systemRoleStore} = props;
 
     const path = props.location.pathname;
 
@@ -43,11 +44,34 @@ const HomeLayout = (props) => {
 
     const [notificationVisibility, setNotificationVisibility] = useState(false);
 
+    const [moreMenu, setMoreMenu] = useState([
+        {
+            name: '数据库',
+            url: '/db',
+            key: 'db',
+        },
+        {
+            name: 'k8s',
+            url: '/kubernetes',
+            key: 'kubernetes',
+        },
+        {
+            name: '网络',
+            url: '/internet',
+            key: 'internet',
+        },
+    ])
+
     const routers = [
         {
             name: '首页',
             url: '/home',
             key: 'home',
+        },
+        {
+            name: '告警',
+            url: '/alarm',
+            key: 'alarm',
         },
         {
             name: '主机',
@@ -69,12 +93,35 @@ const HomeLayout = (props) => {
             url: '/internet',
             key: 'internet',
         },
-        {
-            name: '告警',
-            url: '/alarm',
-            key: 'alarm',
-        }
     ];
+
+    const [projectRouter, setProjectRouter] = useState([]);
+
+    const [morePath, setMorePath] = useState()
+
+    const [themeClass, setThemeClass] = useState("project-sider-gray")
+
+    const getThemeClass = (theme) => {
+        let name = "default"
+        switch (theme) {
+            case "black":
+                name = "project-sider-black";
+                break;
+            case "default":
+                name = "project-sider-gray";
+                break;
+            case "blue":
+                name = "project-sider-blue";
+                break;
+            default:
+                name = "first-sider-gray";
+                break;
+
+        }
+        setThemeClass(name)
+        setThemeType(theme)
+        return name;
+    }
 
     const selectMenu = (url, key) => {
         localStorage.setItem("url", url)
@@ -84,13 +131,45 @@ const HomeLayout = (props) => {
 
     const {getSystemPermissions} = systemRoleStore;
 
-    useEffect(()=>{
+    useEffect(() => {
         getSystemPermissions(getUser().userId);
         const type = localStorage.getItem('theme')
-        if(type){
+        if (type) {
             setThemeType(type)
         }
-    },[])
+    }, [])
+
+    const resizeUpdate = (e) => {
+        // 通过事件对象获取浏览器窗口的高度
+        const documentHeight = e.target ? e.target.innerHeight : e.clientHeight;
+
+        const menuHeight = documentHeight - 250;
+        const menuNum = Math.floor(menuHeight / 80);
+        let num = 0;
+        num = menuNum > 6 ? 6 : menuNum;
+        setProjectRouter(routers.slice(0, num))
+        const hiddenMenu = routers.slice(num, routers.length)
+
+        setMoreMenu(hiddenMenu)
+        let data = [];
+        hiddenMenu.map(item => {
+            data.push(item.key)
+        })
+
+        setMorePath([...data])
+    };
+    useEffect(() => {
+        getThemeClass(themeType)
+        return null;
+    }, [])
+    useEffect(() => {
+        resizeUpdate(document.getElementById("root"))
+        window.addEventListener("resize", resizeUpdate);
+        return () => {
+            // 组件销毁时移除监听事件
+            window.removeEventListener('resize', resizeUpdate);
+        }
+    }, [themeType])
 
     /**
      * type三个参数为:
@@ -129,19 +208,23 @@ const HomeLayout = (props) => {
                     </div>
                     <div className="aside-up">
                         {
-                            routers.map(item => (
+                            projectRouter && projectRouter.map(item => (
                                 <div key={item.key}
                                      className={`aside-item ${menuKey === item.key ? "aside-select" : ""}`}
                                      onClick={() => selectMenu(item.url, item.key)}
                                 >
-                                    {/*<div className="aside-item-icon">{item.icon}</div>*/}
+                                    <div className="aside-item-icon">{item.icon}</div>
                                     <svg className="host-svg-icon" aria-hidden="true">
                                         <use xlinkHref={`#icon-${item.key}`}></use>
                                     </svg>
-                                    <div className={`aside-item-title ${isExpand ? "aside-item-title-left" :""}`}>{item.name}</div>
+                                    <div
+                                        className={`aside-item-title ${isExpand ? "aside-item-title-left" : ""}`}>{item.name}</div>
                                 </div>
                             ))
                         }
+                        {moreMenu && moreMenu.length > 0 && <MoreMenuModel
+                             moreMenu={moreMenu} morePath={morePath} theme={themeType} isExpand={isExpand}
+                        />}
                     </div>
                     <div className="aside-bottom">
                         {

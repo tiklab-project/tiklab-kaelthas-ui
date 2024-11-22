@@ -25,9 +25,9 @@ const AlarmPage = (props) => {
 
     const [alarm, setAlarm] = useState();
 
-    const [quickFilterValue,setQuickFilterValue] = useState();
+    const [quickFilterValue, setQuickFilterValue] = useState();
 
-    const [leveType,setLeveType] = useState();
+    const [leveType, setLeveType] = useState();
 
     const leveList = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
 
@@ -155,13 +155,13 @@ const AlarmPage = (props) => {
     }
 
     async function jumpToMonitor(record) {
-        localStorage.setItem("hostId", record.hostId);
+        /*localStorage.setItem("hostId", record.hostId);
         localStorage.setItem("hostName", record.hostName)
         localStorage.setItem("ip", record.ip)
         sessionStorage.setItem("menuKey", "host")
         localStorage.setItem("url", `/hostList/${record?.hostId}/monitoring`)
 
-        props.history.push(`/hostList/${record.hostId}/monitoring`)
+        props.history.push(`/host/${record.hostId}/monitoring`)*/
     }
 
     function conversionType(severityLevel) {
@@ -223,7 +223,7 @@ const AlarmPage = (props) => {
             title: '设备名称',
             dataIndex: 'name',
             key: 'name',
-            width: "12%",
+            width: "10%",
             ellipsis: {
                 showTitle: false,
             },
@@ -233,26 +233,26 @@ const AlarmPage = (props) => {
             title: '设备IP',
             dataIndex: 'ip',
             key: 'ip',
-            width: "12%",
+            width: "8%",
             ellipsis: true,
         },
         {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
-            width: "12%",
+            width: "20%",
             ellipsis: {
                 showTitle: false,
             },
             render: (sendMessage, record) => <Tooltip placement="topLeft" title={sendMessage}
-                onClick={() => jumpToMonitor(record)}
-                                                  >{sendMessage}</Tooltip>
+                                                      onClick={() => jumpToMonitor(record)}
+            >{sendMessage}</Tooltip>
         },
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
-            width: "8%",
+            width: "7%",
             ellipsis: true,
             render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
@@ -260,28 +260,28 @@ const AlarmPage = (props) => {
             title: '告警时间',
             dataIndex: 'alertTime',
             key: 'alertTime',
-            width: "12%",
+            width: "10%",
             ellipsis: true,
         },
         {
             title: '解决时间',
             dataIndex: 'resolutionTime',
             key: 'resolutionTime',
-            width: "12%",
+            width: "10%",
             ellipsis: true,
         },
         {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
-            width: "12%",
+            width: "10%",
             ellipsis: true,
         },
         {
-            title: '告警设备类型',
+            title: '设备类型',
             dataIndex: 'machineType',
             key: 'machineType',
-            width: "12%",
+            width: "5%",
             ellipsis: true,
             render: (machineType) => <div>
                 {converMachine(machineType)}
@@ -291,7 +291,7 @@ const AlarmPage = (props) => {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
-            width: "8%",
+            width: "5%",
             ellipsis: true,
             render: (status, record) => {
                 if (status === 2) {
@@ -361,109 +361,112 @@ const AlarmPage = (props) => {
     }
 
     return (
-        <Row className="alarm-box">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
-                <div className="alarm-box-body">
-                    <div className="alarm-box-title">
-                        <div className="alarm-box-title-text">
-                            告警
+        <div className="alarm-box-page">
+
+            <Row className="alarm-box">
+                <Col sm={24} md={24} lg={{span: 24}} xl={{span: "22", offset: "1"}} xxl={{span: "18", offset: "3"}}>
+                    <div className="alarm-box-body">
+                        <div className="alarm-box-title">
+                            <div className="alarm-box-title-text">
+                                告警
+                            </div>
                         </div>
-                    </div>
-                    <div className="alarm-box-search">
-                        <div>
-                            <Input
-                                className="alarm-box-search-div"
-                                placeholder="设备名称"
-                                onChange={(e) => checkHostName(e)}
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                        <div>
-                            <Input placeholder="设备ip"
-                                   className="alarm-box-search-div"
-                                   onChange={(event) => selectByIp(event)}
-                                   allowClear={true}
-                                   prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                        <div>
+                        <div className="alarm-box-search">
+                            <div>
+                                <Input
+                                    className="alarm-box-search-div"
+                                    placeholder="设备名称"
+                                    onChange={(e) => checkHostName(e)}
+                                    allowClear={true}
+                                    prefix={<SearchOutlined/>}
+                                />
+                            </div>
+                            <div>
+                                <Input placeholder="设备ip"
+                                       className="alarm-box-search-div"
+                                       onChange={(event) => selectByIp(event)}
+                                       allowClear={true}
+                                       prefix={<SearchOutlined/>}
+                                />
+                            </div>
+                            <div>
+                                <SelectSimple name="quickFilter"
+                                              onChange={(value) => selectLeveType(value)}
+                                              title={`告警等级`}
+                                              ismult={false}
+                                              value={leveType}
+                                              suffixIcon={true}
+                                >
+                                    {
+                                        leveValueList.map(item => {
+                                            return <SelectItem
+                                                value={item.key}
+                                                label={`${item.label}`}
+                                                key={item.key}
+                                            />
+                                        })
+                                    }
+                                </SelectSimple>
+                            </div>
                             <SelectSimple name="quickFilter"
-                                          onChange={(value) => selectLeveType(value)}
-                                          title={`告警等级`}
+                                          onChange={(value) => selectMenu(value)}
+                                          title={`状态`}
                                           ismult={false}
-                                          value={leveType}
+                                          value={quickFilterValue}
                                           suffixIcon={true}
                             >
                                 {
-                                    leveValueList.map(item => {
+                                    quickFilterList.map(item => {
                                         return <SelectItem
-                                            value={item.key}
+                                            value={item.value}
                                             label={`${item.label}`}
-                                            key={item.key}
+                                            key={item.value}
+
                                         />
                                     })
                                 }
                             </SelectSimple>
                         </div>
-                        <SelectSimple name="quickFilter"
-                                      onChange={(value) => selectMenu(value)}
-                                      title={`状态`}
-                                      ismult={false}
-                                      value={quickFilterValue}
-                                      suffixIcon={true}
-                        >
-                            {
-                                quickFilterList.map(item => {
-                                    return <SelectItem
-                                        value={item.value}
-                                        label={`${item.label}`}
-                                        key={item.value}
-
-                                    />
-                                })
-                            }
-                        </SelectSimple>
+                        <>
+                            <Modal
+                                title="确认操作"
+                                visible={isModalVisible}
+                                onCancel={handleCancel}
+                                footer={[
+                                    <Button key="back" onClick={handleCancel} style={{float: 'left'}}>
+                                        取消
+                                    </Button>,
+                                    <Button key="submit" type="primary" onClick={handleOk}>
+                                        确定
+                                    </Button>,
+                                ]}
+                                width={200}
+                            >
+                                <p>你确定要更改状态吗？</p>
+                            </Modal>
+                        </>
+                        <div className="alarm-box-table">
+                            <Table rowKey={record => record.id}
+                                   columns={columns}
+                                   className="custom-table"
+                                   dataSource={alarmPage}
+                                   onChange={checkPage}
+                                   scroll={{
+                                       x: 400,
+                                   }}
+                                   pagination={{
+                                       position: ["bottomCenter"],
+                                       total: total,
+                                       showSizeChanger: true,
+                                       pageSize: searchCondition.pageParam.pageSize,
+                                       current: searchCondition.pageParam.currentPage,
+                                   }}
+                            />
+                        </div>
                     </div>
-                    <>
-                        <Modal
-                            title="确认操作"
-                            visible={isModalVisible}
-                            onCancel={handleCancel}
-                            footer={[
-                                <Button key="back" onClick={handleCancel} style={{float: 'left'}}>
-                                    取消
-                                </Button>,
-                                <Button key="submit" type="primary" onClick={handleOk}>
-                                    确定
-                                </Button>,
-                            ]}
-                            width={200}
-                        >
-                            <p>你确定要更改状态吗？</p>
-                        </Modal>
-                    </>
-                    <div className="alarm-box-table">
-                        <Table rowKey={record => record.id}
-                               columns={columns}
-                               className="custom-table"
-                               dataSource={alarmPage}
-                               onChange={checkPage}
-                               scroll={{
-                                   x: 400,
-                               }}
-                               pagination={{
-                                   position: ["bottomCenter"],
-                                   total: total,
-                                   showSizeChanger: true,
-                                   pageSize: searchCondition.pageParam.pageSize,
-                                   current: searchCondition.pageParam.currentPage,
-                               }}
-                        />
-                    </div>
-                </div>
-            </Col>
-        </Row>
+                </Col>
+            </Row>
+        </div>
     );
 };
 

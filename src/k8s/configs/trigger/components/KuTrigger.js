@@ -184,22 +184,17 @@ const KuTrigger = (props) => {
         <Row className="box-ku-trigger-right">
             <Col>
                 <div className="box-ku-trigger-title">
-                    <div className="box-ku-trigger-title-text">
-                        触发器数量：{total}
-                    </div>
                     <div className="ku-trigger-kind-search-div">
-                        <div>
-                            <Input
-                                onPressEnter={(event) => searchName(event)}
-                                className="ku-trigger-kind-search"
-                                placeholder="触发器名称"
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                        <div className="ku-trigger-top-right">
-                            <KuAddTrigger/>
-                        </div>
+                        <Input
+                            onPressEnter={(event) => searchName(event)}
+                            className="ku-trigger-kind-search"
+                            placeholder="触发器名称"
+                            allowClear={true}
+                            prefix={<SearchOutlined/>}
+                        />
+                    </div>
+                    <div className="ku-trigger-top-right">
+                        <KuAddTrigger/>
                     </div>
                 </div>
                 <div className="box-ku-trigger-table">

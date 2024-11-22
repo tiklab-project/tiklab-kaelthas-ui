@@ -27,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
             }
         }),
         new BundleAnalyzerPlugin({
-            analyzerPort: 8481,
+            analyzerPort: 8485,
         }),
         new ProgressBarPlugin()
     ],

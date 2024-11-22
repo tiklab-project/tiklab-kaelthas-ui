@@ -110,27 +110,22 @@ const KuGraphics = (props) => {
     ];
 
     return (
-        <Row className="db-box-graphics-right">
+        <Row className="ku-box-graphics-right">
             <Col>
-                <div className="db-graphics-kind-options">
-                    <div className="db-box-graphics-title-text">
-                        图形的数量：{total}
-                    </div>
-                    <div className="db-box-graphics-title-div">
-                        <div>
+                <div className="ku-graphics-kind-options">
+                    <div className="ku-box-graphics-title-div">
                             <Input placeholder="图形名称"
-                                   className="db-graphics-kind-search"
+                                   className="ku-graphics-kind-search"
                                    onPressEnter={(event) => searchName(event)}
                                    allowClear={true}
                                    prefix={<SearchOutlined/>}
                             />
-                        </div>
-                        <div className="db-graphics-top-right">
-                            <AddGraphics/>
-                        </div>
+                    </div>
+                    <div className="ku-graphics-top-right">
+                        <AddGraphics/>
                     </div>
                 </div>
-                <div className="db-box-graphics-table">
+                <div className="ku-box-graphics-table">
                     <>
                         <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                         columnData={columnData}

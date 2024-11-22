@@ -177,11 +177,8 @@ const DbTrigger = (props) => {
     return (
         <Row className="box-trigger-right">
             <Col>
-                <div className="box-trigger-title">
-                    <div className="box-trigger-title-text">
-                        触发器数量：{total}
-                    </div>
-                    <div className="trigger-kind-search-div">
+                <div className="db-box-trigger-title">
+                    <div className="db-trigger-kind-search-div">
                         <div>
                             <Input
                                 onPressEnter={(event) => searchName(event)}
@@ -191,9 +188,9 @@ const DbTrigger = (props) => {
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="trigger-top-right">
-                            <DbAddTrigger/>
-                        </div>
+                    </div>
+                    <div className="db-trigger-top-right">
+                        <DbAddTrigger/>
                     </div>
                 </div>
                 <div className="box-trigger-table">

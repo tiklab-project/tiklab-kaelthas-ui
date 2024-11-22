@@ -187,11 +187,7 @@ const InTrigger = (props) => {
         <Row className="box-in-trigger-right">
             <Col>
                 <div className="box-in-trigger-title">
-                    <div className="box-in-trigger-title-text">
-                        触发器数量：{total}
-                    </div>
                     <div className="in-trigger-kind-search-div">
-                        <div>
                             <Input
                                 onPressEnter={(event) => searchName(event)}
                                 className="in-trigger-kind-search"
@@ -199,10 +195,9 @@ const InTrigger = (props) => {
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
-                        </div>
-                        <div className="in-trigger-top-right">
-                            <InAddTrigger/>
-                        </div>
+                    </div>
+                    <div className="in-trigger-top-right">
+                        <InAddTrigger/>
                     </div>
                 </div>
                 <div className="box-in-trigger-table">

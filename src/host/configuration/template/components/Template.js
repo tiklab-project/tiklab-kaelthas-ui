@@ -174,11 +174,8 @@ const Template = (props) => {
     return (
         <Row className="box-template-right">
             <Col>
-                <div className="template-kind-options">
-                    <div className="box-template-title-text">
-                        模板数量：{total}
-                    </div>
-                    <div className="template-right-div">
+                <div className="host-template-kind-options">
+                    <div className="host-template-right-div">
                         <div>
                             <Input placeholder="模板名称"
                                    className="template-kind-search"
@@ -187,9 +184,9 @@ const Template = (props) => {
                                    prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="template-top-right">
-                            <AddTemplate/>
-                        </div>
+                    </div>
+                    <div className="host-template-top-right">
+                        <AddTemplate/>
                     </div>
                 </div>
                 <div className="box-template-table">

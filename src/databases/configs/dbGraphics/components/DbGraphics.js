@@ -117,9 +117,6 @@ const DbGraphics = (props) => {
 
                 </div>
                 <div className="db-graphics-kind-options">
-                    <div className="db-box-graphics-title-text">
-                        图形的数量：{total}
-                    </div>
                     <div className="db-box-graphics-title-div">
                         <div>
                             <Input placeholder="图形名称"
@@ -129,9 +126,9 @@ const DbGraphics = (props) => {
                                    prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="db-graphics-top-right">
-                            <AddGraphics/>
-                        </div>
+                    </div>
+                    <div className="db-graphics-top-right">
+                        <AddGraphics/>
                     </div>
                 </div>
                 <div className="db-box-graphics-table">

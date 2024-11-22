@@ -210,12 +210,14 @@ const InAlarm = () => {
         {
             title: '主机名称',
             dataIndex: 'name',
+            width: "12%",
             ellipsis: true,
             key: 'name',
         },
         {
             title: '主机IP',
             dataIndex: 'ip',
+            width: "10%",
             ellipsis: true,
             key: 'ip',
         },
@@ -223,6 +225,7 @@ const InAlarm = () => {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
+            width: "20%",
             ellipsis: {
                 showTitle: false,
             },
@@ -232,27 +235,37 @@ const InAlarm = () => {
             title: '告警等级',
             dataIndex: 'severityLevel',
             key: 'severityLevel',
+            width: "8%",
+            ellipsis: true,
             render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
         },
         {
             title: '告警时间',
             dataIndex: 'alertTime',
             key: 'alertTime',
+            width: "10%",
+            ellipsis: true,
         },
         {
             title: '解决时间',
             dataIndex: 'resolutionTime',
             key: 'resolutionTime',
+            width: "10%",
+            ellipsis: true,
         },
         {
             title: '持续时间',
             dataIndex: 'duration',
             key: 'duration',
+            width: "10%",
+            ellipsis: true,
         },
         {
             title: '状态',
             dataIndex: 'status',
             key: 'status',
+            width: "8%",
+            ellipsis: true,
             render: (status, record) => {
                 if (status === 2) {
                     return <div onClick={() => updateAlarm(record)}

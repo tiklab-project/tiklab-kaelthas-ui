@@ -117,7 +117,7 @@ const TopMenu = (props) => {
                                     <span className={`topMenu-text`}>
                                     {item.name}
                                     </span>
-                                    {"告警" === item.name ?
+                                    {"告警" === item.name && alarmNum !== 0 ?
                                         <div className="top-text-div">
                                             <div className="top-text-number">
                                                 {alarmNum}

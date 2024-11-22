@@ -117,21 +117,6 @@ const DbMonitor = () => {
             width: "20%",
             ellipsis: "true"
         },
-        /*{
-            title: '监控项来源',
-            dataIndex: 'source',
-            id: 'source',
-            width:"10%",
-            ellipsis:"true",
-            render: (monitorSource, record) => {
-                let text;
-                record?.templateId !== null ?
-                    text = <span>模板</span>
-                    :
-                    text = <span>主机</span>
-                return text;
-            }
-        },*/
         {
             title: '数据保留时间',
             dataIndex: 'retentionTime',
@@ -173,23 +158,9 @@ const DbMonitor = () => {
     return (
         <Row className="box-monitor-right">
             <Col>
-                <div className="monitor-kind-options">
-                    {/*<div className="monitor-kind-options-tabs">
-                        {
-                            availabilityTab.map(item => {
-                                return <div
-                                    key={item.title}
-                                    className={`monitor-kind-options-tabs-text ${item.key === monitorSource ? "monitor-select" : ""}`}
-                                    onClick={() => onClickMonitor(item.key)}>
-                                    {item.title}
-                                </div>
-                            })
-                        }
-                    </div>*/}
-                    <div>
-                        监控项数量：{total}
-                    </div>
-                    <div className="monitor-top-right-search">
+                <div className="db-monitor-kind-options">
+
+                    <div className="db-monitor-top-right-search">
                         <div>
                             <Input
                                 placeholder="监控项名称"
@@ -199,9 +170,9 @@ const DbMonitor = () => {
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="monitor-top-right">
-                            <DbAddMonitor/>
-                        </div>
+                    </div>
+                    <div className="db-monitor-top-right">
+                        <DbAddMonitor/>
                     </div>
                 </div>
                 <div className="box-monitor-table">

@@ -151,7 +151,7 @@ const KuConfigHeader = (props) => {
                                 <span className="kuMenu-text">
                                     {item.name}
                                 </span>
-                                {"告警" === item.name ?
+                                {"告警" === item.name && alarmNum !== 0 ?
                                     <div className="kuTop-text-div">
                                         <div className="kuTop-text-number">
                                             {alarmNum}

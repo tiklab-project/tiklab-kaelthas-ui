@@ -141,12 +141,6 @@ const InMonitor = () => {
             <Col>
                 <div className="monitor-kind-options">
                     <div className="monitor-kind-options-tabs">
-                        <div className="in-monitor-title-text">
-                            监控项数量：{total}
-                        </div>
-                    </div>
-                    <div className="monitor-top-right-search">
-                        <div>
                             <Input
                                 placeholder="监控项名称"
                                 className="monitor-kind-search"
@@ -154,7 +148,8 @@ const InMonitor = () => {
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
                             />
-                        </div>
+                    </div>
+                    <div className="monitor-top-right-search">
                         <div className="monitor-top-right">
                             <AddMonitor/>
                         </div>

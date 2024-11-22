@@ -216,10 +216,7 @@ const Trigger = (props) => {
     return (
         <Row className="box-trigger-right">
             <Col>
-                <div className="box-trigger-title">
-                    <div className="box-trigger-title-text">
-                        触发器数量：{total}
-                    </div>
+                <div className="host-box-trigger-title">
                     <div className="trigger-kind-search-div">
                         <div>
                             <Input
@@ -230,9 +227,9 @@ const Trigger = (props) => {
                                 prefix={<SearchOutlined/>}
                             />
                         </div>
-                        <div className="trigger-top-right">
-                            <AddTrigger/>
-                        </div>
+                    </div>
+                    <div className="trigger-top-right">
+                        <AddTrigger/>
                     </div>
                 </div>
                 <div className="box-trigger-table">

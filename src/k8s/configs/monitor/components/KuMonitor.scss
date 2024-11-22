@@ -7,23 +7,16 @@
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
-
-
-    .ku-monitor-title-text {
-      flex: 1;
-    }
-
-
   }
 
-  .monitor-kind-options {
+  .ku-monitor-kind-options {
     display: flex;
     width: 100%;
     align-items: center;
     justify-content: space-between;
     margin-top: 20px;
 
-    .monitor-kind-options-tabs {
+    .ku-monitor-kind-options-tabs {
       display: flex;
       gap: 10px;
       height: 42px;
@@ -50,25 +43,24 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+    }
 
+    .ku-monitor-top-right {
+      gap: 10px;
+      background-color: #0d66e4;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      margin-left: 50px;
 
-      .monitor-top-right {
-        gap: 10px;
-        background-color: #0d66e4;
-        color: #ffffff;
-        font-weight: 500;
-        padding: 5px 10px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        height: 32px;
-        line-height: 32px;
-        margin-left: 50px;
-
-        .monitor-top-right-button {
-          position: relative;
-        }
+      .monitor-top-right-button {
+        position: relative;
       }
     }
 
@@ -94,5 +86,5 @@
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  maxWidth: 500px
+  max-width: 500px
 }
