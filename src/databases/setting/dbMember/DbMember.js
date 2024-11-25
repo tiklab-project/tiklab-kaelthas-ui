@@ -4,12 +4,12 @@ import {DomainUser} from 'tiklab-user-ui';
 
 const DbMember = (props) => {
 
-    const hostId = localStorage.getItem('hostId')
+    const dbId = localStorage.getItem('dbId')
 
     return (
         <DomainUser
             {...props}
-            domainId={hostId}
+            domainId={dbId}
             bgroup={"kaelthas"}
         />
     );

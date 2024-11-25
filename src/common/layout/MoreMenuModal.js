@@ -7,6 +7,7 @@ const MoreMenuModel = (props) => {
 
     const isShowText = true;
 
+    //
     const {moreMenu, morePath, theme, isExpand} = props;
 
     // 获取当前被激活的菜单
@@ -57,10 +58,13 @@ const MoreMenuModel = (props) => {
 
     /**
      * 点击菜单
-     * @param {菜单key} key
+     * @param url
+     * @param  key
      */
-    const selectMenu = (key) => {
-        props.history.push(key)
+    const selectMenu = (url, key) => {
+        props.history.push(url)
+        localStorage.setItem("url", url)
+        localStorage.setItem("menuKey", key)
         setShowMenu(false)
     }
 
@@ -97,7 +101,7 @@ const MoreMenuModel = (props) => {
                     moreMenu && moreMenu.map((item, index) => {
                         return <div className={`project-menu-submenu ${path === item.url ? "project-menu-select" : ""}`}
                                     key={index}
-                                    onClick={() => selectMenu(item.url)}
+                                    onClick={() => selectMenu(item.url, item.key)}
                         >
                             <svg className="svg-icon" aria-hidden="true">
                                 <use xlinkHref={`#icon-${item.key}`}></use>

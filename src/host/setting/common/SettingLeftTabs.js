@@ -40,18 +40,15 @@ const SettingLeftTabs = (props) => {
     }, [hostId])
 
     return (
-        <div className="setting-box-right-left">
-            <div className="setting-box-right-text title">
-                设置
-            </div>
-            <div className="setting-box-menu">
+        <div className="host-setting-box-right-left">
+            <div className="host-setting-box-menu">
                 {
                     router.map((item, index) => {
                         return (
                             <div
                                 key={index}
                                 onClick={() => selectSetting(item.url)}
-                                className={`setting-box-right-tabs ${item.url === selectKey ? "setting-setting-select" : ""}`}
+                                className={`host-setting-box-right-tabs ${item.url === selectKey ? "host-setting-select" : ""}`}
                             >
                                 <span>{item.name}</span>
                             </div>

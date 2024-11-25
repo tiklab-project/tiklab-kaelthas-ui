@@ -41,9 +41,6 @@ const DbSettingTabs = (props) => {
 
     return (
         <div className="setting-box-right-left">
-            <div className="setting-box-right-text title">
-                设置
-            </div>
             <div className="setting-box-menu">
                 {
                     router.map((item, index) => {

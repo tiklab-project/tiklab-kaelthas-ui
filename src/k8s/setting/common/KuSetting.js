@@ -9,9 +9,9 @@ const KuSetting = (props) => {
     const {route} = props;
 
     return (
-        <div className="ku-setting-layout">
+        <div>
             <SettingTabs/>
-            <div className="ku-setting-layout-right">
+            <div>
                 {renderRoutes(route.routes)}
             </div>
         </div>

@@ -1,45 +1,50 @@
 .setting-box-right-left {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 100%;
   list-style-type: none;
-  height: 100%;
-  cursor: pointer;
-  background: #fafbfc;
-
-  .setting-box-right-text {
-    display: flex;
-    height: 40px;
-    line-height: 40px;
-    width: 100%;
-    align-items: center;
-    padding: 0 20px;
-    font-weight: 600;
-  }
+  margin: 20px 0;
 
   .setting-box-menu {
-    list-style-type: none;
-    height: 85vh;
-    cursor: pointer;
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    height: 32px;
+    line-height: 32px;
+    overflow: hidden;
+    width: 100%;
+    gap: 20px;
 
     .setting-box-right-tabs {
-
-      height: 40px;
       display: flex;
-      line-height: 40px;
-      width: 100%;
+      cursor: pointer;
+      width: 80px;
       align-items: center;
-      padding-left: 20px;
+      border-radius: 10px;
+      justify-content: center;
+      background-color: #fafbfc;
+
+      &:not(:last-child){
+        width: 80px;
+      }
+      .design-tab-icon{
+        padding-right: 2px;
+      }
+
     }
     .setting-box-right-tabs:hover{
       background-color: #EDF0F5;
     }
+
+    .setting-setting-select{
+      font-weight: bold;
+      color: #0d66e4;
+      background-color: #e3e8f0;
+    }
   }
 }
 
-.setting-setting-select{
-  background-color: #e3e8f0;
-}
+
 
 .title {
   border-bottom: 1px solid #f0f2f5;

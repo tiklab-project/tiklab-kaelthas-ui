@@ -41,9 +41,6 @@ const KuSettingTabs = (props) => {
 
     return (
         <div className="kuSetting-box-right-left">
-            <div className="kuSetting-box-right-text title">
-                设置
-            </div>
             <div className="kuSetting-box-menu">
                 {
                     router.map((item, index) => {

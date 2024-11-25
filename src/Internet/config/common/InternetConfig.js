@@ -48,7 +48,7 @@ const InternetConfig = (props) => {
     }
 
     return (
-        <div className="hostDetails-layout">
+        <div className="in-Details-layout">
             <div className="design-up">
                 {
                     configsList.map(item => {

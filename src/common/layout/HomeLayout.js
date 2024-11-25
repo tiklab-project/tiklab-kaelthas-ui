@@ -44,23 +44,7 @@ const HomeLayout = (props) => {
 
     const [notificationVisibility, setNotificationVisibility] = useState(false);
 
-    const [moreMenu, setMoreMenu] = useState([
-        {
-            name: '数据库',
-            url: '/db',
-            key: 'db',
-        },
-        {
-            name: 'k8s',
-            url: '/kubernetes',
-            key: 'kubernetes',
-        },
-        {
-            name: '网络',
-            url: '/internet',
-            key: 'internet',
-        },
-    ])
+    const [moreMenu, setMoreMenu] = useState()
 
     const routers = [
         {

@@ -5,12 +5,12 @@ import {DomainRole} from 'tiklab-privilege-ui';
 
 const DbPermissions = (props) => {
 
-    const hostId = localStorage.getItem('hostId')
+    const dbId = localStorage.getItem('dbId')
 
     return (
         <DomainRole
             {...props}
-            domainId = {hostId}
+            domainId = {dbId}
             bgroup={"kaelthas"}
         />
     );

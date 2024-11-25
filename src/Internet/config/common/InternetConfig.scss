@@ -1,53 +1,41 @@
-.hostDetails-layout{
-  height: 100%;
-  padding: 20px 0;
+.in-Details-layout{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  list-style-type: none;
+  margin: 20px 0;
 
     .design-up{
       display: flex;
-      background: #ffffff;
+      background: #fff;
       border-radius: 10px;
-      height: 40px;
-      line-height: 40px;
+      height: 32px;
+      line-height: 32px;
       overflow: hidden;
       width: 100%;
-
-      .design-top{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 48px;
-        padding: var(--tiklab-padding-item) var(--tiklab-padding-item) 0;
-
-        .configuration-title{
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          font-size: 16px;
-          font-weight: var(--tiklab-font-weight-bold);
-        }
-      }
+      gap: 20px;
 
       .design-tab{
         display: flex;
         cursor: pointer;
-        width: 100px;
+        width: 80px;
         align-items: center;
         border-radius: 10px;
         justify-content: center;
+        background-color: #fafbfc;
 
 
         &:not(:last-child){
-          width: 100px;
+          width: 80px;
         }
         .design-tab-icon{
           padding-right: 2px;
         }
       }
       .design-active{
-        //width: 60px;
         font-weight: bold;
         color: #0d66e4;
-        background-color: #ececec;
+        background-color: #e3e8f0;
       }
 
       .design-tab-title{
@@ -61,5 +49,4 @@
 .prodetail-content{
   height: 100%;
   background: #fff;
-
 }
