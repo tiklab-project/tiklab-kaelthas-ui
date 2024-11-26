@@ -7,8 +7,7 @@ const MoreMenuModel = (props) => {
 
     const isShowText = true;
 
-    //
-    const {moreMenu, morePath, theme, isExpand} = props;
+    const {moreMenu, morePath, theme, isExpand,themeClass} = props;
 
     // 获取当前被激活的菜单
     const path = props.location.pathname;
@@ -72,7 +71,7 @@ const MoreMenuModel = (props) => {
         <div className="more-menu">
             {
                 isExpand ?
-                    <div className={`model-submenu ${morePath === -1 ? "model-select" : ""}`}
+                    <div className={`model-submenu ${morePath.indexOf(path) !== -1 ? `${themeClass}` : ""}`}
                          onClick={() => showMoreMenu()}
                          ref={setButton}
                     >
@@ -85,7 +84,7 @@ const MoreMenuModel = (props) => {
                     </div>
                     :
                     <div ref={setButton}
-                         className={`project-menu-submenu-icon ${morePath === -1 ? "project-menu-select" : ""}`}
+                         className={`project-menu-submenu-icon ${morePath.indexOf(path) !== -1 ? `${themeClass}` : ""}`}
                          onClick={() => showMoreMenu()}>
                         <svg aria-hidden="true" className="svg-icon28">
                             <use xlinkHref={`#icon-more-${theme}`}></use>

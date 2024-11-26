@@ -83,24 +83,23 @@ const HomeLayout = (props) => {
 
     const [morePath, setMorePath] = useState()
 
-    const [themeClass, setThemeClass] = useState("project-sider-gray")
+    const [themeClass, setThemeClass] = useState("model-select")
 
     const getThemeClass = (theme) => {
-        let name = "default"
+        let name
         switch (theme) {
             case "black":
-                name = "project-sider-black";
+                name = "model-select-black";
                 break;
             case "default":
-                name = "project-sider-gray";
+                name = "model-select";
                 break;
             case "blue":
-                name = "project-sider-blue";
+                name = "model-select-blue";
                 break;
             default:
-                name = "first-sider-gray";
+                name = "model-select";
                 break;
-
         }
         setThemeClass(name)
         setThemeType(theme)
@@ -137,7 +136,7 @@ const HomeLayout = (props) => {
         setMoreMenu(hiddenMenu)
         let data = [];
         hiddenMenu.map(item => {
-            data.push(item.key)
+            data.push(item.url)
         })
 
         setMorePath([...data])
@@ -163,6 +162,7 @@ const HomeLayout = (props) => {
      */
     const changeTheme = type => {
         setThemeType(type)
+        getThemeClass(type)
         localStorage.setItem('theme', type)
     }
 
@@ -207,7 +207,7 @@ const HomeLayout = (props) => {
                             ))
                         }
                         {moreMenu && moreMenu.length > 0 && <MoreMenuModel
-                             moreMenu={moreMenu} morePath={morePath} theme={themeType} isExpand={isExpand}
+                             moreMenu={moreMenu} morePath={morePath} theme={themeType} isExpand={isExpand} themeClass={themeClass}
                         />}
                     </div>
                     <div className="aside-bottom">

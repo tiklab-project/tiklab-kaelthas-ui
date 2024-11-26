@@ -1,11 +1,11 @@
-.setting-box-right-left {
+.in-setting-box-right-left {
   display: flex;
   flex-direction: column;
   width: 100%;
   list-style-type: none;
   margin: 20px 0;
 
-  .setting-box-menu {
+  .in-setting-box-menu {
     display: flex;
     background: #fff;
     border-radius: 10px;
@@ -22,7 +22,7 @@
       align-items: center;
       border-radius: 10px;
       justify-content: center;
-      background-color: #fafbfc;
+      background-color: #efefef;
 
       &:not(:last-child){
         width: 80px;

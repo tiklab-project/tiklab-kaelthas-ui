@@ -40,8 +40,8 @@ const SettingLeftTabs = (props) => {
     }, [internetId])
 
     return (
-        <div className="setting-box-right-left">
-            <div className="setting-box-menu">
+        <div className="in-setting-box-right-left">
+            <div className="in-setting-box-menu">
                 {
                     router.map((item, index) => {
                         return (
