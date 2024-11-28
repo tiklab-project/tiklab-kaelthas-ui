@@ -8,7 +8,7 @@ const SettingLeftTabs = (props) => {
 
     const router = [
         {
-            name: '主机信息',
+            name: '网络信息',
             url: `/internet/${internetId}/inSetting/inProject`,
             key: "inProject",
             encoded: "inProject",
