@@ -495,7 +495,7 @@ const Routes = [
                         component: Setting,
                         routes: [
                             {
-                                path: "/host/:id/project",
+                                path: "/host/:id/ProjectInformation",
                                 exact: true,
                                 component: ProjectInformation,
                             },
