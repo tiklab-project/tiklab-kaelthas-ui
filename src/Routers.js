@@ -24,18 +24,18 @@ import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 
 const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
 const Host = AsyncComponent(() => import( "./host/common/components/HostLayout"))
-const Monitor = AsyncComponent(() => import( "./host/configuration/monitor/components/Monitor"))
-const Trigger = AsyncComponent(() => import( "./host/configuration/trigger/components/Trigger"))
-const Template = AsyncComponent(() => import( "./host/configuration/template/components/Template"))
+const Monitor = AsyncComponent(() => import( "./host/config/monitor/components/Monitor"))
+const Trigger = AsyncComponent(() => import( "./host/config/trigger/components/Trigger"))
+const Template = AsyncComponent(() => import( "./host/config/template/components/Template"))
 const Setting = AsyncComponent(() => import( "./host/setting/common/SettingLayout"))
-const Graphics = AsyncComponent(() => import( "./host/configuration/graphics/components/Graphics"))
+const Graphics = AsyncComponent(() => import( "./host/config/graphics/components/Graphics"))
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Home = AsyncComponent(() => import('./common/layout/Home'))
 const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostDetails'))
 const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
-const ProjectInformation = AsyncComponent(() => import('./host/setting/projectInformation/components/ProjectInformation'))
+const ProjectInformation = AsyncComponent(() => import('./host/setting/project/components/ProjectInformation'))
 const Member = AsyncComponent(() => import('./host/setting/member/Member'))
 const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
 const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
@@ -48,7 +48,7 @@ const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'
 const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
 const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
 
-const HostConfiguration = AsyncComponent(() => import('./host/configuration/common/Configuration'))
+const HostConfiguration = AsyncComponent(() => import('./host/config/common/Configuration'))
 const Databases = AsyncComponent(() => import('./databases/databasesPage/components/Databases'))
 const DatabasesLayout = AsyncComponent(() => import('./databases/common/DbLayout'))
 const AddDatabases = AsyncComponent(() => import('./databases/databasesPage/components/AddDatabases'))
@@ -495,7 +495,7 @@ const Routes = [
                         component: Setting,
                         routes: [
                             {
-                                path: "/host/:id/projectInformation",
+                                path: "/host/:id/project",
                                 exact: true,
                                 component: ProjectInformation,
                             },

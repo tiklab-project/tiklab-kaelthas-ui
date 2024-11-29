@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router";
 
 import "./Breadcrumb.scss"
-const Breadcumb = (props) => {
+const Breadcrumb = (props) => {
     const { homeImage, firstText, secondText, firstUrl, children } = props;
 
     const goUrl = () => {
@@ -34,4 +34,4 @@ const Breadcumb = (props) => {
 
     )
 }
-export default withRouter(Breadcumb);
+export default withRouter(Breadcrumb);

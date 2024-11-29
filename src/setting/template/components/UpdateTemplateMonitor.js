@@ -1,6 +1,6 @@
 import {Button, Modal, Form, Input, Select, Drawer, AutoComplete, message, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../../../host/configuration/monitor/store/MonitorStore";
+import monitorStore from "../../../host/config/monitor/store/MonitorStore";
 import templateSettingStore from "../store/TemplateSettingStore";
 import {observer} from "mobx-react";
 

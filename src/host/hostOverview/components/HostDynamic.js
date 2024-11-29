@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
 import {Col, Empty, Pagination, Row, Timeline} from "antd";
 import "./hostDynamic.scss"
-import Breadcumb from "../../common/components/Breadcrumb";
+import Breadcrumb from "../../common/components/Breadcrumb";
 import hostStore from "../store/HostStore";
 import {observer} from "mobx-react";
 
@@ -38,7 +38,7 @@ const HostDynamic = (props) => {
         <Row className="host-Dynamic">
             <div className="host-Dynamic-list-page">
                 <div className="host-Dynamic-list-top">
-                    <Breadcumb
+                    <Breadcrumb
                         {...props}
                         firstText="主机动态"
                         secondText="最新动态"

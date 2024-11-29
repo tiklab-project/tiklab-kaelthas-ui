@@ -132,8 +132,8 @@ const TopMenu = (props) => {
 
                 </div>
                 {/*<div
-                    onClick={() => selectMenu(`/host/${hostId}/projectInformation`, "setting")}
-                    className={`top-box-right ${url === `/host/${hostId}/projectInformation` ? "border-bottom" : ""}`}>
+                    onClick={() => selectMenu(`/host/${hostId}/project`, "setting")}
+                    className={`top-box-right ${url === `/host/${hostId}/project` ? "border-bottom" : ""}`}>
                     <svg className="topMenu-svg-icon" aria-hidden="true">
                         <use xlinkHref={`#icon-setting`}></use>
                     </svg>
