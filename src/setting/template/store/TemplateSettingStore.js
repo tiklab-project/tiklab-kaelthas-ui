@@ -48,7 +48,7 @@ export class TemplateSettingStore {
     //查询模板列表
     @action
     findTemplatePage = async () => {
-        const templateList = await Service("/template/findTemplate", this.searchCondition);
+        const templateList = await Service("/system/findTemplate", this.searchCondition);
         this.templateList = templateList.data.dataList;
         this.total = templateList.data.totalRecord
     }
@@ -56,7 +56,7 @@ export class TemplateSettingStore {
     //创建模板
     @action
     createTemplate = async (option) => {
-        const resTemplateId = await Service("/template/createTemplate", option)
+        const resTemplateId = await Service("/system/createTemplate", option)
         return resTemplateId;
     }
 
@@ -65,12 +65,13 @@ export class TemplateSettingStore {
     deleteTemplate = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        await Service("/template/deleteTemplate", params);
+        await Service("/system/deleteTemplate", params);
     }
 
+    //修改模板
     @action
     updateTemplate = async (option) => {
-        await Service("/template/updateTemplate", option);
+        await Service("/system/updateTemplate", option);
     }
 
     //根据监控项id删除模板下监控项

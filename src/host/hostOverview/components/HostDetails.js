@@ -9,7 +9,7 @@ import DynamicWidget from "./DynamicWidget";
 
 const HostDetails = (props) => {
 
-    const {findHostById, findHostDynamicPage, hostDynamicList, setNullCondition} = hostStore;
+    const {findHostById} = hostStore;
 
     const hostId = localStorage.getItem("hostId");
     const hostName = localStorage.getItem("hostName");
@@ -63,16 +63,6 @@ const HostDetails = (props) => {
                     <div className="box-host-body-head">
                         <span className="box-host-title">主机详情</span>
                         <div className="box-host-details">
-                            {/*<div className="box-host-margin-details">
-                            <div className="box-host-margin-div">
-                                    <span
-                                        className={`user-big-icon mf-icon-${dataList?.color}`}>{dataList?.name?.substring(0, 1).toUpperCase()}</span>
-                                <div className="box-host-details-text">
-                                    <div className="item-top">{dataList?.name}</div>
-                                    <div className="item-bottom">主机名称</div>
-                                </div>
-                            </div>
-                        </div>*/}
                             <div className="box-host-margin-details">
                                 <div className="box-host-margin-div">
                                     <svg className="status-img" aria-hidden="true">
@@ -119,77 +109,13 @@ const HostDetails = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className="box-host-margin-details">
-                            <div className="box-host-margin-div">
-                                <svg className="status-img" aria-hidden="true">
-                                    <use xlinkHref="#icon-alarmNum"></use>
-                                </svg>
-                                <div className="box-host-details-text">
-                                    <div className="item-top"
-                                         style={{textAlign: "center"}}>{dataList?.alarmNum === null ? 0 : dataList?.alarmNum}</div>
-                                    <div className="item-bottom">告警数量</div>
-                                </div>
-                            </div>
-                        </div>*/}
                         </div>
                     </div>
                     <div className="box-host-body">
                         <div className="host-news">
                             <div>最新动态</div>
-                            {/*<div className="more" onClick={() => goDynamicList()}>
-                                <svg aria-hidden="true" className="svg-icon">
-                                    <use xlinkHref="#icon-rightjump"></use>
-                                </svg>
-                            </div>*/}
                         </div>
                         <div className="host-news-List">
-                            {/*<Timeline>
-                            {
-                                hostDynamicList.data && hostDynamicList.data ? hostDynamicList.data.map(item => {
-                                        return (
-                                            <Timeline.Item key={item.id}>
-                                                <div className="host-news-Line">
-                                                    <div>{item.time}</div>
-                                                    <div className="host-news-name">{item.name}</div>
-                                                </div>
-                                            </Timeline.Item>
-                                        )
-                                    })
-                                    :
-                                    <Empty description="暂时没有动态~"/>
-                            }
-                        </Timeline>*/}
-                            {/*<Timeline>
-                                {
-                                    hostDynamicList && hostDynamicList ? Object.entries(hostDynamicList).map(([key, value]) => {
-                                            return (
-                                                <div key={key}>
-                                                    <div className="host-news-title">
-                                                        <Timeline.Item>
-                                                            <div className="host-news-title-text">
-                                                                {key}
-                                                            </div>
-                                                        </Timeline.Item>
-                                                    </div>
-                                                    {
-                                                        value && value.map((valueLine, index) => {
-                                                            return (
-                                                                <Timeline.Item color="gray" key={index}>
-                                                                    <div className="host-news-Line">
-                                                                        <div className="host-line-time">{subStringTime(valueLine.time)}</div>
-                                                                        <div className="host-news-name">{valueLine.name}</div>
-                                                                    </div>
-                                                                </Timeline.Item>
-                                                            )
-                                                        })
-                                                    }
-                                                </div>
-                                            )
-                                        })
-                                        :
-                                        <Empty/>
-                                }
-                            </Timeline>*/}
                         </div>
                         <DynamicWidget hostId={hostId} hostName={hostName}/>
                     </div>

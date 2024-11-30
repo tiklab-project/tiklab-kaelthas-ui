@@ -19,7 +19,7 @@ export class KuOverviewStore {
     findKuOverviewTotal = async (kuId) => {
         const formData = new FormData();
         formData.append("kuId",kuId);
-        const resData = await Service("/history/findKuOverviewTotal",formData);
+        const resData = await Service("/kuOverview/findKuOverviewTotal",formData);
         this.kuOverView = resData.data
     }
 }

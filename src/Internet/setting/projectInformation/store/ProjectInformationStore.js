@@ -11,7 +11,7 @@ export class ProjectInformationStore {
 
         const params = new FormData();
         params.append("id", id)
-        await Service("/internet/deleteInternet", params)
+        await Service("/inSetting/deleteInternet", params)
     }
 
     //根据id进行查询主机信息
@@ -19,14 +19,14 @@ export class ProjectInformationStore {
     findInternetById = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        const resData = await Service("/internet/findInternetById", params)
+        const resData = await Service("/inSetting/findInternetById", params)
         return resData.data;
     }
 
     //修改网络信息
     @action
     updateInternet = async (host) => {
-        await Service("/internet/updateInternet", host)
+        await Service("/inSetting/updateInternet", host)
     }
 
 

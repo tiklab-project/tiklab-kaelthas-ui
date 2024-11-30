@@ -41,7 +41,7 @@ const DbDynamicWidget = (props) => {
             ...value,
             bgroup: "kaelthas"
         }
-        let res = await Axios.post('/dbDynamic/findDynamicPage', params)
+        let res = await Axios.post('/dbOverview/findDynamicPage', params)
         return res.data;
     };
 

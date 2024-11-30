@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {Alert, Button, Col, Collapse, Form, Input, InputNumber, Modal, Row, Select} from "antd";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import databasesStore from "../../../databasesPage/store/DatabasesStore";
+import dbProject from "../store/DbProject";
 
 const {Panel} = Collapse;
 
@@ -32,9 +32,8 @@ const DbProject = (props) => {
     const {
         findDbInfoById,
         updateDbInfo,
-        deleteDbInfo,
-        dbObj
-    } = databasesStore;
+        deleteDbInfo
+    } = dbProject;
 
     const dbId = localStorage.getItem("dbId");
 

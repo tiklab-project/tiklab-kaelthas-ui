@@ -13,7 +13,6 @@ const HostDynamic = (props) => {
         setSearchCondition,
         findHostDynamicPage,
         hostDynamicList,
-        searchCondition
     } = hostStore;
 
     useEffect(async () => {
@@ -45,19 +44,6 @@ const HostDynamic = (props) => {
                     />
                 </div>
                 <div className="host-Dynamic-list">
-                    {/*{
-                            hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
-                                    return (
-                                        <div className="host-Dynamic-list-item" key={item.id}>
-                                            <div>{item.name}</div>
-                                            <div>{item.time}</div>
-                                        </div>
-                                    )
-                                })
-                                :
-                                <Empty description="暂时没有动态~"/>
-                        }
-*/}
                     <Timeline>
                         {
                             hostDynamicList.dataList && hostDynamicList.dataList.length > 0 ? hostDynamicList.dataList.map(item => {
@@ -75,20 +61,6 @@ const HostDynamic = (props) => {
                         }
                     </Timeline>
                 </div>
-                {/*{
-                    hostDynamicList.dataList && hostDynamicList.dataList.length > 0 &&
-                    <div className="host-Dynamic-pagination">
-                        <Pagination
-                            onChange={onPageChange}
-                            defaultCurrent={1}
-                            defaultPageSize={20}
-                            total={hostDynamicList.totalRecord}
-                            showSizeChanger={true}
-                            current={searchCondition.pageParam.currentPage}
-                            pageSize={searchCondition.pageParam.pageSize}
-                        />
-                    </div>
-                }*/}
             </div>
         </Row>
     );

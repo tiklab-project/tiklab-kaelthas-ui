@@ -46,7 +46,7 @@ export class HostStore{
     findHostById = async (id) => {
         const formData = new FormData();
         formData.append("id", id)
-        const resData = await Service("/hostList/findHostById", formData);
+        const resData = await Service("/hostOverview/findHostById", formData);
         this.hostData = resData.data;
         return resData.data;
     }
@@ -62,7 +62,7 @@ export class HostStore{
 
     @action
     findHostDynamicPage = async () =>{
-        const resData = await Service("/hostDynamic/findHostDynamicPage", this.searchCondition);
+        const resData = await Service("/hostOverview/findHostDynamicPage", this.searchCondition);
         this.hostDynamicList = resData.data;
         return resData.data;
     }

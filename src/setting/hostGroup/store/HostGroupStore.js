@@ -41,26 +41,26 @@ class HostGroupStore {
 
     @action
     findHostGroupPage = async () =>{
-        const resPage = await Service("/hostGroup/findHostGroupPage",this.searchCondition)
+        const resPage = await Service("/system/findHostGroupPage",this.searchCondition)
         this.total = resPage.totalRecord
         this.hostGroupData = resPage.data.dataList
     }
 
     @action
     createHostGroup = async (value) =>{
-        await Service("/hostGroup/createHostGroup",value)
+        await Service("/system/createHostGroup",value)
     }
 
     @action
     updateHostGroup = async (value) =>{
-        await Service("/hostGroup/updateHostGroup",value)
+        await Service("/system/updateHostGroup",value)
     }
 
     @action
     deleteHostGroup = async (id) =>{
         const formData = new FormData();
         formData.append("id",id);
-        await Service("/hostGroup/deleteHostGroup",formData)
+        await Service("/system/deleteHostGroup",formData)
     }
 
 }

@@ -41,7 +41,7 @@ const DynamicWidget = (props) => {
             ...value,
             bgroup: "kaelthas"
         }
-        let res = await Axios.post('/hostDynamic/findHostDynamicPage', params)
+        let res = await Axios.post('/hostOverview/findDynamicList', params)
         return res.data;
     };
 

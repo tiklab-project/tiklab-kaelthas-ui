@@ -23,7 +23,7 @@ export class DbDetailsStore {
     findDbInfoById = async (id) =>{
         const params = new FormData();
         params.append("id",id)
-        const resData = await Axios.post("/dbInfo/findDbInfoById",params)
+        const resData = await Axios.post("/dbOverview/findDbInfoById",params)
         this.dbObj = resData.data
         return resData.data
     }

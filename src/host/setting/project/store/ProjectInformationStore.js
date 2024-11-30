@@ -12,7 +12,7 @@ export class ProjectInformationStore {
 
         const params = new FormData();
         params.append("id", id)
-        await Service("/hostList/deleteHostById", params)
+        await Service("/hostSetting/deleteHostById", params)
     }
 
     //根据id进行查询主机信息
@@ -20,21 +20,20 @@ export class ProjectInformationStore {
     findHostById = async (id) => {
         const params = new FormData();
         params.append("id", id)
-        const resData = await Service("/hostList/findHostById", params)
+        const resData = await Service("/hostSetting/findHostById", params)
         return resData.data;
     }
 
     //修改主机信息
     @action
     updateHost = async (host) => {
-        await Service("/hostList/updateHost", host)
-
+        await Service("/hostSetting/updateHost", host)
     }
 
     //查询主机组所有信息
     @action
     findAllHostGroupList = async () => {
-        const resData = await Service("/hostGroup/findAllHostGroupList")
+        const resData = await Service("/hostSetting/findAllHostGroupList")
 
         this.allHostGroupList = resData.data;
         return resData.data;

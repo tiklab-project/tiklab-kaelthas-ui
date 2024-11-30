@@ -4,8 +4,8 @@ import {withRouter} from "react-router-dom";
 import {Alert, Button, Col, Collapse, Form, Input, InputNumber, Modal, Row, Select} from "antd";
 import {DeleteOutlined, FormOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
-import kubernetesStore from "../../../kuPage/store/KubernetesStore";
 import TextArea from "antd/es/input/TextArea";
+import kuProjectStore from "../store/KuProjectStore";
 
 const {Panel} = Collapse;
 
@@ -34,7 +34,7 @@ const KuProject = (props) => {
         findKuInfoById,
         updateKbInfo,
         deleteKuInfo
-    } = kubernetesStore;
+    } = kuProjectStore;
 
     const kuId = localStorage.getItem("kuId");
 

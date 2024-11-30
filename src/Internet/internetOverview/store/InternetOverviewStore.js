@@ -71,7 +71,7 @@ export class InternetOverviewStore {
     findInternetOverview = async (internetId) =>{
         var formData = new FormData();
         formData.append("internetId",internetId);
-        const resData = await Service("/history/findInternetOverview",formData)
+        const resData = await Service("/inOverview/findInternetOverview",formData)
         this.internetOverview = resData.data;
     }
 

@@ -84,18 +84,7 @@ const DbDetails = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className="box-db-margin-details">
-                                <div className="box-db-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-alarmNum"></use>
-                                    </svg>
-                                    <div className="box-db-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{dbObj?.alarmNum}</div>
-                                        <div className="item-bottom">告警数量</div>
-                                    </div>
-                                </div>
-                            </div>*/}
+
                         </div>
                     </div>
                     <div className="box-db-body">
