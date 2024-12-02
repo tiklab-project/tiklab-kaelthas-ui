@@ -1,7 +1,6 @@
 import {observer, Provider} from "mobx-react";
 import React, {useEffect, useState} from "react";
-import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
-import MonitoringDetails from "./MonitoringDetails";
+import {DatePicker, Empty, Select,} from "antd";
 
 import monitorLayoutStore from "../store/MonitorGraphicsStore";
 import MonitoringItem from "../../../common/graphics/MonitoringItem";
@@ -52,7 +51,6 @@ const MonitorGraphics = () => {
             beginTime: dateString[0] + ":00",
             endTime: dateString[1] + ":00",
         })
-        // await findHistory();
     };
 
 
@@ -113,7 +111,6 @@ const MonitorGraphics = () => {
                             <div className="details-search">
                                 <div className="details-div">
                                     <RangePicker
-                                        // style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
@@ -146,34 +143,29 @@ const MonitorGraphics = () => {
                             </div>
                             <ChangeViewChart pageStatus={pageStatus} setPageStatus={setPageStatus}/>
                         </div>
-                        {
-                            pageStatus === 2 ?
-                                <MonitoringDetails/>
-                                :
-                                <div className="layout-body-list">
-                                    {
-                                        condition && condition.length > 0 ?
-                                            <div className="details-tabs-wrap">
-                                                {
-                                                    condition.map((item, index) => {
-                                                        return (
-                                                            <div key={index} className="item-tabs-item">
-                                                                <MonitoringItem
-                                                                    reportType={pageStatus}
-                                                                    condition={item}
-                                                                    descTime={item[0].dataTimes}
-                                                                    index={index}
-                                                                />
-                                                            </div>
-                                                        )
-                                                    })
-                                                }
-                                            </div>
-                                            :
-                                            <Empty/>
-                                    }
-                                </div>
-                        }
+                        <div className="layout-body-list">
+                            {
+                                condition && condition.length > 0 ?
+                                    <div className="details-tabs-wrap">
+                                        {
+                                            condition.map((item, index) => {
+                                                return (
+                                                    <div key={index} className="item-tabs-item">
+                                                        <MonitoringItem
+                                                            reportType={pageStatus}
+                                                            condition={item}
+                                                            descTime={item[0].dataTimes}
+                                                            index={index}
+                                                        />
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    :
+                                    <Empty/>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

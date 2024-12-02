@@ -63,7 +63,7 @@ export class HostStore {
     // 根据名称查询主机组
     @action
     findHostGroup = async () =>{
-        const resHostGroup = await Service("/hostGroup/findHostGroupByName");
+        const resHostGroup = await Service("/hostList/findAllHostGroupList");
         this.hostGroupList = resHostGroup.data;
 
         return resHostGroup.data;

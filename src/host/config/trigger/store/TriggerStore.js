@@ -84,12 +84,6 @@ export class TriggerStore {
     }
 
     @action
-    findTriggerExpressionAll = async () => {
-        const triggerExAll = await Service("/triggerExpression/findTriggerExpressionAll")
-        return triggerExAll.data;
-    }
-
-    @action
     getMediumAllList = async () => {
         const resData = await Service("/medium/getMediumAllList");
         this.mediumList = resData.data
