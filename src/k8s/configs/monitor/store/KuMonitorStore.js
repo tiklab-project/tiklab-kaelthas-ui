@@ -59,7 +59,7 @@ export class KuMonitorStore {
 
     @action
     findItemList = async (value) => {
-        const resData = await Service("/kuItem/findItemList",value)
+        const resData = await Service("/kuMonitor/findItemList",value)
         return resData.data;
     }
 

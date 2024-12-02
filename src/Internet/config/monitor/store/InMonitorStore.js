@@ -70,7 +70,7 @@ export class InMonitorStore {
 
     @action
     findItemList = async (param) => {
-        const resData = await Service("/internetItem/findItemList",param)
+        const resData = await Service("/internetMonitor/findItemList",param)
         return resData.data;
     }
 
