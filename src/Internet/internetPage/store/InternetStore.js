@@ -11,6 +11,9 @@ export class InternetStore {
     //添加主机表单中的主机组名称
     @observable hostGroupList = [];
 
+    //网络信息
+    @observable internetData=''
+
     @observable total = 1;
 
     @observable searchCondition = {
@@ -51,6 +54,18 @@ export class InternetStore {
         this.resultData = resData.data.dataList;
         this.total = resData.data.totalRecord
         return this.resultData;
+    }
+
+    //通过id查询网络
+    @action
+    findInternetById = async (id) => {
+        const param=new FormData()
+        param.append("id",id)
+        const resData = await Service("/internet/findInternetById",param);
+        if (resData.code===0){
+          this.internetData=resData.data
+        }
+        return resData;
     }
 
     //添加主机

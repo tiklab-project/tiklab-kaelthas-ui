@@ -5,7 +5,7 @@ import templateStore from "../store/TemplateStore";
 const {Option} = Select
 
 const AddMonitor = (props) => {
-    const {dataList, setDataList} = props;
+    const {dataList, setDataList,dbId} = props;
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const {addTemplate, getTemplateAll, findTemplateByMonitor, templateList} = templateStore
@@ -20,7 +20,7 @@ const AddMonitor = (props) => {
     const handleOk = async () => {
         form.validateFields().then(async res => {
             await addTemplate({
-                hostId: localStorage.getItem("hostId"),
+                hostId: dbId,
                 templateId: res.templateId,
                 monitorSource: 2,
                 monitorStatus: 1

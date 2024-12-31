@@ -4,8 +4,8 @@ import templateStore from "../store/TemplateStore";
 
 const {Option} = Select
 
-const AddMonitor = () => {
-
+const AddMonitor = (props) => {
+    const {hostId}=props
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,7 +21,7 @@ const AddMonitor = () => {
     };
     const handleOk = async () => {
         const values = await form.validateFields();
-        values.hostId = localStorage.getItem("hostId");
+        values.hostId = hostId;
         values.monitorSource = 2;
         values.monitorStatus = 1;
 

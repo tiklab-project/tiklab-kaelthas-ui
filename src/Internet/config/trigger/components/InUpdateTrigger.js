@@ -21,7 +21,7 @@ const schemeList = [
 ]
 const InUpdateTrigger = (props) => {
 
-    const {isModalOpen, setIsModalOpen, form, rowData} = props;
+    const {isModalOpen, setIsModalOpen, form, rowData,internetId} = props;
 
     const {
         updateTrigger,
@@ -44,7 +44,7 @@ const InUpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    hostId: localStorage.getItem("hostId"),
+                    internetId: internetId,
                     id: rowData.id,
                 };
                 obj[field] = values[field];

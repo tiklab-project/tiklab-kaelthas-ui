@@ -4,8 +4,8 @@ import graphicsStore from "../store/GraphicsStore";
 import {observer} from "mobx-react";
 
 const {Option} = Select
-const AddGraphics = () => {
-
+const AddGraphics = (props) => {
+    const {hostId}=props
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {
@@ -23,10 +23,10 @@ const AddGraphics = () => {
 
     const handleOk = async () => {
         const values = await form.validateFields();
-        values.hostId = localStorage.getItem("hostId");
+        values.hostId = hostId;
         await addGraphics(values);
         await setSearchCondition({
-            hostId: localStorage.getItem("hostId")
+            hostId: hostId
         })
         await findGraphics();
         setIsModalOpen(false);

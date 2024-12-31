@@ -29,6 +29,7 @@ const tailLayout = {
 };
 
 const ProjectInformation = (props) => {
+    const {match:{params}} = props;
 
     const {
         findInternetById,
@@ -42,10 +43,10 @@ const ProjectInformation = (props) => {
 
     const [activeKey, setActiveKey] = useState([]);
 
-    const internetId = localStorage.getItem("internetId");
+    const internetId = params.id;
 
     const onFinish = async (values) => {
-        values.id = localStorage.getItem("internetId")
+        values.id = params.id
 
         await updateInternet(values)
     };
@@ -56,10 +57,10 @@ const ProjectInformation = (props) => {
     const onChange = async (key) => {
         if ("1" === key[0]) {
             //调用根据id查询,将查询的数据放到表单当中
-            const resData = await findInternetById(localStorage.getItem("internetId"));
+            const resData = await findInternetById(params.id);
 
             form.setFieldsValue({
-                id: localStorage.getItem("internetId"),
+                id: params.id,
                 name: resData.name,
                 ip: resData.ip,
                 type: resData.type,

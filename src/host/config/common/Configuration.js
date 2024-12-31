@@ -4,13 +4,12 @@ import {renderRoutes} from "react-router-config";
 import "./Configuration.scss"
 
 const Configuration = (props) => {
+    const {match:{params},location:{pathname}} = props;
 
     const {route} = props;
 
-    let hostId = localStorage.getItem('hostId');
-
-    let url = localStorage.getItem('configUrl');
-
+    let url=pathname;
+    let hostId=params.id
     const configurationList = [
         {
             name: '监控项',
@@ -43,7 +42,6 @@ const Configuration = (props) => {
     ]
 
     function hrefConfiguration(item) {
-        localStorage.setItem("configUrl", item.url)
         props.history.push(item.url)
     }
 

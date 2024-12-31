@@ -7,7 +7,7 @@ import {observer} from "mobx-react";
 const {Option} = Select
 const TemplateSettingUpdate = (props) => {
 
-    const {isOpen, setIsOpen, form} = props;
+    const {isOpen, setIsOpen, form,templateId} = props;
 
     const {updateTemplate, findTemplatePage} = templateSettingStore;
 
@@ -21,7 +21,7 @@ const TemplateSettingUpdate = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    id: localStorage.getItem("templateId")
+                    id: templateId
                 };
                 obj[field] = values[field];
 

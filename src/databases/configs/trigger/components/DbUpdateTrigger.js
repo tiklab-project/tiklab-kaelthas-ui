@@ -21,7 +21,7 @@ const schemeList = [
 ]
 const DbUpdateTrigger = (props) => {
 
-    const {isModalOpen, setIsModalOpen, form, rowData} = props;
+    const {isModalOpen, setIsModalOpen, form, rowData,dbId} = props;
 
     const {
         updateDbTrigger,
@@ -50,7 +50,7 @@ const DbUpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    dbId: localStorage.getItem("dbId"),
+                    dbId: dbId,
                     id: rowData.id,
                 };
                 obj[field] = values[field];

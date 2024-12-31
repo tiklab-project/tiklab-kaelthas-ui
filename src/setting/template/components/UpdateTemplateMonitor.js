@@ -11,7 +11,7 @@ const UpdateTemplateMonitor = (props) => {
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet.svg'];
 
-    const {form, rowData, isUpdateModalOpen, setIsUpdateModalOpen, monitorId} = props;
+    const {form, rowData, isUpdateModalOpen, setIsUpdateModalOpen, monitorId,templateId} = props;
 
     const [monitorItemList, setMonitorItemList] = useState([]);
 
@@ -26,7 +26,7 @@ const UpdateTemplateMonitor = (props) => {
             await updateTemplateMonitor({
                 id: monitorId,
                 name: res.name,
-                hostId: localStorage.getItem("templateId"),
+                hostId: templateId,
                 type: res.monitorType,
                 monitorItemId: itemId,
                 expression: res.expression,
@@ -37,7 +37,7 @@ const UpdateTemplateMonitor = (props) => {
             })
 
             await setMonitorSearchCondition({
-                templateId: localStorage.getItem("templateId")
+                templateId: templateId
             })
 
             await findMonitorByTemplateId();
@@ -54,7 +54,7 @@ const UpdateTemplateMonitor = (props) => {
             form.validateFields().then(async () => {
                 let obj = {
                     id: monitorId,
-                    hostId: localStorage.getItem("templateId"),
+                    hostId: templateId,
                     monitorItemId: itemId,
                     source: 2,
                 };

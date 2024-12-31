@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 
 const {Option} = Select
 const KuAddGraphics = (props) => {
-
+    const {kuId}=props
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {
@@ -24,12 +24,12 @@ const KuAddGraphics = (props) => {
     const handleOk = async () => {
         let values = await form.validateFields();
 
-        values.kuId = localStorage.getItem("kuId");
+        values.kuId = kuId;
 
         await createKuGraphics(values)
 
         await setSearchCondition({
-            hostId: localStorage.getItem("hostId")
+            hostId: kuId
         })
         await findKuGraphicsPage();
         setIsModalOpen(false);

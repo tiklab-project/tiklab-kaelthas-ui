@@ -20,7 +20,6 @@ const AddMonitor = (props) => {
     const handleOk = async () => {
         form.validateFields().then(async res => {
             await addTemplate({
-                hostId: localStorage.getItem("hostId"),
                 templateId: res.templateId,
                 monitorSource: 2,
                 monitorStatus: 1

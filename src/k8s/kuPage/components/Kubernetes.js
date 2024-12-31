@@ -36,10 +36,6 @@ const Kubernetes = (props) => {
             hour12: false
         }).replace(/\//g, '-');
 
-        localStorage.setItem('kuId', record.id);
-        localStorage.setItem("kuName", record.name)
-        localStorage.setItem("url", `/kubernetes/${record.id}/kuOverview`)
-        await updateKbInfo(record)
         props.history.push(`/kubernetes/${record.id}/kuOverview`);
     }
 

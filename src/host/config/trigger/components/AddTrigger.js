@@ -48,6 +48,7 @@ const alarmGrade = [
 
 
 const AddTrigger = (props) => {
+    const {hostId}=props
 
     const [form] = Form.useForm();
 
@@ -70,13 +71,13 @@ const AddTrigger = (props) => {
     const handleOk = async () => {
 
         const values = await form.validateFields();
-        values.hostId = localStorage.getItem("hostId");
+        values.hostId = hostId;
 
         const resData = await addTrigger(values);
 
         /*form.validateFields().then(async res => {
             const resData = await addTrigger({
-                hostId: localStorage.getItem("hostId"),
+                hostId: hostId,
                 name: res.name,
                 monitorId: res.monitorId,
                 state: 1,

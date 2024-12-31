@@ -5,10 +5,9 @@ import dbMonitorStore from "../store/DbMonitorStore";
 const {Option} = Select
 
 const DbUpdateMonitor = (props) => {
-
     const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
 
-    const {isModalOpen, setIsModalOpen, form, columnData} = props;
+    const {isModalOpen, setIsModalOpen, form, columnData,dbId} = props;
 
     const {
         updateDbMonitor,
@@ -28,7 +27,7 @@ const DbUpdateMonitor = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    dbId: localStorage.getItem("dbId"),
+                    dbId: dbId,
                     id: columnData.id
                 };
                 obj[field] = values[field];

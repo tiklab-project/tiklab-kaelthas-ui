@@ -7,14 +7,13 @@ const {Option} = Select
 
 
 const InAddMonitor = (props) => {
+    const {internetId,internetType}=props
     const [form] = Form.useForm();
     const [isModalOpen, setIsModalOpen] = useState(false);
-
 
     const [expression, setExpression] = useState([]);
 
     const [itemId, setItemId] = useState();
-
     const {
         findItemList,
         createMonitor,
@@ -29,7 +28,7 @@ const InAddMonitor = (props) => {
 
         const fields = await form.validateFields();
 
-        fields.internetId = localStorage.getItem("internetId");
+        fields.internetId = internetId;
         fields.internetItemId = itemId;
 
         const resData = await createMonitor(fields)
@@ -47,7 +46,7 @@ const InAddMonitor = (props) => {
     };
 
     useEffect(async () => {
-        const resData = await findItemList({internetType: localStorage.getItem("internetType"), isOptional: 1})
+        const resData = await findItemList({internetType:internetType , isOptional: 1})
 
         setExpression([...resData])
     }, []);

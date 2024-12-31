@@ -6,8 +6,7 @@ import {observer} from "mobx-react";
 const {Option} = Select
 
 const UpdateGraphics = (props) => {
-
-    const {form, isModalOpen, setIsModalOpen, columnData} = props;
+    const {form, isModalOpen, setIsModalOpen, columnData,internetId} = props;
 
     const {
         updateGraphics,
@@ -35,7 +34,7 @@ const UpdateGraphics = (props) => {
                 message.success("修改成功")
 
                 await setSearchCondition({
-                    internetId: localStorage.getItem("internetId")
+                    internetId: internetId
                 })
                 await findGraphicsPage();
             })

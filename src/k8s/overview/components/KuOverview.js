@@ -5,16 +5,14 @@ import {Col, Empty, Row, Tag, Timeline, Tooltip} from "antd";
 import {observer} from "mobx-react";
 import kuOverviewStore from "../store/KuOverviewStore";
 
-const KuOverview = () => {
+const KuOverview = (props) => {
+    const {match:{params}} = props;
 
-    const {
-        findKuOverviewTotal,
-        kuOverView
-    } = kuOverviewStore;
+
+    const {findKuOverviewTotal, kuOverView} = kuOverviewStore;
 
     useEffect(async () => {
-        const kuId = localStorage.getItem("kuId");
-        await findKuOverviewTotal(kuId);
+        await findKuOverviewTotal(params.id);
     }, []);
 
     function givesColor(i) {

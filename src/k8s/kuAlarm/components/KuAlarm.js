@@ -11,6 +11,7 @@ import {SearchOutlined} from "@ant-design/icons";
 const {Option} = Select;
 
 const KuAlarm = (props) => {
+    const {match:{params}} = props
 
     const {
         alarmPage,
@@ -91,7 +92,7 @@ const KuAlarm = (props) => {
         })
 
         setSearchCondition({
-            hostId:localStorage.getItem("kuId"),
+            hostId:params.id,
             name: null,
             ip: null,
             status:null,

@@ -10,6 +10,7 @@ import UpdateTrigger from "./DbUpdateTrigger";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 const DbTrigger = (props) => {
+    const {match:{params}} = props;
 
     const {
         findDbTriggerPage,
@@ -29,7 +30,7 @@ const DbTrigger = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            dbId: params.id
         })
         await findDbTriggerPage();
     }, []);
@@ -190,7 +191,7 @@ const DbTrigger = (props) => {
                         </div>
                     </div>
                     <div className="db-trigger-top-right">
-                        <DbAddTrigger/>
+                        <DbAddTrigger {...props} dbId={params.id}/>
                     </div>
                 </div>
                 <div className="box-trigger-table">
@@ -198,6 +199,7 @@ const DbTrigger = (props) => {
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                    mediumList={mediumList}
+                                   dbId={params.id}
                     />
                     <Table
                         rowKey={record => record.id}

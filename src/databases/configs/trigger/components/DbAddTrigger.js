@@ -48,7 +48,7 @@ const alarmGrade = [
 
 
 const DbAddTrigger = (props) => {
-
+    const {dbId}=props
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +77,7 @@ const DbAddTrigger = (props) => {
 
         const fieldsValue = await form.validateFields();
 
-        fieldsValue.dbId = localStorage.getItem("dbId")
+        fieldsValue.dbId = dbId
 
         const resData = await createDbTrigger(fieldsValue);
         if (resData?.data !== null) {

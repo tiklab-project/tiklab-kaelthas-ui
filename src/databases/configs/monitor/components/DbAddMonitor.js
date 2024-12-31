@@ -7,7 +7,7 @@ const {Option} = Select
 
 
 const DbAddMonitor = (props) => {
-
+    const {dbId}=props
     const {
         findItemListByType,
         createDbMonitor,
@@ -20,10 +20,6 @@ const DbAddMonitor = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
-
-    // const [expression, setExpression] = useState([]);
-
-    const dbId = localStorage.getItem("dbId");
 
     const showModal = () => {
         setIsModalOpen(true);

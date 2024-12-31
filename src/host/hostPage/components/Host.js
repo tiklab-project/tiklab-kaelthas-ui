@@ -21,7 +21,7 @@ const Host = (props) => {
     } = hostStore;
 
     const {setNullConditionByMonitoring} = alarmPageStore;
-    
+
     const [state, setState] = useState(2);
 
     useEffect(async () => {
@@ -37,9 +37,6 @@ const Host = (props) => {
     };
 
     const host = async (record) => {
-        localStorage.setItem('hostId', record.id);
-        localStorage.setItem("hostName", record.name);
-        localStorage.setItem("url", `/host/${record.id}/monitoring`)
         props.history.push(`/host/${record.id}/monitoring`);
 
         //添加到临时表当中

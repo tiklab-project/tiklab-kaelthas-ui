@@ -10,6 +10,7 @@ import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 const Monitor = (props) => {
+    const {match:{params}} = props;
 
     const {
         findMonitorCondition,
@@ -30,9 +31,8 @@ const Monitor = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(async () => {
-        let hostId = localStorage.getItem(`hostId`);
         setSearchNullCondition({
-            hostId: hostId,
+            hostId: params.id,
             name: null,
             source: null
         });
@@ -51,12 +51,11 @@ const Monitor = (props) => {
 
     const onClickMonitor = async (monitorSource) => {
         setMonitorSource(monitorSource)
-        let hostId = localStorage.getItem(`hostId`);
         //条件筛选
         setSearchNullCondition({
             source: monitorSource,
             name: null,
-            hostId: hostId
+            hostId: params.id
         })
         await findMonitorCondition();
     }
@@ -81,18 +80,8 @@ const Monitor = (props) => {
 
     const drawerList = (record) => {
         setIsModalOpen(true);
-        form.setFieldsValue({
-            name: record.name,
-            monitorType: record.monitorItem.type,
-            expression: record.expression,
-            monitorItemId: record.monitorItem.id,
-            intervalTime: record.intervalTime,
-            dataRetentionTime: record.dataRetentionTime,
-            source: record.source,
-            monitorStatus: record.monitorStatus
-        })
-
-        setColumnData({
+        setColumnData(record)
+        /*setColumnData({
             id: record.id,
             name: record.name,
             type: record.monitorType,
@@ -102,7 +91,7 @@ const Monitor = (props) => {
             dataRetentionTime: record.dataRetentionTime,
             source: record.source,
             monitorStatus: record.monitorStatus
-        })
+        })*/
 
     };
 
@@ -244,15 +233,20 @@ const Monitor = (props) => {
                         />
                     </div>
                     <div className="monitor-top-right">
-                        <AddMonitor/>
+                        <AddMonitor {...props}    hostId={params.id}/>
                     </div>
                 </div>
             </div>
             <div className="box-monitor-table">
                 <>
-                    <UpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
-                                   form={form} columnData={columnData}
-                    />
+
+                            <UpdateMonitor isModalOpen={isModalOpen}
+                                           setIsModalOpen={setIsModalOpen}
+                                           columnData={columnData}
+                                           hostId={params.id}
+                            />
+
+
                     <Table rowKey={record => record.id}
                            columns={columns}
                            dataSource={monitorList}

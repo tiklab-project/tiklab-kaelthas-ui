@@ -11,6 +11,7 @@ import hostAlarmStore from "../sotre/HostAlarmStore";
 const {Option} = Select;
 
 const HostAlarm = (props) => {
+    const {match:{params}} = props;
 
     const {
         alarmPage,
@@ -91,7 +92,7 @@ const HostAlarm = (props) => {
         })
 
         setSearchCondition({
-            hostId: localStorage.getItem("hostId"),
+            hostId: params.id,
             name: null,
             ip: null,
             status: null,

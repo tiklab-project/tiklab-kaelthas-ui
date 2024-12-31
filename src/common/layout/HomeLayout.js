@@ -28,6 +28,7 @@ const HomeLayout = (props) => {
 
     const route = props.route.routes;
 
+
     //是否折叠
     const [isExpand, setIsExpand] = useState(false);
 
@@ -84,6 +85,27 @@ const HomeLayout = (props) => {
     const [morePath, setMorePath] = useState()
 
     const [themeClass, setThemeClass] = useState("model-select")
+    useEffect(() => {
+        getThemeClass(themeType)
+        return null;
+    }, [])
+
+    useEffect(() => {
+        getSystemPermissions(getUser().userId);
+        const type = localStorage.getItem('theme')
+        if (type) {
+            setThemeType(type)
+        }
+    }, [])
+
+    useEffect(() => {
+        resizeUpdate(document.getElementById("root"))
+        window.addEventListener("resize", resizeUpdate);
+        return () => {
+            // 组件销毁时移除监听事件
+            window.removeEventListener('resize', resizeUpdate);
+        }
+    }, [themeType])
 
     const getThemeClass = (theme) => {
         let name
@@ -114,13 +136,7 @@ const HomeLayout = (props) => {
 
     const {getSystemPermissions} = systemRoleStore;
 
-    useEffect(() => {
-        getSystemPermissions(getUser().userId);
-        const type = localStorage.getItem('theme')
-        if (type) {
-            setThemeType(type)
-        }
-    }, [])
+
 
     const resizeUpdate = (e) => {
         // 通过事件对象获取浏览器窗口的高度
@@ -141,18 +157,8 @@ const HomeLayout = (props) => {
 
         setMorePath([...data])
     };
-    useEffect(() => {
-        getThemeClass(themeType)
-        return null;
-    }, [])
-    useEffect(() => {
-        resizeUpdate(document.getElementById("root"))
-        window.addEventListener("resize", resizeUpdate);
-        return () => {
-            // 组件销毁时移除监听事件
-            window.removeEventListener('resize', resizeUpdate);
-        }
-    }, [themeType])
+
+
 
     /**
      * type三个参数为:
@@ -164,6 +170,7 @@ const HomeLayout = (props) => {
         setThemeType(type)
         getThemeClass(type)
         localStorage.setItem('theme', type)
+
     }
 
     function showMainMenu() {

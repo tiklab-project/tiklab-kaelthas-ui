@@ -48,7 +48,7 @@ const alarmGrade = [
 
 
 const KuAddTrigger = (props) => {
-
+    const {kuId}=props
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -77,7 +77,7 @@ const KuAddTrigger = (props) => {
 
         const fieldsValue = await form.validateFields();
 
-        fieldsValue.kuId = localStorage.getItem("kuId")
+        fieldsValue.kuId = kuId
 
         const resData = await createKuTrigger(fieldsValue);
         if (resData?.data !== null) {

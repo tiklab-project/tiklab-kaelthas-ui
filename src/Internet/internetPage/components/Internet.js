@@ -36,10 +36,6 @@ const Internet = (props) => {
     };
 
     const host = async (record) => {
-        localStorage.setItem('internetId', record.id);
-        localStorage.setItem("internetName", record.name);
-        localStorage.setItem("internetType",record.type)
-        localStorage.setItem("url", `/internet/${record.id}/inOverview`)
         props.history.push(`/internet/${record.id}/inOverview`);
 
         //添加到临时表当中

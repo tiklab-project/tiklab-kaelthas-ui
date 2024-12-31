@@ -10,6 +10,7 @@ import kuMonitorStore from "../store/KuMonitorStore";
 import KuAddMonitor from "./KuAddMonitor";
 
 const KuMonitor = (props) => {
+    const {match:{params}} = props;
 
     const {
         findKuMonitorPage,
@@ -28,7 +29,7 @@ const KuMonitor = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            kuId: localStorage.getItem("kuId")
+            kuId: params.id
         })
         await findKuMonitorPage()
     }, []);
@@ -155,13 +156,15 @@ const KuMonitor = (props) => {
                             />
                     </div>
                     <div className="ku-monitor-top-right">
-                        <KuAddMonitor/>
+                        <KuAddMonitor {...props} kuId={params.id}/>
                     </div>
                 </div>
                 <div className="ku-monitor-table">
                     <>
-                        <KuUpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <KuUpdateMonitor isModalOpen={isModalOpen}
+                                         setIsModalOpen={setIsModalOpen}
                                          form={form} columnData={columnData}
+                                         kuId={params.id}
                         />
                         <Table rowKey={record => record.id}
                                columns={columns}

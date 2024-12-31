@@ -5,7 +5,7 @@ import TextArea from "antd/es/input/TextArea";
 import customizeStore from "../store/CustomizeStore";
 
 const UpdateCustomize = (props) => {
-
+    const {dbId}=props
     const {form, isModalOpen, setIsModalOpen, columnData} = props;
 
     const {
@@ -34,7 +34,7 @@ const UpdateCustomize = (props) => {
                 message.success("修改成功")
 
                 await setSearchCondition({
-                    dbId: localStorage.getItem("dbId")
+                    dbId: dbId
                 })
                 await findCustomizePage();
             })

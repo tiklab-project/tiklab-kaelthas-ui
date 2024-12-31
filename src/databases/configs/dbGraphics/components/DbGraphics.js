@@ -10,7 +10,7 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 import dbGraphicsStore from "../store/DbGraphicsStore";
 
 const DbGraphics = (props) => {
-
+    const {match:{params}} = props;
     const {
         findGraphicsPage,
         findAllMonitor,
@@ -30,7 +30,7 @@ const DbGraphics = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            dbId: params.id
         })
 
         await findAllMonitor();
@@ -128,13 +128,15 @@ const DbGraphics = (props) => {
                         </div>
                     </div>
                     <div className="db-graphics-top-right">
-                        <AddGraphics/>
+                        <AddGraphics {...props} dbId={params.id}/>
                     </div>
                 </div>
                 <div className="db-box-graphics-table">
                     <>
-                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <UpdateGraphics form={form} isModalOpen={isModalOpen}
+                                        setIsModalOpen={setIsModalOpen}
                                         columnData={columnData}
+                                        dbId={params.id}
                         />
 
                         <Table rowKey={record => record.id}

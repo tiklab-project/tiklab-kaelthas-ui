@@ -6,16 +6,13 @@ import {observer} from "mobx-react";
 import alarmPageStore from "../../../alarm/alarmPage/store/AlarmPageStore";
 
 const TopMenu = (props) => {
-
-    let hostId = localStorage.getItem('hostId');
-
-    let url = localStorage.getItem('url');
+    const {match:{params},location:{pathname}} = props;
 
     const [alarmNum,setAlarmNum] = useState(0);
 
-    const {
-        findAlarmNumByCondition
-    } = alarmPageStore
+    const {findAlarmNumByCondition} = alarmPageStore
+
+    let hostId=params.id
 
     const router = [
         {
@@ -56,6 +53,18 @@ const TopMenu = (props) => {
     ];
 
     const {hostData, findHostById, findRecentHostList, hostList} = hostStore;
+    const [url,setUrl]=useState();
+
+    useEffect(async () => {
+        if (pathname.includes("/config/")){
+           // const a=pathname.slice(0,pathname.indexOf("/config/"))
+            setUrl( `/host/${hostId}/config/monitor`)
+        }else if(pathname.endsWith("/member")||pathname.endsWith("/permissions")){
+            setUrl(`/host/${hostId}/projectInformation`)
+        } else{
+            setUrl(pathname)
+        }
+    }, [pathname]);
 
     useEffect(async () => {
         await findHostById(hostId);
@@ -65,22 +74,9 @@ const TopMenu = (props) => {
     }, [hostId]);
 
     const selectMenu = (url, key) => {
-        if (key === "config") {
-            localStorage.setItem("configUrl", `/host/${hostId}/config/monitor`)
-        }
-        localStorage.setItem("url", url)
         props.history.push(url)
     }
 
-
-    async function changeHost(item) {
-        if (hostId !== item.id) {
-            localStorage.setItem("hostId", item.id);
-            localStorage.setItem("hostName", item?.name);
-            localStorage.setItem("url", `/host/${item.id}/hostOverview`);
-            props.history.push(`/host/${item.id}/hostOverview`);
-        }
-    }
 
     function goBackHost() {
         props.history.push("/host")

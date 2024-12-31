@@ -18,14 +18,14 @@ const TemplateSetting = (props) => {
         templateList,
         searchCondition
     } = templateSettingStore;
-
+    const [form] = Form.useForm();
     const [isOpen, setIsOpen] = useState(false);
 
     const [rowData, setRowData] = useState({});
 
     const [dataList, setDataList] = useState([]);
 
-    const [form] = Form.useForm();
+    const [template,setTemplate]=useState()
 
     useEffect(async () => {
         await findTemplatePage();
@@ -40,16 +40,8 @@ const TemplateSetting = (props) => {
     };
 
     async function showTemplateDetails(record) {
-        const stringify = JSON.stringify({
-            id: record.id,
-            name: record.name,
-            monitorNum: record.monitorNum
-        });
 
-        localStorage.setItem("rowData", stringify)
-
-        localStorage.setItem("templateId", record.id)
-
+        setTemplate(record)
         props.history.push(`/setting/monitor/${record.id}`)
     }
 
@@ -176,6 +168,7 @@ const TemplateSetting = (props) => {
             <TemplateSettingUpdate
                 isOpen={isOpen} setIsOpen={setIsOpen} form={form}
                 setDataList={setDataList} dataList={templateList}
+                templateId={template?.id}
             />
         </>
     );

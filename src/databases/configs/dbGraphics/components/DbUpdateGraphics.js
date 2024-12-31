@@ -7,7 +7,7 @@ const {Option} = Select
 
 const DbUpdateGraphics = (props) => {
 
-    const {form, isModalOpen, setIsModalOpen, columnData} = props;
+    const {form, isModalOpen, setIsModalOpen, columnData,dbId} = props;
 
     const {
         updateGraphics,
@@ -28,7 +28,7 @@ const DbUpdateGraphics = (props) => {
             form.validateFields().then(async () => {
                 let obj = {
                     id: columnData.id,
-                    dbId:localStorage.getItem("dbId")
+                    dbId:dbId
                 };
                 obj[field] = values[field];
 
@@ -36,7 +36,7 @@ const DbUpdateGraphics = (props) => {
                 message.success("修改成功")
 
                 await setSearchCondition({
-                    hostId: localStorage.getItem("hostId")
+                    hostId: dbId
                 })
                 await findGraphicsPage();
             })

@@ -6,8 +6,8 @@ import {observer} from "mobx-react";
 const {Option} = Select
 
 
-const AddMonitor = () => {
-
+const AddMonitor = (props) => {
+    const {hostId}=props
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +30,7 @@ const AddMonitor = () => {
 
     const handleOk = async () => {
         const values = await form.validateFields();
-        values.hostId = localStorage.getItem("hostId");
+        values.hostId = hostId;
         values.source = 1;
         values.monitorStatus = 1;
         values.monitorItemId = itemId;

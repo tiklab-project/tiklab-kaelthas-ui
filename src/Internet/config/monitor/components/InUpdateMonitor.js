@@ -7,7 +7,7 @@ const {Option} = Select
 const InUpdateMonitor = (props) => {
 
 
-    const {isModalOpen, setIsModalOpen, form, columnData} = props;
+    const {isModalOpen, setIsModalOpen, form, columnData,internetId,internetType} = props;
 
     const {
         updateMonitor,
@@ -20,7 +20,7 @@ const InUpdateMonitor = (props) => {
     const [itemId, setItemId] = useState();
 
     useEffect(async () => {
-        const res = await findItemList({internetType: localStorage.getItem("internetType"), isOptional: 1})
+        const res = await findItemList({internetType: internetType, isOptional: 1})
         setMonitorItemList(res)
     }, []);
 
@@ -40,7 +40,7 @@ const InUpdateMonitor = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    internetId: localStorage.getItem("internetId"),
+                    internetId: internetId,
                     id: columnData.id,
                     monitorItemId: itemId,
                 };

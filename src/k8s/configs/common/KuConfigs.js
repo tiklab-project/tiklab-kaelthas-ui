@@ -5,12 +5,11 @@ import "./KuConfigs.scss"
 import {Col, Layout, Row} from "antd";
 
 const KuConfigs = (props) => {
+    const {match:{params},location:{pathname},route} = props;
 
-    const {route} = props;
+    let kuId = params.id;
 
-    let kuId = localStorage.getItem('kuId');
-
-    let url = localStorage.getItem('confUrl');
+    let url = pathname;
 
     const configList = [
         {
@@ -44,7 +43,6 @@ const KuConfigs = (props) => {
     ]
 
     function hrefConfiguration(item) {
-        localStorage.setItem("confUrl", item.url)
         props.history.push(item.url)
     }
 

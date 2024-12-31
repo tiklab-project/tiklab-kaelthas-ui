@@ -13,8 +13,8 @@ const {RangePicker} = DatePicker;
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const KuMonitorGraphics = () => {
-
+const KuMonitorGraphics = (props) => {
+    const {match:{params}} = props
 
     const {
         setSearchCondition,
@@ -27,7 +27,7 @@ const KuMonitorGraphics = () => {
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
-        const kuId = localStorage.getItem("kuId");
+        const kuId = params.id;
         setSearchNull({
             hostId: kuId,
             beginTime: getDateTime()[0],

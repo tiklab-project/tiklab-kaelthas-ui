@@ -7,6 +7,7 @@ import hostStore from "../store/HostStore";
 import {observer} from "mobx-react";
 
 const HostDynamic = (props) => {
+    const {match:{params}} = props;
 
     const {
         setNullCondition,
@@ -17,7 +18,7 @@ const HostDynamic = (props) => {
 
     useEffect(async () => {
         setNullCondition({
-            hostId: localStorage.getItem("hostId")
+            hostId: params.id
         })
         await findHostDynamicPage()
     }, []);

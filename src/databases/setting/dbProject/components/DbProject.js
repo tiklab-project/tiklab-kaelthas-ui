@@ -28,14 +28,10 @@ const tailLayout = {
     },
 };
 const DbProject = (props) => {
+    const {match:{params}} = props;
+    const {findDbInfoById, updateDbInfo, deleteDbInfo} = dbProject;
 
-    const {
-        findDbInfoById,
-        updateDbInfo,
-        deleteDbInfo
-    } = dbProject;
-
-    const dbId = localStorage.getItem("dbId");
+    const dbId = params.id;
 
     const [form] = Form.useForm();
 

@@ -8,7 +8,8 @@ import SelectSimple from "../../../alarm/common/components/Select";
 import kuAlarmStore from "../sotre/InAlarmStore";
 import {SearchOutlined} from "@ant-design/icons";
 
-const InAlarm = () => {
+const InAlarm = (props) => {
+    const {match:{params}} = props;
 
     const {
         alarmPage,
@@ -89,7 +90,7 @@ const InAlarm = () => {
         })
 
         setSearchCondition({
-            hostId: localStorage.getItem("internetId"),
+            hostId: params.id,
             status: null,
             machineType: 4,
             severityLevel: null

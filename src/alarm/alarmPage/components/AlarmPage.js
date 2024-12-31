@@ -155,12 +155,7 @@ const AlarmPage = (props) => {
     }
 
     async function jumpToMonitor(record) {
-        /*localStorage.setItem("hostId", record.hostId);
-        localStorage.setItem("hostName", record.hostName)
-        localStorage.setItem("ip", record.ip)
-        sessionStorage.setItem("menuKey", "host")
-        localStorage.setItem("url", `/hostList/${record?.hostId}/monitoring`)
-
+        /*
         props.history.push(`/host/${record.hostId}/monitoring`)*/
     }
 

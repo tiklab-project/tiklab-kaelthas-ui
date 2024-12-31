@@ -1,6 +1,7 @@
 import {TemplateStore} from "../../../config/template/store/TemplateStore";
 import {action, observable} from "mobx";
 import {Service} from "../../../../common/utils/requset";
+import {message} from 'antd';
 
 export class ProjectInformationStore {
 
@@ -27,7 +28,10 @@ export class ProjectInformationStore {
     //修改主机信息
     @action
     updateHost = async (host) => {
-        await Service("/hostSetting/updateHost", host)
+        const res =  await Service("/hostSetting/updateHost", host)
+        if (res.code===0){
+            message.info('更新成功',1)
+        }
     }
 
     //查询主机组所有信息

@@ -20,8 +20,8 @@ const alarmGrade = [
 ];
 
 
-const InAddTrigger = () => {
-
+const InAddTrigger = (props) => {
+    const {internetId}=props
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,7 +44,7 @@ const InAddTrigger = () => {
     const handleOk = async () => {
         const values = await form.validateFields();
 
-        values.internetId = localStorage.getItem("internetId");
+        values.internetId = internetId;
         values.status = 1;
         values.source = 1;
 

@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import {message} from "antd";
 
 export class HostStore {
 
@@ -46,11 +47,22 @@ export class HostStore {
     //根据条件查询主机
     @action
     findPageHost = async () => {
-
         const resData = await Service("/hostList/findHostPage",this.searchCondition);
         this.resultData = resData.data.dataList;
         this.total = resData.data.totalRecord
         return this.resultData;
+    }
+
+    //根据id查询主机
+    @action
+    findOneHost = async () => {
+        const resData = await Service("/hostList/findOneHost",this.searchCondition);
+        if (resData.code===0){
+            return resData;
+        }else {
+            message.error("查询主机失败")
+        }
+
     }
 
     //添加主机

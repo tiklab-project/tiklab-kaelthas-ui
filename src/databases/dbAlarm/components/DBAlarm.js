@@ -9,7 +9,8 @@ import hostAlarmStore from "../../../host/hostAlarm/sotre/HostAlarmStore";
 import {SearchOutlined} from "@ant-design/icons";
 
 
-const DBAlarm = () => {
+const DBAlarm = (props) => {
+    const {match:{params}} = props;
 
     const {
         alarmPage,
@@ -90,7 +91,7 @@ const DBAlarm = () => {
         })
 
         setSearchCondition({
-            hostId: localStorage.getItem("dbId"),
+            hostId: params.id,
             name: null,
             ip: null,
             status: null,

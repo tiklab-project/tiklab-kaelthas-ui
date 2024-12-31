@@ -11,7 +11,7 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 
 const Template = (props) => {
-
+    const {match:{params}} = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {
@@ -32,7 +32,7 @@ const Template = (props) => {
     useEffect(async () => {
         setSearchCondition({
             name: null,
-            hostId: localStorage.getItem(`hostId`),
+            hostId: params.id,
             monitorSource: 2
         })
 
@@ -43,7 +43,7 @@ const Template = (props) => {
     const deleteTemplate = async (id) => {
 
         await deleteTemplateById({
-            hostId: localStorage.getItem("hostId"),
+            hostId: params.id,
             templateId: id
         });
 
@@ -186,7 +186,7 @@ const Template = (props) => {
                         </div>
                     </div>
                     <div className="host-template-top-right">
-                        <AddTemplate/>
+                        <AddTemplate {...props}   hostId={params.id}/>
                     </div>
                 </div>
                 <div className="box-template-table">

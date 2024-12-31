@@ -34,7 +34,7 @@ echarts.use([
 ]);
 
 const MonitoringDetails = (props) => {
-
+    const {match:{params}} = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 
@@ -72,7 +72,7 @@ const MonitoringDetails = (props) => {
 
         //根据主机id查询出主机下配置的图表有多少,根据图表查询对应的数据返回
         setSearchNull({
-            hostId: localStorage.getItem("hostId"),
+            hostId: params.id,
             monitorId: record.monitorId,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
@@ -81,7 +81,7 @@ const MonitoringDetails = (props) => {
 
         const resData = await findInformationByLine();
         setSearchNull({
-            hostId: localStorage.getItem("hostId"),
+            hostId: params.id,
             monitorId: null,
             source: null
         })

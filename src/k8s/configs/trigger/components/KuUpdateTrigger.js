@@ -21,7 +21,7 @@ const schemeList = [
 ]
 const KuUpdateTrigger = (props) => {
 
-    const {isModalOpen, setIsModalOpen, form, rowData} = props;
+    const {isModalOpen, setIsModalOpen, form, rowData,kuId} = props;
 
     const {
         updateKuTrigger,
@@ -50,7 +50,7 @@ const KuUpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    kuId: localStorage.getItem("kuId"),
+                    kuId: kuId,
                     id: rowData.id,
                 };
                 obj[field] = values[field];

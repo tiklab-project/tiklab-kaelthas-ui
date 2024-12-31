@@ -10,7 +10,7 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 import dbGraphicsStore from "../store/KuGraphicsStore";
 
 const KuGraphics = (props) => {
-
+    const {match:{params}} = props;
     const {
         findKuGraphicsPage,
         findKuMonitor,
@@ -30,10 +30,10 @@ const KuGraphics = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            kuId: localStorage.getItem("kuId")
+            kuId: params.id
         })
 
-        await findKuMonitor(localStorage.getItem("kuId"));
+        await findKuMonitor(params.id);
 
         await findKuGraphicsPage();
     }, []);
@@ -122,13 +122,15 @@ const KuGraphics = (props) => {
                             />
                     </div>
                     <div className="ku-graphics-top-right">
-                        <AddGraphics/>
+                        <AddGraphics {...props} kuId={params.id}/>
                     </div>
                 </div>
                 <div className="ku-box-graphics-table">
                     <>
-                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <UpdateGraphics form={form} isModalOpen={isModalOpen}
+                                        setIsModalOpen={setIsModalOpen}
                                         columnData={columnData}
+                                        kuId={params.id}
                         />
 
                         <Table rowKey={record => record.id}

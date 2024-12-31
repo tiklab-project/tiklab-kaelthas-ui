@@ -3,13 +3,12 @@ import {withRouter} from "react-router-dom";
 import {DomainUser} from 'tiklab-user-ui';
 
 const KuMember = (props) => {
-
-    const hostId = localStorage.getItem('hostId')
+    const {match:{params}} = props;
 
     return (
         <DomainUser
             {...props}
-            domainId={hostId}
+            domainId={params.id}
             bgroup={"kaelthas"}
         />
     );

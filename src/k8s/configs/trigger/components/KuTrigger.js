@@ -10,7 +10,7 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 import kuTriggerStore from "../store/KuTriggerStore";
 
 const KuTrigger = (props) => {
-
+    const {match:{params}} = props;
     const {
         findKuTriggerPage,
         deleteKuTrigger,
@@ -29,7 +29,7 @@ const KuTrigger = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(async () => {
         setSearchCondition({
-            kuId: localStorage.getItem("kuId")
+            kuId: params.id
         })
         await findKuTriggerPage();
     }, []);
@@ -194,7 +194,7 @@ const KuTrigger = (props) => {
                         />
                     </div>
                     <div className="ku-trigger-top-right">
-                        <KuAddTrigger/>
+                        <KuAddTrigger {...params} kuId={params.id}/>
                     </div>
                 </div>
                 <div className="box-ku-trigger-table">
@@ -202,6 +202,7 @@ const KuTrigger = (props) => {
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                    mediumList={mediumList}
+                                   kuId={params.id}
                     />
                     <Table
                         rowKey={record => record.id}

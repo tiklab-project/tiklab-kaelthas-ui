@@ -15,8 +15,8 @@ const {RangePicker} = DatePicker;
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const MonitorGraphics = () => {
-
+const MonitorGraphics = (props) => {
+    const {match:{params}} = props;
     const {
         setSearchCondition,
         findInGraphicsLine,
@@ -27,7 +27,7 @@ const MonitorGraphics = () => {
 
     const [pageStatus, setPageStatus] = useState(1);
 
-    const hostId = localStorage.getItem("internetId");
+    const hostId = params.id;
 
     useEffect(async () => {
         setSearchNull({
@@ -148,7 +148,7 @@ const MonitorGraphics = () => {
                         </div>
                         {
                             pageStatus === 2 ?
-                                <MonitoringDetails/>
+                                <MonitoringDetails {...props} internetId={params.id}/>
                                 :
                                 <div className="layout-body-list">
                                     {

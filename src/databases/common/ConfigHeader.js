@@ -6,26 +6,20 @@ import {observer} from "mobx-react";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 
 const ConfigHeader = (props) => {
-
-    const {
-        updateDbInfo,
-    } = databasesStore;
-    const {
-        findAlarmNumByCondition
-    } = alarmPageStore
+    const {match:{params},location:{pathname}} = props;
+    const {findDbInfoById,dbObj} = databasesStore;
+    const {findAlarmNumByCondition} = alarmPageStore
 
 
-    let dbId = localStorage.getItem('dbId');
-
-    let url = localStorage.getItem('url');
+    let dbId = params.id;
 
     const [alarmNum, setAlarmNum] = useState(0);
+    const [url,setUrl]=useState()
 
     const selectMenu = (url) => {
-        localStorage.setItem("url", url)
-        localStorage.setItem("confUrl", `/db/${dbId}/configs/monitor`)
         props.history.push(url)
     }
+
 
     const router = [
         {
@@ -65,6 +59,20 @@ const ConfigHeader = (props) => {
         },
     ];
 
+    useEffect(async () => {
+        if (pathname.includes("/configs/")){
+            setUrl( `/db/${dbId}/configs/monitor`)
+        }else if(pathname.endsWith("/dbMember")||pathname.endsWith("/dbPermissions")){
+            setUrl(`/db/${dbId}/dbSetting/dbProject`)
+        } else{
+            setUrl(pathname)
+        }
+
+        findDbInfoById(params.id)
+
+    }, [pathname]);
+    const a=dbObj
+    debugger
     function goBackHost() {
         props.history.push("/db")
     }
@@ -75,16 +83,6 @@ const ConfigHeader = (props) => {
         setAlarmNum(newVar?.alarmNum)
     }, []);
 
-    async function changeHost(item) {
-        if (dbId !== item.id) {
-            await updateDbInfo(item)
-            localStorage.setItem("dbType", item.dbType);
-            localStorage.setItem("dbId", item.id);
-            localStorage.setItem("dbName", item?.name);
-            localStorage.setItem("url", `/db/${item.id}/dbDetails`);
-            props.history.push(`/db/${item.id}/dbDetails`);
-        }
-    }
 
     return (
         <div className="configs-header">
@@ -95,7 +93,7 @@ const ConfigHeader = (props) => {
                         <use xlinkHref={`#icon-left`}></use>
                     </svg>
                     <span style={{fontSize: 16}}>
-                            数据库 / {localStorage.getItem("dbName")}
+                            数据库 / {dbObj?.name}
                         </span>
                 </div>
             </div>

@@ -7,12 +7,9 @@ const {Option} = Select
 
 
 const KuAddMonitor = (props) => {
+    const {kuId}=props
 
-    const {
-        findItemList,
-        createKuMonitor,
-        findKuMonitorPage
-    } = kuMonitorStore;
+    const {findItemList, createKuMonitor, findKuMonitorPage} = kuMonitorStore;
 
     const [form] = Form.useForm();
 
@@ -29,7 +26,7 @@ const KuAddMonitor = (props) => {
 
     const [itemId, setItemId] = useState();
 
-    const kuId = localStorage.getItem("kuId");
+
 
     const showModal = async () => {
         const itemList = await findItemList({});

@@ -8,9 +8,10 @@ import {SearchOutlined} from "@ant-design/icons";
 import InUpdateMonitor from "./InUpdateMonitor";
 import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
+import internetStore from "../../../internetPage/store/InternetStore";
 
-const InMonitor = () => {
-
+const InMonitor = (props) => {
+    const {match:{params}} = props;
     const {
         findMonitorPage,
         setSearchCondition,
@@ -20,17 +21,21 @@ const InMonitor = () => {
         searchCondition
     } = monitorStore;
 
+    const {findInternetById,internetData} = internetStore;
+
     const [columnData, setColumnData] = useState({});
 
     const [form] = Form.useForm();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+
     useEffect(async () => {
         setSearchCondition({
-            internetId: localStorage.getItem("internetId")
+            internetId: params.id
         })
         await findMonitorPage()
+
     }, []);
 
     const searchName = async (e) => {
@@ -151,14 +156,19 @@ const InMonitor = () => {
                     </div>
                     <div className="monitor-top-right-search">
                         <div className="monitor-top-right">
-                            <AddMonitor/>
+                            <AddMonitor {...props} internetId={params.id}
+                                        internetType={internetData?.type}
+                            />
                         </div>
                     </div>
                 </div>
                 <div className="in-monitor-table">
                     <>
-                        <InUpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <InUpdateMonitor isModalOpen={isModalOpen}
+                                         setIsModalOpen={setIsModalOpen}
                                          form={form} columnData={columnData}
+                                         internetId={params.id}
+                                         internetType={internetData?.type}
                         />
                         <Table rowKey={record => record.id}
                                columns={columns}

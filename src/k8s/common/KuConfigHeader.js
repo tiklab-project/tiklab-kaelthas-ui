@@ -3,22 +3,36 @@ import "./KuConfigHeader.scss"
 import {withRouter} from "react-router-dom";
 import kubernetesStore from "../kuPage/store/KubernetesStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+import kuProjectStore from "../setting/kuProject/store/KuProjectStore";
+import {observer} from "mobx-react";
 
 const KuConfigHeader = (props) => {
+    const {match:{params},location:{pathname}} = props;
 
-    const {
-        updateKbInfo
-    } = kubernetesStore;
+    const {updateKbInfo,findKuInfoById} = kubernetesStore;
 
-    const {
-        findAlarmNumByCondition
-    } = alarmPageStore
+    const {findAlarmNumByCondition} = alarmPageStore
 
-    let kuId = localStorage.getItem('kuId');
-
-    let url = localStorage.getItem('url');
+    let kuId = params.id;
 
     const [alarmNum, setAlarmNum] = useState(0);
+    const [url,setUrl]=useState()
+    const [KuData,setKuData]=useState()
+
+    useEffect(async () => {
+        if (pathname.includes("/configs/")){
+            setUrl( `/kubernetes/${kuId}/configs/monitor`,)
+        }else if(pathname.includes("/kuSetting/")){
+            setUrl(`/kubernetes/${kuId}/kuSetting/kuProject`)
+        } else{
+            setUrl(pathname)
+        }
+
+        findKuInfoById(params.id).then(res=>{
+           setKuData(res)
+        })
+    }, [pathname]);
+
 
     useEffect(async () => {
         const newVar = await findAlarmNumByCondition({hostId: kuId});
@@ -26,8 +40,6 @@ const KuConfigHeader = (props) => {
     }, []);
 
     const selectMenu = (url) => {
-        localStorage.setItem("url", url)
-        localStorage.setItem("confUrl",`/kubernetes/${kuId}/configs/monitor`)
         props.history.push(url)
     }
 
@@ -73,15 +85,6 @@ const KuConfigHeader = (props) => {
         props.history.push("/kubernetes")
     }
 
-    async function changeHost(item) {
-        if (kuId !== item.id) {
-            await updateKbInfo(item)
-            localStorage.setItem("kuId", item.id);
-            localStorage.setItem("kuName", item?.name);
-            localStorage.setItem("url", `/kubernetes/${item.id}/monitoring`);
-            props.history.push(`/kubernetes/${item.id}/monitoring`);
-        }
-    }
 
     return (
         <div className="ku-configs-header">
@@ -92,48 +95,8 @@ const KuConfigHeader = (props) => {
                             <use xlinkHref={`#icon-left`}></use>
                         </svg>
                         <span style={{fontSize:16}}>
-                              集群 / {localStorage.getItem("kuName")}
+                              集群 / {KuData?.name}
                         </span>
-                    {/*<Dropdown
-                        getPopupContainer={e => e.parentElement}
-                        overlayStyle={{width: 200, top: 48, left: 80}}
-                        trigger={['click']}
-                        overlayClassName="normal-aside-dropdown"
-                        overlay={
-                            <div className="ku-opt">
-                                <div className="ku-opt-title">切换主机</div>
-                                <div className="ku-opt-group">
-                                    {
-                                        kuList && kuList.map(item => {
-                                            return (
-                                                <div onClick={() => changeHost(item)}
-                                                     key={item?.id}
-                                                     className={`ku-opt-item ${item?.id === kuId ? "ku-opt-active" : ""}`}
-                                                >
-                                                <span className={`ku-opt-icon mf-icon-${item?.color}`}>
-                                                    {item?.name?.substring(0, 1).toUpperCase()}
-                                                </span>
-                                                    <span className="ku-opt-name">
-                                                    {item?.name}
-                                                </span>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <div className='ku-opt-more' onClick={() => props.history.push('/kubernetes')}>更多</div>
-                                </div>
-                            </div>
-                        }
-                    >
-                        <div className="ku-normal-aside-opt-icon">
-                            <Tooltip placement="right" title={localStorage.getItem("kuName")}>
-                                <div className="ku-normal-host-opt-title">
-
-                                    <CaretDownOutlined/>
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </Dropdown>*/}
                 </div>
             </div>
             <div className="ku-config-right">
@@ -166,4 +129,4 @@ const KuConfigHeader = (props) => {
     );
 };
 
-export default withRouter(KuConfigHeader);
+export default withRouter(observer(KuConfigHeader));

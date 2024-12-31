@@ -9,7 +9,8 @@ import HideDelete from "../../../../common/hideDelete/HideDelete";
 import dbMonitorStore from "../store/DbMonitorStore";
 import DbAddMonitor from "./DbAddMonitor";
 
-const DbMonitor = () => {
+const DbMonitor = (props) => {
+    const {match:{params}} = props;
 
     const {
         findDbMonitorPage,
@@ -32,12 +33,12 @@ const DbMonitor = () => {
 
     useEffect(async () => {
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            dbId: params.id
         })
         await findDbMonitorPage()
 
         await findItemListByType({
-            dbType: localStorage.getItem("dbType")
+            dbType: params.id
         });
     }, []);
 
@@ -172,13 +173,15 @@ const DbMonitor = () => {
                         </div>
                     </div>
                     <div className="db-monitor-top-right">
-                        <DbAddMonitor/>
+                        <DbAddMonitor {...props} dbId={params.id}/>
                     </div>
                 </div>
                 <div className="box-monitor-table">
                     <>
-                        <DbUpdateMonitor isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <DbUpdateMonitor isModalOpen={isModalOpen}
+                                         setIsModalOpen={setIsModalOpen}
                                          form={form} columnData={columnData}
+                                         dbId={params.id}
                         />
                         <Table rowKey={record => record.id}
                                columns={columns}

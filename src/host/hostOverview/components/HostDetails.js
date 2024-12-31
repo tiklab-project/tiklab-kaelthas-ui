@@ -8,17 +8,14 @@ import {observer} from "mobx-react";
 import DynamicWidget from "./DynamicWidget";
 
 const HostDetails = (props) => {
+    const {match:{params}} = props;
 
     const {findHostById} = hostStore;
-
-    const hostId = localStorage.getItem("hostId");
-    const hostName = localStorage.getItem("hostName");
 
     const [dataList, setDataList] = useState({});
 
     useEffect(async () => {
-
-        const resData = await findHostById(hostId)
+        const resData = await findHostById(params.id)
 
         switch (resData.state) {
             case 1:
@@ -46,15 +43,13 @@ const HostDetails = (props) => {
         }
 
         setDataList({...resData})
-    }, [localStorage.getItem("hostId")]);
+    }, [params.id]);
 
     function goDynamicList() {
-        props.history.push(`/hostList/${localStorage.getItem("hostId")}/hostDynamic`)
+        props.history.push(`/hostList/${params.id}/hostDynamic`)
     }
 
-    function subStringTime(time) {
-        return time.split(' ')[1];
-    }
+
 
     return (
         <Row className="box-right">
@@ -117,7 +112,7 @@ const HostDetails = (props) => {
                         </div>
                         <div className="host-news-List">
                         </div>
-                        <DynamicWidget hostId={hostId} hostName={hostName}/>
+                        <DynamicWidget hostId={params.id} hostName={dataList?.name}/>
                     </div>
                 </div>
             </Col>

@@ -34,10 +34,8 @@ echarts.use([
 ]);
 
 const MonitoringDetails = (props) => {
-
+    const {internetId}=props
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-
     const {
         findHistory,
         setSearchCondition,

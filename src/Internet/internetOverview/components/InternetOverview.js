@@ -7,17 +7,17 @@ import {observer} from "mobx-react";
 import internetOverviewStore from "../store/InternetOverviewStore";
 
 const InternetOverview = (props) => {
-
+    const {match:{params}} = props;
     const {
         findInternetOverview,
         internetOverview
     } = internetOverviewStore;
 
-    const internetId = localStorage.getItem("internetId");
+    const internetId = params.id;
 
     useEffect(async () => {
         await findInternetOverview(internetId);
-    }, [localStorage.getItem("internetId")]);
+    }, [params.id]);
 
 
     function conversionStatus(status, portName) {

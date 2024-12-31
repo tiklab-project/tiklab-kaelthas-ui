@@ -10,7 +10,7 @@ const {Option} = Select
 
 
 const AddTemplateMonitor = (props) => {
-
+    const {templateId}=props
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet.svg'];
 
     const [form] = Form.useForm();
@@ -34,7 +34,7 @@ const AddTemplateMonitor = (props) => {
 
         form.validateFields().then(async res => {
             await createMonitor({
-                hostId: localStorage.getItem("templateId"),
+                hostId: templateId,
                 name: res.monitorName,
                 type: res.monitorType,
                 monitorItemId: itemId,

@@ -5,7 +5,7 @@ import {observer} from "mobx-react";
 
 const {Option} = Select
 const AddGraphics = (props) => {
-
+    const {internetId}=props
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const {
@@ -23,11 +23,11 @@ const AddGraphics = (props) => {
 
     const handleOk = async () => {
         const values = await form.validateFields();
-        values.internetId = localStorage.getItem("internetId");
+        values.internetId = internetId;
         values.source = 1;
         await createGraphics(values);
         await setSearchCondition({
-            internetId: localStorage.getItem("internetId")
+            internetId: internetId
         })
         await findGraphicsPage();
         setIsModalOpen(false);

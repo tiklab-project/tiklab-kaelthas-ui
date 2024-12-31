@@ -5,10 +5,11 @@ import monitorStore from "../store/MonitorStore";
 const {Option} = Select
 
 const UpdateMonitor = (props) => {
+    const [form] = Form.useForm()
 
     const provinceData = ['CPU', 'IO', 'memory', 'host', 'internet'];
 
-    const {isModalOpen, setIsModalOpen, form, columnData} = props;
+    const {isModalOpen, setIsModalOpen, columnData,hostId} = props;
 
     const {updateMonitorById, findMonitorItemByName, findMonitorCondition, findMonitorItemAll} = monitorStore;
 
@@ -16,6 +17,20 @@ const UpdateMonitor = (props) => {
 
     const [itemId, setItemId] = useState();
 
+    useEffect(async () => {
+        if (isModalOpen&&columnData){
+            form.setFieldsValue({
+                name: columnData.name,
+                monitorType: columnData.monitorItem.type,
+                expression: columnData.expression,
+                monitorItemId: columnData.monitorItem.id,
+                intervalTime: columnData.intervalTime,
+                dataRetentionTime: columnData.dataRetentionTime,
+                source: columnData.source,
+                monitorStatus: columnData.monitorStatus
+            })
+        }
+    }, [isModalOpen]);
 
     const handleOk = () => {
         setIsModalOpen(false);
@@ -40,7 +55,7 @@ const UpdateMonitor = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    hostId: localStorage.getItem("hostId"),
+                    hostId: hostId,
                     id: columnData.id,
                     source: 1,
                     monitorItemId: itemId,

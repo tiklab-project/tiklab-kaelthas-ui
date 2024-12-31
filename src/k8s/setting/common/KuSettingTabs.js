@@ -3,8 +3,9 @@ import "./KuSettingTabs.scss"
 import {withRouter} from "react-router-dom";
 
 const KuSettingTabs = (props) => {
+    const {match:{params}} = props;
 
-    const kuId = localStorage.getItem("kuId")
+    const kuId = params.id
 
     const router = [
         {

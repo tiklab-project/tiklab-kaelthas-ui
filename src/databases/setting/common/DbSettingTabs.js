@@ -3,9 +3,8 @@ import "./DbSettingTabs.scss"
 import {withRouter} from "react-router-dom";
 
 const DbSettingTabs = (props) => {
-
-    const dbId = localStorage.getItem("dbId")
-
+    const {match:{params}} = props;
+    const dbId=params.id
     const router = [
         {
             name: '数据库信息',

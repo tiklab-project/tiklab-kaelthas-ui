@@ -8,7 +8,8 @@ import UpdateCustomize from "./UpdateCustomize";
 import customizeStore from "../store/CustomizeStore";
 import {observer} from "mobx-react";
 
-const Customize = () => {
+const Customize = (props) => {
+    const {match:{params}} = props;
 
     const {
         findCustomizePage,
@@ -28,7 +29,7 @@ const Customize = () => {
     useEffect(async () => {
 
         setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            dbId: params.id
         })
         await findCustomizePage();
 
@@ -119,14 +120,16 @@ const Customize = () => {
                             />
                         </div>
                         <div className="graphics-top-right">
-                            <AddCustomize/>
+                            <AddCustomize {...props} dbId={params.id}/>
                         </div>
                     </div>
                 </div>
                 <div className="box-graphics-table">
                     <>
-                        <UpdateCustomize form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <UpdateCustomize form={form} isModalOpen={isModalOpen}
+                                         setIsModalOpen={setIsModalOpen}
                                          columnData={columnData}
+                                         dbId={params.id}
                         />
 
                         <Table rowKey={record => record.id}

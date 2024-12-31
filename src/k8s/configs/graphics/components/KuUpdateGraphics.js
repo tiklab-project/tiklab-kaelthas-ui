@@ -7,7 +7,7 @@ const {Option} = Select
 
 const KuUpdateGraphics = (props) => {
 
-    const {form, isModalOpen, setIsModalOpen, columnData} = props;
+    const {form, isModalOpen, setIsModalOpen, columnData,kuId} = props;
 
     const {
         updateKuGraphics,
@@ -35,7 +35,7 @@ const KuUpdateGraphics = (props) => {
                 message.success("修改成功")
 
                 await setSearchCondition({
-                    hostId: localStorage.getItem("hostId")
+                    hostId: kuId
                 })
                 await findKuGraphicsPage();
             })

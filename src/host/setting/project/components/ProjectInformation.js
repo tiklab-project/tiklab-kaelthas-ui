@@ -30,6 +30,7 @@ const tailLayout = {
 };
 
 const ProjectInformation = (props) => {
+    const {match:{params}} = props;
 
     const {deleteHostById, findHostById, findAllHostGroupList, updateHost, allHostGroupList} = projectInformationStore;
 
@@ -42,7 +43,7 @@ const ProjectInformation = (props) => {
     const [activeKey, setActiveKey] = useState([]);
 
     const onFinish = async (values) => {
-        values.id = localStorage.getItem("hostId")
+        values.id = params.id
 
         await updateHost(values)
     };
@@ -53,12 +54,12 @@ const ProjectInformation = (props) => {
     const onChange = async (key) => {
         if ("1" === key[0]) {
             //调用根据id查询,将查询的数据放到表单当中
-            const resData = await findHostById(localStorage.getItem("hostId"));
+            const resData = await findHostById(params.id);
 
             await findAllHostGroupList();
 
             form.setFieldsValue({
-                id: localStorage.getItem("hostId"),
+                id: params.id,
                 name: resData.name,
                 ip: resData.ip,
                 hostGroupId: resData.hostGroup === null ? null : resData.hostGroup.id,
@@ -71,7 +72,7 @@ const ProjectInformation = (props) => {
 
     const handleOk = async () => {
 
-        await deleteHostById(localStorage.getItem("hostId"));
+        await deleteHostById(params.id);
 
         setNullCondition();
 

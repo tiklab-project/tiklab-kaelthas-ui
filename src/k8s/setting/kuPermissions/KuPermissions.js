@@ -4,13 +4,12 @@ import {withRouter} from "react-router-dom";
 import {DomainRole} from 'tiklab-privilege-ui';
 
 const KuPermissions = (props) => {
-
-    const hostId = localStorage.getItem('hostId')
+    const {match:{params}} = props;
 
     return (
         <DomainRole
             {...props}
-            domainId = {hostId}
+            domainId = {params.id}
             bgroup={"kaelthas"}
         />
     );

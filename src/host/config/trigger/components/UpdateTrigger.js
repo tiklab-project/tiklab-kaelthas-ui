@@ -21,7 +21,7 @@ const schemeList = [
 ]
 const UpdateTrigger = (props) => {
 
-    const {isModalOpen, setIsModalOpen, form, rowData} = props;
+    const {isModalOpen, setIsModalOpen, form, rowData,hostId} = props;
 
     const {
         updateTrigger,
@@ -37,7 +37,7 @@ const UpdateTrigger = (props) => {
 
     useEffect(async () => {
         await findMonitorListById({
-            hostId: localStorage.getItem("hostId")
+            hostId: hostId
         });
     }, []);
 
@@ -51,7 +51,7 @@ const UpdateTrigger = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    hostId: localStorage.getItem("hostId"),
+                    hostId: hostId,
                     id: rowData.id,
                 };
                 obj[field] = values[field];

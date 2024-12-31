@@ -10,6 +10,7 @@ import inTriggerStore from "../store/InTriggerStore";
 import InUpdateTrigger from "./InUpdateTrigger";
 
 const InTrigger = (props) => {
+    const {match:{params}} = props;
 
     const {
         findTriggerPage,
@@ -31,7 +32,7 @@ const InTrigger = (props) => {
 
     useEffect(async () => {
         setSearchCondition({
-            internetId: localStorage.getItem("internetId")
+            internetId: params.id
         })
         await findTriggerPage();
         await getMediumAllList();
@@ -197,7 +198,7 @@ const InTrigger = (props) => {
                             />
                     </div>
                     <div className="in-trigger-top-right">
-                        <InAddTrigger/>
+                        <InAddTrigger {...props} internetId={params.id}/>
                     </div>
                 </div>
                 <div className="box-in-trigger-table">
@@ -205,6 +206,7 @@ const InTrigger = (props) => {
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                    mediumList={mediumList}
+                                     internetId={params.id}
                     />
                     <Table
                         rowKey={record => record.id}

@@ -10,8 +10,8 @@ import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 
-const Template = () => {
-
+const Template = (props) => {
+    const {match:{params}} = props;
     const [isModalOpen, setIsModalOpen] = useState(false);
 
 

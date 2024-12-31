@@ -3,8 +3,8 @@ import "./SettingLeftTabs.scss"
 import {withRouter} from "react-router-dom";
 
 const SettingLeftTabs = (props) => {
-
-    const internetId = localStorage.getItem("internetId")
+    const {match:{params}} = props;
+    const internetId = params.id
 
     const router = [
         {

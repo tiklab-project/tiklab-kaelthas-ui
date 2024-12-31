@@ -10,6 +10,7 @@ import UpdateGraphics from "./UpdateGraphics";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 const Graphics = (props) => {
+    const {match:{params}} = props;
 
     const [form] = Form.useForm();
 
@@ -19,7 +20,7 @@ const Graphics = (props) => {
 
     const {
         findGraphicsPage,
-        
+
         setSearchCondition,
         deleteGraphics,
         findMonitorListById,
@@ -31,7 +32,7 @@ const Graphics = (props) => {
 
     useEffect(async () => {
         await setSearchCondition({
-            internetId: localStorage.getItem("internetId"),
+            internetId: params.id,
         })
 
         await findGraphicsPage();
@@ -134,13 +135,15 @@ const Graphics = (props) => {
                             />
                     </div>
                     <div className="in-graphics-top-right">
-                        <AddGraphics/>
+                        <AddGraphics {...params} internetId={params.id}/>
                     </div>
                 </div>
                 <div className="box-graphics-table">
                     <>
-                        <UpdateGraphics form={form} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
+                        <UpdateGraphics form={form} isModalOpen={isModalOpen}
+                                        setIsModalOpen={setIsModalOpen}
                                         columnData={columnData}
+                                        internetId={params.id}
                         />
 
                         <Table rowKey={record => record.id}

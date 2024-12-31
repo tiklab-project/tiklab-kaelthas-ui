@@ -5,12 +5,12 @@ import "./Configs.scss"
 import {Col, Layout, Row} from "antd";
 
 const Configs = (props) => {
-
+    const {match:{params},location:{pathname}} = props;
     const {route} = props;
 
-    let dbId = localStorage.getItem('dbId');
+    let dbId = params.id;
 
-    let url = localStorage.getItem('confUrl');
+    let url = pathname;
 
     const configList = [
         {
@@ -51,8 +51,6 @@ const Configs = (props) => {
     ]
 
     function hrefConfiguration(item) {
-
-        localStorage.setItem("confUrl", item.url)
         props.history.push(item.url)
     }
 

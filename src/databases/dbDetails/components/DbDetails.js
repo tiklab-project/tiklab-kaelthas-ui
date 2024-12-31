@@ -6,21 +6,16 @@ import dbDetailsStore from "../sotre/DbDetailsStore";
 import {observer} from "mobx-react";
 import DbDynamicWidget from "./DbDynamicWidget";
 
-const DbDetails = () => {
+const DbDetails = (props) => {
+    const {match:{params}} = props;
 
-    const {
-        findDbInfoById,
-        dbObj
-    } = dbDetailsStore;
-
-    const dbId = localStorage.getItem("dbId");
-
-    const dbName = localStorage.getItem("dbName");
+    const {findDbInfoById, dbObj} = dbDetailsStore;
+    const dbId = params.id
 
     useEffect(async () => {
         //根据dbId查询数据库信息
         await findDbInfoById(dbId)
-    }, []);
+    }, [params.id]);
 
     return (<Row className="db-box-right">
             <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
@@ -98,7 +93,7 @@ const DbDetails = () => {
                         </div>
 
                         <div className="db-news-List">
-                            <DbDynamicWidget dbId = {dbId} dbName={dbName}/>
+                            <DbDynamicWidget dbId = {dbId} dbName={dbObj?.name}/>
                         </div>
                     </div>
                 </div>

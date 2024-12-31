@@ -10,6 +10,7 @@ import UpdateTrigger from "./UpdateTrigger";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 
 const Trigger = (props) => {
+    const {match:{params}} = props;
 
     const {
         getTriggerList,
@@ -30,7 +31,7 @@ const Trigger = (props) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     useEffect(async () => {
         await getMediumAllList();
-        await setSearchCondition({hostId: localStorage.getItem("hostId")});
+        await setSearchCondition({hostId: params.id});
         await getTriggerList();
     }, []);
 
@@ -229,7 +230,7 @@ const Trigger = (props) => {
                         </div>
                     </div>
                     <div className="trigger-top-right">
-                        <AddTrigger/>
+                        <AddTrigger {...props} hostId={params.id}/>
                     </div>
                 </div>
                 <div className="box-trigger-table">
@@ -237,6 +238,8 @@ const Trigger = (props) => {
                                    rowData={rowData} setRowData={setRowData}
                                    isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen}
                                    mediumList={mediumList}
+                                   hostId={params.id}
+
                     />
                     <Table
                         rowKey={record => record.id}

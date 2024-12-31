@@ -5,9 +5,8 @@ import {observer} from "mobx-react";
 
 const {Option} = Select
 const DbAddGraphics = (props) => {
-
+    const {dbId}=props
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const {
         createGraphics,
         monitorList,
@@ -24,12 +23,12 @@ const DbAddGraphics = (props) => {
     const handleOk = async () => {
         let values = await form.validateFields();
 
-        values.dbId = localStorage.getItem("dbId");
+        values.dbId = dbId;
 
         await createGraphics(values)
 
         await setSearchCondition({
-            hostId: localStorage.getItem("hostId")
+            hostId: dbId
         })
         await findGraphicsPage();
         setIsModalOpen(false);

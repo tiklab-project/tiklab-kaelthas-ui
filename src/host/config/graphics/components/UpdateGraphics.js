@@ -7,7 +7,7 @@ const {Option} = Select
 
 const UpdateGraphics = (props) => {
 
-    const {form, isModalOpen, setIsModalOpen, columnData} = props;
+    const {form, isModalOpen, setIsModalOpen, columnData,hostId} = props;
 
     const {
         updateGraphics,
@@ -35,7 +35,7 @@ const UpdateGraphics = (props) => {
                 message.success("修改成功")
 
                 await setSearchCondition({
-                    hostId: localStorage.getItem("hostId")
+                    hostId:hostId
                 })
                 await findGraphics();
             })

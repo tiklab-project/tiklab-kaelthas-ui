@@ -14,8 +14,8 @@ const {RangePicker} = DatePicker;
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const MonitorGraphics = () => {
-
+const MonitorGraphics = (props) => {
+    const {match:{params}} = props;
     const {
         setSearchCondition,
         findInformationByGraphics,
@@ -27,9 +27,8 @@ const MonitorGraphics = () => {
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
-        const hostId = localStorage.getItem("hostId");
         setSearchNull({
-            hostId: hostId,
+            hostId: params.id,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
@@ -37,7 +36,7 @@ const MonitorGraphics = () => {
         await findInformationByGraphics();
         setSearchCondition({
             dataCate: null,
-            id: hostId
+            id: params.id
         })
     }, []);
 

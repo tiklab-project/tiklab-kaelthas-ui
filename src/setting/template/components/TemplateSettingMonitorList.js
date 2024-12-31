@@ -10,10 +10,7 @@ import {LeftOutlined} from "@ant-design/icons";
 import HideDelete from "../../../common/hideDelete/HideDelete";
 
 const TemplateSettingMonitorList = (props) => {
-
-    const resData = localStorage.getItem("rowData");
-
-    const rowData = JSON.parse(resData);
+    const {match:{params}} = props;
 
     const {
         deleteMonitorById,
@@ -21,7 +18,8 @@ const TemplateSettingMonitorList = (props) => {
         monitorTotal,
         monitorList,
         setMonitorSearchCondition,
-        monitorSearchCondition
+        monitorSearchCondition,
+        findTemplateById
     } = templateSettingStore;
 
     const [form] = Form.useForm();
@@ -30,17 +28,19 @@ const TemplateSettingMonitorList = (props) => {
 
     const [monitorId, setMonitorId] = useState({});
 
+    const [templateData,setTemplateData]=useState()
+
     useEffect(async () => {
 
-        const resData = localStorage.getItem("rowData");
-
-        const rowData = JSON.parse(resData);
-
         await setMonitorSearchCondition({
-            templateId: rowData.id
+            templateId: params.id
         })
 
         await findMonitorByTemplateId()
+
+        findTemplateById(params.id).then(res=>{
+            res.code===0&&setTemplateData(res.data)
+        })
     }, []);
 
     async function updateMonitorForTemplate(record) {
@@ -69,7 +69,7 @@ const TemplateSettingMonitorList = (props) => {
             templateId: record?.hostId,
             monitorItemId: record?.monitorItem?.id
         });
-        await findMonitorByTemplateId(rowData.id);
+        await findMonitorByTemplateId(params.id);
     }
 
 
@@ -143,7 +143,7 @@ const TemplateSettingMonitorList = (props) => {
                 <div className="box-between-div">
                     <div className="template-monitor-title">
                         <LeftOutlined onClick={() => hrefTemplate()}/>
-                        &nbsp; 模板名称: {rowData.name}
+                        &nbsp; 模板名称: {templateData?.name}
                     </div>
                     <div className="box-between">
                         <div className="box-between-title">
@@ -156,7 +156,7 @@ const TemplateSettingMonitorList = (props) => {
                     <Tabs.TabPane tab="监控项信息" key="2">
                         <div className="box-between">
                             <div className="box-details-text">
-                                <AddTemplateMonitor/>
+                                <AddTemplateMonitor {...props} templateId={templateData?.id}/>
                             </div>
                         </div>
                         <Table
@@ -183,6 +183,7 @@ const TemplateSettingMonitorList = (props) => {
                 <TemplateUpdateMonitor form={form}  monitorId={monitorId}
                                        isUpdateModalOpen={isUpdateModalOpen}
                                        setIsUpdateModalOpen={setIsUpdateModalOpen}
+                                       templateId={params.id}
                 />
             </>
         </Row>

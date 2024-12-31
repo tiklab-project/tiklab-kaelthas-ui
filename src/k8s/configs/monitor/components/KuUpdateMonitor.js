@@ -13,7 +13,7 @@ const KuUpdateMonitor = (props) => {
         {name: 'service', value: 4}
     ];
 
-    const {isModalOpen, setIsModalOpen, form, columnData} = props;
+    const {isModalOpen, setIsModalOpen, form, columnData,kuId} = props;
 
     const {
         updateKuMonitor,
@@ -40,7 +40,7 @@ const KuUpdateMonitor = (props) => {
             // 假设此处调用 API 进行保存
             form.validateFields().then(async () => {
                 let obj = {
-                    kuId: localStorage.getItem("kuId"),
+                    kuId: kuId,
                     id: columnData.id,
                     kuItemId: itemId
                 };

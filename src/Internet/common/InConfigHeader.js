@@ -1,27 +1,34 @@
 import React, {useEffect, useState} from 'react';
 import "./InConfigHeader.scss"
 import {withRouter} from "react-router-dom";
-import {Dropdown, Tooltip} from "antd";
-import {CaretDownOutlined} from "@ant-design/icons";
 import internetStore from "../internetPage/store/InternetStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+import {observer} from "mobx-react";
 
 const InConfigHeader = (props) => {
+    const {match:{params},location:{pathname}} = props;
+    const {updateInternet,findInternetById,internetData} = internetStore;
 
-    const {
-        updateInternet
-    } = internetStore;
-
-    const {
-        findAlarmNumByCondition
-    } = alarmPageStore
+    const {findAlarmNumByCondition} = alarmPageStore
 
 
-    let internetId = localStorage.getItem('internetId');
+    let internetId = params.id;
 
-    let url = localStorage.getItem('url');
 
     const [alarmNum, setAlarmNum] = useState(0);
+    const [url,setUrl]=useState()
+
+    useEffect(async () => {
+        if (pathname.includes("/configs/")){
+            setUrl( `/internet/${internetId}/configs/monitor`)
+        }else if(pathname.includes("/inSetting/")){
+            setUrl( `/internet/${internetId}/inSetting/inProject`)
+        } else {
+            setUrl(pathname)
+        }
+        findInternetById(params.id)
+    }, [pathname]);
+
 
     useEffect(async () => {
         const newVar = await findAlarmNumByCondition({hostId: internetId});
@@ -29,8 +36,6 @@ const InConfigHeader = (props) => {
     }, []);
 
     const selectMenu = (url) => {
-        localStorage.setItem("url", url)
-        localStorage.setItem("configUrl", `/internet/${internetId}/configs/monitor`)
         props.history.push(url)
     }
 
@@ -76,16 +81,6 @@ const InConfigHeader = (props) => {
         props.history.push("/internet")
     }
 
-    async function changeHost(item) {
-        if (internetId !== item.id) {
-            await updateInternet(item)
-            localStorage.setItem("internetId", item.id);
-            localStorage.setItem("internetName", item?.name);
-            localStorage.setItem("url", `/internet/${item.id}/kuDetails`);
-            props.history.push(`/internet/${item.id}/kuDetails`);
-        }
-    }
-
     return (
         <div className="in-configs-header">
             <div className="in-topMenu-top">
@@ -95,50 +90,8 @@ const InConfigHeader = (props) => {
                         <use xlinkHref={`#icon-left`}></use>
                     </svg>
                     <span style={{fontSize: 16}}>
-                                        网络 / {localStorage.getItem("internetName")}
+                                        网络 / {internetData?.name}
                                     </span>
-                    {/*<Dropdown
-                        getPopupContainer={e => e.parentElement}
-                        overlayStyle={{width: 200, top: 48, left: 80}}
-                        trigger={['click']}
-                        overlayClassName="normal-aside-dropdown"
-                        overlay={
-                            <div className="in-opt">
-                                <div className="in-opt-title">切换网络</div>
-                                <div className="in-opt-group">
-                                    {
-                                        internet && internet.map(item => {
-                                            return (
-                                                <div onClick={() => changeHost(item)}
-                                                     key={item?.id}
-                                                     className={`in-opt-item ${item?.id === internetId ? "in-opt-active" : ""}`}
-                                                >
-                                                <span className={`in-opt-icon mf-icon-${item?.color}`}>
-                                                    {item?.name?.substring(0, 1).toUpperCase()}
-                                                </span>
-                                                    <span className="in-opt-name">
-                                                    {item?.name}
-                                                </span>
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    <div className='in-opt-more' onClick={() => props.history.push('/internet')}>更多</div>
-                                </div>
-                            </div>
-                        }
-                    >
-                        <div className="in-normal-aside-opt-icon">
-                            <Tooltip placement="right" title={localStorage.getItem("internetName")}>
-                                <div className="in-normal-host-opt-title">
-                                    <span className="in-normal-opt-text" onClick={() => dropDownList()}>
-                                        {localStorage.getItem("internetName")}
-                                    </span>
-                                    <CaretDownOutlined/>
-                                </div>
-                            </Tooltip>
-                        </div>
-                    </Dropdown>*/}
                 </div>
             </div>
             <div className="in-config-right">
@@ -171,4 +124,4 @@ const InConfigHeader = (props) => {
     );
 };
 
-export default withRouter(InConfigHeader);
+export default withRouter(observer(InConfigHeader));

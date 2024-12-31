@@ -53,6 +53,16 @@ export class TemplateSettingStore {
         this.total = templateList.data.totalRecord
     }
 
+
+    //通过id查询
+    @action
+    findTemplateById = async (id) => {
+        const param=new FormData()
+        param.append("id",id)
+        const res = await Service("/system/findTemplateById", param)
+        return res;
+    }
+
     //创建模板
     @action
     createTemplate = async (option) => {

@@ -6,7 +6,7 @@ import TextArea from "antd/es/input/TextArea";
 
 const {Option} = Select
 const AddCustomize = (props) => {
-
+    const {dbId}=props
     const {
         createCustomize,
         findCustomizePage,
@@ -23,12 +23,12 @@ const AddCustomize = (props) => {
 
     const handleOk = async () => {
         const values = await form.validateFields();
-        values.dbId = localStorage.getItem("dbId")
+        values.dbId = dbId
 
         await createCustomize(values)
 
         await setSearchCondition({
-            dbId: localStorage.getItem("dbId")
+            dbId: dbId
         })
         await findCustomizePage();
 

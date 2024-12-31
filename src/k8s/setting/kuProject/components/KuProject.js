@@ -29,6 +29,7 @@ const tailLayout = {
     },
 };
 const KuProject = (props) => {
+    const {match:{params}} = props;
 
     const {
         findKuInfoById,
@@ -36,7 +37,7 @@ const KuProject = (props) => {
         deleteKuInfo
     } = kuProjectStore;
 
-    const kuId = localStorage.getItem("kuId");
+    const kuId = params.id;
 
     const [form] = Form.useForm();
 

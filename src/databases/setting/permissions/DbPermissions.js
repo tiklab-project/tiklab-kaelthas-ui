@@ -4,13 +4,12 @@ import {withRouter} from "react-router-dom";
 import {DomainRole} from 'tiklab-privilege-ui';
 
 const DbPermissions = (props) => {
-
-    const dbId = localStorage.getItem('dbId')
+    const {match:{params}} = props;
 
     return (
         <DomainRole
             {...props}
-            domainId = {dbId}
+            domainId = {params.id}
             bgroup={"kaelthas"}
         />
     );

@@ -13,9 +13,8 @@ const {RangePicker} = DatePicker;
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
 
-const DbMonitorGraphics = () => {
-
-
+const DbMonitorGraphics = (props) => {
+    const {match:{params}} = props;
     const {
         setSearchCondition,
         findGraphicsLine,
@@ -27,9 +26,8 @@ const DbMonitorGraphics = () => {
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
-        const dbId = localStorage.getItem("dbId");
         setSearchNull({
-            hostId: dbId,
+            hostId: params.id,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
@@ -38,7 +36,7 @@ const DbMonitorGraphics = () => {
         // await findHistory();
         setSearchCondition({
             dataCate: null,
-            id: dbId
+            id: params.id
         })
     }, []);
 
