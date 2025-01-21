@@ -55,9 +55,16 @@ const DbUpdateTrigger = (props) => {
                 };
                 obj[field] = values[field];
 
-                await updateDbTrigger(obj);
-                // message.success("修改成功")
-                await findDbTriggerPage();
+                await updateDbTrigger(obj).then(res=>{
+                    if (res.code===0){
+                       // message.success("修改成功")
+                         findDbTriggerPage();
+                    }else {
+                        console.error('Validation failed:', res.msg);
+                        message.warning("修改失败")
+                    }
+                })
+
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);

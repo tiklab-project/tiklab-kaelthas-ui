@@ -96,7 +96,7 @@ export class MonitorGraphicsStore {
 
     @action
     findInGraphicsLine = async () => {
-        const resData = await Service("/history/findInGraphicsLine", this.searchCondition);
+        const resData = await Service("/internetHistory/findInGraphicsLine", this.searchCondition);
         this.condition = resData.data;
         return resData.data;
     }

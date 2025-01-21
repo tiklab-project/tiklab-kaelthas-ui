@@ -12,7 +12,6 @@ const DbUpdateMonitor = (props) => {
     const {
         updateDbMonitor,
         findDbMonitorPage,
-        findItemListByType,
         expression
     } = dbMonitorStore;
 
@@ -32,41 +31,21 @@ const DbUpdateMonitor = (props) => {
                 };
                 obj[field] = values[field];
 
-                await updateDbMonitor(obj);
-                await findDbMonitorPage();
+                await updateDbMonitor(obj).then(res=>{
+                    if (res.code===0){
+                       // message.success("修改成功")
+                         findDbMonitorPage();
+                    }else {
+                        message.warning("修改失败")
+                        console.error('Validation failed:', res.msg);
+                    }
+                })
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);
             message.warning("修改失败")
         }
     };
-
-    async function handleChange(value) {
-        switch (value) {
-            case 1:
-                const postgresql = await findItemListByType({
-                    dbType: "Postgresql"
-                });
-                setExpression(postgresql)
-                break
-            case 2:
-                const mysql = await findItemListByType({
-                    dbType: "MYSQL"
-                });
-                setExpression(mysql)
-                break
-            case 3:
-                break
-
-            default:
-                const itemList = await findItemListByType({
-                    dbType: null
-                });
-                setExpression(itemList)
-                break
-
-        }
-    }
 
     return (
         <Drawer
@@ -101,26 +80,6 @@ const DbUpdateMonitor = (props) => {
                 >
                     <Input allowClear={true} onBlur={() => handleBlur('datName')}/>
                 </Form.Item>
-
-                {/*<Form.Item
-                    label="监控类型"
-                    name="monitorType"
-                    rules={[{required: true, message: '监控项类型'}]}
-                >
-                    <Select
-                        placeholder="监控类型"
-                        allowClear
-                        onChange={handleChange}
-                    >
-                        {
-                            provinceData && provinceData.map(item => (
-                                <Option value={item.value} key={item.value}>
-                                    {item.name}
-                                </Option>
-                            ))
-                        }
-                    </Select>
-                </Form.Item>*/}
 
                 <Form.Item
                     label="监控指标"

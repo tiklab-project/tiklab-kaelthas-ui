@@ -89,7 +89,7 @@ export class MonitorGraphicsStore {
 
     @action
     findInformationByGraphics = async () => {
-        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
+        const resData = await Service("/hostHistory/findInformationByGraphics", this.searchCondition);
         if (this.alarmCondition.length > 0) {
             this.condition = this.alarmCondition;
             this.alarmCondition = [];
@@ -99,12 +99,6 @@ export class MonitorGraphicsStore {
         return resData.data;
     }
 
-    @action
-    findInformationByAlarm = async () => {
-        const resData = await Service("/history/findInformationByGraphics", this.searchCondition);
-        this.alarmCondition = resData.data
-        return resData.data;
-    }
 
     @action
     findHistory = async () => {
@@ -114,17 +108,6 @@ export class MonitorGraphicsStore {
         return resData.data.dataList;
     }
 
-    @action
-    findMonitorByCategories = async () => {
-        const resData = await Service("/hostList/findMonitorByCategories", this.searchCondition);
-        return resData.data;
-    }
-
-    @action
-    findDescGatherTime = async () => {
-        const resData = await Service("/history/findDescGatherTime", this.searchCondition);
-        return resData.data;
-    }
 
     @action
     findInformationByLine = async () => {
@@ -133,10 +116,11 @@ export class MonitorGraphicsStore {
     }
 
     @action
-    findAllInformationByHostId = async () => {
-        const resData = await Service("/history/findAllInformationByHostId", this.searchCondition);
+    findMonitorByCategories = async () => {
+        const resData = await Service("/hostList/findMonitorByCategories", this.searchCondition);
         return resData.data;
     }
+
 
     @action
     findAllMonitor = async () => {

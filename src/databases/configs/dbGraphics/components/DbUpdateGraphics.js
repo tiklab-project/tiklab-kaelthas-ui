@@ -32,13 +32,17 @@ const DbUpdateGraphics = (props) => {
                 };
                 obj[field] = values[field];
 
-                await updateGraphics(obj);
-                message.success("修改成功")
-
-                await setSearchCondition({
-                    hostId: dbId
+                await updateGraphics(obj).then(res=>{
+                    debugger
+                    if (res.code===0){
+                        //message.success("修改成功")
+                        setSearchCondition({hostId: dbId})
+                        findGraphicsPage();
+                    }else {
+                        console.error('Validation failed:', res.msg);
+                        message.warning("修改失败")
+                    }
                 })
-                await findGraphicsPage();
             })
         } catch (errorInfo) {
             console.error('Validation failed:', errorInfo);

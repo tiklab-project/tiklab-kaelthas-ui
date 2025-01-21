@@ -2,9 +2,10 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./InternetConfig.scss"
+import ProjectLayout from "../../../common/project/ProjectLayout";
 
 const InternetConfig = (props) => {
-    const {match:{params},location:{pathname},route} = props;
+    const {match:{params},location:{pathname}} = props;
 
     let internetId = params.id;
 
@@ -40,28 +41,11 @@ const InternetConfig = (props) => {
         },
     ]
 
-    function hrefConfiguration(item) {
-        props.history.push(item.url)
-    }
 
     return (
-        <div className="in-Details-layout">
-            <div className="design-up">
-                {
-                    configsList.map(item => {
-                        return (
-                            <div key={item.key}
-                                 className={`design-tab ${url === item.url ? "design-active" : ""}`}
-                                 onClick={() => hrefConfiguration(item)}
-                            >
-                                {item.name}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {renderRoutes(route.routes)}
-        </div>
+        <ProjectLayout {...props}
+                       dataList={configsList}
+        />
     );
 };
 

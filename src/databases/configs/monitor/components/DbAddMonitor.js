@@ -1,4 +1,4 @@
-import {Modal, Form, Input, Select, InputNumber} from 'antd';
+import {Modal, Form, Input, Select, InputNumber, message} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {observer} from "mobx-react";
 import dbMonitorStore from "../store/DbMonitorStore";
@@ -19,7 +19,6 @@ const DbAddMonitor = (props) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const provinceData = [{name: 'Postgres', value: 1}, {name: 'MYSQL', value: 2}, {name: '自定义', value: 3}];
 
     const showModal = () => {
         setIsModalOpen(true);
@@ -29,8 +28,14 @@ const DbAddMonitor = (props) => {
 
         const fieldsValue = await form.validateFields();
         fieldsValue.dbId = dbId;
-        await createDbMonitor(fieldsValue);
-        await findDbMonitorPage();
+        await createDbMonitor(fieldsValue).then(res=>{
+            if (res.code===0){
+                message.success("创建成功")
+                findDbMonitorPage();
+            }else {
+                message.success("创建失败")
+            }
+        })
         setIsModalOpen(false);
     };
 
@@ -39,25 +44,7 @@ const DbAddMonitor = (props) => {
     };
 
 
-    const handleProvinceChange = async (value) => {
-        switch (value) {
-            case 1:
-                const postgresql = await findItemListByType({
-                    dbType:"Postgresql"
-                });
-                // setExpression(postgresql)
-                break
-            case 2:
-                const mysql = await findItemListByType({
-                    dbType:"MYSQL"
-                });
-                // setExpression(mysql)
-                break
-            case 3:
-                break
 
-        }
-    };
 
 
     return (
@@ -100,27 +87,6 @@ const DbAddMonitor = (props) => {
                     >
                         <Input allowClear={true} placeholder="不输入默认采集所有数据库总和指标"/>
                     </Form.Item>
-
-                    {/*<Form.Item
-                        label="监控类型"
-                        name="monitorType"
-                        rules={[{required: true, message: '监控项类型'}]}
-                    >
-                        <Select
-                            placeholder="监控类型"
-                            allowClear
-                            onChange={handleProvinceChange}
-                        >
-                            {
-                                provinceData && provinceData.map(item => (
-                                    <Option value={item.value} key={item.value}>
-                                        {item.name}
-                                    </Option>
-                                ))
-                            }
-                        </Select>
-                    </Form.Item>*/}
-
                     <Form.Item
                         label="监控指标"
                         name="dbItemId"

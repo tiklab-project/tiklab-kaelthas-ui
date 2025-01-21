@@ -75,7 +75,7 @@ export class KuMonitorGraphicsStore {
 
     @action
     findGraphicsLine = async () => {
-        const resData = await Service("/history/findKuGraphicsLine", this.searchCondition);
+        const resData = await Service("/KubernetesHistory/findKuGraphicsLine", this.searchCondition);
         this.condition = resData.data
         return resData.data
     }

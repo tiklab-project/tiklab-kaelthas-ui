@@ -52,7 +52,7 @@ const TopMenu = (props) => {
         },
     ];
 
-    const {hostData, findHostById, findRecentHostList, hostList} = hostStore;
+    const {hostData, findHostById} = hostStore;
     const [url,setUrl]=useState();
 
     useEffect(async () => {
@@ -68,7 +68,6 @@ const TopMenu = (props) => {
 
     useEffect(async () => {
         await findHostById(hostId);
-        await findRecentHostList(hostId);
         const newVar = await findAlarmNumByCondition({hostId: hostId});
         setAlarmNum(newVar?.alarmNum)
     }, [hostId]);

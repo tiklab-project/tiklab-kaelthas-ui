@@ -217,20 +217,21 @@ const Trigger = (props) => {
     return (
         <Row className="box-trigger-right">
             <Col>
-                <div className="host-box-trigger-title">
-                    <div className="trigger-kind-search-div">
-                        <div>
-                            <Input
-                                onPressEnter={(event) => searchName(event)}
-                                className="trigger-kind-search"
-                                placeholder="触发器名称"
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                    </div>
+                <div className='box-host-right-title'>
+                    <div className='box-host-right-title-text'>触发器</div>
                     <div className="trigger-top-right">
                         <AddTrigger {...props} hostId={params.id}/>
+                    </div>
+                </div>
+                <div className="trigger-kind-search-div">
+                    <div>
+                        <Input
+                            onPressEnter={(event) => searchName(event)}
+                            className="trigger-kind-search"
+                            placeholder="触发器名称"
+                            allowClear={true}
+                            prefix={<SearchOutlined/>}
+                        />
                     </div>
                 </div>
                 <div className="box-trigger-table">

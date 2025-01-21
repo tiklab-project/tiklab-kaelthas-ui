@@ -3,6 +3,7 @@ import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./KuConfigs.scss"
 import {Col, Layout, Row} from "antd";
+import ProjectLayout from "../../../common/project/ProjectLayout";
 
 const KuConfigs = (props) => {
     const {match:{params},location:{pathname},route} = props;
@@ -48,25 +49,9 @@ const KuConfigs = (props) => {
 
 
     return (
-        <Row justify="start" className="ku-hostDetails-layout">
-            <Col span={24}>
-                <div className="ku-design-up">
-                    {
-                        configList.map(item => {
-                            return (
-                                <div key={item.key}
-                                     className={`ku-design-tab ${url === item.url ? "design-active" : ""}`}
-                                     onClick={() => hrefConfiguration(item)}
-                                >
-                                    {item.name}
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                {renderRoutes(route.routes)}
-            </Col>
-        </Row>
+        <ProjectLayout {...props}
+                       dataList={configList}
+        />
     );
 };
 

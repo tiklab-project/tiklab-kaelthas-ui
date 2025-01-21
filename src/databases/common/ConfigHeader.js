@@ -72,7 +72,6 @@ const ConfigHeader = (props) => {
 
     }, [pathname]);
     const a=dbObj
-    debugger
     function goBackHost() {
         props.history.push("/db")
     }

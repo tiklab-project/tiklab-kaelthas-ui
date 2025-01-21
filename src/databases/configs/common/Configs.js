@@ -3,6 +3,7 @@ import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./Configs.scss"
 import {Col, Layout, Row} from "antd";
+import ProjectLayout from "../../../common/project/ProjectLayout";
 
 const Configs = (props) => {
     const {match:{params},location:{pathname}} = props;
@@ -50,29 +51,13 @@ const Configs = (props) => {
         },
     ]
 
-    function hrefConfiguration(item) {
-        props.history.push(item.url)
-    }
+
 
 
     return (
-        <div className="db-hostDetails-layout">
-            <div className="db-design-up">
-                {
-                    configList.map(item => {
-                        return (
-                            <div key={item.key}
-                                 className={`db-design-tab ${url === item.url ? "design-active" : ""}`}
-                                 onClick={() => hrefConfiguration(item)}
-                            >
-                                {item.name}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {renderRoutes(route.routes)}
-        </div>
+        <ProjectLayout {...props}
+                       dataList={configList}
+        />
     );
 };
 

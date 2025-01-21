@@ -27,7 +27,7 @@ const DbMonitorGraphics = (props) => {
 
     useEffect(async () => {
         setSearchNull({
-            hostId: params.id,
+            dbId: params.id,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
@@ -36,7 +36,7 @@ const DbMonitorGraphics = (props) => {
         // await findHistory();
         setSearchCondition({
             dataCate: null,
-            id: params.id
+            dbId: params.id
         })
     }, []);
 

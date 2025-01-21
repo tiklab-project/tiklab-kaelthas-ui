@@ -144,6 +144,15 @@ const InMonitor = (props) => {
     return (
         <Row className="in-monitor-right">
             <Col>
+                <div className='in-monitor-title'>
+                    <div className='in-monitor-title-text'>监控项</div>
+                    <div className="monitor-top-right">
+                        <AddMonitor {...props} internetId={params.id}
+                                    internetType={internetData?.type}
+                        />
+                    </div>
+                </div>
+
                 <div className="monitor-kind-options">
                     <div className="monitor-kind-options-tabs">
                             <Input
@@ -154,13 +163,7 @@ const InMonitor = (props) => {
                                 prefix={<SearchOutlined/>}
                             />
                     </div>
-                    <div className="monitor-top-right-search">
-                        <div className="monitor-top-right">
-                            <AddMonitor {...props} internetId={params.id}
-                                        internetType={internetData?.type}
-                            />
-                        </div>
-                    </div>
+
                 </div>
                 <div className="in-monitor-table">
                     <>

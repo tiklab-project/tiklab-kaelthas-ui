@@ -2,25 +2,16 @@
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .box-in-trigger-title {
+  .in-trigger-title {
     display: flex;
-    width: 100%;
+    box-sizing: border-box;
     align-items: center;
-    margin-top: 20px;
-    height: 42px;
-    line-height: 42px;
     justify-content: space-between;
-
-    .box-in-trigger-title-text {
-      flex: 1;
+    margin-top: 20px;
+    .in-trigger-title-text{
+      font-size: 16px;
+      font-weight: bold;
     }
-
-    .in-trigger-kind-search-div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     .in-trigger-top-right {
       gap: 10px;
       background-color: #0d66e4;
@@ -36,8 +27,26 @@
       width: fit-content;
       margin-left: 50px;
     }
+  }
 
+  .box-in-trigger-title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-top: 15px;
+    height: 42px;
+    line-height: 42px;
+    justify-content: space-between;
 
+    .box-in-trigger-title-text {
+      flex: 1;
+    }
+
+    .in-trigger-kind-search-div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 
   .in-trigger-kind-options {

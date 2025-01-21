@@ -93,6 +93,11 @@ const Databases = (props) => {
                 <Tag color={"red"}>异常</Tag><span>(无法连接)</span>
             </div>
         }
+        if (record.usability === 2) {
+            return <div>
+                <Tag color={"red"}>异常</Tag><span>(未配置监控项)</span>
+            </div>
+        }
 
         if (record.alarmNum !== null) {
             if (record.alarmNum === 1) {

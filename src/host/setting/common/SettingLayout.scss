@@ -1,3 +1,4 @@
+/*
 .setting-layout{
   display: flex;
   flex-direction: column;
@@ -6,4 +7,18 @@
   .setting-layout-right{
     flex: 1;
   }
+}*/
+
+.setting-layout{
+  height: calc(100% - 83px);
+  display: flex;
+  width: 100%;
+
+  .setting-layout-right{
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+    padding:0 20px;
+  }
+
 }

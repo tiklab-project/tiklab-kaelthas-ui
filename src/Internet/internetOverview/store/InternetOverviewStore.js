@@ -51,14 +51,6 @@ export class InternetOverviewStore {
         return resData.data;
     }
 
-    @action
-    findRecentHostList = async (id) =>{
-        const formData = new FormData();
-        formData.append("hostId", id)
-        const resData = await Service("/hostList/findRecentHostList", formData);
-        this.hostList = resData.data;
-        return resData.data;
-    }
 
     @action
     findHostDynamicPage = async () =>{

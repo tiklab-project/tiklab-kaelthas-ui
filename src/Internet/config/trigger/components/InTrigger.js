@@ -187,6 +187,12 @@ const InTrigger = (props) => {
     return (
         <Row className="box-in-trigger-right">
             <Col>
+                <div className='in-trigger-title'>
+                    <div className='in-trigger-title-text'>触发器</div>
+                    <div className="in-trigger-top-right">
+                        <InAddTrigger {...props} internetId={params.id}/>
+                    </div>
+                </div>
                 <div className="box-in-trigger-title">
                     <div className="in-trigger-kind-search-div">
                             <Input
@@ -197,9 +203,7 @@ const InTrigger = (props) => {
                                 prefix={<SearchOutlined/>}
                             />
                     </div>
-                    <div className="in-trigger-top-right">
-                        <InAddTrigger {...props} internetId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="box-in-trigger-table">
                     <InUpdateTrigger form={form}

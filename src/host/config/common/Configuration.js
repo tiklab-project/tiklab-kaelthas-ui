@@ -2,11 +2,9 @@ import React from 'react';
 import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./Configuration.scss"
-
+import ProjectLayout from "../../../common/project/ProjectLayout"
 const Configuration = (props) => {
     const {match:{params},location:{pathname}} = props;
-
-    const {route} = props;
 
     let url=pathname;
     let hostId=params.id
@@ -41,28 +39,10 @@ const Configuration = (props) => {
         },
     ]
 
-    function hrefConfiguration(item) {
-        props.history.push(item.url)
-    }
-
     return (
-        <div className="hostDetails-layout">
-            <div className="design-up">
-                {
-                    configurationList.map(item => {
-                        return (
-                            <div key={item.key}
-                                 className={`design-tab ${url === item.url ? "design-active" : ""}`}
-                                 onClick={() => hrefConfiguration(item)}
-                            >
-                                {item.name}
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {renderRoutes(route.routes)}
-        </div>
+        <ProjectLayout {...props}
+                       dataList={configurationList}
+        />
     );
 };
 

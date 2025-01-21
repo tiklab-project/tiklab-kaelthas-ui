@@ -178,7 +178,14 @@ const DbTrigger = (props) => {
     return (
         <Row className="box-trigger-right">
             <Col>
-                <div className="db-box-trigger-title">
+                <div className='db-trigger-title'>
+                    <div className='db-trigger-title-text'>触发器</div>
+                    <div className="db-trigger-top-right">
+                        <DbAddTrigger {...props} dbId={params.id}/>
+                    </div>
+                </div>
+
+                <div className="db-trigger-kind-options">
                     <div className="db-trigger-kind-search-div">
                         <div>
                             <Input
@@ -190,9 +197,7 @@ const DbTrigger = (props) => {
                             />
                         </div>
                     </div>
-                    <div className="db-trigger-top-right">
-                        <DbAddTrigger {...props} dbId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="box-trigger-table">
                     <UpdateTrigger form={form}

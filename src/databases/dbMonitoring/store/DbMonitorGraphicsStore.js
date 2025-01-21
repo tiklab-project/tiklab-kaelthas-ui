@@ -75,12 +75,10 @@ export class DbMonitorGraphicsStore {
 
     @action
     findGraphicsLine = async () => {
-        const resData = await Service("/history/findGraphicsLine", this.searchCondition);
+        const resData = await Service("/dbHistory/findGraphicsLine", this.searchCondition);
         this.condition = resData.data
         return resData.data
     }
-
-
 }
 
 const dbMonitorGraphicsStore = new DbMonitorGraphicsStore();

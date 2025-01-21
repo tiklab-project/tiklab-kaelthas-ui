@@ -45,7 +45,7 @@ export class DbTriggerStore {
     //修改触发器
     @action
     updateDbTrigger = async (option) => {
-        await Service('/dbTrigger/updateDbTrigger', option);
+      return   await Service('/dbTrigger/updateDbTrigger', option);
 
     }
 

@@ -8,6 +8,7 @@ import {observer} from "mobx-react";
 import HideDelete from "../../../../common/hideDelete/HideDelete";
 import dbMonitorStore from "../store/DbMonitorStore";
 import DbAddMonitor from "./DbAddMonitor";
+import dbDetailsStore from "../../../dbDetails/sotre/DbDetailsStore";
 
 const DbMonitor = (props) => {
     const {match:{params}} = props;
@@ -23,6 +24,8 @@ const DbMonitor = (props) => {
         findItemListByType
     } = dbMonitorStore;
 
+    const {findDbInfoById} = dbDetailsStore;
+
     const [monitorSource, setMonitorSource] = useState(null);
 
     const [columnData, setColumnData] = useState({});
@@ -37,9 +40,11 @@ const DbMonitor = (props) => {
         })
         await findDbMonitorPage()
 
-        await findItemListByType({
-            dbType: params.id
-        });
+         findDbInfoById(params.id).then(res=>{
+             findItemListByType({
+                 dbType: res.dbType
+             });
+         })
     }, []);
 
     const searchName = async (e) => {
@@ -50,10 +55,6 @@ const DbMonitor = (props) => {
         await findDbMonitorPage()
     };
 
-
-    const onClickMonitor = async (monitorSource) => {
-
-    }
 
     async function changePage(pagination) {
         setSearchCondition({
@@ -159,22 +160,22 @@ const DbMonitor = (props) => {
     return (
         <Row className="box-monitor-right">
             <Col>
-                <div className="db-monitor-kind-options">
-
-                    <div className="db-monitor-top-right-search">
-                        <div>
-                            <Input
-                                placeholder="监控项名称"
-                                className="monitor-kind-search"
-                                onPressEnter={(event) => searchName(event)}
-                                allowClear={true}
-                                prefix={<SearchOutlined/>}
-                            />
-                        </div>
-                    </div>
+                <div className='db-monitor-title'>
+                    <div className='db-monitor-title-text'>监控项</div>
                     <div className="db-monitor-top-right">
                         <DbAddMonitor {...props} dbId={params.id}/>
                     </div>
+                </div>
+
+                <div className="db-monitor-kind-options">
+                    <Input
+                        placeholder="监控项名称"
+                        className="monitor-kind-search"
+                        onPressEnter={(event) => searchName(event)}
+                        allowClear={true}
+                        prefix={<SearchOutlined/>}
+                    />
+
                 </div>
                 <div className="box-monitor-table">
                     <>

@@ -27,11 +27,11 @@ const MonitorGraphics = (props) => {
 
     const [pageStatus, setPageStatus] = useState(1);
 
-    const hostId = params.id;
+    const internetId = params.id;
 
     useEffect(async () => {
         setSearchNull({
-            hostId: hostId,
+            internetId: internetId,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
@@ -39,7 +39,7 @@ const MonitorGraphics = (props) => {
         await findInGraphicsLine();
         setSearchCondition({
             dataCate: null,
-            id: hostId
+            internetId: internetId
         })
     }, []);
 

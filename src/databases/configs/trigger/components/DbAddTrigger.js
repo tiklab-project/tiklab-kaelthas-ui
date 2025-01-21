@@ -79,14 +79,15 @@ const DbAddTrigger = (props) => {
 
         fieldsValue.dbId = dbId
 
-        const resData = await createDbTrigger(fieldsValue);
-        if (resData?.data !== null) {
-            message.success("添加成功!")
-        } else {
-            message.warn("添加失败!")
-        }
-        await findDbTriggerPage();
-        setIsModalOpen(false);
+        await createDbTrigger(fieldsValue).then(res=>{
+            if (res.code===0){
+                message.success("添加成功!")
+                findDbTriggerPage();
+                setIsModalOpen(false);
+            }else {
+                message.warn("添加失败!")
+            }
+        })
     };
 
     const handleCancel = () => {

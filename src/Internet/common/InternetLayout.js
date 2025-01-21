@@ -7,7 +7,8 @@ import {Col, Row} from "antd";
 
 const InternetLayout = (props) => {
 
-    const {route} = props;
+
+    const {route,location:{pathname}} = props;
 
     return (
         <Row className="internet-layout">
@@ -16,9 +17,15 @@ const InternetLayout = (props) => {
                  xl={{span: 20, offset: 2}}
                  xll={{span: 16, offset: 4}}>
                 <KuConfigHeader/>
-                <div className="internet-body-routes">
-                    {renderRoutes(route.routes)}
-                </div>
+                {
+                    pathname.includes("/configs/")||pathname.includes("/inSetting/") ?
+                        <div>
+                            {renderRoutes(route.routes)}
+                        </div>:
+                        <div className="internet-body-routes">
+                            {renderRoutes(route.routes)}
+                        </div>
+                }
             </Col>
         </Row>
     );

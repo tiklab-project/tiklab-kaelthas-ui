@@ -183,6 +183,12 @@ const KuTrigger = (props) => {
     return (
         <Row className="box-ku-trigger-right">
             <Col>
+                <div className='ku-trigger-title'>
+                    <div className='ku-trigger-title-text'>触发器</div>
+                    <div className="ku-trigger-top-right">
+                        <KuAddTrigger {...params} kuId={params.id}/>
+                    </div>
+                </div>
                 <div className="box-ku-trigger-title">
                     <div className="ku-trigger-kind-search-div">
                         <Input
@@ -193,9 +199,7 @@ const KuTrigger = (props) => {
                             prefix={<SearchOutlined/>}
                         />
                     </div>
-                    <div className="ku-trigger-top-right">
-                        <KuAddTrigger {...params} kuId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="box-ku-trigger-table">
                     <UpdateTrigger form={form}

@@ -29,7 +29,7 @@ const KuMonitorGraphics = (props) => {
     useEffect(async () => {
         const kuId = params.id;
         setSearchNull({
-            hostId: kuId,
+            kuId: kuId,
             beginTime: getDateTime()[0],
             endTime: getDateTime()[1]
         })
@@ -37,7 +37,7 @@ const KuMonitorGraphics = (props) => {
         await findGraphicsLine();
         setSearchCondition({
             dataCate: null,
-            id: kuId
+            kuId: kuId
         })
     }, []);
 

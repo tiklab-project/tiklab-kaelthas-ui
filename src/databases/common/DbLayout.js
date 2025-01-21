@@ -7,7 +7,7 @@ import {Col, Row} from "antd";
 
 const DbLayout = (props) => {
 
-    const {route} = props;
+    const {route,location:{pathname}} = props;
 
     return (
         <Row className="db-layout">
@@ -17,9 +17,15 @@ const DbLayout = (props) => {
                  xll={{span: 16, offset: 4}}
             >
                 <ConfigHeader/>
-                <div className="db-body-routes">
-                    {renderRoutes(route.routes)}
-                </div>
+                {
+                    pathname.includes("/configs/")||pathname.includes("/dbSetting/") ?
+                        <div>
+                            {renderRoutes(route.routes)}
+                        </div>:
+                        <div className="db-body-routes">
+                            {renderRoutes(route.routes)}
+                        </div>
+                }
             </Col>
         </Row>
     );

@@ -174,6 +174,13 @@ const Template = (props) => {
     return (
         <Row className="box-template-right">
             <Col>
+                <div className='box-template-right-title'>
+                    <div className='box-template-right-title-text'>模版</div>
+                    <div className="host-template-top-right">
+                        <AddTemplate {...props}   hostId={params.id}/>
+                    </div>
+                </div>
+
                 <div className="host-template-kind-options">
                     <div className="host-template-right-div">
                         <div>
@@ -185,9 +192,7 @@ const Template = (props) => {
                             />
                         </div>
                     </div>
-                    <div className="host-template-top-right">
-                        <AddTemplate {...props}   hostId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="box-template-table">
                     <Table

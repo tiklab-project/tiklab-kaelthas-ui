@@ -7,7 +7,8 @@ import {Col, Row} from "antd";
 
 const KubernetesLayout = (props) => {
 
-    const {route} = props;
+    const {route,location:{pathname}} = props;
+
 
     return (
         <Row className="ku-layout">
@@ -15,10 +16,18 @@ const KubernetesLayout = (props) => {
                   lg={{ span: 20, offset: 2 }}
                   xl={{ span: 20, offset: 2 }}
                   xll={{ span: 16, offset: 4 }}>
-            <KuConfigHeader/>
-            <div className="ku-body-routes">
-                {renderRoutes(route.routes)}
-            </div>
+                <KuConfigHeader/>
+
+                {
+                    pathname.includes("/configs/")||pathname.includes("/kuSetting/") ?
+                        <div>
+                            {renderRoutes(route.routes)}
+                        </div>:
+                        <div className="ku-body-routes">
+                            {renderRoutes(route.routes)}
+                        </div>
+                }
+
             </Col>
         </Row>
     );

@@ -5,6 +5,7 @@ import {DomainUser} from 'tiklab-user-ui';
 const Member = (props) => {
     const {match:{params}} = props;
     return (
+
         <DomainUser
             {...props}
             domainId={params.id}

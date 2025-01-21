@@ -35,12 +35,7 @@ export class DbMonitoringDetailsStore {
         }, {...value})
     }
 
-    @action
-    findMonitorForHost = async () => {
-        const resData = await Service("/history/findInformationPage", this.searchCondition);
-        this.total = resData.data.totalRecord;
-        return resData.data.dataList;
-    }
+
 
     @action
     findMonitorByCategories = async () => {
@@ -57,11 +52,6 @@ export class DbMonitoringDetailsStore {
         return resData.data;
     }
 
-    @action
-    findDescGatherTime = async () => {
-        const resData = await Service("/history/findDescGatherTime", this.searchCondition);
-        return resData.data;
-    }
 
     //查询图表当中是否存在上报数据的配置
     @action
@@ -72,19 +62,6 @@ export class DbMonitoringDetailsStore {
         return resData.data
     }
 
-    @action
-    findInformationByLine = async () => {
-        const resData = await Service("/history/findInformationByLine", this.searchCondition);
-        return resData.data;
-    }
-
-    @action
-    findAllInformationByHostId = async (value) => {
-        const params = new FormData();
-        params.append("hostId", value);
-        const resData = await Service("/history/findAllInformationByHostId", params);
-        return resData.data;
-    }
 
     @action
     findAllMonitor = async () => {

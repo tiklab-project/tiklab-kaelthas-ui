@@ -41,21 +41,19 @@ const SettingLeftTabs = (props) => {
 
     return (
         <div className="host-setting-box-right-left">
-            <div className="host-setting-box-menu">
-                {
-                    router.map((item, index) => {
-                        return (
-                            <div
-                                key={index}
-                                onClick={() => selectSetting(item.url)}
-                                className={`host-setting-box-right-tabs ${item.url === selectKey ? "host-setting-select" : ""}`}
-                            >
-                                <span>{item.name}</span>
-                            </div>
-                        )
-                    })
-                }
-            </div>
+            {
+                router.map((item, index) => {
+                    return (
+                        <div
+                            key={index}
+                            onClick={() => selectSetting(item.url)}
+                            className={`host-setting-box-right-tabs ${item.url === selectKey ? "host-setting-select" : ""}`}
+                        >
+                            <span>{item.name}</span>
+                        </div>
+                    )
+                })
+            }
         </div>
     );
 };

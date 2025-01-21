@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
 import {renderRoutes} from "react-router-config";
 import "./HostLayout.scss"
@@ -7,7 +7,9 @@ import {Col, Row} from "antd";
 
 const HostLayout = (props) => {
 
-    const {route} = props;
+    const {route,location:{pathname}} = props;
+
+
 
     return (
         <Row className="host-layout">
@@ -16,9 +18,17 @@ const HostLayout = (props) => {
                   xl={{ span: 20, offset: 2 }}
                   xll={{ span: 16, offset: 4 }}>
                 <TopMenu/>
-                <div className="prodetail-content">
-                    {renderRoutes(route.routes)}
-                </div>
+                {
+                    pathname.includes("/config/")||pathname.endsWith("/projectInformation")
+                    || pathname.endsWith("/member")||pathname.endsWith("/permissions")?
+                        <div>
+                            {renderRoutes(route.routes)}
+                        </div>:
+                        <div className="prodetail-content">
+                            {renderRoutes(route.routes)}
+                        </div>
+                }
+
             </Col>
         </Row>
     );

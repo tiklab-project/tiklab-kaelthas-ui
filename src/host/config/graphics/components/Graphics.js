@@ -124,6 +124,12 @@ const Graphics = (props) => {
     return (
         <Row className="box-graphics-right">
             <Col>
+                <div className='box-graphics-title'>
+                    <div className='box-graphics-title-text'>图形</div>
+                    <div className="host-graphics-top-right">
+                        <AddGraphics hostId={params.id}/>
+                    </div>
+                </div>
                 <div className="host-graphics-kind-options">
                     <div className="host-box-graphics-title-div">
                         <div>
@@ -135,9 +141,7 @@ const Graphics = (props) => {
                             />
                         </div>
                     </div>
-                    <div className="host-graphics-top-right">
-                        <AddGraphics hostId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="box-graphics-table">
                     <>

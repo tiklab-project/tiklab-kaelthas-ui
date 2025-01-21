@@ -1,44 +1,19 @@
 .in-setting-box-right-left {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  list-style-type: none;
-  margin: 20px 0;
+  height: 100%;
+  width: 180px;
+  background-color: #fafbfc;
 
-  .in-setting-box-menu {
-    display: flex;
-    background: #fff;
-    border-radius: 10px;
-    height: 32px;
-    line-height: 32px;
-    overflow: hidden;
-    width: 100%;
-    gap: 20px;
-
-    .setting-box-right-tabs {
-      display: flex;
-      cursor: pointer;
-      width: 80px;
-      align-items: center;
-      border-radius: 10px;
-      justify-content: center;
-      background-color: #efefef;
-
-      &:not(:last-child){
-        width: 80px;
-      }
-      .design-tab-icon{
-        padding-right: 2px;
-      }
-    }
-    .setting-box-right-tabs:hover{
+  .setting-box-right-tabs {
+    padding: 8px 20px;
+    cursor: pointer;
+    &:hover{
       background-color: #EDF0F5;
     }
-    .setting-setting-select{
-      font-weight: bold;
-      color: #0d66e4;
-      background-color: #e3e8f0;
-    }
+  }
+  .setting-setting-select{
+    font-weight: bold;
+    color: #0d66e4;
+    background-color: #e3e8f0;
   }
 }
 

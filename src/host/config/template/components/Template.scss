@@ -2,28 +2,15 @@
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .box-template-title {
+  .box-template-right-title {
     display: flex;
     box-sizing: border-box;
     align-items: center;
     justify-content: space-between;
-
-  }
-
-  .host-template-kind-options {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
     margin-top: 20px;
-    height: 42px;
-    line-height: 42px;
-
-    .host-template-right-div{
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
+    .box-template-right-title-text{
+      font-size: 16px;
+      font-weight: bold;
     }
     .host-template-top-right{
       gap: 10px;
@@ -40,6 +27,23 @@
       width: fit-content;
       margin-left: 50px;
     }
+
+
+  }
+
+  .host-template-kind-options {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+    .host-template-right-div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+    }
+
 
     .template-kind-search {
       border-radius: 4px;

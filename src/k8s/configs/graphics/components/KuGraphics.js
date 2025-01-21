@@ -112,6 +112,12 @@ const KuGraphics = (props) => {
     return (
         <Row className="ku-box-graphics-right">
             <Col>
+                <div className='ku-graphics-title'>
+                    <div className='ku-graphics-title-text'>图形</div>
+                    <div className="ku-graphics-top-right">
+                        <AddGraphics {...props} kuId={params.id}/>
+                    </div>
+                </div>
                 <div className="ku-graphics-kind-options">
                     <div className="ku-box-graphics-title-div">
                             <Input placeholder="图形名称"
@@ -121,9 +127,7 @@ const KuGraphics = (props) => {
                                    prefix={<SearchOutlined/>}
                             />
                     </div>
-                    <div className="ku-graphics-top-right">
-                        <AddGraphics {...props} kuId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="ku-box-graphics-table">
                     <>

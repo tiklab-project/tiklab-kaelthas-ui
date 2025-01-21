@@ -108,8 +108,8 @@ const KuProject = (props) => {
                 sm={{span: "24"}}
                 md={{span: "24"}}
                 lg={{span: "24"}}
-                xl={{span: "22", offset: "1"}}
-                xxl={{span: "20", offset: "3"}}
+                xl={{ span: "20" ,offset:"2"}}
+                xxl={{ span: "18", offset: "3" }}
                 className="setting-box-right-head">
                 <div className="setting-box-right-head-text">
                     集群信息

@@ -113,8 +113,11 @@ const DbGraphics = (props) => {
     return (
         <Row className="db-box-graphics-right">
             <Col>
-                <div className="db-box-graphics-title">
-
+                <div className="db-graphics-title">
+                    <div className='db-graphics-title-text'>图形</div>
+                    <div className="db-graphics-top-right">
+                        <AddGraphics {...props} dbId={params.id}/>
+                    </div>
                 </div>
                 <div className="db-graphics-kind-options">
                     <div className="db-box-graphics-title-div">
@@ -127,9 +130,7 @@ const DbGraphics = (props) => {
                             />
                         </div>
                     </div>
-                    <div className="db-graphics-top-right">
-                        <AddGraphics {...props} dbId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="db-box-graphics-table">
                     <>

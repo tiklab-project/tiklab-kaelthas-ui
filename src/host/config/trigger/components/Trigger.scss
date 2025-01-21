@@ -2,22 +2,15 @@
   flex-direction: column;
   height: calc(100% - 60px);
 
-  .host-box-trigger-title {
+  .box-host-right-title {
     display: flex;
-    width: 100%;
+    box-sizing: border-box;
     align-items: center;
-    margin-top: 20px;
-    height: 42px;
-    line-height: 42px;
     justify-content: space-between;
-
-
-    .trigger-kind-search-div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-
+    margin-top: 20px;
+    .box-host-right-title-text{
+      font-size: 16px;
+      font-weight: bold;
     }
     .trigger-top-right {
       gap: 10px;
@@ -34,8 +27,13 @@
       width: fit-content;
       margin-left: 50px;
     }
+  }
 
-
+  .trigger-kind-search-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
   }
 
   .trigger-kind-options {

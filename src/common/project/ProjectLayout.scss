@@ -1,0 +1,31 @@
+.project-layout{
+  height: calc(100% - 83px);
+  display: flex;
+  width: 100%;
+  .project-layout-nav{
+    height: 100%;
+    width: 180px;
+    background-color: #fafbfc;
+    .project-layout-tab{
+      padding: 8px 20px;
+      cursor: pointer;
+      &:hover{
+        background-color: #EDF0F5;
+      }
+    }
+
+    .project-layout-active{
+      font-weight: bold;
+      color: #0d66e4;
+      background-color: #e3e8f0;
+    }
+  }
+  .project-layout-data{
+    height: 100%;
+    overflow: auto;
+    width: 100%;
+  }
+  .project-layout-pd{
+    padding:0 20px;
+  }
+}

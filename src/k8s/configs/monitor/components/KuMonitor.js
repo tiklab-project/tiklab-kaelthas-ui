@@ -145,6 +145,12 @@ const KuMonitor = (props) => {
     return (
         <Row className="ku-monitor-right">
             <Col>
+                <div className='ku-monitor-title'>
+                    <div className='ku-monitor-title-text'>监控项</div>
+                    <div className="ku-monitor-top-right">
+                        <KuAddMonitor {...props} kuId={params.id}/>
+                    </div>
+                </div>
                 <div className="ku-monitor-kind-options">
                     <div className="ku-monitor-top-right-search">
                             <Input
@@ -155,9 +161,7 @@ const KuMonitor = (props) => {
                                 prefix={<SearchOutlined/>}
                             />
                     </div>
-                    <div className="ku-monitor-top-right">
-                        <KuAddMonitor {...props} kuId={params.id}/>
-                    </div>
+
                 </div>
                 <div className="ku-monitor-table">
                     <>

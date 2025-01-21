@@ -209,6 +209,13 @@ const Monitor = (props) => {
 
     return (
         <div className="box-monitor-right">
+            <div className='box-monitor-title'>
+                <div className='box-monitor-title-text'>监控项</div>
+                <div className="monitor-top-right">
+                    <AddMonitor {...props}    hostId={params.id}/>
+                </div>
+            </div>
+
             <div className="monitor-kind-options">
                 <div className="monitor-kind-options-tabs">
                     {
@@ -232,9 +239,7 @@ const Monitor = (props) => {
                             prefix={<SearchOutlined/>}
                         />
                     </div>
-                    <div className="monitor-top-right">
-                        <AddMonitor {...props}    hostId={params.id}/>
-                    </div>
+
                 </div>
             </div>
             <div className="box-monitor-table">
