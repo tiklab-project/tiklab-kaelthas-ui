@@ -1,0 +1,81 @@
+.kaelthas-btn{
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    cursor: pointer;
+    padding: 4px 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: #42526E;
+    background: #efefef;
+}
+
+.kaelthas-btn-text-size{
+    font-weight: 500;
+}
+
+
+.kaelthas-btn-primary{
+    background: var(--tiklab-blue);
+    border-color: var(--tiklab-blue);
+    color: #ffffff;
+}
+
+.kaelthas-btn-disabled{
+    color: rgba(0,0,0,.25);
+    background: #f5f5f5;
+    border-color: #d9d9d9;
+    cursor:not-allowed;
+}
+
+.kaelthas-btn-small{
+    background: transparent;
+    border-color: transparent;
+    padding: 0;
+    font-size: var(--tiklab-font-13);
+}
+
+.kaelthas-btn-dangerous{
+    color: #fff;
+    background: #ff0000;
+    border-color: #ff0000;;
+}
+
+.kaelthas-btn-common{
+    background: #f4f4f4;
+    border-color: #f4f4f4;
+}
+.kaelthas-btn-commonMsg{
+    background: #fafafa;
+    border: 1px #e5e5e5 solid;
+}
+
+.kaelthas-btn-link{
+    color: var(--tiklab-blue);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.kaelthas-btn-text {
+    color: rgba(0,0,0,.85);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    padding-top: 5px;
+    &:hover{
+        background: #f4f4f4;
+    }
+}
+
+.kaelthas-btn-mar{
+    margin-right: 15px;
+}
+
+.kaelthas-btn-icon{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    font-size: var(--tiklab-icon-size-16);
+}

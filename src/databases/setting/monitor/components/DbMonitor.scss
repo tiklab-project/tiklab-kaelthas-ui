@@ -1,0 +1,36 @@
+.box-monitor-right {
+  flex-direction: column;
+/*  height: calc(100% - 60px);*/
+
+  .db-monitor-title {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+    .monitor-kind-search {
+      border-radius: 4px;
+      width: 200px;
+    }
+    .db-monitor-top-right {
+      gap: 10px;
+      background-color: #0d66e4;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      margin-left: 50px;
+
+    }
+  }
+
+  .box-monitor-table {
+    padding-top: 20px;
+    background: #fff;
+  }
+}

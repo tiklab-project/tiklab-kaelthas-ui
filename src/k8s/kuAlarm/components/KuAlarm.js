@@ -7,6 +7,7 @@ import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import kuAlarmStore from "../sotre/KuAlarmStore";
 import {SearchOutlined} from "@ant-design/icons";
+import SearchInput from "../../../common/input/SearchInput";
 
 const {Option} = Select;
 
@@ -213,20 +214,6 @@ const KuAlarm = (props) => {
 
     const columns = [
         {
-            title: '集群名称',
-            dataIndex: 'name',
-            ellipsis: true,
-            width: "12%",
-            key: 'name',
-        },
-        {
-            title: '集群IP',
-            dataIndex: 'ip',
-            ellipsis: true,
-            width: "10%",
-            key: 'ip',
-        },
-        {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
@@ -236,6 +223,14 @@ const KuAlarm = (props) => {
             },
             render: (sendMessage) => <Tooltip placement="topLeft" title={sendMessage}>{sendMessage}</Tooltip>
         },
+        {
+            title: '集群IP',
+            dataIndex: 'ip',
+            ellipsis: true,
+            width: "10%",
+            key: 'ip',
+        },
+
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
@@ -336,19 +331,18 @@ const KuAlarm = (props) => {
                 <div className="ku-alarm-box-body">
                     <div className="ku-alarm-box-search">
                         <div>
-                            <Input placeholder="集群名称"
-                                   className="graphics-kind-search"
-                                   onChange={(event) => selectByName(event)}
-                                   allowClear={true}
-                                   prefix={<SearchOutlined/>}
+
+                            <SearchInput {...props}
+                                         placeholder={"集群名称"}
+                                         onChange={(event) => selectByName(event)}
+                                /*   onPressEnter={onSearch}*/
                             />
                         </div>
                         <div>
-                            <Input placeholder="集群ip"
-                                   className="graphics-kind-search"
-                                   onChange={(event) => selectByIp(event)}
-                                   allowClear={true}
-                                   prefix={<SearchOutlined/>}
+                            <SearchInput {...props}
+                                         placeholder={"集群ip"}
+                                         onChange={(event) => selectByIp(event)}
+                                /*   onPressEnter={onSearch}*/
                             />
                         </div>
                         <div>

@@ -12,24 +12,19 @@ const {RangePicker} = DatePicker;
 
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
-
+import {getCurrentTimeQua} from "../../../common/utils/Common";
+import dayjs from 'dayjs';
 const DbMonitorGraphics = (props) => {
     const {match:{params}} = props;
-    const {
-        setSearchCondition,
-        findGraphicsLine,
-        condition,
-        setSearchNull,
-        getDateTime,
-    } = dbMonitorGraphicsStore;
+    const {setSearchCondition, findGraphicsLine, condition, setSearchNull, dbAlarmDate} = dbMonitorGraphicsStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
     useEffect(async () => {
         setSearchNull({
             dbId: params.id,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
+            beginTime: getCurrentTimeQua(dbAlarmDate)[0],
+            endTime: getCurrentTimeQua(dbAlarmDate)[1]
         })
 
         await findGraphicsLine();
@@ -92,15 +87,18 @@ const DbMonitorGraphics = (props) => {
                 break
             case 9:
                 setSearchCondition({
-                    beginTime: getDateTime()[0],
-                    endTime: getDateTime()[1],
+                    beginTime: getCurrentTimeQua()[0],
+                    endTime: getCurrentTimeQua()[1],
                 })
                 await findGraphicsLine();
                 // await findHistory();
                 break
         }
     }
-
+    /*const disabledDate = (current) => {
+        // 限制选择的日期范围为一个月内
+        return current && (current < dayjs().startOf('month') || current > dayjs().endOf('month'));
+    };*/
     return (
         <Provider>
             <Row className="db-graphics-monitoring">
@@ -108,13 +106,15 @@ const DbMonitorGraphics = (props) => {
                     <div className="db-details-breadcrumb-table">
                         <div className="db-details-table-title">
                             <div className="db-details-search">
-                                <div className="db-details-div">
+                                <div className="details-picker">
                                     <RangePicker
+                                        bordered={false}
                                         // style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
+                                       /* disabledDate={disabledDate}*/
                                         showTime
-                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        defaultValue={[moment(getCurrentTimeQua(dbAlarmDate)[0], dateFormat), moment(getCurrentTimeQua(dbAlarmDate)[1], dateFormat)]}
                                     />
                                 </div>
                                 <div className="db-details-div">

@@ -6,9 +6,9 @@
         display: flex;
         width: 100%;
         align-items: start;
-        padding: 10px 0;
-        flex-direction: column;
-
+        padding-top: 10px;
+      /*  flex-direction: column;*/
+        justify-content: space-between;
         .in-topMenu-top-title{
             display: flex;
             justify-content: start;
@@ -73,6 +73,17 @@
             background: var(--tiklab-gray-400);
             border-bottom: 3px solid var(--tiklab-blue);
         }
+    }
+
+    .in-topMenu-more{
+        display: flex;
+        justify-content: end;
+        .in-topMenu-b{
+            background-color: #EDF0F5;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
     }
 
     .in-config-right {

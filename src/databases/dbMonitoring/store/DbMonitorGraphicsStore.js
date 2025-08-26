@@ -32,6 +32,17 @@ export class DbMonitorGraphicsStore {
 
     @observable quickFilterValue = null;
 
+    //数据库告警时间
+    @observable
+    dbAlarmDate = null;
+
+    @action
+    setDbAlarmDate = (value) => {
+        this.dbAlarmDate = value
+    }
+
+
+
     @action
     setQuickFilterValue = (value) => {
         this.quickFilterValue = value

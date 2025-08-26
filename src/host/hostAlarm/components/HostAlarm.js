@@ -7,6 +7,7 @@ import {SearchOutlined} from "@ant-design/icons";
 import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import hostAlarmStore from "../sotre/HostAlarmStore";
+import SearchInput from "../../../common/input/SearchInput";
 
 const {Option} = Select;
 
@@ -213,11 +214,11 @@ const HostAlarm = (props) => {
 
     const columns = [
         {
-            title: '主机名称',
-            dataIndex: 'name',
-            width: "12%",
+            title: '问题',
+            dataIndex: 'sendMessage',
+            key: 'sendMessage',
+            width: "20%",
             ellipsis: true,
-            key: 'name',
         },
         {
             title: '主机IP',
@@ -225,13 +226,6 @@ const HostAlarm = (props) => {
             width: "10%",
             ellipsis: true,
             key: 'ip',
-        },
-        {
-            title: '问题',
-            dataIndex: 'sendMessage',
-            key: 'sendMessage',
-            width: "20%",
-            ellipsis: true,
         },
         {
             title: '告警等级',
@@ -332,19 +326,29 @@ const HostAlarm = (props) => {
             <div className="alarm-box-body">
                 <div className="alarm-box-search">
                     <div>
-                        <Input placeholder="主机名称"
+                   {/*     <Input placeholder="主机名称"
                                className="graphics-kind-search"
                                onChange={(event) => selectByName(event)}
                                allowClear={true}
                                prefix={<SearchOutlined/>}
+                        />*/}
+                        <SearchInput {...props}
+                                     placeholder={"主机名称"}
+                                     onChange={(event) => selectByName(event)}
+                            /*   onPressEnter={onSearch}*/
                         />
                     </div>
                     <div>
-                        <Input placeholder="主机ip"
+                      {/*  <Input placeholder="主机ip"
                                className="graphics-kind-search"
                                onChange={(event) => selectByIp(event)}
                                allowClear={true}
                                prefix={<SearchOutlined/>}
+                        />*/}
+                        <SearchInput {...props}
+                                     placeholder={"主机ip"}
+                                     onChange={(event) => selectByName(event)}
+                            /*   onPressEnter={onSearch}*/
                         />
                     </div>
                     <div>

@@ -4,10 +4,12 @@ import {withRouter} from "react-router-dom";
 import databasesStore from "../databasesPage/store/DatabasesStore";
 import {observer} from "mobx-react";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
+import Dropdowns from "../../common/Dropdown/Dropdowns";
+import DataBaseCompilePop from "./DataBaseCompilePop";
 
 const ConfigHeader = (props) => {
     const {match:{params},location:{pathname}} = props;
-    const {findDbInfoById,dbObj} = databasesStore;
+    const {refresh,findDbInfoById,dbObj,deleteDbInfo} = databasesStore;
     const {findAlarmNumByCondition} = alarmPageStore
 
 
@@ -15,6 +17,9 @@ const ConfigHeader = (props) => {
 
     const [alarmNum, setAlarmNum] = useState(0);
     const [url,setUrl]=useState()
+
+    const [dataBase,setDataBase] = useState(null)
+    const [visible,setVisible] = useState(false)
 
     const selectMenu = (url) => {
         props.history.push(url)
@@ -44,33 +49,24 @@ const ConfigHeader = (props) => {
             encoded: "hostAlarm",
         },
         {
-            name: '配置',
-            icon: 'configuration',
-            url: `/db/${dbId}/configs/monitor`,
-            key: "configuration",
-            encoded: "configuration",
-        },
-        {
             name: '设置',
             icon: 'setting',
-            url: `/db/${dbId}/dbSetting/dbProject`,
+            url: `/db/${dbId}/setting/monitor`,
             key: "setting",
             encoded: "setting",
         },
     ];
 
     useEffect(async () => {
-        if (pathname.includes("/configs/")){
-            setUrl( `/db/${dbId}/configs/monitor`)
-        }else if(pathname.endsWith("/dbMember")||pathname.endsWith("/dbPermissions")){
-            setUrl(`/db/${dbId}/dbSetting/dbProject`)
+        if (pathname.includes("/setting/")){
+            setUrl( `/db/${dbId}/setting/monitor`)
         } else{
             setUrl(pathname)
         }
 
         findDbInfoById(params.id)
 
-    }, [pathname]);
+    }, [pathname,refresh]);
     const a=dbObj
     function goBackHost() {
         props.history.push("/db")
@@ -82,6 +78,19 @@ const ConfigHeader = (props) => {
         setAlarmNum(newVar?.alarmNum)
     }, []);
 
+
+
+    //打开更新
+    const openUpdate = (value) => {
+        setVisible(true)
+        setDataBase(value)
+    }
+
+    const deleteData = (id) => {
+        deleteDbInfo(id).then(res=>{
+            res.code===0&&props.history.push(`/db`);
+        })
+    }
 
     return (
         <div className="configs-header">
@@ -96,6 +105,18 @@ const ConfigHeader = (props) => {
                         </span>
                 </div>
             </div>
+            <div className='db-topMenu-more'>
+                <div className='db-topMenu-b'>
+                    <Dropdowns {...props}
+                               goPage={openUpdate}
+                               value={dbObj}
+                               type={"data"}
+                               deleteMethod={deleteData}
+                               size={25}
+                    />
+                </div>
+            </div>
+
             <div className="db-right">
                 {
                     router.map((item, index) => {
@@ -121,6 +142,11 @@ const ConfigHeader = (props) => {
                         )
                     })
                 }
+                <DataBaseCompilePop visible={visible}
+                                    setVisible={setVisible}
+                                    dataBase={dataBase}
+                                    setDataBase={setDataBase}
+                />
             </div>
         </div>
     );

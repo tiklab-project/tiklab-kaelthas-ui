@@ -21,8 +21,10 @@ const AddKubernetes = (props) => {
     const onFinish = async () => {
         let values = await form.validateFields();
         values.usability = 0
-        await createKbInfo(values)
-        props.history.push('/kubernetes')
+        await createKbInfo(values).then(res=>{
+            props.history.push('/kubernetes')
+        })
+
     };
 
     const onCancel = () => {

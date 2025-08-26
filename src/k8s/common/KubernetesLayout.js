@@ -19,7 +19,7 @@ const KubernetesLayout = (props) => {
                 <KuConfigHeader/>
 
                 {
-                    pathname.includes("/configs/")||pathname.includes("/kuSetting/") ?
+                    pathname.includes("/setting/") ?
                         <div>
                             {renderRoutes(route.routes)}
                         </div>:

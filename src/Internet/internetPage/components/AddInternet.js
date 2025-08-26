@@ -16,16 +16,14 @@ const AddInternet = (props) => {
 
     const [form] = Form.useForm();
 
-    const {
-        createInternet
-    } = internetStore;
+    const {createInternet} = internetStore;
 
     const onFinish = async () => {
         let values = await form.validateFields();
 
-        await createInternet(values);
-
-        props.history.push('/internet')
+        await createInternet(values).then(res=>{
+            props.history.push('/internet')
+        })
     };
 
     const onCancel = () => {

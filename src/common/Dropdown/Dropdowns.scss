@@ -1,0 +1,20 @@
+.drop-table-exec{
+  padding: 3px 25px;
+}
+
+.drop-table-exec-data{
+  padding: 5px 30px;
+}
+.ant-modal-content{
+  display: flex;
+  flex: 0 1 auto;
+  //height: 100%;
+  height: auto;
+  flex-direction: column;
+  max-height: inherit;
+}
+.dro-nav-style{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}

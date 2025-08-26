@@ -9,7 +9,6 @@ const InternetLayout = (props) => {
 
 
     const {route,location:{pathname}} = props;
-
     return (
         <Row className="internet-layout">
             <Col md={{span: 24, offset: 0}}
@@ -18,7 +17,7 @@ const InternetLayout = (props) => {
                  xll={{span: 16, offset: 4}}>
                 <KuConfigHeader/>
                 {
-                    pathname.includes("/configs/")||pathname.includes("/inSetting/") ?
+                   pathname.includes("/setting/") ?
                         <div>
                             {renderRoutes(route.routes)}
                         </div>:

@@ -1,7 +1,14 @@
 import React from 'react';
 import {withRouter} from "react-router-dom";
 import SystemContent from "./SettingContent";
-import {ForkOutlined, InboxOutlined, LayoutOutlined, LockOutlined, SoundOutlined} from "@ant-design/icons";
+import {
+    ForkOutlined,
+    InboxOutlined,
+    LayoutOutlined,
+    LockOutlined,
+    SoundOutlined,
+    UserDeleteOutlined
+} from "@ant-design/icons";
 
 const GlobalSettingLayout = (props) => {
 
@@ -35,11 +42,13 @@ const GlobalSettingLayout = (props) => {
                     easId: "/setting/dir",
                     islink:true
                 },
-                {
-                    title: '权限',
-                    id: "/setting/systemRole",
-                }
+
             ]
+        },
+        {
+            title: '权限',
+            id: "/setting/systemRole",
+            icon: <UserDeleteOutlined />,
         },
         {
             title: "消息",

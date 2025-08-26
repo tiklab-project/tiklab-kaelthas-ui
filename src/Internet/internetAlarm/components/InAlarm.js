@@ -7,6 +7,7 @@ import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import kuAlarmStore from "../sotre/InAlarmStore";
 import {SearchOutlined} from "@ant-design/icons";
+import SearchInput from "../../../common/input/SearchInput";
 
 const InAlarm = (props) => {
     const {match:{params}} = props;
@@ -332,20 +333,20 @@ const InAlarm = (props) => {
                 <div className="in-alarm-box-body">
                     <div className="in-alarm-box-search">
                         <div>
-                            <Input placeholder="网络设备名称"
-                                   className="graphics-kind-search"
-                                   onChange={(event) => selectByName(event)}
-                                   allowClear={true}
-                                   prefix={<SearchOutlined/>}
+                            <SearchInput {...props}
+                                         placeholder={"网络设备名称"}
+                                         onChange={(event) => selectByName(event)}
+                                /*   onPressEnter={onSearch}*/
                             />
+
                         </div>
                         <div>
-                            <Input placeholder="网络设备ip"
-                                   className="graphics-kind-search"
-                                   onChange={(event) => selectByIp(event)}
-                                   allowClear={true}
-                                   prefix={<SearchOutlined/>}
+                            <SearchInput {...props}
+                                         placeholder={"网络设备ip"}
+                                         onChange={(event) => selectByIp(event)}
+                                /*   onPressEnter={onSearch}*/
                             />
+
                         </div>
                         <SelectSimple name="quickFilter"
                                       onChange={(value) => selectLeveType(value)}

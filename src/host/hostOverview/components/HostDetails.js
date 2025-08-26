@@ -17,16 +17,6 @@ const HostDetails = (props) => {
     useEffect(async () => {
         const resData = await findHostById(params.id)
 
-        switch (resData.state) {
-            case 1:
-                resData.state = "开启";
-                break;
-            case 2:
-                resData.state = "关闭";
-                break;
-            default:
-                resData.state = "未知";
-        }
 
         switch (resData.usability) {
             case 1:
@@ -53,69 +43,82 @@ const HostDetails = (props) => {
 
     return (
         <Row className="box-right">
-            <Col sm={24} md={24} lg={{span: 24}} xl={{span: "18", offset: "3"}} xxl={{span: "18", offset: "3"}}>
-                <div className="box-host-survey">
-                    <div className="box-host-body-head">
-                        <span className="box-host-title">主机详情</span>
-                        <div className="box-host-details">
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-hostIp"></use>
+            <div className="box-host-survey">
+                <div className="box-host-body-head">
+                 {/*   <span className="box-host-title">主机详情</span>*/}
+                    <div className="box-host-details">
+                        <div className="box-host-nav">
+                            <div className='box-host-nav-name'>
+                                <div className='box-host-nav-name-icon'>
+                                    <svg className="host-svg-icon" aria-hidden="true">
+                                        <use xlinkHref={`#icon-host`}></use>
                                     </svg>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top">{dataList?.ip}</div>
-                                        <div className="item-bottom">主机ip</div>
-                                    </div>
+                                </div>
+                                <div>
+                                    <div className='box-host-nav-name-title'>{dataList?.name}</div>
+                                    <div className='box-host-nav-name-text'>{dataList?.ip}</div>
                                 </div>
                             </div>
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-hostState"></use>
-                                    </svg>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top">{dataList?.state}</div>
-                                        <div className="item-bottom">主机状态</div>
-                                    </div>
+
+                        {/*    <div className='box-host-nav-data'>
+                                <div>
+                                    <span className='box-host-nav-title'>{dataList?.name}</span>
+                                    <span style={{fontSize:"12",color:"#999",paddingLeft:"5px" }}>(名称)</span>
+                                </div>
+                                <div className='box-host-nav-text'>
+                                    <span className='host-nav-text-desc'>IP</span>
+                                    <span>{dataList?.ip}</span>
+                                </div>
+                            </div>*/}
+                        </div>
+                        <div className="box-host-nav">
+                            <div className='box-host-nav-data'>
+                                <div className='box-host-nav-title'>{"主机状态"}</div>
+                                <div className='box-host-nav-text'>
+                                    {dataList?.state === 1 ?
+                                        <div className='box-host-nav-text-open'>{"开启"}</div>:
+                                        <div className='box-host-nav-text-close'>{"关闭"}</div>
+                                    }
                                 </div>
                             </div>
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-monitorNum"></use>
-                                    </svg>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{dataList?.monitorNum}</div>
-                                        <div className="item-bottom">监控项数量</div>
-                                    </div>
-                                </div>
+                        </div>
+                        <div className="box-host-nav">
+                            <div className='box-host-nav-data'>
+                                <div className='box-host-nav-title'>{"告警数量"}</div>
+                                <div className='box-host-nav-text'>{dataList?.alarmNum}</div>
                             </div>
-                            <div className="box-host-margin-details">
-                                <div className="box-host-margin-div">
-                                    <svg className="status-img" aria-hidden="true">
-                                        <use xlinkHref="#icon-triggerNum"></use>
-                                    </svg>
-                                    <div className="box-host-details-text">
-                                        <div className="item-top"
-                                             style={{textAlign: "center"}}>{dataList?.triggerNum}</div>
-                                        <div className="item-bottom">触发器数量</div>
+                        </div>
+
+                        <div className="box-host-nav">
+                            <div className='box-host-nav-data'>
+                                <div className='box-host-nav-title'>配置</div>
+                                <div className='box-host-nav-text'>
+                                    <div >
+                                        <span className="host-nav-text-desc">监控项</span>
+                                        <span >{`${dataList?.monitorNum}`} </span>
+                                    </div>
+                                    <div >
+                                        <span className="host-nav-text-desc">触发器</span>
+                                        <span >{`${dataList?.triggerNum}`} </span>
+                                    </div>
+                                    <div >
+                                        <span className="host-nav-text-desc">图形</span>
+                                        <span >{`${dataList?.graphicsNum}`} </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="box-host-body">
-                        <div className="host-news">
-                            <div>最新动态</div>
-                        </div>
-                        <div className="host-news-List">
-                        </div>
-                        <DynamicWidget hostId={params.id} hostName={dataList?.name}/>
                     </div>
                 </div>
-            </Col>
+                <div className="box-host-body">
+                    <div className="host-news">
+                        <div>动态信息</div>
+                    </div>
+                    <div className="host-news-List">
+                    </div>
+                    <DynamicWidget hostId={params.id} hostName={dataList?.name}/>
+                </div>
+            </div>
         </Row>
     );
 };

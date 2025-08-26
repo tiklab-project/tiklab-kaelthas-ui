@@ -4,23 +4,33 @@ import "./AlarmPage.scss"
 import {Button, Col, Dropdown, Input, Menu, Modal, Popconfirm, Row, Select, Table, Tag, Tooltip} from "antd";
 import alarmPageStore from "../store/AlarmPageStore";
 import {withRouter} from "react-router-dom";
-import {SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined, SnippetsOutlined} from "@ant-design/icons";
 import SelectSimple from "../../common/components/Select";
 import SelectItem from "../../common/components/SelectItem";
+import SearchInput from "../../../common/input/SearchInput";
+import AlarmDetailsDrawer from "./AlarmDetailsDrawer";
+import {converMachine, conversionType, isConfirm} from "../../common/components/Common";
+import MonitorGraphicsStore from "../../../host/monitoring/store/MonitorGraphicsStore";
+import DbMonitorGraphicsStore from "../../../databases/dbMonitoring/store/DbMonitorGraphicsStore";
+import KuMonitorGraphicsStore from "../../../k8s/kuMonitoring/store/KuMonitorGraphicsStore";
+import InMonitorGraphicsStore from "../../../Internet/monitoring/store/InMonitorGraphicsStore";
 
 const {Option} = Select;
 
 const AlarmPage = (props) => {
 
-    const {
-        alarmPage,
-        findAlarmPage,
-        updateAlarmPage,
-        setSearchCondition,
-        total,
-        searchCondition
-    } = alarmPageStore;
+    const {alarmPage, findAlarmPage, updateAlarmPage, setSearchCondition, total, searchCondition} = alarmPageStore;
 
+    const {setHostAlarmDate}=MonitorGraphicsStore
+
+    const {setDbAlarmDate}=DbMonitorGraphicsStore
+
+    const {setK8sAlarmDate}=KuMonitorGraphicsStore
+
+    const {setInternetAlarmDate}=InMonitorGraphicsStore
+
+
+    const leveList = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
     const [isModalVisible, setIsModalVisible] = useState(false);
 
     const [alarm, setAlarm] = useState();
@@ -29,7 +39,11 @@ const AlarmPage = (props) => {
 
     const [leveType, setLeveType] = useState();
 
-    const leveList = {"1": "灾难", "2": "严重", "3": "一般严重", "4": "告警", "5": "信息", "6": "未分类"};
+    //告警详情抽屉状态
+    const [detailsVisible,setDetailsVisible]=useState(false)
+    //告警详情
+    const [alarmDetails,setAlarmDetails]=useState()
+
 
     const leveValueList = [
         {
@@ -94,6 +108,120 @@ const AlarmPage = (props) => {
         await findAlarmPage();
     }, []);
 
+    const columns = [
+        {
+            title: '问题',
+            dataIndex: 'sendMessage',
+            key: 'sendMessage',
+            width: "20%",
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (sendMessage, record) =>{
+                return(
+                    <div className={'alarm-box-nav-name'}>
+                        <Tooltip placement="topLeft" title={sendMessage}
+                                 onClick={() => jumpToMonitor(record)}>
+                            {sendMessage}
+                        </Tooltip>
+                    </div>
+
+                )
+            }
+        },
+
+        {
+            title: '告警等级',
+            dataIndex: 'severityLevel',
+            key: 'severityLevel',
+            width: "7%",
+            ellipsis: true,
+            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
+        },
+        {
+            title: '设备IP',
+            dataIndex: 'ip',
+            key: 'ip',
+            width: "8%",
+            ellipsis: true,
+        },
+        {
+            title: '设备名称',
+            dataIndex: 'name',
+            key: 'name',
+            width: "10%",
+            ellipsis: {
+                showTitle: false,
+            },
+            render: (hostName, record) => <Tooltip title={hostName}>{hostName}</Tooltip>
+        },
+
+
+        {
+            title: '告警时间',
+            dataIndex: 'alertTime',
+            key: 'alertTime',
+            width: "10%",
+            ellipsis: true,
+        },
+        /* {
+             title: '解决时间',
+             dataIndex: 'resolutionTime',
+             key: 'resolutionTime',
+             width: "10%",
+             ellipsis: true,
+         },*/
+        /*  {
+              title: '持续时间',
+              dataIndex: 'duration',
+              key: 'duration',
+              width: "10%",
+              ellipsis: true,
+          },*/
+        {
+            title: '设备类型',
+            dataIndex: 'machineType',
+            key: 'machineType',
+            width: "5%",
+            ellipsis: true,
+            render: (machineType) => <div>
+                {converMachine(machineType)}
+            </div>
+        },
+        {
+            title: '状态',
+            dataIndex: 'status',
+            key: 'status',
+            width: "5%",
+            ellipsis: true,
+            render: (status, record) => {
+                if (status === 2) {
+                    return <div onClick={() => updateAlarm(record)}
+                                style={{cursor: "pointer"}}>{isConfirm(status)}</div>
+                } else {
+                    return <div>{isConfirm(status)}</div>
+                }
+            }
+        },
+        {
+            title: '操作',
+            dataIndex: 'action',
+            key: 'action',
+            width: "5%",
+            ellipsis: true,
+            render:(text,record)=>{
+                return(
+                    <div className='alarm-box-nav-action' onClick={()=>goMonitor(record)}>
+                        <Tooltip placement="topLeft" title={"查看监控信息"}>
+                            <SnippetsOutlined />
+                        </Tooltip>
+
+                    </div>
+                )}
+        }
+    ];
+
+
     const selectMenu = async (value) => {
         setQuickFilterValue(value)
         if (!value) {
@@ -136,18 +264,7 @@ const AlarmPage = (props) => {
         }
     }
 
-    function isConfirm(status) {
-        switch (status) {
-            case 1:
-                return <Tag key={status} color={"green"}>
-                    已解决
-                </Tag>
-            case 2:
-                return <Tag key={status} color={"red"}>
-                    未解决
-                </Tag>
-        }
-    }
+
 
     async function updateAlarm(record) {
         setAlarm(record)
@@ -155,150 +272,33 @@ const AlarmPage = (props) => {
     }
 
     async function jumpToMonitor(record) {
-        /*
-        props.history.push(`/host/${record.hostId}/monitoring`)*/
+        setDetailsVisible(true)
+        setAlarmDetails(record)
+       // props.history.push(`/host/${record.hostId}/monitoring`)
     }
 
-    function conversionType(severityLevel) {
-        let tagColor;
-        let tagName;
 
-        switch (severityLevel) {
+
+    const goMonitor = (record) => {
+        switch (record.machineType) {
             case 1:
-                tagColor = "#ff0003";
-                tagName = leveList[severityLevel];
+                setHostAlarmDate(record.alertTime)
+                props.history.push(`/host/${record.hostId}/monitoring`)
                 break;
             case 2:
-                tagColor = "#e97659";
-                tagName = leveList[severityLevel];
+                setDbAlarmDate(record.alertTime)
+                props.history.push(`/db/${record.hostId}/monitoring`)
                 break;
             case 3:
-                tagColor = "orange";
-                tagName = leveList[severityLevel];
+                setK8sAlarmDate(record.alertTime)
+                props.history.push(`/kubernetes/${record.hostId}/monitoring`)
                 break;
             case 4:
-                tagColor = "#fac858";
-                tagName = leveList[severityLevel];
-                break;
-            case 5:
-                tagColor = "yellow";
-                tagName = leveList[severityLevel];
-                break;
-            case 6:
-                tagColor = "grey";
-                tagName = leveList[severityLevel];
+                setInternetAlarmDate(record.alertTime)
+                props.history.push(`/internet/${record.hostId}/monitoring`)
                 break;
         }
-        return <Tag key={severityLevel} color={tagColor}>
-            {tagName}
-        </Tag>
     }
-
-    function converMachine(machineType) {
-        let machineName;
-        switch (machineType) {
-            case 1:
-                machineName = "主机"
-                break;
-            case 2:
-                machineName = "数据库"
-                break;
-            case 3:
-                machineName = "k8s"
-                break;
-            case 4:
-                machineName = "网络"
-                break;
-        }
-        return <Tag>{machineName}</Tag>
-    }
-
-    const columns = [
-        {
-            title: '设备名称',
-            dataIndex: 'name',
-            key: 'name',
-            width: "10%",
-            ellipsis: {
-                showTitle: false,
-            },
-            render: (hostName, record) => <Tooltip title={hostName}>{hostName}</Tooltip>
-        },
-        {
-            title: '设备IP',
-            dataIndex: 'ip',
-            key: 'ip',
-            width: "8%",
-            ellipsis: true,
-        },
-        {
-            title: '问题',
-            dataIndex: 'sendMessage',
-            key: 'sendMessage',
-            width: "20%",
-            ellipsis: {
-                showTitle: false,
-            },
-            render: (sendMessage, record) => <Tooltip placement="topLeft" title={sendMessage}
-                                                      onClick={() => jumpToMonitor(record)}
-            >{sendMessage}</Tooltip>
-        },
-        {
-            title: '告警等级',
-            dataIndex: 'severityLevel',
-            key: 'severityLevel',
-            width: "7%",
-            ellipsis: true,
-            render: (severityLevel) => <div>{conversionType(severityLevel)}</div>
-        },
-        {
-            title: '告警时间',
-            dataIndex: 'alertTime',
-            key: 'alertTime',
-            width: "10%",
-            ellipsis: true,
-        },
-        {
-            title: '解决时间',
-            dataIndex: 'resolutionTime',
-            key: 'resolutionTime',
-            width: "10%",
-            ellipsis: true,
-        },
-        {
-            title: '持续时间',
-            dataIndex: 'duration',
-            key: 'duration',
-            width: "10%",
-            ellipsis: true,
-        },
-        {
-            title: '设备类型',
-            dataIndex: 'machineType',
-            key: 'machineType',
-            width: "5%",
-            ellipsis: true,
-            render: (machineType) => <div>
-                {converMachine(machineType)}
-            </div>
-        },
-        {
-            title: '状态',
-            dataIndex: 'status',
-            key: 'status',
-            width: "5%",
-            ellipsis: true,
-            render: (status, record) => {
-                if (status === 2) {
-                    return <div onClick={() => updateAlarm(record)}
-                                style={{cursor: "pointer"}}>{isConfirm(status)}</div>
-                } else {
-                    return <div>{isConfirm(status)}</div>
-                }
-            }
-        },
-    ];
-
 
     const handleOk = async () => {
 
@@ -368,20 +368,24 @@ const AlarmPage = (props) => {
                         </div>
                         <div className="alarm-box-search">
                             <div>
-                                <Input
+                                <SearchInput {...props}
+                                             placeholder={"设备名称"}
+                                             onChange={(e) => checkHostName(e)}
+                                          /*   onPressEnter={onSearch}*/
+                                />
+                               {/* <Input
                                     className="alarm-box-search-div"
                                     placeholder="设备名称"
                                     onChange={(e) => checkHostName(e)}
                                     allowClear={true}
                                     prefix={<SearchOutlined/>}
-                                />
+                                />*/}
                             </div>
                             <div>
-                                <Input placeholder="设备ip"
-                                       className="alarm-box-search-div"
-                                       onChange={(event) => selectByIp(event)}
-                                       allowClear={true}
-                                       prefix={<SearchOutlined/>}
+                                <SearchInput {...props}
+                                             placeholder={"设备ip"}
+                                             onChange={(event) => selectByIp(event)}
+                                    /*   onPressEnter={onSearch}*/
                                 />
                             </div>
                             <div>
@@ -461,6 +465,12 @@ const AlarmPage = (props) => {
                     </div>
                 </Col>
             </Row>
+
+            <AlarmDetailsDrawer {...props}
+                visible={detailsVisible}
+                setVisible={setDetailsVisible}
+                details={alarmDetails}
+            />
         </div>
     );
 };

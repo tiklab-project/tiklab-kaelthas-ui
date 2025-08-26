@@ -37,6 +37,16 @@ export class MonitorGraphicsStore {
 
     @observable quickFilterValue = null;
 
+
+    //主机告警时间
+    @observable hostAlarmDate = null;
+
+
+    @action
+    setHostAlarmDate = (value) => {
+        this.hostAlarmDate = value
+    }
+
     @action
     setQuickFilterValue = (value) => {
         this.quickFilterValue = value
@@ -50,9 +60,7 @@ export class MonitorGraphicsStore {
         let day = date.getDate().toString().padStart(2, '0');
         let nowVar = ("'" + year + '-' + month + '-' + day + "'");
 
-        if (this.nowTimeInterval.length > 0){
-            return this.nowTimeInterval;
-        }
+
         return [nowVar.substring(1, nowVar.length - 1)+" 00:00:00",nowVar.substring(1, nowVar.length - 1) + " 24:00:00"]
     }
 
@@ -74,17 +82,7 @@ export class MonitorGraphicsStore {
 
     @action
     setSearchNull = value => {
-
-        this.searchCondition = Object.assign({
-            orderParams: [{
-                name: "id",
-                orderType: "desc"
-            }],
-            pageParam: {
-                pageSize: 20,
-                currentPage: 1,
-            }
-        }, {...value})
+        this.searchCondition = Object.assign(this.searchCondition, {...value})
     }
 
     @action

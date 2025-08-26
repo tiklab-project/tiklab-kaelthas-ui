@@ -32,6 +32,15 @@ export class KuMonitorGraphicsStore {
 
     @observable quickFilterValue = null;
 
+    //k8s告警时间
+    @observable k8sAlarmDate = null;
+
+    @action
+    setK8sAlarmDate = (value) => {
+        this.k8sAlarmDate = value
+    }
+
+
     @action
     setQuickFilterValue = (value) => {
         this.quickFilterValue = value

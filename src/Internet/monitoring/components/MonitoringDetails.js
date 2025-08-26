@@ -16,7 +16,7 @@ import {
 import {ScatterChart, LineChart} from 'echarts/charts';
 import {UniversalTransition} from 'echarts/features';
 import {CanvasRenderer} from 'echarts/renderers';
-import monitorLayoutStore from "../store/MonitorGraphicsStore";
+import monitorLayoutStore from "../store/InMonitorGraphicsStore";
 import {observer} from "mobx-react";
 
 echarts.use([

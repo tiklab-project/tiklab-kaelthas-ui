@@ -1,0 +1,79 @@
+.box-template-right {
+  flex-direction: column;
+
+
+  .box-template-title {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+
+  }
+
+  .template-kind-options {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+    height: 42px;
+    line-height: 42px;
+
+
+    .box-template-title-text {
+      flex: 1;
+      .count-template{
+        font-size: 12px;
+        padding-left: 3px;
+        color: #999;
+      }
+    }
+
+    .template-right-div{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .template-top-right {
+        gap: 10px;
+        background-color: #0d66e4;
+        color: #ffffff;
+        font-weight: 500;
+        padding: 5px 10px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        height: 32px;
+        line-height: 32px;
+        width: fit-content;
+        margin-left: 50px;
+      }
+
+    }
+
+    .template-kind-search {
+      border-radius: 4px;
+      width: 200px;
+    }
+
+    .template-kind-options-tabs-text {
+      padding: 0 5px;
+      cursor: pointer;
+    }
+  }
+}
+
+
+.box-template-table {
+  padding-top: 20px;
+}
+
+
+.addTemplateForm {
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px;
+}
+
+

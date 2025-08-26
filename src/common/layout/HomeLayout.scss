@@ -63,13 +63,17 @@ $aside-border-color: #e4e4e4;
                 justify-content: center;
                 margin-bottom: 20px;
                 padding-top: 15px;
+
             }
+
             .aside-up {
                 flex: 1;
+
                 .aside-item {
                     cursor: pointer;
                     display: flex;
-                    height: 52px;
+                    padding: 8px 0;
+                    margin: 3px 0;
                     align-items: center;
                     flex-direction: column;
                     justify-content: center;
@@ -84,6 +88,7 @@ $aside-border-color: #e4e4e4;
                     padding-top: 4px;
                     padding-bottom: 2px;
                 }
+
             }
             .aside-bottom {
                 margin-top: 20px;
@@ -150,6 +155,10 @@ $aside-border-color: #e4e4e4;
             }
             .aside-up {
                 flex: 1;
+                .aside-item-child{
+                    margin-left:30px
+                }
+
                 .aside-item {
                     height: 40px;
                     display: flex;
@@ -355,4 +364,30 @@ $aside-border-color: #e4e4e4;
 .aside-item-title-left{
     margin-left: 10px;
 }
+.close-tab{
+    display: flex;
+    text-align:center;
+    justify-content: center;
+    padding: 10px 0;
+    .close-iconfont{
+        font-size: 18px;
+        cursor: pointer;
+    }
+}
+.open-tab{
+    display: flex;
+    line-height: 40px;
+    align-items: center;
+    cursor: pointer;
+    .open-iconfont{
+        font-size: 18px;
+        cursor: pointer;
+    }
+}
 
+.aside-item-title{
+    flex: 1;
+}
+.aside-item-title-icon{
+    padding-right: 15px;
+}

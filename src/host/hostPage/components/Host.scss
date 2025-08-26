@@ -26,21 +26,15 @@
         font-weight: bold;
       }
 
-      .box-configuration-title-right {
-        background-color: #0d66e4;
-        color: #ffffff;
-        font-weight: 500;
-        padding: 5px 10px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        height: 32px;
-        line-height: 32px;
-        width: fit-content;
-      }
+
     }
 
+    .box-search-type{
+        display: flex;
+        gap: 10px;
+       align-items: center;
+      justify-content: space-between;
+    }
     .box-configuration-body-type {
       justify-content: space-between;
       display: flex;
@@ -132,3 +126,25 @@
   text-overflow: ellipsis;*/
   padding: 10px;
 }
+.box-configuration-title-right {
+  background-color: #0d66e4;
+  color: #ffffff;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  height: 32px;
+  line-height: 32px;
+  width: fit-content;
+}
+
+
+.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+  position: relative;
+  background-color: #efefef;
+  border: none;
+  border-radius: 2px;
+}
+

@@ -7,6 +7,7 @@ import SelectItem from "../../../alarm/common/components/SelectItem";
 import SelectSimple from "../../../alarm/common/components/Select";
 import hostAlarmStore from "../../../host/hostAlarm/sotre/HostAlarmStore";
 import {SearchOutlined} from "@ant-design/icons";
+import SearchInput from "../../../common/input/SearchInput";
 
 
 const DBAlarm = (props) => {
@@ -212,20 +213,6 @@ const DBAlarm = (props) => {
 
     const columns = [
         {
-            title: '数据源名称',
-            dataIndex: 'name',
-            width: "12%",
-            ellipsis: true,
-            key: 'name',
-        },
-        {
-            title: '主机IP',
-            dataIndex: 'ip',
-            width: "10%",
-            ellipsis: true,
-            key: 'ip',
-        },
-        {
             title: '问题',
             dataIndex: 'sendMessage',
             key: 'sendMessage',
@@ -235,6 +222,14 @@ const DBAlarm = (props) => {
             },
             render: (sendMessage) => <Tooltip placement="topLeft" title={sendMessage}>{sendMessage}</Tooltip>
         },
+        {
+            title: '主机IP',
+            dataIndex: 'ip',
+            width: "10%",
+            ellipsis: true,
+            key: 'ip',
+        },
+
         {
             title: '告警等级',
             dataIndex: 'severityLevel',
@@ -334,19 +329,17 @@ const DBAlarm = (props) => {
             <div className="db-alarm-box-body">
                 <div className="db-alarm-box-search">
                     <div>
-                        <Input placeholder="数据库名称"
-                               className="graphics-kind-search"
-                               onChange={(event) => selectByName(event)}
-                               allowClear={true}
-                               prefix={<SearchOutlined/>}
+                        <SearchInput {...props}
+                                     placeholder={"数据库名称"}
+                                     onChange={(event) => selectByName(event)}
+                            /*   onPressEnter={onSearch}*/
                         />
                     </div>
                     <div>
-                        <Input placeholder="数据库ip"
-                               className="graphics-kind-search"
-                               onChange={(event) => selectByIp(event)}
-                               allowClear={true}
-                               prefix={<SearchOutlined/>}
+                        <SearchInput {...props}
+                                     placeholder={"数据库ip"}
+                                     onChange={(event) => selectByIp(event)}
+                            /*   onPressEnter={onSearch}*/
                         />
                     </div>
                     <div>

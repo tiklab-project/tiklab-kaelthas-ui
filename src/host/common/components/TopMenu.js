@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {withRouter} from "react-router-dom";
 import "./TopMenu.scss"
-import hostStore from "../../hostOverview/store/HostStore";
+import hostStore from "../../hostPage/store/HostStore";
 import {observer} from "mobx-react";
 import alarmPageStore from "../../../alarm/alarmPage/store/AlarmPageStore";
+import Dropdowns from "../../../common/Dropdown/Dropdowns";
+import HostCompilePop from "./HostCompilePop";
 
 const TopMenu = (props) => {
     const {match:{params},location:{pathname}} = props;
@@ -13,10 +15,16 @@ const TopMenu = (props) => {
     const {findAlarmNumByCondition} = alarmPageStore
 
     let hostId=params.id
+    const [hostDetails,setHostDetails] = useState(null)
+    const [visible,setVisible] = useState(false)
+
+    const {refresh, findHostById,deleteHostById} = hostStore;
+    const [url,setUrl]=useState();
+
+    const [hostData,setHostData]=useState(null)
 
     const router = [
-        {
-            name: '概况',
+        {name: '概况',
             icon: 'hostOverview',
             url: `/host/${hostId}/hostOverview`,
             key: "hostOverview",
@@ -36,38 +44,40 @@ const TopMenu = (props) => {
             key: "hostAlarm",
             encoded: "hostAlarm",
         },
-        {
+  /*      {
             name: '配置',
             icon: 'configuration',
             url: `/host/${hostId}/config/monitor`,
             key: "config",
             encoded: "config",
-        },
+        },*/
         {
             name: '设置',
             icon: 'setting',
-            url: `/host/${hostId}/projectInformation`,
+            url: `/host/${hostId}/setting/monitor`,
             key: "setting",
             encoded: "setting",
         },
     ];
 
-    const {hostData, findHostById} = hostStore;
-    const [url,setUrl]=useState();
+
 
     useEffect(async () => {
-        if (pathname.includes("/config/")){
+        if (pathname.includes("/setting/")){
            // const a=pathname.slice(0,pathname.indexOf("/config/"))
-            setUrl( `/host/${hostId}/config/monitor`)
-        }else if(pathname.endsWith("/member")||pathname.endsWith("/permissions")){
-            setUrl(`/host/${hostId}/projectInformation`)
+            setUrl( `/host/${hostId}/setting/monitor`)
         } else{
             setUrl(pathname)
         }
     }, [pathname]);
 
     useEffect(async () => {
-        await findHostById(hostId);
+         findHostById(hostId).then(res=>{
+             res.code===0&&setHostData(res.data)
+         })
+    }, [refresh,hostId]);
+
+    useEffect(async () => {
         const newVar = await findAlarmNumByCondition({hostId: hostId});
         setAlarmNum(newVar?.alarmNum)
     }, [hostId]);
@@ -79,6 +89,18 @@ const TopMenu = (props) => {
 
     function goBackHost() {
         props.history.push("/host")
+    }
+
+    const deleteData = (id) => {
+       deleteHostById(id).then(res=>{
+           res.code===0&&  props.history.push(`/host`);
+       })
+    }
+
+    //打开更新弹窗
+    const openUpdate = (value) => {
+        setVisible(true)
+        setHostDetails(value)
     }
 
     return (
@@ -94,8 +116,18 @@ const TopMenu = (props) => {
                     </span>
                 </div>
             </div>
+            <div className='topMenu-more'>
+                <div className='topMenu-more-b'>
+                    <Dropdowns {...props}
+                               goPage={openUpdate}
+                               value={hostData}
+                               type={"data"}
+                               deleteMethod={deleteData}
+                               size={25}
+                    />
+                </div>
+            </div>
             <div className="top-tabs">
-
                 <div className="top-right">
                     {
                         router.map((item, index) => {
@@ -123,19 +155,12 @@ const TopMenu = (props) => {
                         })
                     }
                 </div>
-                <div>
+                <HostCompilePop visible={visible}
+                                setVisible={setVisible}
+                                hostData={hostDetails}
+                                setHostData={setHostDetails}
+                />
 
-                </div>
-                {/*<div
-                    onClick={() => selectMenu(`/host/${hostId}/project`, "setting")}
-                    className={`top-box-right ${url === `/host/${hostId}/project` ? "border-bottom" : ""}`}>
-                    <svg className="topMenu-svg-icon" aria-hidden="true">
-                        <use xlinkHref={`#icon-setting`}></use>
-                    </svg>
-                    <span className={`top-box-right-text`}>
-                        设置
-                    </span>
-                </div>*/}
             </div>
         </div>
     );

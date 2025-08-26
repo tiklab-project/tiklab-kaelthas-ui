@@ -9,9 +9,9 @@
     ],
     "scripts": {
         "kaelthas-start": "cross-env NODE_ENV=development CUSTOM_ENV=local webpack-dev-server --progress --config webpack.dev.js",
-        "prod": "cross-env NODE_ENV=production CUSTOM_ENV=prod webpack --config webpack.prod.js",
+        "build:webpack": "cross-env NODE_ENV=production CUSTOM_ENV=prod webpack --config webpack.prod.js",
+        "build:rollup": "rimraf es && cross-env NODE_ENV=production BABEL_ENV=esm rollup -c",
         "dev": "cross-env NODE_ENV=dev CUSTOM_ENV=dev webpack-dev-server --progress  --config webpack.dev.js --open",
-        "build": "rimraf es && cross-env NODE_ENV=production BABEL_ENV=esm rollup -c",
         "build:dev": "npm run build:dev:esm && npm run build:dev:cjs && npm run build:umd && npm run build:css",
         "build:prod": "npm run build:esm && npm run build:css",
         "build:css": "cd scripts && gulp compile",
@@ -178,8 +178,12 @@
         "tiklab-licence-ui": "^1.0.3",
         "tiklab-message-extension-ui": "^1.0.3",
         "tiklab-message-ui": "^1.0.3",
+        "tiklab-openapi-ui": "^1.0.0",
+        "tiklab-postin-client-ui": "^1.0.0",
+        "tiklab-privilege-extension-ui": "^1.0.0",
         "tiklab-privilege-ui": "^1.0.3",
         "tiklab-security-ui": "^1.0.3",
+        "tiklab-slate-ui": "^1.0.3",
         "tiklab-user-extension-ui": "^1.0.3",
         "tiklab-user-ui": "^1.0.3"
     }

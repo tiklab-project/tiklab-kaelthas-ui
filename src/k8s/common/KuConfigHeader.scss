@@ -6,9 +6,9 @@
         display: flex;
         width: 100%;
         align-items: start;
-        padding: 10px 0;
-        flex-direction: column;
-
+        padding-top: 10px;
+        /*flex-direction: column;*/
+        justify-content: space-between;
         .ku-topMenu-top-title{
             display: flex;
             justify-content: start;
@@ -75,6 +75,18 @@
         }
     }
 
+    .ku-topMenu-more{
+        display: flex;
+        justify-content: end;
+        .ku-topMenu-b{
+            background-color: #EDF0F5;
+            padding: 0 5px;
+            border-radius: 4px;
+        }
+
+    }
+
+
     .ku-config-right {
         list-style-type: none;
         display: flex;
@@ -130,6 +142,8 @@
         }
     }
 }
+
+
 
 .normal-aside-dropdown {
     left: 80px !important;

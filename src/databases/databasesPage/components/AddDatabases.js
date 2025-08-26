@@ -11,10 +11,7 @@ const layout = {
 };
 const AddDatabases = (props) => {
 
-    const {
-        createDbInfo,
-        testJDBCSql
-    } = databasesStore;
+    const {createDbInfo, testJDBCSql} = databasesStore;
 
 
     const [form] = Form.useForm();
@@ -27,8 +24,10 @@ const AddDatabases = (props) => {
         let values = await form.validateFields();
         values.usability = 0;
 
-        await createDbInfo(values)
-        props.history.push('/db')
+        await createDbInfo(values).then(res=>{
+            props.history.push('/db')
+        })
+
     };
 
     const onCancel = () => {

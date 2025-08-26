@@ -3,11 +3,8 @@
   flex-direction: column;
   height: 100%;
   background: #ffffff;
-
   .box-host-survey {
     padding: 20px 0;
-
-
     .box-host-body-head {
       display: flex;
       flex-direction: column;
@@ -20,12 +17,14 @@
       }
 
       .box-host-details {
+        gap: 15px;
         display: flex;
         padding: 20px 0;
         border-radius: 4px;
-        height: 150px;
+       /* height: 150px;*/
         width: 100%;
         justify-content: space-between;
+
 
         white-space: nowrap; /* 禁止换行 */
         overflow: hidden; /* 超出部分隐藏 */
@@ -69,7 +68,6 @@
             display: flex;
             gap: 5px;
             flex-direction: column;
-
             .item-top {
               height: 30px;
               line-height: 30px;
@@ -101,6 +99,57 @@
             gap: 5px;
             margin-bottom: 10px;
           }
+        }
+
+        .box-host-nav{
+          min-width: 150px;
+          width: 20%;
+          background-color: #fafbfc;
+          border-radius:4px;
+          .box-host-nav-name{
+            padding: 20px 15px;
+            justify-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 5px;
+            .box-host-nav-name-icon{
+              margin-top: 1px;
+            }
+            .box-host-nav-name-title{
+              font-weight:bold;
+            }
+            .box-host-nav-name-text {
+              display: flex;
+              padding-top: 20px;
+            }
+          }
+
+
+          .box-host-nav-data{
+            padding: 20px 15px;
+            justify-items: center;
+            .box-host-nav-title{
+              font-weight:bold;
+            }
+            .box-host-nav-text{
+              display:flex;
+              padding-top: 20px;
+              gap: 15px;
+              font-size: 13px;
+              .box-host-nav-text-open{
+                color: #4cbb17;
+              }
+              .box-host-nav-text-close{
+                color: #ff4d4f;
+              }
+
+              .host-nav-text-desc{
+                color: #9b9b9b;
+                padding-right: 5px;
+              }
+            }
+          }
+
         }
 
       }
@@ -182,8 +231,6 @@
             text-overflow: ellipsis; /* 使用省略号表示超出部分 */
           }
         }
-
-
       }
     }
 

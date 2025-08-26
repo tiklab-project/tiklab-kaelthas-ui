@@ -1,0 +1,47 @@
+.box-ku-trigger-right {
+  flex-direction: column;
+
+
+  .ku-trigger-title {
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    .ku-trigger-kind-search-div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .ku-trigger-top-right {
+      gap: 10px;
+      background-color: #0d66e4;
+      color: #ffffff;
+      font-weight: 500;
+      padding: 5px 10px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      height: 32px;
+      line-height: 32px;
+      width: fit-content;
+      margin-left: 50px;
+    }
+  }
+
+
+
+
+
+  .ku-trigger-kind-search {
+    border-radius: 4px;
+    width: 200px;
+  }
+
+  .box-ku-trigger-table {
+    padding-top: 20px;
+    background: #fff;
+  }
+}

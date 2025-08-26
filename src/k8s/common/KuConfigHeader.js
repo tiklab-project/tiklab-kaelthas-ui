@@ -3,13 +3,14 @@ import "./KuConfigHeader.scss"
 import {withRouter} from "react-router-dom";
 import kubernetesStore from "../kuPage/store/KubernetesStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
-import kuProjectStore from "../setting/kuProject/store/KuProjectStore";
 import {observer} from "mobx-react";
+import Dropdowns from "../../common/Dropdown/Dropdowns";
+import KuCompilePop from "./KuCompilePop";
 
 const KuConfigHeader = (props) => {
     const {match:{params},location:{pathname}} = props;
 
-    const {updateKbInfo,findKuInfoById} = kubernetesStore;
+    const {refresh,findKuInfoById,deleteKuInfo} = kubernetesStore;
 
     const {findAlarmNumByCondition} = alarmPageStore
 
@@ -19,11 +20,12 @@ const KuConfigHeader = (props) => {
     const [url,setUrl]=useState()
     const [KuData,setKuData]=useState()
 
+    const [kubData,setKubData] = useState(null)
+    const [visible,setVisible] = useState(false)
+
     useEffect(async () => {
-        if (pathname.includes("/configs/")){
-            setUrl( `/kubernetes/${kuId}/configs/monitor`,)
-        }else if(pathname.includes("/kuSetting/")){
-            setUrl(`/kubernetes/${kuId}/kuSetting/kuProject`)
+        if (pathname.includes("/setting/")){
+            setUrl(`/kubernetes/${kuId}/setting/monitor`)
         } else{
             setUrl(pathname)
         }
@@ -31,7 +33,7 @@ const KuConfigHeader = (props) => {
         findKuInfoById(params.id).then(res=>{
            setKuData(res)
         })
-    }, [pathname]);
+    }, [refresh,pathname]);
 
 
     useEffect(async () => {
@@ -66,16 +68,9 @@ const KuConfigHeader = (props) => {
             encoded: "hostAlarm",
         },
         {
-            name: '配置',
-            icon: 'configuration',
-            url: `/kubernetes/${kuId}/configs/monitor`,
-            key: "configuration",
-            encoded: "configuration",
-        },
-        {
             name: '设置',
             icon: 'setting',
-            url: `/kubernetes/${kuId}/kuSetting/kuProject`,
+            url: `/kubernetes/${kuId}/setting/monitor`,
             key: "setting",
             encoded: "setting",
         },
@@ -85,6 +80,17 @@ const KuConfigHeader = (props) => {
         props.history.push("/kubernetes")
     }
 
+
+    const openUpdate = (value) => {
+        setVisible(true)
+        setKubData(value)
+    }
+
+    const deleteData = (id) => {
+        deleteKuInfo(id).then(res=>{
+            res.code===0&&props.history.push(`/kubernetes`)
+        })
+    }
 
     return (
         <div className="ku-configs-header">
@@ -97,6 +103,18 @@ const KuConfigHeader = (props) => {
                         <span style={{fontSize:16}}>
                               集群 / {KuData?.name}
                         </span>
+                </div>
+            </div>
+
+            <div className='ku-topMenu-more'>
+                <div className='ku-topMenu-b'>
+                    <Dropdowns {...props}
+                               goPage={openUpdate}
+                               value={KuData}
+                               type={"data"}
+                               deleteMethod={deleteData}
+                               size={25}
+                    />
                 </div>
             </div>
             <div className="ku-config-right">
@@ -124,6 +142,12 @@ const KuConfigHeader = (props) => {
                         )
                     })
                 }
+
+                <KuCompilePop  visible={visible}
+                               setVisible={setVisible}
+                               kubData={kubData}
+                               setKubData={setKubData}
+                />
             </div>
         </div>
     );

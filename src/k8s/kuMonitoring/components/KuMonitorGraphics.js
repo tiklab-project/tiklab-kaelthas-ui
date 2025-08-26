@@ -12,17 +12,11 @@ const {RangePicker} = DatePicker;
 
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
-
+import {getCurrentTimeQua} from "../../../common/utils/Common";
 const KuMonitorGraphics = (props) => {
     const {match:{params}} = props
 
-    const {
-        setSearchCondition,
-        findGraphicsLine,
-        condition,
-        setSearchNull,
-        getDateTime,
-    } = kuMonitorGraphicsStore;
+    const {setSearchCondition, findGraphicsLine, condition, setSearchNull, k8sAlarmDate} = kuMonitorGraphicsStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
@@ -30,8 +24,8 @@ const KuMonitorGraphics = (props) => {
         const kuId = params.id;
         setSearchNull({
             kuId: kuId,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
+            beginTime: getCurrentTimeQua(k8sAlarmDate)[0],
+            endTime: getCurrentTimeQua(k8sAlarmDate)[1]
         })
 
         await findGraphicsLine();
@@ -93,8 +87,8 @@ const KuMonitorGraphics = (props) => {
                 break
             case 9:
                 setSearchCondition({
-                    beginTime: getDateTime()[0],
-                    endTime: getDateTime()[1],
+                    beginTime: getCurrentTimeQua()[0],
+                    endTime: getCurrentTimeQua()[1],
                 })
                 await findGraphicsLine();
                 // await findHistory();
@@ -109,12 +103,13 @@ const KuMonitorGraphics = (props) => {
                     <div className="ku-details-breadcrumb-table">
                         <div className="ku-details-table-title">
                             <div className="ku-details-search">
-                                <div>
+                                <div className='details-picker'>
                                     <RangePicker
+                                        bordered={false}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
-                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        defaultValue={[moment(getCurrentTimeQua(k8sAlarmDate)[0], dateFormat), moment(getCurrentTimeQua(k8sAlarmDate)[1], dateFormat)]}
                                     />
                                 </div>
                                 <div>

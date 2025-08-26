@@ -1,0 +1,30 @@
+.monit-nav{
+  background-color: #fafbfc;
+  height: 100%;
+  .monit-nav-title{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 12px 30px;
+  }
+  .monit-nav-data{
+    display: flex;
+    gap: 5px;
+    padding: 7px 0;
+    cursor: pointer;
+    .monit-nav-data-nav{
+      display: flex;
+      margin-left: 25px;
+    }
+    &:hover{
+      background-color: #edf0f5;
+    }
+  }
+
+  .aside-select{
+    background-color: var(--kaelthas-select-color);
+  }
+
+
+
+}
+

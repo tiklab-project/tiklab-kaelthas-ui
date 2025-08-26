@@ -68,6 +68,15 @@
         margin-top: 15px;
       }
     }
+
+    .alarm-box-nav-name:hover{
+      color: #1890ff;
+      cursor: pointer;
+    }
+
+    .alarm-box-nav-action{
+      cursor: pointer;
+    }
   }
 }
 .custom-table .ant-table-tbody > tr > td {
@@ -101,73 +110,4 @@
   border-bottom: 1px solid #f0f0f0; /* 保留最后一行的底部边框线 */
 }
 
-.select-dropdown {
-  position: absolute;
-  background-color: #fff;
-  min-width: 230px;
-  width: 100%;
-  border-radius: 4px;
-  z-index: 3;
-  left: 0;
-  margin-top: 3px;
-  box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
 
-  .select-search-box {
-    height: 40px;
-    border-bottom: 1px solid #f0f0f0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-
-    .select-search-input {
-      outline: none;
-      border: 0;
-      height: 39px;
-    }
-
-    .big-svg {
-      width: 20px;
-      height: 20px;
-    }
-
-    .cancel-svg {
-      width: 15px;
-      height: 15px;
-    }
-  }
-
-  .select-dropdown-bottom {
-    height: 40px;
-    line-height: 40px;
-    padding: 0 15px;
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    border-top: 1px solid #f0f0f0;
-
-  }
-
-  .select-item {
-    display: flex;
-    align-items: center;
-    height: 35px;
-    line-height: 35px;
-    padding: 0 20px;
-
-    .select-input {
-      margin-right: 10px;
-    }
-
-    .select-item-text {
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-  }
-
-  .select-item:hover {
-    background-color: var(--tiklab-gray-400);
-  }
-}

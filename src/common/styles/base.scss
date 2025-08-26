@@ -115,10 +115,7 @@ $blue-main: #0053ca;
     border-radius: 15px;
 }
 
-//表单内组件背景
-.ant-select-selector {
-    background-color: #fff;
-}
+
 
 .ant-input-affix-wrapper {
     background-color: #fff;
@@ -171,7 +168,7 @@ table .icon{
 }
 
 .ant-table{
-    font-size: 13px; 
+    font-size: 13px;
 }
 
 .title-space-between{
@@ -406,11 +403,9 @@ table .icon{
 
     .ant-select:not(.ant-select-customize-input) .ant-select-selector{
         border: none;
-
         &:hover{
             background: var(--pi-bg-grey-100);
         }
-
         &:hover +.ant-select-arrow{
             display: block;
         }
@@ -512,4 +507,139 @@ table .icon{
     .ant-modal-body{
         padding:16px 24px
     }
+}
+
+.alarm-box-search {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+
+    .alarm-box-search-div {
+        border-radius: 4px;
+        width: 200px;
+    }
+
+    .select-content {
+        padding: 5px 10px;
+        background-color: var(--tiklab-gray);
+        width: 100px;
+    }
+}
+/*antd 下拉框样式修改*/
+/*
+.drop-down .ant-select-selector{
+    background-color: #f7f7f7!important;
+    border:none !important;
+}*/
+
+//表单内组件背景
+/*
+.ant-select-selector {
+    background-color: #fff;
+}
+*/
+
+.antd-custom,.ant-modal,.ant-drawer,.ant-table {
+    .ant-form-item{
+        margin-bottom: 20px !important;
+    }
+    .ant-form-item-label>label {
+        color: #666;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):after {
+        display: inline-block;
+        margin-left: 4px;
+        color: #ff4d4f;
+        font-size: 14px;
+        font-family: SimSun,sans-serif;
+        line-height: 1;
+        content: "*";
+    }
+
+
+    .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+        display: none !important;
+        content: "" !important;
+    }
+    .ant-form-item-explain{
+        font-size: 13px !important;
+    }
+    .ant-form-item-explain-error{
+        min-height: 20px !important;
+        height: 20px !important;
+    }
+    .ant-steps-item-process>.ant-steps-item-container>.ant-steps-item-icon{
+        background-color: var(--tiklab-blue);
+    }
+    .ant-steps-item-finish .ant-steps-item-icon{
+        border-color: var(--tiklab-blue);
+    }
+    .ant-steps-item-finish .ant-steps-finish-icon{
+        color: var(--tiklab-blue);
+    }
+    .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-content>.ant-steps-item-title:after{
+        background-color: var(--tiklab-blue);
+    }
+    .ant-table-thead > tr > th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan])::before {
+        position: static;
+    }
+    .ant-table-thead>tr>th{
+        background: #ffffff;
+        font-size: 13px;
+        color: #777;
+        font-weight: 600;
+        padding: 8px;
+    }
+
+    .ant-table-column-sorters{
+        padding: 1px;
+    }
+    .ant-table-tbody>tr>td{
+        border: none;
+        padding: 8px;
+    }
+    .ant-table{
+        border-bottom: 1px solid #f0f0f0;;
+    }
+    .ant-transfer-list{
+        background: #ffffff;
+        border: none;
+    }
+    .ant-transfer-list-search-action{
+        top:22px
+    }
+    .ant-transfer-list-header-dropdown{
+        display: none;
+    }
+    .ant-transfer-list-header{
+        border: none;
+    }
+    .ant-modal-footer{
+        border:none;
+    }
+    .ant-empty-image{
+        margin-bottom: 0;
+        .ant-empty-img-default{
+            width: 100px;
+        }
+    }
+    .ant-empty-description{
+        font-size: 13px;
+        color: #999;
+        padding-bottom: 8px;
+    }
+    .icon {
+        width: 16px;
+        height: 16px;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+    }
+
+
+
 }

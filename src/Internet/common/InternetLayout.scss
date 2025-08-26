@@ -1,12 +1,10 @@
 .internet-layout{
   height: 100%;
   width: 100%;
-  overflow: auto;
   background: #fff;
-  margin-top: 10px;
-
+  overflow: auto;
+  padding: 0 15px 10px 15px;
   .internet-body-routes{
     height: calc(100% - 100px);
   }
-
 }

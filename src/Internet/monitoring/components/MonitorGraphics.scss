@@ -114,6 +114,14 @@
 
   }
 
+  .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    position: relative;
+    background-color: #efefef;
+    border: none;
+    border-radius: 2px;
+
+  }
+
 }
 
 .item-tabs-item {
@@ -136,6 +144,9 @@
   .details-select {
     margin-right: 10px;
     width: 100px;
+  }
+  .details-picker {
+    background-color: #efefef;
   }
 
 
@@ -185,3 +196,4 @@
   background: #fff;
   margin: 0 0 10px;
 }
+

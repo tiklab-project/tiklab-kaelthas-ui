@@ -4,22 +4,138 @@
   height: 100%;
   background-color: #ffffff;
 
+  .ku-body{
+    margin: 20px 0;
+    .box-ku-body-head {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background-color: #fff;
 
-  .ku-body-head {
+      .box-ku-title {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      .box-ku-details {
+        display: flex;
+        padding: 20px 0;
+        border-radius: 4px;
+        gap: 15px;
+        /* height: 150px;*/
+        width: 100%;
+        justify-content: space-between;
+
+
+        white-space: nowrap; /* 禁止换行 */
+        overflow: hidden; /* 超出部分隐藏 */
+        text-overflow: ellipsis; /* 显示省略号 */
+          .box-ku-details-text {
+            display: flex;
+            gap: 5px;
+            flex-direction: column;
+            .item-top {
+              height: 30px;
+              line-height: 30px;
+              width: 100px;
+              text-align: center;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+
+
+
+
+        .box-ku-nav{
+          min-width: 150px;
+          width: 20%;
+          background-color: #fafbfc;
+          border-radius:4px;
+          .box-ku-nav-name{
+            padding: 20px 15px;
+            justify-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 5px;
+            .box-ku-nav-name-icon{
+              margin-top: 1px;
+            }
+            .box-ku-nav-name-title{
+              font-weight:bold;
+            }
+            .box-ku-nav-name-text {
+              display: flex;
+              padding-top: 20px;
+            }
+          }
+
+
+          .box-ku-nav-data{
+            padding: 20px 15px ;
+            justify-items: center;
+            .box-ku-nav-title{
+              font-weight:bold;
+            }
+            .box-ku-nav-text{
+              display:flex;
+              padding-top: 20px;
+              gap: 15px;
+              font-size: 13px;
+              .ku-nav-text-desc{
+                color: #9b9b9b;
+                padding-right: 5px;
+              }
+              .box-ku-nav-text-open{
+                color: #4cbb17;
+              }
+              .box-ku-nav-text-close{
+                color: #ff4d4f;
+              }
+
+            }
+          }
+
+        }
+
+      }
+
+      .box-ku-body-head-graphics {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        height: 260px;
+        margin-top: 50px;
+      }
+
+      .box-ku-List {
+        display: flex;
+        margin: 60px 10px;
+        justify-content: center;
+      }
+
+    }
+  }
+
+
+  .ku-body-server {
     display: flex;
     flex-direction: column;
     margin-bottom: 15px;
     gap: 20px;
     background-color: #fff;
-
-    .ku-title {
+    .ku-body-server-title {
       font-weight: 700;
+      font-size: 16px;
+      margin-left: 15px;
     }
+
+
 
     .ku-details {
       display: flex;
       flex-wrap: wrap;
-      margin: 20px 0;
       border-radius: 4px;
       height: 100%;
       width: 100%;
@@ -77,7 +193,6 @@
     .ku-body {
       display: flex;
       flex-wrap: wrap;
-      padding: 20px;
       border-radius: 4px;
       height: 100%;
       width: 100%;

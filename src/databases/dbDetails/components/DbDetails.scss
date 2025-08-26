@@ -23,7 +23,7 @@
         display: flex;
         padding: 20px 0;
         border-radius: 4px;
-        height: 150px;
+        gap: 15px;
         width: 100%;
         justify-content: space-between;
 
@@ -85,7 +85,6 @@
               color: #999;
               text-align: center;
             }
-
           }
 
         }
@@ -103,6 +102,65 @@
           }
         }
 
+        .box-db-nav{
+          min-width: 150px;
+          width: 20%;
+          background-color: #fafbfc;
+          border-radius:4px;
+          .box-db-nav-name{
+            padding: 20px 15px;
+            justify-items: center;
+            justify-content: center;
+            display: flex;
+            gap: 5px;
+            .box-db-nav-name-icon{
+              margin-top: 1px;
+            }
+            .box-db-nav-name-title{
+              font-weight:bold;
+            }
+            .box-db-nav-name-text {
+              display: flex;
+              padding-top: 20px;
+            }
+          }
+
+
+          .box-db-nav-data{
+            padding: 20px 15px;
+            justify-items: center;
+          /*  display: flex;*/
+            .box-db-nav-data-style{
+              display: flex;
+              align-items: center;
+              gap: 5px;
+            }
+            .box-db-nav-data-name{
+              margin-left: 15px;
+            }
+
+            .box-db-nav-title{
+              font-weight:bold;
+            }
+            .box-db-nav-text{
+              display:flex;
+              padding-top: 20px;
+              gap: 15px;
+              font-size: 13px;
+              .box-db-nav-text-open{
+                color: #4cbb17;
+              }
+              .box-db-nav-text-close{
+                color: #ff4d4f;
+              }
+
+              .db-nav-text-desc{
+                color: #9b9b9b;
+                padding-right: 5px;
+              }
+            }
+          }
+        }
       }
 
       .box-db-body-head-graphics {

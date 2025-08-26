@@ -4,6 +4,9 @@ import {message} from "antd";
 
 export class HostStore {
 
+    //刷新
+    @observable refresh=false
+
     @observable resultData = [];
 
     //添加主机表单中的模板名称
@@ -13,6 +16,7 @@ export class HostStore {
     @observable hostGroupList = [];
 
     @observable total = 1;
+
 
     @observable searchCondition = {
         orderParams: [{
@@ -24,6 +28,8 @@ export class HostStore {
             currentPage: 1,
         }
     };
+
+
 
     @action
     setSearchCondition = (value) => {
@@ -46,31 +52,71 @@ export class HostStore {
 
     //根据条件查询主机
     @action
-    findPageHost = async () => {
-        const resData = await Service("/hostList/findHostPage",this.searchCondition);
-        this.resultData = resData.data.dataList;
-        this.total = resData.data.totalRecord
-        return this.resultData;
+    findPageHost = async (param) => {
+        const resData = await Service("/hostList/findHostPage",param);
+        if (resData.code!==0){
+            message.error(resData.msg)
+            return
+        }
+        return resData
     }
 
     //根据id查询主机
     @action
-    findOneHost = async () => {
-        const resData = await Service("/hostList/findOneHost",this.searchCondition);
+    findOneHost = async (id) => {
+        const params = new FormData();
+        params.append("id", id)
+        const resData = await Service("/hostList/findOneHost",params);
         if (resData.code===0){
             return resData;
         }else {
             message.error("查询主机失败")
         }
-
     }
+
+    //根据id查询主机信息
+    @action
+    findHostById = async (id) => {
+        const formData = new FormData();
+        formData.append("id", id)
+        const resData = await Service("/hostList/findHostById", formData);
+        if (resData.code===0){
+            this.hostData = resData.data;
+        }else {
+            message.error("查询主机失败")
+        }
+        return resData;
+    }
+
 
     //添加主机
     @action
     addHost = async (host) =>{
         const resMessage = await Service("/hostList/createHost",host)
-        return resMessage.data;
+        if (resMessage.code===0){
+            this.refresh=!this.refresh
+            message.success("创建成功")
+        }else {
+            message.error(resMessage.msg)
+            return
+        }
+        return resMessage;
     }
+
+    //更新主机
+    @action
+    updateHost = async (host) =>{
+        const resMessage = await Service("/hostList/updateHost",host)
+        if (resMessage.code===0){
+            this.refresh=!this.refresh
+            message.success("更新成功")
+        }else {
+            message.error(resMessage.msg)
+            return
+        }
+        return resMessage;
+    }
+
 
     // 根据名称查询主机组
     @action
@@ -94,6 +140,19 @@ export class HostStore {
     createHostRecent = async (option) =>{
         const strId = await Service("/hostRecent/createHostRecent", option)
         return strId;
+    }
+
+    //删除主机
+    @action
+    deleteHostById = async (id) => {
+        const params = new FormData();
+        params.append("id", id)
+        const data = await Service("/hostList/deleteHostById", params)
+        if (data.code===0){
+            this.refresh=!this.refresh
+        }else {
+            message.error(data.msg)
+        }
     }
 
 }

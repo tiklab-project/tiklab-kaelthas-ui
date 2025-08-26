@@ -1,7 +1,10 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import {message} from "antd";
 
 export class InternetStore {
+    //刷新
+    @observable refresh=false
 
     @observable resultData = [];
 
@@ -48,12 +51,14 @@ export class InternetStore {
 
     //根据条件查询主机
     @action
-    findInternetPage = async () => {
+    findInternetPage = async (param) => {
+        const resData = await Service("/internet/findInternetPage",param);
+        if (resData.code!==0){
+            message.error(resData.msg)
+            return
+        }
+        return resData
 
-        const resData = await Service("/internet/findInternetPage",this.searchCondition);
-        this.resultData = resData.data.dataList;
-        this.total = resData.data.totalRecord
-        return this.resultData;
     }
 
     //通过id查询网络
@@ -68,17 +73,47 @@ export class InternetStore {
         return resData;
     }
 
-    //添加主机
+    //添加网络
     @action
     createInternet = async (host) =>{
         const resMessage = await Service("/internet/createInternet",host)
-        return resMessage.data;
+        if (resMessage.code===0){
+            this.refresh=!this.refresh
+            message.success('创建成功')
+            return resMessage;
+        }else {
+            message.error(resMessage.msg)
+        }
     }
 
     @action
     updateInternet = async (option) =>{
-        await Service("/internet/updateInternet", option)
+        const res=await Service("/internet/updateInternet", option)
+        if (res.code===0){
+            message.success('更新成功')
+           this.refresh=!this.refresh
+        }else {
+            message.error(res.msg)
+            return
+        }
+        return res
     }
+
+    //删除网络
+    @action
+    deleteInternet = async (id) =>{
+        const  param=new FormData()
+        param.append("id",id)
+        const res=await Service("/internet/deleteInternet", param)
+        if (res.code===0){
+            this.refresh=!this.refresh
+            return res
+        }else {
+            message.error(res.msg)
+        }
+    }
+
+
 
 }
 

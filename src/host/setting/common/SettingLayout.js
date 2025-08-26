@@ -1,7 +1,6 @@
 import React from 'react';
 import {renderRoutes} from "react-router-config";
 import {withRouter} from "react-router-dom";
-import SettingLeftTabs from "./SettingLeftTabs";
 import "./SettingLayout.scss"
 import ProjectLayout from "../../../common/project/ProjectLayout";
 
@@ -12,35 +11,40 @@ const SettingLayout = (props) => {
 
     const router = [
         {
-            name: '主机信息',
-            url: `/host/${hostId}/projectInformation`,
-            key: "setting",
-            encoded: "setting",
+            name: '监控项',
+            icon: 'monitor',
+            url: `/host/${hostId}/setting/monitor`,
+            key: "monitor",
+            encoded: "monitor",
         },
         {
-            name: '成员',
-            url: `/host/${hostId}/member`,
-            key: "member",
-            encoded: "member",
+            name: '触发器',
+            icon: 'trigger',
+            url: `/host/${hostId}/setting/trigger`,
+            key: "trigger",
+            encoded: "trigger",
         },
         {
-            name: '权限',
-            url: `/host/${hostId}/permissions`,
-            key: "permissions",
-            encoded: "permissions",
+            name: '模板',
+            icon: 'template',
+            url: `/host/${hostId}/setting/template`,
+            key: "template",
+            encoded: "template",
         },
+        {
+            name: '图形',
+            icon: 'graphics',
+            url: `/host/${hostId}/setting/graphics`,
+            key: "graphics",
+            encoded: "graphics",
+        },
+
     ];
 
     return (
         <ProjectLayout {...props}
                        dataList={router}
         />
- /*       <div className="setting-layout">
-                <SettingLeftTabs/>
-            <div className='setting-layout-right'>
-                {renderRoutes(route.routes)}
-            </div>
-        </div>*/
     );
 };
 

@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import {Breadcrumb, Col, DatePicker, Empty, Row, Select,} from "antd";
 import MonitoringDetails from "./MonitoringDetails";
 
-import monitorLayoutStore from "../store/MonitorGraphicsStore";
+import monitorLayoutStore from "../store/InMonitorGraphicsStore";
 import MonitoringItem from "../../../common/graphics/MonitoringItem";
 import moment from "moment";
 import {withRouter} from "react-router-dom";
@@ -14,16 +14,10 @@ const {RangePicker} = DatePicker;
 
 const {Option} = Select;
 const dateFormat = 'YYYY-MM-DD HH:mm';
-
+import {getCurrentTimeQua} from "../../../common/utils/Common";
 const MonitorGraphics = (props) => {
     const {match:{params}} = props;
-    const {
-        setSearchCondition,
-        findInGraphicsLine,
-        condition,
-        setSearchNull,
-        getDateTime
-    } = monitorLayoutStore;
+    const {setSearchCondition, findInGraphicsLine, condition, setSearchNull,internetAlarmDate} = monitorLayoutStore;
 
     const [pageStatus, setPageStatus] = useState(1);
 
@@ -32,8 +26,8 @@ const MonitorGraphics = (props) => {
     useEffect(async () => {
         setSearchNull({
             internetId: internetId,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
+            beginTime: getCurrentTimeQua(internetAlarmDate)[0],
+            endTime: getCurrentTimeQua(internetAlarmDate)[1]
         })
 
         await findInGraphicsLine();
@@ -96,8 +90,8 @@ const MonitorGraphics = (props) => {
                 break
             case 9:
                 setSearchCondition({
-                    beginTime: getDateTime()[0],
-                    endTime: getDateTime()[1],
+                    beginTime: getCurrentTimeQua()[0],
+                    endTime: getCurrentTimeQua()[1],
                 })
                 await findInGraphicsLine();
                 break
@@ -111,13 +105,14 @@ const MonitorGraphics = (props) => {
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
                             <div className="in-details-search">
-                                <div>
+                                <div className='details-picker'>
                                     <RangePicker
+                                        bordered={false}
                                         // style={{width: 300}}
                                         format={dateFormat}
                                         onChange={onChange}
                                         showTime
-                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        defaultValue={[moment(getCurrentTimeQua(internetAlarmDate)[0], dateFormat), moment(getCurrentTimeQua(internetAlarmDate)[1], dateFormat)]}
                                     />
                                 </div>
                                 <div>

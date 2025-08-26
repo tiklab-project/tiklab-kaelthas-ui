@@ -1,0 +1,56 @@
+.alarm-drawer{
+
+  .alarm-drawer-bread{
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 15px 0 10px;
+    border-bottom: 1px solid #f0f0f0;
+    .alarm-drawer-bread-nav{
+      margin-left: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .alarm-drawer-bread-message{
+      margin-left: 20px;
+      display: flex;
+      gap: 10px;
+      .alarm-drawer-bread-message-title{
+        color: #999;
+      }
+    }
+  }
+  .alarm-drawer-body{
+    height: calc(100% - 83px);
+    display: flex;
+    flex-direction: row;
+    /*flex-direction: column;*/
+    margin: 20px 0 0 20px;
+    .alarm-drawer-left{
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      width: 50%;
+    }
+    .alarm-drawer-right{
+      display: flex;
+      gap: 20px;
+      flex-direction: column;
+      width: 50%;
+    }
+    .alarm-drawer-nav{
+      display: flex;
+      gap: 10px;
+      .alarm-drawer-nav-title{
+        width: 110px;
+        color: #999;
+      }
+    }
+  }
+}
+
+
+

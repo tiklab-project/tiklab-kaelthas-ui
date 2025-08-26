@@ -4,48 +4,104 @@ import "./Databases.scss"
 import {SearchOutlined} from "@ant-design/icons";
 import databasesStore from "../store/DatabasesStore";
 import {observer} from "mobx-react";
+import SearchInput from "../../../common/input/SearchInput";
+import Dropdowns from "../../../common/Dropdown/Dropdowns";
+import Page from "../../../common/page/Page";
+import DataBaseCompilePop from "../../common/DataBaseCompilePop";
 
+
+const availabilityTab = [
+    {title: '全部', key: 2, icon: "all"},
+    {title: '可用', key: 1, icon: "available"},
+    {title: '不可用', key: 0, icon: "noAvailable"}];
 const Databases = (props) => {
 
+    const {refresh,findDbInfoPage,deleteDbInfo, setSearchCondition} = databasesStore
 
-    const {
-        findDbInfoPage,
-        updateDbInfo,
-        dbPage,
-        total,
-        searchCondition,
-        setSearchCondition,
-        setNullCondition
-    } = databasesStore
+    const [dbTab, setDbTab] = useState(2);
 
-    const [state, setState] = useState(2);
 
-    const availabilityTab = [
-        {
-            title: '全部',
-            key: 2,
-            icon: "all"
-        },
-        {
-            title: '可用',
-            key: 1,
-            icon: "available"
-        },
-        {
-            title: '不可用',
-            key: 0,
-            icon: "noAvailable"
-        }
-    ];
+    //搜索数据库的名字
+    const [dbName,setDbName]=useState(null)
+    //数据库list
+    const [dbList,setDbList]=useState([])
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalPage,setTotalPage]=useState()
+    const [totalRecord,setTotalRecord]=useState()
+    const [pageSize]=useState(15)
+
+    const [dataBase,setDataBase] = useState(null)
+    const [visible,setVisible] = useState(false)
+
 
     useEffect(async () => {
-        setNullCondition();
-        await findDbInfoPage()
-    }, []);
+        findDbPag(currentPage,dbTab,dbName)
+    }, [refresh]);
+
+
+    //分页查询数据库
+    const findDbPag = (currentPage,usability,dbName) => {
+        let state;
+        if (usability!==2){
+            state=usability
+        }
+        findDbInfoPage({pageParam:{currentPage:currentPage, pageSize:pageSize},
+            name:dbName,
+            usability:state}).then(res=>{
+
+            setDbList(res.data.dataList)
+            setTotalPage(res.data.totalPage)
+            setCurrentPage(res.data.currentPage)
+            setTotalRecord(res.data.totalRecord)
+        })
+    }
+
+    //切换tab
+    const checkTab = async (value) => {
+        setDbTab(value)
+        findDbPag(1,value,dbName)
+    };
+
+
+    //数据库名字搜索
+    const searchDbName = (e) => {
+        const name = e.target.value;
+        setDbName(name)
+        if (name===''){
+            setCurrentPage(1)
+            findDbPag(1)
+        }
+    }
+    const onSearch = () => {
+        setCurrentPage(1)
+        findDbPag(1,dbTab,dbName)
+    }
+    //分页查询
+    const changePage = async (value) => {
+        setCurrentPage(value)
+        findDbPag(value,dbTab,dbName)
+    };
+
+    //刷新
+    const refreshFind = () => {
+        findDbPag(currentPage,dbTab,dbName)
+    }
 
     async function hrefDatabases(record) {
         props.history.push(`/db/${record.id}/monitoring`);
     }
+
+    //打开更新
+    const openUpdate = (value) => {
+        setVisible(true)
+        setDataBase(value)
+    }
+
+    //打开创建
+    const openAddDatabases = () => {
+        setVisible(true)
+    }
+
 
     const columns = [
         {
@@ -56,7 +112,7 @@ const Databases = (props) => {
                                            onClick={() => hrefDatabases(record)}>{text}</div>,
         },
         {
-            title: '主机IP',
+            title: '数据库地址',
             dataIndex: 'ip',
             key: 'ip',
         },
@@ -67,8 +123,8 @@ const Databases = (props) => {
         },
         {
             title: '状态',
-            dataIndex: 'state',
-            key: 'state',
+            dataIndex: 'dbTab',
+            key: 'dbTab',
             render: (usability, record) => <div style={{cursor: "pointer"}}>{converType(record)}</div>,
         },
         {
@@ -83,7 +139,21 @@ const Databases = (props) => {
             dataIndex: 'createTime',
             key: 'createTime',
         },
-
+        {
+            title:'操作',
+            dataIndex: 'action',
+            width:'5%',
+            key: 'action',
+            render:(text,record)=>(
+                <Dropdowns {...props}
+                           goPage={openUpdate}
+                           value={record}
+                           deleteMethod={deleteDbInfo}
+                           size={18}
+                           type={"db"}
+                />
+            )
+        }
     ];
 
     function converType(record) {
@@ -125,6 +195,7 @@ const Databases = (props) => {
 
     }
 
+
     function conversionColor(text) {
         if (text === 0 || text === null) {
             return <Tag color={"blue"}>{0}</Tag>
@@ -133,43 +204,8 @@ const Databases = (props) => {
         }
     }
 
-    async function checkTab(value) {
-        setState(value)
 
-        if (value === 2) {
-            value = null
-        }
 
-        setSearchCondition({
-            usability: value,
-            name: ""
-        });
-        await findDbInfoPage();
-    }
-
-    function hrefAddDatabases() {
-        if (location.pathname !== '/db/addDatabases') {
-            props.history.push('/db/addDatabases');
-        }
-    }
-
-    async function searchDbName(e) {
-        const name = e.target.value;
-        setSearchCondition({name: name})
-        await findDbInfoPage();
-    }
-
-    const changePage = async (pagination, filters, sorter) => {
-
-        setSearchCondition({
-            pageParam: {
-                currentPage: pagination.current,
-                pageSize: pagination.pageSize,
-            }
-        })
-
-        await findDbInfoPage()
-    };
 
     return (
         <Row className="db-row">
@@ -178,14 +214,14 @@ const Databases = (props) => {
                 <div className="db-body">
                     <div className="db-title">
                         <div className="db-title-text">数据库</div>
-                        <div className="db-title-add-button" onClick={() => hrefAddDatabases()}>新建数据库</div>
+                        <div className="db-title-add-button" onClick={openAddDatabases}>新建数据库</div>
                     </div>
                     <div className="db-type-search">
                         <div className="db-type">
                             {
                                 availabilityTab.map(item => {
                                     return <div
-                                        className={`db-type-text ${state === item.key ? "db-type-text-button-color" : ""}`}
+                                        className={`db-type-text ${dbTab === item.key ? "db-type-text-button-color" : ""}`}
                                         key={item.key}
                                         onClick={() => checkTab(item.key)}
                                     >
@@ -195,13 +231,18 @@ const Databases = (props) => {
                             }
                         </div>
                         <div>
-                            <Input
+                            <SearchInput {...props}
+                                         placeholder={"数据源名称"}
+                                         onChange={(event) => searchDbName(event)}
+                                         onPressEnter={onSearch}
+                            />
+                         {/*   <Input
                                 placeholder="数据源名称"
                                 className="box-configuration-body-search"
                                 onPressEnter={(event) => searchDbName(event)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
-                            />
+                            />*/}
                         </div>
                     </div>
                     <div className="db-table">
@@ -209,19 +250,22 @@ const Databases = (props) => {
                             rowKey={record => record.id}
                             columns={columns}
                             className="custom-table"
-                            dataSource={dbPage}
-                            onChange={changePage}
-
-                            pagination={{
-                                position: ["bottomCenter"],
-                                total: total,
-                                showSizeChanger: true,
-                                pageSize: searchCondition.pageParam.pageSize,
-                                current: searchCondition.pageParam.currentPage,
-                            }}
+                            dataSource={dbList}
+                            pagination={false}
+                        />
+                        <Page pageCurrent={currentPage}
+                              changPage={changePage}
+                              totalPage={totalPage}
+                              totalRecord={totalRecord}
+                              refresh={refreshFind}
                         />
                     </div>
                 </div>
+                <DataBaseCompilePop visible={visible}
+                                    setVisible={setVisible}
+                                    dataBase={dataBase}
+                                    setDataBase={setDataBase}
+                />
             </Col>
         </Row>
     );

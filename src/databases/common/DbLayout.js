@@ -18,7 +18,7 @@ const DbLayout = (props) => {
             >
                 <ConfigHeader/>
                 {
-                    pathname.includes("/configs/")||pathname.includes("/dbSetting/") ?
+                    pathname.includes("/setting/") ?
                         <div>
                             {renderRoutes(route.routes)}
                         </div>:

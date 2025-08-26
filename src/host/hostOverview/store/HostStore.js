@@ -1,5 +1,6 @@
 import {action, observable} from "mobx";
 import {Service} from "../../../common/utils/requset";
+import {message} from "antd";
 
 export class HostStore{
 
@@ -54,7 +55,20 @@ export class HostStore{
         this.hostDynamicList = resData.data;
         return resData.data;
     }
+    //删除主机
+    @action
+    deleteHostById = async (id) => {
+        const params = new FormData();
+        params.append("id", id)
+        const data = await Service("/hostList/deleteHostById", params)
+        if (data.code===0){
+            this.refresh=!this.refresh
+            return data
+        }else {
+            message.error(data.msg)
+        }
 
+    }
 }
 
 const hostStore = new HostStore();

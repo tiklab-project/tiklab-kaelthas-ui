@@ -4,30 +4,31 @@ import {withRouter} from "react-router-dom";
 import internetStore from "../internetPage/store/InternetStore";
 import alarmPageStore from "../../alarm/alarmPage/store/AlarmPageStore";
 import {observer} from "mobx-react";
+import Dropdowns from "../../common/Dropdown/Dropdowns";
+import InternetCompilePop from "./InternetCompilePop";
 
 const InConfigHeader = (props) => {
     const {match:{params},location:{pathname}} = props;
-    const {updateInternet,findInternetById,internetData} = internetStore;
-
+    const {refresh,findInternetById,internetData,deleteInternet} = internetStore;
     const {findAlarmNumByCondition} = alarmPageStore
 
-
     let internetId = params.id;
-
 
     const [alarmNum, setAlarmNum] = useState(0);
     const [url,setUrl]=useState()
 
+    const [internet,setInternet] = useState(null)
+    const [visible,setVisible] = useState(false)
+
+
     useEffect(async () => {
-        if (pathname.includes("/configs/")){
-            setUrl( `/internet/${internetId}/configs/monitor`)
-        }else if(pathname.includes("/inSetting/")){
-            setUrl( `/internet/${internetId}/inSetting/inProject`)
-        } else {
+        if (pathname.includes("/setting/")){
+            setUrl( `/internet/${internetId}/setting/monitor`)
+        }else {
             setUrl(pathname)
         }
         findInternetById(params.id)
-    }, [pathname]);
+    }, [refresh,pathname]);
 
 
     useEffect(async () => {
@@ -62,16 +63,9 @@ const InConfigHeader = (props) => {
             encoded: "internetAlarm",
         },
         {
-            name: '配置',
-            icon: 'configuration',
-            url: `/internet/${internetId}/configs/monitor`,
-            key: "configuration",
-            encoded: "configuration",
-        },
-        {
             name: '设置',
             icon: 'setting',
-            url: `/internet/${internetId}/inSetting/inProject`,
+            url: `/internet/${internetId}/setting/monitor`,
             key: "setting",
             encoded: "setting",
         },
@@ -79,6 +73,18 @@ const InConfigHeader = (props) => {
 
     function goBackHost() {
         props.history.push("/internet")
+    }
+
+    //打开更新弹窗
+    const openUpdate = (value) => {
+        setVisible(true)
+        setInternet(value)
+    }
+
+    const deleteData = (id) => {
+        deleteInternet(id).then(res=>{
+            res.code===0&& props.history.push(`/internet`);
+        })
     }
 
     return (
@@ -92,6 +98,17 @@ const InConfigHeader = (props) => {
                     <span style={{fontSize: 16}}>
                                         网络 / {internetData?.name}
                                     </span>
+                </div>
+            </div>
+            <div className='in-topMenu-more'>
+                <div className='in-topMenu-b'>
+                    <Dropdowns {...props}
+                               goPage={openUpdate}
+                               value={internetData}
+                               type={"data"}
+                               deleteMethod={deleteData}
+                               size={25}
+                    />
                 </div>
             </div>
             <div className="in-config-right">
@@ -120,6 +137,11 @@ const InConfigHeader = (props) => {
                     })
                 }
             </div>
+            <InternetCompilePop visible={visible}
+                                setVisible={setVisible}
+                                internet={internet}
+                                setInternet={setInternet}
+            />
         </div>
     );
 };

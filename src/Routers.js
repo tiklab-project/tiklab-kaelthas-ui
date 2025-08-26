@@ -2,7 +2,6 @@ import React from "react";
 import AsyncComponent from "./common/lazy/AsyncComponent";
 import {Redirect} from "react-router-dom";
 import {
-    MessageNotice,
     MessageType,
     ProjectMessageNotice,
     DomainMessageNotice,
@@ -18,97 +17,112 @@ import {
 
 import {ProductAuth} from "tiklab-licence-ui";
 import {ExcludeProductUser} from "tiklab-eam-ui";
-import {SystemFeature, ProjectFeature, SystemRole, ProjectRole, ProjectVirtualRole} from "tiklab-privilege-ui";
-import {Orga, User, UserGroup, Directory} from "tiklab-user-ui";
+import {SystemFeature, ProjectFeature, ProjectRole, ProjectVirtualRole} from "tiklab-privilege-ui";
 import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
 
-const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
-const Host = AsyncComponent(() => import( "./host/common/components/HostLayout"))
-const Monitor = AsyncComponent(() => import( "./host/config/monitor/components/Monitor"))
-const Trigger = AsyncComponent(() => import( "./host/config/trigger/components/Trigger"))
-const Template = AsyncComponent(() => import( "./host/config/template/components/Template"))
-const Setting = AsyncComponent(() => import( "./host/setting/common/SettingLayout"))
-const Graphics = AsyncComponent(() => import( "./host/config/graphics/components/Graphics"))
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
 const HomePage = AsyncComponent(() => import('./home/components/HomePage'))
 const Home = AsyncComponent(() => import('./common/layout/Home'))
+const SysException = AsyncComponent(() => import('./login/SysExceptionContent'))
+const LoginRpw = AsyncComponent(() => import('./login/LoginRpwContent'))
+const RequestErrorContent = AsyncComponent(() => import('./login/RequestErrorContent'))
+
+//主机
+const Configuration = AsyncComponent(() => import( "./host/hostPage/components/Host"))
+const Host = AsyncComponent(() => import( "./host/common/components/HostLayout"))
+const Monitor = AsyncComponent(() => import( "./host/setting/monitor/components/Monitor"))
+const Trigger = AsyncComponent(() => import( "./host/setting/trigger/components/Trigger"))
+const Template = AsyncComponent(() => import( "./host/setting/template/components/Template"))
+
+const SettingTabs = AsyncComponent(() => import( "./host/setting/common/SettingTabs"))
+const Graphics = AsyncComponent(() => import( "./host/setting/graphics/components/Graphics"))
 const HostDetails = AsyncComponent(() => import('./host/hostOverview/components/HostDetails'))
 const HostDynamic = AsyncComponent(() => import('./host/hostOverview/components/HostDynamic'))
 const ProjectInformation = AsyncComponent(() => import('./host/setting/project/components/ProjectInformation'))
-const Member = AsyncComponent(() => import('./host/setting/member/Member'))
-const Permissions = AsyncComponent(() => import('./host/setting/permissions/Permissions'))
-const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
-const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
-const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
-const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
+const Member = AsyncComponent(() => import('./host/setting/element/Member'))
+const HostRole = AsyncComponent(() => import('./host/setting/element/HostRole'))
+const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
 const MonitoringLayout = AsyncComponent(() => import('./host/monitoring/components/MonitorGraphics'))
-const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
 const AddHost = AsyncComponent(() => import('./host/hostPage/components/AddHost'))
-const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
-const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
 
-const HostConfiguration = AsyncComponent(() => import('./host/config/common/Configuration'))
+//数据库
 const Databases = AsyncComponent(() => import('./databases/databasesPage/components/Databases'))
 const DatabasesLayout = AsyncComponent(() => import('./databases/common/DbLayout'))
 const AddDatabases = AsyncComponent(() => import('./databases/databasesPage/components/AddDatabases'))
-const HostAlarm = AsyncComponent(() => import('./host/hostAlarm/components/HostAlarm'))
-
 const DbDetails = AsyncComponent(() => import ('./databases/dbDetails/components/DbDetails'))
 const DBMonitoring = AsyncComponent(() => import ('./databases/dbMonitoring/components/DbMonitorGraphics'))
 const DBAlarm = AsyncComponent(() => import ('./databases/dbAlarm/components/DBAlarm'))
-const HostConfigs = AsyncComponent(() => import ('./databases/configs/common/Configs'))
-
-const DBMonitor = AsyncComponent(() => import('./databases/configs/monitor/components/DbMonitor'))
-const DBTrigger = AsyncComponent(() => import('./databases/configs/trigger/components/DbTrigger'))
-const DBTemplate = AsyncComponent(() => import('./databases/configs/template/components/Template'))
-const DBGraphics = AsyncComponent(() => import('./databases/configs/dbGraphics/components/DbGraphics'))
-const DBCustomize = AsyncComponent(() => import('./databases/configs/customize/components/Customize'))
-
-const DbSetting = AsyncComponent(() => import('./databases/setting/common/DbSetting'))
+const DBMonitor = AsyncComponent(() => import('./databases/setting/monitor/components/DbMonitor'))
+const DBTrigger = AsyncComponent(() => import('./databases/setting/trigger/components/DbTrigger'))
+const DBTemplate = AsyncComponent(() => import('./databases/setting/template/components/Template'))
+const DBGraphics = AsyncComponent(() => import('./databases/setting/dbGraphics/components/DbGraphics'))
+const DBCustomize = AsyncComponent(() => import('./databases/setting/customize/components/Customize'))
+const DbSettingTabs= AsyncComponent(() => import('./databases/setting/common/SettingTabs'))
 const DbProject = AsyncComponent(() => import('./databases/setting/dbProject/components/DbProject'))
-const DbMember = AsyncComponent(() => import('./databases/setting/dbMember/DbMember'))
-const DbPermissions = AsyncComponent(() => import('./databases/setting/permissions/DbPermissions'))
+const DbMember = AsyncComponent(() => import('./databases/setting/element/DbMember'))
+const DbRole = AsyncComponent(() => import('./databases/setting/element/DbRole'))
 
-
+//k8s
 const Kubernetes = AsyncComponent(() => import('./k8s/kuPage/components/Kubernetes'))
 const AddKubernetes = AsyncComponent(() => import('./k8s/kuPage/components/AddKubernetes'))
 const KubernetesLayout = AsyncComponent(() => import('./k8s/common/KubernetesLayout'))
 const KuOverview = AsyncComponent(() => import('./k8s/overview/components/KuOverview'))
-
 const KuMonitoring = AsyncComponent(() => import('./k8s/kuMonitoring/components/KuMonitorGraphics'))
-const KuConfigs = AsyncComponent(() => import('./k8s/configs/common/KuConfigs'))
-const KuMonitor = AsyncComponent(() => import('./k8s/configs/monitor/components/KuMonitor'))
-const KuGraphics = AsyncComponent(() => import('./k8s/configs/graphics/components/KuGraphics'))
-const KuTrigger = AsyncComponent(() => import('./k8s/configs/trigger/components/KuTrigger'))
+const KuMonitor = AsyncComponent(() => import('./k8s/setting/monitor/components/KuMonitor'))
+const KuGraphics = AsyncComponent(() => import('./k8s/setting/graphics/components/KuGraphics'))
+const KuTrigger = AsyncComponent(() => import('./k8s/setting/trigger/components/KuTrigger'))
 const KuAlarm = AsyncComponent(() => import('./k8s/kuAlarm/components/KuAlarm'))
-
-const KuSetting = AsyncComponent(() => import('./k8s/setting/common/KuSetting'))
+const KuSettingTabs = AsyncComponent(() => import('./k8s/setting/common/SettingTabs'))
 const KuProject = AsyncComponent(() => import('./k8s/setting/kuProject/components/KuProject'))
-const KuMember = AsyncComponent(() => import('./k8s/setting/kuMember/KuMember'))
-const KuPermissions = AsyncComponent(() => import('./k8s/setting/kuPermissions/KuPermissions'))
+const KuMember = AsyncComponent(() => import('./k8s/setting/element/KuMember'))
+const KuRole = AsyncComponent(() => import('./k8s/setting/element/KuRole'))
 
 
+
+//网络
 const Internet = AsyncComponent(() => import('./Internet/internetPage/components/Internet'))
 const AddInternet = AsyncComponent(() => import('./Internet/internetPage/components/AddInternet'))
+const UpdateInternet = AsyncComponent(() => import('./Internet/internetPage/components/UpdateInternet'))
+
 const InternetLayout = AsyncComponent(() => import('./Internet/common/InternetLayout'))
 const InternetOverview = AsyncComponent(() => import('./Internet/internetOverview/components/InternetOverview'))
 const InternetMonitoring = AsyncComponent(() => import('./Internet/monitoring/components/MonitorGraphics'))
 const InternetAlarm = AsyncComponent(() => import('./Internet/internetAlarm/components/InAlarm'))
-const InternetConfigs = AsyncComponent(() => import('./Internet/config/common/InternetConfig'))
-const InternetMonitor = AsyncComponent(() => import('./Internet/config/monitor/components/InMonitor'))
-const InternetTrigger = AsyncComponent(() => import('./Internet/config/trigger/components/InTrigger'))
-const InternetGraphics = AsyncComponent(() => import('./Internet/config/graphics/components/Graphics'))
-const InternetSetting = AsyncComponent(() => import('./Internet/setting/common/SettingLayout'))
-const InternetProject = AsyncComponent(() => import('./Internet/setting/projectInformation/components/ProjectInformation'))
-const InternetMember = AsyncComponent(() => import('./Internet/setting/member/Member'))
-const InternetPermissions = AsyncComponent(() => import('./Internet/setting/permissions/Permissions'))
-const SysException = AsyncComponent(() => import('./login/SysExceptionContent'))
-const LoginRpw = AsyncComponent(() => import('./login/LoginRpwContent'))
+const InternetMonitor = AsyncComponent(() => import('./Internet/setting/monitor/components/InMonitor'))
+const InternetTrigger = AsyncComponent(() => import('./Internet/setting/trigger/components/InTrigger'))
+const InternetGraphics = AsyncComponent(() => import('./Internet/setting/graphics/components/Graphics'))
 
+const InternetSettingTabs = AsyncComponent(() => import('./Internet/setting/common/SettingTabs'))
+const InternetProject = AsyncComponent(() => import('./Internet/setting/projectInformation/components/ProjectInformation'))
+const InternetMember = AsyncComponent(() => import('./Internet/setting/element/Member'))
+const InRole = AsyncComponent(() => import('./Internet/setting/element/InRole'))
+
+
+//系统设置
+const GlobalSettings = AsyncComponent(() => import('./setting/common/GlobalSettingLayout'))
+const GlobalSettingsTemplate = AsyncComponent(() => import('./setting/template/components/TemplateSetting'))
+const TemplateMonitor = AsyncComponent(() => import('./setting/template/components/TemplateSettingMonitorList'))
+const HostGroup = AsyncComponent(() => import('./setting/hostGroup/components/HostGroup'))
+const AlarmPage = AsyncComponent(() => import('./alarm/alarmPage/components/AlarmPage'))
+const SettingHome = AsyncComponent(() => import('./setting/home/component/SettingHome'))
+const VersionContent = AsyncComponent(() => import('./setting/version/VersionContent'))
+
+//系统平台组件
+const User=AsyncComponent(()=>import("./setting/element/User"))
+const Directory=AsyncComponent(()=>import("./setting/element/Directory"))
+const Orga=AsyncComponent(()=>import("./setting/element/Orga"))
+const UserGroup=AsyncComponent(()=>import("./setting/element/Group"))
+const SystemRole=AsyncComponent(()=>import('./setting/element/SystemRole'))
+
+//消息
+const MessageContent =AsyncComponent(()=>import('./setting/element/MessageContent'))
+//设置-消息通知方案
+const MessageNotice =AsyncComponent(()=>import('./setting/element/MessageNotice'))
+//设置-消息发送方式
+const MessagesendType =AsyncComponent(()=>import('./setting/element/MessagesendType'))
 
 const Routes = [
-
 
     {
         path: "/login",
@@ -124,6 +138,11 @@ const Routes = [
         path: "/logout",
         exact: true,
         component: Logout,
+    },
+    {
+        path:'/requestError',
+        exact:true,
+        component:RequestErrorContent,
     },
     {
         path: "/noAuth",
@@ -193,7 +212,6 @@ const Routes = [
                 exact: true,
                 component: AddKubernetes,
             },
-
             {
                 path: "/internet",
                 exact: true,
@@ -204,7 +222,11 @@ const Routes = [
                 exact: true,
                 component: AddInternet,
             },
-
+            {
+                path: "/internet/update/:id",
+                exact: true,
+                component: UpdateInternet,
+            },
             {
                 path: "/setting",
                 component: GlobalSettings,
@@ -233,70 +255,51 @@ const Routes = [
                         path: "/setting/orga",
                         key: "department",
                         exact: true,
-                        render: (props) => <Orga
-                            {...props}
-                            bgroup={"kaelthas"}
-                        />
+                        component: Orga,
                     },
                     {
                         path: "/setting/userGroup",
                         key: "userGroup",
                         exact: true,
-                        render: (props) => <UserGroup
-                            {...props}
-                            bgroup={"kaelthas"}
-                            isBase={true}
-                        />
+                        component: UserGroup,
                     },
                     {
                         path: "/setting/user",
                         key: "user",
                         exact: true,
-                        render: (props) => <User
-                            {...props}
-                            bgroup={"kaelthas"}
-                        />
+                        component: User,
                     },
                     {
                         path: "/setting/dir",
                         key: "directory",
                         exact: true,
-                        render: (props) => <Directory
-                            {...props}
-                            bgroup={"kaelthas"}
-                        />
+                        component: Directory,
                     },
                     {
                         path: "/setting/systemRole",
                         key: "systemRole",
                         exact: true,
-                        render: (props) => <SystemRole {...props} bgroup={"kaelthas"}/>
+                        component: SystemRole,
                     },
-
-
-                    //消息
+                    {
+                        path: "/setting/message",
+                        key: 'message',
+                        component: MessageContent,
+                    },
                     {
                         path: "/setting/messageNotice",
                         key: 'MessageNotice',
-                        render: () => <MessageNotice bgroup={"kaelthas"} />
+                        component: MessageNotice,
                     },
                     {
                         path: "/setting/messageSendType",
                         key: 'MessageSendType',
-                        render: () => <MessageSendType bgroup={"kaelthas"}/>
+                        component: MessagesendType,
                     },
 
 
-                    {
-                        path: "/setting/ProjectMessageNotice",
-                        key: 'ProjectMessageNotice',
-                        render: () => <ProjectMessageNotice bgroup={"kaelthas"}/>
-                    },
-                    {
-                        path: "/setting/DomainMessageNotice",
-                        key: 'DomainMessageNotice',
-                        render: () => <DomainMessageNotice bgroup={"kaelthas"}/>
-                    },
+
+                   //基础路由
                     {
                         path: "/setting/TodoTemp",
                         key: 'TodoTemp',
@@ -307,8 +310,6 @@ const Routes = [
                         key: 'TodoType',
                         render: () => <TodoType bgroup={"kaelthas"}/>
                     },
-
-
                     {
                         path: "/setting/systemFeature",
                         key: 'SystemFeature',
@@ -454,33 +455,7 @@ const Routes = [
                         exact: false,
                         component: HostDynamic,
                     },
-                    {
-                        path: "/host/:id/config",
-                        exact: false,
-                        component: HostConfiguration,
-                        routes: [
-                            {
-                                path: "/host/:id/config/monitor",
-                                exact: false,
-                                component: Monitor,
-                            },
-                            {
-                                path: "/host/:id/config/trigger",
-                                exact: false,
-                                component: Trigger,
-                            },
-                            {
-                                path: "/host/:id/config/template",
-                                exact: false,
-                                component: Template,
-                            },
-                            {
-                                path: "/host/:id/config/graphics",
-                                exact: false,
-                                component: Graphics,
-                            },
-                        ]
-                    },
+
                     {
                         path: "/host/:id/monitoring",
                         component: MonitoringLayout,
@@ -491,27 +466,47 @@ const Routes = [
                         component: HostAlarm,
                     },
                     {
-                        path: "/host/:id",
-                        component: Setting,
+                        path: "/host/:id/setting",
+                        exact: false,
+                        component: SettingTabs,
                         routes: [
                             {
-                                path: "/host/:id/ProjectInformation",
+                                path: "/host/:id/setting/ProjectInformation",
                                 exact: true,
                                 component: ProjectInformation,
                             },
                             {
-                                path: "/host/:id/member",
+                                path: "/host/:id/setting/member",
                                 key: 'member',
                                 exact: true,
                                 component: Member,
                             },
                             {
-                                path: "/host/:id/permissions",
+                                path: "/host/:id/setting/hostRole",
                                 key: 'permissions',
                                 exact: true,
-                                component: Permissions,
+                                component: HostRole,
                             },
-
+                            {
+                                path: "/host/:id/setting/monitor",
+                                exact: false,
+                                component: Monitor,
+                            },
+                            {
+                                path: "/host/:id/setting/trigger",
+                                exact: false,
+                                component: Trigger,
+                            },
+                            {
+                                path: "/host/:id/setting/template",
+                                exact: false,
+                                component: Template,
+                            },
+                            {
+                                path: "/host/:id/setting/graphics",
+                                exact: false,
+                                component: Graphics,
+                            },
                         ]
                     },
                 ]
@@ -532,38 +527,6 @@ const Routes = [
                         component: HostDynamic,
                     },
                     {
-                        path: "/db/:id/configs",
-                        exact: false,
-                        component: HostConfigs,
-                        routes: [
-                            {
-                                path: "/db/:id/configs/monitor",
-                                exact: false,
-                                component: DBMonitor,
-                            },
-                            {
-                                path: "/db/:id/configs/trigger",
-                                exact: false,
-                                component: DBTrigger,
-                            },
-                            {
-                                path: "/db/:id/configs/customize",
-                                exact: false,
-                                component: DBCustomize,
-                            },
-                            {
-                                path: "/db/:id/configs/template",
-                                exact: false,
-                                component: DBTemplate,
-                            },
-                            {
-                                path: "/db/:id/configs/dbGraphics",
-                                exact: false,
-                                component: DBGraphics,
-                            },
-                        ]
-                    },
-                    {
                         path: "/db/:id/monitoring",
                         component: DBMonitoring,
                     },
@@ -573,25 +536,50 @@ const Routes = [
                         component: DBAlarm,
                     },
                     {
-                        path: "/db/:id/dbSetting",
-                        component: DbSetting,
+                        path: "/db/:id/setting",
+                        component: DbSettingTabs,
                         routes: [
                             {
-                                path: "/db/:id/dbSetting/dbProject",
+                                path: "/db/:id/setting/dbProject",
                                 exact: true,
                                 component: DbProject,
                             },
                             {
-                                path: "/db/:id/dbSetting/dbMember",
+                                path: "/db/:id/setting/dbMember",
                                 key: 'dbMember',
                                 exact: true,
                                 component: DbMember,
                             },
                             {
-                                path: "/db/:id/dbSetting/dbPermissions",
+                                path: "/db/:id/setting/DbRole",
                                 key: 'permissions',
                                 exact: true,
-                                component: DbPermissions,
+                                component: DbRole,
+                            },
+                            {
+                                path: "/db/:id/setting/monitor",
+                                exact: false,
+                                component: DBMonitor,
+                            },
+                            {
+                                path: "/db/:id/setting/trigger",
+                                exact: false,
+                                component: DBTrigger,
+                            },
+                            {
+                                path: "/db/:id/setting/customize",
+                                exact: false,
+                                component: DBCustomize,
+                            },
+                            {
+                                path: "/db/:id/setting/template",
+                                exact: false,
+                                component: DBTemplate,
+                            },
+                            {
+                                path: "/db/:id/setting/graphics",
+                                exact: false,
+                                component: DBGraphics,
                             },
 
                         ]
@@ -617,48 +605,42 @@ const Routes = [
                         exact: true,
                         component: KuAlarm,
                     },
-                    {
-                        path: "/kubernetes/:id/configs",
-                        component: KuConfigs,
-                        routes: [
-                            {
-                                path: "/kubernetes/:id/configs/monitor",
-                                exact: true,
-                                component: KuMonitor,
-                            },
-                            {
-                                path: "/kubernetes/:id/configs/trigger",
-                                exact: true,
-                                component: KuTrigger,
-                            },
-                            {
-                                path: "/kubernetes/:id/configs/graphics",
-                                exact: true,
-                                component: KuGraphics,
-                            },
-                        ]
-                    },
 
                     {
-                        path: "/kubernetes/:id/kuSetting",
-                        component: KuSetting,
+                        path: "/kubernetes/:id/setting",
+                        component: KuSettingTabs,
                         routes: [
                             {
-                                path: "/kubernetes/:id/kuSetting/kuProject",
+                                path: "/kubernetes/:id/setting/kuProject",
                                 exact: true,
                                 component: KuProject,
                             },
                             {
-                                path: "/kubernetes/:id/kuSetting/kuMember",
+                                path: "/kubernetes/:id/setting/kuMember",
                                 key: 'kuMember',
                                 exact: true,
                                 component: KuMember,
                             },
                             {
-                                path: "/kubernetes/:id/kuSetting/kuPermissions",
+                                path: "/kubernetes/:id/setting/kuRole",
                                 key: 'permissions',
                                 exact: true,
-                                component: KuPermissions,
+                                component: KuRole,
+                            },
+                            {
+                                path: "/kubernetes/:id/setting/monitor",
+                                exact: true,
+                                component: KuMonitor,
+                            },
+                            {
+                                path: "/kubernetes/:id/setting/trigger",
+                                exact: true,
+                                component: KuTrigger,
+                            },
+                            {
+                                path: "/kubernetes/:id/setting/graphics",
+                                exact: true,
+                                component: KuGraphics,
                             },
                         ]
                     },
@@ -685,46 +667,40 @@ const Routes = [
                         component: InternetAlarm,
                     },
                     {
-                        path: "/internet/:id/configs",
-                        component: InternetConfigs,
+                        path: "/internet/:id/setting",
+                        component: InternetSettingTabs,
                         routes: [
                             {
-                                path: "/internet/:id/configs/monitor",
-                                exact: true,
-                                component: InternetMonitor,
-                            },
-                            {
-                                path: "/internet/:id/configs/trigger",
-                                exact: true,
-                                component: InternetTrigger,
-                            },
-                            {
-                                path: "/internet/:id/configs/graphics",
-                                exact: true,
-                                component: InternetGraphics,
-                            },
-                        ]
-                    },
-                    {
-                        path: "/internet/:id/inSetting",
-                        component: InternetSetting,
-                        routes: [
-                            {
-                                path: "/internet/:id/inSetting/inProject",
+                                path: "/internet/:id/setting/inProject",
                                 exact: true,
                                 component: InternetProject,
                             },
                             {
-                                path: "/internet/:id/inSetting/inMember",
+                                path: "/internet/:id/setting/inMember",
                                 key: 'inMember',
                                 exact: true,
                                 component: InternetMember,
                             },
                             {
-                                path: "/internet/:id/inSetting/inPermissions",
+                                path: "/internet/:id/setting/inRole",
                                 key: 'permissions',
                                 exact: true,
-                                component: InternetPermissions,
+                                component: InRole,
+                            },
+                            {
+                                path: "/internet/:id/setting/monitor",
+                                exact: true,
+                                component: InternetMonitor,
+                            },
+                            {
+                                path: "/internet/:id/setting/trigger",
+                                exact: true,
+                                component: InternetTrigger,
+                            },
+                            {
+                                path: "/internet/:id/setting/graphics",
+                                exact: true,
+                                component: InternetGraphics,
                             },
                         ]
                     },

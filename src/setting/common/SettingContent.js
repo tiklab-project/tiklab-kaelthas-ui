@@ -108,7 +108,7 @@ const SettingContent = props => {
     // 树的展开与闭合
     const [expandedTree, setExpandedTree] = useState([""])
 
-    const li = ['/setting/orga', '/setting/user', '/setting/userGroup', '/setting/dir'];
+    const li = ['/setting/orga', '/setting/element', '/setting/userGroup', '/setting/dir','/setting/user'];
     const authConfig = JSON.parse(localStorage.getItem("authConfig"));
     const isUnify = data => {
         if (!authConfig?.authType) {

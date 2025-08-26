@@ -4,25 +4,98 @@ import {SearchOutlined} from "@ant-design/icons";
 import "./Kubernetes.scss"
 import kubernetesStore from "../store/KubernetesStore";
 import {observer} from "mobx-react";
+import SearchInput from "../../../common/input/SearchInput";
+import Page from "../../../common/page/Page";
+import Dropdowns from "../../../common/Dropdown/Dropdowns";
+import KuCompilePop from "../../common/KuCompilePop";
 
+const availabilityTab = [
+    {title: '全部', key: 2, icon: "allHost"},
+    {title: '可用', key: 1, icon: "availableHost"},
+    {title: '不可用', key: 0, icon: "noAvailableHost"}];
 const Kubernetes = (props) => {
 
-    const {
-        findKbInfoPage,
-        kbPage,
-        setSearchCondition,
-        searchCondition,
-        total,
-        updateKbInfo,
-        setNullCondition
-    } = kubernetesStore;
+    const {refresh,findKbInfoPage, deleteKuInfo} = kubernetesStore;
 
-    const [kuStatus, setKuStatus] = useState(2);
+
+    const [kubTab, setKubTab] = useState(2);
+
+    //搜索主机的名字
+    const [kubName,setKubName]=useState(null)
+    //主机list
+    const [kubList,setKubList]=useState([])
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalPage,setTotalPage]=useState()
+    const [totalRecord,setTotalRecord]=useState()
+    const [pageSize]=useState(15)
+
+    const [kubData,setKubData] = useState(null)
+    const [visible,setVisible] = useState(false)
+
 
     useEffect(async () => {
-        setNullCondition();
-        await findKbInfoPage();
-    }, []);
+
+        findKubPage(currentPage,kubTab,kubName)
+    }, [refresh]);
+
+
+    //分页查询K8s
+    const findKubPage = (currentPage,usability,name) => {
+        let state;
+        if (usability!==2){
+            state=usability
+        }
+        findKbInfoPage({pageParam:{currentPage:currentPage, pageSize:pageSize},
+            name:name,
+            usability:state}).then(res=>{
+                setKubList(res.data.dataList)
+                setTotalPage(res.data.totalPage)
+                setCurrentPage(res.data.currentPage)
+                setTotalRecord(res.data.totalRecord)
+        })
+    }
+
+    //切换tab
+    const checkTab = async (value) => {
+        setKubTab(value)
+        findKubPage(1,value,kubName)
+    };
+
+    //K8s名字查询
+    const searchKubernetesName = (e) => {
+        const name = e.target.value;
+        setKubName(name)
+        if (name===''){
+            setCurrentPage(1)
+            findKubPage(1,kubTab)
+        }
+    }
+    const onSearch = () => {
+        setCurrentPage(1)
+        findKubPage(1,kubTab,kubName)
+    }
+
+    //分页查询
+    const changePage = async (value) => {
+        setCurrentPage(value)
+        findKubPage(value,kubTab,kubName)
+    };
+
+    //刷新
+    const refreshFind = () => {
+        findKubPage(currentPage,kubTab,kubName)
+    }
+
+    //打开更新的弹窗
+    const openUpdate = (value) => {
+        setVisible(true)
+        setKubData(value)
+    }
+
+    //打开创建的弹窗
+    function createKubernetes() {
+        setVisible(true)
+    }
 
     async function hrefDatabases(record) {
         const now = new Date();
@@ -39,23 +112,7 @@ const Kubernetes = (props) => {
         props.history.push(`/kubernetes/${record.id}/kuOverview`);
     }
 
-    const availabilityTab = [
-        {
-            title: '全部',
-            key: 2,
-            icon: "allHost"
-        },
-        {
-            title: '可用',
-            key: 1,
-            icon: "availableHost"
-        },
-        {
-            title: '不可用',
-            key: 0,
-            icon: "noAvailableHost"
-        }
-    ];
+
 
     const columns = [
         {
@@ -87,7 +144,22 @@ const Kubernetes = (props) => {
             title: '创建时间',
             dataIndex: 'createTime',
             key: 'createTime',
-        },
+        }, {
+            title:'操作',
+            dataIndex: 'action',
+            width:'5%',
+            key: 'action',
+            render:(text,record)=>(
+                <Dropdowns {...props}
+                           goPage={openUpdate}
+                           value={record}
+                           deleteMethod={deleteKuInfo}
+                           size={18}
+                           type={"kubernetes"}
+                />
+            )
+        }
+
 
     ];
 
@@ -130,37 +202,7 @@ const Kubernetes = (props) => {
 
     }
 
-    function createKubernetes() {
-        props.history.push('/kubernetes/addKubernetes');
-    }
 
-    function searchKubernetesName(event) {
-
-    }
-
-    const changePage = async (pagination, filters, sorter) => {
-
-        setSearchCondition({
-            pageParam: {
-                currentPage: pagination.current,
-                pageSize: pagination.pageSize,
-            }
-        })
-
-        await findKbInfoPage();
-    };
-
-    async function checkTab(key) {
-        setKuStatus(key);
-        if (key === 2) {
-            key = null
-        }
-        setSearchCondition({
-            usability: key,
-            name: null
-        })
-        await findKbInfoPage();
-    }
 
     return (
         <Row className="kb-row">
@@ -176,7 +218,7 @@ const Kubernetes = (props) => {
                             {
                                 availabilityTab.map(item => {
                                     return <div
-                                        className={`ku-tabs-item ${kuStatus === item.key ? "ku-tabs-button" : ""}`}
+                                        className={`ku-tabs-item ${kubTab === item.key ? "ku-tabs-button" : ""}`}
                                         key={item.key}
                                         onClick={() => checkTab(item.key)}
                                     >
@@ -186,13 +228,18 @@ const Kubernetes = (props) => {
                             }
                         </div>
                         <div>
-                            <Input
+                            <SearchInput {...props}
+                                         placeholder={"Kubernetes名称"}
+                                         onChange={(event) => searchKubernetesName(event)}
+                                        onPressEnter={onSearch}
+                            />
+                        {/*    <Input
                                 placeholder="Kubernetes名称"
                                 className="kb-search"
                                 onPressEnter={(event) => searchKubernetesName(event)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
-                            />
+                            />*/}
                         </div>
                     </div>
                     <div className="kb-table">
@@ -200,19 +247,23 @@ const Kubernetes = (props) => {
                             rowKey={record => record.id}
                             columns={columns}
                             className="custom-table"
-                            dataSource={kbPage}
-                            onChange={changePage}
+                            dataSource={kubList}
+                            pagination={false}
+                        />
 
-                            pagination={{
-                                position: ["bottomCenter"],
-                                total: total,
-                                showSizeChanger: true,
-                                pageSize: searchCondition.pageParam.pageSize,
-                                current: searchCondition.pageParam.currentPage,
-                            }}
+                        <Page pageCurrent={currentPage}
+                              changPage={changePage}
+                              totalPage={totalPage}
+                              totalRecord={totalRecord}
+                              refresh={refreshFind}
                         />
                     </div>
                 </div>
+                <KuCompilePop  visible={visible}
+                               setVisible={setVisible}
+                               kubData={kubData}
+                               setKubData={setKubData}
+                />
             </Col>
         </Row>
     );

@@ -1,7 +1,7 @@
 import {Button, Modal, Form, Input, Select, AutoComplete, InputNumber} from 'antd';
 import React, {useEffect, useState} from 'react';
-import monitorStore from "../../../host/config/monitor/store/MonitorStore";
-import templateStore from "../../../host/config/template/store/TemplateStore";
+import monitorStore from "../../../host/setting/monitor/store/MonitorStore";
+import templateStore from "../../../host/setting/template/store/TemplateStore";
 import {withRouter} from "react-router";
 import templateSettingStore from "../store/TemplateSettingStore";
 import {observer} from "mobx-react";

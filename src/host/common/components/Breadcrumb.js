@@ -26,8 +26,6 @@ const Breadcrumb = (props) => {
                     secondText && <> &nbsp; / &nbsp; <span>{secondText}</span>
                     </>
                 }
-
-
             </div>
             {children}
         </div>

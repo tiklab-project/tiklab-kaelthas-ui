@@ -8,6 +8,7 @@ import moment from "moment";
 import {withRouter} from "react-router-dom";
 import ChangeViewChart from "../../../common/graphics/ChangeViewChart";
 import "./MonitorGraphics.scss"
+import {getCurrentTimeQua} from "../../../common/utils/Common";
 
 const {RangePicker} = DatePicker;
 
@@ -16,21 +17,19 @@ const dateFormat = 'YYYY-MM-DD HH:mm';
 
 const MonitorGraphics = (props) => {
     const {match:{params}} = props;
-    const {
-        setSearchCondition,
-        findInformationByGraphics,
-        condition,
-        setSearchNull,
-        getDateTime,
-    } = monitorLayoutStore;
+    const {setSearchCondition, findInformationByGraphics, condition, setSearchNull,setHostAlarmDate, hostAlarmDate} = monitorLayoutStore;
+
 
     const [pageStatus, setPageStatus] = useState(1);
+
+    const [selectedDates, setSelectedDates] = useState([]);
+
 
     useEffect(async () => {
         setSearchNull({
             hostId: params.id,
-            beginTime: getDateTime()[0],
-            endTime: getDateTime()[1]
+            beginTime: getCurrentTimeQua(hostAlarmDate)[0],
+            endTime: getCurrentTimeQua(hostAlarmDate)[1],
         })
 
         await findInformationByGraphics();
@@ -38,19 +37,11 @@ const MonitorGraphics = (props) => {
             dataCate: null,
             id: params.id
         })
+        setHostAlarmDate(null)
+        setSelectedDates([moment(getCurrentTimeQua(hostAlarmDate)[0], dateFormat), moment(getCurrentTimeQua(hostAlarmDate)[1], dateFormat)])
     }, []);
 
-    const onChange = async (value, dateString) => {
-        setSearchCondition({
-            beginTime: dateString[0] + ":00",
-            endTime: dateString[1] + ":00",
-        })
-        await findInformationByGraphics()
-        setSearchCondition({
-            beginTime: dateString[0] + ":00",
-            endTime: dateString[1] + ":00",
-        })
-    };
+
 
 
     async function checkTime(value) {
@@ -92,8 +83,8 @@ const MonitorGraphics = (props) => {
                 break
             case 9:
                 setSearchCondition({
-                    beginTime: getDateTime()[0],
-                    endTime: getDateTime()[1],
+                    beginTime: getCurrentTimeQua()[0],
+                    endTime: getCurrentTimeQua()[1],
                 })
                 await findInformationByGraphics();
                 // await findHistory();
@@ -101,23 +92,52 @@ const MonitorGraphics = (props) => {
         }
     }
 
+
+    const disabledDate = (current) => {
+        if (!selectedDates || selectedDates.length === 0) return false;
+
+        const referenceDate = selectedDates[0] || selectedDates[1];
+        return referenceDate ? !current.isSame(referenceDate, 'month') : false;
+    };
+    const onChange = async (value, dateString) => {
+        setSelectedDates(value)
+        setSearchCondition({
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
+        })
+        await findInformationByGraphics()
+        setSearchCondition({
+            beginTime: dateString[0] + ":00",
+            endTime: dateString[1] + ":00",
+        })
+    };
+    const handlePanelChange = (value) => {
+        setSelectedDates(value)
+    }
+
     return (
         <Provider>
-            <div className="details">
+            <div className="details ">
                 <div className="details-body">
                     <div className="details-breadcrumb-table">
                         <div className="details-table-title">
                             <div className="details-search">
-                                <div className="details-div">
+                                <div className="details-picker">
                                     <RangePicker
                                         format={dateFormat}
+                                        onPanelChange={handlePanelChange}
                                         onChange={onChange}
                                         showTime
-                                        defaultValue={[moment(getDateTime()[0], dateFormat), moment(getDateTime()[1], dateFormat)]}
+                                        value={selectedDates}
+                                        //defaultValue={[moment(getCurrentTimeQua(hostAlarmDate)[0], dateFormat), moment(getCurrentTimeQua(hostAlarmDate)[1], dateFormat)]}
+                                        bordered={false}
+                                        disabledDate={disabledDate}
+
                                     />
                                 </div>
-                                <div>
+                                <div >
                                     <Select
+                                        className='alarm-box-search'
                                         maxTagCount='responsive'
                                         placeholder="最近时间"
                                         onChange={(value) => checkTime(value)}

@@ -16,7 +16,7 @@ const AddHost = (props) => {
 
     const [form] = Form.useForm();
 
-    const {templateList, findTemplateAll, findHostGroup, hostGroupList, addHost, findPageHost} = hostStore;
+    const {templateList, findTemplateAll, findHostGroup, hostGroupList, addHost} = hostStore;
 
     useEffect(async () => {
         await findTemplateAll();
@@ -25,11 +25,8 @@ const AddHost = (props) => {
 
     const onFinish = async () => {
         const fields = await form.validateFields();
-
         fields.usability = 0;
         await addHost(fields);
-
-        await findPageHost()
         props.history.push('/host')
     };
 

@@ -30,7 +30,8 @@ const ProjectLayout = (props) => {
                 }
             </div>
             {
-                pathname.includes("/config/")|| pathname.includes("/configs/")?
+                pathname.includes("/setting/monitory")||pathname.includes("/setting/trigger")||pathname.includes("/setting/template")
+                || pathname.includes("/setting/graphics")||pathname.includes("/setting/monitor")||pathname.includes("/configs/")?
                     <div className='project-layout-data project-layout-pd'>
                         {renderRoutes(route.routes)}
                     </div>:

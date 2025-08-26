@@ -8,21 +8,23 @@ import {useHistory} from "react-router";
 import {getUser, productTitle, productImg, productWhiteImg} from "tiklab-core-ui";
 import PortalMessage from "./PortalMessage";
 import {
-    BellOutlined,
+    AlertOutlined,
+    BellOutlined, DownOutlined,
     LeftCircleOutlined,
     QuestionCircleOutlined,
     RightCircleOutlined,
-    SettingOutlined
+    SettingOutlined, UpOutlined
 } from "@ant-design/icons";
 
 import menuBlack from "../../assets/images/menu-black.png"
 import menuWhite from "../../assets/images/menu-white.png"
 import Profile from "../component/profile/Profile";
+import MonitNav from "./MonitNav";
 import MoreMenuModel from "./MoreMenuModal";
 
 const HomeLayout = (props) => {
 
-    const {HelpLink, AppLink, AvatarLink, systemRoleStore} = props;
+    const {HelpLink, AppLink, AvatarLink, systemRoleStore,customLogo} = props;
 
     const path = props.location.pathname;
 
@@ -47,6 +49,10 @@ const HomeLayout = (props) => {
 
     const [moreMenu, setMoreMenu] = useState()
 
+    //第二级导航栏
+    const [monitNavVisible,setMonitNavVisible]=useState(false)
+    const [childNav,setChildNav]=useState(false)
+
     const routers = [
         {
             name: '首页',
@@ -59,24 +65,37 @@ const HomeLayout = (props) => {
             key: 'alarm',
         },
         {
-            name: '主机',
-            url: '/host',
-            key: 'host',
+            name: '监控',
+            url: '/monit',
+            key: 'monit',
+            icon:<AlertOutlined  style={{fontSize:17}}/>,
+            children: [
+                {
+                    name: '主机',
+                    url: '/host',
+                    key: 'host',
+                },
+                {
+                    name: '数据库',
+                    url: '/db',
+                    key: 'db',
+                },
+                {
+                    name: 'k8s',
+                    url: '/kubernetes',
+                    key: 'kubernetes',
+                },
+                {
+                    name: '网络',
+                    url: '/internet',
+                    key: 'internet',
+                },
+            ]
         },
         {
-            name: '数据库',
-            url: '/db',
-            key: 'db',
-        },
-        {
-            name: 'k8s',
-            url: '/kubernetes',
-            key: 'kubernetes',
-        },
-        {
-            name: '网络',
-            url: '/internet',
-            key: 'internet',
+            name: '设置',
+            url: '/setting/home',
+            key: 'setting',
         },
     ];
 
@@ -129,9 +148,20 @@ const HomeLayout = (props) => {
     }
 
     const selectMenu = (url, key) => {
-        localStorage.setItem("url", url)
-        localStorage.setItem("menuKey", key)
-        props.history.push(url)
+        if (key==='monit'){
+            if (isExpand){
+                setChildNav(!childNav)
+            }else {
+                setMonitNavVisible(!monitNavVisible)
+            }
+
+
+        }else {
+            localStorage.setItem("url", url)
+            localStorage.setItem("menuKey", key)
+            //setMenuNav(key)
+            props.history.push(url)
+        }
     }
 
     const {getSystemPermissions} = systemRoleStore;
@@ -173,6 +203,37 @@ const HomeLayout = (props) => {
 
     }
 
+    //设置图标
+    const logoHtml = () => {
+        let image;
+        if (themeType==='default'||themeType==='gray'){
+            image=productImg.kaelthas
+        }else {
+            image=productWhiteImg.kaelthas;
+        }
+        return {
+            image: customLogo?.image ? customLogo.image : image,
+            name: customLogo?.name ? customLogo.name :  productTitle.kaelthas
+        };
+    };
+    const logoData = logoHtml();
+
+
+    const childItem = (data) => {
+        return data.map(item=>{
+            return (
+                <div className={`aside-item ${menuKey === item.key ? "aside-select" : ""}`}
+                     onClick={() => selectMenu(item.url, item.key)}
+                >
+                    <div className='aside-item-child'>
+                        {item.name}
+                    </div>
+
+                </div>
+            )
+        })
+    }
+
     function showMainMenu() {
         if (path.startsWith('/setting')) {
             return props.children
@@ -188,46 +249,78 @@ const HomeLayout = (props) => {
                         {
                             isExpand ?
                                 <>
-                                    <img src={themeType === 'default' ? productImg.kaelthas : productWhiteImg.kaelthas}
-                                         height={24} width={24} alt={''}/>
+                                    <img  src={logoData.image }  height={30} width={30}/>
                                     <div className='aside-logo-text'>{productTitle.kaelthas}</div>
                                 </>
                                 :
-                                <img src={themeType === 'default' ? productImg.kaelthas : productWhiteImg.kaelthas}
-                                     height={32} width={32} alt={''}/>
+                                <img  src={logoData.image }  height={30} width={30}/>
+
                         }
                     </div>
                     <div className="aside-up">
                         {
-                            projectRouter && projectRouter.map(item => (
-                                <div key={item.key}
-                                     className={`aside-item ${menuKey === item.key ? "aside-select" : ""}`}
-                                     onClick={() => selectMenu(item.url, item.key)}
-                                >
-                                    <div className="aside-item-icon">{item.icon}</div>
-                                    <svg className="host-svg-icon" aria-hidden="true">
-                                        <use xlinkHref={`#icon-${item.key}`}></use>
-                                    </svg>
-                                    <div
-                                        className={`aside-item-title ${isExpand ? "aside-item-title-left" : ""}`}>{item.name}</div>
-                                </div>
-                            ))
+                            routers && routers.map(item =>{
+                                return(
+                                    <div key={item.key}>
+                                        <div
+                                            className={`aside-item ${menuKey === item.key ? "aside-select" : ""}`}
+                                            onClick={() => selectMenu(item.url, item.key)}
+                                        >
+
+                                            {
+                                                item.icon?
+                                                    <div className="">{item.icon}</div>:
+                                                    <svg className="host-svg-icon" aria-hidden="true">
+                                                        <use xlinkHref={`#icon-${item.key}`}></use>
+                                                    </svg>
+                                            }
+
+                                            <div className={`aside-item-title ${isExpand ? "aside-item-title-left" : ""}`}>{item.name}</div>
+                                            {
+                                                isExpand&&item.key==='monit'&&
+                                                <div className='aside-item-title-icon'>
+                                                    {
+                                                        childNav ?
+                                                            <DownOutlined style={{fontSize: '10px'}}/> :
+                                                            <UpOutlined style={{fontSize: '10px'}}/>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+                                        {
+                                            isExpand&&childNav&&item.children&&childItem(item.children)
+                                        }
+                                    </div>
+
+                                )
+                            })
                         }
-                        {moreMenu && moreMenu.length > 0 && <MoreMenuModel
+
+                        {
+                            !isExpand&&
+                            <MonitNav {...props}
+                                      translateX={isExpand ? 200 : 75}
+                                      visible={monitNavVisible}
+                                      setVisible={setMonitNavVisible}
+                            />
+
+                        }
+
+                       {/* {moreMenu && moreMenu.length > 0 && <MoreMenuModel
                              moreMenu={moreMenu} morePath={morePath} theme={themeType} isExpand={isExpand} themeClass={themeClass}
-                        />}
+                        />}*/}
                     </div>
                     <div className="aside-bottom">
                         {
                             isExpand ?
                                 <>
-                                    <div
+                                  {/*  <div
                                         className={`aside-item`}
                                         onClick={() => history.push(`/setting/home`)}
                                     >
                                         <div className="aside-item-icon"><SettingOutlined/></div>
                                         <div className="aside-item-title">设置</div>
-                                    </div>
+                                    </div>*/}
                                     <div
                                         className={`aside-item`}
                                         onClick={() => setNotificationVisibility(!notificationVisibility)}
@@ -238,11 +331,11 @@ const HomeLayout = (props) => {
                                 </>
                                 :
                                 <>
-                                    <div className="aside-bottom-text text-icon" data-title-right={'设置'}
+                                 {/*   <div className="aside-bottom-text text-icon" data-title-right={'设置'}
                                          onClick={() => history.push(`/setting/home`)}
                                     >
                                         <SettingOutlined className='aside-bottom-text-icon'/>
-                                    </div>
+                                    </div>*/}
                                     <div className="aside-bottom-text text-icon" data-title-right={'消息'}
                                          onClick={() => setNotificationVisibility(!notificationVisibility)}
                                     >
@@ -282,6 +375,7 @@ const HomeLayout = (props) => {
                                             <img src={themeType === 'default' ? menuBlack : menuWhite} alt="link"
                                                  width="18" height="18">
                                             </img>
+                                          {/*  <AppstoreOutlined className='close-iconfont'/>*/}
                                         </div>
                                         <div className="aside-item-title">应用</div>
                                     </div>
@@ -298,6 +392,7 @@ const HomeLayout = (props) => {
                         <AvatarLink
                             {...props}
                             changeTheme={changeTheme}
+
                             iconComponent={
                                 isExpand ?
                                     <div className='aside-item aside-item-user'>
@@ -312,9 +407,9 @@ const HomeLayout = (props) => {
                         />
                     </div>
                     <div className="aside-hover-expand"/>
-                    <div className="aside-expand" onClick={() => setIsExpand(!isExpand)}>
+                    {/*<div className="aside-expand" onClick={() => setIsExpand(!isExpand)}>
                         {isExpand ? <LeftCircleOutlined/> : <RightCircleOutlined/>}
-                    </div>
+                    </div>*/}
                 </div>
             )
         }

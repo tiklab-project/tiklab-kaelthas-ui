@@ -61,11 +61,23 @@ export class InternetOverviewStore {
 
     @action
     findInternetOverview = async (internetId) =>{
-        var formData = new FormData();
+        const formData = new FormData();
         formData.append("internetId",internetId);
-        const resData = await Service("/inOverview/findInternetOverview",formData)
+        const resData = await Service("/inOverview/findInternetByInId",formData)
         this.internetOverview = resData.data;
     }
+
+
+    //根据id查询网络信息的概括（告警、监控项、触发器、图形）
+    @action
+    findInternetGeneralize = async (internetId) =>{
+        const formData = new FormData();
+        formData.append("id",internetId);
+        const resData = await Service("/internet/findInternetGeneralize",formData)
+        return resData
+    }
+
+
 
 }
 

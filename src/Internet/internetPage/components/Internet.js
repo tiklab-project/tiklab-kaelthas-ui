@@ -6,42 +6,108 @@ import {observer} from "mobx-react";
 import {SearchOutlined} from "@ant-design/icons";
 import alarmPageStore from "../../../alarm/alarmPage/store/AlarmPageStore";
 import internetStore from "../store/InternetStore";
+import SearchInput from "../../../common/input/SearchInput";
+import Dropdowns from "../../../common/Dropdown/Dropdowns";
+import Page from "../../../common/page/Page";
+import InternetCompilePop from "../../common/InternetCompilePop";
 
+
+const availabilityTab = [
+    {title: '全部', key: 2, icon: "all"},
+    {title: '可用', key: 1, icon: "available"},
+    {title: '不可用', key: 0, icon: "noAvailable"}];
 const Internet = (props) => {
 
-    const {
-        findInternetPage,
-        setSearchCondition,
-        total,
-        resultData,
-        setNullCondition,
-        searchCondition,
-        updateInternet
-    } = internetStore;
+    const {refresh,findInternetPage, updateInternet,deleteInternet} = internetStore;
 
     const {setNullConditionByMonitoring} = alarmPageStore;
 
-    const [hostState, setHostState] = useState(0);
+
+    const [hostTab, setHostTab] = useState(2);
+    //搜索网络的名字
+    const [internetName,setInternetName]=useState(null)
+    //网络list
+    const [internetList,setInternetList]=useState([])
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalPage,setTotalPage]=useState()
+    const [totalRecord,setTotalRecord]=useState()
+    const [pageSize]=useState(15)
+
+    const [internet,setInternet] = useState(null)
+    const [visible,setVisible] = useState(false)
+
 
     useEffect(async () => {
-        setNullCondition()
-        await findInternetPage()
+        findInternet(currentPage,hostTab,internetName)
+    }, [refresh]);
 
-    }, []);
+    //分页查询网络
+    const findInternet = (currentPage,usability,internetName) => {
+        let state;
+        if (usability!==2){
+             state=usability
+        }
+        findInternetPage({pageParam:{currentPage:currentPage, pageSize:pageSize},
+            name:internetName,
+            usability:state
+        }).then(res=>{
+                setInternetList(res.data.dataList)
+                setTotalPage(res.data.totalPage)
+                setCurrentPage(res.data.currentPage)
+                setTotalRecord(res.data.totalRecord)
+        })
+    }
 
+    //网络名字查询
     const searchName = async (e) => {
         const name = e.target.value;
-        setSearchCondition({name: name})
-        await findInternetPage()
+        setInternetName(name)
+        if (name===''){
+            setCurrentPage(1)
+            findInternet(1,hostTab)
+        }
     };
+    const onSearch = () => {
+        setCurrentPage(1)
+        findInternet(1,hostTab,internetName)
+    }
+
+    //分页查询
+    const changePage = (value) => {
+        setCurrentPage(value)
+        findInternet(value,hostTab,internetName)
+    };
+
+
+    //刷新
+    const refreshFind = () => {
+        findInternet(currentPage,hostTab,internetName)
+    }
+
+    //切换tab
+    const checkTab = async (value) => {
+        setHostTab(value)
+        findInternet(1,value,internetName)
+    };
+
+
+    //打开更新弹窗
+    const openUpdate = (value) => {
+        setVisible(true)
+        setInternet(value)
+    }
+
+    function hrefAddHost() {
+        setVisible(true)
+    }
 
     const host = async (record) => {
         props.history.push(`/internet/${record.id}/inOverview`);
 
-        //添加到临时表当中
+   /*     //添加到临时表当中
         await updateInternet({
             id: record.id
-        })
+        })*/
     }
 
     function converType(record) {
@@ -151,56 +217,29 @@ const Internet = (props) => {
             width: "14%",
             ellipsis: true,
         },
-
-    ];
-
-    const changePage = async (pagination, filters, sorter) => {
-
-        setSearchCondition({
-            pageParam: {
-                currentPage: pagination.current,
-                pageSize: pagination.pageSize,
-            }
-        })
-
-        await findInternetPage()
-    };
-
-    const checkTab = async (value) => {
-        setHostState(value)
-
-        if (value === 0) {
-            value = null
-        }
-
-        setSearchCondition({
-            usability: value,
-            name: ""
-        });
-        await findInternetPage()
-    };
-
-    const availabilityTab = [
         {
-            title: '全部',
-            key: 0,
-            icon: "allHost"
-        },
-        {
-            title: '可用',
-            key: 1,
-            icon: "availableHost"
-        },
-        {
-            title: '不可用',
-            key: 2,
-            icon: "noAvailableHost"
+            title:'操作',
+            dataIndex: 'action',
+            width:'5%',
+            key: 'action',
+            render:(text,record)=>(
+                <Dropdowns {...props}
+                           goPage={openUpdate}
+                           value={record}
+                           deleteMethod={deleteInternet}
+                           size={18}
+                           type={"internet"}
+                />
+            )
         }
     ];
 
-    function hrefAddHost() {
-        props.history.push('/internet/addInternet');
-    }
+
+
+
+
+
+
 
     return (
         <Row className='box-configuration-body'>
@@ -221,7 +260,7 @@ const Internet = (props) => {
                             {
                                 availabilityTab.map(item => {
                                     return <div
-                                        className={`box-configuration-body-tabs-item ${hostState === item.key ? "box-configuration-tabs" : ""}`}
+                                        className={`box-configuration-body-tabs-item ${hostTab === item.key ? "box-configuration-tabs" : ""}`}
                                         key={item.key}
                                         onClick={() => checkTab(item.key)}
                                     >
@@ -231,13 +270,18 @@ const Internet = (props) => {
                             }
                         </div>
                         <div>
-                            <Input
+                            <SearchInput {...props}
+                                         placeholder={"网络设备名称"}
+                                         onChange={(event) => searchName(event)}
+                                         onPressEnter={onSearch}
+                            />
+                           {/* <Input
                                 placeholder="网络设备名称"
                                 className="box-configuration-body-search"
                                 onPressEnter={(event) => searchName(event)}
                                 allowClear={true}
                                 prefix={<SearchOutlined/>}
-                            />
+                            />*/}
                         </div>
                     </div>
                     <div className="box-configuration-body-list">
@@ -245,21 +289,26 @@ const Internet = (props) => {
                             rowKey={record => record.id}
                             columns={columns}
                             className="custom-table"
-                            dataSource={resultData}
-                            onChange={changePage}
+                            dataSource={internetList}
                             scroll={{
                                 x: 300,
                             }}
-                            pagination={{
-                                position: ["bottomCenter"],
-                                total: total,
-                                showSizeChanger: true,
-                                pageSize: searchCondition.pageParam.pageSize,
-                                current: searchCondition.pageParam.currentPage,
-                            }}
+                            pagination={false}
+                        />
+                        <Page pageCurrent={currentPage}
+                              changPage={changePage}
+                              totalPage={totalPage}
+                              totalRecord={totalRecord}
+                              refresh={refreshFind}
                         />
                     </div>
                 </div>
+                <InternetCompilePop visible={visible}
+                                    setVisible={setVisible}
+                                    internet={internet}
+                                    setInternet={setInternet}
+
+                />
             </Col>
         </Row>
     )

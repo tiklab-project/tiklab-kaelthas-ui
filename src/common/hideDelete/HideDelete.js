@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Dropdown, Menu, Modal, Popconfirm} from "antd";
-import monitorStore from "../../host/config/monitor/store/MonitorStore";
+import monitorStore from "../../host/setting/monitor/store/MonitorStore";
 import IconCommon from "../IconCommon";
 
 const HideDelete = (props) => {

@@ -171,7 +171,7 @@
 | common      | DbSetting          | 设置页面的路由转发   |
 | common      | DbSettingLeftTabs  | 设置页面的头部       |
 | member      | Member             | 成员组件             |
-| permissions | Permissions        | 权限组件             |
+| permissions | InRole        | 权限组件             |
 | project     | ProjectInformation | 项目的编辑和删除组件 |
 
 
@@ -216,7 +216,7 @@
 | common             | SettingLayout      | 设置页面的根路由                 |
 | common             | SettingLeftTabs    | 设置页面的头部信息               |
 | member             | Member             | 网络监控中的成员组件             |
-| permissions        | Permissions        | 网络监控中的权限组件             |
+| permissions        | InRole        | 网络监控中的权限组件             |
 | projectInformation | ProjectInformation | 网络监控中的项目的修改和删除页面 |
 
 
@@ -262,7 +262,7 @@
 | common        | KuSetting     | 设置页面的根路由    |
 | common        | KuSettingTabs | 设置页面的头部      |
 | kuMember      | KuMember      | k8s监控的成员组件   |
-| kuPermissions | KuPermissions | k8s监控的权限组件   |
+| kuPermissions | KuRole | k8s监控的权限组件   |
 | kuProject     | KuProject     | k8s监控的编辑和删除 |
 
 
