@@ -28,6 +28,7 @@ $form-input-color: #e3e8f07d;
     --tiklab-white: #fff;
     --tiklab-black: #000;
     --tiklab-blue: #0d66e4;
+    --tiklab-gray:#efefef;
     --tiklab-gray-200: #ececec;
     --tiklab-gray-300: #EDF0F5;
     --tiklab-gray-400: #e3e8f0;
@@ -35,12 +36,12 @@ $form-input-color: #e3e8f07d;
     --tiklab-gray-600: #fafbfc;
     --tiklab-gray-700: #f7f7f7;
     --tiklab-gray: #efefef;
-    
+
     --tiklab-padding: 20px;
     --tiklab-padding-resove: -20px;
     --tiklab-padding-item: 15px;
     --tiklab-padding-resove-item:-15px;
-    
+
 
     --tiklab-font-12: 12px;
     --tiklab-font-13: 13px;
@@ -146,5 +147,5 @@ $form-input-color: #e3e8f07d;
     path {
         fill: #fff;
     }
-    
+
 }

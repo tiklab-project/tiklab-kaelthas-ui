@@ -88,10 +88,6 @@ const GlobalSettingLayout = (props) => {
                 {
                     title: "备份与恢复",
                     id: "/setting/backups",
-                },
-                {
-                    title: "操作日志",
-                    id: "/setting/log",
                 }
             ]
         },

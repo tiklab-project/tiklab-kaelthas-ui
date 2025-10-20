@@ -18,7 +18,7 @@ import {
 import {ProductAuth} from "tiklab-licence-ui";
 import {ExcludeProductUser} from "tiklab-eam-ui";
 import {SystemFeature, ProjectFeature, ProjectRole, ProjectVirtualRole} from "tiklab-privilege-ui";
-import {BackupRestore, LogTemplate, LogType, MyLog} from "tiklab-security-ui";
+import {BackupRestore, LogTemplate, LogType} from "tiklab-security-ui";
 
 const Login = AsyncComponent(() => import( "./login/ProjectLogin"))
 const Logout = AsyncComponent(() => import( "./login/ProjectLogout"))
@@ -336,12 +336,6 @@ const Routes = [
                         key: "backups",
                         exact: true,
                         render: (props) => <BackupRestore {...props} />
-                    },
-                    {
-                        path: "/setting/log",
-                        key: "directory",
-                        exact: true,
-                        render: (props) => <MyLog {...props} bgroup={"kaelthas"}/>
                     },
                     //应用
                     {
