@@ -11,9 +11,6 @@ import {
     TodoType
 } from "tiklab-message-ui";
 
-import {
-    MessageSendType,
-} from "tiklab-message-extension-ui";
 
 import {ProductAuth} from "tiklab-licence-ui";
 import {ExcludeProductUser} from "tiklab-eam-ui";
@@ -291,12 +288,6 @@ const Routes = [
                         key: 'MessageNotice',
                         component: MessageNotice,
                     },
-                    {
-                        path: "/setting/messageSendType",
-                        key: 'MessageSendType',
-                        component: MessagesendType,
-                    },
-
 
 
                    //基础路由
@@ -410,11 +401,6 @@ const Routes = [
                     {
                         path: "/setting/type",
                         render: (props) => <MessageType {...props} bgroup={"kaelthas"}/>,
-                        exact: true,
-                    },
-                    {
-                        path: "/setting/sendtrue",
-                        render: (props) => <MessageSendType {...props} bgroup={"kaelthas"} isBase={true}/>,
                         exact: true,
                     },
                     {

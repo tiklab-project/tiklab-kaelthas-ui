@@ -51,19 +51,10 @@ const GlobalSettingLayout = (props) => {
             icon: <UserDeleteOutlined />,
         },
         {
-            title: "消息",
-            id: "message",
-            icon: <SoundOutlined/>,
-            children: [
-                {
-                    title: "消息通知方案",
-                    id: "/setting/messageNotice",
-                },
-                {
-                    title: "消息发送方式",
-                    id: "/setting/messageSendType",
-                },
-            ]
+            id:'/setting/message',
+            title: '消息',
+            icon:<SoundOutlined/>,
+            purviewCode:'message',
         },
         {
             title: "主机配置",
